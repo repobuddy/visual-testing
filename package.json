@@ -31,39 +31,15 @@
 		"./manager": "./dist/manager.js",
 		"./package.json": "./package.json"
 	},
-	"files": [
-		"dist/**/*",
-		"README.md",
-		"*.js",
-		"*.d.ts"
-	],
 	"scripts": {
-		"build": "tsup",
-		"build-storybook": "storybook build",
-		"build:watch": "npm run build -- --watch",
-		"check": "biome check",
-		"check:fix": "biome check --write",
-		"release": "npm run build && auto shipit",
-		"start": "run-p build:watch \"storybook --quiet\"",
-		"storybook": "storybook dev -p 6006",
-		"test": "vitest"
+		"build": "tsup"
 	},
 	"devDependencies": {
-		"@types/node": "^18.15.0",
-		"@types/react": "^18.2.65",
-		"@types/react-dom": "^18.2.21",
-		"@vitejs/plugin-react": "^4.2.1",
+		"@vitest/browser": "^2.1.3",
 		"tsup": "^8.2.4",
-		"typescript": "^5.5.4",
-		"vite": "^5.3.5",
-		"vitest": "^2.1.3"
+		"typescript": "^5.5.4"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"bundler": {
-		"exportEntries": [
-			"src/index.ts"
-		]
 	}
 }
