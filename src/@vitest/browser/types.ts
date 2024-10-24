@@ -1,6 +1,4 @@
-// import type { Locator } from '@vitest/browser/context'
-///  <reference types="@vitest/browser/context" />
-// import '@vitest/browser/context'
+import type { Locator } from '@vitest/browser/context'
 
 export const imageSnapshotSymbol = Symbol('imageSnapshot')
 
@@ -11,7 +9,7 @@ declare module '@vitest/browser/context' {
 }
 
 export type ImageSnapshotOptions = {
-	element?: Element //| Locator
+	element?: Element | Locator
 }
 
 export type ImageSnapshot = {
