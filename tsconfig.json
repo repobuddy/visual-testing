@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "incremental": false,
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["es2020", "dom"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -14,6 +14,7 @@
     "rootDir": "./src",
     "skipLibCheck": true,
     "target": "ES2020",
+		"types": ["vitest/globals"],
     "verbatimModuleSyntax": true
   },
   "include": ["src/**/*"]

@@ -1,115 +1,122 @@
 {
-  "name": "storybook-image-snapshot",
-  "version": "0.0.0",
-  "description": "Capture and compare image snapshot automatically and manually",
-  "keywords": [
-    "storybook-addons",
-    "storybook-addons"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/repobuddy/storybook-image-snapshot"
-  },
-  "type": "module",
-  "license": "MIT",
-  "author": "unional <homawong@gmail.com>",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./preview": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/preview.js",
-      "require": "./dist/preview.cjs"
-    },
-    "./preset": "./dist/preset.cjs",
-    "./manager": "./dist/manager.js",
-    "./package.json": "./package.json"
-  },
-  "files": [
-    "dist/**/*",
-    "README.md",
-    "*.js",
-    "*.d.ts"
-  ],
-  "scripts": {
-    "build": "tsup",
-    "build:watch": "npm run build -- --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "run-p build:watch \"storybook --quiet\"",
-    "prerelease": "zx scripts/prepublish-checks.js",
-    "release": "npm run build && auto shipit",
-    "eject-ts": "zx scripts/eject-typescript.js",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "dependencies": {
-    "@storybook/icons": "^1.2.10",
-    "@vitest/browser": "^2.1.3"
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "0.0.0-pr-26654-sha-49d01553",
-    "@storybook/addon-interactions": "0.0.0-pr-26654-sha-49d01553",
-    "@storybook/addon-links": "0.0.0-pr-26654-sha-49d01553",
-    "@storybook/blocks": "0.0.0-pr-26654-sha-49d01553",
-    "@storybook/react": "0.0.0-pr-26654-sha-49d01553",
-    "@storybook/react-vite": "0.0.0-pr-26654-sha-49d01553",
-    "@storybook/test": "0.0.0-pr-26654-sha-49d01553",
-    "@types/node": "^18.15.0",
-    "@types/react": "^18.2.65",
-    "@types/react-dom": "^18.2.21",
-    "@vitejs/plugin-react": "^4.2.1",
-    "auto": "^11.1.1",
-    "boxen": "^7.1.1",
-    "dedent": "^1.5.1",
-    "prettier": "^3.3.3",
-    "prompts": "^2.4.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "storybook": "0.0.0-pr-26654-sha-49d01553",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4",
-    "vite": "^5.3.5",
-    "zx": "^7.2.3"
-  },
-  "peerDependencies": {
-    "storybook": "^8.3.0 || 0.0.0-pr-26654-sha-49d01553"
-  },
+	"name": "storybook-image-snapshot",
+	"version": "0.0.0",
+	"description": "Capture and compare image snapshot automatically and manually",
+	"keywords": [
+		"storybook-addons"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/repobuddy/storybook-image-snapshot"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Homa Wong",
+		"email": "homawong@gmail.com",
+		"url": "https://github.com/unional"
+	},
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./preview": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/preview.js",
+			"require": "./dist/preview.cjs"
+		},
+		"./preset": "./dist/preset.cjs",
+		"./manager": "./dist/manager.js",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist/**/*",
+		"README.md",
+		"*.js",
+		"*.d.ts"
+	],
+	"scripts": {
+		"build": "tsup",
+		"build-storybook": "storybook build",
+		"build:watch": "npm run build -- --watch",
+		"check": "biome check",
+		"check:fix": "biome check --write",
+		"prerelease": "zx scripts/prepublish-checks.js",
+		"release": "npm run build && auto shipit",
+		"start": "run-p build:watch \"storybook --quiet\"",
+		"storybook": "storybook dev -p 6006",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"@storybook/icons": "^1.2.10",
+		"@types/pixelmatch": "^5.2.6",
+		"pathe": "^1.1.2",
+		"pixelmatch": "^6.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@changesets/cli": "^2.27.9",
+		"@commitlint/cli": "^19.5.0",
+		"@commitlint/config-conventional": "^19.5.0",
+		"@repobuddy/biome": "^1.7.1",
+		"@storybook/addon-essentials": "^8.3.6",
+		"@storybook/addon-interactions": "^8.3.6",
+		"@storybook/addon-links": "^8.3.6",
+		"@storybook/blocks": "^8.3.6",
+		"@storybook/experimental-addon-test": "^8.3.6",
+		"@storybook/react": "^8.3.6",
+		"@storybook/react-vite": "^8.3.6",
+		"@storybook/test": "^8.3.6",
+		"@types/node": "^18.15.0",
+		"@types/react": "^18.2.65",
+		"@types/react-dom": "^18.2.21",
+		"@vitejs/plugin-react": "^4.2.1",
+		"auto": "^11.1.1",
+		"boxen": "^7.1.1",
+		"dedent": "^1.5.1",
+		"husky": "^9.1.6",
+		"npm-run-all2": "^7.0.0",
+		"playwright": "^1.48.1",
+		"prettier": "^3.3.3",
+		"prompts": "^2.4.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"storybook": "^8.3.6",
+		"tsup": "^8.2.4",
+		"typescript": "^5.5.4",
+		"vite": "^5.3.5",
+		"vitest": "^2.1.3",
+		"zx": "^7.2.3"
+	},
+	"peerDependencies": {
+		"storybook": "^8.3.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"bundler": {
+		"exportEntries": [
+			"src/index.ts"
+		]
+	},
   "overrides": {
-    "storybook": "0.0.0-pr-26654-sha-49d01553"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "bundler": {
-    "exportEntries": [
-      "src/index.ts"
-    ],
-    "managerEntries": [
-      "src/manager.tsx"
-    ],
-    "previewEntries": [
-      "src/preview.ts"
-    ],
-    "nodeEntries": [
-      "src/preset.ts"
-    ]
-  },
-  "storybook": {
-    "displayName": "Image Snapshot integration",
-    "supportedFrameworks": [
-      "react",
-      "vue",
-      "angular",
-      "web-components",
-      "ember",
-      "html",
-      "svelte",
-      "preact",
-      "react-native"
-    ],
-    "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
-  }
+		"@types/estree": "1.0.6"
+	},
+	"storybook": {
+		"displayName": "Image Snapshot integration",
+		"supportedFrameworks": [
+			"react",
+			"vue",
+			"angular",
+			"web-components",
+			"ember",
+			"html",
+			"svelte",
+			"preact",
+			"react-native"
+		],
+		"icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
+	}
 }
