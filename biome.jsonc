@@ -1,6 +1,6 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
-	"extends": ["@repobuddy/biome/recommended"],
+	// "extends": ["@repobuddy/biome/recommended"],
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -9,7 +9,11 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [".vscode/*.txt"]
+		"ignore": [
+			"packages/vis",
+			"*.ts"
+			// ".vscode/*.txt"
+		]
 	},
 	"formatter": {
 		"enabled": true,
