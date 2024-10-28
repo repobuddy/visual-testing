@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-
-import { Button } from "./Button";
+import type { Meta, StoryObj } from "@storybook/react"
+import { expect } from '@storybook/test'
+import { Button } from "./Button"
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Button> = {
@@ -30,6 +30,9 @@ export const Primary: Story = {
     primary: true,
     label: "Button",
   },
+  async play(){
+    expect(() => Promise.reject(new Error('reject'))).rejects.toThrow('reject')
+  }
 };
 
 export const Secondary: Story = {
