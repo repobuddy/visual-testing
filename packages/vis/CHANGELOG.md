@@ -1,5 +1,19 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.1.0
+
+### Minor Changes
+
+- [`1e03ebb`](https://github.com/repobuddy/storybook-addon-vis/commit/1e03ebb3e9c9ab525d489b604cd72e337879adb6) Thanks [@unional](https://github.com/unional)! - Add `commands.getSnapshotPlatform()`.
+
+- [`0f61d50`](https://github.com/repobuddy/storybook-addon-vis/commit/0f61d50b55a581848cce0f9c19fae5a7c13d7ee4) Thanks [@unional](https://github.com/unional)! - Add `commande.isCI` for CI detection during `vitest.setup.ts`
+
+### Patch Changes
+
+- [`18383d9`](https://github.com/repobuddy/storybook-addon-vis/commit/18383d9642ed97789baeee395503641e045a86f6) Thanks [@unional](https://github.com/unional)! - Fix plugin default browser.
+
+- [`840f50d`](https://github.com/repobuddy/storybook-addon-vis/commit/840f50dec81776d2918ed118871bbba17771b1ea) Thanks [@unional](https://github.com/unional)! - Fix clean up during `beforeAll` hook.
+
 #### ⚠️ Pushed to `main`
 
 - test: cover image resizer ([@unional](https://github.com/unional))
@@ -7,7 +21,7 @@
 - fix: rename plugin ([@unional](https://github.com/unional))
 - chore: remove extra files ([@unional](https://github.com/unional))
 - chore: add verify script ([@unional](https://github.com/unional))
-- chore: ignore __snapshots__/*/__results__ and diff ([@unional](https://github.com/unional))
+- chore: ignore **snapshots**/\*/**results** and diff ([@unional](https://github.com/unional))
 
 #### Authors: 1
 
