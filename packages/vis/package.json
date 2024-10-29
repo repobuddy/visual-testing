@@ -1,6 +1,6 @@
 {
 	"name": "storybook-addon-vis",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Storybook Vitest Image Snapshot addon",
 	"keywords": [
 		"image-snapshot",

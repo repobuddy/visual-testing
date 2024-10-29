@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.2.0
+
+### Minor Changes
+
+- [`f55bb95`](https://github.com/repobuddy/storybook-addon-vis/commit/f55bb9560c069388cf3bfdfb0a4df52e99ad121c) Thanks [@unional](https://github.com/unional)! - Change `getSnapshotPlatform()` to return `local` when not on CI.
+  This is the best setup I have found so far to make the snapshot test work on both local and CI.
+
+  Set default snapshot path with `getSnapshoPlatform` function.
+
 ## 0.1.0
 
 ### Minor Changes
