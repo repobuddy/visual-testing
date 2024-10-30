@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.3.0
+
+### Minor Changes
+
+- [`d9be0aa`](https://github.com/repobuddy/storybook-addon-vis/commit/d9be0aa6d393c66ccb93c079b2f4c11e96a3b254) Thanks [@unional](https://github.com/unional)! - Add `page.imageSnapshot({ customizeFilename() {...} })`.
+
 ## 0.2.0
 
 ### Minor Changes
