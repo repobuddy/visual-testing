@@ -4,7 +4,7 @@ import { expect, it } from 'vitest'
 import { page } from './@vitest/browser/context.js'
 import * as ImageDataStories from './image_data.stories.js'
 
-const { ConversionRoundtrip } = composeStories(ImageDataStories)
+const { ConversionRoundtrip, Failed } = composeStories(ImageDataStories)
 
 it('should reject if the subject is undefined', async () => {
 	expect(() => expect(undefined).toMatchImageSnapshot()).rejects.toThrowError(
@@ -39,7 +39,20 @@ it('should fail when the subject is the result of page.screenshot()', async () =
 	}
 })
 
-it('should work with page.imageSnapshot()', async () => {
+it('should pass when the image matches', async () => {
 	await ConversionRoundtrip.run()
 	await expect(page.imageSnapshot()).toMatchImageSnapshot()
+})
+
+it('should fail when the image does not match', async () => {
+	await Failed.run()
+	const result = await page.imageSnapshot()
+	await expect(result)
+		.toMatchImageSnapshot()
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./),
+		)
 })

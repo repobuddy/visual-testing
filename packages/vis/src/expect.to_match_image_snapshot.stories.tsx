@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { commands, page, server } from './@vitest/browser/context'
+import { commands, hasSnapshot, page } from './index.js'
 import { UNI_PNG_URL } from './testing/constants'
 
 export default {
@@ -16,27 +16,6 @@ export const Success: StoryObj = {
 	},
 }
 
-export const Failed: StoryObj = {
-	render() {
-		return (
-			<>
-				<img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
-				<img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
-			</>
-		)
-	},
-	async play() {
-		await expect(page.imageSnapshot())
-			.toMatchImageSnapshot()
-			.then(
-				() => {
-					throw new Error('Should not reach')
-				},
-				(error) => expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./),
-			)
-	},
-}
-
 export const Element: StoryObj = {
 	render() {
 		return <img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
@@ -48,14 +27,9 @@ export const Element: StoryObj = {
 }
 
 export const DifferentSize: StoryObj = {
-	loaders: [
-		async () => {
-			return { updateSnapshot: server.config.snapshotOptions.updateSnapshot }
-		},
-	],
-	render(_, { loaded: { updateSnapshot } }) {
-		const style = updateSnapshot === 'all' ? { width: 128, height: 128 } : { width: 256, height: 256 }
-		return <img style={style} src={UNI_PNG_URL} />
+	loaders: [async () => ((await hasSnapshot()) ? { width: 256, height: 256 } : { width: 128, height: 128 })],
+	render(_, { loaded: { width, height } }) {
+		return <img style={{ width, height }} src={UNI_PNG_URL} />
 	},
 	async play({ canvas }) {
 		const image = await canvas.getByRole('img')
@@ -71,8 +45,8 @@ export const DifferentSize: StoryObj = {
 }
 
 export const MeetFailureThreshold: StoryObj = {
-	render: () => <div data-testid="subject">unit test</div>,
-	// render: () => <div data-testid="subject">unit text</div>,
+	loaders: [async () => ((await hasSnapshot()) ? { text: 'unit test' } : { text: 'unit text' })],
+	render: (_, { loaded: { text } }) => <div data-testid="subject">{text}</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
 		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
@@ -82,8 +56,8 @@ export const MeetFailureThreshold: StoryObj = {
 }
 
 export const FailureThreshold: StoryObj = {
-	render: () => <div data-testid="subject">unit test</div>,
-	// render: () => <div data-testid="subject">unit text</div>,
+	loaders: [async () => ((await hasSnapshot()) ? { text: 'unit test' } : { text: 'unit text' })],
+	render: (_, { loaded: { text } }) => <div data-testid="subject">{text}</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
 		await expect(page.imageSnapshot({ element: subject }))
@@ -101,8 +75,8 @@ export const FailureThreshold: StoryObj = {
 }
 
 export const FailureThresholdByPercentage: StoryObj = {
-	// render: () => <div data-testid="subject">unit test</div>,
-	render: () => <div data-testid="subject">unit text</div>,
+	loaders: [async () => ((await hasSnapshot()) ? { text: 'unit test' } : { text: 'unit text' })],
+	render: (_, { loaded: { text } }) => <div data-testid="subject">{text}</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
 		await expect(page.imageSnapshot({ element: subject }))
@@ -120,8 +94,8 @@ export const FailureThresholdByPercentage: StoryObj = {
 }
 
 export const MeetFailureThresholdByPercentage: StoryObj = {
-	render: () => <div data-testid="subject">unit test</div>,
-	// render: () => <div data-testid="subject">unit text</div>,
+	loaders: [async () => ((await hasSnapshot()) ? { text: 'unit test' } : { text: 'unit text' })],
+	render: (_, { loaded: { text } }) => <div data-testid="subject">{text}</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
 		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
@@ -132,8 +106,8 @@ export const MeetFailureThresholdByPercentage: StoryObj = {
 }
 
 export const ExactFailureThresholdByPercentage: StoryObj = {
-	// render: () => <div data-testid="subject">unit test</div>,
-	render: () => <div data-testid="subject">unit text</div>,
+	loaders: [async () => ((await hasSnapshot()) ? { text: 'unit test' } : { text: 'unit text' })],
+	render: (_, { loaded: { text } }) => <div data-testid="subject">{text}</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
 		await expect(page.imageSnapshot({ element: subject }))

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { toDataURL, toImageData } from './image_data'
+import { hasSnapshot } from './index.js'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from './testing/constants'
 
 export default {
@@ -26,5 +27,18 @@ export const ConversionRoundtrip: StoryObj = {
 
 		const img = canvas.getByTestId<HTMLImageElement>('img')
 		img.src = dataURL
+	},
+}
+
+// failure cases are tested in expect.to_match_image_snapshot.spec.ts
+export const Failed: StoryObj = {
+	loaders: [async () => ((await hasSnapshot()) ? { dup: true } : { dup: false })],
+	render(_, { loaded: { dup } }) {
+		return (
+			<>
+				<img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
+				{dup && <img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />}
+			</>
+		)
 	},
 }

@@ -17,6 +17,10 @@ declare module '@vitest/browser/context' {
 		 * This is useful to control where the snapshot is stored.
 		 */
 		getSnapshotPlatform: () => Promise<string>
+		/**
+		 * Check if there are any snapshot baselines for the specified snapshotId.
+		 */
+		hasSnapshot: (baselineDir: string, snapshotId: string) => Promise<boolean>
 	}
 }
 
@@ -24,7 +28,7 @@ declare global {
 	namespace jest {
 		// biome-ignore lint/correctness/noUnusedVariables: augmentation must have matching type params.
 		interface Matchers<R, T> {
-			toMatchImageSnapshot(options?: MatchImageSnapshotOptions): void
+			toMatchImageSnapshot(options?: MatchImageSnapshotOptions): Promise<void>
 		}
 	}
 }
