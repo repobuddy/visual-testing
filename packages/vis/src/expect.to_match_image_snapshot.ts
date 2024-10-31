@@ -7,6 +7,7 @@ import { assertImageSnapshot, isImageSnapshot } from './@vitest/browser/image_sn
 import type { MatchImageSnapshotOptions } from './@vitest/browser/types.js'
 import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
+import { state } from './state.js'
 
 export async function toMatchImageSnapshot(
 	actual: any,
@@ -56,13 +57,15 @@ export async function toMatchImageSnapshot(
 		return {
 			pass: false,
 			message: () =>
-				dedent`${
-					options?.failureThreshold
-						? options?.failureThresholdType === 'percent'
-							? `Expected image to match within ${options.failureThreshold}% but was differ by ${diffAmount}%.`
-							: `Expected image to match within ${options.failureThreshold} pixels but was differ by ${diffAmount} pixels.`
-						: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
-				}
+				dedent`Snapshot \`${state.taskName}\` mismatched
+
+			${
+				options?.failureThreshold
+					? options?.failureThresholdType === 'percent'
+						? `Expected image to match within ${options.failureThreshold}% but was differ by ${diffAmount}%.`
+						: `Expected image to match within ${options.failureThreshold} pixels but was differ by ${diffAmount} pixels.`
+					: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
+			}
 
 			Expected:   '${subject.baselinePath}'
 			Actual:     '${subject.resultPath}'
