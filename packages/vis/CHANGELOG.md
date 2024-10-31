@@ -1,5 +1,16 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.4.0
+
+### Minor Changes
+
+- [`20c5bc7`](https://github.com/repobuddy/storybook-addon-vis/commit/20c5bc7efb862b77b5e94de3f3f515b2e598da26) Thanks [@unional](https://github.com/unional)! - Support update snapshot
+
+### Patch Changes
+
+- [`42219eb`](https://github.com/repobuddy/storybook-addon-vis/commit/42219ebb3039b1629cfe0ab08bf9e92e419406e2) Thanks [@unional](https://github.com/unional)! - Fix [#20](https://github.com/repobuddy/storybook-addon-vis/issues/20).
+  Serialize the image takes a long time.
+
 ## 0.3.0
 
 ### Minor Changes
