@@ -4,6 +4,20 @@ on:
     types: [opened, synchronize]
 
 jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+        node-version:
+          - 18
+          - 20
+          - 22
+    uses: repobuddy/.github/.github/workflows/pnpm-build.yml@main
+    with:
+      os: ${{ matrix.os }}
+      node-version: ${{ matrix.node-version }}
   code:
     uses: repobuddy/.github/.github/workflows/pnpm-verify.yml@main
     with:
