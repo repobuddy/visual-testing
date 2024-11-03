@@ -14,42 +14,41 @@ jobs:
           - 18
           - 20
           - 22
-    uses: repobuddy/.github/.github/workflows/pnpm-build.yml@main
-    with:
-      os: ${{ matrix.os }}
-      node-version: ${{ matrix.node-version }}
-  code:
-    uses: repobuddy/.github/.github/workflows/pnpm-verify.yml@main
-    with:
-      os: '["ubuntu-latest", "windows-latest"]'
-      node-version: '[18, 20]'
-  update-snapshot:
-    runs-on: ubuntu-latest
-    needs: code
-    permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
-      contents: write
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
       - uses: pnpm/action-setup@v3
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: Install playwright browsers
         run: pnpx playwright install --with-deps chromium
 
-      - run: pnpm build
-      - run: pnpm test -- -u
+      - name: Install Dependencies
+        run: pnpm install
 
-      # Commit all changed files back to the repository
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Verify
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            xvfb-run -a pnpm verify
+          else
+            pnpm verify
+          fi
+
+      - name: Archive snapshots
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          commit_message: "test: update snapshot"
+          name: snapshots
+          path: '**/__snapshots__'
