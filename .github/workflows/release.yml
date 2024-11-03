@@ -31,7 +31,9 @@ jobs:
         uses: actions/cache@v4
         id: cache-playwright
         with:
-          path: ~/.cache/ms-playwright
+          path: |
+            ~/.cache/ms-playwright
+            $env:USERPROFILE\AppData\local\ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-playwright-
