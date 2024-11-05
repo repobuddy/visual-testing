@@ -212,7 +212,7 @@ importers:
         version: 2.1.4(@types/node@22.8.1)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.10(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.8.1))(vitest@2.1.4)
       globals:
         specifier: ^15.11.0
-        version: 15.11.0
+        version: 15.12.0
       storybook:
         specifier: ^8.4.1
         version: 8.4.1(prettier@2.8.8)
@@ -300,7 +300,7 @@ importers:
         version: 10.4.20(postcss@8.4.47)
       globals:
         specifier: ^15.11.0
-        version: 15.11.0
+        version: 15.12.0
       storybook:
         specifier: ^8.4.1
         version: 8.4.1(prettier@2.8.8)
@@ -2073,8 +2073,8 @@ packages:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
 
-  globals@15.11.0:
-    resolution: {integrity: sha512-yeyNSjdbyVaWurlwCpcA6XNBrHTMIeDdj0/hnvX/OLJ9ekOXYbLsLinH/MucQyGvNnXhidTdNhTtJaffL2sMfw==}
+  globals@15.12.0:
+    resolution: {integrity: sha512-1+gLErljJFhbOVyaetcwJiJ4+eLe45S2E7P5UiZ9xGfeq3ATQf5DOv9G7MH3gGbKQLkzmNh2DxfZwLdw+j6oTQ==}
     engines: {node: '>=18'}
 
   globby@11.1.0:
@@ -5376,7 +5376,7 @@ snapshots:
 
   globals@11.12.0: {}
 
-  globals@15.11.0: {}
+  globals@15.12.0: {}
 
   globby@11.1.0:
     dependencies:
