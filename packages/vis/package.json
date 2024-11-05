@@ -47,7 +47,7 @@
 		"nuke": "rimraf node_modules",
 		"prerelease": "zx scripts/prepublish-checks.js",
 		"sb": "storybook dev -p 6006",
-		"test": "vitest run",
+		"test": "vitest run --coverage",
 		"w": "vitest"
 	},
 	"dependencies": {
