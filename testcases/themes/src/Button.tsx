@@ -1,25 +1,28 @@
 import type { ComponentProps } from 'react'
 import './button.css'
+import { clsx } from 'clsx'
 
 /** Primary UI component for user interaction */
 export const Button = ({
 	primary,
-	backgroundColor,
 	size = 'medium',
 	label,
 	...props
 }: {
 	primary?: boolean | undefined
-	backgroundColor?: string | undefined
 	size?: 'small' | 'medium' | 'large' | undefined
 	label: string
 } & ComponentProps<'button'>) => {
-	const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary'
 	return (
 		<button
 			type="button"
-			className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-			style={backgroundColor ? { backgroundColor } : undefined}
+			className={clsx(
+				'storybook-button',
+				`storybook-button--${size}`,
+				primary
+					? 'storybook-button--primary dark:text-gray-300 dark:bg-blue-900'
+					: 'storybook-button--secondary dark:text-gray-300 dark:bg-gray-800',
+			)}
 			{...props}
 		>
 			{label}

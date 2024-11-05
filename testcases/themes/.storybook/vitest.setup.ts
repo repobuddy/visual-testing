@@ -26,6 +26,16 @@ beforeEach((ctx) => {
 
 afterEach<{ story?: StoryContext }>(async (ctx) => {
 	if (!shouldTakeSnapshot(ctx)) return
-	const r = await page.imageSnapshot()
+	const r = await page.imageSnapshot({
+		customizeSnapshotId: (id) => `${id}-dark`,
+	})
+
+	document.documentElement.classList.add('dark')
 	await expect(r).toMatchImageSnapshot()
+
+	document.documentElement.classList.remove('dark')
+	const r2 = await page.imageSnapshot({
+		customizeSnapshotId: (id) => `${id}-light`,
+	})
+	await expect(r2).toMatchImageSnapshot()
 })
