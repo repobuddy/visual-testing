@@ -1,5 +1,19 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.6.0
+
+### Minor Changes
+
+- [`668c6d9`](https://github.com/repobuddy/storybook-addon-vis/commit/668c6d96e06cf587b319f521a122d18566049f64) Thanks [@unional](https://github.com/unional)! - Add `page.hasImageSnapshot()`.
+
+  Rename type `SnapshotCapturer` to `ImageSnapshotAction`.
+
+- [`85e5a7b`](https://github.com/repobuddy/storybook-addon-vis/commit/85e5a7b4203c3f1ffa57e88e5d8ac49b437ae19b) Thanks [@unional](https://github.com/unional)! - Add `options.timeout` and default to 3000
+
+### Patch Changes
+
+- [`620e71a`](https://github.com/repobuddy/storybook-addon-vis/commit/620e71a392ff0e26afd63e9375b6fabd8ab322ff) Thanks [@unional](https://github.com/unional)! - Add `package.json#repository.directory`.
+
 ## 0.5.0
 
 ### Minor Changes
