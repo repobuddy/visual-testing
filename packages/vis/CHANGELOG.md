@@ -1,5 +1,13 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.6.1
+
+### Patch Changes
+
+- [`18ac025`](https://github.com/repobuddy/storybook-addon-vis/commit/18ac025028ad31e6ed499ad4a6c1e5e5580d1006) Thanks [@unional](https://github.com/unional)! - Enable code splitting to share state between `storybook-addon-vis` and `storybook-addon-vis/vitest-setup`.
+
+  We couldn't reproduce the issue locally, but we believe this change will fix it.
+
 ## 0.6.0
 
 ### Minor Changes
