@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.6.3
+
+### Patch Changes
+
+- [`ebc3054`](https://github.com/repobuddy/storybook-addon-vis/commit/ebc3054e1dd0388f7e56ac9a7d62e61046fa9823) Thanks [@unional](https://github.com/unional)! - Disable minify to make it easier to debug.
+
 ## 0.6.2
 
 ### Patch Changes
