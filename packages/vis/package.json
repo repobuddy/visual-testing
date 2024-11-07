@@ -83,7 +83,7 @@
 		"tsup": "^8.2.4",
 		"typescript": "^5.5.4",
 		"vite": "^5.3.5",
-		"zx": "^7.2.3"
+		"zx": "^8.0.0"
 	},
 	"peerDependencies": {
 		"@types/pixelmatch": "^5.2.6",
