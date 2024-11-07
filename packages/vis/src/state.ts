@@ -13,5 +13,5 @@ export const state = {
 	resultDir: string
 	diffDir: string
 	taskName: string
-	snapshot: Record<string, { index: number }>
+	snapshot: Record<string, Record<string, { index: number }>>
 }

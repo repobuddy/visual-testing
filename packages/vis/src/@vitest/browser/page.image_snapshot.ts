@@ -13,7 +13,7 @@ export async function imageSnapshot(
 	this: BrowserPage,
 	options?: ImageSnapshotOptions | undefined,
 ): Promise<ImageSnapshot> {
-	const index = state.snapshot[state.id]!.index++
+	const index = state.snapshot[state.testFilepath][state.id]!.index++
 	const snapshotFilename = options?.customizeSnapshotId
 		? `${options.customizeSnapshotId(state.id, index)}.png`
 		: `${state.id}-${index}.png`

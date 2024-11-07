@@ -37,12 +37,22 @@ export async function configureSnapshotBeforeAll(
 	state.resultDir = relative(currentDir, join(snapshotPath, '__results__', state.testFilename))
 	state.diffDir = relative(currentDir, join(snapshotPath, '__diff_output__', state.testFilename))
 
-	await commands.rmDir(state.resultDir)
-	await commands.rmDir(state.diffDir)
+	if (!state.snapshot[state.testFilepath]) {
+		state.snapshot[state.testFilepath] = {}
+		await commands.rmDir(state.resultDir)
+		await commands.rmDir(state.diffDir)
+	}
 }
 
-export function configureSnapshotBeforeEach(ctx: { task: { name: string } }) {
+export function configureSnapshotBeforeEach(ctx: {
+	task: {
+		name: string
+		file: {
+			filepath: string
+		}
+	}
+}) {
 	state.taskName = ctx.task.name
 	const id = (state.id = toSnapshotId(state.taskName))
-	state.snapshot[id] = state.snapshot[id] ?? { index: 1 }
+	state.snapshot[state.testFilepath][id] = state.snapshot[state.testFilepath][id] ?? { index: 1 }
 }
