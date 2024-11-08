@@ -12,10 +12,6 @@ export interface HasImageSnapshotAction {
  * Check if the snapshot image exists.
  */
 export async function hasImageSnapshot(this: BrowserPage, options?: CustomizeSnapshotIdOptions | undefined) {
-	const index = state.snapshot[state.testFilepath][state.id]!.index
-	const snapshotFilename = options?.customizeSnapshotId
-		? `${options.customizeSnapshotId(state.id, index)}.png`
-		: `${state.id}-${index}.png`
-	const baselinePath = join(state.baselineDir, snapshotFilename)
+	const { baselinePath } = state.getSnapshotFilePaths(options)
 	return commands.existFile(baselinePath)
 }

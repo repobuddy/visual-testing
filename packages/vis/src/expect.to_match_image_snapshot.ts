@@ -2,6 +2,7 @@ import type { AsyncExpectationResult } from '@vitest/expect'
 import dedent from 'dedent'
 import pixelmatch, { type PixelmatchOptions } from 'pixelmatch'
 import { required } from 'type-plus'
+import { getCurrentTest } from 'vitest/suite'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.js'
 import { commands, server } from './@vitest/browser/context.js'
 import { assertImageSnapshot, isImageSnapshot, toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
@@ -67,6 +68,8 @@ export async function toMatchImageSnapshot(
 	const originalImage = await toImageData(baseline)
 	const [resultImage, baselineImage] = alignImagesToSameSize(subject.image, originalImage)
 
+	// const test = getCurrentTest()
+	// console.log('test', test)
 	options = required(state.parameters?.snapshot, options)
 	const { pass, diffAmount, diffImage } = compareImage(baselineImage, resultImage, options)
 

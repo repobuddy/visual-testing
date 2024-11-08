@@ -21,6 +21,7 @@ export async function imageSnapshot(
 		element: options?.element,
 		timeout: options?.timeout ?? 3000,
 	})
+	state.incrementSnapshotIndex()
 	const image = await toImageData(screenshot.base64)
 
 	return {

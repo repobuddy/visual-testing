@@ -20,9 +20,9 @@ beforeAll(async (suite) => {
 	await configureSnapshotBeforeAll(suite)
 })
 
-beforeEach((ctx) => {
-	configureSnapshotBeforeEach(ctx)
-})
+// beforeEach((ctx) => {
+// 	configureSnapshotBeforeEach(ctx)
+// })
 
 afterEach<{ story?: StoryContext }>(async (ctx) => {
 	if (!shouldTakeSnapshot(ctx)) return
