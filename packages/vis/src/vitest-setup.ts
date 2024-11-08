@@ -43,13 +43,3 @@ export async function configureSnapshotBeforeAll(
 		await commands.rmDir(state.diffDir)
 	}
 }
-
-export function configureSnapshotBeforeEach(ctx: {
-	task: {
-		name: string
-	}
-}) {
-	state.taskName = ctx.task.name
-	const id = (state.id = toSnapshotId(state.taskName))
-	state.snapshot[state.testFilepath][id] = state.snapshot[state.testFilepath][id] ?? { index: 1 }
-}

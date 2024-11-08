@@ -60,7 +60,6 @@ In `vitest.setup.ts`, you need to extend [vitest] `expect` and register lifecycl
 import { type StoryContext, setProjectAnnotations } from '@storybook/react'
 import {
   configureSnapshotBeforeAll,
-  configureSnapshotBeforeEach,
   page,
   shouldTakeSnapshot,
   toMatchImageSnapshot,
@@ -76,8 +75,6 @@ beforeAll(async (suite) => {
   project.beforeAll()
   await configureSnapshotBeforeAll(suite, /* options */)
 })
-
-beforeEach(configureSnapshotBeforeEach)
 
 afterEach<{ story?: StoryContext }>(async (ctx) => {
   if (!shouldTakeSnapshot(ctx)) return
