@@ -1,5 +1,16 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.7.0
+
+### Minor Changes
+
+- [`250611e`](https://github.com/repobuddy/storybook-addon-vis/commit/250611e03660e288ef0ed6034e423b9887087517) Thanks [@unional](https://github.com/unional)! - The `parameters.snapshot` is now honored by `expect(...).toMatchImageSnapshot()` automatically.
+  This applies to both automatic and manual snapshot testing.
+
+### Patch Changes
+
+- [`b90b970`](https://github.com/repobuddy/storybook-addon-vis/commit/b90b97045a275ac756fb6344bb0ef7d0b8b158c8) Thanks [@unional](https://github.com/unional)! - Create a manual vitest-plugin type definition.
+
 ## 0.6.3
 
 ### Patch Changes
