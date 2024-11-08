@@ -18,5 +18,5 @@ beforeAll(async (suite) => {
 afterEach<{ story?: StoryContext }>(async (ctx) => {
 	if (!shouldTakeSnapshot(ctx)) return
 	const r = await page.imageSnapshot()
-	await expect(r).toMatchImageSnapshot()
+	expect(r).toMatchImageSnapshot()
 })

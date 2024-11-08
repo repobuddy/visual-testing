@@ -12,7 +12,7 @@ export const Success: StoryObj = {
 		return <img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
 	},
 	async play() {
-		await expect(page.imageSnapshot()).toMatchImageSnapshot()
+		expect(page.imageSnapshot()).toMatchImageSnapshot()
 	},
 }
 
@@ -27,7 +27,7 @@ export const Failed: StoryObj = {
 		)
 	},
 	async play() {
-		await expect(page.imageSnapshot())
+		expect(page.imageSnapshot())
 			.toMatchImageSnapshot()
 			.then(
 				() => {
@@ -44,7 +44,7 @@ export const Element: StoryObj = {
 	},
 	async play({ canvas }) {
 		const image = await canvas.getByRole('img')
-		await expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
+		expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
 	},
 }
 
@@ -61,7 +61,7 @@ export const DifferentSize: StoryObj = {
 	},
 	async play({ canvas }) {
 		const image = await canvas.getByRole('img')
-		await expect(page.imageSnapshot({ element: image }))
+		expect(page.imageSnapshot({ element: image }))
 			.toMatchImageSnapshot()
 			.then(
 				() => {
@@ -77,7 +77,7 @@ export const MeetFailureThreshold: StoryObj = {
 	// render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
+		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
 			failureThreshold: 70,
 		})
 	},
@@ -89,7 +89,7 @@ export const FailureThreshold: StoryObj = {
 	// render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		await expect(page.imageSnapshot({ element: subject }))
+		expect(page.imageSnapshot({ element: subject }))
 			.toMatchImageSnapshot({
 				failureThreshold: 10,
 			})
@@ -109,7 +109,7 @@ export const FailureThresholdByPercentage: StoryObj = {
 	render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		await expect(page.imageSnapshot({ element: subject }))
+		expect(page.imageSnapshot({ element: subject }))
 			.toMatchImageSnapshot({
 				failureThreshold: 0.1,
 				failureThresholdType: 'percent',
@@ -128,7 +128,7 @@ export const MeetFailureThresholdByPercentage: StoryObj = {
 	// render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
+		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
 			failureThreshold: 0.3,
 			failureThresholdType: 'percent',
 		})
@@ -141,7 +141,7 @@ export const ExactFailureThresholdByPercentage: StoryObj = {
 	render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		await expect(page.imageSnapshot({ element: subject }))
+		expect(page.imageSnapshot({ element: subject }))
 			.toMatchImageSnapshot({
 				failureThresholdType: 'percent',
 			})

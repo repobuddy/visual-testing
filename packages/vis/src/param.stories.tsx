@@ -37,6 +37,6 @@ export const ParamAppliesToPlay: StoryObj = {
 	},
 	play: async ({ canvas }) => {
 		const subject = canvas.getByTestId('subject')
-		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot()
+		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot()
 	},
 }

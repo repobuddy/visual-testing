@@ -32,6 +32,17 @@ export async function toMatchImageSnapshot(
 	actual: any,
 	options?: MatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
+	const promise = toMatchImageSnapshotInternal(actual, options)
+	const test = getCurrentTest()
+	test.promises ??= []
+	test.promises.push(promise)
+	return promise
+}
+
+async function toMatchImageSnapshotInternal(
+	actual: any,
+	options?: MatchImageSnapshotOptions | undefined,
+): AsyncExpectationResult {
 	const subject = await actual
 	if (subject?.type === imageSnapshotStubSymbol) {
 		return success
