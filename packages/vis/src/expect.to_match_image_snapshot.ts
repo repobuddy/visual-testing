@@ -4,7 +4,7 @@ import pixelmatch, { type PixelmatchOptions } from 'pixelmatch'
 import { required } from 'type-plus'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.js'
 import { commands, server } from './@vitest/browser/context.js'
-import { assertImageSnapshot, isImageSnapshot } from './@vitest/browser/image_snapshot.logic.js'
+import { assertImageSnapshot, isImageSnapshot, toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
 import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
 import { state } from './state.js'
@@ -69,6 +69,7 @@ export async function toMatchImageSnapshot(
 
 	options = required(state.parameters?.snapshot, options)
 	const { pass, diffAmount, diffImage } = compareImage(baselineImage, resultImage, options)
+
 	if (!pass) {
 		if (server.config.snapshotOptions.updateSnapshot === 'all') {
 			await writeSnapshot(`${subject.baselinePath}`, resultImage)

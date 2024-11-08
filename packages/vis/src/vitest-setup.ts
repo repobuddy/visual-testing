@@ -47,9 +47,6 @@ export async function configureSnapshotBeforeAll(
 export function configureSnapshotBeforeEach(ctx: {
 	task: {
 		name: string
-		file: {
-			filepath: string
-		}
 	}
 }) {
 	state.taskName = ctx.task.name
