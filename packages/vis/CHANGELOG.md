@@ -1,5 +1,32 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.8.0
+
+### Minor Changes
+
+- [`79ccf83`](https://github.com/repobuddy/storybook-addon-vis/commit/79ccf835fc753319dfe68679926ac3bedb03e01b) Thanks [@unional](https://github.com/unional)! - Refactor `configureSnapshotBeforeAll()` into `setupVitestVis()`.
+
+  ```ts
+  // from
+  import { configureSnapshotBeforeAll } from "storybook-addon-vis";
+  import { beforeAll } from "vitest";
+
+  beforeAll(configureSnapshotBeforeAll);
+
+  // to
+  import { setupVitestVis } from "storybook-addon-vis";
+  import { beforeAll } from "vitest";
+
+  const vis = setupVitestVis();
+
+  beforeAll(vis.beforeAll);
+  ```
+
+- [#50](https://github.com/repobuddy/storybook-addon-vis/pull/50) [`062991d`](https://github.com/repobuddy/storybook-addon-vis/commit/062991d22c4a52208157c78b279235b32950da75) Thanks [@unional](https://github.com/unional)! - Remove `configureSnapshotBeforeEach`, no longer needed.
+
+- [#50](https://github.com/repobuddy/storybook-addon-vis/pull/50) [`180562a`](https://github.com/repobuddy/storybook-addon-vis/commit/180562acbe7b10458175806e0e6d71d2d05a7b70) Thanks [@unional](https://github.com/unional)! - The last `expect().toMatchImageSnapshot()` will be awaited automatically,
+  making it easier to write.
+
 ## 0.7.0
 
 ### Minor Changes
