@@ -34,6 +34,7 @@ export async function toMatchImageSnapshot(
 ): AsyncExpectationResult {
 	const promise = toMatchImageSnapshotInternal(actual, options)
 	const test = getCurrentTest()
+	if (!test) return promise
 	test.promises ??= []
 	test.promises.push(promise)
 	return promise
