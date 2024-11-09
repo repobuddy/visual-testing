@@ -2,4 +2,4 @@
 "storybook-addon-vis": minor
 ---
 
-Simplify setup in `vitest.setup.ts` with `createVis()`.
+Simplify setup in `vitest.setup.ts` with `createVisConfig()`.

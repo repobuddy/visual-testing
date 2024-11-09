@@ -1,6 +1,6 @@
 import { setProjectAnnotations } from '@storybook/react'
 import { beforeAll } from 'vitest'
-import { createVis } from '../src/vitest-setup.js'
+import { createVisConfig } from '../src/vitest-setup.js'
 import * as projectAnnotations from './preview'
 
 // This is an important step to apply the right configuration when testing your stories.
@@ -9,4 +9,4 @@ const project = setProjectAnnotations([projectAnnotations])
 
 beforeAll(project.beforeAll)
 
-createVis().presets.basic()
+createVisConfig().presets.basic()

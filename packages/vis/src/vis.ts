@@ -7,7 +7,7 @@ import { state } from './state.js'
 import { shouldTakeSnapshot } from './tags.js'
 import type { VisOptions } from './types.js'
 
-export function createVis(options?: VisOptions) {
+export function createVisConfig(options?: VisOptions) {
 	expect.extend({ toMatchImageSnapshot })
 
 	const h = {

@@ -1,8 +1,8 @@
 import { state } from './state.js'
-import { createVis } from './vis.js'
+import { createVisConfig } from './vis.js'
 
 it('can define the snapshot root folder relative to the root of the project', async () => {
-	await createVis({
+	await createVisConfig({
 		snapshotPath: '_sp_',
 	}).beforeAll({ name: 'some.test.ts', file: { filepath: 'dummy/some.test.ts' } }),
 		expect(state).toMatchObject({

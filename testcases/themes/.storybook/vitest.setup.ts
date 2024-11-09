@@ -1,5 +1,5 @@
 import { setProjectAnnotations } from '@storybook/react'
-import { createVis } from 'storybook-addon-vis/vitest-setup'
+import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
 import { beforeAll } from 'vitest'
 import * as projectAnnotations from './preview'
 
@@ -8,7 +8,7 @@ import * as projectAnnotations from './preview'
 const project = setProjectAnnotations([projectAnnotations])
 beforeAll(project.beforeAll)
 
-createVis().presets.theme({
+createVisConfig().presets.theme({
 	light() {
 		document.documentElement.classList.remove('dark')
 	},
