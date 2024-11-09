@@ -2,7 +2,7 @@
 	"name": "repo-root",
 	"private": true,
 	"scripts": {
-		"b": "tsc -b",
+		"b": "tsc -w",
 		"build": "turbo run build",
 		"build:sb": "turbo run build:sb",
 		"check": "biome check",

@@ -5,6 +5,9 @@
 			"path": "./packages/vis"
 		},
 		{
+			"path": "./testcases/react-vite-ts"
+		},
+		{
 			"path": "./testcases/themes"
 		}
 	]

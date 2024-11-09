@@ -9,7 +9,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules/", ".vscode/*.txt"]
+		"ignore": ["node_modules/", ".vscode/*.txt", "**/esm"]
 	},
 	"formatter": {
 		"enabled": true,

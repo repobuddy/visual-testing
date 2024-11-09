@@ -64,4 +64,5 @@ node_modules
 *.tsbuildinfo
 build-storybook.log
 dist
+esm
 storybook-static
