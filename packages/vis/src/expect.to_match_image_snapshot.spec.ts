@@ -1,13 +1,16 @@
 import { composeStories } from '@storybook/react'
+import { screen } from '@testing-library/react'
 import { assertType } from 'type-plus'
 import { expect, it } from 'vitest'
 import { page } from './@vitest/browser/context.js'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
 import * as ToMatchStories from './expect.to_match_image_snapshot.stories.js'
 import * as ImageDataStories from './image_data.stories.js'
+import * as PerStory from './per_story.stories.js'
 
 const { ConversionRoundtrip } = composeStories(ImageDataStories)
 const { Success } = composeStories(ToMatchStories)
+const { TakeSnapshot } = composeStories(PerStory)
 
 it('should reject if the subject is undefined', async () => {
 	expect(() => expect(undefined).toMatchImageSnapshot()).rejects.toThrowError(
@@ -93,4 +96,10 @@ it(`should fail with 'Snapshot \`{test/story name}\` mismatched`, async ({ task 
 			}),
 		).toMatchImageSnapshot()
 	}
+})
+
+test('use screen to get element', async () => {
+	await TakeSnapshot.run()
+	const subject = screen.getByTestId('subject')
+	await expect(subject).toMatchImageSnapshot()
 })

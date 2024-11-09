@@ -69,6 +69,7 @@
 		"@storybook/react": "^8.4.2",
 		"@storybook/react-vite": "^8.4.2",
 		"@storybook/test": "^8.4.2",
+		"@testing-library/react": "^16.0.1",
 		"@types/is-ci": "^3.0.4",
 		"@types/pixelmatch": "^5.2.6",
 		"@types/react": "^18.2.65",

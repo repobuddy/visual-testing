@@ -18,6 +18,7 @@ export const Button = ({
 	return (
 		<button
 			type="button"
+			data-testid="subject"
 			className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
 			style={backgroundColor ? { backgroundColor } : undefined}
 			{...props}

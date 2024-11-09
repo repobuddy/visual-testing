@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`DOM snapshot 1`] = `
+exports[`use screen 1`] = `
 <button
-  class="storybook-button storybook-button--medium storybook-button--secondary"
+  class="storybook-button storybook-button--medium storybook-button--primary"
   data-testid="subject"
   type="button"
 >

@@ -4,7 +4,7 @@ import pixelmatch, { type PixelmatchOptions } from 'pixelmatch'
 import { required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.js'
-import { commands, server } from './@vitest/browser/context.js'
+import { commands, page, server } from './@vitest/browser/context.js'
 import { assertImageSnapshot, isImageSnapshot, toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
 import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
@@ -43,7 +43,7 @@ async function toMatchImageSnapshotInternal(
 	actual: any,
 	options?: MatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
-	const subject = await actual
+	let subject = await actual
 	if (subject?.type === imageSnapshotStubSymbol) {
 		return success
 	}
@@ -65,7 +65,7 @@ async function toMatchImageSnapshotInternal(
 					`\`toMatchImageSnapshot()\` expects the subject to be an element, locator, or result of \`page.imageSnapshot()\`, but got: \`${subject}\``,
 			}
 		}
-		// subject = await page.imageSnapshot({ element: actual })
+		subject = await page.imageSnapshot({ element: subject })
 	}
 
 	assertImageSnapshot(subject)

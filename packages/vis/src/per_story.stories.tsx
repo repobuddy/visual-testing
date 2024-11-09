@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 export default {
 	title: 'per story',
-	render: () => <>unit test</>,
+	render: () => <div data-testid="subject">unit test</div>,
 } satisfies Meta
 
 export const TakeSnapshot: StoryObj = {

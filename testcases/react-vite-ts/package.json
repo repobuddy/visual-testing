@@ -8,7 +8,8 @@
 		"dev": "run-p build:watch \"sb --quiet\"",
 		"nuke": "rimraf node_modules",
 		"test": "vitest run",
-		"sb": "storybook dev -p 6106"
+		"sb": "storybook dev -p 6106",
+		"w": "vitest"
 	},
 	"eslintConfig": {
 		"extends": [
