@@ -2,6 +2,7 @@
 	"name": "repo-root",
 	"private": true,
 	"scripts": {
+		"b": "tsc -b",
 		"build": "turbo run build",
 		"build:sb": "turbo run build:sb",
 		"check": "biome check",
@@ -36,6 +37,7 @@
 		"playwright": "^1.48.1",
 		"rimraf": "^6.0.1",
 		"turbo": "^2.2.3",
+		"typescript": "^5.6.3",
 		"vitest": "^2.1.4"
 	},
 	"packageManager": "pnpm@9.12.3",

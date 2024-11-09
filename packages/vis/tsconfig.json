@@ -12,6 +12,7 @@
 		"moduleResolution": "Bundler",
 		"noImplicitAny": true,
 		"rootDir": "src",
+		"outDir": "esm",
 		"skipLibCheck": true,
 		"target": "ES2020",
 		"types": ["vitest/globals", "@vitest/browser/providers/playwright"],

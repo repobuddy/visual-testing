@@ -1,32 +1,18 @@
 import { setProjectAnnotations } from '@storybook/react'
-import { page } from 'storybook-addon-vis'
-import { setupVitestVis, shouldTakeSnapshot, toMatchImageSnapshot } from 'storybook-addon-vis/vitest-setup'
-import { afterEach, beforeAll, expect } from 'vitest'
+import { createVis } from 'storybook-addon-vis/vitest-setup'
+import { beforeAll } from 'vitest'
 import * as projectAnnotations from './preview'
-
-expect.extend({ toMatchImageSnapshot })
 
 // This is an important step to apply the right configuration when testing your stories.
 // More info at: https://storybook.js.org/docs/api/portable-stories/portable-stories-vitest#setprojectannotations
 const project = setProjectAnnotations([projectAnnotations])
-const vis = setupVitestVis()
+beforeAll(project.beforeAll)
 
-beforeAll(async (suite) => {
-	project.beforeAll()
-	await vis.beforeAll(suite)
-})
-
-afterEach(async (ctx) => {
-	if (!shouldTakeSnapshot(ctx)) return
-	document.documentElement.classList.add('dark')
-	const r = await page.imageSnapshot({
-		customizeSnapshotId: (id) => `${id}-dark`,
-	})
-	await expect(r).toMatchImageSnapshot()
-
-	document.documentElement.classList.remove('dark')
-	const r2 = await page.imageSnapshot({
-		customizeSnapshotId: (id) => `${id}-light`,
-	})
-	await expect(r2).toMatchImageSnapshot()
+createVis().presets.theme({
+	light() {
+		document.documentElement.classList.remove('dark')
+	},
+	dark() {
+		document.documentElement.classList.add('dark')
+	},
 })
