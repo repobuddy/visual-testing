@@ -1,7 +1,4 @@
-import { expect } from '@storybook/test'
-import { toMatchImageSnapshot, visStorybookPreview } from 'storybook-addon-vis'
-
-expect.extend({ toMatchImageSnapshot })
+import { visStorybookPreview } from 'storybook-addon-vis'
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {

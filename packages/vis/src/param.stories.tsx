@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { expect } from '@storybook/test'
 import { defineSnapshotParam, page } from './index.js'
 
 export default {

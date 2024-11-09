@@ -3,11 +3,9 @@ import type { Preview } from '@storybook/react'
 import { expect } from '@storybook/test'
 import { themes } from '@storybook/theming'
 import { useEffect } from 'react'
-import { toMatchImageSnapshot } from 'storybook-addon-vis'
+import { toMatchImageSnapshot, visStorybookPreview } from 'storybook-addon-vis'
 
 import '../src/input.css'
-
-expect.extend({ toMatchImageSnapshot })
 
 const cleanup = () => {
 	const existing = globalThis.document.querySelector('style[data-theme-css]')
@@ -64,6 +62,7 @@ const preview: Preview = {
 			theme: themes.light,
 		},
 	},
+	beforeEach: visStorybookPreview.beforeEach,
 }
 
 export default preview

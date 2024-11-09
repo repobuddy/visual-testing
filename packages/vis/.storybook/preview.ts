@@ -1,8 +1,5 @@
 import type { Preview } from '@storybook/react'
-import { expect } from '@storybook/test'
-import { toMatchImageSnapshot, visStorybookPreview } from '../src/index.js'
-
-expect.extend({ toMatchImageSnapshot })
+import { visStorybookPreview } from '../src/index.js'
 
 const preview: Preview = {
 	parameters: {

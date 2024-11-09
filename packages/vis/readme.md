@@ -37,50 +37,46 @@ import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-   plugins: [
-    storybookTest(),
-    storybookVis()
-  ],
-  test: {
-    browser: {
-      // ...
-    }
-    setupFiles: ['./vitest.setup.ts'],
-  }
+	 plugins: [
+		storybookTest(),
+		storybookVis()
+	],
+	test: {
+		browser: {
+			// ...
+		}
+		setupFiles: ['./vitest.setup.ts'],
+	}
 })
 ```
 
 Also note that you need to add `vitest.setup.ts` file to set up the test environment.
 You need to do that anyway when you set up [storybook] with [vitest].
 
-In `vitest.setup.ts`, you need to extend [vitest] `expect` and register lifecycle hooks so that [storybook-addon-vis] can access the test context info to capture image snapshot.
+In `vitest.setup.ts`, you can use one of the presets to do the setup for you.
+You can also use the provided hooks to set up the test environment manually.
 
 ```ts
 // vitest.setup.ts
 import { setProjectAnnotations } from '@storybook/react'
-import { createVis } from 'storybook-addon-vis/vitest-setup'
-import { afterEach, beforeAll, beforeEach, expect } from 'vitest'
+import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
 import * as projectAnnotations from './preview'
 
 const project = setProjectAnnotations([projectAnnotations])
 
 // other presets are available
-createVis(/* options */).presets.basic()
+createVisConfig(/* options */).presets.basic()
 ```
 
-On [storybook], you need to extend the `expect` from `@storybook/test`,
-and register `beforeEach` hook to set up the test environment.
+On [storybook], you need to register `beforeEach` hook to set up the test environment.
 
 ```ts
 // .storybook/preview.tsx
-import { expect } from '@storybook/test'
-import { toMatchImageSnapshot, visStorybookPreview } from 'storybook-addon-vis'
-
-expect.extend({ toMatchImageSnapshot })
+import { storybookPreviewVis } from 'storybook-addon-vis'
 
 const preview: Preview = {
 	// ...
-	beforeEach: visStorybookPreview.beforeEach,
+	beforeEach: storybookPreviewVis.beforeEach,
 }
 
 export default preview
@@ -88,36 +84,28 @@ export default preview
 
 ## Usage - automatic snapshot
 
-The `afterEach` hook above is how to capture the image snapshot automatically,
-when you add a `snapshot` tag to the story.
+With the `basic` preset, [storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
+
+As with how tags work in [storybook], you can add the tag globally, per story file, or per story.
 
 ```ts
+// .storybook/preview.tsx
+export default {
+	// Enable image snapshot for all stories
+	tags: ['snapshot']
+}
+
 // story.tsx
 export default {
-  title: 'Button',
-  // Take image snapshot automatically for all stories in this file
-  tags: ['snapshot']
+	title: 'Button',
+	// Take image snapshot automatically for all stories in this file
+	tags: ['snapshot']
 }
 
 export const MyStory = {
-  // Take image snapshot automatically for this story
-  tags: ['snapshot'],
-  // ...
-}
-```
-
-You can provide options to the automatic `toMatchImageSnapshot` matcher using parameters.
-
-```ts
-import { defineSnapshotParam } from 'storybook-addon-vis'
-
-export const MyStory = {
-  // Take image snapshot automatically for this story
-  tags: ['snapshot'],
-  parameters: defineSnapshotParam({
-    failureThreshold: 70,
-  })
-  // ...
+	// Take image snapshot automatically for this story
+	tags: ['snapshot'],
+	// ...
 }
 ```
 
@@ -126,15 +114,29 @@ much like `!test`.
 
 ```ts
 export default {
-  title: 'Button',
+	title: 'Button',
 	// Enable image snapshot for all stories in this file
-  tags: ['snapshot']
+	tags: ['snapshot']
 }
 
 export const MyStory = {
-  // Disable image snapshot for this story
-  tags: ['!snapshot'],
-  // ...
+	// Disable image snapshot for this story
+	tags: ['!snapshot'],
+	// ...
+}
+```
+
+You can provide options `toMatchImageSnapshot` matcher using parameters.
+
+```ts
+import { defineSnapshotParam } from 'storybook-addon-vis'
+
+export const MyStory = {
+	// Take image snapshot automatically for this story
+	parameters: defineSnapshotParam({
+		failureThreshold: 70,
+	})
+	// ...
 }
 ```
 
@@ -149,18 +151,22 @@ import { expect } from '@storybook/test'
 import { page } from 'storybook-addon-vis'
 
 export const PageSnapshot = {
-  // ...
-  async play() {
-    await expect(page.imageSnapshot()).toMatchImageSnapshot()
-  }
+	// typically you want to disable automatic snapshot when using manual snapshot
+	tags: ['!snapshot'],
+	// ...
+	async play() {
+		await expect(page.imageSnapshot()).toMatchImageSnapshot()
+	}
 }
 
 export const ElementSnapshot = {
-  // ...
-  async play({ canvas }) {
-    const element = await canvas.getByTestid('subject')
-    await expect(page.imageSnapshot({ element })).toMatchImageSnapshot()
-  }
+		// typically you want to disable automatic snapshot when using manual snapshot
+	tags: ['!snapshot'],
+	// ...
+	async play({ canvas }) {
+		const element = await canvas.getByTestid('subject')
+		await expect(page.imageSnapshot({ element })).toMatchImageSnapshot()
+	}
 }
 ```
 
