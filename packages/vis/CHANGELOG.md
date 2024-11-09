@@ -1,5 +1,45 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.9.0
+
+### Minor Changes
+
+- [`2db5b77`](https://github.com/repobuddy/storybook-addon-vis/commit/2db5b77009a458d17e5fbb63466ca8afba34bb25) Thanks [@unional](https://github.com/unional)! - Remove the need of taking `ctx` as argument for `shouldTakeSnapshot` and the `afterEach` handler.
+
+- [#55](https://github.com/repobuddy/storybook-addon-vis/pull/55) [`85b9975`](https://github.com/repobuddy/storybook-addon-vis/commit/85b9975957a72cae2b0a2aa3e5f8ad1c2dffaf1b) Thanks [@unional](https://github.com/unional)! - Support `expect(element)`.
+
+- [#59](https://github.com/repobuddy/storybook-addon-vis/pull/59) [`90153d3`](https://github.com/repobuddy/storybook-addon-vis/commit/90153d37234a0bea29f2262ceab90b8ae0b6933b) Thanks [@unional](https://github.com/unional)! - Simplify setup in `vitest.setup.ts` with `createVisConfig()`.
+
+- [#60](https://github.com/repobuddy/storybook-addon-vis/pull/60) [`0eb677b`](https://github.com/repobuddy/storybook-addon-vis/commit/0eb677bed475d21b51527d5ee7a157323e1400a3) Thanks [@unional](https://github.com/unional)! - Internalize `expect.extends()` for `storybook` within `defineVisPreview()`.
+
+- [`5a7777f`](https://github.com/repobuddy/storybook-addon-vis/commit/5a7777f6b080fd81117b8fe72ff6f81cb6855436) Thanks [@unional](https://github.com/unional)! - Rename `visStorybookPreview` to `storybookPreviewVis`
+
+### Patch Changes
+
+- [#60](https://github.com/repobuddy/storybook-addon-vis/pull/60) [`30adcef`](https://github.com/repobuddy/storybook-addon-vis/commit/30adcefcbbacfbae2264b32512ba08999021662b) Thanks [@unional](https://github.com/unional)! - Fix `play()` when running in storybook.
+
+- [`f92a371`](https://github.com/repobuddy/storybook-addon-vis/commit/f92a371cb569f3ef138bc394360846fe6f8396ca) Thanks [@unional](https://github.com/unional)! - Change `shouldTakeSnapshot(ctx)` to accept `any`.
+  Check is done at runtime.
+  This change allows the user to skip the type parameter in `afterEach` hook.
+
+  ```ts
+  // from
+  import { StoryContext } from "@storybook/react";
+  import { shouldTakeSnapshot } from "storybook-addon-vis/vitest-setup";
+  import { afterEach } from "vitest";
+
+  afterEach<{ story?: StoryContext }>(async (ctx) => {
+    if (!shouldTakeSnapshot(ctx)) return;
+    // ...
+  });
+
+  // to
+  afterEach(async (ctx) => {
+    if (!shouldTakeSnapshot(ctx)) return;
+    // ...
+  });
+  ```
+
 ## 0.8.0
 
 ### Minor Changes
