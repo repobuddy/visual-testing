@@ -1,5 +1,15 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.9.1
+
+### Patch Changes
+
+- [`abd7a7f`](https://github.com/repobuddy/storybook-addon-vis/commit/abd7a7fb8e861e22885f2e1d407f9746314436be) Thanks [@unional](https://github.com/unional)! - Move `expect.extends` to module scope.
+  It technically becomes a load time side effect which is not ideal,
+  but at the same time avoids doing the extends on every test file.
+
+- [`768396a`](https://github.com/repobuddy/storybook-addon-vis/commit/768396aac341df98639ba13c4a6c109aaf7fceb1) Thanks [@unional](https://github.com/unional)! - Use exact type for `storybookPreviewVis`.
+
 ## 0.9.0
 
 ### Minor Changes
