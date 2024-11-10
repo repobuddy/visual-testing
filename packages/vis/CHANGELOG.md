@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.11.0
+
+### Minor Changes
+
+- [`ac4f759`](https://github.com/repobuddy/storybook-addon-vis/commit/ac4f759c5bce01daf57d380147d09db7d68c1b62) Thanks [@unional](https://github.com/unional)! - Change snapshot folder to `__vis__` next to the story/test file.
+  This avoids conflict when there are multiple story/test files with the same name in different folder.
+
+  The `createVisConfig({ snapshotPath })` is renamed to `snapshotDir`.
+
 ## 0.10.2
 
 ### Patch Changes
