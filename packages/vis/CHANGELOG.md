@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.10.1
+
+### Patch Changes
+
+- [`d388c78`](https://github.com/repobuddy/storybook-addon-vis/commit/d388c780f96e49a43c0d8c9d254c58a02f16b4fb) Thanks [@unional](https://github.com/unional)! - Add missing `storybook-addon-vis/preset`.
+
 ## 0.10.0
 
 ### Minor Changes
