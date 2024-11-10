@@ -1,5 +1,17 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.10.0
+
+### Minor Changes
+
+- [`7974251`](https://github.com/repobuddy/storybook-addon-vis/commit/797425135fa5e521295555bd20b8bf01660bb563) Thanks [@unional](https://github.com/unional)! - Add global timeout and match options
+
+- [`55439ae`](https://github.com/repobuddy/storybook-addon-vis/commit/55439aedbb22163f575eaeae7e0977c39243f8d6) Thanks [@unional](https://github.com/unional)! - Support global `customizeSnapshotId()` config.
+
+### Patch Changes
+
+- [`7db89b2`](https://github.com/repobuddy/storybook-addon-vis/commit/7db89b2ea69a20ff057865a48d0f2ad5789712a5) Thanks [@unional](https://github.com/unional)! - Change default timeout to 30s
+
 ## 0.9.1
 
 ### Patch Changes
