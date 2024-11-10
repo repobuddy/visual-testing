@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.10.2
+
+### Patch Changes
+
+- [`ca1bf16`](https://github.com/repobuddy/storybook-addon-vis/commit/ca1bf16f7e2f08036a81f702a0c3eababb7a6e14) Thanks [@unional](https://github.com/unional)! - Add missing `beforeAll`, `afterEach`.
+
 ## 0.10.1
 
 ### Patch Changes
