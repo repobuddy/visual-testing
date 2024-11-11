@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.11.2
+
+### Patch Changes
+
+- [`21583bf`](https://github.com/repobuddy/storybook-addon-vis/commit/21583bf7a1fc88de7170eb7e403105215090f1dd) Thanks [@unional](https://github.com/unional)! - Comment out logs
+
 ## 0.11.1
 
 ### Patch Changes
