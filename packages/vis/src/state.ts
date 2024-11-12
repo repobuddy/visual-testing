@@ -1,4 +1,4 @@
-import { basename, join } from 'pathe'
+import { basename, dirname, join, relative } from 'pathe'
 import type { StoryContext } from 'storybook/internal/types'
 import { omit, required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
@@ -11,7 +11,6 @@ import type { VisOptions } from './types.js'
 function createStore() {
 	// test suite (runner.beforeAll) states
 	let testFilepath: string
-	let testFilename: string
 	let baselineDir: string
 	let resultDir: string
 	let diffDir: string
@@ -29,18 +28,20 @@ function createStore() {
 		resultDir,
 		diffDir,
 		snapshot: {},
-		async setupSuite(suite: { file: { filepath: string }; name: string }, options?: VisOptions) {
+		async setupSuite(suite: { file: { filepath: string }; name: string }, options: VisOptions = {}) {
 			// console.debug('setupSuite', suite.name)
-
-			const snapshotPath = options?.snapshotDir ?? `__vis__/${await commands.getSnapshotPlatform()}`
-
 			testFilepath = suite.file.filepath
-			testFilename = basename(testFilepath)
-			baselineDir = join(snapshotPath, testFilename)
-			resultDir = join(snapshotPath, '__results__', testFilename)
-			diffDir = join(snapshotPath, '__diff_output__', testFilename)
+			const projectDir = testFilepath.slice(0, -suite.name.length)
 
-			suiteOptions = options ?? {}
+			const snapshotPath = resolveSnapshotPath(await getPlatform(), options)
+			const snapshotFullPath = join(projectDir, snapshotPath)
+			const currentDir = dirname(testFilepath)
+			const suiteDir = trimSuiteDir(suite.name, options)
+			baselineDir = relative(currentDir, join(snapshotFullPath, suiteDir))
+			resultDir = relative(currentDir, join(snapshotFullPath, '__results__', suiteDir))
+			diffDir = relative(currentDir, join(snapshotFullPath, '__diff_output__', suiteDir))
+
+			suiteOptions = options
 			snapshot = snapshot ?? {}
 			if (!snapshot[testFilepath]) {
 				snapshot[testFilepath] = {}
@@ -65,7 +66,7 @@ function createStore() {
 			return timeout ?? suiteOptions.timeout ?? 30000
 		},
 		mergeMatchImageSnapshotOptions(options?: MatchImageSnapshotOptions) {
-			return required(omit(suiteOptions, 'snapshotDir'), parameters?.snapshot, options)
+			return required(omit(suiteOptions, 'snapshotRootDir', 'customizeSnapshotSubpath'), parameters?.snapshot, options)
 		},
 		getSnapshotFilePaths(options?: ImageSnapshotOptions | undefined) {
 			const test = getCurrentTest()
@@ -90,3 +91,26 @@ function createStore() {
 }
 
 export const state = createStore()
+
+function resolveSnapshotPath(platform: string, options: VisOptions) {
+	return options.snapshotRootDir ?? `__vis__/${platform}`
+}
+
+function trimSuiteDir(suiteName: string, options: VisOptions) {
+	const customizeSnapshotSubpath = options.customizeSnapshotSubpath ?? defaultCustomizeSnapshotSubpath
+	return customizeSnapshotSubpath(suiteName)
+}
+
+function defaultCustomizeSnapshotSubpath(suiteName: string) {
+	const [suiteDir] = suiteName.split('/', 1)
+	if (['tests', 'test', 'src', 'source', 'js', 'ts', 'lib'].includes(suiteDir))
+		return suiteName.slice(suiteDir.length + 1)
+	return suiteName
+}
+
+let platformP: Promise<string>
+function getPlatform(): Promise<string> {
+	if (platformP) return platformP
+
+	return (platformP = commands.getSnapshotPlatform())
+}
