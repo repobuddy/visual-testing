@@ -1,4 +1,4 @@
-import { basename, dirname, join, relative } from 'pathe'
+import { dirname, join, relative, resolve } from 'pathe'
 import type { StoryContext } from 'storybook/internal/types'
 import { omit, required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
@@ -11,6 +11,7 @@ import type { VisOptions } from './types.js'
 function createStore() {
 	// test suite (runner.beforeAll) states
 	let testFilepath: string
+	let currentDir: string
 	let baselineDir: string
 	let resultDir: string
 	let diffDir: string
@@ -35,7 +36,7 @@ function createStore() {
 
 			const snapshotPath = resolveSnapshotPath(await getPlatform(), options)
 			const snapshotFullPath = join(projectDir, snapshotPath)
-			const currentDir = dirname(testFilepath)
+			currentDir = dirname(testFilepath)
 			const suiteDir = trimSuiteDir(suite.name, options)
 			baselineDir = relative(currentDir, join(snapshotFullPath, suiteDir))
 			resultDir = relative(currentDir, join(snapshotFullPath, '__results__', suiteDir))
@@ -61,6 +62,9 @@ function createStore() {
 		},
 		getName() {
 			return taskName
+		},
+		getCurrentDir() {
+			return currentDir
 		},
 		getTimeout(timeout?: number | undefined) {
 			return timeout ?? suiteOptions.timeout ?? 30000

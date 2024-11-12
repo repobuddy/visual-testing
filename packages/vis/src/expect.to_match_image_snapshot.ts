@@ -1,5 +1,6 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import dedent from 'dedent'
+import { resolve } from 'pathe'
 import pixelmatch, { type PixelmatchOptions } from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.js'
@@ -108,12 +109,12 @@ async function toMatchImageSnapshotInternal(
 					? options?.failureThresholdType === 'percent'
 						? `Expected image to match within ${options.failureThreshold}% but was differ by ${diffAmount}%.`
 						: `Expected image to match within ${options.failureThreshold} pixels but was differ by ${diffAmount} pixels.`
-					: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
+					: `Expected simage to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
 			}
 
-			Expected:   '${subject.baselinePath}'
-			Actual:     '${subject.resultPath}'
-			Difference: '${subject.diffPath}'`,
+			Expected:   '${resolve(state.getCurrentDir(), subject.baselinePath)}'
+			Actual:     '${resolve(state.getCurrentDir(), subject.resultPath)}'
+			Difference: '${resolve(state.getCurrentDir(), subject.diffPath)}'`,
 		}
 	}
 	return success

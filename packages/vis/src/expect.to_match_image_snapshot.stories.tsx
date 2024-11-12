@@ -77,7 +77,7 @@ export const MeetFailureThreshold: StoryObj = {
 	// render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
+		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot({
 			failureThreshold: 70,
 		})
 	},
