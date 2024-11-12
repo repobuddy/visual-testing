@@ -1,5 +1,26 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.12.0
+
+### Minor Changes
+
+- [#74](https://github.com/repobuddy/storybook-addon-vis/pull/74) [`6707f9f`](https://github.com/repobuddy/storybook-addon-vis/commit/6707f9fed43c9a01ebd0c280015189401f3d4b00) Thanks [@unional](https://github.com/unional)! - Change default snapshot folder back to `<project root>/__vis__`.
+  They are now stored in folder structure mimic the test/story file.
+
+  This makes it much easier to review the snapshot results.
+
+  Also, it avoids the `EISDIR` error when running the tests and running the storybook at the same time.
+
+  The `snapshotDir` option is renamed to `snapshotRootDir`.
+
+  A `customizeSnapshotSubpath` is added to allow customizing the snapshot sub path.
+
+### Patch Changes
+
+- [#77](https://github.com/repobuddy/storybook-addon-vis/pull/77) [`d089502`](https://github.com/repobuddy/storybook-addon-vis/commit/d0895024817c07520a13a8327d377483a0042600) Thanks [@unional](https://github.com/unional)! - Change failure message to use full path.
+
+  This allows the user to easily access the file in their editor.
+
 ## 0.11.2
 
 ### Patch Changes
