@@ -157,7 +157,7 @@ importers:
         version: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
       zx:
         specifier: ^8.0.0
-        version: 8.2.1
+        version: 8.2.2
 
   testcases/react-vite-ts:
     dependencies:
@@ -3526,8 +3526,8 @@ packages:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
 
-  zx@8.2.1:
-    resolution: {integrity: sha512-E3TZRg76QC14RXU8LLKGCnsd8omfM220TJKU4O4R1YuitE4IzDB3cmX6+tF2iffJ8JtlWxBo35YS1TCmpINuaQ==}
+  zx@8.2.2:
+    resolution: {integrity: sha512-HSIdpU5P2ONI0nssnhsUZNCH9Sd/Z8LIFk9n8QTbu6JufzJx7qR7ajrMN21s06JqWSApcN012377iWsv8Vs5bg==}
     engines: {node: '>= 12.17.0'}
     hasBin: true
 
@@ -6709,7 +6709,7 @@ snapshots:
 
   yoctocolors-cjs@2.1.2: {}
 
-  zx@8.2.1:
+  zx@8.2.2:
     optionalDependencies:
       '@types/fs-extra': 11.0.4
       '@types/node': 22.9.0
