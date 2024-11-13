@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.12.1
+
+### Patch Changes
+
+- [`a64d076`](https://github.com/repobuddy/storybook-addon-vis/commit/a64d0764a1f2038f0c329290a1796306ed43864b) Thanks [@unional](https://github.com/unional)! - Use `Object.create(null)` instead of `{}` to avoid prototype pollution.
+
 ## 0.12.0
 
 ### Minor Changes
