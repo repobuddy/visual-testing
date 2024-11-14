@@ -2,7 +2,7 @@ name: Comment on artifact diff
 
 on:
   workflow_run:
-    workflows: ["pull-request"]
+    workflows: ["verify"]
     types:
       - completed
 
