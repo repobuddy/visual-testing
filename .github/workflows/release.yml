@@ -54,14 +54,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snapshots
-          path: '**/__snapshots__'
+          path: |
+            '**/__vis__/__diff_output__'
+            '**/__vis__/__results__'
 
   release:
     uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@main
     needs: verify
     secrets: inherit
-  # docgen:
-  #   uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@main
-  #   needs: release
-  #   with:
-  #     publish-dir: ./website/dist

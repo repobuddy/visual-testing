@@ -34,11 +34,11 @@ function createStore() {
 			testFilepath = suite.file.filepath
 			const projectDir = testFilepath.slice(0, -suite.name.length)
 
-			const snapshotPath = resolveSnapshotPath(await getPlatform(), options)
+			const snapshotPath = resolveSnapshotPath(options)
 			const snapshotFullPath = join(projectDir, snapshotPath)
 			currentDir = dirname(testFilepath)
 			const suiteDir = trimSuiteDir(suite.name, options)
-			baselineDir = relative(currentDir, join(snapshotFullPath, suiteDir))
+			baselineDir = relative(currentDir, join(snapshotFullPath, await getPlatform(), suiteDir))
 			resultDir = relative(currentDir, join(snapshotFullPath, '__results__', suiteDir))
 			diffDir = relative(currentDir, join(snapshotFullPath, '__diff_output__', suiteDir))
 
@@ -96,8 +96,8 @@ function createStore() {
 
 export const state = createStore()
 
-function resolveSnapshotPath(platform: string, options: VisOptions) {
-	return options.snapshotRootDir ?? `__vis__/${platform}`
+function resolveSnapshotPath(options: VisOptions) {
+	return options.snapshotRootDir ?? '__vis__'
 }
 
 function trimSuiteDir(suiteName: string, options: VisOptions) {

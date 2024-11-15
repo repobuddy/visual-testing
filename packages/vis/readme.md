@@ -37,16 +37,16 @@ import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-	 plugins: [
-		storybookTest(),
-		storybookVis()
-	],
-	test: {
-		browser: {
-			// ...
-		}
-		setupFiles: ['./vitest.setup.ts'],
-	}
+    plugins: [
+        storybookTest(),
+        storybookVis()
+    ],
+    test: {
+        browser: {
+            // ...
+        }
+        setupFiles: ['./vitest.setup.ts'],
+    }
 })
 ```
 
@@ -67,8 +67,8 @@ createVisConfig(/* options */).presets.basic()
 // capture image snapshot for all stories with `snapshot` tag,
 // for both light and dark themes
 createVisConfig(/* options */).presets.theme({
-	light() { document.body.classList.remove('dark') },
-	dark() { document.body.classList.add('dark') },
+    light() { document.body.classList.remove('dark') },
+    dark() { document.body.classList.add('dark') },
 })
 ```
 
@@ -79,8 +79,8 @@ On [storybook], you need to register the `beforeEach` hook in `.storybook/previe
 import { storybookPreviewVis } from 'storybook-addon-vis'
 
 export default {
-	// ...
-	beforeEach: storybookPreviewVis.beforeEach
+    // ...
+    beforeEach: storybookPreviewVis.beforeEach
 }
 ```
 
@@ -93,21 +93,21 @@ As with how tags work in [storybook], you can add the tag globally, per story fi
 ```ts
 // .storybook/preview.tsx
 export default {
-	// Enable image snapshot for all stories
-	tags: ['snapshot']
+    // Enable image snapshot for all stories
+    tags: ['snapshot']
 }
 
 // story.tsx
 export default {
-	title: 'Button',
-	// Take image snapshot automatically for all stories in this file
-	tags: ['snapshot']
+    title: 'Button',
+    // Take image snapshot automatically for all stories in this file
+    tags: ['snapshot']
 }
 
 export const MyStory = {
-	// Take image snapshot automatically for this story
-	tags: ['snapshot'],
-	// ...
+    // Take image snapshot automatically for this story
+    tags: ['snapshot'],
+    // ...
 }
 ```
 
@@ -116,15 +116,15 @@ much like `!test`.
 
 ```ts
 export default {
-	title: 'Button',
-	// Enable image snapshot for all stories in this file
-	tags: ['snapshot']
+    title: 'Button',
+    // Enable image snapshot for all stories in this file
+    tags: ['snapshot']
 }
 
 export const MyStory = {
-	// Disable image snapshot for this story
-	tags: ['!snapshot'],
-	// ...
+    // Disable image snapshot for this story
+    tags: ['!snapshot'],
+    // ...
 }
 ```
 
@@ -134,10 +134,10 @@ You can provide options to the `toMatchImageSnapshot` matcher using parameters.
 import { defineSnapshotParam } from 'storybook-addon-vis'
 
 export const MyStory = {
-	parameters: defineSnapshotParam({
-		failureThreshold: 70,
-	})
-	// ...
+    parameters: defineSnapshotParam({
+        failureThreshold: 70,
+    })
+    // ...
 }
 ```
 
@@ -152,54 +152,42 @@ import { expect } from '@storybook/test'
 import { page } from 'storybook-addon-vis'
 
 export const PageSnapshot = {
-	// typically you want to disable automatic snapshot when using manual snapshot
-	tags: ['!snapshot'],
-	// ...
-	async play() {
-		await expect(page.imageSnapshot()).toMatchImageSnapshot()
-	}
+    // typically you want to disable automatic snapshot when using manual snapshot
+    tags: ['!snapshot'],
+    // ...
+    async play() {
+        await expect(page.imageSnapshot()).toMatchImageSnapshot()
+    }
 }
 
 export const ElementSnapshot = {
-	// typically you want to disable automatic snapshot when using manual snapshot
-	tags: ['!snapshot'],
-	// ...
-	async play({ canvas }) {
-		const element = await canvas.getByTestid('subject')
-		await expect(page.imageSnapshot({ element })).toMatchImageSnapshot()
-	}
+    // typically you want to disable automatic snapshot when using manual snapshot
+    tags: ['!snapshot'],
+    // ...
+    async play({ canvas }) {
+        const element = await canvas.getByTestid('subject')
+        await expect(page.imageSnapshot({ element })).toMatchImageSnapshot()
+    }
 }
 ```
 
 ## Snapshot folder
 
-The snapshots are stored under the `__vis__` folder next to the test/story file:
+By default, the snapshots are stored under the `__vis__` folder at the root of the project:
 
 ```sh
-├── __vis__
-	├── __diff_output__ # where the diff images are stored
-	├── __result__ # where the resulting snapshot of the current run are stored
-	├── darwin # snapshot generated on macos by CI
-	├── linux # snapshot generated on linux by CI
-	├── local # snapshot generated on local machine
-		└── story.tsx
-			├── snapshot-1.png
-			├── snapshot-2.png
-			└── ...
-└── story.tsx
+v __vis__
+    ˃ __diff_output__ # where the diff images are stored
+    ˃ __result__ # where the resulting snapshot of the current run are stored
+    ˃ darwin # snapshot generated on macos by CI
+    ˃ linux # snapshot generated on linux by CI
+    v local # snapshot generated on local machine
+        v button.stories.tsx
+            snapshot-1.png
+            snapshot-2.png
+v src
+    button.stories.tsx
 ```
-
-This is a similar approach to [playwright]'s `page.screenshot()` which saves the screenshots under the `__screenshot__` folder.
-
-This is different from [jest-image-snapshot] which stores the snapshots under the `__snapshots__` folder at the root of the project.
-
-The reason for this is we need to support both [storybook] stories and [vitest] tests at the same time.
-Stories have a unique ID enforced by [storybook], and [jest-image-snapshot] uses it to uniquely identify the snapshots.
-This makes it possible to store the snapshots in the same folder.
-
-With [vitest] tests, we don't have such unique ID (that is stable across runs and humanly readable),
-meaning we have to retain the folder structure to uniquely identify the snapshots.
-This makes the single folder approach much less attractive.
 
 You can change the snapshot folder by providing the `snapshotDir` option to the `createVisConfig` function.
 
@@ -207,20 +195,62 @@ You can change the snapshot folder by providing the `snapshotDir` option to the 
 import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
 
 createVisConfig({
-	snapshotDir: 'path/to/snapshot'
+    snapshotRootDir: 'path/to/snapshot'
 })
+```
+
+Typically, you place your test files either in a dedicated `tests` folder or in the `src` folder along with your source code.
+By default, [storybook-addon-vis] removes that folder to reduces nesting.
+
+If you place your test files in multiple folders,
+such as in both `tests` and `src` folders,
+you can use `customizeSnapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
+
+```ts
+import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
+
+createVisConfig({
+    // keep the folder structure
+    customizeSnapshotSubpath: (subpath) => subpath
+})
+```
+
+With the above configuration, the snapshot folder structure will look like this:
+
+```sh
+v __vis__
+    > # ...
+    v local # snapshot generated on local machine
+        v examples
+            v button.stories.tsx
+                snapshot-1.png
+                snapshot-2.png
+        v src
+            v button.stories.tsx
+                snapshot-1.png
+                snapshot-2.png
+        v tests
+            v button.stories.tsx
+                snapshot-1.png
+                snapshot-2.png
+v examples
+    button.stories.tsx
+v src
+    button.stories.tsx
+v tests
+    button.stories.tsx
 ```
 
 ### Ignore snapshot folders
 
 Some snapshot folders should be ignored by git.
 
-With the default snapshot folder structure, you might want to add the following to your `.gitignore`:
+With the default snapshot folder structure, you should add the following to your `.gitignore`:
 
 ```sh
 # .gitignore
-**/__vis__/*/__diff_output__
-**/__vis__/*/__results__
+**/__vis__/__diff_output__
+**/__vis__/__results__
 **/__vis__/local
 ```
 
@@ -239,7 +269,6 @@ shamefully-hoist=true
 ```
 
 [jest-image-snapshot]: https://github.com/americanexpress/jest-image-snapshot
-[playwright]: https://playwright.dev/docs/screenshots
 [storybook-addon-vis]: https://github.com/repobuddy/storybook-addon-vis
 [storybook]: https://storybook.js.org
 [vitest]: https://vitest.dev/

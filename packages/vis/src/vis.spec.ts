@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest'
+import { commands } from './@vitest/browser/context.js'
 import { state } from './state.js'
 import { createVisConfig } from './vis.js'
 
@@ -7,7 +8,7 @@ it('can define the snapshot root folder relative to the root of the project', as
 		snapshotRootDir: '_sp_',
 	}).beforeAll({ name: 'some.test.ts', file: { filepath: 'dummy/some.test.ts' } }),
 		expect(state.getSnapshotFilePaths()).toMatchObject({
-			baselinePath: '_sp_/some.test.ts/can-define-the-snapshot-root-folder-relative-to-the-root-of-the-project-1.png',
+			baselinePath: `_sp_/${await commands.getSnapshotPlatform()}/some.test.ts/can-define-the-snapshot-root-folder-relative-to-the-root-of-the-project-1.png`,
 			diffPath:
 				'_sp_/__diff_output__/some.test.ts/can-define-the-snapshot-root-folder-relative-to-the-root-of-the-project-1.png',
 			resultPath:
@@ -42,7 +43,7 @@ it('can define default customizeSnapshotId', async () => {
 	}).beforeAll({ name: 'some.test.ts', file: { filepath: 'dummy/some.test.ts' } })
 
 	expect(state.getSnapshotFilePaths()).toMatchObject({
-		baselinePath: '_sp_/some.test.ts/can.png',
+		baselinePath: `_sp_/${await commands.getSnapshotPlatform()}/some.test.ts/can.png`,
 		diffPath: '_sp_/__diff_output__/some.test.ts/can.png',
 		resultPath: '_sp_/__results__/some.test.ts/can.png',
 	})
