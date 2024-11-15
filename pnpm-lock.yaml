@@ -35,7 +35,7 @@ importers:
         specifier: ^22.9.0
         version: 22.9.0
       '@vitest/coverage-v8':
-        specifier: 2.1.5
+        specifier: ^2.1.5
         version: 2.1.5(@vitest/browser@2.1.5)(vitest@2.1.5)
       husky:
         specifier: ^9.1.6
@@ -56,7 +56,7 @@ importers:
         specifier: ^5.6.3
         version: 5.6.3
       vitest:
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
 
   packages/vis:
@@ -129,10 +129,10 @@ importers:
         specifier: ^4.2.1
         version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
       '@vitest/browser':
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       '@vitest/expect':
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5
       boxen:
         specifier: ^8.0.0
@@ -217,7 +217,7 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
       '@vitest/browser':
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       globals:
         specifier: ^15.11.0
@@ -232,7 +232,7 @@ importers:
         specifier: ~5.6.2
         version: 5.6.3
       vitest:
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
 
   testcases/themes:
@@ -302,7 +302,7 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
       '@vitest/browser':
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       autoprefixer:
         specifier: ^10.4.20
@@ -323,7 +323,7 @@ importers:
         specifier: ~5.6.2
         version: 5.6.3
       vitest:
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
 
 packages:
