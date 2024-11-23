@@ -1,4 +1,4 @@
-import { state } from './state'
+import { store } from './store'
 
 /**
  * Determine should snapshot be taken.
@@ -8,5 +8,5 @@ import { state } from './state'
  * disabled by `!snapshot` tag: false
  */
 export function shouldTakeSnapshot() {
-	return state.shouldTakeSnapshot()
+	return store.shouldTakeSnapshot()
 }

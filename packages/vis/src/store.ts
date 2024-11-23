@@ -3,9 +3,9 @@ import type { StoryContext } from 'storybook/internal/types'
 import { omit, required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
 import { commands } from './@vitest/browser/context.js'
-import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
-import type { ImageSnapshotOptions } from './@vitest/browser/types'
-import type { MatchImageSnapshotOptions } from './expect.to_match_image_snapshot'
+import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
+import type { ImageSnapshotOptions } from './@vitest/browser/types.js'
+import type { MatchImageSnapshotOptions } from './expect.to_match_image_snapshot.js'
 import type { VisOptions } from './types.js'
 
 function createStore() {
@@ -94,7 +94,7 @@ function createStore() {
 	return state
 }
 
-export const state = createStore()
+export const store = createStore()
 
 function resolveSnapshotPath(options: VisOptions) {
 	return options.snapshotRootDir ?? '__vis__'

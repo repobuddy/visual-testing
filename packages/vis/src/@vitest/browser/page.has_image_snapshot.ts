@@ -1,6 +1,6 @@
 import type { BrowserPage } from '@vitest/browser/context'
 import { join } from 'pathe'
-import { state } from '../../state'
+import { store } from '../../store'
 import { commands } from './context'
 import type { CustomizeSnapshotIdOptions } from './types'
 
@@ -12,6 +12,6 @@ export interface HasImageSnapshotAction {
  * Check if the snapshot image exists.
  */
 export async function hasImageSnapshot(this: BrowserPage, options?: CustomizeSnapshotIdOptions | undefined) {
-	const { baselinePath } = state.getSnapshotFilePaths(options)
+	const { baselinePath } = store.getSnapshotFilePaths(options)
 	return commands.existFile(baselinePath)
 }

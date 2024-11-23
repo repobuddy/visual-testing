@@ -3,7 +3,7 @@ import { page } from './@vitest/browser/context.js'
 import './augment.js'
 import { toMatchImageSnapshot } from './expect.to_match_image_snapshot.js'
 import { shouldTakeSnapshot } from './should_take_snapshot.js'
-import { state } from './state.js'
+import { store } from './store.js'
 import type { VisOptions } from './types.js'
 
 expect.extend({ toMatchImageSnapshot })
@@ -21,7 +21,7 @@ export function createVisConfig(options?: VisOptions) {
 			},
 		},
 		async beforeAll(suite: { file: { filepath: string }; name: string }) {
-			return state.setupSuite(suite, options)
+			return store.setupSuite(suite, options)
 		},
 		afterEach: {
 			async matchImageSnapshot() {

@@ -8,7 +8,7 @@ import { commands, page, server } from './@vitest/browser/context.js'
 import { assertImageSnapshot, isImageSnapshot } from './@vitest/browser/image_snapshot.logic.js'
 import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
-import { state } from './state.js'
+import { store } from './store.js'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: MatchImageSnapshotOptions): Promise<void>
@@ -90,7 +90,7 @@ async function toMatchImageSnapshotInternal(
 	const { pass, diffAmount, diffImage } = compareImage(
 		baselineImage,
 		resultImage,
-		state.mergeMatchImageSnapshotOptions(options),
+		store.mergeMatchImageSnapshotOptions(options),
 	)
 
 	if (!pass) {
@@ -102,7 +102,7 @@ async function toMatchImageSnapshotInternal(
 		return {
 			pass: false,
 			message: () =>
-				dedent`Snapshot \`${state.getName()}\` mismatched
+				dedent`Snapshot \`${store.getName()}\` mismatched
 
 			${
 				options?.failureThreshold
@@ -112,9 +112,9 @@ async function toMatchImageSnapshotInternal(
 					: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
 			}
 
-			Expected:   '${resolve(state.getCurrentDir(), subject.baselinePath)}'
-			Actual:     '${resolve(state.getCurrentDir(), subject.resultPath)}'
-			Difference: '${resolve(state.getCurrentDir(), subject.diffPath)}'`,
+			Expected:   '${resolve(store.getCurrentDir(), subject.baselinePath)}'
+			Actual:     '${resolve(store.getCurrentDir(), subject.resultPath)}'
+			Difference: '${resolve(store.getCurrentDir(), subject.diffPath)}'`,
 		}
 	}
 	return success
