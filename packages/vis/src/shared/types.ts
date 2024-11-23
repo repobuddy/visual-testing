@@ -1,5 +1,5 @@
-import type { CustomizeSnapshotIdOptions } from './@vitest/browser/types'
-import type { MatchImageSnapshotOptions } from './expect.to_match_image_snapshot'
+import type { CustomizeSnapshotIdOptions } from '../@vitest/browser/types'
+import type { MatchImageSnapshotOptions } from '../expect.to_match_image_snapshot'
 
 /**
  * The project parameters for the snapshot.
