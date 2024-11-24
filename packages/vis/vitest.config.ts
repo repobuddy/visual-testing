@@ -1,11 +1,13 @@
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
+import storybookTest from '@storybook/experimental-addon-test/vitest-plugin'
 import react from '@vitejs/plugin-react'
+import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import { storybookVis } from './src/vitest-plugin.js'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react(), storybookTest(), storybookVis()],
+	plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis()],
+	root: '.',
 	test: {
 		name: 'vis',
 		browser: {
