@@ -28,6 +28,5 @@ export type ImageSnapshot = {
 	baselinePath: string
 	resultPath: string
 	diffPath: string
-	base64: string
 	image: ImageData
 }

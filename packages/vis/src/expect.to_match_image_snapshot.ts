@@ -54,7 +54,7 @@ async function toMatchImageSnapshotInternal(
 		return success
 	}
 	if (!isImageSnapshot(subject)) {
-		if (subject?.path && subject?.base64) {
+		if (isScreenshotResult(subject)) {
 			return {
 				pass: false,
 				actual: subject,
@@ -123,6 +123,10 @@ async function toMatchImageSnapshotInternal(
 const success = {
 	pass: true,
 	message: () => '',
+}
+
+function isScreenshotResult(subject: any) {
+	return subject?.path && subject?.base64
 }
 
 function tryReadSnapshot(path: string): Promise<string | undefined> {

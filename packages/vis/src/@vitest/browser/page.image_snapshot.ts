@@ -29,7 +29,6 @@ export async function imageSnapshot(
 		baselinePath,
 		resultPath,
 		diffPath,
-		base64: screenshot.base64,
 		image,
 	}
 }
