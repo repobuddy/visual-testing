@@ -1,3 +1,5 @@
+import type { VisOptions } from './types'
+
 export type VisState = {
 	snapshotRootDir?: string | undefined
 	timeout?: number | undefined
@@ -7,6 +9,6 @@ export type VisState = {
 }
 
 export type VisContext = {
-	customizeSnapshotSubpath?: (subPath: string) => string
+	options?: VisOptions
 	state: VisState
 }

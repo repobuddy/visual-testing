@@ -11,7 +11,7 @@ import { serverVisConext } from './server/vis_context.js'
 import type { VisOptions } from './shared/types.js'
 
 export function storybookVis(options?: VisOptions) {
-	serverVisConext.customizeSnapshotSubpath = options?.customizeSnapshotSubpath
+	serverVisConext.options = options
 	serverVisConext.state.snapshotRootDir = options?.snapshotRootDir
 	serverVisConext.state.timeout = options?.timeout
 	return {
