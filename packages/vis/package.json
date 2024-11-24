@@ -27,6 +27,7 @@
 			"require": "./dist/index.cjs"
 		},
 		"./preset": "./dist/preset.cjs",
+		"./vitest-global-setup": "./dist/vitest-global-setup.js",
 		"./vitest-setup": "./dist/vitest-setup.js",
 		"./vitest-plugin": {
 			"types": "./vitest-plugin.d.ts",
@@ -99,6 +100,7 @@
 	"bundler": {
 		"exportEntries": [
 			"src/index.ts",
+			"src/vitest-global-setup.ts",
 			"src/vitest-setup.ts",
 			"src/preview.ts"
 		],

@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { resetServerState, state } from './server/state'
+import { afterEach, expect, it } from 'vitest'
+import { resetServerState, serverVisConext } from './server/vis_context'
 import { storybookVis } from './vitest-plugin'
 
 it('name as `vitest:storybook-addon-vis`', () => {
@@ -29,7 +29,7 @@ it('register commands', () => {
 
 it('stores options in the server state', () => {
 	storybookVis({ snapshotRootDir: 'snapshots' })
-	expect(state.options.snapshotRootDir).toBe('snapshots')
+	expect(serverVisConext.state.snapshotRootDir).toBe('snapshots')
 })
 
 afterEach(() => resetServerState())

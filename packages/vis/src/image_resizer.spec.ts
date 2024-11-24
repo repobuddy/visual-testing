@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { toImageData } from './image_data'
 import { createImageResizer, createImageResizer2 } from './image_resizer'
 import { UNI_PNG_BASE64 } from './testing/constants'

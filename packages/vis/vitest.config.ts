@@ -22,7 +22,6 @@ export default defineConfig({
 				'**/*.stories.{js,mjs,jsx,tsx}',
 			],
 		},
-		globals: true,
 		include: [
 			// But we are including them here to cover the scenario that
 			// not all tests are stories.
@@ -31,5 +30,6 @@ export default defineConfig({
 			'**/*.stories.?(m)[jt]s?(x)',
 		],
 		setupFiles: ['./.storybook/vitest.setup.ts'],
+		globalSetup: './src/vitest-global-setup.ts',
 	},
 })

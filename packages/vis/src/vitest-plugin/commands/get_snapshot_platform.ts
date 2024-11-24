@@ -9,6 +9,6 @@ export interface GetSnapshotPlatformCommand {
 	getSnapshotPlatform: () => Promise<string>
 }
 
-export const getSnapshotPlatform = async () => {
+export async function getSnapshotPlatform() {
 	return ci ? process.platform : 'local'
 }
