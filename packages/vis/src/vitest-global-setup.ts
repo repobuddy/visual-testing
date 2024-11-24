@@ -8,6 +8,7 @@ export default function setupVis(context: {
 	testTimeout: number
 	hookTimeout: number
 }) {
+	console.log('setupVis', context)
 	serverVisConext.state.projectDir = context.root
 	serverVisConext.state.testTimeout = context.testTimeout
 	serverVisConext.state.hookTimeout = context.hookTimeout

@@ -21,6 +21,7 @@ it('register commands', () => {
 					getSnapshotPlatform: expect.any(Function),
 					rmDir: expect.any(Function),
 					isCI: expect.any(Function),
+					imageSnapshot: expect.any(Function),
 				},
 			},
 		},
