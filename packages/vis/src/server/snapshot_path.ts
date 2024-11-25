@@ -3,8 +3,8 @@ import { rimraf } from 'rimraf'
 import { DIFF_OUTPUT_DIR, RESULT_DIR, SNAPSHOT_DIR } from '../shared/contants'
 import type { VisOptions } from '../shared/types'
 
-export function resolveSnapshotRootDir(projectDir: string, options: VisOptions | undefined) {
-	return join(projectDir, options?.snapshotRootDir ?? SNAPSHOT_DIR)
+export function resolveSnapshotRootDir(options: VisOptions | undefined) {
+	return options?.snapshotRootDir ?? SNAPSHOT_DIR
 }
 
 export async function removeArtifactDirs(snapshotRootDir: string) {

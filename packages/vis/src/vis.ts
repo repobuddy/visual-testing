@@ -1,6 +1,7 @@
 import { afterEach, beforeAll, expect } from 'vitest'
 import { page } from './@vitest/browser/context.js'
 import './augment.js'
+import { setupSuite } from './client/before_all.js'
 import { toMatchImageSnapshot } from './expect.to_match_image_snapshot.js'
 import type { VisOptions } from './shared/types.js'
 import { shouldTakeSnapshot } from './should_take_snapshot.js'
@@ -21,6 +22,7 @@ export function createVisConfig(options?: VisOptions) {
 			},
 		},
 		async beforeAll(suite: { file: { filepath: string }; name: string }) {
+			setupSuite(suite)
 			return store.setupSuite(suite, options)
 		},
 		afterEach: {

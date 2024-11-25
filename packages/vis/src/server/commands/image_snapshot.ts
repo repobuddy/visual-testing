@@ -22,7 +22,7 @@ export const imageSnapshot: BrowserCommand<[taskName: string, options?: ImageSna
 	if (!context.testPath) {
 		throw new Error('Cannot take a screenshot without a test path')
 	}
-	console.info('imageSnapshot', Object.keys(context.context), _taskName)
+	// console.info('imageSnapshot', Object.keys(context.context), _taskName)
 	return {
 		type: imageSnapshotSymbol,
 		snapshotFilename: '',
