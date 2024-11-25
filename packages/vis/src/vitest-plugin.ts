@@ -8,13 +8,12 @@ import { getVisState } from './server/commands/get_vis_state.js'
 import { imageSnapshot } from './server/commands/image_snapshot.js'
 import { isCI } from './server/commands/is_ci.js'
 import { rmDir } from './server/commands/rm_dir.js'
+import { setupVisSuite } from './server/commands/setup_vis_suite.js'
 import { serverVisContext } from './server/vis_context.js'
 import type { VisOptions } from './shared/types.js'
 
-export function storybookVis(options?: VisOptions) {
+export function storybookVis(options: VisOptions = {}) {
 	serverVisContext.options = options
-	serverVisContext.state.snapshotRootDir = options?.snapshotRootDir
-	serverVisContext.state.timeout = options?.timeout ?? 123
 	return {
 		name: 'vitest:storybook-addon-vis',
 		config() {
@@ -30,6 +29,7 @@ export function storybookVis(options?: VisOptions) {
 							isCI,
 							getSnapshotPlatform,
 							imageSnapshot,
+							setupVisSuite,
 							getVisState,
 						},
 					},

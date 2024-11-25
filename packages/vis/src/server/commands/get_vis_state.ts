@@ -1,6 +1,6 @@
 import type { BrowserCommand } from 'vitest/node'
 import type { VisState } from '../../shared/vis_context'
-import { serverVisContext } from '../vis_context'
+import { getVisContext } from '../vis_context'
 
 export interface GetVisStateCommand {
 	/**
@@ -9,7 +9,7 @@ export interface GetVisStateCommand {
 	getVisState: () => Promise<VisState>
 }
 
-export const getVisState: BrowserCommand<[]> = async () => {
-	console.info('getVisState', serverVisContext.state)
-	return serverVisContext.state
+export const getVisState: BrowserCommand<[]> = async (context) => {
+	const visContext = await getVisContext(context.project)
+	return visContext.state
 }

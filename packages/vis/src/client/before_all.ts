@@ -1,12 +1,12 @@
 import { commands } from '../@vitest/browser/context'
 import { clientVisConext } from './vis_context'
 
-export async function setupSuite(_suite: { file: { filepath: string }; name: string }) {
+export async function setupSuite(suite: { file: { filepath: string }; name: string }) {
 	if (!clientVisConext.state) {
-		// console.log('setupSuite', 'getting state')
 		clientVisConext.state = await commands.getVisState()
 	}
-	// console.log('setupSuite', clientVisConext.state)
+
+	commands.setupVisSuite(suite)
 	// // console.debug('setupSuite', suite.name)
 	// testFilepath = suite.file.filepath
 	// const projectDir = serverVisConext.state.projectPath

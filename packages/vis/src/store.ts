@@ -37,7 +37,7 @@ function createStore() {
 			const snapshotPath = resolveSnapshotPath(options)
 			const snapshotFullPath = join(projectDir, snapshotPath)
 			currentDir = dirname(testFilepath)
-			const suiteDir = trimSuiteDir(suite.name, options)
+			const suiteDir = getSubpath(suite.name, options)
 			baselineDir = relative(currentDir, join(snapshotFullPath, await getPlatform(), suiteDir))
 			resultDir = relative(currentDir, join(snapshotFullPath, '__results__', suiteDir))
 			diffDir = relative(currentDir, join(snapshotFullPath, '__diff_output__', suiteDir))
@@ -46,8 +46,6 @@ function createStore() {
 			snapshot = snapshot ?? {}
 			if (!snapshot[testFilepath]) {
 				snapshot[testFilepath] = Object.create(null)
-				await commands.rmDir(resultDir)
-				await commands.rmDir(diffDir)
 			}
 		},
 		setupStory(ctx: StoryContext) {
@@ -100,7 +98,7 @@ function resolveSnapshotPath(options: VisOptions) {
 	return options.snapshotRootDir ?? '__vis__'
 }
 
-function trimSuiteDir(suiteName: string, options: VisOptions) {
+export function getSubpath(suiteName: string, options: VisOptions) {
 	const customizeSnapshotSubpath = options.customizeSnapshotSubpath ?? defaultCustomizeSnapshotSubpath
 	return customizeSnapshotSubpath(suiteName)
 }

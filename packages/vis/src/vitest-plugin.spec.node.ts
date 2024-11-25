@@ -22,6 +22,7 @@ it('register commands', () => {
 					getVisState: expect.any(Function),
 					rmDir: expect.any(Function),
 					isCI: expect.any(Function),
+					setupVisSuite: expect.any(Function),
 					imageSnapshot: expect.any(Function),
 				},
 			},
@@ -30,8 +31,9 @@ it('register commands', () => {
 })
 
 it('stores options in the server state', () => {
-	storybookVis({ snapshotRootDir: 'snapshots' })
-	expect(serverVisContext.state.snapshotRootDir).toBe('snapshots')
+	const options = { snapshotRootDir: 'snapshots' }
+	storybookVis(options)
+	expect(serverVisContext.options).toBe(options)
 })
 
 afterEach(() => serverVisContext.reset())

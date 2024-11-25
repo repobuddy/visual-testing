@@ -11,6 +11,7 @@ import type { GetVisStateCommand } from './server/commands/get_vis_state'
 import type { ImageSnapshotCommand } from './server/commands/image_snapshot'
 import type { IsCICommand } from './server/commands/is_ci'
 import type { RmDirCommand } from './server/commands/rm_dir'
+import type { SetupVisSuiteCommand } from './server/commands/setup_vis_suite'
 
 declare module '@vitest/browser/context' {
 	interface BrowserPage extends ImageSnapshotAction, HasImageSnapshotAction {}
@@ -21,6 +22,7 @@ declare module '@vitest/browser/context' {
 			RmDirCommand,
 			ImageSnapshotCommand,
 			GetVisStateCommand,
+			SetupVisSuiteCommand,
 			IsCICommand,
 			ExistFileCommand {}
 }

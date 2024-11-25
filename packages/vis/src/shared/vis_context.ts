@@ -7,9 +7,19 @@ export type VisState = {
 	projectPath: string
 	testTimeout?: number | undefined
 	hookTimeout?: number | undefined
+	platform: string
 }
 
 export type VisContext = {
 	options?: VisOptions
 	state: VisState
+	suite: Record<
+		string,
+		{
+			baselineDir: string
+			resultDir: string
+			diffDir: string
+			tasks: Record<string, { count: number }>
+		}
+	>
 }
