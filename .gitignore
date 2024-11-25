@@ -53,6 +53,10 @@ node_modules
 # turbo
 .turbo
 
+# vite
+vite.config.ts.timestamp*
+vitest.config.ts.timestamp*
+
 # project
 **/__screenshots__/*/__diff_output__
 **/__screenshots__/*/__results__
