@@ -52,5 +52,14 @@
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit"
 	},
-	"git-graph.dialog.general.referenceInputSpaceSubstitution": "Hyphen"
+	"git-graph.dialog.general.referenceInputSpaceSubstitution": "Hyphen",
+	"material-icon-theme.files.associations": {
+		"*.accept.ts": "test-ts",
+		"*.excalidraw": "maven",
+		"*.integrate.ts": "test-ts",
+		"*.spec.node.ts": "test-ts",
+		"*.unit.node.ts": "test-ts",
+		"*.system.ts": "test-ts",
+		"*.unit.ts": "test-ts"
+	}
 }

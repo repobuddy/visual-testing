@@ -22,7 +22,7 @@ export default defineConfig({
 			// But we are including them here to cover the scenario that
 			// not all tests are stories.
 			// Also, this is easier for the user to setup.
-			'**/*.spec.node.ts',
+			'**/*.{spec,test,unit,accept,integrate,system,perf,stress}.node.ts',
 		],
 	},
 })
