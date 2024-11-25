@@ -1,5 +1,7 @@
 // import type { Locator } from '@vitest/browser/context'
 
+import type { CustomizeSnapshotIdOptions } from '../../../shared/types'
+
 export interface ImageSnapshotOptions extends CustomizeSnapshotIdOptions {
 	element?: Element //| Locator
 	/**
@@ -8,18 +10,6 @@ export interface ImageSnapshotOptions extends CustomizeSnapshotIdOptions {
 	 * Default: 30000
 	 */
 	timeout?: number | undefined
-}
-
-export type CustomizeSnapshotIdOptions = {
-	/**
-	 * Customize the snapshot id. This is used as the filename of the snapshot:
-	 *
-	 * `${snapshotId}.png`
-	 *
-	 * @param id The id of the snapshot.
-	 * @param index The index of the snapshot.
-	 */
-	customizeSnapshotId?: (id: string, index: number) => string
 }
 
 export type ImageSnapshot = {

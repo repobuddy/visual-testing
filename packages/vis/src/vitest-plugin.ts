@@ -7,6 +7,8 @@ import { getSnapshotPlatform } from './server/commands/get_snapshot_platform.js'
 import { isCI } from './server/commands/is_ci.js'
 import { rmDir } from './server/commands/rm_dir.js'
 
+export type * from './shared/types.js'
+
 export function storybookVis() {
 	return {
 		name: 'vitest:storybook-addon-vis',
