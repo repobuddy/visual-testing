@@ -7,7 +7,7 @@ import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
 import type { ImageSnapshotOptions } from './@vitest/browser/types'
 import type { MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
-import { resolveSnapshotRootDir } from '../shared/snapshot_path.js'
+import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path.js'
 
 function createStore() {
 	// test suite (runner.beforeAll) states
@@ -37,7 +37,7 @@ function createStore() {
 
 			const snapshotFullPath = join(projectDir, resolveSnapshotRootDir(options))
 			currentDir = dirname(testFilepath)
-			const suiteDir = trimSuiteDir(suite.name, options)
+			const suiteDir = getSnapshotSubpath(suite.name, options)
 			baselineDir = relative(currentDir, join(snapshotFullPath, await getPlatform(), suiteDir))
 			resultDir = relative(currentDir, join(snapshotFullPath, RESULT_DIR, suiteDir))
 			diffDir = relative(currentDir, join(snapshotFullPath, DIFF_OUTPUT_DIR, suiteDir))
@@ -95,18 +95,6 @@ function createStore() {
 }
 
 export const state = createStore()
-
-function trimSuiteDir(suiteName: string, options: VisOptions) {
-	const customizeSnapshotSubpath = options.customizeSnapshotSubpath ?? defaultCustomizeSnapshotSubpath
-	return customizeSnapshotSubpath(suiteName)
-}
-
-function defaultCustomizeSnapshotSubpath(suiteName: string) {
-	const [suiteDir] = suiteName.split('/', 1)
-	if (['tests', 'test', 'src', 'source', 'js', 'ts', 'lib'].includes(suiteDir))
-		return suiteName.slice(suiteDir.length + 1)
-	return suiteName
-}
 
 let platformP: Promise<string>
 function getPlatform() {
