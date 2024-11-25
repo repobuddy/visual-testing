@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { commands, page, server } from './index.js'
-import { UNI_PNG_URL } from './testing/constants'
+import { commands, page, server } from '../index.js'
+import { UNI_PNG_URL } from '../testing/constants.js'
 
 export default {
 	title: 'expect.toMatchImageSnapshot',

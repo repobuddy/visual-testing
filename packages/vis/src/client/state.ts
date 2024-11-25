@@ -5,8 +5,8 @@ import { getCurrentTest } from 'vitest/suite'
 import { commands } from './@vitest/browser/context.js'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
 import type { ImageSnapshotOptions } from './@vitest/browser/types'
-import type { MatchImageSnapshotOptions } from './expect.to_match_image_snapshot'
-import type { VisOptions } from './types.js'
+import type { MatchImageSnapshotOptions } from './expect.to_match_image_snapshot.js'
+import type { VisOptions } from '../types.js'
 
 function createStore() {
 	// test suite (runner.beforeAll) states

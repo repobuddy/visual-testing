@@ -1,6 +1,6 @@
 import { toImageData } from './image_data'
 import { createImageResizer, createImageResizer2 } from './image_resizer'
-import { UNI_PNG_BASE64 } from './testing/constants'
+import { UNI_PNG_BASE64 } from '../testing/constants'
 
 it('returns the same image if no resize is needed', async () => {
 	const image = await toImageData(UNI_PNG_BASE64)

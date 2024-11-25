@@ -1,10 +1,10 @@
 import { afterEach, beforeAll, expect } from 'vitest'
 import { page } from './@vitest/browser/context.js'
-import './augment.js'
+import '../augment.js'
 import { toMatchImageSnapshot } from './expect.to_match_image_snapshot.js'
 import { shouldTakeSnapshot } from './should_take_snapshot.js'
 import { state } from './state.js'
-import type { VisOptions } from './types.js'
+import type { VisOptions } from '../types.js'
 
 expect.extend({ toMatchImageSnapshot })
 
