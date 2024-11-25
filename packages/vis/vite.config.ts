@@ -7,7 +7,6 @@ import { storybookVis } from './src/vitest-plugin.js'
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis()],
-	root: '.',
 	test: {
 		name: 'vis',
 		browser: {
