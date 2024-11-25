@@ -7,6 +7,7 @@ import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
 import type { ImageSnapshotOptions } from './@vitest/browser/types'
 import type { MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
+import { resolveSnapshotRootDir } from '../shared/snapshot_path.js'
 
 function createStore() {
 	// test suite (runner.beforeAll) states
@@ -34,8 +35,7 @@ function createStore() {
 			testFilepath = suite.file.filepath
 			const projectDir = testFilepath.slice(0, -suite.name.length)
 
-			const snapshotPath = resolveSnapshotPath(options)
-			const snapshotFullPath = join(projectDir, snapshotPath)
+			const snapshotFullPath = join(projectDir, resolveSnapshotRootDir(options))
 			currentDir = dirname(testFilepath)
 			const suiteDir = trimSuiteDir(suite.name, options)
 			baselineDir = relative(currentDir, join(snapshotFullPath, await getPlatform(), suiteDir))
@@ -95,10 +95,6 @@ function createStore() {
 }
 
 export const state = createStore()
-
-function resolveSnapshotPath(options: VisOptions) {
-	return options.snapshotRootDir ?? '__vis__'
-}
 
 function trimSuiteDir(suiteName: string, options: VisOptions) {
 	const customizeSnapshotSubpath = options.customizeSnapshotSubpath ?? defaultCustomizeSnapshotSubpath
