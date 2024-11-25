@@ -6,6 +6,7 @@ import { commands } from './@vitest/browser/context.js'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
 import type { ImageSnapshotOptions } from './@vitest/browser/types'
 import type { MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
+import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
 
 function createStore() {
 	// test suite (runner.beforeAll) states
@@ -38,8 +39,8 @@ function createStore() {
 			currentDir = dirname(testFilepath)
 			const suiteDir = trimSuiteDir(suite.name, options)
 			baselineDir = relative(currentDir, join(snapshotFullPath, await getPlatform(), suiteDir))
-			resultDir = relative(currentDir, join(snapshotFullPath, '__results__', suiteDir))
-			diffDir = relative(currentDir, join(snapshotFullPath, '__diff_output__', suiteDir))
+			resultDir = relative(currentDir, join(snapshotFullPath, RESULT_DIR, suiteDir))
+			diffDir = relative(currentDir, join(snapshotFullPath, DIFF_OUTPUT_DIR, suiteDir))
 
 			suiteOptions = options
 			snapshot = snapshot ?? {}
