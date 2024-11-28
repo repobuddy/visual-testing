@@ -49,6 +49,7 @@ export const page = new Proxy<BrowserPage>(
 			return ((target as any)[prop] ?? ctx?.page)
 				? (ctx?.page as any)[prop]
 				: () => {
+						/* v8 ignore start : used in storybook, not in vitest */
 						if (prop === 'imageSnapshot') {
 							return { type: imageSnapshotStubSymbol }
 						}
@@ -56,6 +57,7 @@ export const page = new Proxy<BrowserPage>(
 							return false
 						}
 						console.info(`\`page.${prop.toString()}\` does not exist when running in browser`)
+						/* v8 ignore end */
 					}
 		},
 	},
