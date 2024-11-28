@@ -30,7 +30,6 @@
 		"@commitlint/cli": "^19.5.0",
 		"@commitlint/config-conventional": "^19.5.0",
 		"@repobuddy/biome": "^1.7.1",
-		"@types/node": "^22.9.0",
 		"@vitest/coverage-v8": "^2.1.5",
 		"husky": "^9.1.6",
 		"npm-run-all2": "^7.0.0",

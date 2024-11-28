@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react'
 import { screen } from '@testing-library/react'
 import { page } from 'storybook-addon-vis'
-import { expect, it } from 'vitest'
+import { expect, it, test } from 'vitest'
 import * as rawStories from './story_snapshot.stories'
 
 const stories = composeStories(rawStories)
