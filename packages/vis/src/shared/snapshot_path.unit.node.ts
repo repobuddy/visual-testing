@@ -21,10 +21,23 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 
 describe(`${getSnapshotSubpath.name}()`, () => {
 	it('should use defaultCustomizeSnapshotSubpath when customizeSnapshotSubpath is not provided', () => {
-		const suiteName = 'tests/myTestSuite'
 		const options: VisOptions = {}
-		const result = getSnapshotSubpath(suiteName, options)
-		expect(result).toBe('myTestSuite')
+		const suiteNames = [
+			'tests/myTestSuite',
+			'test/myTestSuite',
+			'src/myTestSuite',
+			'source/myTestSuite',
+			'js/myTestSuite',
+			'ts/myTestSuite',
+			'lib/myTestSuite',
+		]
+		suiteNames.forEach((suiteName) => {
+			const result = getSnapshotSubpath(suiteName, options)
+			expect(result).toBe('myTestSuite')
+		})
+
+		const result = getSnapshotSubpath('a/b', options)
+		expect(result).toBe('a/b')
 	})
 
 	it('should use customizeSnapshotSubpath when provided', () => {
