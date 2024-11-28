@@ -1,9 +1,9 @@
-// import type { Locator } from '@vitest/browser/context'
+import type { Locator } from '@vitest/browser/context'
 
 import type { CustomizeSnapshotIdOptions } from '../../../shared/types'
 
 export interface ImageSnapshotOptions extends CustomizeSnapshotIdOptions {
-	element?: Element //| Locator
+	element?: Element | Locator
 	/**
 	 * Timeout for taking the snapshot.
 	 *

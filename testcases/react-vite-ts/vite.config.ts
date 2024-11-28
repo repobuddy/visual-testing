@@ -14,7 +14,6 @@ export default defineConfig({
 			name: 'chromium',
 			provider: 'playwright',
 		},
-		globals: true,
 		include: [
 			// But we are including them here to cover the scenario that
 			// not all tests are stories.
