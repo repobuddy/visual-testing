@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.js'
 import type { VisOptions } from './types.js'
 
-describe('resolveSnapshotRootDir', () => {
+describe(`${resolveSnapshotRootDir.name}()`, () => {
 	it('should return the provided snapshotRootDir if defined', () => {
 		const result = resolveSnapshotRootDir({ snapshotRootDir: 'custom_dir' })
 		expect(result).toBe('custom_dir')
@@ -19,7 +19,7 @@ describe('resolveSnapshotRootDir', () => {
 	})
 })
 
-describe('getSnapshotSubpath', () => {
+describe(`${getSnapshotSubpath.name}()`, () => {
 	it('should use defaultCustomizeSnapshotSubpath when customizeSnapshotSubpath is not provided', () => {
 		const suiteName = 'tests/myTestSuite'
 		const options: VisOptions = {}
