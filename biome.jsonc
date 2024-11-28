@@ -28,6 +28,6 @@
 		}
 	},
 	"organizeImports": {
-		"enabled": false
+		"enabled": true
 	}
 }

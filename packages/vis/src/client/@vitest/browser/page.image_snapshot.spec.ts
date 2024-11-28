@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
+import { RESULT_DIR } from '../../../shared/contants.js'
 import { page } from './context.js'
 import { toSnapshotId } from './image_snapshot.logic.js'
-import { RESULT_DIR } from '../../../shared/contants.js'
 
 it(`save file under ${RESULT_DIR}`, async ({ task }) => {
 	const f1 = await page.imageSnapshot()

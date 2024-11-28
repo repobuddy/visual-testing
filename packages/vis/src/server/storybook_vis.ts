@@ -1,12 +1,12 @@
 import type { Plugin } from 'vitest/config'
 import '../augment.js'
+import type { VisOptions } from '../shared/types.js'
 import { copyFile } from './commands/copy_file.js'
 import { existDir } from './commands/exist_dir.js'
 import { existFile } from './commands/exist_file.js'
 import { getSnapshotPlatform } from './commands/get_snapshot_platform.js'
 import { isCI } from './commands/is_ci.js'
 import { rmDir } from './commands/rm_dir.js'
-import type { VisOptions } from '../shared/types.js'
 import { visContext } from './vis_context.js'
 
 export function storybookVis(options?: VisOptions) {

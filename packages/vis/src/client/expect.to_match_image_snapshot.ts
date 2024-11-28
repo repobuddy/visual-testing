@@ -3,13 +3,13 @@ import dedent from 'dedent'
 import { resolve } from 'pathe'
 import pixelmatch, { type PixelmatchOptions } from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
+import type { MatchImageSnapshotOptions } from '../shared/types.js'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.js'
 import { commands, page, server } from './@vitest/browser/context.js'
 import { assertImageSnapshot, isImageSnapshot } from './@vitest/browser/image_snapshot.logic.js'
 import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
 import { state } from './state.js'
-import type { MatchImageSnapshotOptions } from '../shared/types.js'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: MatchImageSnapshotOptions): Promise<void>
