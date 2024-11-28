@@ -56,7 +56,7 @@ export const page = new Proxy<BrowserPage>(
 						if (prop === 'hasImageSnapshot') {
 							return false
 						}
-						console.info(`\`page.${prop.toString()}\` does not exist when running in browser`)
+						console.error(`\`page.${prop.toString()}\` does not exist when running in browser`)
 						/* v8 ignore end */
 					}
 		},
