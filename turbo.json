@@ -14,16 +14,16 @@
 			"dependsOn": ["^build"],
 			"outputs": ["coverage/**/*"]
 		},
-		"dev": {
-			"cache": false,
-			"persistent": true
-		},
 		"nuke": {
 			"cache": false,
 			"dependsOn": ["clean"]
 		},
 		"test": {
 			"dependsOn": ["^build"]
+		},
+		"w": {
+			"dependsOn": ["^build"],
+			"persistent": true
 		}
 	}
 }
