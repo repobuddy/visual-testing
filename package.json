@@ -20,7 +20,6 @@
 		"verify:pkg": "turbo test",
 		"version": "changeset version",
 		"vis": "pnpm --filter=./packages/vis",
-		"w": "vitest",
 		"w:trv": "vitest  --project=testcase-react-vite-ts"
 	},
 	"devDependencies": {

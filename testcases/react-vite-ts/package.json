@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"clean": "rimraf dist",
-		"dev": "run-p build:watch \"sb --quiet\"",
+		"dev": "run-p w",
 		"nuke": "rimraf node_modules",
 		"test": "vitest run",
 		"sb": "storybook dev -p 6106",

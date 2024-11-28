@@ -45,7 +45,7 @@
 		"build:sb": "storybook build",
 		"build:watch": "pnpm build --watch",
 		"clean": "rimraf dist",
-		"dev": "run-p build:watch \"sb --quiet\"",
+		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"prerelease": "zx scripts/prepublish-checks.js",
 		"sb": "storybook dev -p 6006",
