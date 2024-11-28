@@ -19,10 +19,9 @@ export default defineConfig({
 		},
 		globals: true,
 		include: [
-			// But we are including them here to cover the scenario that
-			// not all tests are stories.
-			// Also, this is easier for the user to setup.
-			'**/*.{spec,test,unit,accept,integrate,system,perf,stress}.node.ts',
+			'src/server/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.ts',
+			'src/shared/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.ts',
+			'src/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.node.ts',
 		],
 	},
 })

@@ -13,7 +13,6 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 		expect(result).toBe('__vis__')
 	})
 	it('should return "__vis__" if options is undefined', () => {
-		9
 		const result = resolveSnapshotRootDir(undefined)
 		expect(result).toBe('__vis__')
 	})
