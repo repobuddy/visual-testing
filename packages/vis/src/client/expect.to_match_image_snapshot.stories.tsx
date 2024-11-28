@@ -50,14 +50,14 @@ export const Element: StoryObj = {
 }
 
 export const DifferentSize: StoryObj = {
-	tags: ['!test'],
+	// tags: ['!test'],
 	loaders: [
 		async () => {
-			return { updateSnapshot: server.config.snapshotOptions.updateSnapshot }
+			return { hasImageSnapshot: await page.hasImageSnapshot() }
 		},
 	],
-	render(_, { loaded: { updateSnapshot } }) {
-		const style = updateSnapshot === 'all' ? { width: 128, height: 128 } : { width: 256, height: 256 }
+	render(_, { loaded: { hasImageSnapshot } }) {
+		const style = hasImageSnapshot ? { width: 128, height: 128 } : { width: 256, height: 256 }
 		return <img style={style} src={UNI_PNG_URL} />
 	},
 	async play({ canvas }) {
