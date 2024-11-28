@@ -1,7 +1,5 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		// "baseUrl": ".",
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"incremental": false,

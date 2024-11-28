@@ -17,7 +17,6 @@ export default defineConfig({
 				'**/*.stories.{js,mjs,jsx,tsx}',
 			],
 		},
-		globals: true,
 		include: [
 			'src/server/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.ts',
 			'src/shared/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.ts',
