@@ -98,7 +98,9 @@
 	"bundler": {
 		"exportEntries": [
 			"src/index.ts",
-			"src/vitest-setup.ts",
+			"src/vitest-setup.ts"
+		],
+		"previewEntries": [
 			"src/preview.ts"
 		],
 		"nodeEntries": [

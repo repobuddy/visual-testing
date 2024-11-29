@@ -9,9 +9,28 @@ import {
 } from '@storybook/test'
 import type { BrowserCommands, BrowserPage, CDPSession, Platform } from '@vitest/browser/context'
 import type { SerializedConfig } from 'vitest'
+import type { CopyFileCommand } from '../../../server/commands/copy_file'
+import type { ExistDirCommand } from '../../../server/commands/exist_dir'
+import type { ExistFileCommand } from '../../../server/commands/exist_file'
+import type { GetSnapshotPlatformCommand } from '../../../server/commands/get_snapshot_platform'
+import type { IsCICommand } from '../../../server/commands/is_ci'
+import type { RmDirCommand } from '../../../server/commands/rm_dir'
+import type { SetupVisSuiteCommand } from '../../../server/commands/setup_vis_suite'
 import { imageSnapshotStubSymbol } from './constants'
-import { hasImageSnapshot } from './page.has_image_snapshot'
-import { imageSnapshot } from './page.image_snapshot'
+import { type HasImageSnapshotAction, hasImageSnapshot } from './page.has_image_snapshot'
+import { type ImageSnapshotAction, imageSnapshot } from './page.image_snapshot'
+
+declare module '@vitest/browser/context' {
+	interface BrowserPage extends ImageSnapshotAction, HasImageSnapshotAction {}
+	interface BrowserCommands
+		extends CopyFileCommand,
+			ExistDirCommand,
+			GetSnapshotPlatformCommand,
+			RmDirCommand,
+			IsCICommand,
+			SetupVisSuiteCommand,
+			ExistFileCommand {}
+}
 
 let ctx: Awaited<typeof import('@vitest/browser/context')>
 

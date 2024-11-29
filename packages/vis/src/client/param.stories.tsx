@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { defineSnapshotParam, page } from '../index.js'
+import { commands, defineSnapshotParam, page } from '../index.js'
 
 export default {
 	title: 'param',
@@ -37,6 +37,8 @@ export const ParamAppliesToPlay: StoryObj = {
 		return <div data-testid="subject">{hasImageSnapshot ? 'unit text' : 'unit test'}</div>
 	},
 	play: async ({ canvas }) => {
+		console.info('eeee', commands.setupVisSuite)
+
 		const subject = canvas.getByTestId('subject')
 		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot()
 	},

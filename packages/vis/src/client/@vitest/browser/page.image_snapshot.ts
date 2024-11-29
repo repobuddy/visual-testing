@@ -1,4 +1,5 @@
 import type { BrowserPage } from '@vitest/browser/context'
+import { getCurrentTest } from 'vitest/suite'
 import { toImageData } from '../../image_data.js'
 import { state } from '../../state.js'
 import { imageSnapshotSymbol } from './constants.js'

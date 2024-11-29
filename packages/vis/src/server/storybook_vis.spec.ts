@@ -5,18 +5,18 @@ import { visContext } from './vis_context'
 
 it('can be called without options', () => {
 	storybookVis()
-	expect(visContext.options).toBe(undefined)
+	expect(visContext.getOptions()).toEqual({})
 })
 
 it('can be called with undefined options', () => {
 	storybookVis(undefined)
-	expect(visContext.options).toBe(undefined)
+	expect(visContext.getOptions()).toEqual({})
 })
 
 it('can be called with options', () => {
 	const options: VisOptions = {}
 	storybookVis(options)
-	expect(visContext.options).toBe(options)
+	expect(visContext.getOptions()).toBe(options)
 })
 
 it('returns a vitest:storybook-addon-vis plugin object', () => {
@@ -39,6 +39,7 @@ it('register commands', () => {
 					getSnapshotPlatform: expect.any(Function),
 					rmDir: expect.any(Function),
 					isCI: expect.any(Function),
+					setupVisSuite: expect.any(Function),
 				},
 			},
 		},
