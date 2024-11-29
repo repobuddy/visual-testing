@@ -5,6 +5,7 @@ import { copyFile } from './commands/copy_file.js'
 import { existDir } from './commands/exist_dir.js'
 import { existFile } from './commands/exist_file.js'
 import { getSnapshotPlatform } from './commands/get_snapshot_platform.js'
+import { imageSnapshot } from './commands/image_snapshot.js'
 import { isCI } from './commands/is_ci.js'
 import { rmDir } from './commands/rm_dir.js'
 import { setupVisSuite } from './commands/setup_vis_suite.js'
@@ -27,6 +28,7 @@ export function storybookVis(options: VisOptions = {}) {
 							isCI,
 							getSnapshotPlatform,
 							setupVisSuite,
+							imageSnapshot,
 						},
 					},
 				},

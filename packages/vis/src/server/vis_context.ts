@@ -3,6 +3,7 @@ import { join, relative } from 'pathe'
 import { rimraf } from 'rimraf'
 import type { BrowserCommandContext } from 'vitest/node'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants'
+import { toSnapshotId } from '../shared/snapshot_id'
 import { resolveSnapshotRootDir } from '../shared/snapshot_path'
 import type { VisOptions } from '../shared/types'
 
@@ -62,7 +63,7 @@ function createVisContext() {
 				baselineDir: string
 				resultDir: string
 				diffDir: string
-				counter: number
+				tasks: Record<string, { count: number }>
 			}
 		>
 	}
@@ -96,24 +97,36 @@ function createVisContext() {
 		getOptions() {
 			return visOptions
 		},
-		getState(_project: any) {},
+		getState(context: BrowserCommandContext, name: string) {
+			const testPath = relative(state.projectPath, context.testPath)
+			const suite = state.suites[testPath]
+			const id = toSnapshotId(name)
+			const task = (suite.tasks[id] = suite.tasks[id] ?? { count: 0 })
+			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
+
+			const snapshotFilename = `${customizeSnapshotId(id, task.count)}.png`
+			const baselinePath = join(suite.baselineDir, snapshotFilename)
+			const resultPath = join(suite.resultDir, snapshotFilename)
+			const diffPath = join(suite.diffDir, snapshotFilename)
+			return { snapshotFilename, baselinePath, resultPath, diffPath }
+		},
 		/**
 		 * Setup suite is called on each test file's beforeAll hook.
 		 * Test files include vitest test files and storybook story files.
 		 * It needs to make sure there is no race condition between the test files.
 		 */
-		async setupSuite(suite: BrowserCommandContext) {
+		async setupSuite(context: BrowserCommandContext) {
 			if (!globalStateReady) {
-				globalStateReady = setupGlobalSuite(suite)
+				globalStateReady = setupGlobalSuite(context)
 			}
 			await globalStateReady
 
-			const testPath = relative(state.projectPath, suite.testPath)
+			const testPath = relative(state.projectPath, context.testPath)
 			state.suites[testPath] = {
 				baselineDir: join(state.snapshotBaselineDir, testPath),
 				resultDir: join(state.snapshotResultDir, testPath),
 				diffDir: join(state.snapshotDiffDir, testPath),
-				counter: 0,
+				tasks: {},
 			}
 		},
 	}

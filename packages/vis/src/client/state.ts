@@ -4,10 +4,9 @@ import { omit, required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path.js'
-import type { MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
+import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
 import { commands } from './@vitest/browser/context.js'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
-import type { ImageSnapshotOptions } from './@vitest/browser/types'
 
 function createStore() {
 	// test suite (runner.beforeAll) states

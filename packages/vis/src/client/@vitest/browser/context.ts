@@ -13,6 +13,7 @@ import type { CopyFileCommand } from '../../../server/commands/copy_file'
 import type { ExistDirCommand } from '../../../server/commands/exist_dir'
 import type { ExistFileCommand } from '../../../server/commands/exist_file'
 import type { GetSnapshotPlatformCommand } from '../../../server/commands/get_snapshot_platform'
+import type { ImageSnapshotCommand } from '../../../server/commands/image_snapshot'
 import type { IsCICommand } from '../../../server/commands/is_ci'
 import type { RmDirCommand } from '../../../server/commands/rm_dir'
 import type { SetupVisSuiteCommand } from '../../../server/commands/setup_vis_suite'
@@ -28,6 +29,7 @@ declare module '@vitest/browser/context' {
 			GetSnapshotPlatformCommand,
 			RmDirCommand,
 			IsCICommand,
+			ImageSnapshotCommand,
 			SetupVisSuiteCommand,
 			ExistFileCommand {}
 }

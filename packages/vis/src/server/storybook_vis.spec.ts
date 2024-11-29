@@ -40,6 +40,7 @@ it('register commands', () => {
 					rmDir: expect.any(Function),
 					isCI: expect.any(Function),
 					setupVisSuite: expect.any(Function),
+					imageSnapshot: expect.any(Function),
 				},
 			},
 		},
