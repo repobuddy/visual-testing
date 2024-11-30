@@ -18,14 +18,14 @@ export default defineConfig({
 		coverage: {
 			include: ['src/**/*.{js,mjs,cjs,ts,jsx,tsx,cts,mts}'],
 			exclude: [
-				'**/*.{spec,test,unit,accept,integrate,system,perf,stress}.{js,jsx,cjs,mjs,ts,tsx,cts,mts}',
-				'**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}',
+				'**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{js,jsx,cjs,mjs,ts,tsx,cts,mts}',
+				'**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}',
 				'**/*.stories.{js,mjs,jsx,tsx}',
 			],
 		},
 		include: [
-			'src/client/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.ts',
-			'src/shared/**/*.{spec,test,unit,accept,integrate,system,perf,stress}.ts',
+			'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',
+			'src/shared/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',
 			'src/**/*.stories.tsx',
 		],
 		setupFiles: ['./.storybook/vitest.setup.ts'],

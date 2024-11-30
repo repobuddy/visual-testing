@@ -70,8 +70,9 @@
 		"*.excalidraw": "maven",
 		"*.integrate.ts": "test-ts",
 		"*.spec.node.ts": "test-ts",
-		"*.unit.node.ts": "test-ts",
+		"*.study.ts": "test-ts",
 		"*.system.ts": "test-ts",
+		"*.unit.node.ts": "test-ts",
 		"*.unit.ts": "test-ts"
 	}
 }
