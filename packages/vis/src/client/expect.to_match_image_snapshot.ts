@@ -9,6 +9,7 @@ import { commands, page, server } from './@vitest/browser/context.js'
 import { assertImageSnapshot, isImageSnapshot } from './@vitest/browser/image_snapshot.logic.js'
 import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
+import { imageSnapshot } from './image_snapshot.js'
 import { state } from './state.js'
 
 export interface ImageSnapshotMatcher {
@@ -19,6 +20,10 @@ export async function toMatchImageSnapshot(
 	actual: any,
 	options?: MatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
+	if (actual instanceof Element) {
+		await imageSnapshot({ element: actual })
+		return success
+	}
 	const promise = toMatchImageSnapshotInternal(actual, options)
 	const test = getCurrentTest()
 	if (!test) return promise

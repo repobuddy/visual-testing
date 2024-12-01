@@ -37,8 +37,6 @@ export const ParamAppliesToPlay: StoryObj = {
 		return <div data-testid="subject">{hasImageSnapshot ? 'unit text' : 'unit test'}</div>
 	},
 	play: async ({ canvas }) => {
-		console.info('eeee', commands.setupVisSuite)
-
 		const subject = canvas.getByTestId('subject')
 		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot()
 	},

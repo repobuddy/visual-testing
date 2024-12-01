@@ -4,8 +4,10 @@ import { rimraf } from 'rimraf'
 import type { BrowserCommandContext } from 'vitest/node'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants'
 import { toSnapshotId } from '../shared/snapshot_id'
-import { resolveSnapshotRootDir } from '../shared/snapshot_path'
+import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path'
 import type { VisOptions } from '../shared/types'
+import type { VisState } from './types'
+import { createSuite } from './vis_context.logic'
 
 // export const visContext: VisContext = {}
 
@@ -47,26 +49,7 @@ type Suite = {
 
 function createVisContext() {
 	let visOptions: VisOptions
-	let state: {
-		projectPath: string
-		platform: string
-		testTimeout: number
-		hookTimeout: number
-		snapshotRootDir: string
-		snapshotBaselineDir: string
-		snapshotResultDir: string
-		snapshotDiffDir: string
-		snapshotRootPath: string
-		suites: Record<
-			string,
-			{
-				baselineDir: string
-				resultDir: string
-				diffDir: string
-				tasks: Record<string, { count: number }>
-			}
-		>
-	}
+	let state: VisState
 	let globalStateReady: Promise<void>
 
 	async function setupGlobalSuite(suite: Suite) {
@@ -98,7 +81,7 @@ function createVisContext() {
 			return visOptions
 		},
 		getState(context: BrowserCommandContext, name: string) {
-			const testPath = relative(state.projectPath, context.testPath)
+			const testPath = getSnapshotSubpath(relative(state.projectPath, context.testPath), visOptions)
 			const suite = state.suites[testPath]
 			const id = toSnapshotId(name)
 			const task = (suite.tasks[id] = suite.tasks[id] ?? { count: 0 })
@@ -121,13 +104,8 @@ function createVisContext() {
 			}
 			await globalStateReady
 
-			const testPath = relative(state.projectPath, context.testPath)
-			state.suites[testPath] = {
-				baselineDir: join(state.snapshotBaselineDir, testPath),
-				resultDir: join(state.snapshotResultDir, testPath),
-				diffDir: join(state.snapshotDiffDir, testPath),
-				tasks: {},
-			}
+			const { suiteId, suite } = createSuite(state, context.testPath, visOptions)
+			state.suites[suiteId] = suite
 		},
 	}
 }
