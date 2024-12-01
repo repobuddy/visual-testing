@@ -8,6 +8,6 @@ export default {
 export const MatchingCanvas: StoryObj = {
 	render: () => <div>unit</div>,
 	async play({ canvasElement }) {
-		expect(canvasElement).toMatchImageSnapshot2()
+		await expect(canvasElement).toMatchImageSnapshot2()
 	},
 }

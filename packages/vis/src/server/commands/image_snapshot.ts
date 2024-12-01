@@ -16,6 +16,6 @@ export const imageSnapshot: BrowserCommand<[name: string, options?: ImageSnapsho
 	name,
 	_options,
 ) => {
-	const state = visContext.getState(context, name)
+	const state = visContext.getSnapshotInfo(context, name)
 	console.info('taking snapshot', state)
 }

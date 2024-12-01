@@ -80,18 +80,29 @@ function createVisContext() {
 		getOptions() {
 			return visOptions
 		},
-		getState(context: BrowserCommandContext, name: string) {
+		getSnapshotInfo(context: BrowserCommandContext, name: string) {
 			const suiteId = getSuiteId(state, context.testPath, visOptions)
 			const suite = state.suites[suiteId]
-			const id = toSnapshotId(name)
-			const task = (suite.tasks[id] = suite.tasks[id] ?? { count: 0 })
+			const snapshotId = toSnapshotId(name)
+			const task = (suite.tasks[snapshotId] = suite.tasks[snapshotId] ?? { count: 0 })
 			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
 
-			const snapshotFilename = `${customizeSnapshotId(id, task.count)}.png`
+			const snapshotFilename = `${customizeSnapshotId(snapshotId, task.count)}.png`
 			const baselinePath = join(suite.baselineDir, snapshotFilename)
 			const resultPath = join(suite.resultDir, snapshotFilename)
 			const diffPath = join(suite.diffDir, snapshotFilename)
-			return { snapshotFilename, baselinePath, resultPath, diffPath }
+
+			return {
+				suiteId,
+				snapshotId,
+				baselineDir: suite.baselineDir,
+				resultDir: suite.resultDir,
+				diffDir: suite.diffDir,
+				snapshotFilename,
+				baselinePath,
+				resultPath,
+				diffPath,
+			}
 		},
 		/**
 		 * Setup suite is called on each test file's beforeAll hook.

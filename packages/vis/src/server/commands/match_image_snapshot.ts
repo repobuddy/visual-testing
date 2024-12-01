@@ -14,6 +14,6 @@ export interface MatchImageSnapshotCommand {
 export const matchImageSnapshot: BrowserCommand<
 	[taskName: string | undefined, subject: Element | Locator | string, options?: ToMatchImageSnapshotOptions | undefined]
 > = (context, taskName, subject, options) => {
-	const meta = visContext.getState(context, taskName)
+	const meta = visContext.getSnapshotInfo(context, taskName)
 	console.info('Matching image snapshot...', meta, subject, options)
 }
