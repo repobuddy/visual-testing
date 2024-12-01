@@ -11,6 +11,7 @@ import { toDataURL, toImageData } from './image_data.js'
 import { createImageResizer } from './image_resizer.js'
 import { imageSnapshot } from './image_snapshot.js'
 import { state } from './state.js'
+import { success } from './to_match_image_snapshot/expectation_result.js'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: MatchImageSnapshotOptions): Promise<void>
@@ -105,11 +106,6 @@ async function toMatchImageSnapshotInternal(
 		}
 	}
 	return success
-}
-
-const success = {
-	pass: true,
-	message: () => '',
 }
 
 function tryReadSnapshot(path: string): Promise<string | undefined> {

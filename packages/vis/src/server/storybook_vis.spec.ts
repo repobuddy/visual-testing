@@ -41,6 +41,7 @@ it('register commands', () => {
 					isCI: expect.any(Function),
 					setupVisSuite: expect.any(Function),
 					imageSnapshot: expect.any(Function),
+					matchImageSnapshot: expect.any(Function),
 				},
 			},
 		},

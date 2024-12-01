@@ -5,8 +5,9 @@ import type { VisOptions } from '../shared/types.js'
 import { toMatchImageSnapshot } from './expect.to_match_image_snapshot.js'
 import { shouldTakeSnapshot } from './should_take_snapshot.js'
 import { state } from './state.js'
+import { toMatchImageSnapshot2 } from './to_match_image_snapshot/to_match_image_snapshot.js'
 
-expect.extend({ toMatchImageSnapshot })
+expect.extend({ toMatchImageSnapshot, toMatchImageSnapshot2 })
 
 export function createVisConfig(options?: VisOptions) {
 	const h = {

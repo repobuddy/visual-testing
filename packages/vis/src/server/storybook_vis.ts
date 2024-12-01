@@ -7,6 +7,7 @@ import { existFile } from './commands/exist_file.js'
 import { getSnapshotPlatform } from './commands/get_snapshot_platform.js'
 import { imageSnapshot } from './commands/image_snapshot.js'
 import { isCI } from './commands/is_ci.js'
+import { matchImageSnapshot } from './commands/match_image_snapshot.js'
 import { rmDir } from './commands/rm_dir.js'
 import { setupVisSuite } from './commands/setup_vis_suite.js'
 import { visContext } from './vis_context.js'
@@ -28,6 +29,7 @@ export function storybookVis(options: VisOptions = {}) {
 							isCI,
 							getSnapshotPlatform,
 							setupVisSuite,
+							matchImageSnapshot,
 							imageSnapshot,
 						},
 					},

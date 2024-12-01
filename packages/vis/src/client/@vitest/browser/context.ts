@@ -15,6 +15,7 @@ import type { ExistFileCommand } from '../../../server/commands/exist_file'
 import type { GetSnapshotPlatformCommand } from '../../../server/commands/get_snapshot_platform'
 import type { ImageSnapshotCommand } from '../../../server/commands/image_snapshot'
 import type { IsCICommand } from '../../../server/commands/is_ci'
+import type { MatchImageSnapshotCommand } from '../../../server/commands/match_image_snapshot'
 import type { RmDirCommand } from '../../../server/commands/rm_dir'
 import type { SetupVisSuiteCommand } from '../../../server/commands/setup_vis_suite'
 import { imageSnapshotStubSymbol } from './constants'
@@ -29,6 +30,7 @@ declare module '@vitest/browser/context' {
 			GetSnapshotPlatformCommand,
 			RmDirCommand,
 			IsCICommand,
+			MatchImageSnapshotCommand,
 			ImageSnapshotCommand,
 			SetupVisSuiteCommand,
 			ExistFileCommand {}
