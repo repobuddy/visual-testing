@@ -7,7 +7,7 @@ import { toSnapshotId } from '../shared/snapshot_id'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path'
 import type { VisOptions } from '../shared/types'
 import type { VisState } from './types'
-import { createSuite } from './vis_context.logic'
+import { createSuite, getSuiteId } from './vis_context.logic'
 
 // export const visContext: VisContext = {}
 
@@ -81,8 +81,8 @@ function createVisContext() {
 			return visOptions
 		},
 		getState(context: BrowserCommandContext, name: string) {
-			const testPath = getSnapshotSubpath(relative(state.projectPath, context.testPath), visOptions)
-			const suite = state.suites[testPath]
+			const suiteId = getSuiteId(state, context.testPath, visOptions)
+			const suite = state.suites[suiteId]
 			const id = toSnapshotId(name)
 			const task = (suite.tasks[id] = suite.tasks[id] ?? { count: 0 })
 			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
@@ -106,6 +106,7 @@ function createVisContext() {
 
 			const { suiteId, suite } = createSuite(state, context.testPath, visOptions)
 			state.suites[suiteId] = suite
+			await Promise.allSettled([rimraf.rimraf(suite.diffDir), rimraf.rimraf(suite.resultDir)])
 		},
 	}
 }
