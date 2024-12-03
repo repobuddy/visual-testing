@@ -41,8 +41,8 @@ importers:
         specifier: ^7.0.0
         version: 7.0.1
       playwright:
-        specifier: ^1.48.1
-        version: 1.48.2
+        specifier: ^1.49.0
+        version: 1.49.0
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -127,7 +127,7 @@ importers:
         version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
       '@vitest/browser':
         specifier: ^2.1.5
-        version: 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+        version: 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       '@vitest/expect':
         specifier: ^2.1.5
         version: 2.1.5
@@ -215,7 +215,7 @@ importers:
         version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
       '@vitest/browser':
         specifier: ^2.1.5
-        version: 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+        version: 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       globals:
         specifier: ^15.11.0
         version: 15.12.0
@@ -303,7 +303,7 @@ importers:
         version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
       '@vitest/browser':
         specifier: ^2.1.5
-        version: 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+        version: 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -2782,13 +2782,13 @@ packages:
     resolution: {integrity: sha512-FYpL4XiIWakTnIqLqvt3uN4L9B3TsuHIvhLILzTiJZMJUsGvmKNeL4H3b6I99LRyerK9W4IuOXw+N28AtRgK2g==}
     hasBin: true
 
-  playwright-core@1.48.2:
-    resolution: {integrity: sha512-sjjw+qrLFlriJo64du+EK0kJgZzoQPsabGF4lBvsid+3CNIZIYLgnMj9V6JY5VhM2Peh20DJWIVpVljLLnlawA==}
+  playwright-core@1.49.0:
+    resolution: {integrity: sha512-R+3KKTQF3npy5GTiKH/T+kdhoJfJojjHESR1YEWhYuEKRVfVaxH3+4+GvXE5xyCngCxhxnykk0Vlah9v8fs3jA==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.48.2:
-    resolution: {integrity: sha512-NjYvYgp4BPmiwfe31j4gHLa3J7bD2WiBz8Lk2RoSsmX38SVIARZ18VYjxLjAcDsAhA+F4iSEXTSGgjua0rrlgQ==}
+  playwright@1.49.0:
+    resolution: {integrity: sha512-eKpmys0UFDnfNb3vfsf8Vx2LEOtflgRebl0Im2eQQnYMA4Aqd+Zw8bEOB+7ZKvN76901mRnqdsiOGKxzVTbi7A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4590,7 +4590,7 @@ snapshots:
       storybook: 8.4.4(prettier@2.8.8)
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       '@vitest/runner': 2.1.5
       vitest: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
     transitivePeerDependencies:
@@ -4818,7 +4818,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser@2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)':
+  '@vitest/browser@2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
@@ -4831,7 +4831,7 @@ snapshots:
       vitest: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
       ws: 8.18.0
     optionalDependencies:
-      playwright: 1.48.2
+      playwright: 1.49.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -4855,7 +4855,7 @@ snapshots:
       tinyrainbow: 1.2.0
       vitest: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
     optionalDependencies:
-      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -5998,11 +5998,11 @@ snapshots:
     dependencies:
       pngjs: 7.0.0
 
-  playwright-core@1.48.2: {}
+  playwright-core@1.49.0: {}
 
-  playwright@1.48.2:
+  playwright@1.49.0:
     dependencies:
-      playwright-core: 1.48.2
+      playwright-core: 1.49.0
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -6623,7 +6623,7 @@ snapshots:
 
   vitest-browser-react@0.0.4(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@2.1.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@2.1.5):
     dependencies:
-      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       vitest: 2.1.5(@types/node@22.9.0)(@vitest/browser@2.1.5)(msw@2.6.4(@types/node@22.9.0)(typescript@5.6.3))
@@ -6655,7 +6655,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.9.0
-      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.48.2)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
+      '@vitest/browser': 2.1.5(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.6.3)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.5)
     transitivePeerDependencies:
       - less
       - lightningcss
