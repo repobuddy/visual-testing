@@ -9,7 +9,7 @@ import * as ImageDataStories from './image_data.stories.js'
 import * as PerStory from './per_story.stories.js'
 
 const { ConversionRoundtrip } = composeStories(ImageDataStories)
-const { Success } = composeStories(ToMatchStories)
+const { Success, Failed } = composeStories(ToMatchStories)
 const { TakeSnapshot } = composeStories(PerStory)
 
 it('should reject if the subject is undefined', async () => {
@@ -66,31 +66,27 @@ it('can customize snapshot filename', async ({ task }) => {
 // 	expect(expect(Promise.reject(new Error('error'))).toMatchImageSnapshot()).rejects.toThrowError('error')
 // })
 
-it(`should fail with 'Snapshot \`{test/story name}\` mismatched`, async ({ task }) => {
-	await ConversionRoundtrip.run()
-	await expect(
-		page.imageSnapshot({
-			customizeSnapshotId: (id) => id,
-		}),
-	).toMatchImageSnapshot()
-	await Success.run()
-	try {
+it('should fail with mismatch message', async ({ task }) => {
+	if (await page.hasImageSnapshot({ customizeSnapshotId: (id) => id })) {
+		await Failed.run()
+		try {
+			await expect(
+				page.imageSnapshot({
+					customizeSnapshotId: (id) => id,
+				}),
+			).toMatchImageSnapshot()
+			// NOTE: test WILL reach there when updating snapshot as the assertion will succeed.
+			// So right now we can't assert the negative part of this test.
+			// We can improve this when the updateSnapshot option is easily available.
+			// throw new Error('should not reach')
+		} catch (e) {
+			expect(e).toBeInstanceOf(Error)
+			assertType.as<Error>(e)
+			await expect(e.message).toMatch(`Snapshot \`${task.name}\` mismatched`)
+		}
+	} else {
+		await Success.run()
 		await expect(
-			page.imageSnapshot({
-				customizeSnapshotId: (id) => id,
-			}),
-		).toMatchImageSnapshot()
-		// NOTE: test WILL reach there when updating snapshot as the assertion will succeed.
-		// So right now we can't assert the negative part of this test.
-		// We can improve this when the updateSnapshot option is easily available.
-		// throw new Error('should not reach')
-	} catch (e) {
-		expect(e).toBeInstanceOf(Error)
-		assertType.as<Error>(e)
-		await expect(e.message).toMatch(`Snapshot \`${task.name}\` mismatched`)
-	} finally {
-		await ConversionRoundtrip.run()
-		expect(
 			page.imageSnapshot({
 				customizeSnapshotId: (id) => id,
 			}),
