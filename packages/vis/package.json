@@ -44,11 +44,12 @@
 		"build": "tsup",
 		"build:sb": "storybook build",
 		"clean": "rimraf dist",
+		"coverage": "vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"prerelease": "zx scripts/prepublish-checks.js",
 		"sb": "storybook dev -p 6006",
-		"test": "vitest run --coverage",
+		"test": "vitest run",
 		"w": "vitest"
 	},
 	"dependencies": {
