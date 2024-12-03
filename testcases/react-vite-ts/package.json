@@ -5,10 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"clean": "rimraf dist",
-		"coverage": "vitest run",
 		"nuke": "rimraf node_modules",
-		"test": "vitest run",
 		"sb": "storybook dev -p 6106",
+		"test": "vitest run",
 		"w": "vitest"
 	},
 	"eslintConfig": {

@@ -5,9 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"clean": "rimraf dist",
-		"coverage": "vitest run",
 		"nuke": "rimraf node_modules",
-		"sb": "storybook dev -p 6106",
+		"sb": "storybook dev -p 6107",
 		"test": "vitest run",
 		"w": "vitest"
 	},

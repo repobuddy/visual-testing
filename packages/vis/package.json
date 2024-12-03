@@ -43,13 +43,15 @@
 	"scripts": {
 		"build": "tsup",
 		"build:sb": "storybook build",
+		"c": "vitest run --coverage",
 		"clean": "rimraf dist",
 		"coverage": "vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"prerelease": "zx scripts/prepublish-checks.js",
 		"sb": "storybook dev -p 6006",
-		"test": "vitest run",
+		"t": "vitest run",
+		"test": "vitest run --coverage",
 		"w": "vitest"
 	},
 	"dependencies": {
