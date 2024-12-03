@@ -73,6 +73,8 @@
 		"*.study.ts": "test-ts",
 		"*.system.ts": "test-ts",
 		"*.unit.node.ts": "test-ts",
-		"*.unit.ts": "test-ts"
+		"*.unit.ts": "test-ts",
+		"vitest.config.node.ts": "vitest",
+		"vitest.config.webdriverio.ts": "vitest"
 	}
 }
