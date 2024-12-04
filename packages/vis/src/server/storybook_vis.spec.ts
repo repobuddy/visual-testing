@@ -31,7 +31,7 @@ it('register commands', () => {
 	expect(config).toEqual({
 		test: {
 			browser: {
-				name: 'chromium',
+				name: undefined,
 				commands: {
 					existDir: expect.any(Function),
 					existFile: expect.any(Function),
