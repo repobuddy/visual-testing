@@ -54,8 +54,7 @@ node_modules
 .turbo
 
 # vite
-vite.config.ts.timestamp*
-vitest.config.ts.timestamp*
+vite*.timestamp*
 
 # project
 **/__screenshots__/*/__diff_output__
