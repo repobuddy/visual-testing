@@ -7,13 +7,9 @@ export interface CopyFileCommand {
 	copyFile(src: string, dest: string): Promise<void>
 }
 
-export const copyFile: BrowserCommand<[src: string, dest: string]> = async ({ testPath, provider }, src, dest) => {
-	if (provider.name === 'playwright') {
-		const destPath = join(dirname(testPath), dest)
-		const destDir = dirname(destPath)
-		await mkdirp(destDir)
-		return copyFileFs(join(dirname(testPath), src), destPath)
-	}
-
-	throw new Error(`provider ${provider.name} is not supported`)
+export const copyFile: BrowserCommand<[src: string, dest: string]> = async ({ testPath }, src, dest) => {
+	const destPath = join(dirname(testPath), dest)
+	const destDir = dirname(destPath)
+	await mkdirp(destDir)
+	return copyFileFs(join(dirname(testPath), src), destPath)
 }

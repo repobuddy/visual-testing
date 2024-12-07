@@ -59,6 +59,7 @@
 		"ssim",
 		"testid",
 		"tsup",
+		"vite",
 		"Vitest"
 	],
 	"editor.codeActionsOnSave": {

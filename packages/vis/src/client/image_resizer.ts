@@ -5,27 +5,26 @@ export const createImageResizer =
 			return image
 		}
 		const inArea = (x: number, y: number) => y <= image.height && x <= image.width
-		const result = new ImageData(width, height, { colorSpace: image.colorSpace })
+		const data = new Uint8ClampedArray(width * height * 4)
 
 		for (let y = 0; y < height; y++) {
 			for (let x = 0; x < width; x++) {
 				const idx = (width * y + x) << 2
 				if (inArea(x, y)) {
 					const old = (image.width * y + x) << 2
-					result.data[idx] = image.data[old]
-					result.data[idx + 1] = image.data[old + 1]
-					result.data[idx + 2] = image.data[old + 2]
-					result.data[idx + 3] = image.data[old + 3]
+					data[idx] = image.data[old]
+					data[idx + 1] = image.data[old + 1]
+					data[idx + 2] = image.data[old + 2]
+					data[idx + 3] = image.data[old + 3]
 				} else {
-					result.data[idx] = 0
-					result.data[idx + 1] = 0
-					result.data[idx + 2] = 0
-					result.data[idx + 3] = 64
+					data[idx] = 0
+					data[idx + 1] = 0
+					data[idx + 2] = 0
+					data[idx + 3] = 64
 				}
 			}
 		}
-
-		return result
+		return new ImageData(data, width, height, { colorSpace: image.colorSpace })
 	}
 
 // slower
@@ -36,20 +35,21 @@ export const createImageResizer2 =
 			return image
 		}
 		const inArea = (x: number, y: number) => y <= image.height && x <= image.width
-		const result = new ImageData(width, height, { colorSpace: image.colorSpace })
+		const data = new Uint8ClampedArray(width * height * 4)
 
 		const copyBytes = image.width * 4
 		for (let y = 0; y < height; y++) {
-			result.data.set(image.data.slice(y * image.width, copyBytes), y * width * 4)
+			data.set(image.data.slice(y * image.width, copyBytes), y * width * 4)
 			for (let x = image.width; x < width; x++) {
 				const idx = (width * y + x) << 2
 				if (!inArea(x, y)) {
-					result.data[idx] = 0
-					result.data[idx + 1] = 0
-					result.data[idx + 2] = 0
-					result.data[idx + 3] = 64
+					data[idx] = 0
+					data[idx + 1] = 0
+					data[idx + 2] = 0
+					data[idx + 3] = 64
 				}
 			}
 		}
+		const result = new ImageData(data, width, height, { colorSpace: image.colorSpace })
 		return result
 	}

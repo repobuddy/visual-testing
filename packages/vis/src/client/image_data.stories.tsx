@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { UNI_PNG_BASE64, UNI_PNG_URL } from '../testing/constants'
-import { toDataURL, toImageData } from './image_data'
+import { UNI_PNG_BASE64, UNI_PNG_URL } from '../testing/constants.js'
+import { toDataURL, toImageData } from './image_data.js'
 
 export default {
 	title: 'ImageData',
