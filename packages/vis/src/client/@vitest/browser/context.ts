@@ -52,10 +52,25 @@ export function cdp(): CDPSession {
 }
 
 export const commands = new Proxy<BrowserCommands>({} as any, {
-	get(target, prop) {
-		return (target as any)[prop] ?? (ctx?.commands as any)[prop]
+	get(_target, prop) {
+		return (
+			(ctx?.commands as any)?.[prop] ??
+			/* v8 ignore start : used in storybook, not in vitest */
+			commandsStub[prop] ??
+			(() => {
+				throw new Error(`Command '${String(prop)}' not found`)
+			})()
+			/* v8 ignore end */
+		)
 	},
 })
+
+/* v8 ignore start : used in storybook, not in vitest */
+const commandsStub = {
+	matchImageSnapshot: async () => {},
+	setupVisSuite: () => {},
+} as any
+/* v8 ignore end */
 
 export const page = new Proxy<BrowserPage>(
 	{
@@ -69,22 +84,30 @@ export const page = new Proxy<BrowserPage>(
 	} as any,
 	{
 		get(target, prop) {
-			return ((target as any)[prop] ?? ctx?.page)
-				? (ctx?.page as any)[prop]
-				: () => {
-						/* v8 ignore start : used in storybook, not in vitest */
-						if (prop === 'imageSnapshot') {
-							return { type: imageSnapshotStubSymbol }
-						}
-						if (prop === 'hasImageSnapshot') {
-							return false
-						}
-						console.error(`\`page.${prop.toString()}\` does not exist when running in browser`)
-						/* v8 ignore end */
-					}
+			return (
+				(target as any)[prop] ??
+				(ctx?.page as any)?.[prop] ??
+				/* v8 ignore start : used in storybook, not in vitest */
+				pageStub[prop] ??
+				(() => {
+					console.error(`\`page.${prop.toString()}\` does not exist when running in browser`)
+				})
+				/* v8 ignore end */
+			)
 		},
 	},
 )
+
+/* v8 ignore start : used in storybook, not in vitest */
+const pageStub = {
+	imageSnapshot() {
+		return { type: imageSnapshotStubSymbol }
+	},
+	hasImageSnapshot() {
+		return false
+	},
+} as any
+/* v8 ignore end */
 
 export const server = new Proxy<{
 	/**

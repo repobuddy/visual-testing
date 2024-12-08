@@ -43,6 +43,6 @@ export async function toMatchImageSnapshot2(
 	subject: Element | Locator | string,
 	options?: ToMatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
-	await commands.matchImageSnapshot(getCurrentTest().name, subject, options)
+	await commands.matchImageSnapshot(getCurrentTest()?.name, subject, options)
 	return success
 }
