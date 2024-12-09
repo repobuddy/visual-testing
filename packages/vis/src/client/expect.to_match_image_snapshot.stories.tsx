@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { commands, page, server } from '../index.js'
+import { commands, page } from '../index.js'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
 import { UNI_PNG_URL } from '../testing/constants.js'
 

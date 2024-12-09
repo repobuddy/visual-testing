@@ -19,11 +19,11 @@ export const matchImageSnapshot: BrowserCommand<
 	[taskName: string | undefined, subject: string, options?: ToMatchImageSnapshotOptions | undefined]
 > = async (context, taskName, subject, options) => {
 	const meta = visContext.getSnapshotInfo(context, taskName)
-	const baseline = await file.tryReadBase64(meta.baselinePath)
+	const baseline = await file.tryReadFileBase64(meta.baselinePath)
 	if (!baseline) {
 		await mkdirp(meta.baselineDir)
 		if (isBase64String(subject)) {
-			await file.writeFile(meta.baselinePath, subject)
+			await file.writeFileBase64(meta.baselinePath, subject)
 		} else {
 			const browser = browserApi(context)
 			await browser.saveScreenshot(meta.baselinePath, subject)
