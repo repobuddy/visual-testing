@@ -1,9 +1,8 @@
-import type { Locator } from '@vitest/browser/locator'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
-import { commands } from '../@vitest/browser/context'
-import { success } from './expectation_result'
+import { commands, page } from '../@vitest/browser/context.js'
+import { success } from './expectation_result.js'
 
 export interface ImageSnapshotMatcher2 {
 	toMatchImageSnapshot2(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
@@ -40,9 +39,13 @@ export async function toMatchImageSnapshot2(
 	 * The element or locator to take the snapshot of,
 	 * or the base64 value of the image to compare against.
 	 */
-	subject: Element | Locator | string,
+	subject: any,
 	options?: ToMatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
-	await commands.matchImageSnapshot(getCurrentTest()?.name, subject, options)
+	await commands.matchImageSnapshot(
+		getCurrentTest()?.name,
+		subject instanceof Element ? (page.elementLocator(subject) as any).selector : (subject?.['selector'] ?? subject),
+		options,
+	)
 	return success
 }

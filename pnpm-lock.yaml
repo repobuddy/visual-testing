@@ -158,6 +158,9 @@ importers:
       vite:
         specifier: ^5.3.5
         version: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vitest-browser-react:
+        specifier: ^0.0.4
+        version: 0.0.4(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@2.1.8)
       webdriverio:
         specifier: ^9.4.1
         version: 9.4.1

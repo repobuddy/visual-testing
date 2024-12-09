@@ -60,8 +60,12 @@ export const DifferentSize: StoryObj = {
 		const style = hasImageSnapshot ? { width: 128, height: 128 } : { width: 256, height: 256 }
 		return <img style={style} src={UNI_PNG_URL} />
 	},
-	async play({ canvas }) {
+	async play({ canvas, loaded: { hasImageSnapshot } }) {
 		const image = await canvas.getByRole('img')
+		if (!hasImageSnapshot) {
+			expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
+			return
+		}
 		expect(page.imageSnapshot({ element: image }))
 			.toMatchImageSnapshot()
 			.then(
