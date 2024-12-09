@@ -1,7 +1,7 @@
 import { page } from 'storybook-addon-vis'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { Button } from './Button'
+import { Button } from './Button.js'
 
 it('container snapshot', async () => {
 	const { container } = await render(<Button label="Button" />)

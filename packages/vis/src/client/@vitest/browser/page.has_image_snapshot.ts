@@ -1,7 +1,7 @@
 import type { BrowserPage } from '@vitest/browser/context'
-import type { CustomizeSnapshotIdOptions } from '../../../shared/types'
-import { state } from '../../state'
-import { commands } from './context'
+import type { CustomizeSnapshotIdOptions } from '../../../shared/types.js'
+import { state } from '../../state.js'
+import { commands } from './context.js'
 
 export interface HasImageSnapshotAction {
 	hasImageSnapshot(this: BrowserPage, options?: CustomizeSnapshotIdOptions | undefined): Promise<boolean>

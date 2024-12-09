@@ -1,4 +1,18 @@
 {
+	"[javascript]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports.biome": "explicit"
+		},
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
+	"[javascriptreact]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports.biome": "explicit"
+		},
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
+	},
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome",
 		"editor.formatOnSave": true,
@@ -15,33 +29,19 @@
 		},
 		"editor.suggest.insertMode": "replace"
 	},
-	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports.biome": "explicit"
-		}
-	},
-	"[javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.organizeImports.biome": "explicit"
-		}
-	},
 	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
 		"editor.codeActionsOnSave": {
 			"source.organizeImports.biome": "explicit"
-		}
+		},
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome",
-		"editor.formatOnSave": true,
 		"editor.codeActionsOnSave": {
 			"source.organizeImports.biome": "explicit"
-		}
+		},
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true
 	},
 	"cSpell.words": [
 		"biomejs",
@@ -77,5 +77,8 @@
 		"*.unit.ts": "test-ts",
 		"vitest.config.node.ts": "vitest",
 		"vitest.config.webdriverio.ts": "vitest"
-	}
+	},
+	"typescript.experimental.updateImportsOnPaste": true,
+	"typescript.tsserver.web.projectWideIntellisense.enabled": true,
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

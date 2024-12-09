@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { DIFF_OUTPUT_DIR, RESULT_DIR, SNAPSHOT_DIR } from '../shared/contants'
-import type { VisOptions } from '../shared/types'
-import type { VisState } from './types'
-import { createSuite, getSuiteId } from './vis_context.logic'
+import { DIFF_OUTPUT_DIR, RESULT_DIR, SNAPSHOT_DIR } from '../shared/contants.js'
+import type { VisOptions } from '../shared/types.js'
+import type { VisState } from './types.js'
+import { createSuite, getSuiteId } from './vis_context.logic.js'
 
 describe(`${getSuiteId.name}()`, () => {
 	const mockState = {
@@ -10,25 +10,25 @@ describe(`${getSuiteId.name}()`, () => {
 	} as VisState
 
 	it('returns `testPath` as the suite id for a file in the project root', () => {
-		const testPath = '/root/project/test.ts'
+		const testPath = '/root/project/test.js'
 		const options: VisOptions = {}
-		expect(getSuiteId(mockState, testPath, options)).toBe('test.ts')
+		expect(getSuiteId(mockState, testPath, options)).toBe('test.js')
 	})
 
 	it('trims well known test folder form suite id', () => {
 		const options: VisOptions = {}
 		const testPaths = [
-			'/root/project/tests/code.spec.ts',
-			'/root/project/test/code.spec.ts',
-			'/root/project/src/code.spec.ts',
-			'/root/project/source/code.spec.ts',
-			'/root/project/js/code.spec.ts',
-			'/root/project/ts/code.spec.ts',
-			'/root/project/lib/code.spec.ts',
+			'/root/project/tests/code.spec.js',
+			'/root/project/test/code.spec.js',
+			'/root/project/src/code.spec.js',
+			'/root/project/source/code.spec.js',
+			'/root/project/js/code.spec.js',
+			'/root/project/ts/code.spec.js',
+			'/root/project/lib/code.spec.js',
 		]
 		testPaths.forEach((testPath) => {
 			const result = getSuiteId(mockState, testPath, options)
-			expect(result).toBe('code.spec.ts')
+			expect(result).toBe('code.spec.js')
 		})
 	})
 })
@@ -39,10 +39,10 @@ describe(`${createSuite.name}()`, () => {
 			{
 				projectPath: '/root/project',
 			} as VisState,
-			'/root/project/src/code.spec.ts',
+			'/root/project/src/code.spec.js',
 			{},
 		)
-		expect(r.suiteId).toBe('code.spec.ts')
+		expect(r.suiteId).toBe('code.spec.js')
 	})
 
 	it('create suite directories based on directory in state and suite id', () => {
@@ -53,7 +53,7 @@ describe(`${createSuite.name}()`, () => {
 				snapshotResultDir: `/root/project/${SNAPSHOT_DIR}/${RESULT_DIR}`,
 				snapshotDiffDir: `/root/project/${SNAPSHOT_DIR}/${DIFF_OUTPUT_DIR}`,
 			} as VisState,
-			'/root/project/src/code.spec.ts',
+			'/root/project/src/code.spec.js',
 			{},
 		)
 		expect(suite.baselineDir).toBe(`/root/project/${SNAPSHOT_DIR}/local/${suiteId}`)

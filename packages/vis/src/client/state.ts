@@ -6,15 +6,15 @@ import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path.js'
 import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
 import { commands } from './@vitest/browser/context.js'
-import { toSnapshotId } from './@vitest/browser/image_snapshot.logic'
+import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
 
 function createStore() {
 	// test suite (runner.beforeAll) states
 	let testFilepath: string
 	let currentDir: string
-	let baselineDir: string
-	let resultDir: string
-	let diffDir: string
+	let baselineDir = ''
+	let resultDir = ''
+	let diffDir = ''
 	let snapshot: Record<string, Record<string, { index: number }>>
 	let suiteOptions: VisOptions = Object.create(null)
 
@@ -72,7 +72,7 @@ function createStore() {
 			return required(omit(suiteOptions, 'snapshotRootDir', 'customizeSnapshotSubpath'), parameters?.snapshot, options)
 		},
 		getSnapshotFilePaths(options?: ImageSnapshotOptions | undefined) {
-			const test = getCurrentTest()
+			const test = getCurrentTest()!
 			taskName = test.name
 			id = toSnapshotId(taskName)
 			snapshot[testFilepath][id] = snapshot[testFilepath][id] ?? { index: 1 }

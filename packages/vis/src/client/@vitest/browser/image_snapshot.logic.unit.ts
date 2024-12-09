@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { imageSnapshotSymbol } from './constants.js'
-import { assertImageSnapshot } from './image_snapshot.logic'
+import { assertImageSnapshot } from './image_snapshot.logic.js'
 
 describe(`${assertImageSnapshot.name}`, () => {
 	it('should not throw an error if subject is a valid ImageSnapshot', () => {

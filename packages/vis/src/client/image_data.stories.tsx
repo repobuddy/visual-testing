@@ -18,7 +18,7 @@ export const ConversionRoundtrip: StoryObj = {
 	},
 	async play({ canvas }) {
 		const c = canvas.getByTestId<HTMLCanvasElement>('canvas')
-		const ctx = c.getContext('2d')
+		const ctx = c.getContext('2d')!
 
 		const imageData = await toImageData(UNI_PNG_BASE64)
 		ctx.putImageData(imageData, 0, 0)

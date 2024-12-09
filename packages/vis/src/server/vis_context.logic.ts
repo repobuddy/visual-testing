@@ -1,7 +1,7 @@
 import { join, relative } from 'pathe'
-import { getSnapshotSubpath } from '../shared/snapshot_path'
-import type { VisOptions } from '../shared/types'
-import type { VisState } from './types'
+import { getSnapshotSubpath } from '../shared/snapshot_path.js'
+import type { VisOptions } from '../shared/types.js'
+import type { VisState } from './types.js'
 
 export function getSuiteId(state: VisState, testPath: string, options: VisOptions) {
 	return getSnapshotSubpath(relative(state.projectPath, testPath), options)

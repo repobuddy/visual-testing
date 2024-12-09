@@ -1,13 +1,13 @@
 import ci from 'is-ci'
-import { join, relative } from 'pathe'
+import { join } from 'pathe'
 import { rimraf } from 'rimraf'
 import type { BrowserCommandContext } from 'vitest/node'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants'
-import { toSnapshotId } from '../shared/snapshot_id'
-import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path'
-import type { VisOptions } from '../shared/types'
-import type { VisState } from './types'
-import { createSuite, getSuiteId } from './vis_context.logic'
+import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
+import { toSnapshotId } from '../shared/snapshot_id.js'
+import { resolveSnapshotRootDir } from '../shared/snapshot_path.js'
+import type { VisOptions } from '../shared/types.js'
+import type { VisState } from './types.js'
+import { createSuite, getSuiteId } from './vis_context.logic.js'
 
 // export const visContext: VisContext = {}
 
@@ -81,7 +81,7 @@ function createVisContext() {
 			return visOptions
 		},
 		getSnapshotInfo(context: BrowserCommandContext, name: string) {
-			const suiteId = getSuiteId(state, context.testPath, visOptions)
+			const suiteId = getSuiteId(state, context.testPath!, visOptions)
 			const suite = state.suites[suiteId]
 			const snapshotId = toSnapshotId(name)
 			const task = (suite.tasks[snapshotId] = suite.tasks[snapshotId] ?? { count: 0 })
@@ -115,7 +115,7 @@ function createVisContext() {
 			}
 			await globalStateReady
 
-			const { suiteId, suite } = createSuite(state, context.testPath, visOptions)
+			const { suiteId, suite } = createSuite(state, context.testPath!, visOptions)
 			state.suites[suiteId] = suite
 			await Promise.allSettled([rimraf.rimraf(suite.diffDir), rimraf.rimraf(suite.resultDir)])
 		},

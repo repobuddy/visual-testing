@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
-import { UNI_PNG_BASE64 } from '../testing/constants'
-import { toImageData } from './image_data'
-import { createImageResizer, createImageResizer2 } from './image_resizer'
+import { UNI_PNG_BASE64 } from '../testing/constants.js'
+import { toImageData } from './image_data.js'
+import { createImageResizer, createImageResizer2 } from './image_resizer.js'
 
 it('returns the same image if no resize is needed', async () => {
 	const image = await toImageData(UNI_PNG_BASE64)

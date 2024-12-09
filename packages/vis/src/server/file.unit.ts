@@ -1,6 +1,6 @@
 import * as fs from 'node:fs/promises'
 import { describe, expect, it, vi } from 'vitest'
-import { file } from './file'
+import { file } from './file.js'
 
 vi.mock('node:fs/promises', () => ({
 	readFile: vi.fn(),
