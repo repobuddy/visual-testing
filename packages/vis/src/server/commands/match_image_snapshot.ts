@@ -16,7 +16,7 @@ export interface MatchImageSnapshotCommand {
 }
 
 export const matchImageSnapshot: BrowserCommand<
-	[taskName: string | undefined, subject: string, options?: ToMatchImageSnapshotOptions | undefined]
+	[taskName: string, subject: string, options?: ToMatchImageSnapshotOptions | undefined]
 > = async (context, taskName, subject, options) => {
 	const meta = visContext.getSnapshotInfo(context, taskName)
 	const baseline = await file.tryReadFileBase64(meta.baselinePath)

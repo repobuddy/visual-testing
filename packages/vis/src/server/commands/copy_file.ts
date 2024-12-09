@@ -8,6 +8,8 @@ export interface CopyFileCommand {
 }
 
 export const copyFile: BrowserCommand<[src: string, dest: string]> = async ({ testPath }, src, dest) => {
+	if (!testPath) return
+
 	const destPath = join(dirname(testPath), dest)
 	const destDir = dirname(destPath)
 	await mkdirp(destDir)

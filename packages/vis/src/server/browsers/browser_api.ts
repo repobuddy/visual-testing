@@ -9,4 +9,5 @@ export function browserApi(context: BrowserCommandContext) {
 	if (context.provider.name === 'webdriverio') {
 		return webdriverio(context)
 	}
+	throw new Error(`Unsupported provider: ${context.provider.name}`)
 }

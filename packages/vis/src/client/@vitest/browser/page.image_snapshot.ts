@@ -14,12 +14,14 @@ export async function imageSnapshot(
 ): Promise<ImageSnapshot> {
 	const { snapshotFilename, baselinePath, resultPath, diffPath } = state.getSnapshotFilePaths(options)
 	// console.debug('taking snapshot', state.getName(), snapshotFilename)
+	// `as any`: The prop `timeout` is not officially supported.
+	// will be removed from server implementation.
 	const screenshot = await this.screenshot({
 		base64: true,
 		path: resultPath,
 		element: options?.element,
 		timeout: state.getTimeout(options?.timeout),
-	})
+	} as any)
 	state.incrementSnapshotIndex()
 	const image = await toImageData(screenshot.base64)
 

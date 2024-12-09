@@ -20,7 +20,7 @@ export function storybookVis(options: VisOptions = {}) {
 			return {
 				test: {
 					browser: {
-						name: undefined as string,
+						name: undefined as unknown as string,
 						commands: {
 							existDir,
 							existFile,

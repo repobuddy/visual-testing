@@ -7,6 +7,7 @@ export interface ExistDirCommand {
 }
 
 export const existDir: BrowserCommand<[path: string]> = async ({ testPath }, path) => {
+	if (!testPath) return false
 	return stat(join(dirname(testPath), path))
 		.then((s) => s.isDirectory())
 		.catch(() => false)

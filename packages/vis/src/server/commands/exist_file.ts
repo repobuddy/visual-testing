@@ -7,6 +7,8 @@ export interface ExistFileCommand {
 }
 
 export const existFile: BrowserCommand<[path: string]> = async ({ testPath }, path) => {
+	if (!testPath) return
+
 	return stat(join(dirname(testPath), path))
 		.then((s) => s.isFile())
 		.catch(() => false)

@@ -7,5 +7,7 @@ export interface RmDirCommand {
 }
 
 export const rmDir: BrowserCommand<[path: string]> = async ({ testPath }, path) => {
+	if (!testPath) return
+
 	return rimraf(join(dirname(testPath), path))
 }
