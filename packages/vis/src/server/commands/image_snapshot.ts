@@ -1,6 +1,6 @@
 import type { BrowserCommand } from 'vitest/node'
-import type { ImageSnapshot, ImageSnapshotOptions } from '../../shared/types.js'
-import { visContext } from '../vis_context.js'
+import type { ImageSnapshot, ImageSnapshotOptions } from '../../shared/types.ts'
+import { visContext } from '../vis_context.ts'
 
 export interface ImageSnapshotCommand {
 	/**

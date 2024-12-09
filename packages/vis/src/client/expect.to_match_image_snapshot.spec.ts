@@ -2,11 +2,11 @@ import { composeStories } from '@storybook/react'
 import { screen } from '@testing-library/react'
 import { assertType } from 'type-plus'
 import { expect, it, test } from 'vitest'
-import { page } from './@vitest/browser/context.js'
-import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
-import * as ToMatchStories from './expect.to_match_image_snapshot.stories.js'
-import * as ImageDataStories from './image_data.stories.js'
-import * as PerStory from './per_story.stories.js'
+import { page } from './@vitest/browser/context.ts'
+import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.ts'
+import * as ToMatchStories from './expect.to_match_image_snapshot.stories.tsx'
+import * as ImageDataStories from './image_data.stories.tsx'
+import * as PerStory from './per_story.stories.tsx'
 
 const { ConversionRoundtrip } = composeStories(ImageDataStories)
 const { Success, Failed } = composeStories(ToMatchStories)

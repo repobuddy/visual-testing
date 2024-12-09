@@ -1,2 +1,2 @@
-export type * from './shared/types.js'
-export { storybookVis } from './server/storybook_vis.js'
+export type * from './shared/types.ts'
+export { storybookVis } from './server/storybook_vis.ts'

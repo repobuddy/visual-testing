@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
-import { page } from '../../../index.js'
-import { RESULT_DIR } from '../../../shared/contants.js'
-import { toSnapshotId } from './image_snapshot.logic.js'
+import { page } from '../../../index.ts'
+import { RESULT_DIR } from '../../../shared/contants.ts'
+import { toSnapshotId } from './image_snapshot.logic.ts'
 
 it(`save file under ${RESULT_DIR}`, async ({ task }) => {
 	const prefix = task.file.projectName === 'vis:wb' ? 'wb/' : ''

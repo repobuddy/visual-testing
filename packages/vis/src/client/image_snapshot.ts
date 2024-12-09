@@ -1,6 +1,6 @@
 import { getCurrentTest } from 'vitest/suite'
-import type { ImageSnapshot, ImageSnapshotOptions } from '../shared/types.js'
-import { commands } from './@vitest/browser/context.js'
+import type { ImageSnapshot, ImageSnapshotOptions } from '../shared/types.ts'
+import { commands } from './@vitest/browser/context.ts'
 
 export function imageSnapshot(options?: ImageSnapshotOptions | undefined): Promise<ImageSnapshot> {
 	const name = getCurrentTest()!.name

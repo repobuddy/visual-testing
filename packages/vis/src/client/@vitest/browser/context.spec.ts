@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { cdp, commands, page, server } from './context.js'
+import { cdp, commands, page, server } from './context.ts'
 
 it('is accessible in vitest', () => {
 	expect(page).toBeDefined()

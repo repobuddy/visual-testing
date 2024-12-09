@@ -1,6 +1,6 @@
 import type { BrowserCommandContext } from 'vitest/node'
-import { playwright } from './playwright.js'
-import { webdriverio } from './webdriverio.js'
+import { playwright } from './playwright.ts'
+import { webdriverio } from './webdriverio.ts'
 
 export function browserApi(context: BrowserCommandContext) {
 	if (context.provider.name === 'playwright') {

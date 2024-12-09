@@ -9,6 +9,7 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"outDir": "esm",
+		"rewriteRelativeImportExtensions": true,
 		// "noImplicitAny": true,
 		"rootDir": "src",
 		"skipLibCheck": true,

@@ -1,5 +1,5 @@
 import type { BrowserCommandContext } from 'vitest/node'
-import type { BrowserApi } from './types.js'
+import type { BrowserApi } from './types.ts'
 
 export function playwright(context: BrowserCommandContext): BrowserApi {
 	return {

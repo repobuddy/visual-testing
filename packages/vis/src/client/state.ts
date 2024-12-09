@@ -2,11 +2,11 @@ import { dirname, join, relative } from 'pathe'
 import type { StoryContext } from 'storybook/internal/types'
 import { omit, required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
-import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path.js'
-import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.js'
-import { commands } from './@vitest/browser/context.js'
-import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.js'
+import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.ts'
+import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path.ts'
+import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.ts'
+import { commands } from './@vitest/browser/context.ts'
+import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.ts'
 
 function createStore() {
 	// test suite (runner.beforeAll) states

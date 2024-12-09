@@ -1,8 +1,8 @@
 import { expect, it } from 'vitest'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
-import { createVisConfig } from '../vitest-setup.js'
-import { commands } from './@vitest/browser/context.js'
-import { state } from './state.js'
+import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.ts'
+import { createVisConfig } from '../vitest-setup.ts'
+import { commands } from './@vitest/browser/context.ts'
+import { state } from './state.ts'
 
 it('can define the snapshot root folder relative to the root of the project', async () => {
 	await createVisConfig({

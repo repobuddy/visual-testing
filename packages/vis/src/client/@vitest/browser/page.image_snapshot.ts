@@ -1,8 +1,8 @@
 import type { BrowserPage } from '@vitest/browser/context'
-import type { ImageSnapshot, ImageSnapshotOptions } from '../../../shared/types.js'
-import { toImageData } from '../../image_data.js'
-import { state } from '../../state.js'
-import { imageSnapshotSymbol } from './constants.js'
+import type { ImageSnapshot, ImageSnapshotOptions } from '../../../shared/types.ts'
+import { toImageData } from '../../image_data.ts'
+import { state } from '../../state.ts'
+import { imageSnapshotSymbol } from './constants.ts'
 
 export interface ImageSnapshotAction {
 	imageSnapshot(this: BrowserPage, options?: ImageSnapshotOptions | undefined): Promise<ImageSnapshot>

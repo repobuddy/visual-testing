@@ -2,12 +2,12 @@ import ci from 'is-ci'
 import { join } from 'pathe'
 import { rimraf } from 'rimraf'
 import type { BrowserCommandContext } from 'vitest/node'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
-import { toSnapshotId } from '../shared/snapshot_id.js'
-import { resolveSnapshotRootDir } from '../shared/snapshot_path.js'
-import type { VisOptions } from '../shared/types.js'
-import type { VisState } from './types.js'
-import { createSuite, getSuiteId } from './vis_context.logic.js'
+import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.ts'
+import { toSnapshotId } from '../shared/snapshot_id.ts'
+import { resolveSnapshotRootDir } from '../shared/snapshot_path.ts'
+import type { VisOptions } from '../shared/types.ts'
+import type { VisState } from './types.ts'
+import { createSuite, getSuiteId } from './vis_context.logic.ts'
 
 // export const visContext: VisContext = {}
 

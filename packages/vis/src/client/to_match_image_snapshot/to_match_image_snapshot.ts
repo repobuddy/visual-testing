@@ -1,8 +1,8 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
-import { commands, page } from '../@vitest/browser/context.js'
-import { success } from './expectation_result.js'
+import { commands, page } from '../@vitest/browser/context.ts'
+import { success } from './expectation_result.ts'
 
 export interface ImageSnapshotMatcher2 {
 	toMatchImageSnapshot2(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>

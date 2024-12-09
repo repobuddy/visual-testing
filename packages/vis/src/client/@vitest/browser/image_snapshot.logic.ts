@@ -1,5 +1,5 @@
-import type { ImageSnapshot } from '../../../shared/types.js'
-import { imageSnapshotSymbol } from './constants.js'
+import type { ImageSnapshot } from '../../../shared/types.ts'
+import { imageSnapshotSymbol } from './constants.ts'
 
 export function isImageSnapshot(subject: any): subject is ImageSnapshot {
 	return !!subject && subject.type === imageSnapshotSymbol

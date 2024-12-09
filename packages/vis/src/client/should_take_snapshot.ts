@@ -1,4 +1,4 @@
-import { state } from './state.js'
+import { state } from './state.ts'
 
 /**
  * Determine should snapshot be taken.

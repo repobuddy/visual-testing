@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.js'
-import type { VisOptions } from './types.js'
+import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
+import type { VisOptions } from './types.ts'
 
 describe(`${resolveSnapshotRootDir.name}()`, () => {
 	it('should return the provided snapshotRootDir if defined', () => {

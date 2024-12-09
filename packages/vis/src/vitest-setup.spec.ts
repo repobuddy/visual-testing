@@ -1,8 +1,8 @@
 import { composeStories } from '@storybook/react'
 import { expect, it } from 'vitest'
-import { commands, page } from './client/@vitest/browser/context.js'
-import * as ImageDataStories from './client/image_data.stories.js'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from './shared/contants.js'
+import { commands, page } from './client/@vitest/browser/context.ts'
+import * as ImageDataStories from './client/image_data.stories.ts'
+import { DIFF_OUTPUT_DIR, RESULT_DIR } from './shared/contants.ts'
 
 const { ConversionRoundtrip } = composeStories(ImageDataStories)
 

@@ -1,5 +1,5 @@
 import type { BrowserCommand } from 'vitest/node'
-import { visContext } from '../vis_context.js'
+import { visContext } from '../vis_context.ts'
 
 export interface SetupVisSuiteCommand {
 	/**

@@ -1,11 +1,11 @@
 import type { Locator } from '@vitest/browser/context'
 import { mkdirp } from 'mkdirp'
 import type { BrowserCommand } from 'vitest/node'
-import type { ToMatchImageSnapshotOptions } from '../../client/to_match_image_snapshot/to_match_image_snapshot.js'
-import { isBase64String } from '../../shared/base64.js'
-import { browserApi } from '../browsers/browser_api.js'
-import { file } from '../file.js'
-import { visContext } from '../vis_context.js'
+import type { ToMatchImageSnapshotOptions } from '../../client/to_match_image_snapshot/to_match_image_snapshot.ts'
+import { isBase64String } from '../../shared/base64.ts'
+import { browserApi } from '../browsers/browser_api.ts'
+import { file } from '../file.ts'
+import { visContext } from '../vis_context.ts'
 
 export interface MatchImageSnapshotCommand {
 	matchImageSnapshot: (
