@@ -92,3 +92,14 @@ export type ImageSnapshot = {
 	base64: string
 	image: ImageData
 }
+export type SnapshotInfo = {
+	suiteId: string
+	snapshotId: string
+	baselineDir: string
+	resultDir: string
+	diffDir: string
+	snapshotFilename: string
+	baselinePath: string
+	resultPath: string
+	diffPath: string
+}

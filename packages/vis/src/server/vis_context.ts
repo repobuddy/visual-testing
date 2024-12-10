@@ -5,7 +5,7 @@ import type { BrowserCommandContext } from 'vitest/node'
 import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.ts'
 import { toSnapshotId } from '../shared/snapshot_id.ts'
 import { resolveSnapshotRootDir } from '../shared/snapshot_path.ts'
-import type { VisOptions } from '../shared/types.ts'
+import type { SnapshotInfo, VisOptions } from '../shared/types.ts'
 import type { VisState } from './types.ts'
 import { createSuite, getSuiteId } from './vis_context.logic.ts'
 
@@ -80,7 +80,7 @@ function createVisContext() {
 		getOptions() {
 			return visOptions
 		},
-		getSnapshotInfo(context: BrowserCommandContext, name: string) {
+		getSnapshotInfo(context: BrowserCommandContext, name: string): SnapshotInfo {
 			const suiteId = getSuiteId(state, context.testPath!, visOptions)
 			const suite = state.suites[suiteId]
 			const snapshotId = toSnapshotId(name)
