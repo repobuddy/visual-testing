@@ -1,4 +1,3 @@
-import type { Locator } from '@vitest/browser/context'
 import { mkdirp } from 'mkdirp'
 import type { BrowserCommand } from 'vitest/node'
 import type { ToMatchImageSnapshotOptions } from '../../client/to_match_image_snapshot/to_match_image_snapshot.ts'

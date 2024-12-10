@@ -1,7 +1,7 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
-import pixelmatch, { type PixelmatchOptions } from 'pixelmatch'
+import pixelmatch from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
 import type { MatchImageSnapshotOptions } from '../shared/types.ts'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.ts'
