@@ -79,6 +79,7 @@
 		"vitest.config.webdriverio.ts": "vitest"
 	},
 	"typescript.experimental.updateImportsOnPaste": true,
-	"typescript.tsserver.web.projectWideIntellisense.enabled": true,
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.preferences.importModuleSpecifierEnding": "js",
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.tsserver.web.projectWideIntellisense.enabled": true
 }
