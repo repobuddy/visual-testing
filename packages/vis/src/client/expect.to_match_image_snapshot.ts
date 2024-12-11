@@ -76,9 +76,11 @@ async function toMatchImageSnapshotInternal(
 
 	// const test = getCurrentTest()
 	// console.log('test', test)
-	const { pass, diffAmount, diffImage } = compareImage(
-		baselineImage,
-		resultImage,
+	const { pass, diffAmount, diffData } = compareImage(
+		resultImage.width,
+		resultImage.height,
+		baselineImage.data,
+		resultImage.data,
 		state.mergeMatchImageSnapshotOptions(options),
 	)
 
@@ -87,6 +89,7 @@ async function toMatchImageSnapshotInternal(
 			await writeSnapshot(`${subject.baselinePath}`, resultImage)
 			return success
 		}
+		const diffImage = new ImageData(diffData, resultImage.width, resultImage.height)
 		await writeSnapshot(`${subject.diffPath}`, diffImage)
 		return {
 			pass: false,
@@ -131,20 +134,21 @@ function isSameSize(image1: ImageData, image2: ImageData) {
 }
 
 function compareImage(
-	baselineImage: ImageData,
-	resultImage: ImageData,
+	width: number,
+	height: number,
+	baselineData: Uint8ClampedArray,
+	resultData: Uint8ClampedArray,
 	{ failureThreshold = 0, failureThresholdType = 'pixel', diffOptions }: MatchImageSnapshotOptions = {},
 ) {
-	const { width, height } = resultImage
-	const diffImage = new ImageData(width, height)
+	const diffData = new Uint8ClampedArray(width * height * 4)
 
-	const pixelDiff = pixelmatch(resultImage.data, baselineImage.data, diffImage.data, width, height, diffOptions)
+	const pixelDiff = pixelmatch(resultData, baselineData, diffData, width, height, diffOptions)
 	const diffAmount = toThresholdUnit({ failureThresholdType, width, height }, pixelDiff)
 
 	return {
 		pass: diffAmount <= failureThreshold,
 		diffAmount,
-		diffImage,
+		diffData,
 	}
 }
 
