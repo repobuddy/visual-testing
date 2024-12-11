@@ -1,8 +1,8 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
-import pixelmatch from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
+import { compareImage } from '../shared/compare_image.ts'
 import { getMaxSize } from '../shared/get_max_size.ts'
 import type { MatchImageSnapshotOptions } from '../shared/types.ts'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.ts'
@@ -131,37 +131,4 @@ function alignImagesToSameSize(image1: ImageData, image2: ImageData): [image1: I
 
 function isSameSize(image1: ImageData, image2: ImageData) {
 	return image1.width === image2.width && image1.height === image2.height
-}
-
-function compareImage(
-	width: number,
-	height: number,
-	baselineData: Uint8ClampedArray,
-	resultData: Uint8ClampedArray,
-	{ failureThreshold = 0, failureThresholdType = 'pixel', diffOptions }: MatchImageSnapshotOptions = {},
-) {
-	const diffData = new Uint8ClampedArray(width * height * 4)
-
-	const pixelDiff = pixelmatch(resultData, baselineData, diffData, width, height, diffOptions)
-	const diffAmount = toThresholdUnit({ failureThresholdType, width, height }, pixelDiff)
-
-	return {
-		pass: diffAmount <= failureThreshold,
-		diffAmount,
-		diffData,
-	}
-}
-
-function toThresholdUnit(
-	{ failureThresholdType, width, height }: { failureThresholdType: 'pixel' | 'percent'; width: number; height: number },
-	pixelDiff: number,
-): number {
-	switch (failureThresholdType) {
-		case 'pixel':
-			return pixelDiff
-		case 'percent':
-			return (pixelDiff / (width * height)) * 100
-		default:
-			throw new Error(`Invalid failureThresholdType: ${failureThresholdType}`)
-	}
 }
