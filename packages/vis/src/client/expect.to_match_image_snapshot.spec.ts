@@ -6,11 +6,9 @@ import { page } from './@vitest/browser/context.ts'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.ts'
 import * as ToMatchStories from './expect.to_match_image_snapshot.stories.tsx'
 import * as ImageDataStories from './image_data.stories.tsx'
-import * as PerStory from './per_story.stories.tsx'
 
 const { ConversionRoundtrip } = composeStories(ImageDataStories)
 const { Success, Failed } = composeStories(ToMatchStories)
-const { TakeSnapshot } = composeStories(PerStory)
 
 it('should reject if the subject is undefined', async () => {
 	await expect(() => expect(undefined).toMatchImageSnapshot()).rejects.toThrowError(
@@ -95,7 +93,7 @@ it('should fail with mismatch message', async ({ task }) => {
 })
 
 test('use screen to get element', async () => {
-	await TakeSnapshot.run()
-	const subject = screen.getByTestId('subject')
+	await Success.run()
+	const subject = screen.getByRole('img')
 	await expect(subject).toMatchImageSnapshot()
 })

@@ -53,7 +53,7 @@
 		"t:n": "vitest run -c vitest.config.node.ts",
 		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
 		"test": "vitest run --coverage",
-		"w": "vitest",
+		"w": "vitest --config vitest.config.browser.ts",
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
