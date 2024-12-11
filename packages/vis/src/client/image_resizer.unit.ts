@@ -1,10 +1,9 @@
 import { expect, it } from 'vitest'
-import { UNI_PNG_BASE64 } from '../testing/constants.ts'
-import { toImageData } from './image_data.ts'
+import { UNI_IMAGE_DATA } from '../testing/constants.ts'
 import { createImageResizer, createImageResizer2 } from './image_resizer.ts'
 
 it('returns the same image if no resize is needed', async () => {
-	const image = await toImageData(UNI_PNG_BASE64)
+	const image = UNI_IMAGE_DATA
 	let result = await createImageResizer(image)(image)
 	expect(result).toBe(image)
 	result = await createImageResizer2(image)(image)
@@ -12,11 +11,11 @@ it('returns the same image if no resize is needed', async () => {
 })
 
 it('takes less than 200ms to resize 16 times', async () => {
-	await testResize(createImageResizer, await toImageData(UNI_PNG_BASE64), 4, 1)
+	await testResize(createImageResizer, UNI_IMAGE_DATA, 4, 1)
 })
 
 it('takes less than 200ms to resize 16 times (createImageResizer2)', async () => {
-	await testResize(createImageResizer2, await toImageData(UNI_PNG_BASE64), 4, 1)
+	await testResize(createImageResizer2, UNI_IMAGE_DATA, 4, 1)
 })
 
 async function testResize(fn: typeof createImageResizer, image: ImageData, factor: number, length: number) {
