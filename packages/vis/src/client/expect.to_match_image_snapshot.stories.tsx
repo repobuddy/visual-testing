@@ -13,7 +13,7 @@ export const Success: StoryObj = {
 		return <img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
 	},
 	async play() {
-		expect(page.imageSnapshot()).toMatchImageSnapshot()
+		await expect(page.imageSnapshot()).toMatchImageSnapshot()
 	},
 }
 
@@ -28,7 +28,7 @@ export const Failed: StoryObj = {
 		)
 	},
 	async play() {
-		expect(page.imageSnapshot())
+		await expect(page.imageSnapshot())
 			.toMatchImageSnapshot()
 			.then(
 				() => {
@@ -45,7 +45,7 @@ export const Element: StoryObj = {
 	},
 	async play({ canvas }) {
 		const image = await canvas.getByRole('img')
-		expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
+		await expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
 	},
 }
 
@@ -63,10 +63,10 @@ export const DifferentSize: StoryObj = {
 	async play({ canvas, loaded: { hasImageSnapshot } }) {
 		const image = await canvas.getByRole('img')
 		if (!hasImageSnapshot) {
-			expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
+			await expect(page.imageSnapshot({ element: image })).toMatchImageSnapshot()
 			return
 		}
-		expect(page.imageSnapshot({ element: image }))
+		await expect(page.imageSnapshot({ element: image }))
 			.toMatchImageSnapshot()
 			.then(
 				() => {
@@ -94,7 +94,7 @@ export const FailureThreshold: StoryObj = {
 	// render: () => <div data-testid="subject">unit text</div>,
 	async play({ canvas }) {
 		const subject = canvas.getByTestId('subject')
-		expect(page.imageSnapshot({ element: subject }))
+		await expect(page.imageSnapshot({ element: subject }))
 			.toMatchImageSnapshot({
 				failureThreshold: 10,
 			})

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { defineSnapshotParam, page } from '../index.js'
+import { defineSnapshotParam, page } from '../index.ts'
 
 export default {
 	title: 'param',
@@ -38,6 +38,6 @@ export const ParamAppliesToPlay: StoryObj = {
 	},
 	play: async ({ canvas }) => {
 		const subject = canvas.getByTestId('subject')
-		expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot()
+		await expect(page.imageSnapshot({ element: subject })).toMatchImageSnapshot()
 	},
 }
