@@ -29,7 +29,7 @@ export function createVisConfig(options?: VisOptions) {
 				if (!shouldTakeSnapshot()) return
 				// console.debug('taking automatic snapshot', state.getName())
 				const r = await page.imageSnapshot()
-				expect(r).toMatchImageSnapshot()
+				await expect(r).toMatchImageSnapshot()
 			},
 			matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 				return async function matchImageSnapshot() {
