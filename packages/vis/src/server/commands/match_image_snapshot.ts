@@ -21,8 +21,7 @@ export const matchImageSnapshot: BrowserCommand<
 	const info = visContext.getSnapshotInfo(context, taskName)
 	const baseline = await file.tryReadFileBase64(info.baselinePath)
 	if (!baseline) {
-		await saveBaseline(context, subject, info)
-		return
+		return saveBaseline(context, subject, info)
 	}
 	console.info('Matching image snapshot...', info, subject, options)
 }

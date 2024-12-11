@@ -3,6 +3,7 @@ import dedent from 'dedent'
 import { resolve } from 'pathe'
 import pixelmatch from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
+import { getMaxSize } from '../shared/get_max_size.ts'
 import type { MatchImageSnapshotOptions } from '../shared/types.ts'
 import { imageSnapshotStubSymbol } from './@vitest/browser/constants.ts'
 import { commands, page, server } from './@vitest/browser/context.ts'
@@ -123,12 +124,6 @@ function alignImagesToSameSize(image1: ImageData, image2: ImageData): [image1: I
 	const size = getMaxSize(image1, image2)
 	const resize = createImageResizer(size)
 	return [resize(image1), resize(image2)]
-}
-
-function getMaxSize(image1: ImageData, image2: ImageData) {
-	const width = Math.max(image1.width, image2.width)
-	const height = Math.max(image1.height, image2.height)
-	return { width, height }
 }
 
 function isSameSize(image1: ImageData, image2: ImageData) {
