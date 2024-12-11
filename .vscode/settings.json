@@ -80,6 +80,7 @@
 	},
 	"typescript.experimental.updateImportsOnPaste": true,
 	"typescript.preferences.importModuleSpecifierEnding": "js",
+	"typescript.preferences.includePackageJsonAutoImports": "on",
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.tsserver.web.projectWideIntellisense.enabled": true
 }
