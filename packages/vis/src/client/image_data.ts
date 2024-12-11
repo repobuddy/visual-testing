@@ -1,5 +1,10 @@
 export function toImageData(base64: string) {
-	return new Promise<ImageData>((resolve, reject) => {
+	return new Promise<{
+		data: Uint8ClampedArray
+		width: number
+		height: number
+		colorSpace: PredefinedColorSpace
+	}>((resolve, reject) => {
 		const img = new Image()
 		img.src = `data:image/png;base64,${base64}`
 

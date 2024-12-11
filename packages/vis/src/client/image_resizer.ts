@@ -1,6 +1,6 @@
 export const createImageResizer =
 	({ width, height }: { width: number; height: number }) =>
-	(image: ImageData) => {
+	(image: { width: number; height: number; data: Uint8ClampedArray; colorSpace: PredefinedColorSpace }) => {
 		if (image.width === width && image.height === height) {
 			return image
 		}
@@ -24,13 +24,13 @@ export const createImageResizer =
 				}
 			}
 		}
-		return new ImageData(data, width, height, { colorSpace: image.colorSpace })
+		return { data, width, height, colorSpace: image.colorSpace }
 	}
 
 // slower
 export const createImageResizer2 =
 	({ width, height }: { width: number; height: number }) =>
-	(image: ImageData) => {
+	(image: { width: number; height: number; data: Uint8ClampedArray; colorSpace: PredefinedColorSpace }) => {
 		if (image.width === width && image.height === height) {
 			return image
 		}
@@ -50,6 +50,5 @@ export const createImageResizer2 =
 				}
 			}
 		}
-		const result = new ImageData(data, width, height, { colorSpace: image.colorSpace })
-		return result
+		return { data, width, height, colorSpace: image.colorSpace }
 	}
