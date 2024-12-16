@@ -7,6 +7,8 @@ import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_p
 import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.ts'
 import { commands } from './@vitest/browser/context.ts'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.ts'
+import { getSnapshotMeta } from './get_snapshot_meta.ts'
+import { setSnapshotMeta } from './set_snapshot_meta.ts'
 
 function createStore() {
 	// test suite (runner.beforeAll) states
@@ -19,8 +21,6 @@ function createStore() {
 	let suiteOptions: VisOptions = Object.create(null)
 
 	// story states (story.beforeEach)
-	let tags: string[] | undefined
-	let parameters: Record<string, any> | undefined
 	let taskName: string
 	let id: string
 
@@ -30,7 +30,6 @@ function createStore() {
 		diffDir,
 		snapshot: {},
 		async setupSuite(suite: { file: { filepath: string }; name: string }, options: VisOptions = {}) {
-			// console.debug('setupSuite', suite.name)
 			testFilepath = suite.file.filepath
 			const projectDir = testFilepath.slice(0, -suite.name.length)
 
@@ -50,14 +49,12 @@ function createStore() {
 			}
 		},
 		setupStory(ctx: StoryContext) {
-			// console.debug('setupStory', ctx.name)
-			tags = ctx.tags
-			parameters = ctx.parameters
+			const tags = ctx.tags
+			const enable = !tags ? false : tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
+			setSnapshotMeta(getCurrentTest()!, { enable, ...ctx.parameters?.snapshot })
 		},
 		shouldTakeSnapshot() {
-			// console.debug('shouldTakeSnapshot', taskName, tags)
-			if (!tags) return false
-			return tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
+			return !!getSnapshotMeta(getCurrentTest()!)?.enable
 		},
 		getName() {
 			return taskName
@@ -69,7 +66,11 @@ function createStore() {
 			return timeout ?? suiteOptions.timeout ?? 30000
 		},
 		mergeMatchImageSnapshotOptions(options?: MatchImageSnapshotOptions) {
-			return required(omit(suiteOptions, 'snapshotRootDir', 'customizeSnapshotSubpath'), parameters?.snapshot, options)
+			return required(
+				omit(suiteOptions, 'snapshotRootDir', 'customizeSnapshotSubpath'),
+				getSnapshotMeta(getCurrentTest()!),
+				options,
+			)
 		},
 		getSnapshotFilePaths(options?: ImageSnapshotOptions | undefined) {
 			const test = getCurrentTest()!

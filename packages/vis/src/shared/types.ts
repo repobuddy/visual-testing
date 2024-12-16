@@ -59,6 +59,12 @@ export interface MatchImageSnapshotOptions {
 	 * Default is `0`.
 	 */
 	failureThreshold?: number | undefined
+	/**
+	 * Timeout for taking the snapshot.
+	 *
+	 * Default: 30000
+	 */
+	timeout?: number | undefined
 }
 
 export interface CustomizeSnapshotIdOptions {
