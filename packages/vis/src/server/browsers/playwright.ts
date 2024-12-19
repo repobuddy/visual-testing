@@ -3,13 +3,14 @@ import type { BrowserApi } from './types.ts'
 
 export function playwright(context: BrowserCommandContext): BrowserApi {
 	return {
-		async saveScreenshot(filePath, selector) {
+		async takeScreenshot(filePath, selector, options) {
 			// The `Locator` type from `vitest` has less props than the `Locator` in `playwright`
 			const subject = context.iframe.locator(selector)
-			await subject.screenshot({
-				timeout: 1000,
+			const buffer = await subject.screenshot({
+				timeout: options?.timeout ?? 1000,
 				path: filePath,
 			})
+			return buffer.toString('base64')
 		},
 	}
 }

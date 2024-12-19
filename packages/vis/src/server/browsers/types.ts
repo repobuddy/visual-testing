@@ -1,3 +1,11 @@
 export interface BrowserApi {
-	saveScreenshot(filePath: string, selector: string): Promise<void>
+	takeScreenshot(
+		filePath: string,
+		selector: string,
+		options:
+			| {
+					timeout?: number | undefined
+			  }
+			| undefined,
+	): Promise<string>
 }
