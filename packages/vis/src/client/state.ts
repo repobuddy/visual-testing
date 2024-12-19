@@ -7,8 +7,8 @@ import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_p
 import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.ts'
 import { commands } from './@vitest/browser/context.ts'
 import { toSnapshotId } from './@vitest/browser/image_snapshot.logic.ts'
-import { getSnapshotMeta } from './get_snapshot_meta.ts'
-import { setSnapshotMeta } from './set_snapshot_meta.ts'
+import { getSnapshotMeta } from './snapshot_meta.internal.ts'
+import { setSnapshotMeta } from './snapshot_meta.ts'
 
 function createStore() {
 	// test suite (runner.beforeAll) states

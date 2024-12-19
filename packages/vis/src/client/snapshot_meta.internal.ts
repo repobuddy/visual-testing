@@ -1,5 +1,5 @@
 import { META_KEY } from './constants.ts'
-import type { SnapshotMeta } from './set_snapshot_meta.ts'
+import type { SnapshotMeta } from './snapshot_meta.ts'
 
 type Suite = { meta: any; suite?: Suite | undefined }
 

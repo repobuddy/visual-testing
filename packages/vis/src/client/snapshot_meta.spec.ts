@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { setSnapshotMeta } from '../vitest-setup.ts'
 import { META_KEY } from './constants.ts'
-import { getSnapshotMeta } from './get_snapshot_meta.ts'
+import { getSnapshotMeta } from './snapshot_meta.internal.ts'
 
 beforeAll((ctx) => {
 	// this set the `file` meta
