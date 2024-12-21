@@ -73,6 +73,9 @@ importers:
       pixelmatch:
         specifier: ^6.0.0
         version: 6.0.0
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -116,6 +119,9 @@ importers:
       '@types/pixelmatch':
         specifier: ^5.2.6
         version: 5.2.6
+      '@types/pngjs':
+        specifier: ^6.0.5
+        version: 6.0.5
       '@types/react':
         specifier: ^18.2.65
         version: 18.3.12
@@ -1520,6 +1526,9 @@ packages:
 
   '@types/pixelmatch@5.2.6':
     resolution: {integrity: sha512-wC83uexE5KGuUODn6zkm9gMzTwdY5L0chiK+VrKcDfEjzxh1uadlWTvOmAbCpnM9zx/Ww3f8uKlYQVnO/TrqVg==}
+
+  '@types/pngjs@6.0.5':
+    resolution: {integrity: sha512-0k5eKfrA83JOZPppLtS2C7OUtyNAl2wKNxfyYl9Q5g9lPkgBl/9hNyAu6HuEH2J4XmIv2znEpkDd0SaZVxW6iQ==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -5347,6 +5356,10 @@ snapshots:
       undici-types: 6.19.8
 
   '@types/pixelmatch@5.2.6':
+    dependencies:
+      '@types/node': 22.9.0
+
+  '@types/pngjs@6.0.5':
     dependencies:
       '@types/node': 22.9.0
 
