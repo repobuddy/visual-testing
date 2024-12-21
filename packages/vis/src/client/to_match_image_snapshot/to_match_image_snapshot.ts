@@ -16,6 +16,11 @@ export async function toMatchImageSnapshot2(
 	subject: any,
 	options?: MatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
+	if (subject === undefined) {
+		throw new Error(
+			'`toMatchImageSnapshot()` expects the subject to be an element, locator, or result of `page.imageSnapshot()`, but got: `undefined`',
+		)
+	}
 	await commands.matchImageSnapshot(
 		getCurrentTest()?.name,
 		subject instanceof Element ? (page.elementLocator(subject) as any).selector : (subject?.['selector'] ?? subject),
