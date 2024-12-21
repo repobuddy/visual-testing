@@ -87,7 +87,7 @@ function createVisContext() {
 			const task = (suite.tasks[snapshotId] = suite.tasks[snapshotId] ?? { count: 0 })
 			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
 
-			const snapshotFilename = `${customizeSnapshotId(snapshotId, task.count)}.png`
+			const snapshotFilename = `${customizeSnapshotId(snapshotId, ++task.count)}.png`
 			const baselinePath = join(suite.baselineDir, snapshotFilename)
 			const resultPath = join(suite.resultDir, snapshotFilename)
 			const diffPath = join(suite.diffDir, snapshotFilename)
