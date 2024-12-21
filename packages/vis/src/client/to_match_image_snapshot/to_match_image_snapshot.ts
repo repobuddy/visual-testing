@@ -17,17 +17,22 @@ export function toMatchImageSnapshot2(
 	subject: any,
 	options?: MatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
-	if (subject === undefined || (typeof subject === 'string' && !isBase64String(subject))) {
+	const s = parseSubject(subject)
+	if (!s) {
 		throw new Error(
-			'`toMatchImageSnapshot()` expects the subject to be an element, locator, or image encoded in base64 string, but got: `undefined`',
+			`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${subject}`,
 		)
 	}
 
-	return commands
-		.matchImageSnapshot(
-			getCurrentTest()?.name,
-			subject instanceof Element ? (page.elementLocator(subject) as any).selector : (subject?.['selector'] ?? subject),
-			options,
-		)
-		.then(() => success)
+	return commands.matchImageSnapshot(getCurrentTest()?.name, s, options).then(() => success)
+}
+
+function parseSubject(subject: any) {
+	if (subject instanceof Element) {
+		// the `Locater.selector` is not exposed in the type definition.
+		return (page.elementLocator(subject) as any).selector
+	}
+	if (subject?.['selector']) return subject['selector']
+	if (isBase64String(subject)) return subject
+	return undefined
 }
