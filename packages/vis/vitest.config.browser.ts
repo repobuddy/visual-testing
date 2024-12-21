@@ -26,6 +26,8 @@ export default defineProject(() => {
 			setupFiles: [
 				browserProvider === 'playwright' ? './.storybook/vitest.setup.ts' : './.storybook/vitest.setup.webdriverio.ts',
 			],
+			// enables globals only for testing global usage
+			globals: true,
 		},
 	}
 })

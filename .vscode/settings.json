@@ -50,6 +50,7 @@
 		"divs",
 		"EISDIR",
 		"estree",
+		"nocheck",
 		"pathe",
 		"pixelmatch",
 		"pngjs",

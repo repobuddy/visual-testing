@@ -1,13 +1,9 @@
 import { afterEach, beforeAll, expect } from 'vitest'
-import { page } from './@vitest/browser/context.ts'
 import '../augment.ts'
 import type { VisOptions } from '../shared/types.ts'
-import { toMatchImageSnapshot } from './expect.to_match_image_snapshot.ts'
+import { page } from './@vitest/browser/context.ts'
 import { shouldTakeSnapshot } from './should_take_snapshot.ts'
 import { state } from './state.ts'
-import { toMatchImageSnapshot2 } from './to_match_image_snapshot/to_match_image_snapshot.ts'
-
-expect.extend({ toMatchImageSnapshot, toMatchImageSnapshot2 })
 
 export function createVisConfig(options?: VisOptions) {
 	const h = {
