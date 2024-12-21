@@ -17,6 +17,14 @@ export function toMatchImageSnapshot2(
 	subject: any,
 	options?: MatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
+	const test = getCurrentTest()
+
+	/* v8 ignore start: stub as success when not in a test (e.g. in a story) */
+	if (!test) {
+		return Promise.resolve(success)
+	}
+	/* v8 ignore end */
+
 	const s = parseSubject(subject)
 	if (!s) {
 		throw new Error(
@@ -24,7 +32,7 @@ export function toMatchImageSnapshot2(
 		)
 	}
 
-	return commands.matchImageSnapshot(getCurrentTest()?.name, s, options).then(() => success)
+	return commands.matchImageSnapshot(test.name, s, options).then(() => success)
 }
 
 function parseSubject(subject: any) {

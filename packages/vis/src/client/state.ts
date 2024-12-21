@@ -51,10 +51,10 @@ function createStore() {
 		setupStory(ctx: StoryContext) {
 			const tags = ctx.tags
 			const enable = !tags ? false : tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
-			setSnapshotMeta(getCurrentTest()!, { enable, ...ctx.parameters?.snapshot })
+			setSnapshotMeta(getCurrentTest(), { enable, ...ctx.parameters?.snapshot })
 		},
 		shouldTakeSnapshot() {
-			return !!getSnapshotMeta(getCurrentTest()!)?.enable
+			return !!getSnapshotMeta(getCurrentTest())?.enable
 		},
 		getName() {
 			return taskName
@@ -68,7 +68,7 @@ function createStore() {
 		mergeMatchImageSnapshotOptions(options?: MatchImageSnapshotOptions) {
 			return required(
 				omit(suiteOptions, 'snapshotRootDir', 'customizeSnapshotSubpath'),
-				getSnapshotMeta(getCurrentTest()!),
+				getSnapshotMeta(getCurrentTest()),
 				options,
 			)
 		},

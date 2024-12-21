@@ -13,6 +13,11 @@ beforeEach(({ task }) => {
 	setSnapshotMeta(task, { failureThreshold: 0.01 })
 })
 
+it('is noop when task is undefined', () => {
+	setSnapshotMeta(undefined)
+	getSnapshotMeta(undefined)
+})
+
 it('should merge meta from beforeAll and beforeEach', ({ task }) => {
 	const meta = getSnapshotMeta(task)
 	expect(meta).toEqual({ enable: true, diffOptions: { threshold: 0.01 }, failureThreshold: 0.01 })

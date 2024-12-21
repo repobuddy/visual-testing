@@ -1,7 +1,6 @@
 import type { TaskMeta } from 'vitest'
 import type { MatchImageSnapshotOptions } from '../shared/types.ts'
 import { META_KEY } from './constants.ts'
-import { getSnapshotMeta } from './snapshot_meta.internal.ts'
 
 export type SnapshotMeta = MatchImageSnapshotOptions & { enable?: boolean | undefined }
 
@@ -18,12 +17,15 @@ export type SnapshotMeta = MatchImageSnapshotOptions & { enable?: boolean | unde
  * ```
  */
 export function setSnapshotMeta(
-	task: {
-		file: { meta: TaskMeta }
-		meta: TaskMeta
-	},
+	task:
+		| {
+				file: { meta: TaskMeta }
+				meta: TaskMeta
+		  }
+		| undefined,
 	meta: SnapshotMeta | boolean = true,
 ) {
+	if (!task) return
 	if (typeof meta === 'boolean') meta = { enable: meta }
 	else {
 		meta = {

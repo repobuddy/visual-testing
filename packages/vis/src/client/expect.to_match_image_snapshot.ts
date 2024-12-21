@@ -75,8 +75,6 @@ async function toMatchImageSnapshotInternal(
 	const originalImage = await toImageData(baseline)
 	const [resultImage, baselineImage] = alignImagesToSameSize(subject.image, originalImage)
 
-	// const test = getCurrentTest()
-	// console.log('test', test)
 	const { pass, diffAmount, diffData } = compareImage(
 		resultImage.width,
 		resultImage.height,
