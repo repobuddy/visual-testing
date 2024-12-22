@@ -1,5 +1,4 @@
 import type { Plugin } from 'vitest/config'
-import '../augment.ts'
 import type { VisOptions } from '../shared/types.ts'
 import { copyFile } from './commands/copy_file.ts'
 import { existDir } from './commands/exist_dir.ts'

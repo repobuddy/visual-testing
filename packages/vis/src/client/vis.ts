@@ -1,5 +1,4 @@
 import { afterEach, beforeAll, expect } from 'vitest'
-import '../augment.ts'
 import type { VisOptions } from '../shared/types.ts'
 import { page } from './@vitest/browser/context.ts'
 import { shouldTakeSnapshot } from './should_take_snapshot.ts'
