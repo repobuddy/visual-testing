@@ -12,17 +12,18 @@
 		"cs": "changeset",
 		"nuke": "turbo nuke && rimraf node_modules",
 		"release": "pnpm build && changeset publish",
-		"t": "vitest run",
-		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
 		"test": "turbo test",
 		"test:trv": "vitest run --project=testcase-react-vite-ts",
 		"trv": "pnpm --filter=testcase-react-vite-ts",
 		"tt": "pnpm --filter=testcase-themes",
-		"verify": "turbo check test",
+		"v": "turbo check coverage",
+		"verify": "turbo check coverage",
 		"version": "changeset version",
+		"sav": "pnpm --filter=./packages/vis",
 		"vis": "pnpm --filter=./packages/vis",
+		"vpv": "pnpm --filter=./packages/vitest-plugin-vis",
 		"w": "turbo w",
-		"w:trv": "vitest  --project=testcase-react-vite-ts"
+		"w:trv": "vitest --project=testcase-react-vite-ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",

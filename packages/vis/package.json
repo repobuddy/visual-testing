@@ -43,8 +43,7 @@
 	"scripts": {
 		"build": "tsup",
 		"build:sb": "storybook build",
-		"c": "vitest run --coverage",
-		"clean": "rimraf dist",
+		"clean": "rimraf coverage dist esm *.tsbuildinfo vitest.*.timestamp*",
 		"coverage": "vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
@@ -53,6 +52,7 @@
 		"t:n": "vitest run -c vitest.config.node.ts",
 		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
 		"test": "vitest run --coverage",
+		"test:type": "tsc --noEmit",
 		"w": "vitest --config vitest.config.browser.ts",
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
@@ -64,7 +64,8 @@
 		"pixelmatch": "^6.0.0",
 		"pngjs": "^7.0.0",
 		"rimraf": "^6.0.1",
-		"type-plus": "^8.0.0-beta.6"
+		"type-plus": "^8.0.0-beta.6",
+		"vitest-plugin-vis": "workspace:*"
 	},
 	"devDependencies": {
 		"@storybook/addon-essentials": "^8.4.2",
