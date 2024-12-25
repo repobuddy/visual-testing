@@ -7,7 +7,7 @@ export default defineProject(() => {
 	return {
 		plugins: [vis()],
 		test: {
-			name: 'vpv-pw',
+			name: 'vpv:pw',
 			browser: {
 				enabled: true,
 				headless: true,

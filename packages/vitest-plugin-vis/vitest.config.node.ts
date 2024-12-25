@@ -3,7 +3,7 @@ import { defineProject } from 'vitest/config'
 // https://vitejs.dev/config/
 export default defineProject({
 	test: {
-		name: 'vpv-node',
+		name: 'vpv:node',
 		include: [
 			'src/config/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
 			'src/server/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',

@@ -45,7 +45,8 @@
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"test": "vitest run",
-		"w": "vitest"
+		"w": "vitest",
+		"w:cov": "cross-env COVERAGE=true vitest --coverage"
 	},
 	"dependencies": {
 		"is-ci": "^3.0.1"

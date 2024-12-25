@@ -15,6 +15,9 @@ function createVisContext() {
 		getOptions() {
 			return visOptions
 		},
+		__test__reset() {
+			visOptions = undefined as any
+		},
 	}
 }
 
