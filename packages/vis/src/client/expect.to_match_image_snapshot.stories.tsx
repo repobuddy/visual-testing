@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
 import { commands, page } from '../index.js'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.js'
+import { DIFF_DIR, RESULT_DIR } from '../shared/contants.js'
 import { UNI_PNG_URL } from '../testing/constants.js'
 
 export default {
@@ -163,7 +163,7 @@ export const ExactFailureThresholdByPercentage: StoryObj = {
 						`Actual:     '../__snapshots__/${await commands.getSnapshotPlatform()}/${RESULT_DIR}/expect.to_match_image_snapshot.stories.tsx/exact-failure-threshold-by-percentage-1.png'`,
 					)
 					expect(error.message).toMatch(
-						`Difference: '../__snapshots__/${await commands.getSnapshotPlatform()}/${DIFF_OUTPUT_DIR}/expect.to_match_image_snapshot.stories.tsx/exact-failure-threshold-by-percentage-1.png'`,
+						`Difference: '../__snapshots__/${await commands.getSnapshotPlatform()}/${DIFF_DIR}/expect.to_match_image_snapshot.stories.tsx/exact-failure-threshold-by-percentage-1.png'`,
 					)
 				},
 			)

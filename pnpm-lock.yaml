@@ -178,10 +178,17 @@ importers:
         version: 8.2.2
 
   packages/vitest-plugin-vis:
+    dependencies:
+      is-ci:
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@repobuddy/typescript':
         specifier: ^2.1.0
         version: 2.1.0
+      '@types/is-ci':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@vitest/browser':
         specifier: ^2.1.8
         version: 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)

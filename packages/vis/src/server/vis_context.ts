@@ -2,7 +2,7 @@ import ci from 'is-ci'
 import { join } from 'pathe'
 import { rimraf } from 'rimraf'
 import type { BrowserCommandContext } from 'vitest/node'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.ts'
+import { DIFF_DIR, RESULT_DIR } from '../shared/contants.ts'
 import { toSnapshotId } from '../shared/snapshot_id.ts'
 import { resolveSnapshotRootDir } from '../shared/snapshot_path.ts'
 import type { SnapshotInfo, VisOptions } from '../shared/types.ts'
@@ -65,7 +65,7 @@ function createVisContext() {
 			snapshotRootDir,
 			snapshotBaselineDir: join(snapshotRootDir, platform),
 			snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
-			snapshotDiffDir: join(snapshotRootDir, DIFF_OUTPUT_DIR),
+			snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
 			snapshotRootPath: join(projectPath, snapshotRootDir),
 			suites: {},
 		}

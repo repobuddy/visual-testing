@@ -2,7 +2,7 @@ import { dirname, join, relative } from 'pathe'
 import type { StoryContext } from 'storybook/internal/types'
 import { omit, required } from 'type-plus'
 import { getCurrentTest } from 'vitest/suite'
-import { DIFF_OUTPUT_DIR, RESULT_DIR } from '../shared/contants.ts'
+import { DIFF_DIR, RESULT_DIR } from '../shared/contants.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from '../shared/snapshot_path.ts'
 import type { ImageSnapshotOptions, MatchImageSnapshotOptions, VisOptions } from '../shared/types.ts'
 import { commands } from './@vitest/browser/context.ts'
@@ -38,7 +38,7 @@ function createStore() {
 			const suiteDir = getSnapshotSubpath(suite.name, options)
 			baselineDir = relative(currentDir, join(snapshotFullPath, await getPlatform(), suiteDir))
 			resultDir = relative(currentDir, join(snapshotFullPath, RESULT_DIR, suiteDir))
-			diffDir = relative(currentDir, join(snapshotFullPath, DIFF_OUTPUT_DIR, suiteDir))
+			diffDir = relative(currentDir, join(snapshotFullPath, DIFF_DIR, suiteDir))
 
 			suiteOptions = options
 			snapshot = snapshot ?? {}

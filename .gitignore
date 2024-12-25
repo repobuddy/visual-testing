@@ -62,6 +62,7 @@ vite*.timestamp*
 **/__snapshots__/*/__diff_output__
 **/__snapshots__/*/__results__
 **/__vis__/__diff_output__
+**/__vis__/__diffs__
 **/__vis__/__results__
 **/__vis__/local
 **/__snapshots__/__diff_output__

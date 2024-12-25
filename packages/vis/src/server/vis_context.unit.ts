@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DIFF_OUTPUT_DIR, RESULT_DIR, SNAPSHOT_DIR } from '../shared/contants.ts'
+import { DIFF_DIR, RESULT_DIR, SNAPSHOT_DIR } from '../shared/contants.ts'
 import type { VisOptions } from '../shared/types.ts'
 import type { VisState } from './types.ts'
 import { createSuite, getSuiteId } from './vis_context.logic.ts'
@@ -51,13 +51,13 @@ describe(`${createSuite.name}()`, () => {
 				projectPath: '/root/project',
 				snapshotBaselineDir: `/root/project/${SNAPSHOT_DIR}/local`,
 				snapshotResultDir: `/root/project/${SNAPSHOT_DIR}/${RESULT_DIR}`,
-				snapshotDiffDir: `/root/project/${SNAPSHOT_DIR}/${DIFF_OUTPUT_DIR}`,
+				snapshotDiffDir: `/root/project/${SNAPSHOT_DIR}/${DIFF_DIR}`,
 			} as VisState,
 			'/root/project/src/code.spec.ts',
 			{},
 		)
 		expect(suite.baselineDir).toBe(`/root/project/${SNAPSHOT_DIR}/local/${suiteId}`)
 		expect(suite.resultDir).toBe(`/root/project/${SNAPSHOT_DIR}/${RESULT_DIR}/${suiteId}`)
-		expect(suite.diffDir).toBe(`/root/project/${SNAPSHOT_DIR}/${DIFF_OUTPUT_DIR}/${suiteId}`)
+		expect(suite.diffDir).toBe(`/root/project/${SNAPSHOT_DIR}/${DIFF_DIR}/${suiteId}`)
 	})
 })
