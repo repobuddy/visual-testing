@@ -37,13 +37,21 @@ export type ImageSnapshot = {
 }
 
 export function imageSnapshot(this: BrowserPage, _options?: ImageSnapshotOptions | undefined): Promise<ImageSnapshot> {
-	const currentTest = ctx.getCurrentTest()
-	if (!currentTest) {
+	const test = ctx.getCurrentTest()
+	if (!test) {
 		return Promise.resolve({
 			type: imageSnapshotStubSymbol,
 			base64: '',
 			resultPath: '',
 		})
+	}
+
+	if (test.concurrent) {
+		throw new Error(
+			'Cannot take a screenshot in a concurrent test because ' +
+				"concurrent tests run at the same time in the same iframe and affect each other's environment. " +
+				'Use a non-concurrent test to take a screenshot.',
+		)
 	}
 
 	throw new Error('Not implemented')

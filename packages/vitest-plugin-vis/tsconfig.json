@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"isolatedModules": true,
+		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"module": "NodeNext",
 		"moduleDetection": "force",
@@ -12,7 +13,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2020",
-		"types": ["@vitest/browser/providers/playwright"],
+		"types": ["@vitest/browser/providers/playwright", "vitest-browser-react"],
 		"verbatimModuleSyntax": true
 	},
 	"include": ["src"]

@@ -6,6 +6,9 @@ export default defineProject(() => {
 	const browser = process.env.BROWSER ?? 'chromium'
 	return {
 		plugins: [vis()],
+		optimizeDeps: {
+			include: ['react/jsx-dev-runtime'],
+		},
 		test: {
 			name: 'vpv:pw',
 			browser: {

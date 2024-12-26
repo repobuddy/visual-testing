@@ -6,6 +6,9 @@ export default defineProject(() => {
 	const browser = process.env.BROWSER ?? 'firefox'
 	return {
 		plugins: [vis()],
+		optimizeDeps: {
+			include: ['react/jsx-dev-runtime'],
+		},
 		test: {
 			name: 'vpv:wd',
 			browser: {

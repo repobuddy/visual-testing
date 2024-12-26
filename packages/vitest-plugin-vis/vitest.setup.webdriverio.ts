@@ -1,3 +1,4 @@
+import 'vitest-browser-react'
 import { createVisConfig, trimCommonFolder } from './src/index.ts'
 
 createVisConfig({
