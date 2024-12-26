@@ -1,11 +1,17 @@
 import { defineProject } from 'vitest/config'
-import { vis } from './src/config.ts'
+import { trimCommonFolder, vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
 export default defineProject(() => {
 	const browser = process.env.BROWSER ?? 'firefox'
 	return {
-		plugins: [vis()],
+		plugins: [
+			vis({
+				customizeSnapshotSubpath(subPath) {
+					return `wb/${trimCommonFolder(subPath)}`
+				},
+			}),
+		],
 		optimizeDeps: {
 			include: ['react/jsx-dev-runtime'],
 		},

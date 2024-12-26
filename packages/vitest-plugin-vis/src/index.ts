@@ -1,10 +1,2 @@
-import './client/page/extend.ts'
-export * from './client/trim_common_folder.ts'
-
-export function createVisConfig(_options?: any) {
-	return {
-		presets: {
-			basic() {},
-		},
-	}
-}
+// `import {} from 'vitest-plugin-vis'` should provide code that can be used in test files.
+export * from './shared/trim_common_folder.ts'

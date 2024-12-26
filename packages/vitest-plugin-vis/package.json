@@ -28,13 +28,15 @@
 			"types": "./src/config.ts",
 			"default": "./esm/config.js"
 		},
+		"./setup": {
+			"types": "./src/setup.ts",
+			"default": "./esm/setup.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [
 		"esm",
-		"src",
-		"*.js",
-		"*.d.ts"
+		"src"
 	],
 	"scripts": {
 		"build": "tsc",
@@ -45,11 +47,16 @@
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"test": "vitest run",
+		"v": "run-p build cov",
 		"w": "vitest",
 		"w:cov": "cross-env COVERAGE=true vitest --coverage"
 	},
 	"dependencies": {
-		"is-ci": "^3.0.1"
+		"@types/pixelmatch": "^5.2.6",
+		"is-ci": "^3.0.1",
+		"pathe": "^1.1.2",
+		"pixelmatch": "^6.0.0",
+		"rimraf": "^6.0.1"
 	},
 	"devDependencies": {
 		"@repobuddy/typescript": "^2.1.0",
@@ -60,6 +67,7 @@
 		"@vitest/coverage-v8": "^2.1.8",
 		"@vitest/expect": "^2.1.8",
 		"cross-env": "^7.0.3",
+		"npm-run-all2": "^7.0.2",
 		"playwright": "^1.49.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",

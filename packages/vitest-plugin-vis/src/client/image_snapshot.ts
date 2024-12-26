@@ -1,4 +1,5 @@
 import type { BrowserPage, Locator } from '@vitest/browser/context'
+import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions } from '../shared/types.ts'
 import { ctx } from './image_snapshot.ctx.ts'
 
 export interface ImageSnapshotAction {
@@ -8,26 +9,8 @@ export interface ImageSnapshotAction {
 	imageSnapshot(this: BrowserPage, options?: ImageSnapshotOptions | undefined): Promise<ImageSnapshot>
 }
 
-export interface ImageSnapshotOptions extends CustomizeSnapshotIdOptions {
+export interface ImageSnapshotOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions {
 	element?: Element | Locator
-	/**
-	 * Timeout for taking the snapshot.
-	 *
-	 * Default: 30000
-	 */
-	timeout?: number | undefined
-}
-
-export interface CustomizeSnapshotIdOptions {
-	/**
-	 * Customize the snapshot id. This is used as the filename of the snapshot:
-	 *
-	 * `${snapshotId}.png`
-	 *
-	 * @param id The id of the snapshot.
-	 * @param index The index of the snapshot.
-	 */
-	customizeSnapshotId?: (id: string, index: number) => string
 }
 
 export type ImageSnapshot = {

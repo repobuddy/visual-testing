@@ -1,4 +1,4 @@
 import 'vitest-browser-react'
-import { createVisConfig } from './src/index.ts'
+import { vis } from './src/setup.ts'
 
-createVisConfig().presets.basic()
+vis.presets.auto()

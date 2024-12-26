@@ -1,7 +1,7 @@
-import ci from 'is-ci'
+// import ci from 'is-ci'
 
-export interface IsCICommand {
-	isCI: () => Promise<boolean>
-}
+// export interface IsCICommand {
+// 	isCI: () => Promise<boolean>
+// }
 
-export const isCI = async () => ci
+// export const isCI = async () => ci
