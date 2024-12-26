@@ -57,8 +57,7 @@ node_modules
 vite*.timestamp*
 
 # project
-**/__screenshots__/*/__diff_output__
-**/__screenshots__/*/__results__
+**/__screenshots__
 **/__snapshots__/*/__diff_output__
 **/__snapshots__/*/__results__
 **/__vis__/__diff_output__

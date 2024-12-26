@@ -14,6 +14,7 @@ export default defineProject(() => {
 				name: browser,
 				provider: 'playwright',
 				api: 63316,
+				screenshotDirectory: `__screenshots__/playwright/${browser}`,
 			},
 			include: [
 				'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',

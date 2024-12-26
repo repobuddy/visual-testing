@@ -14,6 +14,7 @@ export default defineProject(() => {
 				name: browser,
 				provider: 'webdriverio',
 				api: 63317,
+				screenshotDirectory: `__screenshots__/webdriverio/${browser}`,
 			},
 			include: [
 				'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',
