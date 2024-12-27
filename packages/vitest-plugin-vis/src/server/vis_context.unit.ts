@@ -76,6 +76,7 @@ describe(`${createVisContext.name}()`, () => {
 
 	beforeEach(() => {
 		ctx.rimraf = vi.fn() as any
+		ctx.getSnapshotPlatform = vi.fn(() => 'local' as any)
 	})
 	describe('set up state', () => {
 		it('set projectPath to suite.project.config.root', async () => {
@@ -85,6 +86,14 @@ describe(`${createVisContext.name}()`, () => {
 
 			expect(state.projectPath).toEqual(stubSuite().project.config.root)
 			expect(state.projectPath).toMatch(/vitest-plugin-vis$/)
+		})
+
+		it('default snapshotRootDir to SNAPSHOT_ROOT_DIR', async () => {
+			const visContext = createVisContext()
+			await visContext.setupSuite(stubSuite())
+			const state = visContext.__test__getState()
+
+			expect(state.snapshotRootDir).toEqual(SNAPSHOT_ROOT_DIR)
 		})
 	})
 })
