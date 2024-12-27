@@ -1,9 +1,11 @@
-import { describe, expect, it } from 'vitest'
+import { resolve } from 'pathe'
+import { stub } from 'type-plus'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
-import { createSuite, getSuiteId } from './vis_context.logic.ts'
+import { ctx } from './vis_context.ctx.ts'
+import { type PartialBrowserCommandContext, createSuite, createVisContext, getSuiteId } from './vis_context.logic.ts'
 import type { VisState } from './vis_context.types.ts'
-
 describe(`${getSuiteId.name}()`, () => {
 	const mockState = {
 		projectPath: '/root/project',
@@ -59,5 +61,30 @@ describe(`${createSuite.name}()`, () => {
 		expect(suite.baselineDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/local/${suiteId}`)
 		expect(suite.resultDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}/${suiteId}`)
 		expect(suite.diffDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}/${suiteId}`)
+	})
+})
+
+describe(`${createVisContext.name}()`, () => {
+	const stubSuite = stub.build<PartialBrowserCommandContext>({
+		project: {
+			config: {
+				root: resolve(import.meta.dirname, '../..'),
+			},
+		},
+		testPath: import.meta.filename,
+	})
+
+	beforeEach(() => {
+		ctx.rimraf = vi.fn() as any
+	})
+	describe('set up state', () => {
+		it('set projectPath to suite.project.config.root', async () => {
+			const visContext = createVisContext()
+			await visContext.setupSuite(stubSuite())
+			const state = visContext.__test__getState()
+
+			expect(state.projectPath).toEqual(stubSuite().project.config.root)
+			expect(state.projectPath).toMatch(/vitest-plugin-vis$/)
+		})
 	})
 })

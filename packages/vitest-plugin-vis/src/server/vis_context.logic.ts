@@ -9,7 +9,7 @@ import { resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
 import type { VisState } from './vis_context.types.ts'
 
-type Suite = {
+export type PartialBrowserCommandContext = {
 	project: {
 		config: {
 			root: string
@@ -20,32 +20,13 @@ type Suite = {
 			hookTimeout: number
 		}
 	}
+	testPath: string
 }
 
 export function createVisContext() {
-	let visOptions: VisOptions
+	let visOptions: VisOptions = {}
 	let state: VisState
-	let globalStateReady: Promise<void>
-
-	async function setupGlobalSuite(suite: Suite) {
-		const snapshotRootDir = resolveSnapshotRootDir(visOptions)
-		const projectPath = suite.project.config.root
-		const platform = getSnapshotPlatform()
-
-		state = {
-			projectPath,
-			platform,
-			testTimeout: suite.project.config.testTimeout,
-			hookTimeout: suite.project.config.hookTimeout,
-			snapshotRootDir,
-			snapshotBaselineDir: join(snapshotRootDir, platform),
-			snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
-			snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
-			snapshotRootPath: join(projectPath, snapshotRootDir),
-			suites: {},
-		}
-		await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])
-	}
+	let globalStateReady: Promise<VisState>
 
 	return {
 		setOptions(options?: VisOptions) {
@@ -61,14 +42,18 @@ export function createVisContext() {
 		__test__reset() {
 			visOptions = undefined as any
 		},
+		__test__getState() {
+			return state
+		},
 		/**
 		 * Setup suite is called on each test file's beforeAll hook.
 		 * Test files include vitest test files and storybook story files.
 		 * It needs to make sure there is no race condition between the test files.
 		 */
-		async setupSuite(context: BrowserCommandContext) {
+		async setupSuite(context: PartialBrowserCommandContext) {
 			if (!globalStateReady) {
-				globalStateReady = setupGlobalSuite(context)
+				globalStateReady = setupState(context, visOptions)
+				state = await globalStateReady
 			}
 			await globalStateReady
 
@@ -104,9 +89,25 @@ export function createVisContext() {
 	}
 }
 
-function getSnapshotPlatform() {
-	/* v8 ignore next */
-	return ci ? process.platform : 'local'
+async function setupState(suite: PartialBrowserCommandContext, visOptions: VisOptions) {
+	const snapshotRootDir = resolveSnapshotRootDir(visOptions)
+	const projectPath = suite.project.config.root
+	const platform = ctx.getSnapshotPlatform()
+
+	const state = {
+		projectPath,
+		platform,
+		testTimeout: suite.project.config.testTimeout,
+		hookTimeout: suite.project.config.hookTimeout,
+		snapshotRootDir,
+		snapshotBaselineDir: join(snapshotRootDir, platform),
+		snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
+		snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
+		snapshotRootPath: join(projectPath, snapshotRootDir),
+		suites: {},
+	}
+	await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])
+	return state
 }
 
 export function getSuiteId(state: VisState, testPath: string, options: VisOptions) {
