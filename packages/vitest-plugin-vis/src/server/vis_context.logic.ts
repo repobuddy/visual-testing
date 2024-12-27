@@ -54,8 +54,9 @@ export function createVisContext() {
 			if (!globalStateReady) {
 				globalStateReady = setupState(context, visOptions)
 				state = await globalStateReady
+			} else {
+				await globalStateReady
 			}
-			await globalStateReady
 
 			const { suiteId, suite } = createSuite(state, context.testPath!, visOptions)
 			state.suites[suiteId] = suite
