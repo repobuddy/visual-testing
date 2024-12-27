@@ -1,12 +1,12 @@
 import ci from 'is-ci'
 import { join, relative } from 'pathe'
-import { rimraf } from 'rimraf'
 import type { BrowserCommandContext } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { toSnapshotId } from '../shared/snapshot_id.ts'
 import { getSnapshotSubpath } from './snapshot_path.ts'
 import { resolveSnapshotRootDir } from './snapshot_path.ts'
+import { ctx } from './vis_context.ctx.ts'
 import type { VisState } from './vis_context.types.ts'
 
 type Suite = {
@@ -44,7 +44,7 @@ export function createVisContext() {
 			snapshotRootPath: join(projectPath, snapshotRootDir),
 			suites: {},
 		}
-		await Promise.allSettled([rimraf.rimraf(join(state.snapshotDiffDir)), rimraf.rimraf(join(state.snapshotResultDir))])
+		await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])
 	}
 
 	return {
@@ -74,7 +74,7 @@ export function createVisContext() {
 
 			const { suiteId, suite } = createSuite(state, context.testPath!, visOptions)
 			state.suites[suiteId] = suite
-			await Promise.allSettled([rimraf.rimraf(suite.diffDir), rimraf.rimraf(suite.resultDir)])
+			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
 		},
 		getSnapshotInfo(testPath: string, name: string) {
 			const suiteId = getSuiteId(state, testPath, visOptions)
