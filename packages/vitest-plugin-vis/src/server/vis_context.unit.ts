@@ -1,6 +1,7 @@
 import { resolve } from 'pathe'
 import { stub } from 'type-plus'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { vis } from '../config.ts'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { ctx } from './vis_context.ctx.ts'
@@ -94,6 +95,12 @@ describe(`${createVisContext.name}()`, () => {
 			const state = visContext.__test__getState()
 
 			expect(state.snapshotRootDir).toEqual(SNAPSHOT_ROOT_DIR)
+		})
+		it('skip setup state if already set up', async () => {
+			const visContext = createVisContext()
+			await visContext.setupSuite(stubSuite())
+			await visContext.setupSuite(stubSuite({ project: { config: { root: 'another' } } }))
+			expect(visContext.__test__getState().projectPath).toMatch(/vitest-plugin-vis$/)
 		})
 	})
 })
