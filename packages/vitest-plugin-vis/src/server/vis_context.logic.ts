@@ -20,7 +20,7 @@ export type PartialBrowserCommandContext = {
 			hookTimeout: number
 		}
 	}
-	testPath: string
+	testPath: string | undefined
 }
 
 export function createVisContext() {
