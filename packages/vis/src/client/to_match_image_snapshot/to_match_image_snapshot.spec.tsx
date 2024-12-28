@@ -21,6 +21,12 @@ it.todo('accepts body', async () => {
 	await expect(screen.baseElement).toMatchImageSnapshot2()
 })
 
+it.todo('accepts document.body', async () => {
+	// the png file created is not valid
+	render(<div data-testid="subject">unit</div>)
+	await expect(document.body).toMatchImageSnapshot2()
+})
+
 it('accepts base64 image', async () => {
 	await expect(UNI_PNG_BASE64).toMatchImageSnapshot2()
 })
