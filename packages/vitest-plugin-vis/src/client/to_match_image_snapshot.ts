@@ -2,8 +2,8 @@ import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
 import { getCurrentTest } from 'vitest/suite'
-import { convertToSelector } from '../selector.ts'
 import { success } from './expectation_result.ts'
+import { convertToSelector } from './selector.ts'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
@@ -34,7 +34,7 @@ export interface ToMatchImageSnapshotOptions {
 	timeout?: number | undefined
 }
 
-export function toMatchImageSnapshot2(
+export function toMatchImageSnapshot(
 	/**
 	 * The element or locator to take the snapshot of,
 	 * or the base64 value of the image to compare against.
