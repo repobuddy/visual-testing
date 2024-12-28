@@ -1,3 +1,4 @@
+import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { UNI_PNG_BASE64 } from '../../testing/constants.js'
@@ -12,6 +13,12 @@ it('accepts Element', async () => {
 	const screen = render(<div data-testid="subject">unit</div>)
 	const locator = screen.getByTestId('subject')
 	await expect(locator.element()).toMatchImageSnapshot2()
+})
+
+it.todo('accepts body', async () => {
+	// the png file created is not valid
+	const screen = render(<div data-testid="subject">unit</div>)
+	await expect(screen.baseElement).toMatchImageSnapshot2()
 })
 
 it('accepts base64 image', async () => {
