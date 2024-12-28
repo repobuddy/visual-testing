@@ -1,12 +1,13 @@
 import type { Plugin } from 'vite'
 import { type ImageSnapshotCommand, imageSnapshot } from '../server/commands/image_snapshot.ts'
+import { type MatchImageSnapshotCommand, matchImageSnapshot } from '../server/commands/match_image_snapshot.ts'
 import { type SetupVisSuiteCommand, setupVisSuite } from '../server/commands/setup_vis_suite.ts'
 import { visContext } from '../server/vis_context.ts'
 import { NAME } from '../shared/constants.ts'
 import type { VisOptions } from './types.ts'
 
 declare module '@vitest/browser/context' {
-	interface BrowserCommands extends SetupVisSuiteCommand, ImageSnapshotCommand {}
+	interface BrowserCommands extends SetupVisSuiteCommand, ImageSnapshotCommand, MatchImageSnapshotCommand {}
 }
 
 /**
@@ -24,6 +25,7 @@ export function vis(options?: VisOptions) {
 						commands: {
 							setupVisSuite,
 							imageSnapshot,
+							matchImageSnapshot,
 						},
 					},
 				},

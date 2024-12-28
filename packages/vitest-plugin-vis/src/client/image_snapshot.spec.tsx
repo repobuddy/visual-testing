@@ -3,7 +3,6 @@
 
 import { page } from '@vitest/browser/context'
 import { afterEach, expect, it } from 'vitest'
-import { RESULT_DIR } from '../shared/constants.ts'
 import { ctx } from './image_snapshot.ctx.ts'
 import { imageSnapshotStubSymbol, imageSnapshotSymbol } from './image_snapshot.ts'
 

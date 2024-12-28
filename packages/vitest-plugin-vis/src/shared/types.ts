@@ -19,7 +19,7 @@ export interface ImageSnapshotIdOptions {
 	customizeSnapshotId?: (id: string, index: number) => string
 }
 
-export interface MatchImageSnapshotOptions {
+export interface MatchImageSnapshotOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions {
 	/**
 	 * Custom options passed to 'pixelmatch'
 	 */
