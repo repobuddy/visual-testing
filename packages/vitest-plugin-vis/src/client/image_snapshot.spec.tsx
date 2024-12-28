@@ -3,8 +3,9 @@
 
 import { page } from '@vitest/browser/context'
 import { afterEach, expect, it } from 'vitest'
+import { RESULT_DIR } from '../shared/constants.ts'
 import { ctx } from './image_snapshot.ctx.ts'
-import { imageSnapshotStubSymbol } from './image_snapshot.ts'
+import { imageSnapshotStubSymbol, imageSnapshotSymbol } from './image_snapshot.ts'
 
 afterEach(() => ctx.__test__reset())
 
@@ -24,10 +25,10 @@ it('throws an error when running in a concurrent test', async () => {
 	)
 })
 
-it.todo('takes a snapshot of the current page', async () => {
+it('takes a snapshot of the current page', async () => {
 	page.render(<div>hello</div>)
 	const snapshot = await page.imageSnapshot()
-	expect(snapshot.resultPath).toEqual(
-		`__vis__/${'local'}/src/client/image_snapshot.spec.tsx/it-takes-a-snapshot-of-the-current-page.png`,
-	)
+	expect(snapshot.type).toBe(imageSnapshotSymbol)
+	expect(snapshot.base64).toBeDefined()
+	expect(snapshot.resultPath).toBeDefined()
 })

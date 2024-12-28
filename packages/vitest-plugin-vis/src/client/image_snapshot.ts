@@ -1,6 +1,7 @@
-import type { BrowserPage, Locator } from '@vitest/browser/context'
+import { type BrowserPage, type Locator, commands } from '@vitest/browser/context'
 import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions } from '../shared/types.ts'
 import { ctx } from './image_snapshot.ctx.ts'
+import { convertToSelector } from './selector.ts'
 
 export interface ImageSnapshotAction {
 	/**
@@ -19,7 +20,7 @@ export type ImageSnapshot = {
 	resultPath: string
 }
 
-export function imageSnapshot(this: BrowserPage, _options?: ImageSnapshotOptions | undefined): Promise<ImageSnapshot> {
+export function imageSnapshot(this: BrowserPage, options?: ImageSnapshotOptions | undefined): Promise<ImageSnapshot> {
 	const test = ctx.getCurrentTest()
 	if (!test) {
 		return Promise.resolve({
@@ -37,7 +38,15 @@ export function imageSnapshot(this: BrowserPage, _options?: ImageSnapshotOptions
 		)
 	}
 
-	throw new Error('Not implemented')
+	return commands
+		.imageSnapshot(test.name, {
+			element: options?.element ? convertToSelector(options?.element) : undefined,
+			timeout: options?.snapshotTimeout,
+		})
+		.then((result) => ({
+			type: imageSnapshotSymbol,
+			...result,
+		}))
 }
 
 export const imageSnapshotSymbol = Symbol.for('vis/imageSnapshot')
