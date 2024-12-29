@@ -24,6 +24,6 @@ it('accepts an element', async () => {
 	await expect(subject.element()).toMatchImageSnapshot()
 })
 
-it.todo('accepts a base64 image', async () => {
+it('accepts a base64 image', async () => {
 	await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 })
