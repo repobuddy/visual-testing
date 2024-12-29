@@ -1,7 +1,7 @@
 import { type BrowserPage, commands } from '@vitest/browser/context'
-import { toSnapshotId } from '../../shared/snapshot_id.ts'
 import type { ImageSnapshotIdOptions } from '../../shared/types.ts'
 import { ctx } from '../ctx.ts'
+import { toTaskId } from '../task_id.ts'
 
 export interface HasImageSnapshotAction {
 	hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOptions | undefined): Promise<boolean>
@@ -22,14 +22,12 @@ export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOpt
 				"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
 		)
 	}
-
+	const taskId = toTaskId(test)
 	if (options?.customizeSnapshotId) {
 		return commands
-			.imageSnapshotNextIndex(test.name)
-			.then((index) =>
-				commands.hasImageSnapshot(test.name, options.customizeSnapshotId!(toSnapshotId(test.name), index)),
-			)
+			.imageSnapshotNextIndex(taskId)
+			.then((index) => commands.hasImageSnapshot(taskId, options.customizeSnapshotId!(taskId, index)))
 	}
 
-	return commands.hasImageSnapshot(test.name)
+	return commands.hasImageSnapshot(taskId)
 }

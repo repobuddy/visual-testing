@@ -14,15 +14,15 @@ import { visContext } from '../vis_context.ts'
 
 export interface MatchImageSnapshotCommand {
 	matchImageSnapshot: (
-		taskName: string | undefined,
+		taskId: string | undefined,
 		subject: string,
 		options?: MatchImageSnapshotOptions | undefined,
 	) => Promise<void>
 }
 
 export const matchImageSnapshot: BrowserCommand<
-	[taskName: string, subject: string, options?: MatchImageSnapshotOptions | undefined]
-> = async (context, taskName, subject, options) => {
+	[taskId: string, subject: string, options?: MatchImageSnapshotOptions | undefined]
+> = async (context, taskId, subject, options) => {
 	if (!context.testPath) {
 		throw new Error('Cannot match snapshot without testPath')
 	}
@@ -30,7 +30,7 @@ export const matchImageSnapshot: BrowserCommand<
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 
-	const info = visContext.getSnapshotInfo(context.testPath, taskName, options)
+	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
 	const baselineBase64 = await file.tryReadFileBase64(info.baselinePath)
 	if (!baselineBase64) {
 		await takeSnapshot(context, subject, { dir: info.baselineDir, path: info.baselinePath }, options)
@@ -50,7 +50,7 @@ export const matchImageSnapshot: BrowserCommand<
 			return
 		}
 		throw new Error(
-			dedent`Snapshot \`${taskName}\` mismatched
+			dedent`Snapshot \`${taskId}\` mismatched
 
 				The image size changed form ${baselineImage.width}x${baselineImage.height} to ${resultImage.width}x${resultImage.height}
 
@@ -63,7 +63,7 @@ export const matchImageSnapshot: BrowserCommand<
 	await writeSnapshot(diffBase64, { dir: info.diffDir, path: info.diffPath })
 
 	throw new Error(
-		dedent`Snapshot \`${taskName}\` mismatched
+		dedent`Snapshot \`${taskId}\` mismatched
 
 			${
 				options?.failureThreshold

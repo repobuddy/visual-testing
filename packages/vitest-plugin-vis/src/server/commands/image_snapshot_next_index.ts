@@ -5,13 +5,13 @@ export interface ImageSnapshotNextIndexCommand {
 	/**
 	 * Get the index of the snapshot image to be created.
 	 */
-	imageSnapshotNextIndex(name: string): Promise<number>
+	imageSnapshotNextIndex(taskId: string): Promise<number>
 }
 
-export const imageSnapshotNextIndex: BrowserCommand<[name: string]> = async (context, name) => {
+export const imageSnapshotNextIndex: BrowserCommand<[taskId: string]> = async (context, taskId) => {
 	if (!context.testPath) {
 		throw new Error('Cannot take snapshot without testPath')
 	}
 
-	return visContext.getTaskCount(context.testPath, name)
+	return visContext.getTaskCount(context.testPath, taskId)
 }

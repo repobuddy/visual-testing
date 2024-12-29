@@ -2,10 +2,10 @@ import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
 import { isBase64String } from '../../shared/base64.ts'
-import { toSnapshotId } from '../../shared/snapshot_id.ts'
 import type { ImageSnapshotIdOptions } from '../../shared/types.ts'
 import { ctx } from '../ctx.ts'
 import { convertElementToCssSelector } from '../selector.ts'
+import { toTaskId } from '../task_id.ts'
 import { success } from './expectation_result.ts'
 
 export interface ImageSnapshotMatcher {
@@ -55,18 +55,19 @@ export function toMatchImageSnapshot(
 		)
 	}
 
-	return toMatchImageSnapshotAsync(test, s, options).then(() => success)
+	const taskId = toTaskId(test)
+	return toMatchImageSnapshotAsync(taskId, s, options).then(() => success)
 }
 
-async function toMatchImageSnapshotAsync(test: any, subject: string, options?: ToMatchImageSnapshotOptions) {
+async function toMatchImageSnapshotAsync(taskId: string, subject: string, options?: ToMatchImageSnapshotOptions) {
 	if (options?.customizeSnapshotId) {
-		const index = await commands.imageSnapshotNextIndex(test.name)
+		const index = await commands.imageSnapshotNextIndex(taskId)
 		const { customizeSnapshotId, ...rest } = options
-		const snapshotFileId = customizeSnapshotId(toSnapshotId(test.name), index)
-		return commands.matchImageSnapshot(test.name, subject, { ...rest, snapshotFileId })
+		const snapshotFileId = customizeSnapshotId(taskId, index)
+		return commands.matchImageSnapshot(taskId, subject, { ...rest, snapshotFileId })
 	}
 
-	return commands.matchImageSnapshot(test.name, subject, options)
+	return commands.matchImageSnapshot(taskId, subject, options)
 }
 
 function parseSubject(subject: any) {

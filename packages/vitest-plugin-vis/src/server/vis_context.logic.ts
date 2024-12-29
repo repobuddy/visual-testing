@@ -1,8 +1,7 @@
 import ci from 'is-ci'
 import { join, relative } from 'pathe'
 import type { VisOptions } from '../config/types.ts'
-import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
-import { toSnapshotId } from '../shared/snapshot_id.ts'
+import { DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
@@ -61,7 +60,7 @@ export function createVisContext() {
 			const info = context.getSuiteInfo(testPath, name)
 			const snapshotFilename = context.getSnapshotFilename(info, options?.snapshotFileId)
 
-			const { snapshotId, suiteId, baselineDir, resultDir, diffDir, task } = info
+			const { taskId, suiteId, baselineDir, resultDir, diffDir, task } = info
 
 			task.count = task.count + 1
 			const baselinePath = join(baselineDir, snapshotFilename)
@@ -70,7 +69,7 @@ export function createVisContext() {
 
 			return {
 				suiteId,
-				snapshotId,
+				taskId,
 				baselineDir,
 				resultDir,
 				diffDir,
@@ -81,27 +80,26 @@ export function createVisContext() {
 				snapshotTimeout: visOptions.snapshotTimeout ?? (ci ? 30000 : 5000),
 			}
 		},
-		getTaskCount(testPath: string, name: string) {
-			return context.getSuiteInfo(testPath, name).task.count
+		getTaskCount(testPath: string, taskId: string) {
+			return context.getSuiteInfo(testPath, taskId).task.count
 		},
-		hasImageSnapshot(testPath: string, name: string, snapshotFileId: string | undefined) {
-			const info = context.getSuiteInfo(testPath, name)
+		hasImageSnapshot(testPath: string, taskId: string, snapshotFileId: string | undefined) {
+			const info = context.getSuiteInfo(testPath, taskId)
 			return file.existFile(join(info.baselineDir, context.getSnapshotFilename(info, snapshotFileId)))
 		},
-		getSnapshotFilename(info: { snapshotId: string; task: { count: number } }, snapshotFileId: string | undefined) {
+		getSnapshotFilename(info: { taskId: string; task: { count: number } }, snapshotFileId: string | undefined) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
 
 			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
-			return `${customizeSnapshotId(info.snapshotId, info.task.count)}.png`
+			return `${customizeSnapshotId(info.taskId, info.task.count)}.png`
 		},
-		getSuiteInfo(testPath: string, name: string) {
+		getSuiteInfo(testPath: string, taskId: string) {
 			const suiteId = getSuiteId(state, testPath, visOptions)
 			const suite = state.suites[suiteId]!
-			const snapshotId = toSnapshotId(name)
-			const task = (suite.tasks[snapshotId] = suite.tasks[snapshotId] ?? { count: 1 })
+			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
 				suiteId,
-				snapshotId,
+				taskId,
 				baselineDir: suite.baselineDir,
 				resultDir: suite.resultDir,
 				diffDir: suite.diffDir,
