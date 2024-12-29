@@ -46,7 +46,6 @@ export function toMatchImageSnapshot(
 	options?: ToMatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
 	const test = ctx.getCurrentTest()
-
 	if (!test) return Promise.resolve(success)
 
 	const s = parseSubject(subject)

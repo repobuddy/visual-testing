@@ -1,5 +1,8 @@
 import { commands } from '@vitest/browser/context'
-import { afterEach, beforeAll } from 'vitest'
+import { afterEach, beforeAll, expect } from 'vitest'
+import { getCurrentTest } from 'vitest/suite'
+import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
+import { getSnapshotMeta } from '../client/snapshot_meta.internal.ts'
 
 /**
  * Visual test configuration on the client side.
@@ -48,21 +51,21 @@ export const vis = {
 	},
 	afterEach: {
 		async matchImageSnapshot() {
-			// if (!shouldTakeSnapshot()) return
-			// const r = await page.imageSnapshot()
-			// await expect(r).toMatchImageSnapshot()
+			const meta = getSnapshotMeta(getCurrentTest())
+			if (!shouldTakeSnapshot(meta)) return
+			await expect(document.body).toMatchImageSnapshot(meta)
 		},
-		matchPerTheme(_themes: Record<string, () => Promise<void> | void>) {
+		matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 			return async function matchImageSnapshot() {
-				// if (!shouldTakeSnapshot()) return
-				// for (const themeId in themes) {
-				// 	await themes[themeId]()
-				// 	// console.debug('taking automatic snapshot', state.getName(), themeId)
-				// 	const r = await page.imageSnapshot({
-				// 		customizeSnapshotId: (id) => `${id}-${themeId}`,
-				// 	})
-				// 	await expect(r).toMatchImageSnapshot()
-				// }
+				const meta = getSnapshotMeta(getCurrentTest())
+				if (!shouldTakeSnapshot(meta)) return
+				for (const themeId in themes) {
+					await themes[themeId]!()
+					await expect(document.body).toMatchImageSnapshot({
+						...meta,
+						customizeSnapshotId: (id) => `${id}-${themeId}`,
+					})
+				}
 			}
 		},
 	},

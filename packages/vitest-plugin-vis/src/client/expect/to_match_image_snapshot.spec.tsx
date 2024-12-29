@@ -1,11 +1,13 @@
 import { page } from '@vitest/browser/context'
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from '../ctx.ts'
+import { setSnapshotMeta } from '../snapshot_meta.ts'
 
 afterEach(() => ctx.__test__reset())
 
-it('passes when not running in test', () => {
+it('passes when not running in test', ({ task }) => {
+	setSnapshotMeta(task, { enable: false })
 	// stub as success when not in a test (e.g. in a story)
 	ctx.getCurrentTest = () => undefined as any
 
@@ -220,4 +222,11 @@ it('fails when the image is different in 0 percentage', async () => {
 				expect(error.message).toMatch(/Expected image to match but was differ by \d+.\d+%./)
 			},
 		)
+})
+
+describe(`${setSnapshotMeta.name}()`, () => {
+	it('can disable auto snapshot', async ({ task }) => {
+		setSnapshotMeta(task, { enable: false })
+		expect(await page.hasImageSnapshot()).toBe(false)
+	})
 })

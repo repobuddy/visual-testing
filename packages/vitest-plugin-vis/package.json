@@ -28,6 +28,10 @@
 			"types": "./src/config.ts",
 			"default": "./esm/config.js"
 		},
+		"./core": {
+			"types": "./src/core.ts",
+			"default": "./esm/core.js"
+		},
 		"./setup": {
 			"types": "./src/setup.ts",
 			"default": "./esm/setup.js"
