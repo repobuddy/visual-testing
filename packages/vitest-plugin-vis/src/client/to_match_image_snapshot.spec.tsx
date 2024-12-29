@@ -38,3 +38,15 @@ it('accepts `baseElement` (same as body)', async () => {
 it('accepts a base64 image', async () => {
 	await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 })
+
+it('should fail immediately if the subject is a string but not base64 encoded', async () => {
+	expect(() => expect('abc').toMatchImageSnapshot()).toThrowError(
+		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: abc`,
+	)
+})
+
+it.each([undefined, null, true, false, 1])('should fails immediately if the subject is %s', async (value) => {
+	expect(() => expect(value).toMatchImageSnapshot()).toThrowError(
+		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${value}`,
+	)
+})
