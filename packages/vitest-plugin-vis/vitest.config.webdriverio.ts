@@ -22,7 +22,7 @@ export default defineProject(() => {
 				headless: true,
 				name: browser,
 				provider: 'webdriverio',
-				api: 63317,
+				// api: 63317,
 				screenshotFailures: false,
 				screenshotDirectory: `__screenshots__/webdriverio/${browser}`,
 			},
