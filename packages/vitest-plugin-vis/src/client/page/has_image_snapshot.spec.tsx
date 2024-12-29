@@ -4,12 +4,12 @@ import { ctx } from '../ctx.ts'
 
 afterEach(() => ctx.__test__reset())
 
-it('throws when not running in a test', async () => {
+it('throws when not running in a test', () => {
 	ctx.getCurrentTest = () => undefined as any
 	expect(() => page.hasImageSnapshot()).toThrow('`hasImageSnapshot()` must be called in a test.')
 })
 
-it('throws an error when running in a concurrent test', async () => {
+it('throws an error when running in a concurrent test', () => {
 	ctx.getCurrentTest = () => ({ concurrent: true }) as any
 	expect(() => page.hasImageSnapshot()).toThrow(
 		'`hasImageSnapshot()` cannot be called in a concurrent test because ' +

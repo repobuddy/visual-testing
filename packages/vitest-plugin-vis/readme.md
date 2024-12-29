@@ -58,7 +58,6 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
   plugins: [
     vis({
-      autoSnapshot: true,
       snapshotRootDir: '__vis__',
       customizeSnapshotSubpath: (subpath) => subpath,
       customizeSnapshotId: (id, index) => `${id}-${index}`,

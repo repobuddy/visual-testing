@@ -28,14 +28,10 @@ export function createVisContext() {
 	let globalStateReady: Promise<VisState>
 
 	const context = {
-		setOptions(options?: VisOptions) {
-			visOptions = {
-				snapshotRootDir: SNAPSHOT_ROOT_DIR,
-				...options,
-			}
+		setOptions(options: VisOptions = {}) {
+			visOptions = options
 		},
-		/** for testing only */
-		getOptions() {
+		__test__getOptions() {
 			return visOptions
 		},
 		__test__reset() {
@@ -82,7 +78,7 @@ export function createVisContext() {
 				baselinePath,
 				resultPath,
 				diffPath,
-				snapshotTimeout: (visOptions.snapshotTimeout ?? ci) ? 30000 : 5000,
+				snapshotTimeout: visOptions.snapshotTimeout ?? (ci ? 30000 : 5000),
 			}
 		},
 		getTaskCount(testPath: string, name: string) {

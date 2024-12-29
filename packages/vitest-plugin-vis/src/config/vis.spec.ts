@@ -8,16 +8,9 @@ it('can be used with zero config', () => {
 	expect(vis()).toBeDefined()
 })
 
-it('defines default config', () => {
-	vis()
-	expect(visContext.getOptions()).toEqual({
-		snapshotRootDir: '__vis__',
-	})
-})
-
 it('can customize snapshot root directory', () => {
 	vis({ snapshotRootDir: 'custom' })
-	expect(visContext.getOptions()).toEqual({
+	expect(visContext.__test__getOptions()).toEqual({
 		snapshotRootDir: 'custom',
 	})
 })
@@ -27,7 +20,7 @@ it('can customize snapshot subpath to keep base folder', () => {
 
 	vis({ customizeSnapshotSubpath })
 
-	expect(visContext.getOptions()).toMatchObject({
+	expect(visContext.__test__getOptions()).toMatchObject({
 		customizeSnapshotSubpath,
 	})
 })
@@ -37,28 +30,28 @@ it('can set default snapshot id', () => {
 
 	vis({ customizeSnapshotId })
 
-	expect(visContext.getOptions()).toMatchObject({
+	expect(visContext.__test__getOptions()).toMatchObject({
 		customizeSnapshotId,
 	})
 })
 
 it('can set default snapshot timeout', () => {
 	vis({ snapshotTimeout: 1000 })
-	expect(visContext.getOptions()).toMatchObject({
+	expect(visContext.__test__getOptions()).toMatchObject({
 		snapshotTimeout: 1000,
 	})
 })
 
 it('can set default failure threshold', () => {
 	vis({ failureThreshold: 0.01 })
-	expect(visContext.getOptions()).toMatchObject({
+	expect(visContext.__test__getOptions()).toMatchObject({
 		failureThreshold: 0.01,
 	})
 })
 
 it('can set default failure threshold type to percent', () => {
 	vis({ failureThresholdType: 'percent' })
-	expect(visContext.getOptions()).toMatchObject({
+	expect(visContext.__test__getOptions()).toMatchObject({
 		failureThresholdType: 'percent',
 	})
 })
@@ -68,7 +61,7 @@ it('can set default diff options', () => {
 
 	vis({ diffOptions })
 
-	expect(visContext.getOptions()).toMatchObject({
+	expect(visContext.__test__getOptions()).toMatchObject({
 		diffOptions,
 	})
 })
