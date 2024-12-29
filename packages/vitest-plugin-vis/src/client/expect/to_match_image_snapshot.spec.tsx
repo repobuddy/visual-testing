@@ -198,3 +198,26 @@ it('fails when the image is different beyond failure threshold in percentage', a
 			},
 		)
 })
+
+it('fails when the image is different in 0 percentage', async () => {
+	page.render(<div data-testid="subject">unit test</div>)
+	const subject = page.getByTestId('subject')
+
+	if (!(await page.hasImageSnapshot())) {
+		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
+	}
+	subject.element().innerHTML = 'unit text'
+	await expect(subject)
+		.toMatchImageSnapshot({
+			customizeSnapshotId: (id) => id,
+			failureThresholdType: 'percent',
+		})
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/Expected image to match but was differ by \d+.\d+%./)
+			},
+		)
+})
