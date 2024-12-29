@@ -29,6 +29,12 @@ it('accepts `document.body`', async () => {
 	await expect(document.body).toMatchImageSnapshot()
 })
 
+it('accepts `baseElement` (same as body)', async () => {
+	// the png file created is not valid
+	const { baseElement } = page.render(<div data-testid="subject">hello</div>)
+	await expect(baseElement).toMatchImageSnapshot()
+})
+
 it('accepts a base64 image', async () => {
 	await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 })
