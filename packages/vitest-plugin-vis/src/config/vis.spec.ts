@@ -65,3 +65,30 @@ it('can set default diff options', () => {
 		diffOptions,
 	})
 })
+
+it('default preset is auto', () => {
+	const plugin = vis()
+	expect(plugin.config()).toMatchObject({
+		test: {
+			setupFiles: ['vitest-plugin-vis/presets/auto'],
+		},
+	})
+})
+
+it('can set preset to manual', () => {
+	const plugin = vis({ preset: 'manual' })
+	expect(plugin.config()).toMatchObject({
+		test: {
+			setupFiles: ['vitest-plugin-vis/presets/manual'],
+		},
+	})
+})
+
+it('default to no preset when options is set', () => {
+	const plugin = vis({})
+	expect(plugin.config()).toMatchObject({
+		test: {
+			setupFiles: undefined,
+		},
+	})
+})

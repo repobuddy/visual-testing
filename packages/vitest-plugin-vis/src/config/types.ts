@@ -2,6 +2,10 @@ import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions, MatchImageSna
 
 export interface VisOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions, MatchImageSnapshotOptions {
 	/**
+	 * Loads the `test.setupFiles` of the specified preset.
+	 */
+	preset?: 'manual' | 'auto' | undefined
+	/**
 	 * The snapshot folder relative to the root of the project.
 	 *
 	 * Default: `__vis__`

@@ -5,7 +5,7 @@ import { vis } from './src/config.ts'
 export default defineProject(() => {
 	const browser = process.env.BROWSER ?? 'chromium'
 	return {
-		plugins: [vis()],
+		plugins: [vis(/* disable presets */ {})],
 		optimizeDeps: {
 			include: ['react/jsx-dev-runtime'],
 		},

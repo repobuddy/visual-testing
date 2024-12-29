@@ -32,6 +32,14 @@
 			"types": "./src/core.ts",
 			"default": "./esm/core.js"
 		},
+		"./presets/auto": {
+			"types": "./src/presets/auto.ts",
+			"default": "./esm/presets/auto.js"
+		},
+		"./presets/manual": {
+			"types": "./src/presets/manual.ts",
+			"default": "./esm/presets/manual.js"
+		},
 		"./setup": {
 			"types": "./src/setup.ts",
 			"default": "./esm/setup.js"
