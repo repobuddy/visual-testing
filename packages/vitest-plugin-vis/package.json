@@ -49,6 +49,9 @@
 		"test": "vitest run",
 		"v": "run-p build cov",
 		"w": "vitest",
+		"w:node": "vitest --project=vpv:node",
+		"w:pw": "vitest --project=vpv:pw",
+		"w:wd": "vitest --project=vpv:wd",
 		"w:cov": "cross-env COVERAGE=true vitest --coverage"
 	},
 	"dependencies": {
