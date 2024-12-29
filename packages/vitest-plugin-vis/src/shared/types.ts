@@ -36,4 +36,9 @@ export interface MatchImageSnapshotOptions extends ImageSnapshotTimeoutOptions, 
 	 * Default is `0`.
 	 */
 	failureThreshold?: number | undefined
+
+	/**
+	 * The snapshot file id calculated on the client side.
+	 */
+	snapshotFileId?: string | undefined
 }

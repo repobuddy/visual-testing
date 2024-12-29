@@ -1,11 +1,10 @@
 import ci from 'is-ci'
 import { join, relative } from 'pathe'
-import type { BrowserCommandContext } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { toSnapshotId } from '../shared/snapshot_id.ts'
-import { getSnapshotSubpath } from './snapshot_path.ts'
-import { resolveSnapshotRootDir } from './snapshot_path.ts'
+import { file } from './file.ts'
+import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
 import type { VisState } from './vis_context.types.ts'
 
@@ -28,7 +27,7 @@ export function createVisContext() {
 	let state: VisState
 	let globalStateReady: Promise<VisState>
 
-	return {
+	const context = {
 		setOptions(options?: VisOptions) {
 			visOptions = {
 				snapshotRootDir: SNAPSHOT_ROOT_DIR,
@@ -62,24 +61,23 @@ export function createVisContext() {
 			state.suites[suiteId] = suite
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
 		},
-		getSnapshotInfo(testPath: string, name: string) {
-			const suiteId = getSuiteId(state, testPath, visOptions)
-			const suite = state.suites[suiteId]!
-			const snapshotId = toSnapshotId(name)
-			const task = (suite.tasks[snapshotId] = suite.tasks[snapshotId] ?? { count: 0 })
-			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
+		getSnapshotInfo(testPath: string, name: string, options?: { snapshotFileId?: string | undefined }) {
+			const info = context.getSuiteInfo(testPath, name)
+			const snapshotFilename = context.getSnapshotFilename(info, options?.snapshotFileId)
 
-			const snapshotFilename = `${customizeSnapshotId(snapshotId, ++task.count)}.png`
-			const baselinePath = join(suite.baselineDir, snapshotFilename)
-			const resultPath = join(suite.resultDir, snapshotFilename)
-			const diffPath = join(suite.diffDir, snapshotFilename)
+			const { snapshotId, suiteId, baselineDir, resultDir, diffDir, task } = info
+
+			task.count = task.count + 1
+			const baselinePath = join(baselineDir, snapshotFilename)
+			const resultPath = join(resultDir, snapshotFilename)
+			const diffPath = join(diffDir, snapshotFilename)
 
 			return {
 				suiteId,
 				snapshotId,
-				baselineDir: suite.baselineDir,
-				resultDir: suite.resultDir,
-				diffDir: suite.diffDir,
+				baselineDir,
+				resultDir,
+				diffDir,
 				snapshotFilename,
 				baselinePath,
 				resultPath,
@@ -87,7 +85,35 @@ export function createVisContext() {
 				snapshotTimeout: (visOptions.snapshotTimeout ?? ci) ? 30000 : 5000,
 			}
 		},
+		getTaskCount(testPath: string, name: string) {
+			return context.getSuiteInfo(testPath, name).task.count
+		},
+		hasImageSnapshot(testPath: string, name: string, snapshotFileId: string | undefined) {
+			const info = context.getSuiteInfo(testPath, name)
+			return file.existFile(join(info.baselineDir, context.getSnapshotFilename(info, snapshotFileId)))
+		},
+		getSnapshotFilename(info: { snapshotId: string; task: { count: number } }, snapshotFileId: string | undefined) {
+			if (snapshotFileId) return `${snapshotFileId}.png`
+
+			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
+			return `${customizeSnapshotId(info.snapshotId, info.task.count)}.png`
+		},
+		getSuiteInfo(testPath: string, name: string) {
+			const suiteId = getSuiteId(state, testPath, visOptions)
+			const suite = state.suites[suiteId]!
+			const snapshotId = toSnapshotId(name)
+			const task = (suite.tasks[snapshotId] = suite.tasks[snapshotId] ?? { count: 1 })
+			return {
+				suiteId,
+				snapshotId,
+				baselineDir: suite.baselineDir,
+				resultDir: suite.resultDir,
+				diffDir: suite.diffDir,
+				task,
+			}
+		},
 	}
+	return context
 }
 
 async function setupState(suite: PartialBrowserCommandContext, visOptions: VisOptions) {

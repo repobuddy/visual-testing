@@ -30,7 +30,7 @@ export const matchImageSnapshot: BrowserCommand<
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 
-	const info = visContext.getSnapshotInfo(context.testPath, taskName)
+	const info = visContext.getSnapshotInfo(context.testPath, taskName, options)
 	const baselineBase64 = await file.tryReadFileBase64(info.baselinePath)
 	if (!baselineBase64) {
 		await takeSnapshot(context, subject, { dir: info.baselineDir, path: info.baselinePath }, options)
