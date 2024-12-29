@@ -122,3 +122,40 @@ it('fails when the image is larger', async () => {
 			},
 		)
 })
+
+it('passes when the image is different but within failure threshold in pixels', async () => {
+	page.render(<div data-testid="subject">unit test</div>)
+	const subject = page.getByTestId('subject')
+
+	if (!(await page.hasImageSnapshot())) {
+		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
+	}
+	subject.element().innerHTML = 'unit text'
+	await expect(subject).toMatchImageSnapshot({
+		customizeSnapshotId: (id) => id,
+		failureThreshold: 70,
+	})
+})
+
+it('fails when the image is different beyond failure threshold in pixels', async () => {
+	page.render(<div data-testid="subject">unit test</div>)
+	const subject = page.getByTestId('subject')
+
+	if (!(await page.hasImageSnapshot())) {
+		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
+	}
+	subject.element().innerHTML = 'unit text'
+	await expect(subject)
+		.toMatchImageSnapshot({
+			customizeSnapshotId: (id) => id,
+			failureThreshold: 20,
+		})
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/Expected image to match within 20 pixels but was differ by \d+ pixels./)
+			},
+		)
+})
