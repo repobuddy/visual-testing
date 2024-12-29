@@ -1,6 +1,6 @@
 import type { BrowserPage } from '@vitest/browser/context'
 import type { ImageSnapshotIdOptions } from '../../shared/types.ts'
-import { ctx } from './ctx.ts'
+import { ctx } from '../ctx.ts'
 
 export interface HasImageSnapshotAction {
 	hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOptions | undefined): Promise<boolean>

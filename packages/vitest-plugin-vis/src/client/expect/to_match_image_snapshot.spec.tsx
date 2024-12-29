@@ -1,7 +1,7 @@
 import { page } from '@vitest/browser/context'
 import { afterEach, expect, it } from 'vitest'
-import { UNI_PNG_BASE64 } from '../testing/constants.ts'
-import { ctx } from './page/ctx.ts'
+import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
+import { ctx } from '../ctx.ts'
 
 afterEach(() => ctx.__test__reset())
 

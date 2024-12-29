@@ -3,8 +3,8 @@
 
 import { page } from '@vitest/browser/context'
 import { afterEach, expect, it } from 'vitest'
+import { ctx } from '../ctx.ts'
 import { imageSnapshotStubSymbol, imageSnapshotSymbol } from './image_snapshot.ts'
-import { ctx } from './page/ctx.ts'
 
 afterEach(() => ctx.__test__reset())
 

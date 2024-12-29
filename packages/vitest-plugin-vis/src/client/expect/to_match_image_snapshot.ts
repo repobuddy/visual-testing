@@ -1,10 +1,10 @@
 import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
-import { isBase64String } from '../shared/base64.ts'
+import { isBase64String } from '../../shared/base64.ts'
+import { ctx } from '../ctx.ts'
+import { convertElementToCssSelector } from '../selector.ts'
 import { success } from './expectation_result.ts'
-import { ctx } from './page/ctx.ts'
-import { convertElementToCssSelector } from './selector.ts'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>

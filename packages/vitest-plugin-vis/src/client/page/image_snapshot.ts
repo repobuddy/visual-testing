@@ -1,7 +1,7 @@
 import { type BrowserPage, type Locator, commands } from '@vitest/browser/context'
-import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions } from '../shared/types.ts'
-import { ctx } from './page/ctx.ts'
-import { convertToSelector } from './selector.ts'
+import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions } from '../../shared/types.ts'
+import { ctx } from '../ctx.ts'
+import { convertToSelector } from '../selector.ts'
 
 export interface ImageSnapshotAction {
 	/**
