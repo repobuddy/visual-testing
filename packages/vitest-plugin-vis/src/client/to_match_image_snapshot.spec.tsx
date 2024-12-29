@@ -1,0 +1,12 @@
+import { afterEach, expect, it } from 'vitest'
+import { ctx } from './to_match_image_snapshot.ctx.ts'
+
+afterEach(() => ctx.__test__reset())
+
+it('passes when not running in test', () => {
+	// stub as success when not in a test (e.g. in a story)
+	ctx.getCurrentTest = () => undefined as any
+
+	expect(document.body).toMatchImageSnapshot()
+})
+

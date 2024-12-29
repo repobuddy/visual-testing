@@ -1,9 +1,9 @@
 import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
-import { getCurrentTest } from 'vitest/suite'
 import { success } from './expectation_result.ts'
 import { convertToSelector } from './selector.ts'
+import { ctx } from './to_match_image_snapshot.ctx.ts'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
@@ -42,13 +42,9 @@ export function toMatchImageSnapshot(
 	subject: any,
 	options?: ToMatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
-	const test = getCurrentTest()
+	const test = ctx.getCurrentTest()
 
-	/* v8 ignore start: stub as success when not in a test (e.g. in a story) */
-	if (!test) {
-		return Promise.resolve(success)
-	}
-	/* v8 ignore end */
+	if (!test) return Promise.resolve(success)
 
 	const s = convertToSelector(subject)
 	if (!s) {
