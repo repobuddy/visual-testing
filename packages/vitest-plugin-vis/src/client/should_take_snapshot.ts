@@ -8,5 +8,5 @@ import type { SnapshotMeta } from './snapshot_meta.ts'
  * disabled by `!snapshot` tag: false
  */
 export function shouldTakeSnapshot(meta: SnapshotMeta | undefined) {
-	return meta?.enable !== false
+	return document.body.childElementCount > 0 && meta?.enable !== false
 }
