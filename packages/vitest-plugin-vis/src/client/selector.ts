@@ -1,3 +1,8 @@
+/**
+ * Most of the code in this file is copied from Vitest.
+ *
+ * @see https://github.com/vitest-dev/vitest/blob/main/packages/browser/src/client/utils.ts
+ */
 import type { Locator } from '@vitest/browser/context'
 
 export function convertToSelector(elementOrLocator: Element | Locator): string {
