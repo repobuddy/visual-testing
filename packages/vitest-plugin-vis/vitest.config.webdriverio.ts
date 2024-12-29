@@ -23,6 +23,7 @@ export default defineProject(() => {
 				name: browser,
 				provider: 'webdriverio',
 				api: 63317,
+				screenshotFailures: false,
 				screenshotDirectory: `__screenshots__/webdriverio/${browser}`,
 			},
 			include: [

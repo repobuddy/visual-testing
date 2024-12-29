@@ -17,6 +17,7 @@ export default defineProject(() => {
 				name: browser,
 				provider: 'playwright',
 				api: 63316,
+				screenshotFailures: false,
 				screenshotDirectory: `__screenshots__/playwright/${browser}`,
 			},
 			include: [
