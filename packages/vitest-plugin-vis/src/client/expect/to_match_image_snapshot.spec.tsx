@@ -50,3 +50,75 @@ it.each([undefined, null, true, false, 1])('should fails immediately if the subj
 		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${value}`,
 	)
 })
+
+it('fails when the image is different', async () => {
+	const hasImageSnapshot = await page.hasImageSnapshot()
+	page.render(<div data-testid="subject">{hasImageSnapshot ? 'Hello' : 'World'}</div>)
+	const subject = page.getByTestId('subject')
+	if (!hasImageSnapshot) {
+		await expect(subject).toMatchImageSnapshot()
+		return
+	}
+	await expect(subject)
+		.toMatchImageSnapshot()
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./)
+			},
+		)
+})
+
+it('fails when the image is smaller', async () => {
+	const hasImageSnapshot = await page.hasImageSnapshot()
+	const style = hasImageSnapshot ? { width: 64, height: 64 } : { width: 128, height: 128 }
+	page.render(
+		<div data-testid="subject" style={style}>
+			Hello
+		</div>,
+	)
+	const subject = page.getByTestId('subject')
+	if (!hasImageSnapshot) {
+		await expect(subject).toMatchImageSnapshot()
+		return
+	}
+	await expect(subject)
+		.toMatchImageSnapshot()
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/^Snapshot .* mismatched/)
+				expect(error.message).toMatch(/The image size changed form 128x128 to 64x64/)
+			},
+		)
+})
+
+it('fails when the image is larger', async () => {
+	const hasImageSnapshot = await page.hasImageSnapshot()
+	const style = hasImageSnapshot ? { width: 128, height: 128 } : { width: 64, height: 64 }
+	page.render(
+		<div data-testid="subject" style={style}>
+			Hello
+		</div>,
+	)
+	const subject = page.getByTestId('subject')
+	if (!hasImageSnapshot) {
+		await expect(subject).toMatchImageSnapshot()
+		return
+	}
+	await expect(subject)
+		.toMatchImageSnapshot()
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/^Snapshot .* mismatched/)
+				expect(error.message).toMatch(/The image size changed form 64x64 to 128x128/)
+			},
+		)
+})

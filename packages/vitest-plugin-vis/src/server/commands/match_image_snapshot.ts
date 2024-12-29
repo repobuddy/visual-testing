@@ -38,13 +38,26 @@ export const matchImageSnapshot: BrowserCommand<
 	}
 
 	const resultBase64 = await takeSnapshot(context, subject, { dir: info.resultDir, path: info.resultPath }, options)
-	const [baselineImage, resultImage] = alignImageSizes(
-		PNG.sync.read(Buffer.from(baselineBase64, 'base64')),
-		PNG.sync.read(Buffer.from(resultBase64, 'base64')),
-	)
+	const baselineImage = PNG.sync.read(Buffer.from(baselineBase64, 'base64'))
+	const resultImage = PNG.sync.read(Buffer.from(resultBase64, 'base64'))
+	const [baselineAlignedImage, resultAlignedImage] = isSameSize(baselineImage, resultImage)
+		? [baselineImage, resultImage]
+		: alignImageSizes(baselineImage, resultImage)
 
-	const { pass, diffAmount, diffImage } = compareImage(baselineImage, resultImage, options)
-	if (pass) return
+	const { pass, diffAmount, diffImage } = compareImage(baselineAlignedImage, resultAlignedImage, options)
+	if (pass) {
+		if (sizeNotChanged(baselineImage, baselineAlignedImage)) {
+			return
+		}
+		throw new Error(
+			dedent`Snapshot \`${taskName}\` mismatched
+
+				The image size changed form ${baselineImage.width}x${baselineImage.height} to ${resultImage.width}x${resultImage.height}
+
+				Expected:   ${resolve(context.project.runner.root, info.baselinePath)}
+				Actual:     ${resolve(context.project.runner.root, info.resultPath)}`,
+		)
+	}
 
 	const diffBase64 = PNG.sync.write(diffImage).toString('base64')
 	await writeSnapshot(diffBase64, { dir: info.diffDir, path: info.diffPath })
@@ -90,8 +103,6 @@ async function writeSnapshot(subject: string, info: { dir: string; path: string 
 }
 
 function alignImageSizes(baseline: PNG, result: PNG) {
-	if (isSameSize(baseline, result)) return [baseline, result]
-
 	const size = getMaxSize(baseline, result)
 
 	const baselineAligned = new PNG(size)
@@ -104,4 +115,7 @@ function alignImageSizes(baseline: PNG, result: PNG) {
 	PNG.bitblt(result, resultAligned, 0, 0, result.width, result.height)
 
 	return [baselineAligned, resultAligned] as const
+}
+function sizeNotChanged(baselineImage: PNG, baselineAlignedImage: PNG) {
+	return baselineImage === baselineAlignedImage
 }
