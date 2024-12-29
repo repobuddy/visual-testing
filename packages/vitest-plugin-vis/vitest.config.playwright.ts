@@ -1,5 +1,5 @@
-import { vis } from 'vitest-plugin-vis/config'
 import { defineProject } from 'vitest/config'
+import { vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
 export default defineProject(() => {
