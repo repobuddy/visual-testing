@@ -1,9 +1,10 @@
 import { page } from '@vitest/browser/context'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from '../ctx.ts'
 import { setSnapshotMeta } from '../snapshot_meta.ts'
 
+beforeEach(({ task }) => setSnapshotMeta(task, { enable: false }))
 afterEach(() => ctx.__test__reset())
 
 it('passes when not running in test', ({ task }) => {
