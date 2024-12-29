@@ -19,8 +19,8 @@
 		"v": "turbo check coverage",
 		"verify": "turbo check coverage",
 		"version": "changeset version",
-		"sav": "pnpm --filter=./packages/vis",
-		"vis": "pnpm --filter=./packages/vis",
+		"sav": "pnpm --filter=./packages/storybook-addon-vis",
+		"vis": "pnpm --filter=./packages/storybook-addon-vis",
 		"vpv": "pnpm --filter=./packages/vitest-plugin-vis",
 		"w": "turbo w",
 		"w:trv": "vitest --project=testcase-react-vite-ts"
