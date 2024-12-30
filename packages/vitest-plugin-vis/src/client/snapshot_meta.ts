@@ -5,18 +5,17 @@ import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapsh
 export type SnapshotMeta = ToMatchImageSnapshotOptions & { enable?: boolean | undefined }
 
 /**
- * Set the snapshot meta for the task (test).
+ * Set the snapshot options for auto snapshot.
  *
  * ```ts
- * beforeAll(suite => setSnapshotMeta(suite, ...))
- * beforeEach(({ task }) => setSnapshotMeta(task, ...))
+ * beforeEach(({ task }) => setAutoSnapshotOptions(task, ...))
  *
  * it('...', ({ task }) => {
- *   setSnapshotMeta(task, ...)
+ *   setAutoSnapshotOptions(task, ...)
  * })
  * ```
  */
-export function setSnapshotMeta(
+export function setAutoSnapshotOptions(
 	task:
 		| {
 				file: { meta: TaskMeta }

@@ -1,20 +1,20 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
-import { setSnapshotMeta } from '../core.ts'
+import { setAutoSnapshotOptions } from '../core.ts'
 import { NAME } from '../shared/constants.ts'
 import { getSnapshotMeta } from './snapshot_meta.internal.ts'
 
 beforeAll((ctx) => {
 	// this set the `file` meta
-	setSnapshotMeta(ctx, { diffOptions: { threshold: 0.01 } })
+	setAutoSnapshotOptions(ctx, { diffOptions: { threshold: 0.01 } })
 })
 
 beforeEach(({ task }) => {
 	// this set the `task` meta
-	setSnapshotMeta(task, { failureThreshold: 0.01 })
+	setAutoSnapshotOptions(task, { failureThreshold: 0.01 })
 })
 
 it('is noop when task is undefined', () => {
-	setSnapshotMeta(undefined)
+	setAutoSnapshotOptions(undefined)
 	getSnapshotMeta(undefined)
 })
 
@@ -34,12 +34,12 @@ describe('without beforeAll', () => {
 	})
 
 	it('should override existing meta with boolean', ({ task }) => {
-		setSnapshotMeta(task, false)
+		setAutoSnapshotOptions(task, false)
 		expect(getSnapshotMeta(task)).toEqual({ enable: false })
 	})
 
 	it('should override existing meta with enable: false', ({ task }) => {
-		setSnapshotMeta(task, { enable: false })
+		setAutoSnapshotOptions(task, { enable: false })
 		expect(getSnapshotMeta(task)).toEqual({ enable: false })
 	})
 })
@@ -54,17 +54,17 @@ describe('with no beforeAll and beforeEach', () => {
 	})
 
 	it('should enable snapshot by default', ({ task }) => {
-		setSnapshotMeta(task)
+		setAutoSnapshotOptions(task)
 		expect(getSnapshotMeta(task)).toEqual({ enable: true })
 	})
 
 	it('should set the provided meta', ({ task }) => {
-		setSnapshotMeta(task, { failureThreshold: 0.01 })
+		setAutoSnapshotOptions(task, { failureThreshold: 0.01 })
 		expect(getSnapshotMeta(task)).toEqual({ enable: true, failureThreshold: 0.01 })
 	})
 
 	it('should set enable to false when passing in false', ({ task }) => {
-		setSnapshotMeta(task, false)
+		setAutoSnapshotOptions(task, false)
 		expect(getSnapshotMeta(task)).toEqual({ enable: false })
 	})
 })
@@ -73,7 +73,7 @@ describe('disable snapshot during beforeAll', () => {
 	beforeAll((ctx) => {
 		delete (ctx.file.meta as any)[NAME]
 		// this set the `suite` meta
-		setSnapshotMeta(ctx, false)
+		setAutoSnapshotOptions(ctx, false)
 	})
 
 	beforeEach(({ task }) => {
@@ -85,7 +85,7 @@ describe('disable snapshot during beforeAll', () => {
 	})
 
 	it('can override the disable snapshot', ({ task }) => {
-		setSnapshotMeta(task, { enable: true })
+		setAutoSnapshotOptions(task, { enable: true })
 		expect(getSnapshotMeta(task)).toEqual({ enable: true })
 	})
 })

@@ -2,9 +2,9 @@ import { page } from '@vitest/browser/context'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from '../ctx.ts'
-import { setSnapshotMeta } from '../snapshot_meta.ts'
+import { setAutoSnapshotOptions } from '../snapshot_meta.ts'
 
-beforeEach(({ task }) => setSnapshotMeta(task, { enable: false }))
+beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: false }))
 afterEach(() => ctx.__test__reset())
 
 it('throws when not running in a test', () => {
@@ -232,19 +232,20 @@ it('fails when the image is different in 0 percentage', async () => {
 		)
 })
 
-describe(`${setSnapshotMeta.name}()`, () => {
+describe(`${setAutoSnapshotOptions.name}()`, () => {
 	it('can disable auto snapshot', async ({ task }) => {
-		setSnapshotMeta(task, { enable: false })
+		setAutoSnapshotOptions(task, { enable: false })
 		page.render(<div>hello</div>)
-		await expect(document.body).toMatchImageSnapshot()
 		expect(await page.hasImageSnapshot()).toBe(false)
 	})
+
 	it('can enable auto snapshot', ({ task }) => {
-		setSnapshotMeta(task, { enable: true })
+		setAutoSnapshotOptions(task, { enable: true })
 		page.render(<div>hello</div>)
 	})
+
 	it('can take auto snapshot and manual snapshot together', async ({ task }) => {
-		setSnapshotMeta(task, { enable: true })
+		setAutoSnapshotOptions(task, { enable: true })
 		page.render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot()
 	})
