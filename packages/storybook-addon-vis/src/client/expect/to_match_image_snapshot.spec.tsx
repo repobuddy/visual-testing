@@ -14,14 +14,13 @@ it('accepts Element', async () => {
 	await expect(locator.element()).toMatchImageSnapshot2()
 })
 
-it.todo('accepts body', async () => {
+it('accepts body', async () => {
 	// the png file created is not valid
 	const screen = render(<div data-testid="subject">unit</div>)
 	await expect(screen.baseElement).toMatchImageSnapshot2()
 })
 
-it.todo('accepts document.body', async () => {
-	// the png file created is not valid
+it('accepts document.body', async () => {
 	render(<div data-testid="subject">unit</div>)
 	await expect(document.body).toMatchImageSnapshot2()
 })
