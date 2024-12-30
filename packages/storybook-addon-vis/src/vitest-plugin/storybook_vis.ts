@@ -10,13 +10,14 @@ import { matchImageSnapshot } from '../server/commands/match_image_snapshot.ts'
 import { rmDir } from '../server/commands/rm_dir.ts'
 import { setupVisSuite } from '../server/commands/setup_vis_suite.ts'
 import { visContext } from '../server/vis_context.ts'
+import { NAME } from '../shared/contants.ts'
 import type { VisOptions } from '../shared/types.ts'
 
 export function storybookVis(options: VisOptions = {}) {
 	visContext.setOptions(options)
 	const p = vis({ preset: 'none' })
 	return {
-		name: 'vitest:storybook-addon-vis',
+		name: NAME,
 		config() {
 			return {
 				test: {

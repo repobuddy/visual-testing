@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest'
 import { visContext } from '../server/vis_context.ts'
+import { NAME } from '../shared/contants.ts'
 import type { VisOptions } from '../vitest-plugin.ts'
 import { storybookVis } from '../vitest-plugin.ts'
 
@@ -19,9 +20,9 @@ it('can be called with options', () => {
 	expect(visContext.getOptions()).toBe(options)
 })
 
-it('returns a vitest:storybook-addon-vis plugin object', () => {
+it('returns a storybook-addon-vis plugin object', () => {
 	const plugin = storybookVis()
-	expect(plugin.name).toBe('vitest:storybook-addon-vis')
+	expect(plugin.name).toBe(NAME)
 	expect(plugin.config).toBeTypeOf('function')
 })
 
