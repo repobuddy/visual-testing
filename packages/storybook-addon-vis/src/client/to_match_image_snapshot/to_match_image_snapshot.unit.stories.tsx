@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { UNI_PNG_URL } from '../../testing/constants.ts'
+import { UNI_PNG_URL } from '../../testing.ts'
 import { page } from '../../vitest-setup.ts'
 
 export default {

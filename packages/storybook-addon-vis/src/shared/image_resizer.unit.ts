@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { UNI_IMAGE_DATA } from '../testing/constants.ts'
+import { UNI_IMAGE_DATA } from '../testing.ts'
 import { createImageResizer, createImageResizer2 } from './image_resizer.ts'
 
 it('returns the same image if no resize is needed', async () => {

@@ -1,7 +1,7 @@
 import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { UNI_PNG_BASE64 } from '../../testing/constants.js'
+import { UNI_PNG_BASE64 } from '../../testing.js'
 
 it('accepts Locator', async () => {
 	const screen = render(<div data-testid="subject">unit</div>)

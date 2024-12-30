@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
+import { UNI_PNG_BASE64 } from '../../testing.ts'
 
 export default {
 	title: 'toMatchImageSnapshot',
