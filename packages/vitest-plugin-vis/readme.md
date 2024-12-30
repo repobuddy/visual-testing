@@ -201,14 +201,6 @@ it('Has Snapshot', async () => {
 
 This is useful when you are performing some negative test.
 
-## Vitest Browser Mode
-
-Vitest visual testing plugin runs on [Vitest Browser Mode][vitest-browser-mode].
-Please follow its guide to set up your environment.
-
-Bonus note, if you want to install [Firefox] on WSL,
-you can follow these steps: [Install Firefox on Ubuntu 22.04](https://askubuntu.com/a/1444967).
-
 ## Git Ignore
 
 The local snapshots, current run results, and diffs should be ignored by git.
@@ -219,6 +211,21 @@ Add the following lines to your `.gitignore` file:
 **/__vis__/__results__
 **/__vis__/local
 ```
+
+## Vitest Browser Mode
+
+Vitest visual testing plugin runs on [Vitest Browser Mode][vitest-browser-mode].
+Please follow its guide to set up your environment.
+
+Bonus note, if you want to install [Firefox] on WSL,
+you can follow these steps: [Install Firefox on Ubuntu 22.04](https://askubuntu.com/a/1444967).
+
+## Running on CI
+
+When running on CI, the plugin will save the image snapshots in the `<root>/__vis__/<process.platform>` directory.
+
+The image snapshots are taken on the server side using `playwright` or `webdriverio` depending on your browser provider.
+It is recommended to run your tests serially to avoid flakiness.
 
 ## FAQ
 
