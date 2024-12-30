@@ -5,7 +5,7 @@
 	},
 	"references": [
 		{
-			"path": "./packages/vis"
+			"path": "./packages/storybook-addon-vis"
 		},
 		{
 			"path": "./packages/vitest-plugin-vis"
