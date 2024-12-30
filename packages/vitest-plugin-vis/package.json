@@ -28,9 +28,9 @@
 			"types": "./src/config.ts",
 			"default": "./esm/config.js"
 		},
-		"./core": {
-			"types": "./src/core.ts",
-			"default": "./esm/core.js"
+		"./client": {
+			"types": "./src/client.ts",
+			"default": "./esm/client.js"
 		},
 		"./presets/auto": {
 			"types": "./src/presets/auto.ts",

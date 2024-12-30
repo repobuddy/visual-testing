@@ -1,5 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
-import { setAutoSnapshotOptions } from '../core.ts'
+import { setAutoSnapshotOptions } from '../client.ts'
 import { NAME } from '../shared/constants.ts'
 import { getSnapshotMeta } from './snapshot_meta.internal.ts'
 
