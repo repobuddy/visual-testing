@@ -7,12 +7,19 @@ import { setSnapshotMeta } from '../snapshot_meta.ts'
 beforeEach(({ task }) => setSnapshotMeta(task, { enable: false }))
 afterEach(() => ctx.__test__reset())
 
-it('passes when not running in test', ({ task }) => {
-	setSnapshotMeta(task, { enable: false })
-	// stub as success when not in a test (e.g. in a story)
+it('throws when not running in a test', () => {
 	ctx.getCurrentTest = () => undefined as any
+	expect(() => expect(document.body).toMatchImageSnapshot()).toThrow(
+		'`toMatchImageSnapshot()` must be called in a test.',
+	)
+})
 
-	expect(document.body).toMatchImageSnapshot()
+it('throws an error when running in a concurrent test', () => {
+	ctx.getCurrentTest = () => ({ concurrent: true }) as any
+	expect(() => expect(document.body).toMatchImageSnapshot()).toThrow(
+		'`toMatchImageSnapshot()` cannot be called in a concurrent test because ' +
+			"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
+	)
 })
 
 it('accepts a Locator', async () => {

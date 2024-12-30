@@ -1,6 +1,5 @@
 import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
-import type { PixelmatchOptions } from 'pixelmatch'
 import { isBase64String } from '../../shared/base64.ts'
 import type {
 	ImageSnapshotCompareOptions,
@@ -30,7 +29,16 @@ export function toMatchImageSnapshot(
 	options?: ToMatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
 	const test = ctx.getCurrentTest()
-	if (!test) return Promise.resolve(success)
+	if (!test) {
+		throw new Error('`toMatchImageSnapshot()` must be called in a test.')
+	}
+
+	if (test.concurrent) {
+		throw new Error(
+			'`toMatchImageSnapshot()` cannot be called in a concurrent test because ' +
+				"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
+		)
+	}
 
 	const s = parseSubject(subject)
 	if (!s) {
