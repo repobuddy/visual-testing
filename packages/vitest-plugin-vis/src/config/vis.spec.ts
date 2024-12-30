@@ -92,3 +92,12 @@ it('default to no preset when options is set', () => {
 		},
 	})
 })
+
+it('can set preset to none', () => {
+	const plugin = vis({ preset: 'none' })
+	expect(plugin.config()).toMatchObject({
+		test: {
+			setupFiles: undefined,
+		},
+	})
+})

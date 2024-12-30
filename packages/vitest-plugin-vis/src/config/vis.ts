@@ -22,7 +22,7 @@ export function vis(options: VisOptions = { preset: 'auto' }) {
 						name: undefined as unknown as string,
 						commands,
 					},
-					setupFiles: preset ? [`vitest-plugin-vis/presets/${preset}`] : undefined,
+					setupFiles: preset && preset !== 'none' ? [`vitest-plugin-vis/presets/${preset}`] : undefined,
 				},
 			}
 		},

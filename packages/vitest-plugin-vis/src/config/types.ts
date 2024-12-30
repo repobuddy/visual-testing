@@ -5,7 +5,7 @@ export interface VisOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotId
 	/**
 	 * Loads the `test.setupFiles` of the specified preset.
 	 */
-	preset?: 'manual' | 'auto' | undefined
+	preset?: 'manual' | 'auto' | 'none' | undefined
 	/**
 	 * The snapshot folder relative to the root of the project.
 	 *

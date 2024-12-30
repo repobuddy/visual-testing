@@ -65,9 +65,38 @@ export default defineConfig({
       diffOptions: undefined, // pixelmatch options
       failureThresholdType: 'pixel',
       failureThreshold: 0,
-      timeout: 5000 // and 30000 on CI
+      timeout: 5000 // 30000 on CI
     })
   ]
+})
+```
+
+If you want to do a custom snapshot at the end of each test,
+such as taking a snapshot for each theme,
+you can set it up using a custom setup file:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+  plugins: [
+    // preset is disabled by default when you provide a custom config
+    vis({}) // or vis({ preset: 'none' })
+  ],
+  test:{
+    browser:{/* ... */},
+    setupFiles: ['vitest.setup.ts']
+  }
+})
+
+// vitest.setup.ts
+import { vis } from './src/setup.ts'
+
+vis.presets.theme({
+    light() { document.body.classList.remove('dark') },
+    dark() { document.body.classList.add('dark') },
 })
 ```
 
