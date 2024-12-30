@@ -48,7 +48,8 @@
 	},
 	"files": [
 		"esm",
-		"src"
+		"src",
+		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
 	],
 	"scripts": {
 		"build": "tsc",
