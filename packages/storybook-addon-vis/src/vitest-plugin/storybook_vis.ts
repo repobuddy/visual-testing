@@ -1,3 +1,4 @@
+import { vis } from 'vitest-plugin-vis/config'
 import type { Plugin } from 'vitest/config'
 import { copyFile } from '../server/commands/copy_file.ts'
 import { existDir } from '../server/commands/exist_dir.ts'
@@ -13,6 +14,7 @@ import type { VisOptions } from '../shared/types.ts'
 
 export function storybookVis(options: VisOptions = {}) {
 	visContext.setOptions(options)
+	const p = vis({ preset: 'none' })
 	return {
 		name: 'vitest:storybook-addon-vis',
 		config() {
@@ -21,6 +23,7 @@ export function storybookVis(options: VisOptions = {}) {
 					browser: {
 						name: undefined as unknown as string,
 						commands: {
+							...p.config().test.browser.commands,
 							existDir,
 							existFile,
 							copyFile,
