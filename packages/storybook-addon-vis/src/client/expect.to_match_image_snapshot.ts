@@ -1,6 +1,7 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
+import { success } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
 import { compareImage } from '../shared/compare_image.ts'
 import { getMaxSize } from '../shared/get_max_size.ts'
@@ -13,7 +14,6 @@ import { assertImageSnapshot, isImageSnapshot } from './@vitest/browser/image_sn
 import { toDataURL, toImageData } from './image_data.ts'
 import { imageSnapshot } from './image_snapshot.ts'
 import { state } from './state.ts'
-import { success } from './to_match_image_snapshot/expectation_result.ts'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: MatchImageSnapshotOptions): Promise<void>

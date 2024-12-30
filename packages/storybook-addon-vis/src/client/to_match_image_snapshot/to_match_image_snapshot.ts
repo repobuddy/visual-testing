@@ -1,12 +1,10 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
+import { type ToMatchImageSnapshotOptions, success, toMatchImageSnapshot } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
-import { isBase64String } from '../../shared/base64.ts'
 import type { MatchImageSnapshotOptions } from '../../shared/types.ts'
-import { commands, page } from '../@vitest/browser/context.ts'
-import { success } from './expectation_result.ts'
 
 export interface ImageSnapshotMatcher2 {
-	toMatchImageSnapshot2(options?: MatchImageSnapshotOptions | undefined): Promise<void>
+	toMatchImageSnapshot2(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
 }
 
 export function toMatchImageSnapshot2(
@@ -25,22 +23,5 @@ export function toMatchImageSnapshot2(
 	}
 	/* v8 ignore end */
 
-	const s = parseSubject(subject)
-	if (!s) {
-		throw new Error(
-			`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${subject}`,
-		)
-	}
-
-	return commands.matchImageSnapshot(test.name, s, options).then(() => success)
-}
-
-function parseSubject(subject: any) {
-	if (subject instanceof Element) {
-		// the `Locater.selector` is not exposed in the type definition.
-		return (page.elementLocator(subject) as any).selector
-	}
-	if (subject?.['selector']) return subject['selector']
-	if (isBase64String(subject)) return subject
-	return undefined
+	return toMatchImageSnapshot(subject, options)
 }
