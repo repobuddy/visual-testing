@@ -44,6 +44,10 @@
 			"types": "./src/setup.ts",
 			"default": "./esm/setup.js"
 		},
+		"./testing": {
+			"types": "./src/testing.ts",
+			"default": "./esm/testing.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [
