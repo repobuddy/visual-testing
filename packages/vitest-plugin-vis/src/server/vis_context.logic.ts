@@ -60,7 +60,7 @@ export function createVisContext() {
 			const info = context.getSuiteInfo(testPath, name)
 			const snapshotFilename = context.getSnapshotFilename(info, options?.snapshotFileId)
 
-			const { taskId, suiteId, baselineDir, resultDir, diffDir, task } = info
+			const { suiteId, baselineDir, resultDir, diffDir, task } = info
 
 			task.count = task.count + 1
 			const baselinePath = join(baselineDir, snapshotFilename)
@@ -69,10 +69,6 @@ export function createVisContext() {
 
 			return {
 				suiteId,
-				taskId,
-				baselineDir,
-				resultDir,
-				diffDir,
 				snapshotFilename,
 				baselinePath,
 				resultPath,

@@ -235,6 +235,17 @@ it('fails when the image is different in 0 percentage', async () => {
 describe(`${setSnapshotMeta.name}()`, () => {
 	it('can disable auto snapshot', async ({ task }) => {
 		setSnapshotMeta(task, { enable: false })
+		page.render(<div>hello</div>)
+		await expect(document.body).toMatchImageSnapshot()
 		expect(await page.hasImageSnapshot()).toBe(false)
+	})
+	it('can enable auto snapshot', ({ task }) => {
+		setSnapshotMeta(task, { enable: true })
+		page.render(<div>hello</div>)
+	})
+	it('can take auto snapshot and manual snapshot together', async ({ task }) => {
+		setSnapshotMeta(task, { enable: true })
+		page.render(<div>hello</div>)
+		await expect(document.body).toMatchImageSnapshot()
 	})
 })

@@ -1,7 +1,6 @@
 import dedent from 'dedent'
 import { mkdirp } from 'mkdirp'
-import { resolve } from 'pathe'
-import type { PixelmatchOptions } from 'pixelmatch'
+import { dirname, resolve } from 'pathe'
 import { PNG } from 'pngjs'
 import type { BrowserCommand, BrowserCommandContext } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
@@ -48,11 +47,11 @@ export const matchImageSnapshot: BrowserCommand<
 	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
 	const baselineBase64 = await file.tryReadFileBase64(info.baselinePath)
 	if (!baselineBase64) {
-		await takeSnapshot(context, subject, { dir: info.baselineDir, path: info.baselinePath }, options)
+		await takeSnapshot(context, subject, info.baselinePath, options)
 		return
 	}
 
-	const resultBase64 = await takeSnapshot(context, subject, { dir: info.resultDir, path: info.resultPath }, options)
+	const resultBase64 = await takeSnapshot(context, subject, info.resultPath, options)
 	const baselineImage = PNG.sync.read(Buffer.from(baselineBase64, 'base64'))
 	const resultImage = PNG.sync.read(Buffer.from(resultBase64, 'base64'))
 	const [baselineAlignedImage, resultAlignedImage] = isSameSize(baselineImage, resultImage)
@@ -75,7 +74,7 @@ export const matchImageSnapshot: BrowserCommand<
 	}
 
 	const diffBase64 = PNG.sync.write(diffImage).toString('base64')
-	await writeSnapshot(diffBase64, { dir: info.diffDir, path: info.diffPath })
+	await writeSnapshot(diffBase64, info.diffPath)
 
 	throw new Error(
 		dedent`Snapshot \`${taskId}\` mismatched
@@ -97,23 +96,23 @@ export const matchImageSnapshot: BrowserCommand<
 async function takeSnapshot(
 	context: BrowserCommandContext,
 	subject: string,
-	info: { dir: string; path: string },
+	filePath: string,
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	if (isBase64String(subject)) {
-		return writeSnapshot(subject, info)
+		return writeSnapshot(subject, filePath)
 	}
 
-	await mkdirp(info.dir)
+	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
-	return browser.takeScreenshot(info.path, subject, {
+	return browser.takeScreenshot(filePath, subject, {
 		timeout: options?.timeout,
 	})
 }
 
-async function writeSnapshot(subject: string, info: { dir: string; path: string }) {
-	await mkdirp(info.dir)
-	await file.writeFileBase64(info.path, subject)
+async function writeSnapshot(subject: string, filePath: string) {
+	await mkdirp(dirname(filePath))
+	await file.writeFileBase64(filePath, subject)
 	return subject
 }
 
