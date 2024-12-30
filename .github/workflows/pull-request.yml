@@ -53,7 +53,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: pnpm verify
+          command: pnpm verify:ci
 
       - name: Archive snapshots
         if: failure()
