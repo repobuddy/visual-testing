@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
+import { visContext } from '../server/vis_context.ts'
 import type { VisOptions } from '../vitest-plugin.ts'
 import { storybookVis } from '../vitest-plugin.ts'
-import { visContext } from './vis_context.ts'
 
 it('can be called without options', () => {
 	storybookVis()
