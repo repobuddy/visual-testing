@@ -1,12 +1,12 @@
 import pixelmatch from 'pixelmatch'
 import { PNG } from 'pngjs'
 import { convertThresholdUnit } from '../shared/convert_threshold_unit.ts'
-import type { MatchImageSnapshotOptions } from '../shared/types.ts'
+import type { ImageSnapshotCompareOptions } from '../shared/types.ts'
 
 export function compareImage(
 	baselineImage: PNG,
 	resultImage: PNG,
-	{ failureThreshold = 0, failureThresholdType = 'pixel', diffOptions }: MatchImageSnapshotOptions = {},
+	{ failureThreshold = 0, failureThresholdType = 'pixel', diffOptions }: ImageSnapshotCompareOptions = {},
 ) {
 	const diffImage = new PNG({
 		width: baselineImage.width,

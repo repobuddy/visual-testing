@@ -4,9 +4,9 @@ export interface ImageSnapshotTimeoutOptions {
 	/**
 	 * Timeout for taking the snapshot.
 	 *
-	 * Default: 30000 ms
+	 * Default: 5000 ms locally, 30000 ms on CI.
 	 */
-	snapshotTimeout?: number | undefined
+	timeout?: number | undefined
 }
 
 export interface ImageSnapshotIdOptions {
@@ -19,7 +19,7 @@ export interface ImageSnapshotIdOptions {
 	customizeSnapshotId?: (id: string, index: number) => string
 }
 
-export interface MatchImageSnapshotOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions {
+export interface ImageSnapshotCompareOptions {
 	/**
 	 * Custom options passed to 'pixelmatch'
 	 */
@@ -36,9 +36,4 @@ export interface MatchImageSnapshotOptions extends ImageSnapshotTimeoutOptions, 
 	 * Default is `0`.
 	 */
 	failureThreshold?: number | undefined
-
-	/**
-	 * The snapshot file id calculated on the client side.
-	 */
-	snapshotFileId?: string | undefined
 }

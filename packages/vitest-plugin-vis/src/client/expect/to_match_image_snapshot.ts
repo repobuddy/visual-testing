@@ -2,7 +2,11 @@ import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import type { PixelmatchOptions } from 'pixelmatch'
 import { isBase64String } from '../../shared/base64.ts'
-import type { ImageSnapshotIdOptions } from '../../shared/types.ts'
+import type {
+	ImageSnapshotCompareOptions,
+	ImageSnapshotIdOptions,
+	ImageSnapshotTimeoutOptions,
+} from '../../shared/types.ts'
 import { ctx } from '../ctx.ts'
 import { convertElementToCssSelector } from '../selector.ts'
 import { toTaskId } from '../task_id.ts'
@@ -12,30 +16,10 @@ export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
 }
 
-export interface ToMatchImageSnapshotOptions extends ImageSnapshotIdOptions {
-	/**
-	 * Custom options passed to 'pixelmatch'
-	 */
-	diffOptions?: PixelmatchOptions | undefined
-	/**
-	 * Failure threshold should measure in `pixel` or `percent`.
-	 *
-	 * Default is `pixel`.
-	 */
-	failureThresholdType?: 'pixel' | 'percent' | undefined
-	/**
-	 * Failure tolerance threshold.
-	 *
-	 * Default is `0`.
-	 */
-	failureThreshold?: number | undefined
-	/**
-	 * Timeout for taking the snapshot.
-	 *
-	 * Default: 30000
-	 */
-	timeout?: number | undefined
-}
+export interface ToMatchImageSnapshotOptions
+	extends ImageSnapshotTimeoutOptions,
+		ImageSnapshotIdOptions,
+		ImageSnapshotCompareOptions {}
 
 export function toMatchImageSnapshot(
 	/**

@@ -41,7 +41,7 @@ export default defineConfig({
 
 This default configuration will:
 
-- Use the `auto` preset, taking image snapshot at the end on each test.
+- Use the `auto` preset, taking image snapshot at the end on each rendering test.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
 - Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
 - CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
@@ -58,7 +58,7 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
   plugins: [
     vis({
-      preset: 'auto',
+      preset: 'auto', // preset is disabled by default when you provide a custom config
       snapshotRootDir: '__vis__',
       customizeSnapshotSubpath: (subpath) => subpath,
       customizeSnapshotId: (id, index) => `${id}-${index}`,

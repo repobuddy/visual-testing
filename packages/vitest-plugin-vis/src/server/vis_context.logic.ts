@@ -77,7 +77,7 @@ export function createVisContext() {
 				baselinePath,
 				resultPath,
 				diffPath,
-				snapshotTimeout: visOptions.snapshotTimeout ?? (ci ? 30000 : 5000),
+				snapshotTimeout: visOptions.timeout ?? (ci ? 30000 : 5000),
 			}
 		},
 		getTaskCount(testPath: string, taskId: string) {

@@ -1,6 +1,7 @@
-import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions, MatchImageSnapshotOptions } from '../shared/types.ts'
+import type { ToMatchImageSnapshotOptions } from '../client/expect/to_match_image_snapshot.ts'
+import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions } from '../shared/types.ts'
 
-export interface VisOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions, MatchImageSnapshotOptions {
+export interface VisOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions, ToMatchImageSnapshotOptions {
 	/**
 	 * Loads the `test.setupFiles` of the specified preset.
 	 */

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, expect, it } from 'vitest'
 import { vis } from '../config.ts'
 import { visContext } from '../server/vis_context.ts'
 
@@ -36,9 +36,9 @@ it('can set default snapshot id', () => {
 })
 
 it('can set default snapshot timeout', () => {
-	vis({ snapshotTimeout: 1000 })
+	vis({ timeout: 1000 })
 	expect(visContext.__test__getOptions()).toMatchObject({
-		snapshotTimeout: 1000,
+		timeout: 1000,
 	})
 })
 

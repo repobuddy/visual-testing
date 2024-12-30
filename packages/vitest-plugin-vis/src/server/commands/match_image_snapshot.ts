@@ -1,12 +1,17 @@
 import dedent from 'dedent'
 import { mkdirp } from 'mkdirp'
 import { resolve } from 'pathe'
+import type { PixelmatchOptions } from 'pixelmatch'
 import { PNG } from 'pngjs'
 import type { BrowserCommand, BrowserCommandContext } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
 import { getMaxSize } from '../../shared/get_max_size.ts'
 import { isSameSize } from '../../shared/is_same_size.ts'
-import type { ImageSnapshotTimeoutOptions, MatchImageSnapshotOptions } from '../../shared/types.ts'
+import type {
+	ImageSnapshotCompareOptions,
+	ImageSnapshotIdOptions,
+	ImageSnapshotTimeoutOptions,
+} from '../../shared/types.ts'
 import { browserApi } from '../browser_provider/browser_api.ts'
 import { compareImage } from '../compare_image.ts'
 import { file } from '../file.ts'
@@ -18,6 +23,16 @@ export interface MatchImageSnapshotCommand {
 		subject: string,
 		options?: MatchImageSnapshotOptions | undefined,
 	) => Promise<void>
+}
+
+export interface MatchImageSnapshotOptions
+	extends ImageSnapshotTimeoutOptions,
+		ImageSnapshotIdOptions,
+		ImageSnapshotCompareOptions {
+	/**
+	 * The snapshot file id calculated on the client side.
+	 */
+	snapshotFileId?: string | undefined
 }
 
 export const matchImageSnapshot: BrowserCommand<
@@ -92,7 +107,7 @@ async function takeSnapshot(
 	await mkdirp(info.dir)
 	const browser = browserApi(context)
 	return browser.takeScreenshot(info.path, subject, {
-		timeout: options?.snapshotTimeout,
+		timeout: options?.timeout,
 	})
 }
 
