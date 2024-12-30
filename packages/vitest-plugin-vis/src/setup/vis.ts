@@ -1,8 +1,10 @@
 import { commands } from '@vitest/browser/context'
+import dedent from 'dedent'
 import { afterEach, beforeAll, expect } from 'vitest'
-import { getCurrentTest } from 'vitest/suite'
+import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
 import { getSnapshotMeta } from '../client/snapshot_meta.internal.ts'
+import { toTaskId } from '../client/task_id.ts'
 
 /**
  * Visual test configuration on the client side.
@@ -51,20 +53,41 @@ export const vis = {
 	},
 	afterEach: {
 		async matchImageSnapshot() {
-			const meta = getSnapshotMeta(getCurrentTest())
+			const meta = getSnapshotMeta(ctx.getCurrentTest())
 			if (!shouldTakeSnapshot(meta)) return
 			await expect(document.body).toMatchImageSnapshot(meta)
 		},
 		matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 			return async function matchImageSnapshot() {
-				const meta = getSnapshotMeta(getCurrentTest())
+				const test = ctx.getCurrentTest()
+				const meta = getSnapshotMeta(test)
 				if (!shouldTakeSnapshot(meta)) return
+
+				const errors: any[] = []
 				for (const themeId in themes) {
-					await themes[themeId]!()
-					await expect(document.body).toMatchImageSnapshot({
-						...meta,
-						customizeSnapshotId: (id) => `${id}-${themeId}`,
-					})
+					try {
+						await themes[themeId]!()
+						await expect(document.body).toMatchImageSnapshot({
+							...meta,
+							customizeSnapshotId: (id) => `${id}-${themeId}`,
+						})
+					} catch (error) {
+						errors.push([themeId, error])
+					}
+				}
+				if (errors.length > 0) {
+					if (errors.length === 1) throw errors[0][1]
+					const taskId = toTaskId(test!)
+					throw new AggregateError(
+						errors,
+						dedent`Snapshot \`${taskId}\` mismatched
+
+						${errors
+							.map(([themeId, error]) => {
+								return `Theme \`${themeId}\` failed: ${error.message}`
+							})
+							.join('\n')}`,
+					)
 				}
 			}
 		},
