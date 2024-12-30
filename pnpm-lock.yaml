@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  vite:
-    hash: xgqt7nmj25gqyng6hwpkq4rvp4
-    path: patches/vite.patch
-
 importers:
 
   .:
@@ -109,7 +104,7 @@ importers:
         version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: ^8.4.2
-        version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+        version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))
       '@storybook/test':
         specifier: ^8.4.2
         version: 8.4.4(storybook@8.4.4(prettier@2.8.8))
@@ -133,10 +128,10 @@ importers:
         version: 18.3.1
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.0))
       '@vitest/browser':
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       '@vitest/coverage-istanbul':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8)
@@ -166,7 +161,7 @@ importers:
         version: 5.7.2
       vite:
         specifier: ^5.3.5
-        version: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vitest-browser-react:
         specifier: ^0.0.4
         version: 0.0.4(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@2.1.8)
@@ -221,7 +216,7 @@ importers:
         version: 19.0.2
       '@vitest/browser':
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       '@vitest/coverage-istanbul':
         specifier: ^2.1.8
         version: 2.1.8(vitest@2.1.8)
@@ -251,7 +246,7 @@ importers:
         version: 5.7.2
       vite:
         specifier: ^5.3.5
-        version: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+        version: 5.4.11(@types/node@22.9.0)
       vitest:
         specifier: ^2.1.3
         version: 2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))
@@ -297,7 +292,7 @@ importers:
         version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: ^8.4.2
-        version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+        version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))
       '@storybook/test':
         specifier: ^8.4.2
         version: 8.4.4(storybook@8.4.4(prettier@2.8.8))
@@ -318,10 +313,10 @@ importers:
         version: 18.3.1
       '@vitejs/plugin-react':
         specifier: ^4.3.3
-        version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.0))
       '@vitest/browser':
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       globals:
         specifier: ^15.11.0
         version: 15.12.0
@@ -382,7 +377,7 @@ importers:
         version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: ^8.4.2
-        version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+        version: 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))
       '@storybook/test':
         specifier: ^8.4.2
         version: 8.4.4(storybook@8.4.4(prettier@2.8.8))
@@ -406,10 +401,10 @@ importers:
         version: 18.3.1
       '@vitejs/plugin-react':
         specifier: ^4.3.3
-        version: 4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+        version: 4.3.3(vite@5.4.11(@types/node@22.9.0))
       '@vitest/browser':
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+        version: 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -4969,13 +4964,13 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@joshwooding/vite-plugin-react-docgen-typescript@0.3.0(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))':
+  '@joshwooding/vite-plugin-react-docgen-typescript@0.3.0(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       glob: 7.2.3
       glob-promise: 4.2.2(glob@7.2.3)
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.7.2)
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     optionalDependencies:
       typescript: 5.7.2
 
@@ -5268,13 +5263,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.4.4(storybook@8.4.4(prettier@2.8.8))(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))':
+  '@storybook/builder-vite@8.4.4(storybook@8.4.4(prettier@2.8.8))(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       '@storybook/csf-plugin': 8.4.4(storybook@8.4.4(prettier@2.8.8))
       browser-assert: 1.2.1
       storybook: 8.4.4(prettier@2.8.8)
       ts-dedent: 2.2.0
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
 
   '@storybook/components@8.4.4(storybook@8.4.4(prettier@2.8.8))':
     dependencies:
@@ -5322,7 +5317,7 @@ snapshots:
       storybook: 8.4.4(prettier@2.8.8)
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       '@vitest/runner': 2.1.8
       vitest: 2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))
     transitivePeerDependencies:
@@ -5356,11 +5351,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.4.4(prettier@2.8.8)
 
-  '@storybook/react-vite@8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))':
+  '@storybook/react-vite@8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.25.0)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.3.0(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+      '@joshwooding/vite-plugin-react-docgen-typescript': 0.3.0(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))
       '@rollup/pluginutils': 5.1.3(rollup@4.25.0)
-      '@storybook/builder-vite': 8.4.4(storybook@8.4.4(prettier@2.8.8))(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+      '@storybook/builder-vite': 8.4.4(storybook@8.4.4(prettier@2.8.8))(vite@5.4.11(@types/node@22.9.0))
       '@storybook/react': 8.4.4(@storybook/test@8.4.4(storybook@8.4.4(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.4(prettier@2.8.8))(typescript@5.7.2)
       find-up: 5.0.0
       magic-string: 0.30.12
@@ -5370,7 +5365,7 @@ snapshots:
       resolve: 1.22.8
       storybook: 8.4.4(prettier@2.8.8)
       tsconfig-paths: 4.2.0
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - '@storybook/test'
       - rollup
@@ -5566,22 +5561,22 @@ snapshots:
       '@types/node': 22.9.0
     optional: true
 
-  '@vitejs/plugin-react@4.3.3(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))':
+  '@vitejs/plugin-react@4.3.3(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser@2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)':
+  '@vitest/browser@2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
-      '@vitest/mocker': 2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+      '@vitest/mocker': 2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(@types/node@22.9.0))
       '@vitest/utils': 2.1.8
       magic-string: 0.30.12
       msw: 2.6.4(@types/node@22.9.0)(typescript@5.7.2)
@@ -5599,11 +5594,11 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/browser@2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)':
+  '@vitest/browser@2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
-      '@vitest/mocker': 2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+      '@vitest/mocker': 2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(@types/node@22.9.0))
       '@vitest/utils': 2.1.8
       magic-string: 0.30.12
       msw: 2.6.4(@types/node@22.9.0)(typescript@5.7.2)
@@ -5653,7 +5648,7 @@ snapshots:
       tinyrainbow: 1.2.0
       vitest: 2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))
     optionalDependencies:
-      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -5671,14 +5666,14 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))':
+  '@vitest/mocker@2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       '@vitest/spy': 2.1.8
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
       msw: 2.6.4(@types/node@22.9.0)(typescript@5.7.2)
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
 
   '@vitest/pretty-format@2.0.5':
     dependencies:
@@ -8142,7 +8137,7 @@ snapshots:
       debug: 4.4.0
       es-module-lexer: 1.5.4
       pathe: 1.1.2
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -8154,7 +8149,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0):
+  vite@5.4.11(@types/node@22.9.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.48
@@ -8165,7 +8160,7 @@ snapshots:
 
   vitest-browser-react@0.0.4(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@2.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@2.1.8):
     dependencies:
-      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       vitest: 2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))
@@ -8175,7 +8170,7 @@ snapshots:
 
   vitest-browser-react@0.0.4(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@2.1.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@2.1.8):
     dependencies:
-      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       vitest: 2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))
@@ -8186,7 +8181,7 @@ snapshots:
   vitest@2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2)):
     dependencies:
       '@vitest/expect': 2.1.8
-      '@vitest/mocker': 2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))
+      '@vitest/mocker': 2.1.8(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))(vite@5.4.11(@types/node@22.9.0))
       '@vitest/pretty-format': 2.1.8
       '@vitest/runner': 2.1.8
       '@vitest/snapshot': 2.1.8
@@ -8202,12 +8197,12 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0)
+      vite: 5.4.11(@types/node@22.9.0)
       vite-node: 2.1.8(@types/node@22.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.9.0
-      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(patch_hash=xgqt7nmj25gqyng6hwpkq4rvp4)(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
     transitivePeerDependencies:
       - less
       - lightningcss
