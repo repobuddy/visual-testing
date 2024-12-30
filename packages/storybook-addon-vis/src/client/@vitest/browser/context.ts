@@ -22,8 +22,8 @@ import type { GetSnapshotPlatformCommand } from '../../../server/commands/get_sn
 import type { ImageSnapshotCommand } from '../../../server/commands/image_snapshot.ts'
 import type { IsCICommand } from '../../../server/commands/is_ci.ts'
 import type { RmDirCommand } from '../../../server/commands/rm_dir.ts'
+import { type HasImageSnapshotAction, hasImageSnapshot } from '../../page/has_image_snapshot.ts'
 import { imageSnapshotStubSymbol } from './constants.ts'
-import { type HasImageSnapshotAction, hasImageSnapshot } from './page.has_image_snapshot.ts'
 import { type ImageSnapshotAction, imageSnapshot } from './page.image_snapshot.ts'
 
 declare module '@vitest/browser/context' {
