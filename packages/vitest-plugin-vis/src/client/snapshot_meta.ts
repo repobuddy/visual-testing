@@ -1,6 +1,6 @@
 import type { TaskMeta } from 'vitest'
 import { NAME } from '../shared/constants.ts'
-import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.ts'
+import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 
 export type SnapshotMeta = ToMatchImageSnapshotOptions & { enable?: boolean | undefined }
 

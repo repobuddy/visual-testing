@@ -32,6 +32,10 @@
 			"types": "./src/client.ts",
 			"default": "./esm/client.js"
 		},
+		"./commands": {
+			"types": "./src/commands.ts",
+			"default": "./esm/commands.js"
+		},
 		"./presets/auto": {
 			"types": "./src/presets/auto.ts",
 			"default": "./esm/presets/auto.js"

@@ -9,15 +9,19 @@ import {
 } from '@storybook/test'
 import type { BrowserCommands, BrowserPage, CDPSession, Platform } from '@vitest/browser/context'
 import type { SerializedConfig } from 'vitest'
+import type {
+	HasImageSnapshotCommand,
+	ImageSnapshotNextIndexCommand,
+	MatchImageSnapshotCommand,
+	SetupVisSuiteCommand,
+} from 'vitest-plugin-vis/commands'
 import type { CopyFileCommand } from '../../../server/commands/copy_file.ts'
 import type { ExistDirCommand } from '../../../server/commands/exist_dir.ts'
 import type { ExistFileCommand } from '../../../server/commands/exist_file.ts'
 import type { GetSnapshotPlatformCommand } from '../../../server/commands/get_snapshot_platform.ts'
 import type { ImageSnapshotCommand } from '../../../server/commands/image_snapshot.ts'
 import type { IsCICommand } from '../../../server/commands/is_ci.ts'
-import type { MatchImageSnapshotCommand } from '../../../server/commands/match_image_snapshot.ts'
 import type { RmDirCommand } from '../../../server/commands/rm_dir.ts'
-import type { SetupVisSuiteCommand } from '../../../server/commands/setup_vis_suite.ts'
 import { imageSnapshotStubSymbol } from './constants.ts'
 import { type HasImageSnapshotAction, hasImageSnapshot } from './page.has_image_snapshot.ts'
 import { type ImageSnapshotAction, imageSnapshot } from './page.image_snapshot.ts'
@@ -32,6 +36,10 @@ declare module '@vitest/browser/context' {
 			IsCICommand,
 			MatchImageSnapshotCommand,
 			ImageSnapshotCommand,
+			SetupVisSuiteCommand,
+			HasImageSnapshotCommand,
+			ImageSnapshotNextIndexCommand,
+			MatchImageSnapshotCommand,
 			SetupVisSuiteCommand,
 			ExistFileCommand {}
 }

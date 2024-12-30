@@ -1,24 +1,10 @@
 import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
-import { isBase64String } from '../../shared/base64.ts'
-import type {
-	ImageSnapshotCompareOptions,
-	ImageSnapshotIdOptions,
-	ImageSnapshotTimeoutOptions,
-} from '../../shared/types.ts'
 import { ctx } from '../ctx.ts'
-import { convertElementToCssSelector } from '../selector.ts'
 import { toTaskId } from '../task_id.ts'
 import { success } from './expectation_result.ts'
-
-export interface ImageSnapshotMatcher {
-	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
-}
-
-export interface ToMatchImageSnapshotOptions
-	extends ImageSnapshotTimeoutOptions,
-		ImageSnapshotIdOptions,
-		ImageSnapshotCompareOptions {}
+import { parseImageSnapshotSubject } from './to_match_image_snapshot.logic.ts'
+import type { ToMatchImageSnapshotOptions } from './to_match_image_snapshot.types.ts'
 
 export function toMatchImageSnapshot(
 	/**
@@ -40,13 +26,7 @@ export function toMatchImageSnapshot(
 		)
 	}
 
-	const s = parseSubject(subject)
-	if (!s) {
-		throw new Error(
-			`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${subject}`,
-		)
-	}
-
+	const s = parseImageSnapshotSubject(subject)
 	const taskId = toTaskId(test)
 	return toMatchImageSnapshotAsync(taskId, s, options).then(() => success)
 }
@@ -60,11 +40,4 @@ async function toMatchImageSnapshotAsync(taskId: string, subject: string, option
 	}
 
 	return commands.matchImageSnapshot(taskId, subject, options)
-}
-
-function parseSubject(subject: any) {
-	if (subject instanceof Element) return convertElementToCssSelector(subject)
-	if (subject?.['selector']) return subject['selector']
-	if (isBase64String(subject)) return subject
-	return undefined
 }

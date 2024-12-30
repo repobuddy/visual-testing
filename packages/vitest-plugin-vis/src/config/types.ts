@@ -1,4 +1,4 @@
-import type { ToMatchImageSnapshotOptions } from '../client/expect/to_match_image_snapshot.ts'
+import type { ToMatchImageSnapshotOptions } from '../client/expect/to_match_image_snapshot.types.ts'
 import type { ImageSnapshotIdOptions, ImageSnapshotTimeoutOptions } from '../shared/types.ts'
 
 export interface VisOptions extends ImageSnapshotTimeoutOptions, ImageSnapshotIdOptions, ToMatchImageSnapshotOptions {

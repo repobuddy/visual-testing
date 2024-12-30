@@ -1,7 +1,13 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
-import { type ToMatchImageSnapshotOptions, success, toMatchImageSnapshot } from 'vitest-plugin-vis/client'
+import {
+	type ToMatchImageSnapshotOptions,
+	parseImageSnapshotSubject,
+	success,
+	toTaskId,
+} from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
 import type { MatchImageSnapshotOptions } from '../../shared/types.ts'
+import { commands } from '../@vitest/browser/context.ts'
 
 export interface ImageSnapshotMatcher2 {
 	toMatchImageSnapshot2(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
@@ -23,5 +29,18 @@ export function toMatchImageSnapshot2(
 	}
 	/* v8 ignore end */
 
-	return toMatchImageSnapshot(subject, options)
+	const s = parseImageSnapshotSubject(subject)
+	const taskId = toTaskId(test)
+	return toMatchImageSnapshotAsync(taskId, s, options).then(() => success)
+}
+
+async function toMatchImageSnapshotAsync(taskId: string, subject: string, options?: ToMatchImageSnapshotOptions) {
+	if (options?.customizeSnapshotId) {
+		const index = await commands.imageSnapshotNextIndex(taskId)
+		const { customizeSnapshotId, ...rest } = options
+		const snapshotFileId = customizeSnapshotId(taskId, index)
+		return commands.matchImageSnapshot(taskId, subject, { ...rest, snapshotFileId })
+	}
+
+	return commands.matchImageSnapshot(taskId, subject, options)
 }

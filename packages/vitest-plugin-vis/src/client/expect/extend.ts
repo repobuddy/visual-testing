@@ -1,5 +1,6 @@
 import { expect } from 'vitest'
-import { type ImageSnapshotMatcher, toMatchImageSnapshot } from './to_match_image_snapshot.ts'
+import { toMatchImageSnapshot } from './to_match_image_snapshot.ts'
+import type { ImageSnapshotMatcher } from './to_match_image_snapshot.types.ts'
 
 declare global {
 	namespace jest {

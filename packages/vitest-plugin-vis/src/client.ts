@@ -1,4 +1,5 @@
 export * from './client/expect/expectation_result.ts'
-export * from './client/expect/to_match_image_snapshot.ts'
-export * from './client/page/has_image_snapshot.ts'
+export * from './client/expect/to_match_image_snapshot.logic.ts'
+export type * from './client/expect/to_match_image_snapshot.types.ts'
 export * from './client/snapshot_meta.ts'
+export * from './client/task_id.ts'
