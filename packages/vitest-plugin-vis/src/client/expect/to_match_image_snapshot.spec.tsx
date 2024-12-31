@@ -233,10 +233,29 @@ it('fails when the image is different in 0 percentage', async () => {
 })
 
 describe(`${setAutoSnapshotOptions.name}()`, () => {
-	it('can disable auto snapshot', async ({ task }) => {
+	beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: true }))
+
+	it('can enable auto snapshot from nested beforeEach', () => {
+		page.render(<div>hello</div>)
+	})
+
+	it('can disable auto snapshot in test', async ({ task }) => {
 		setAutoSnapshotOptions(task, { enable: false })
 		page.render(<div>hello</div>)
 		expect(await page.hasImageSnapshot()).toBe(false)
+	})
+
+	it('does not affect manual snapshot', async ({ task }) => {
+		setAutoSnapshotOptions(task, { enable: false })
+		page.render(<div>hello</div>)
+		await expect(document.body).toMatchImageSnapshot({
+			customizeSnapshotId: (id) => id,
+		})
+		expect(
+			await page.hasImageSnapshot({
+				customizeSnapshotId: (id) => id,
+			}),
+		).toBe(true)
 	})
 
 	it('can enable auto snapshot', ({ task }) => {
@@ -244,9 +263,15 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		page.render(<div>hello</div>)
 	})
 
-	it('can take auto snapshot and manual snapshot together', async ({ task }) => {
-		setAutoSnapshotOptions(task, { enable: true })
+	it('can take auto snapshot and manual snapshot together', async () => {
 		page.render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot()
+		expect(
+			await page.hasImageSnapshot({
+				customizeSnapshotId: (id) => `${id}-1`,
+			}),
+		).toBe(true)
+
+		// can't validate 2nd snapshot because it's chicken-egg problem
 	})
 })
