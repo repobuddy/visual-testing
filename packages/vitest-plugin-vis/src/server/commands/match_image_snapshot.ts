@@ -87,6 +87,8 @@ export const matchImageSnapshot: BrowserCommand<
 					: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
 			}
 
+			Options:    ${JSON.stringify(options)}
+
 			Expected:   ${resolve(context.project.runner.root, info.baselinePath)}
 			Actual:     ${resolve(context.project.runner.root, info.resultPath)}
 			Difference: ${resolve(context.project.runner.root, info.diffPath)}`,

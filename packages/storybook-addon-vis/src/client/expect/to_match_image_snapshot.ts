@@ -9,11 +9,11 @@ import { getCurrentTest } from 'vitest/suite'
 import type { MatchImageSnapshotOptions } from '../../shared/types.ts'
 import { commands } from '../@vitest/browser/context.ts'
 
-export interface ImageSnapshotMatcher2 {
-	toMatchImageSnapshot2(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
+export interface ImageSnapshotMatcher {
+	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
 }
 
-export function toMatchImageSnapshot2(
+export function toMatchImageSnapshot(
 	/**
 	 * The element or locator to take the snapshot of,
 	 * or the base64 value of the image to compare against.

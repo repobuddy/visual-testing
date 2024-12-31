@@ -3,7 +3,7 @@ import dedent from 'dedent'
 import { afterEach, beforeAll, expect } from 'vitest'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
-import { getSnapshotMeta } from '../client/snapshot_meta.internal.ts'
+import { getAutoSnapshotOptions } from '../client/snapshot_meta.ts'
 import { toTaskId } from '../client/task_id.ts'
 
 /**
@@ -53,14 +53,14 @@ export const vis = {
 	},
 	afterEach: {
 		async matchImageSnapshot() {
-			const meta = getSnapshotMeta(ctx.getCurrentTest())
+			const meta = getAutoSnapshotOptions(ctx.getCurrentTest())
 			if (!shouldTakeSnapshot(meta)) return
 			await expect(document.body).toMatchImageSnapshot(meta)
 		},
 		matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 			return async function matchImageSnapshot() {
 				const test = ctx.getCurrentTest()
-				const meta = getSnapshotMeta(test)
+				const meta = getAutoSnapshotOptions(test)
 				if (!shouldTakeSnapshot(meta)) return
 
 				const errors: any[] = []
