@@ -3,7 +3,7 @@ import dedent from 'dedent'
 import { afterEach, beforeAll, expect } from 'vitest'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
-import { getAutoSnapshotOptions } from '../client/snapshot_meta.ts'
+import { getAutoSnapshotOptions } from '../client/snapshot_meta.internal.ts'
 import { toTaskId } from '../client/task_id.ts'
 
 /**

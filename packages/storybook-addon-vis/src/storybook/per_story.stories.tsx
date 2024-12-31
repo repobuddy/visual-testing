@@ -1,3 +1,6 @@
+/**
+ * Cannot validate the following stories as they are chicken-egg problem.
+ */
 import type { Meta, StoryObj } from '@storybook/react'
 
 export default {

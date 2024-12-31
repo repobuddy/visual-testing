@@ -27,13 +27,3 @@ export const MeetFailureThresholdByPercentage: StoryObj = {
 		<div data-testid="subject">{hasImageSnapshot ? 'unit text' : 'unit test'}</div>
 	),
 }
-
-export const ParamAppliesToPlay: StoryObj = {
-	parameters: defineSnapshotParam({
-		failureThreshold: 70,
-	}),
-	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot() })],
-	render(_, { loaded: { hasImageSnapshot } }) {
-		return <div data-testid="subject">{hasImageSnapshot ? 'unit text' : 'unit test'}</div>
-	},
-}

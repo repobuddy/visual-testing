@@ -1,5 +1,4 @@
-import { getAutoSnapshotOptions, shouldTakeSnapshot as sts } from 'vitest-plugin-vis/client'
-import { getCurrentTest } from 'vitest/suite'
+import { shouldTakeSnapshot as sts } from 'vitest-plugin-vis/client'
 
 /**
  * Determine should snapshot be taken.
@@ -9,5 +8,5 @@ import { getCurrentTest } from 'vitest/suite'
  * disabled by `!snapshot` tag: false
  */
 export function shouldTakeSnapshot() {
-	return sts(getAutoSnapshotOptions(getCurrentTest()))
+	return sts()
 }

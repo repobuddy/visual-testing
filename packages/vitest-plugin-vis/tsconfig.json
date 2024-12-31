@@ -5,6 +5,8 @@
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"module": "NodeNext",
 		"moduleDetection": "force",
+		"declaration": true,
+		"declarationMap": true,
 		"noUncheckedIndexedAccess": true,
 		"outDir": "esm",
 		"resolveJsonModule": true,

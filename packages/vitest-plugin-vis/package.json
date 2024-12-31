@@ -21,35 +21,35 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./src/index.ts",
+			"types": "./esm/index.d.ts",
 			"default": "./esm/index.js"
 		},
 		"./config": {
-			"types": "./src/config.ts",
+			"types": "./esm/config.d.ts",
 			"default": "./esm/config.js"
 		},
 		"./client": {
-			"types": "./src/client.ts",
+			"types": "./esm/client.d.ts",
 			"default": "./esm/client.js"
 		},
 		"./commands": {
-			"types": "./src/commands.ts",
+			"types": "./esm/commands.d.ts",
 			"default": "./esm/commands.js"
 		},
 		"./presets/auto": {
-			"types": "./src/presets/auto.ts",
+			"types": "./esm/presets/auto.d.ts",
 			"default": "./esm/presets/auto.js"
 		},
 		"./presets/manual": {
-			"types": "./src/presets/manual.ts",
+			"types": "./esm/presets/manual.d.ts",
 			"default": "./esm/presets/manual.js"
 		},
 		"./setup": {
-			"types": "./src/setup.ts",
+			"types": "./esm/setup.d.ts",
 			"default": "./esm/setup.js"
 		},
 		"./testing": {
-			"types": "./src/testing.ts",
+			"types": "./esm/testing.d.ts",
 			"default": "./esm/testing.js"
 		},
 		"./package.json": "./package.json"
