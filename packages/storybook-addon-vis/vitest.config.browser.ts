@@ -19,7 +19,7 @@ export default defineProject(() => {
 	return {
 		plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis(options)],
 		test: {
-			name: browserProvider === 'playwright' ? 'vis' : 'vis:wb',
+			name: browserProvider === 'playwright' ? 'sav' : 'sav:wb',
 			browser: {
 				enabled: true,
 				headless: true,
