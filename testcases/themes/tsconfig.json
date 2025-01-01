@@ -2,7 +2,7 @@
 	"files": [],
 	"references": [
 		{
-			"path": "../../packages/vis"
+			"path": "../../packages/storybook-addon-vis"
 		},
 		{ "path": "./tsconfig.app.json" },
 		{ "path": "./tsconfig.node.json" }
