@@ -1,12 +1,11 @@
-import { toTaskId } from 'vitest-plugin-vis/client'
+import { type ImageSnapshotIdOptions, toTaskId } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
-import type { CustomizeSnapshotIdOptions } from '../shared/types.ts'
 import { commands } from './@vitest/browser/context.ts'
 
 /**
  * Check if the snapshot image exists.
  */
-export async function hasImageSnapshot(options?: CustomizeSnapshotIdOptions | undefined) {
+export async function hasImageSnapshot(options?: ImageSnapshotIdOptions | undefined) {
 	const test = getCurrentTest()
 	if (!test) {
 		return true

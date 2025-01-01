@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { getCurrentTest } from 'vitest/suite'
-import { defineSnapshotParam, hasImageSnapshot, setAutoSnapshotOptions } from '../index.ts'
+import { defineSnapshotParam, hasImageSnapshot } from '../index.ts'
 
 export default {
 	title: 'param',
@@ -29,7 +28,8 @@ export const MeetFailureThresholdByPercentage: StoryObj = {
 	),
 }
 
-export const ParamAppliesInPlay: StoryObj = {
+export const ParamNotApplyInPlay: StoryObj = {
+	tags: ['!snapshot'],
 	parameters: defineSnapshotParam({
 		failureThreshold: 70,
 	}),

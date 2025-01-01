@@ -6,7 +6,6 @@ import {
 	toTaskId,
 } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
-import type { MatchImageSnapshotOptions } from '../../shared/types.ts'
 import { commands } from '../@vitest/browser/context.ts'
 
 export interface ImageSnapshotMatcher {
@@ -19,7 +18,7 @@ export function toMatchImageSnapshot(
 	 * or the base64 value of the image to compare against.
 	 */
 	subject: any,
-	options?: MatchImageSnapshotOptions | undefined,
+	options?: ToMatchImageSnapshotOptions | undefined,
 ): AsyncExpectationResult {
 	const test = getCurrentTest()
 

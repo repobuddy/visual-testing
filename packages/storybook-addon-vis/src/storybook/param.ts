@@ -1,5 +1,8 @@
-import type { MatchImageSnapshotOptions } from '../shared/types.ts'
+import type { ToMatchImageSnapshotOptions } from 'vitest-plugin-vis/client'
 
-export function defineSnapshotParam(snapshot: MatchImageSnapshotOptions) {
+/**
+ * Define snapshot parameter for auto snapshot.
+ */
+export function defineSnapshotParam(snapshot: ToMatchImageSnapshotOptions) {
 	return { snapshot }
 }
