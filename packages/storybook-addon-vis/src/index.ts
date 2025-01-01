@@ -1,5 +1,5 @@
 // `storybook-addon-vis` provides code that can be used in test files.
-import './client/expect/augment.ts'
+import './shared/augment.ts'
 
 export * from 'vitest-plugin-vis'
 export * from './client/storybook/param.ts'

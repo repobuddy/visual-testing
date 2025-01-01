@@ -1,6 +1,6 @@
 // `storybook-addon-vis/vitest-setup` provides code needed in `vitest.setup.ts`.
 import { createVis } from 'vitest-plugin-vis/setup'
 import { commands } from './client/commands_proxy.ts'
-import './client/expect/extend.ts'
+import './vitest-setup/expect_extend.ts'
 
 export const vis = createVis(commands)

@@ -1,6 +1,6 @@
 ///  <reference types="@vitest/browser/context" />
 
-import type { ImageSnapshotMatcher } from './to_match_image_snapshot.ts'
+import type { ImageSnapshotMatcher } from '../client/expect/to_match_image_snapshot.ts'
 
 declare global {
 	namespace jest {
