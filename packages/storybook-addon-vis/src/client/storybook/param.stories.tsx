@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { defineSnapshotParam, hasImageSnapshot } from '../index.ts'
+import { defineAutoSnapshotParam, hasImageSnapshot } from '../../index.ts'
 
 export default {
-	title: 'param',
+	title: 'utils/defineAutoSnapshotParam',
 	tags: ['snapshot'],
 } satisfies Meta
 
-export const MeetFailureThreshold: StoryObj = {
-	parameters: defineSnapshotParam({
+export const SetFailureThreshold: StoryObj = {
+	parameters: defineAutoSnapshotParam({
 		failureThreshold: 70,
 	}),
 	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot() })],
@@ -17,8 +17,8 @@ export const MeetFailureThreshold: StoryObj = {
 	),
 }
 
-export const MeetFailureThresholdByPercentage: StoryObj = {
-	parameters: defineSnapshotParam({
+export const SetFailureThresholdByPercentage: StoryObj = {
+	parameters: defineAutoSnapshotParam({
 		failureThreshold: 0.02,
 		failureThresholdType: 'percent',
 	}),
@@ -28,9 +28,9 @@ export const MeetFailureThresholdByPercentage: StoryObj = {
 	),
 }
 
-export const ParamNotApplyInPlay: StoryObj = {
+export const DoesNotApplyToSnapshotInPlay: StoryObj = {
 	tags: ['!snapshot'],
-	parameters: defineSnapshotParam({
+	parameters: defineAutoSnapshotParam({
 		failureThreshold: 1,
 	}),
 	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot() })],

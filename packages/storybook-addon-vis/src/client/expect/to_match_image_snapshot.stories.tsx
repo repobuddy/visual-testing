@@ -4,7 +4,7 @@ import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing.ts'
 
 export default {
-	title: 'toMatchImageSnapshot',
+	title: 'expect matchers/toMatchImageSnapshot',
 	render: () => <div data-testid="subject">unit</div>,
 }
 
@@ -47,6 +47,7 @@ export const FailWithDifferentImage: StoryObj = {
 			return
 		}
 
+		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot()
 			.then(
@@ -77,6 +78,7 @@ export const FailInPercent: StoryObj = {
 			return
 		}
 
+		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
 				failureThresholdType: 'percent',
@@ -113,6 +115,7 @@ export const FailWhenSmaller: StoryObj = {
 			return
 		}
 
+		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot()
 			.then(
@@ -147,7 +150,7 @@ export const FailWhenLarger: StoryObj = {
 			await expect(subject).toMatchImageSnapshot()
 			return
 		}
-
+		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot()
 			.then(
@@ -210,7 +213,9 @@ export const FailFailureThreshold: StoryObj = {
 			await expect(subject).toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
 			})
+			return
 		}
+		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
@@ -258,13 +263,11 @@ export const PassFailureThresholdPercent: StoryObj = {
 
 export const FailFailureThresholdPercent: StoryObj = {
 	loaders: [
-		async () => {
-			return {
-				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: (id) => id,
-				}),
-			}
-		},
+		async () => ({
+			hasImageSnapshot: await hasImageSnapshot({
+				customizeSnapshotId: (id) => id,
+			}),
+		}),
 	],
 	render(_, { loaded: { hasImageSnapshot } }) {
 		const text = hasImageSnapshot ? 'unit text' : 'unit test'
@@ -276,7 +279,9 @@ export const FailFailureThresholdPercent: StoryObj = {
 			await expect(subject).toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
 			})
+			return
 		}
+		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
@@ -293,5 +298,3 @@ export const FailFailureThresholdPercent: StoryObj = {
 			)
 	},
 }
-
-// TODO: DisableAutoSnapshot, EnableAutoSnapshot, AutoAndManual

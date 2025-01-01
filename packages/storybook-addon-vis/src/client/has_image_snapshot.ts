@@ -8,7 +8,7 @@ import { commands } from './@vitest/browser/context.ts'
 export async function hasImageSnapshot(options?: ImageSnapshotIdOptions | undefined) {
 	const test = getCurrentTest()
 	if (!test) {
-		return true
+		return false
 	}
 
 	const taskId = toTaskId(test)

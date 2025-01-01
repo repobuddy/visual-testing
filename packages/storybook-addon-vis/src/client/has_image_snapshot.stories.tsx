@@ -3,7 +3,7 @@ import { expect } from '@storybook/test'
 import { hasImageSnapshot } from './has_image_snapshot.ts'
 
 export default {
-	title: 'has_image_snapshot',
+	title: 'utils/hasImageSnapshot',
 	render: () => <div data-testid="subject">unit</div>,
 }
 
