@@ -78,7 +78,7 @@
 	"dependencies": {
 		"@types/pixelmatch": "^5.2.6",
 		"dedent": "^1.5.1",
-		"is-ci": "^3.0.1",
+		"is-ci": "^4.0.0",
 		"mkdirp": "^3.0.1",
 		"pathe": "^1.1.2",
 		"pixelmatch": "^6.0.0",
