@@ -1,10 +1,10 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll, expect } from 'vitest'
+import { toTaskId } from '../client.ts'
+import { ctx } from '../client/ctx.ts'
+import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
+import { getAutoSnapshotOptions } from '../client/snapshot_options.internal.js'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
-import { ctx } from './ctx.ts'
-import { shouldTakeSnapshot } from './should_take_snapshot.ts'
-import { getAutoSnapshotOptions } from './snapshot_options.internal.ts'
-import { toTaskId } from './task_id.ts'
 
 export function createVis(commands: SetupVisSuiteCommand) {
 	/**
