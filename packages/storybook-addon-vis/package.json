@@ -61,6 +61,7 @@
 		"test:type": "tsc --noEmit",
 		"v": "run-p build cov",
 		"w": "vitest",
+		"w:cov": "vitest --coverage",
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
