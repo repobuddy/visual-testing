@@ -7,6 +7,8 @@
 		"storybook-addons",
 		"vitest",
 		"visual-test",
+		"testing",
+		"test",
 		"browser-mode"
 	],
 	"repository": {
@@ -28,6 +30,10 @@
 			"require": "./dist/index.cjs"
 		},
 		"./preset": "./dist/preset.cjs",
+		"./preview": {
+			"types": "./preview.d.ts",
+			"import": "./dist/preview.js"
+		},
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
 			"import": "./dist/vitest-setup.js"

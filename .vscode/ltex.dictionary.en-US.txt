@@ -7,3 +7,5 @@ unional
 monorepo
 pathe
 vitest-plugin-vis
+addon
+Addon

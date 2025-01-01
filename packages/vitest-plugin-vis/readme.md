@@ -27,15 +27,15 @@ import { defineConfig } from 'vitest/config'
 import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
-  plugins: [vis()],
-  test: {
-    browser: {
-      // typical browser config
-      enabled: true,
-      provider: 'playwright',
-      name: 'chromium'
-    }
-  }
+	plugins: [vis()],
+	test: {
+		browser: {
+			// typical browser config
+			enabled: true,
+			provider: 'playwright',
+			name: 'chromium'
+		}
+	}
 })
 ```
 
@@ -56,21 +56,21 @@ import { defineConfig } from 'vitest/config'
 import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
-  plugins: [
-    vis({
-      preset: 'auto', // preset is disabled by default when you provide a custom config
-      snapshotRootDir: '__vis__',
-      customizeSnapshotSubpath: (subpath) => subpath,
-      customizeSnapshotId: (id, index) => `${id}-${index}`,
-      diffOptions: undefined, // pixelmatch options
-      failureThresholdType: 'pixel',
-      failureThreshold: 0,
-      timeout: 5000 // 30000 on CI
-    })
-  ],
-  test:{
-    browser:{/* ... */}
-  }
+	plugins: [
+		vis({
+			preset: 'auto',
+			snapshotRootDir: '__vis__',
+			customizeSnapshotSubpath: (subpath) => subpath,
+			customizeSnapshotId: (id, index) => `${id}-${index}`,
+			diffOptions: undefined, // pixelmatch options
+			failureThresholdType: 'pixel',
+			failureThreshold: 0,
+			timeout: 5000 // 30000 on CI
+		})
+	],
+	test:{
+		browser:{/* ... */}
+	}
 })
 ```
 
@@ -84,22 +84,30 @@ import { defineConfig } from 'vitest/config'
 import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
-  plugins: [
-    // preset is disabled by default when you provide a custom config
-    vis({}) // or vis({ preset: 'none' })
-  ],
-  test:{
-    browser:{/* ... */},
-    setupFiles: ['vitest.setup.ts']
-  }
+	plugins: [
+		// preset is disabled by default when you provide a custom config
+		vis({}) // or vis({ preset: 'none' })
+	],
+	test:{
+		browser:{/* ... */},
+		setupFiles: ['vitest.setup.ts']
+	}
 })
 
 // vitest.setup.ts
 import { vis } from 'vitest-plugin-vis/setup'
 
+// if you set `preset: none` in `vitest.config.ts`,
+// you can enable `auto` or `manual` setup here
+vis.presets.auto()
+vis.presets.manual()
+
+
+// or capture image snapshot for all stories with `snapshot` tag,
+// for multiple themes (light and dark in this example)
 vis.presets.theme({
-  light() { document.body.classList.remove('dark') },
-  dark() { document.body.classList.add('dark') },
+	light() { document.body.classList.remove('dark') },
+	dark() { document.body.classList.add('dark') },
 })
 ```
 
@@ -116,32 +124,32 @@ import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { beforeEach, it } from 'vitest'
 
 beforeAll((suite) => {
-  // Apply options to all tests in the current suite (file)
-  setAutoSnapshotOptions(suite, /* options */)
+	// Apply options to all tests in the current suite (file)
+	setAutoSnapshotOptions(suite, /* options */)
 })
 
 beforeEach(({ task }) => {
-  // Apply options to all tests in the current scope
-  setAutoSnapshotOptions(task, /* options */)
-  // or
-  setAutoSnapshotOptions(/* options */)
+	// Apply options to all tests in the current scope
+	setAutoSnapshotOptions(task, /* options */)
+	// or
+	setAutoSnapshotOptions(/* options */)
 })
 
 
 it('disable snapshot per test', async ({ task }) => {
-  // Apply options to this test only
-  setAutoSnapshotOptions(task, /* options */)
-  // or
-  setAutoSnapshotOptions(/* options */)
+	// Apply options to this test only
+	setAutoSnapshotOptions(task, /* options */)
+	// or
+	setAutoSnapshotOptions(/* options */)
 })
 
 describe('nested scope', () => {
-  beforeEach(({ task }) => {
-    // Apply options to all tests in the current scope
-    setAutoSnapshotOptions(task, /* options */)
-    // or
-    setAutoSnapshotOptions(/* options */)
-  })
+	beforeEach(({ task }) => {
+		// Apply options to all tests in the current scope
+		setAutoSnapshotOptions(task, /* options */)
+		// or
+		setAutoSnapshotOptions(/* options */)
+	})
 })
 ```
 
@@ -154,12 +162,12 @@ You can also set the preset to `manual` and compare snapshots manually:
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [
-    vis({ preset: 'manual' })
-  ],
-  test:{
-    browser:{/* ... */}
-  }
+	plugins: [
+		vis({ preset: 'manual' })
+	],
+	test:{
+		browser:{/* ... */}
+	}
 })
 
 // some.test.ts
@@ -168,11 +176,11 @@ import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 
 it('manual snapshot', async () => {
-  page.render(<div data-testid="subject">hello world</div>)
-  await expect(document.body).toMatchImageSnapshot(/* options */)
-  // or
-  const subject = page.getByTestId('subject')
-  await expect(subject).toMatchImageSnapshot(/* options */)
+	page.render(<div data-testid="subject">hello world</div>)
+	await expect(document.body).toMatchImageSnapshot(/* options */)
+	// or
+	const subject = page.getByTestId('subject')
+	await expect(subject).toMatchImageSnapshot(/* options */)
 })
 ```
 
@@ -185,17 +193,17 @@ import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 
 it('manual snapshot with options', async () => {
-  page.render(<div data-testid="subject">hello world</div>)
-  const subject = page.getByTestId('subject')
-  await expect(subject).toMatchImageSnapshot({
-    customizeSnapshotId: (id, index) => `${id}-${index}`,
-    failureThreshold: 0.01,
-    failureThresholdType: 'percent',
-    diffOptions: {
-      threshold: 0.1
-    },
-    timeout: 15000
-  })
+	page.render(<div data-testid="subject">hello world</div>)
+	const subject = page.getByTestId('subject')
+	await expect(subject).toMatchImageSnapshot({
+		customizeSnapshotId: (id, index) => `${id}-${index}`,
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent',
+		diffOptions: {
+		threshold: 0.1
+		},
+		timeout: 15000
+	})
 })
 ```
 
@@ -208,13 +216,13 @@ import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 
 it('Has Snapshot', async () => {
-  const hasSnapshot = await page.hasImageSnapshot(/* options */)
-  if (!hasSnapshot) {
-    // do something
-  }
-  else {
-    // do something else
-  }
+	const hasSnapshot = await page.hasImageSnapshot(/* options */)
+	if (!hasSnapshot) {
+		// do something
+	}
+	else {
+		// do something else
+	}
 })
 ```
 
