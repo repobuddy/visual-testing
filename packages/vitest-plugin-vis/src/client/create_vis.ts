@@ -3,7 +3,7 @@ import { afterEach, beforeAll, expect } from 'vitest'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
 import { ctx } from './ctx.ts'
 import { shouldTakeSnapshot } from './should_take_snapshot.ts'
-import { getAutoSnapshotOptions } from './snapshot_meta.internal.ts'
+import { getAutoSnapshotOptions } from './snapshot_options.internal.ts'
 import { toTaskId } from './task_id.ts'
 
 export function createVis(commands: SetupVisSuiteCommand) {

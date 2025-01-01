@@ -1,6 +1,6 @@
 import { ctx } from './ctx.ts'
-import { getAutoSnapshotOptions } from './snapshot_meta.internal.ts'
-import type { SnapshotMeta } from './snapshot_meta.ts'
+import { getAutoSnapshotOptions } from './snapshot_options.internal.ts'
+import type { SnapshotMeta } from './snapshot_options.ts'
 
 /**
  * Determine should snapshot be taken.

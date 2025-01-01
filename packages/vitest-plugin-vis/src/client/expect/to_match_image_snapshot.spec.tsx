@@ -2,7 +2,7 @@ import { page } from '@vitest/browser/context'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from '../ctx.ts'
-import { setAutoSnapshotOptions } from '../snapshot_meta.ts'
+import { setAutoSnapshotOptions } from '../snapshot_options.ts'
 
 beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: false }))
 afterEach(() => ctx.__test__reset())

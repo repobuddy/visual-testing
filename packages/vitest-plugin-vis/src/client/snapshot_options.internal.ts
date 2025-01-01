@@ -1,5 +1,5 @@
 import { NAME } from '../shared/constants.ts'
-import type { MetaTask, SnapshotMeta } from './snapshot_meta.ts'
+import type { MetaTask, SnapshotMeta } from './snapshot_options.ts'
 
 export function getAutoSnapshotOptions(task: MetaTask): SnapshotMeta | undefined {
 	if (!task) return
