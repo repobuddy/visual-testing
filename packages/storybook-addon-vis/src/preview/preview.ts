@@ -15,7 +15,6 @@ export function defineVisPreview<R extends Renderer>() {
 			const enable = !tags ? false : tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
 			const test = getCurrentTest()
 			setAutoSnapshotOptions(test, { enable, ...ctx.parameters?.snapshot })
-			console.info('story.beforeEach', test?.name, test?.meta)
 		},
 	} satisfies ProjectAnnotations<R>
 }
