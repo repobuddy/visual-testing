@@ -28,7 +28,10 @@
 			"require": "./dist/index.cjs"
 		},
 		"./preset": "./dist/preset.cjs",
-		"./vitest-setup": "./dist/vitest-setup.js",
+		"./vitest-setup": {
+			"types": "./dist/vitest-setup.d.ts",
+			"import": "./dist/vitest-setup.js"
+		},
 		"./vitest-plugin": {
 			"types": "./vitest-plugin.d.ts",
 			"import": "./dist/vitest-plugin.js"
