@@ -2,7 +2,7 @@ import { expect } from '@storybook/test'
 import type { ProjectAnnotations, Renderer, StoryContext } from 'storybook/internal/types'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { getCurrentTest } from 'vitest/suite'
-import { commands } from '../client/@vitest/browser/context.ts'
+import { commands } from '../client/commands_proxy.ts'
 import { toMatchImageSnapshot } from '../client/expect/to_match_image_snapshot.ts'
 
 expect.extend({ toMatchImageSnapshot })

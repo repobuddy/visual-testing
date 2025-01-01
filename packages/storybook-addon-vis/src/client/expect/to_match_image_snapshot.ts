@@ -6,7 +6,7 @@ import {
 	toTaskId,
 } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
-import { commands } from '../@vitest/browser/context.ts'
+import { commands } from '../commands_proxy.ts'
 
 export interface ImageSnapshotMatcher {
 	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
