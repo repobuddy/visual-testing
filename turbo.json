@@ -22,6 +22,9 @@
 		"test": {
 			"dependsOn": ["^build"]
 		},
+		"testcase": {
+			"dependsOn": ["^build"]
+		},
 		"w": {
 			"dependsOn": ["^build"],
 			"persistent": true

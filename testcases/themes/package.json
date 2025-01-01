@@ -8,6 +8,7 @@
 		"nuke": "rimraf node_modules",
 		"sb": "storybook dev -p 6107",
 		"test": "vitest run",
+		"testcase": "vitest run",
 		"w": "vitest"
 	},
 	"eslintConfig": {
