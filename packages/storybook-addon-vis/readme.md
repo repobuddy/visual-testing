@@ -39,7 +39,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
     plugins: [
         storybookTest(),
-        storybookVis()
+        storybookVis(/* options */)
     ],
     test: {
         browser: {
@@ -57,7 +57,7 @@ although you need to access the functions from the `globalThis` or `window` obje
 
 However, the problem is when the story is run within [storybook].
 In [storybook], the `global` field has no effect.
-And in fact, you need to import the functions from `@storybook/test` instead:
+In fact, you need to import the functions from `@storybook/test` instead:
 
 ```ts
 // some.test.ts
@@ -67,7 +67,7 @@ import { expect } from 'vitest'
 import { expect } from '@storybook/test'
 ```
 
-Therefore, the story will crash when run in [storybook] because those functions are `undefined`.
+Therefore, the story will crash when run in [storybook] because those global functions are `undefined`.
 
 In `vitest.setup.ts`, you can use one of the presets to do the setup for you.
 You can also use the provided hooks to set up the test environment manually.
@@ -75,17 +75,20 @@ You can also use the provided hooks to set up the test environment manually.
 ```ts
 // vitest.setup.ts
 import { setProjectAnnotations } from '@storybook/react'
-import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
+import { vis } from 'storybook-addon-vis/vitest-setup'
 import * as projectAnnotations from './preview'
 
 const project = setProjectAnnotations([projectAnnotations])
 
-// capture image snapshot for all stories with `snapshot` tag
-createVisConfig(/* options */).presets.basic()
+// capture image snapshot for all test, and all stories with `snapshot` tag
+vis.presets.auto()
+
+// setup visual testing but you control when to capture image snapshot
+vis.presets.manual()
 
 // capture image snapshot for all stories with `snapshot` tag,
 // for both light and dark themes
-createVisConfig(/* options */).presets.theme({
+vis.presets.theme({
     light() { document.body.classList.remove('dark') },
     dark() { document.body.classList.add('dark') },
 })
@@ -95,17 +98,17 @@ On [storybook], you need to register the `beforeEach` hook in `.storybook/previe
 
 ```ts
 // .storybook/preview.tsx
-import { storybookPreviewVis } from 'storybook-addon-vis'
+import { visAnnotations } from 'storybook-addon-vis'
 
 export default {
     // ...
-    beforeEach: storybookPreviewVis.beforeEach
+    beforeEach: visAnnotations.beforeEach
 }
 ```
 
 ## Usage - automatic snapshot
 
-With the `basic` preset, [storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
+With the `auto` preset, [storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
 
 As with how tags work in [storybook], you can add the tag globally, per story file, or per story.
 
@@ -153,7 +156,7 @@ You can provide options to the `toMatchImageSnapshot` matcher using parameters.
 import { defineSnapshotParam } from 'storybook-addon-vis'
 
 export const MyStory = {
-    parameters: defineSnapshotParam({
+    parameters: defineAutoSnapshotParam({
         failureThreshold: 70,
     })
     // ...
@@ -174,8 +177,8 @@ export const PageSnapshot = {
     // typically you want to disable automatic snapshot when using manual snapshot
     tags: ['!snapshot'],
     // ...
-    async play() {
-        await expect(page.imageSnapshot()).toMatchImageSnapshot()
+    async play({ canvasElement }) {
+        await expect(canvasElement).toMatchImageSnapshot(/* options */)
     }
 }
 
@@ -185,7 +188,7 @@ export const ElementSnapshot = {
     // ...
     async play({ canvas }) {
         const element = await canvas.getByTestid('subject')
-        await expect(page.imageSnapshot({ element })).toMatchImageSnapshot()
+        await expect(element).toMatchImageSnapshot(/* options */)
     }
 }
 ```
@@ -196,8 +199,8 @@ By default, the snapshots are stored under the `__vis__` folder at the root of t
 
 ```ini
 v __vis__
-    ˃ __diff_output__ # where the diff images are stored
-    ˃ __result__ # where the resulting snapshot of the current run are stored
+    ˃ __diffs__ # where the diff images are stored
+    ˃ __results__ # where the resulting snapshot of the current run are stored
     ˃ darwin # snapshot generated on macos by CI
     ˃ linux # snapshot generated on linux by CI
     v local # snapshot generated on local machine
@@ -208,13 +211,20 @@ v src
     button.stories.tsx
 ```
 
-You can change the snapshot folder by providing the `snapshotRootDir` option to the `createVisConfig` function.
+You can change the snapshot folder by providing the `snapshotRootDir` option to the `storybookVis` function.
 
 ```ts
-import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
+// vitest.config.ts
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
 
-createVisConfig({
-    snapshotRootDir: 'path/to/snapshot'
+export default defineConfig({
+    plugins: [
+        storybookVis({
+            snapshotRootDir: 'path/to/snapshot'
+        })
+    ],
+    // ...
 })
 ```
 
@@ -226,11 +236,18 @@ such as in both `tests` and `src` folders,
 you can use `customizeSnapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
 
 ```ts
-import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
+// vitest.config.ts
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
 
-createVisConfig({
-    // keep the folder structure
-    customizeSnapshotSubpath: (subpath) => subpath
+export default defineConfig({
+    plugins: [
+        storybookVis({
+            // keep the folder structure
+            customizeSnapshotSubpath: (subpath) => subpath
+        })
+    ],
+    // ...
 })
 ```
 
@@ -268,7 +285,7 @@ With the default snapshot folder structure, you should add the following to your
 
 ```ini
 # .gitignore
-**/__vis__/__diff_output__
+**/__vis__/__diffs__
 **/__vis__/__results__
 **/__vis__/local
 ```
