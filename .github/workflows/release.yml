@@ -51,7 +51,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: pnpm verify
+          command: pnpm verify:ci
 
       - name: Archive snapshots
         if: failure()
@@ -59,7 +59,7 @@ jobs:
         with:
           name: snapshots
           path: |
-            '**/__vis__/__diff_output__'
+            '**/__vis__/__diffs__'
             '**/__vis__/__results__'
 
   release:
