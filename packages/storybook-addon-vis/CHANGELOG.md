@@ -1,5 +1,44 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.14.0
+
+### Minor Changes
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`1c6830b`](https://github.com/repobuddy/storybook-addon-vis/commit/1c6830b322881a489a2480467c0961dfeedd35f4) Thanks [@unional](https://github.com/unional)! - export `trimCommonFolder()`.
+  This is made available for customizing snapshot subpath.
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`c447676`](https://github.com/repobuddy/storybook-addon-vis/commit/c4476761d8e6e961950433358af336ae2d3b22f1) Thanks [@unional](https://github.com/unional)! - Support `Locator` [#2](https://github.com/repobuddy/storybook-addon-vis/issues/2).
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`c39daf0`](https://github.com/repobuddy/storybook-addon-vis/commit/c39daf057ddc9f3cab8b3a26b69ced66c4d8d560) Thanks [@unional](https://github.com/unional)! - create baseline snapshot on server.
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`03b1e6b`](https://github.com/repobuddy/storybook-addon-vis/commit/03b1e6b5f099cd9fdc8ffdb299e34703cca2d0ac) Thanks [@unional](https://github.com/unional)! - Allow commands to work in `webdriverio`.
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`fa4dd12`](https://github.com/repobuddy/storybook-addon-vis/commit/fa4dd120311ccfee31366fa43243899c4ac46436) Thanks [@unional](https://github.com/unional)! - Rewritten to use [`vitest-plugin-vis`](https://www.npmjs.com/package/vitest-plugin-vis),
+  which performs the snapshot on the server side.
+
+  The interface is greatly improved.
+  The `page.imageSnapshot()` is removed.
+  Now you can perform `expect(...).toMatchImageSnapshot()` on regular element and locator.
+
+  Please check the read me for the new API.
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`f4bda4c`](https://github.com/repobuddy/storybook-addon-vis/commit/f4bda4c7e12763d0d047050146f0a2829840ea61) Thanks [@unional](https://github.com/unional)! - Add `setSnapshotMeta()`.
+
+### Patch Changes
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`03b1e6b`](https://github.com/repobuddy/storybook-addon-vis/commit/03b1e6b5f099cd9fdc8ffdb299e34703cca2d0ac) Thanks [@unional](https://github.com/unional)! - Change to use `ImageData(data, w, h, o)` constructor instead of `ImageData(w, h, o)` as `firefox` does not support it.
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`cbd1b4c`](https://github.com/repobuddy/storybook-addon-vis/commit/cbd1b4c46149855ac9b1d098259f123e9cc0a13e) Thanks [@unional](https://github.com/unional)! - Fix update snapshot for basic afterEach
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`3b09bb1`](https://github.com/repobuddy/storybook-addon-vis/commit/3b09bb1d202cfbcd2081ecf368c50b51e85ae38b) Thanks [@unional](https://github.com/unional)! - Use `console.error()` instead of `console.info()` when using not supported `page` method.
+
+- [#102](https://github.com/repobuddy/storybook-addon-vis/pull/102) [`9534645`](https://github.com/repobuddy/storybook-addon-vis/commit/9534645972913a2aa1857c0704e6ed48c3dec2cf) Thanks [@unional](https://github.com/unional)! - Plugin should not set browser.
+
+- [`7e63e9e`](https://github.com/repobuddy/storybook-addon-vis/commit/7e63e9e35f516f1e25e18209d81e8f5d6ae26750) Thanks [@unional](https://github.com/unional)! - Fix typo in error message.
+
+- Updated dependencies [[`03893ab`](https://github.com/repobuddy/storybook-addon-vis/commit/03893ab4efae5f2d243bad67f40bc5cb4ad4d623)]:
+  - vitest-plugin-vis@1.0.0
+
 ## 0.13.0
 
 ### Minor Changes
