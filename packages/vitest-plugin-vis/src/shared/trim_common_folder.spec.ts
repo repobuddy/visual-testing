@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { trimCommonFolder } from '../index.ts'
+import { trimCommonFolder } from './trim_common_folder.ts'
 
 describe(`${trimCommonFolder.name}()`, () => {
 	it('should trim "src" from the beginning of the path', () => {
