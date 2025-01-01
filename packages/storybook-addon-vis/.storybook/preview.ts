@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/react'
-import { visAnnotations } from '../src/index.ts'
 
 const preview: Preview = {
 	parameters: {
@@ -13,8 +12,6 @@ const preview: Preview = {
 	initialGlobals: {
 		background: { value: 'light' },
 	},
-
-	beforeEach: visAnnotations.beforeEach,
 }
 
 export default preview
