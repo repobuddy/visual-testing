@@ -1,5 +1,5 @@
 import { setProjectAnnotations } from '@storybook/react'
-import { createVisConfig } from 'storybook-addon-vis/vitest-setup'
+import { vis } from 'storybook-addon-vis/vitest-setup'
 import { beforeAll } from 'vitest'
 import * as projectAnnotations from './preview.js'
 
@@ -8,4 +8,4 @@ import * as projectAnnotations from './preview.js'
 const project = setProjectAnnotations([projectAnnotations])
 beforeAll(project.beforeAll)
 
-createVisConfig().presets.basic()
+vis.presets.auto()

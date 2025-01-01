@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { page } from 'storybook-addon-vis'
+import { hasImageSnapshot } from 'storybook-addon-vis'
 import { Button } from './Button.js'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -26,6 +26,6 @@ export const SkipSnapshot: StoryObj = {
 		label: 'Button2',
 	},
 	async play() {
-		expect(await page.hasImageSnapshot()).toEqual(false)
+		expect(await hasImageSnapshot()).toEqual(false)
 	},
 }
