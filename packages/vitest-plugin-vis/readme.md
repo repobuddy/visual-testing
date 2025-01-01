@@ -115,14 +115,33 @@ You can control how the auto snapshot is taken using the `setAutoSnapshotOptions
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { beforeEach, it } from 'vitest'
 
-beforeEach(({ task }) => {
-  // Apply options to all tests in the current file
-  setAutoSnapshotOptions(task, {/* options */})
+beforeAll((suite) => {
+  // Apply options to all tests in the current suite (file)
+  setAutoSnapshotOptions(suite, /* options */)
 })
+
+beforeEach(({ task }) => {
+  // Apply options to all tests in the current scope
+  setAutoSnapshotOptions(task, /* options */)
+  // or
+  setAutoSnapshotOptions(/* options */)
+})
+
 
 it('disable snapshot per test', async ({ task }) => {
   // Apply options to this test only
-  setAutoSnapshotOptions(task, { enable: false })
+  setAutoSnapshotOptions(task, /* options */)
+  // or
+  setAutoSnapshotOptions(/* options */)
+})
+
+describe('nested scope', () => {
+  beforeEach(({ task }) => {
+    // Apply options to all tests in the current scope
+    setAutoSnapshotOptions(task, /* options */)
+    // or
+    setAutoSnapshotOptions(/* options */)
+  })
 })
 ```
 
@@ -150,10 +169,10 @@ import { expect, it } from 'vitest'
 
 it('manual snapshot', async () => {
   page.render(<div data-testid="subject">hello world</div>)
-  await expect(document.body).toMatchImageSnapshot()
+  await expect(document.body).toMatchImageSnapshot(/* options */)
   // or
   const subject = page.getByTestId('subject')
-  await expect(subject).toMatchImageSnapshot()
+  await expect(subject).toMatchImageSnapshot(/* options */)
 })
 ```
 
@@ -189,7 +208,7 @@ import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 
 it('Has Snapshot', async () => {
-  const hasSnapshot = await page.hasImageSnapshot()
+  const hasSnapshot = await page.hasImageSnapshot(/* options */)
   if (!hasSnapshot) {
     // do something
   }
