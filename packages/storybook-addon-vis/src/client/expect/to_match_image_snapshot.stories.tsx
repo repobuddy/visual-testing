@@ -270,8 +270,8 @@ export const FailFailureThresholdPercent: StoryObj = {
 		}),
 	],
 	render(_, { loaded: { hasImageSnapshot } }) {
-		const text = hasImageSnapshot ? 'unit text' : 'unit test'
-		return <div data-testid="subject">{text}</div>
+		const style = hasImageSnapshot ? { width: 128, height: 128 } : { width: 64, height: 64 }
+		return <img data-testid="subject" style={style} src={UNI_PNG_URL} />
 	},
 	async play({ canvas, loaded: { hasImageSnapshot } }) {
 		const subject = canvas.getByTestId('subject')
@@ -285,7 +285,7 @@ export const FailFailureThresholdPercent: StoryObj = {
 		await expect(subject)
 			.toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
-				failureThreshold: 0.2,
+				failureThreshold: 0.1,
 				failureThresholdType: 'percent',
 			})
 			.then(
@@ -293,7 +293,7 @@ export const FailFailureThresholdPercent: StoryObj = {
 					throw new Error('Should not reach')
 				},
 				(error) => {
-					expect(error.message).toMatch(/Expected image to match within 0.2% but was differ by \d+.\d+%./)
+					expect(error.message).toMatch(/Expected image to match within 0.1% but was differ by \d+.\d+%./)
 				},
 			)
 	},
