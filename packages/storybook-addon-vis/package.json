@@ -1,17 +1,18 @@
 {
 	"name": "storybook-addon-vis",
 	"version": "0.13.0",
-	"description": "Storybook Vitest Image Snapshot addon",
+	"description": "Storybook Vitest visual testing addon",
 	"keywords": [
 		"image-snapshot",
 		"storybook-addons",
 		"vitest",
-		"visual-test"
+		"visual-test",
+		"browser-mode"
 	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/repobuddy/storybook-image-snapshot",
-		"directory": "packages/vis"
+		"directory": "packages/storybook-addon-vis"
 	},
 	"license": "MIT",
 	"author": {
@@ -38,12 +39,14 @@
 		"dist",
 		"src",
 		"*.js",
-		"*.d.ts"
+		"*.d.ts",
+		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
 	],
 	"scripts": {
 		"build": "tsup",
 		"build:sb": "storybook build",
 		"clean": "rimraf coverage dist esm *.tsbuildinfo vitest.*.timestamp*",
+		"cov": "vitest run --coverage",
 		"coverage": "vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
@@ -51,9 +54,10 @@
 		"sb": "storybook dev -p 6006",
 		"t:n": "vitest run -c vitest.config.node.ts",
 		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
-		"test": "vitest run --coverage",
+		"test": "vitest run",
 		"test:type": "tsc --noEmit",
-		"w": "vitest --config vitest.config.browser.ts",
+		"v": "run-p build cov",
+		"w": "vitest",
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
@@ -88,6 +92,7 @@
 		"@vitest/expect": "^2.1.8",
 		"boxen": "^8.0.0",
 		"cross-env": "^7.0.3",
+		"npm-run-all2": "^7.0.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"storybook": "^8.4.2",

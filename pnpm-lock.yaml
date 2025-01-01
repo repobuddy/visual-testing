@@ -144,6 +144,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      npm-run-all2:
+        specifier: ^7.0.2
+        version: 7.0.2
       react:
         specifier: ^18.2.0
         version: 18.3.1
@@ -5648,7 +5651,7 @@ snapshots:
       tinyrainbow: 1.2.0
       vitest: 2.1.8(@types/node@22.9.0)(@vitest/browser@2.1.8)(msw@2.6.4(@types/node@22.9.0)(typescript@5.7.2))
     optionalDependencies:
-      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.9.0)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.9.0))(vitest@2.1.8)(webdriverio@9.4.1)
     transitivePeerDependencies:
       - supports-color
 
