@@ -12,8 +12,6 @@ indent_style = tab
 trim_trailing_whitespace = true
 
 [*.{md,mdx}]
-indent_size = 4
-indent_style = space
 max_line_length = off
 
 [*.{yml,yaml}]
@@ -26,3 +24,7 @@ insert_final_newline = false
 
 [.vscode/ltex.*.txt]
 insert_final_newline = false
+
+[.changeset/*.json]
+indent_style = space
+insert_final_newline = true
