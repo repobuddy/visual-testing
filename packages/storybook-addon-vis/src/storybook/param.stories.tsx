@@ -31,7 +31,7 @@ export const MeetFailureThresholdByPercentage: StoryObj = {
 export const ParamNotApplyInPlay: StoryObj = {
 	tags: ['!snapshot'],
 	parameters: defineSnapshotParam({
-		failureThreshold: 70,
+		failureThreshold: 1,
 	}),
 	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot() })],
 	render: (_, { loaded: { hasImageSnapshot } }) => (
@@ -39,6 +39,8 @@ export const ParamNotApplyInPlay: StoryObj = {
 	),
 	play: async ({ canvas }) => {
 		const subject = canvas.getByTestId('subject')
-		await expect(subject).toMatchImageSnapshot()
+		await expect(subject).toMatchImageSnapshot({
+			failureThreshold: 70,
+		})
 	},
 }

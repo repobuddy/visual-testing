@@ -1,3 +1,6 @@
+import { commands } from './client/@vitest/browser/context.ts'
 import './client/expect/extend.ts'
 
-export { vis } from 'vitest-plugin-vis/client'
+import { createVis } from 'vitest-plugin-vis/client'
+
+export const vis = createVis(commands)
