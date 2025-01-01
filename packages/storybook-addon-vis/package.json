@@ -31,7 +31,7 @@
 		},
 		"./preset": "./dist/preset.cjs",
 		"./preview": {
-			"types": "./preview.d.ts",
+			"types": "./dist/preview.d.ts",
 			"import": "./dist/preview.js"
 		},
 		"./vitest-setup": {
