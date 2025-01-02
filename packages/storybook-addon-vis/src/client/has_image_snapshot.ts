@@ -1,6 +1,6 @@
 import { type ImageSnapshotIdOptions, toTaskId } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from 'vitest/suite'
-import { commands } from './commands_proxy.ts'
+import { commands } from './vitest_proxy.ts'
 
 /**
  * Check if the snapshot image exists.
