@@ -9,10 +9,8 @@ import type {
 declare module '@vitest/browser/context' {
 	interface BrowserCommands
 		extends MatchImageSnapshotCommand,
-			SetupVisSuiteCommand,
 			HasImageSnapshotCommand,
 			ImageSnapshotNextIndexCommand,
-			MatchImageSnapshotCommand,
 			SetupVisSuiteCommand {}
 }
 
@@ -29,7 +27,6 @@ export const commands = new Proxy<BrowserCommands>({} as any, {
 		return (
 			(ctx?.commands as any)?.[prop] ??
 			/* v8 ignore start : used in storybook, not in vitest */
-			commandsStub[prop] ??
 			(() => {
 				throw new Error(`Command '${String(prop)}' not found`)
 			})()
@@ -37,10 +34,3 @@ export const commands = new Proxy<BrowserCommands>({} as any, {
 		)
 	},
 })
-
-/* v8 ignore start : used in storybook, not in vitest */
-const commandsStub = {
-	matchImageSnapshot: async () => {},
-	setupVisSuite: () => {},
-} as any
-/* v8 ignore end */

@@ -5,15 +5,17 @@
 This addon is inspired by [`jest-image-snapshot`][jest-image-snapshot].
 
 Starting from [Storybook] 8.3,
-[Storybook] 8.3 introduces [Storybook Test addon][storybook-test-addon].
-It allows you to test your components directly inside [Storybook].
+Storybook introduces [Storybook Test addon][storybook-test-addon].
+
+It allows you to test your components directly inside Storybook.
 It does this by using a [Vitest plugin][@storybook/experimental-addon-test] to transform your [stories] into [Vitest] tests using [portable stories][portable-stories].
 
-These stories are them run by [Vitest] in the browser with [Vitest Browser Mode][vitest-browser-mode].
+These stories are then run by [Vitest] in the browser using [Vitest Browser Mode][vitest-browser-mode].
 
-Since it is running in actual browser,
+Since it is running in an actual browser,
 [`jest-image-snapshot`][jest-image-snapshot] does not work as it depends on NodeJS.
 This add-on provides similar functionality to [`jest-image-snapshot`][jest-image-snapshot].
+
 In addition, you can capture image snapshot manually,
 and more controls to the auto image snapshot taken.
 
@@ -34,8 +36,10 @@ thus you need to add it to both [Storybook] and [Vitest].
 
 ### Vitest Configuration
 
-On [Vitest],
-you need to add the `storybookVis` plugin in your `vitest.config.ts`.
+For [Vitest], you need to:
+
+- Add the `storybookVis` plugin in your `vitest.config.ts`.
+- Add project annotations and setup Vitest life cycle in `vitest.setup.ts`.
 
 #### Edit Vitest Config
 
@@ -77,12 +81,12 @@ Note that compare to [`vitest-plugin-vis`][vitest-plugin-vis],
 `storybookVis()` does not provide the `auto` or `manual` presets.
 This is because you will need to [provide your `vitest.setup.ts`][storybook-test-addon#example-config] to make the story configuration available to Vitest anyway. So it is better to do the setup in one place.
 
-You can customize `storybookVis()` by providing a `options`.
-It is the same options in [`vitest-plugin-vis`][vitest-plugin-vis] minus the `preset`.
+You can customize `storybookVis()` by providing additional `options`.
+It is the same option in [`vitest-plugin-vis`][vitest-plugin-vis] minus the `preset`.
 
-#### Snapshot folder
+##### Snapshot folder
 
-By default, the snapshots are stored under the `__vis__` folder at the root of the project:
+By default, the snapshots are stored under the `__vis__` folder at the root of your project:
 
 ```ini
 v __vis__
@@ -164,7 +168,7 @@ v tests
 	button.stories.tsx
 ```
 
-#### Disable Vitest global API
+##### Disable Vitest global API
 
 Note that we recommend to set `globals` to `false` (which is the default).
 Setting `globals` to `true` actually works ok during test.
@@ -192,7 +196,7 @@ import { expect } from '@storybook/test'
 ```
 
 Setting `globals: true` (and adding `types: ["vitest/globals"]` in your `tsconfig.json`)
-causes inconsistency and confuse both the editor and you.
+causes inconsistency and confuses both the editor and you.
 
 #### Edit Vitest Setup
 
@@ -212,7 +216,7 @@ const project = setProjectAnnotations([projectAnnotations])
 beforeAll(project.beforeAll)
 ```
 
-Add the following:
+Edit it to add the following:
 
 ```ts
 import * as visAnnotations from 'storybook-addon-vis/preview'
@@ -250,7 +254,7 @@ export default {
 	tags: ['snapshot']
 }
 
-// story.tsx
+// some.stories.tsx
 export default {
 	title: 'Button',
 	// Take image snapshot automatically for all stories in this file
@@ -264,8 +268,7 @@ export const MyStory = {
 }
 ```
 
-You can disable snapshot capturing with the `!snapshot` tag,
-much like `!test`.
+You can disable snapshot with the `!snapshot` tag, much like `!test`.
 
 ```ts
 export default {
@@ -281,11 +284,15 @@ export const MyStory = {
 }
 ```
 
+Note that since they are captured during test,
+if you set `tags: ['!test']` to disable testing,
+no snapshot will be taken either.
+
 You can provide options to the `toMatchImageSnapshot` matcher using parameters.
 `defineAutoSnapshotParam()` is a helper function to provide autocompletion:
 
 ```ts
-import { defineSnapshotParam } from 'storybook-addon-vis'
+import { defineAutoSnapshotParam } from 'storybook-addon-vis'
 
 export const MyStory = {
 	parameters: defineAutoSnapshotParam({
