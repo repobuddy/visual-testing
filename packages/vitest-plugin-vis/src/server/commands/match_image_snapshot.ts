@@ -49,7 +49,11 @@ export const matchImageSnapshot: BrowserCommand<
 	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
 	const baselineBuffer = await file.tryReadFile(info.baselinePath)
 	if (!baselineBuffer) {
-		await takeSnapshot(context, subject, info.baselinePath, options)
+		if (isBase64String(subject)) {
+			await writeSnapshot(subject, info.baselinePath)
+		} else {
+			await takeSnapshotByBrowser(context, subject, info.baselinePath, options)
+		}
 		return
 	}
 
@@ -104,7 +108,15 @@ async function takeSnapshot(
 	if (isBase64String(subject)) {
 		return Buffer.from(await writeSnapshot(subject, filePath), 'base64')
 	}
+	return takeSnapshotByBrowser(context, subject, filePath, options)
+}
 
+async function takeSnapshotByBrowser(
+	context: BrowserCommandContext,
+	subject: string,
+	filePath: string,
+	options: ImageSnapshotTimeoutOptions | undefined,
+) {
 	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
 	return browser.takeScreenshot(filePath, subject, {
