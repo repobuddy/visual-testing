@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.0.2
+
+### Patch Changes
+
+- [#123](https://github.com/repobuddy/storybook-addon-vis/pull/123) [`a8fcd75`](https://github.com/repobuddy/storybook-addon-vis/commit/a8fcd75a056cb5b16006c52190453f19e41ab182) Thanks [@unional](https://github.com/unional)! - Avoid resizing images when not necessary.
+
 ## 1.0.1
 
 ### Patch Changes
