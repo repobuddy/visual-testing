@@ -62,7 +62,7 @@ export const matchImageSnapshot: BrowserCommand<
 
 	const { pass, diffAmount, diffImage } = compareImage(baselineAlignedImage, resultAlignedImage, options)
 	if (pass) {
-		if (sizeNotChanged(baselineImage, baselineAlignedImage)) {
+		if (sizeNotChanged(baselineImage, baselineAlignedImage) && sizeNotChanged(resultImage, resultAlignedImage)) {
 			return
 		}
 		throw new Error(
@@ -123,17 +123,23 @@ async function writeSnapshot(subject: string, filePath: string) {
 function alignImageSizes(baseline: PNG, result: PNG) {
 	const size = getMaxSize(baseline, result)
 
-	const baselineAligned = new PNG(size)
-	const resultAligned = new PNG(size)
+	if (baseline.width !== size.width || baseline.height !== size.height) {
+		baseline = resizeImage(baseline, size)
+	}
 
-	baselineAligned.data.fill(0)
-	resultAligned.data.fill(0)
+	if (result.width !== size.width || result.height !== size.height) {
+		result = resizeImage(result, size)
+	}
 
-	PNG.bitblt(baseline, baselineAligned, 0, 0, baseline.width, baseline.height)
-	PNG.bitblt(result, resultAligned, 0, 0, result.width, result.height)
-
-	return [baselineAligned, resultAligned] as const
+	return [baseline, result] as const
 }
+
+function resizeImage(image: PNG, size: { width: number; height: number }) {
+	const resized = new PNG(size)
+	PNG.bitblt(image, resized, 0, 0, image.width, image.height)
+	return resized
+}
+
 function sizeNotChanged(baselineImage: PNG, baselineAlignedImage: PNG) {
 	return baselineImage === baselineAlignedImage
 }
