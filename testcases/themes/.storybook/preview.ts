@@ -2,7 +2,6 @@ import { withThemeByClassName } from '@storybook/addon-themes'
 import type { Preview } from '@storybook/react'
 import { themes } from '@storybook/theming'
 import { useEffect } from 'react'
-import { visAnnotations } from 'storybook-addon-vis'
 
 import '../src/input.css'
 
@@ -61,7 +60,6 @@ const preview: Preview = {
 			theme: themes.light,
 		},
 	},
-	beforeEach: visAnnotations.beforeEach,
 }
 
 export default preview

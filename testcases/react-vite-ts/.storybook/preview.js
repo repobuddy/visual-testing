@@ -1,4 +1,3 @@
-import { visAnnotations } from 'storybook-addon-vis'
 /** @type { import('@storybook/react').Preview } */
 const preview = {
 	parameters: {
@@ -10,7 +9,6 @@ const preview = {
 		},
 	},
 	tags: ['snapshot'],
-	beforeEach: visAnnotations.beforeEach,
 }
 
 export default preview
