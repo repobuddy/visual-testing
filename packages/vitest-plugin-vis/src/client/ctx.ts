@@ -1,4 +1,4 @@
-import { getCurrentTest } from 'vitest/suite'
+import { getCurrentTest } from './vitest_suite_proxy.ts'
 
 export const ctx = {
 	getCurrentTest,
