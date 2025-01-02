@@ -1,5 +1,16 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.15.1
+
+### Patch Changes
+
+- [#115](https://github.com/repobuddy/storybook-addon-vis/pull/115) [`eec65da`](https://github.com/repobuddy/storybook-addon-vis/commit/eec65da0a3f5a3470d262bf7539e7bc4fd80804a) Thanks [@unional](https://github.com/unional)! - Proxy `getCurrentTest()` from `vitest/suite`.
+
+  This is part of the work to fix [#101](https://github.com/repobuddy/storybook-addon-vis/issues/101).
+
+- Updated dependencies [[`ae98ec4`](https://github.com/repobuddy/storybook-addon-vis/commit/ae98ec47df104c80723892345946aebb65cb361c)]:
+  - vitest-plugin-vis@1.0.1
+
 ## 0.15.0
 
 ### Minor Changes
