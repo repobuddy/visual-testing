@@ -47,15 +47,15 @@ export const matchImageSnapshot: BrowserCommand<
 	options.timeout = options.timeout ?? (ci ? 30000 : 5000)
 
 	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
-	const baselineBase64 = await file.tryReadFileBase64(info.baselinePath)
-	if (!baselineBase64) {
+	const baselineBuffer = await file.tryReadFile(info.baselinePath)
+	if (!baselineBuffer) {
 		await takeSnapshot(context, subject, info.baselinePath, options)
 		return
 	}
 
-	const resultBase64 = await takeSnapshot(context, subject, info.resultPath, options)
-	const baselineImage = PNG.sync.read(Buffer.from(baselineBase64, 'base64'))
-	const resultImage = PNG.sync.read(Buffer.from(resultBase64, 'base64'))
+	const resultBuffer = await takeSnapshot(context, subject, info.resultPath, options)
+	const baselineImage = PNG.sync.read(baselineBuffer)
+	const resultImage = PNG.sync.read(resultBuffer)
 	const [baselineAlignedImage, resultAlignedImage] = alignImageSizes(baselineImage, resultImage)
 
 	const { pass, diffAmount, diffImage } = compareImage(baselineAlignedImage, resultAlignedImage, options)
@@ -102,7 +102,7 @@ async function takeSnapshot(
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	if (isBase64String(subject)) {
-		return writeSnapshot(subject, filePath)
+		return Buffer.from(await writeSnapshot(subject, filePath), 'base64')
 	}
 
 	await mkdirp(dirname(filePath))

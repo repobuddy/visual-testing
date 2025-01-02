@@ -6,8 +6,7 @@ export function webdriverio(context: BrowserCommandContext): BrowserApi {
 	return {
 		async takeScreenshot(filePath, selector) {
 			const element = await page.$(`${selector ?? 'body'}`)
-			const buffer = await element.saveScreenshot(filePath)
-			return buffer.toString('base64')
+			return element.saveScreenshot(filePath)
 		},
 	}
 }

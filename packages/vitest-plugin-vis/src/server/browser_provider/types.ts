@@ -7,5 +7,5 @@ export interface BrowserApi {
 					timeout?: number | undefined
 			  }
 			| undefined,
-	): Promise<string>
+	): Promise<Buffer>
 }
