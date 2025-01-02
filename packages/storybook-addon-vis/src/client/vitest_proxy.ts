@@ -14,18 +14,22 @@ declare module '@vitest/browser/context' {
 			SetupVisSuiteCommand {}
 }
 
-let ctx: Awaited<typeof import('@vitest/browser/context')>
+let browserContext: Awaited<typeof import('@vitest/browser/context')>
+let vitestSuite: Awaited<typeof import('vitest/suite')>
 
 if ((globalThis as any).__vitest_browser__) {
 	import('@vitest/browser/context').then((m) => {
-		ctx = m
+		browserContext = m
+	})
+	import('vitest/suite').then((m) => {
+		vitestSuite = m
 	})
 }
 
 export const commands = new Proxy<BrowserCommands>({} as any, {
 	get(_target, prop) {
 		return (
-			(ctx?.commands as any)?.[prop] ??
+			(browserContext?.commands as any)?.[prop] ??
 			/* v8 ignore start : used in storybook, not in vitest */
 			(() => {
 				throw new Error(`Command '${String(prop)}' not found`)
@@ -34,3 +38,5 @@ export const commands = new Proxy<BrowserCommands>({} as any, {
 		)
 	},
 })
+
+export const getCurrentTest = () => vitestSuite?.getCurrentTest()
