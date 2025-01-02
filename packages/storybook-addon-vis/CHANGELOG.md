@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.15.3
+
+### Patch Changes
+
+- [`7667feb`](https://github.com/repobuddy/storybook-addon-vis/commit/7667febc8be0ba043d4927a0f76b14cd01b91c48) Thanks [@unional](https://github.com/unional)! - Export `ToMatchImageSnapshotOptions` type to avoid Inferred type can't be named error.
+
 ## 0.15.2
 
 ### Patch Changes
