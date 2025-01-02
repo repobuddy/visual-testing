@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.15.2
+
+### Patch Changes
+
+- [#119](https://github.com/repobuddy/storybook-addon-vis/pull/119) [`3567475`](https://github.com/repobuddy/storybook-addon-vis/commit/35674751157650a6685dd04c0676796bf7baa75d) Thanks [@unional](https://github.com/unional)! - Remove `/manager` and `/preset` should not include `previewAnnotations`.
+
 ## 0.15.1
 
 ### Patch Changes
