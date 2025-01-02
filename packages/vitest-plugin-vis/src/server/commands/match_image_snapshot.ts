@@ -56,9 +56,7 @@ export const matchImageSnapshot: BrowserCommand<
 	const resultBase64 = await takeSnapshot(context, subject, info.resultPath, options)
 	const baselineImage = PNG.sync.read(Buffer.from(baselineBase64, 'base64'))
 	const resultImage = PNG.sync.read(Buffer.from(resultBase64, 'base64'))
-	const [baselineAlignedImage, resultAlignedImage] = isSameSize(baselineImage, resultImage)
-		? [baselineImage, resultImage]
-		: alignImageSizes(baselineImage, resultImage)
+	const [baselineAlignedImage, resultAlignedImage] = alignImageSizes(baselineImage, resultImage)
 
 	const { pass, diffAmount, diffImage } = compareImage(baselineAlignedImage, resultAlignedImage, options)
 	if (pass) {
@@ -121,20 +119,15 @@ async function writeSnapshot(subject: string, filePath: string) {
 }
 
 function alignImageSizes(baseline: PNG, result: PNG) {
+	if (isSameSize(baseline, result)) return [baseline, result] as const
+
 	const size = getMaxSize(baseline, result)
-
-	if (baseline.width !== size.width || baseline.height !== size.height) {
-		baseline = resizeImage(baseline, size)
-	}
-
-	if (result.width !== size.width || result.height !== size.height) {
-		result = resizeImage(result, size)
-	}
-
-	return [baseline, result] as const
+	return [resizeImage(baseline, size), resizeImage(result, size)] as const
 }
 
 function resizeImage(image: PNG, size: { width: number; height: number }) {
+	if (isSameSize(image, size)) return image
+
 	const resized = new PNG(size)
 	PNG.bitblt(image, resized, 0, 0, image.width, image.height)
 	return resized
