@@ -18,6 +18,7 @@ const config = {
 		getAbsolutePath('@chromatic-com/storybook'),
 		getAbsolutePath('@storybook/addon-interactions'),
 		getAbsolutePath('@storybook/experimental-addon-test'),
+		getAbsolutePath('storybook-addon-vis'),
 		getAbsolutePath('@storybook/addon-themes'),
 	],
 	framework: {

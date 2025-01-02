@@ -246,6 +246,49 @@ vis.presets.theme({
 })
 ```
 
+### Storybook Configuration
+
+For [Storybook], all you need to is to add the `storybook-addon-vis` to your `.storybook/main.js`:
+
+```ts
+// .storybook/main.ts
+// ...
+
+const config: StorybookConfig = {
+	// ...
+	addons: [
+		'@storybook/addon-essentials',
+		// ...
+		'@storybook/experimental-addon-test',
+		'storybook-addon-vis'
+	]
+}
+```
+
+Note that you may need to do `getAbsolutePath()`:
+
+```ts
+// .storybook/main.ts
+// ...
+
+/**
+ * This function is used to resolve the absolute path of a package.
+ * It is needed in projects that use Yarn PnP or are set up within a monorepo.
+ */
+function getAbsolutePath(value) {
+	return dirname(require.resolve(join(value, 'package.json')))
+}
+
+const config: StorybookConfig = {
+	addons: [
+		getAbsolutePath('@storybook/addon-essentials'),
+		// ...
+		getAbsolutePath('@storybook/experimental-addon-test'),
+		getAbsolutePath('storybook-addon-vis')
+	]
+}
+```
+
 ## Usage - automatic snapshot
 
 With the `auto` preset, [`storybook-addon-vis`][storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
