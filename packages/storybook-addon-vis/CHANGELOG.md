@@ -1,5 +1,29 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.15.0
+
+### Minor Changes
+
+- [#113](https://github.com/repobuddy/storybook-addon-vis/pull/113) [`6283c1d`](https://github.com/repobuddy/storybook-addon-vis/commit/6283c1d2bb3451de6e3f70c467b3a2fe689c2d37) Thanks [@unional](https://github.com/unional)! - Remove `visAnnotations` from `storybook-addon-vis` main export.
+  Use `visAnnotations` from `storybook-addon-vis/preview` instead:
+
+  <https://github.com/repobuddy/storybook-addon-vis/blob/main/packages/storybook-addon-vis/readme.md#edit-vitest-setup>
+
+### Patch Changes
+
+- [#113](https://github.com/repobuddy/storybook-addon-vis/pull/113) [`3143283`](https://github.com/repobuddy/storybook-addon-vis/commit/31432831069585792f9dba6eb3b8e83beb87da3e) Thanks [@unional](https://github.com/unional)! - Add `/preview` export for `visAnnotations`.
+
+- [#113](https://github.com/repobuddy/storybook-addon-vis/pull/113) [`79d10d5`](https://github.com/repobuddy/storybook-addon-vis/commit/79d10d5091232e16e5269746438466657a5eefc4) Thanks [@unional](https://github.com/unional)! - Remove `viteFinal` setup in `/preset`.
+  You need to configure Vitest in `vitest.config.ts` for Vitest Browser Mode anyway.
+  So getting the config to `.storybook/main.ts` is actually worst.
+
+- [#114](https://github.com/repobuddy/storybook-addon-vis/pull/114) [`673b202`](https://github.com/repobuddy/storybook-addon-vis/commit/673b202f4a3c61d68620c061e24fc6903e1774fe) Thanks [@unional](https://github.com/unional)! - Remove extra `visAnnotations.beforeAll()`.
+  This is handled by `vitest-plugin-vis` and only need on `vitest.beforeAll`.
+
+- [#113](https://github.com/repobuddy/storybook-addon-vis/pull/113) [`78f2776`](https://github.com/repobuddy/storybook-addon-vis/commit/78f2776e62847240988538f9bf606b491c4ef09b) Thanks [@unional](https://github.com/unional)! - Consolidate preview annotation in one place.
+
+- [`49279f1`](https://github.com/repobuddy/storybook-addon-vis/commit/49279f1b8dc61a8710ca21cd20cfe6841acb8189) Thanks [@unional](https://github.com/unional)! - Remove unused dependencies.
+
 ## 0.14.0
 
 ### Minor Changes
