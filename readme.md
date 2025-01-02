@@ -1,1 +1,1 @@
-packages/vis/readme.md
+packages/storybook-addon-vis/readme.md
