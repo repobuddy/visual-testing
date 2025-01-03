@@ -4,11 +4,9 @@ import { commands, getCurrentTest } from './vitest_proxy.ts'
 /**
  * Check if the snapshot image exists.
  */
-export async function hasImageSnapshot(options?: ImageSnapshotIdOptions | undefined) {
+export function hasImageSnapshot(options?: ImageSnapshotIdOptions | undefined) {
 	const test = getCurrentTest()
-	if (!test) {
-		return false
-	}
+	if (!test) return false
 
 	const taskId = toTaskId(test)
 	if (options?.customizeSnapshotId) {

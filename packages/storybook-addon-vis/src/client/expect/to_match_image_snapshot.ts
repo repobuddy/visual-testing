@@ -22,9 +22,8 @@ export function toMatchImageSnapshot(
 	const test = getCurrentTest()
 
 	/* v8 ignore start: stub as success when not in a test (e.g. in a story) */
-	if (!test) {
-		return Promise.resolve(success)
-	}
+	if (!test) return Promise.resolve(success)
+
 	/* v8 ignore end */
 
 	const s = parseImageSnapshotSubject(subject)
