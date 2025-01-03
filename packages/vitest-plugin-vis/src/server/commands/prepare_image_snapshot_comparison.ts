@@ -1,0 +1,55 @@
+import ci from 'is-ci'
+import type { BrowserCommand } from 'vitest/node'
+import { isBase64String } from '../../shared/base64.ts'
+import { file } from '../file.ts'
+import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
+import { visContext } from '../vis_context.ts'
+import type { MatchImageSnapshotOptions } from './match_image_snapshot.ts'
+
+type ImageSnapshotComparisonInfo = {
+	projectRoot: string
+	baselinePath: string
+	resultPath: string
+	diffPath: string
+	baseline: string
+	result: string
+}
+
+export interface PrepareImageSnapshotComparisonCommand {
+	prepareImageSnapshotComparison: (
+		taskId: string | undefined,
+		subject: string,
+		options?: MatchImageSnapshotOptions | undefined,
+	) => Promise<ImageSnapshotComparisonInfo | undefined>
+}
+
+export const prepareImageSnapshotComparison: BrowserCommand<
+	[taskId: string, snapshotId: string, options?: MatchImageSnapshotOptions | undefined]
+> = async (context, taskId, subject, options) => {
+	if (!context.testPath) {
+		throw new Error('Cannot match snapshot without testPath')
+	}
+
+	// vitest:browser passes in `null` when not defined
+	if (!options) options = {}
+	options.timeout = options.timeout ?? (ci ? 30000 : 5000)
+
+	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
+	const baselineBuffer = await file.tryReadFile(info.baselinePath)
+	if (!baselineBuffer) {
+		if (isBase64String(subject)) {
+			await writeSnapshot(info.baselinePath, subject)
+		} else {
+			await takeSnapshotByBrowser(context, info.baselinePath, subject, options)
+		}
+		return
+	}
+
+	const resultBuffer = await takeSnapshot(context, subject, info.resultPath, options)
+	return {
+		...info,
+		projectRoot: context.project.runner.root,
+		baseline: baselineBuffer.toString('base64'),
+		result: resultBuffer.toString('base64'),
+	}
+}

@@ -38,6 +38,5 @@ async function toMatchImageSnapshotAsync(taskId: string, subject: string, option
 		const snapshotFileId = customizeSnapshotId(taskId, index)
 		return commands.matchImageSnapshot(taskId, subject, { ...rest, snapshotFileId })
 	}
-
 	return commands.matchImageSnapshot(taskId, subject, options)
 }

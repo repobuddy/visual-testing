@@ -1,6 +1,10 @@
 import { type HasImageSnapshotCommand, hasImageSnapshot } from './has_image_snapshot.ts'
 import { type ImageSnapshotNextIndexCommand, imageSnapshotNextIndex } from './image_snapshot_next_index.ts'
 import { type MatchImageSnapshotCommand, matchImageSnapshot } from './match_image_snapshot.ts'
+import {
+	type PrepareImageSnapshotComparisonCommand,
+	prepareImageSnapshotComparison,
+} from './prepare_image_snapshot_comparison.ts'
 import { type SetupVisSuiteCommand, setupVisSuite } from './setup_vis_suite.ts'
 
 declare module '@vitest/browser/context' {
@@ -8,6 +12,7 @@ declare module '@vitest/browser/context' {
 		extends SetupVisSuiteCommand,
 			ImageSnapshotNextIndexCommand,
 			HasImageSnapshotCommand,
+			PrepareImageSnapshotComparisonCommand,
 			MatchImageSnapshotCommand {}
 }
 
@@ -16,4 +21,5 @@ export const commands = {
 	imageSnapshotNextIndex,
 	hasImageSnapshot,
 	matchImageSnapshot,
+	prepareImageSnapshotComparison,
 }

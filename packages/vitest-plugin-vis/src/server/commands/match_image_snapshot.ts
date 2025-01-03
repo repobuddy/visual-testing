@@ -1,9 +1,8 @@
 import dedent from 'dedent'
 import ci from 'is-ci'
-import { mkdirp } from 'mkdirp'
-import { dirname, resolve } from 'pathe'
+import { resolve } from 'pathe'
 import { PNG } from 'pngjs'
-import type { BrowserCommand, BrowserCommandContext } from 'vitest/node'
+import type { BrowserCommand } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
 import { getMaxSize } from '../../shared/get_max_size.ts'
 import { isSameSize } from '../../shared/is_same_size.ts'
@@ -12,9 +11,9 @@ import type {
 	ImageSnapshotIdOptions,
 	ImageSnapshotTimeoutOptions,
 } from '../../shared/types.ts'
-import { browserApi } from '../browser_provider/browser_api.ts'
 import { compareImage } from '../compare_image.ts'
 import { file } from '../file.ts'
+import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot, writeSnapshotBuffer } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
 
 export interface MatchImageSnapshotCommand {
@@ -101,41 +100,6 @@ export const matchImageSnapshot: BrowserCommand<
 			Actual:     ${resolve(context.project.runner.root, info.resultPath)}
 			Difference: ${resolve(context.project.runner.root, info.diffPath)}`,
 	)
-}
-
-async function takeSnapshot(
-	context: BrowserCommandContext,
-	subject: string,
-	filePath: string,
-	options: ImageSnapshotTimeoutOptions | undefined,
-) {
-	if (isBase64String(subject)) {
-		await writeSnapshot(filePath, subject)
-		return Buffer.from(subject, 'base64')
-	}
-	return takeSnapshotByBrowser(context, filePath, subject, options)
-}
-
-async function takeSnapshotByBrowser(
-	context: BrowserCommandContext,
-	filePath: string,
-	subject: string,
-	options: ImageSnapshotTimeoutOptions | undefined,
-) {
-	await mkdirp(dirname(filePath))
-	const browser = browserApi(context)
-	return browser.takeScreenshot(filePath, subject, {
-		timeout: options?.timeout,
-	})
-}
-
-async function writeSnapshot(filePath: string, subject: string) {
-	await mkdirp(dirname(filePath))
-	await file.writeFile(filePath, subject, { encoding: 'base64' })
-}
-async function writeSnapshotBuffer(filePath: string, subject: Buffer) {
-	await mkdirp(dirname(filePath))
-	await file.writeFile(filePath, subject)
 }
 
 function alignImageSizes(baseline: PNG, result: PNG) {
