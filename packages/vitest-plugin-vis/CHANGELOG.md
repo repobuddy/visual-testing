@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.0.4
+
+### Patch Changes
+
+- [#128](https://github.com/repobuddy/storybook-addon-vis/pull/128) [`d695c4f`](https://github.com/repobuddy/storybook-addon-vis/commit/d695c4fb0b0be80ce53e38884fcb7a6340a8e52d) Thanks [@unional](https://github.com/unional)! - Avoid buffer conversion.
+
 ## 1.0.3
 
 ### Patch Changes
