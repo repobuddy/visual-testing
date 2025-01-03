@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.0.5
+
+### Patch Changes
+
+- [#130](https://github.com/repobuddy/storybook-addon-vis/pull/130) [`e242444`](https://github.com/repobuddy/storybook-addon-vis/commit/e242444908766274014b5fc94afaf31392627c88) Thanks [@unional](https://github.com/unional)! - Add update snapshot back to the server implementation.
+
 ## 1.0.4
 
 ### Patch Changes
