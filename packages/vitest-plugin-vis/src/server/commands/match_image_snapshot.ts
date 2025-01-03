@@ -52,7 +52,7 @@ export const matchImageSnapshot: BrowserCommand<
 		if (isBase64String(subject)) {
 			await writeSnapshot(info.baselinePath, subject)
 		} else {
-			await takeSnapshotByBrowser(context, subject, info.baselinePath, options)
+			await takeSnapshotByBrowser(context, info.baselinePath, subject, options)
 		}
 		return
 	}
@@ -108,13 +108,13 @@ async function takeSnapshot(
 	if (isBase64String(subject)) {
 		return Buffer.from(await writeSnapshot(filePath, subject), 'base64')
 	}
-	return takeSnapshotByBrowser(context, subject, filePath, options)
+	return takeSnapshotByBrowser(context, filePath, subject, options)
 }
 
 async function takeSnapshotByBrowser(
 	context: BrowserCommandContext,
-	subject: string,
 	filePath: string,
+	subject: string,
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	await mkdirp(dirname(filePath))
