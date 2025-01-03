@@ -77,8 +77,7 @@ export const matchImageSnapshot: BrowserCommand<
 		)
 	}
 
-	const diffBase64 = PNG.sync.write(diffImage).toString('base64')
-	await writeSnapshot(info.diffPath, diffBase64)
+	await writeSnapshotBuffer(info.diffPath, diffImage.data)
 
 	throw new Error(
 		dedent`Snapshot \`${taskId}\` mismatched
@@ -106,7 +105,8 @@ async function takeSnapshot(
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	if (isBase64String(subject)) {
-		return Buffer.from(await writeSnapshot(filePath, subject), 'base64')
+		await writeSnapshot(filePath, subject)
+		return Buffer.from(subject, 'base64')
 	}
 	return takeSnapshotByBrowser(context, filePath, subject, options)
 }
@@ -126,8 +126,11 @@ async function takeSnapshotByBrowser(
 
 async function writeSnapshot(filePath: string, subject: string) {
 	await mkdirp(dirname(filePath))
-	await file.writeFileBase64(filePath, subject)
-	return subject
+	await file.writeFile(filePath, subject, { encoding: 'base64' })
+}
+async function writeSnapshotBuffer(filePath: string, subject: Buffer) {
+	await mkdirp(dirname(filePath))
+	await file.writeFile(filePath, subject)
 }
 
 function alignImageSizes(baseline: PNG, result: PNG) {

@@ -4,9 +4,7 @@ export const file = {
 	async tryReadFile(filePath: string): Promise<Buffer | undefined> {
 		return readFile(filePath).catch(() => undefined)
 	},
-	writeFileBase64(filePath: string, data: string) {
-		return writeFile(filePath, data, { encoding: 'base64' })
-	},
+	writeFile,
 	existFile(filePath: string) {
 		return stat(filePath)
 			.then((s) => s.isFile())

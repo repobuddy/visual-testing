@@ -4,6 +4,7 @@ import { file } from './file.ts'
 
 vi.mock('node:fs/promises', () => ({
 	readFile: vi.fn(),
+	writeFile: vi.fn(),
 }))
 
 describe(`${file.tryReadFile.name}()`, () => {
