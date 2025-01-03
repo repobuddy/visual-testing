@@ -77,6 +77,11 @@ export const matchImageSnapshot: BrowserCommand<
 		)
 	}
 
+	if (context.project.config.snapshotOptions.updateSnapshot === 'all') {
+		await writeSnapshotBuffer(info.baselinePath, resultImage.data)
+		return
+	}
+
 	await writeSnapshotBuffer(info.diffPath, diffImage.data)
 
 	throw new Error(
