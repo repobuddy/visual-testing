@@ -1,5 +1,6 @@
 import type { BrowserCommand } from 'vitest/node'
 import { visContext } from '../vis_context.ts'
+import { assertTestPathDefined } from './_assertions.ts'
 
 export interface ImageSnapshotNextIndexCommand {
 	/**
@@ -9,9 +10,7 @@ export interface ImageSnapshotNextIndexCommand {
 }
 
 export const imageSnapshotNextIndex: BrowserCommand<[taskId: string]> = async (context, taskId) => {
-	if (!context.testPath) {
-		throw new Error('Cannot take snapshot without testPath')
-	}
+	assertTestPathDefined(context, 'imageSnapshotNextIndex')
 
 	return visContext.getTaskCount(context.testPath, taskId)
 }
