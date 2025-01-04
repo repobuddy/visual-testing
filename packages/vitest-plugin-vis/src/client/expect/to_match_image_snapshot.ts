@@ -32,11 +32,16 @@ export function toMatchImageSnapshot(
 }
 
 async function toMatchImageSnapshotAsync(taskId: string, subject: string, options?: ToMatchImageSnapshotOptions) {
-	if (options?.customizeSnapshotId) {
-		const index = await commands.imageSnapshotNextIndex(taskId)
-		const { customizeSnapshotId, ...rest } = options
-		const snapshotFileId = customizeSnapshotId(taskId, index)
-		return commands.matchImageSnapshot(taskId, subject, { ...rest, snapshotFileId })
-	}
-	return commands.matchImageSnapshot(taskId, subject, options)
+	return commands.matchImageSnapshot(
+		taskId,
+		subject,
+		options?.customizeSnapshotId ? await transformOptions(taskId, options) : options,
+	)
+}
+
+async function transformOptions(taskId: string, options: ToMatchImageSnapshotOptions) {
+	const index = await commands.imageSnapshotNextIndex(taskId)
+	const { customizeSnapshotId, ...rest } = options
+	const snapshotFileId = customizeSnapshotId!(taskId, index)
+	return { ...rest, snapshotFileId }
 }
