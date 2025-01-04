@@ -15,6 +15,7 @@ import type {
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot, writeSnapshotBuffer } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
+import { assertTestPathDefined } from './_assertions.ts'
 
 export interface MatchImageSnapshotCommand {
 	matchImageSnapshot: (
@@ -37,9 +38,7 @@ export interface MatchImageSnapshotOptions
 export const matchImageSnapshot: BrowserCommand<
 	[taskId: string, subject: string, options?: MatchImageSnapshotOptions | undefined]
 > = async (context, taskId, subject, options) => {
-	if (!context.testPath) {
-		throw new Error('Cannot match snapshot without testPath')
-	}
+	assertTestPathDefined(context, 'matchImageSnapshot')
 
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
