@@ -8,6 +8,6 @@ export function convertThresholdUnit(
 		case 'percent':
 			return (pixelDiff / (width * height)) * 100
 		default:
-			throw new Error(`Invalid failureThresholdType: ${failureThresholdType}`)
+			throw new Error(`Unsupported failureThresholdType: ${failureThresholdType}`)
 	}
 }
