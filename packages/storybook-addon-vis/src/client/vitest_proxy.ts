@@ -28,14 +28,7 @@ if ((globalThis as any).__vitest_browser__) {
 
 export const commands = new Proxy<BrowserCommands>({} as any, {
 	get(_target, prop) {
-		return (
-			(browserContext?.commands as any)?.[prop] ??
-			/* v8 ignore start : used in storybook, not in vitest */
-			(() => {
-				throw new Error(`Command '${String(prop)}' not found`)
-			})()
-			/* v8 ignore end */
-		)
+		return (browserContext?.commands as any)?.[prop]
 	},
 })
 
