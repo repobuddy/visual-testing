@@ -1,5 +1,6 @@
 import type { BrowserCommand } from 'vitest/node'
 import { visContext } from '../vis_context.ts'
+import { assertTestPathDefined } from './_assertions.ts'
 
 export interface SetupVisSuiteCommand {
 	/**
@@ -13,5 +14,7 @@ export interface SetupVisSuiteCommand {
 }
 
 export const setupVisSuite: BrowserCommand<[]> = async (context) => {
+	assertTestPathDefined(context, 'setupVisSuite')
+
 	await visContext.setupSuite(context)
 }

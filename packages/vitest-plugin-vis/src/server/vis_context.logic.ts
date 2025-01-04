@@ -17,7 +17,7 @@ export type PartialBrowserCommandContext = {
 			hookTimeout: number
 		}
 	}
-	testPath: string | undefined
+	testPath: string
 }
 
 export function createVisContext() {
@@ -51,7 +51,7 @@ export function createVisContext() {
 				await globalStateReady
 			}
 
-			const { suiteId, suite } = createSuite(state, context.testPath!, visOptions)
+			const { suiteId, suite } = createSuite(state, context.testPath, visOptions)
 			state.suites[suiteId] = suite
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
 		},
