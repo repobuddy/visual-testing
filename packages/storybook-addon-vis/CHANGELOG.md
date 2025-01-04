@@ -1,5 +1,18 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.16.0
+
+### Minor Changes
+
+- [#133](https://github.com/repobuddy/storybook-addon-vis/pull/133) [`badf227`](https://github.com/repobuddy/storybook-addon-vis/commit/badf2273828ad883763e1e328b4e180c07b4960a) Thanks [@unional](https://github.com/unional)! - Update to use `matchImageSnapshot` function from `vitest-plugin-vis/client` which runs image comparison on the client side.
+
+### Patch Changes
+
+- [#133](https://github.com/repobuddy/storybook-addon-vis/pull/133) [`ca68f7f`](https://github.com/repobuddy/storybook-addon-vis/commit/ca68f7fca68d225d495697214f397cbfc1e1cedb) Thanks [@unional](https://github.com/unional)! - Remove extra extend
+
+- Updated dependencies [[`176d28f`](https://github.com/repobuddy/storybook-addon-vis/commit/176d28fc459cb0823f3fda94ad4e3372690dbd8d), [`0360253`](https://github.com/repobuddy/storybook-addon-vis/commit/03602536b5ebf67b7d898f95d6511e5b05da96a9), [`6912ad7`](https://github.com/repobuddy/storybook-addon-vis/commit/6912ad73041f7e46757f0f364dcaa6594a35ce9d), [`badf227`](https://github.com/repobuddy/storybook-addon-vis/commit/badf2273828ad883763e1e328b4e180c07b4960a)]:
+  - vitest-plugin-vis@1.1.0
+
 ## 0.15.7
 
 ### Patch Changes
