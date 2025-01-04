@@ -269,7 +269,7 @@ vis.presets.theme({
 
 ### Storybook Configuration
 
-For [Storybook], all you need to is to add the `storybook-addon-vis` to your `.storybook/main.js`:
+For [Storybook], all you need is to add the `storybook-addon-vis` to your `.storybook/main.js`:
 
 ```ts
 // .storybook/main.ts
