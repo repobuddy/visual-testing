@@ -4,6 +4,7 @@ import { isBase64String } from '../../shared/base64.ts'
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
+import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './match_image_snapshot.ts'
 
 type ImageSnapshotComparisonInfo = {
@@ -26,9 +27,7 @@ export interface PrepareImageSnapshotComparisonCommand {
 export const prepareImageSnapshotComparison: BrowserCommand<
 	[taskId: string, snapshotId: string, options?: MatchImageSnapshotOptions | undefined]
 > = async (context, taskId, subject, options) => {
-	if (!context.testPath) {
-		throw new Error('Cannot match snapshot without testPath')
-	}
+	assertTestPathDefined(context, 'prepareImageSnapshotComparison')
 
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
