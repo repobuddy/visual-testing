@@ -3,8 +3,8 @@ import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { Task } from 'vitest'
 import { isBase64String } from '../shared/base64.ts'
+import { compareImage } from '../shared/compare_image.ts'
 import { alignImagesToSameSize } from './align_images.ts'
-import { compareImage } from './compare_image.ts'
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 import { toDataURL, toImageData } from './image_data.ts'
 import { prettifyOptions } from './match_image_snapshot.logic.ts'
@@ -25,13 +25,14 @@ export async function matchImageSnapshot(test: Task, subject: any, options?: ToM
 	const baselineImage = await toImageData(info.baseline)
 	const resultImage = await toImageData(info.result)
 	const [baselineAlignedImage, resultAlignedImage] = alignImagesToSameSize(baselineImage, resultImage)
-	const diffImage = new ImageData(resultAlignedImage.width, resultAlignedImage.height)
+	const { width, height } = baselineAlignedImage
+	const diffImage = new ImageData(width, height)
 	const { pass, diffAmount } = compareImage(
 		baselineAlignedImage.data,
 		resultAlignedImage.data,
 		diffImage.data,
-		resultAlignedImage.width,
-		resultAlignedImage.height,
+		width,
+		height,
 		options,
 	)
 	if (pass) return

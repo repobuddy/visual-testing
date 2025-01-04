@@ -4,6 +4,7 @@ import { resolve } from 'pathe'
 import { PNG } from 'pngjs'
 import type { BrowserCommand } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
+import { compareImage } from '../../shared/compare_image.ts'
 import { getMaxSize } from '../../shared/get_max_size.ts'
 import { isSameSize } from '../../shared/is_same_size.ts'
 import type {
@@ -11,7 +12,6 @@ import type {
 	ImageSnapshotIdOptions,
 	ImageSnapshotTimeoutOptions,
 } from '../../shared/types.ts'
-import { compareImage } from '../compare_image.ts'
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot, writeSnapshotBuffer } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
@@ -60,8 +60,16 @@ export const matchImageSnapshot: BrowserCommand<
 	const baselineImage = PNG.sync.read(baselineBuffer, { skipRescale: true, checkCRC: false })
 	const resultImage = PNG.sync.read(resultBuffer, { skipRescale: true, checkCRC: false })
 	const [baselineAlignedImage, resultAlignedImage] = alignImageSizes(baselineImage, resultImage)
-
-	const { pass, diffAmount, diffImage } = compareImage(baselineAlignedImage, resultAlignedImage, options)
+	const { width, height } = baselineAlignedImage
+	const diffImage = new PNG({ width, height })
+	const { pass, diffAmount } = compareImage(
+		baselineAlignedImage.data,
+		resultAlignedImage.data,
+		diffImage.data,
+		width,
+		height,
+		options,
+	)
 	if (pass) {
 		if (sizeNotChanged(baselineImage, baselineAlignedImage) && sizeNotChanged(resultImage, resultAlignedImage)) {
 			return
