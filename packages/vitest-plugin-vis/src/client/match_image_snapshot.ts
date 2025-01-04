@@ -7,6 +7,7 @@ import { alignImagesToSameSize } from './align_images.ts'
 import { compareImage } from './compare_image.ts'
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 import { toDataURL, toImageData } from './image_data.ts'
+import { prettifyOptions } from './match_image_snapshot.logic.ts'
 import { convertElementToCssSelector } from './selector.ts'
 import { toTaskId } from './task_id.ts'
 import { server } from './vitest_browser_context_proxy.ts'
@@ -44,7 +45,7 @@ export async function matchImageSnapshot(test: Task, subject: any, options?: ToM
 					: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
 			}
 
-			Options:    ${JSON.stringify(options)}
+			Options:    ${prettifyOptions(options)}
 
 			Expected:   ${resolve(info.projectRoot, info.baselinePath)}
 			Actual:     ${resolve(info.projectRoot, info.resultPath)}
