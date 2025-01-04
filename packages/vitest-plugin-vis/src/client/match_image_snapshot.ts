@@ -25,7 +25,15 @@ export async function matchImageSnapshot(test: Task, subject: any, options?: ToM
 	const baselineImage = await toImageData(info.baseline)
 	const resultImage = await toImageData(info.result)
 	const [baselineAlignedImage, resultAlignedImage] = alignImagesToSameSize(baselineImage, resultImage)
-	const { pass, diffAmount, diffImage } = compareImage(baselineAlignedImage, resultAlignedImage, options)
+	const diffImage = new ImageData(resultAlignedImage.width, resultAlignedImage.height)
+	const { pass, diffAmount } = compareImage(
+		baselineAlignedImage.data,
+		resultAlignedImage.data,
+		diffImage.data,
+		resultAlignedImage.width,
+		resultAlignedImage.height,
+		options,
+	)
 	if (pass) return
 	if (server.config.snapshotOptions.updateSnapshot === 'all') {
 		await writeSnapshot(info.baselinePath, resultImage)
