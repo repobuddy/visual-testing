@@ -1,9 +1,10 @@
+import { isSameSize } from '../shared/is_same_size.ts'
+
 export const createImageResizer =
 	({ width, height }: { width: number; height: number }) =>
 	(image: ImageData) => {
-		if (image.width === width && image.height === height) {
-			return image
-		}
+		if (isSameSize(image, { width, height })) return image
+
 		const inArea = (x: number, y: number) => y <= image.height && x <= image.width
 
 		const data = new Uint8ClampedArray(width * height * 4)
@@ -34,9 +35,8 @@ export const createImageResizer =
 export const createImageResizer2 =
 	({ width, height }: { width: number; height: number }) =>
 	(image: ImageData) => {
-		if (image.width === width && image.height === height) {
-			return image
-		}
+		if (isSameSize(image, { width, height })) return image
+
 		const inArea = (x: number, y: number) => y <= image.height && x <= image.width
 
 		const data = new Uint8ClampedArray(width * height * 4)
