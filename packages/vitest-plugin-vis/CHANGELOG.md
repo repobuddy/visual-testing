@@ -1,5 +1,22 @@
 # vitest-plugin-vis
 
+## 1.2.0
+
+### Minor Changes
+
+- [#137](https://github.com/repobuddy/storybook-addon-vis/pull/137) [`e4bef32`](https://github.com/repobuddy/storybook-addon-vis/commit/e4bef32a897015f5f84407610ef184eb3872f424) Thanks [@unional](https://github.com/unional)! - Assert `context.testPath` on `setupVisSuite` command.
+
+  Add `stubBrowserCommandContext` to `/testing`.
+
+### Patch Changes
+
+- [#137](https://github.com/repobuddy/storybook-addon-vis/pull/137) [`e0fec8e`](https://github.com/repobuddy/storybook-addon-vis/commit/e0fec8edf7c082bf31b10ea6040b216836740ab2) Thanks [@unional](https://github.com/unional)! - Remove import of `vitest-browser-react` in the presets.
+  The plugin is not React specific.
+
+- [#137](https://github.com/repobuddy/storybook-addon-vis/pull/137) [`a3e3c89`](https://github.com/repobuddy/storybook-addon-vis/commit/a3e3c89341183a8ced5339290cc74d172b78f82d) Thanks [@unional](https://github.com/unional)! - Update `writeImageSnapshot` signature.
+
+- [#137](https://github.com/repobuddy/storybook-addon-vis/pull/137) [`eaa3bbe`](https://github.com/repobuddy/storybook-addon-vis/commit/eaa3bbe91076d42b7eb8b773c404b2e62d6c4930) Thanks [@unional](https://github.com/unional)! - Improve `testPath` assertion message.
+
 ## 1.1.0
 
 ### Minor Changes
