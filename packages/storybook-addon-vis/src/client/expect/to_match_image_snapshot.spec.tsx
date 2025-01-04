@@ -37,13 +37,13 @@ it('accepts base64 image', async () => {
 })
 
 it('should fail immediately if the subject is a string but not base64 encoded', async () => {
-	expect(() => expect('abc').toMatchImageSnapshot()).toThrowError(
+	await expect(() => expect('abc').toMatchImageSnapshot()).rejects.toThrowError(
 		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: abc`,
 	)
 })
 
 it.each([undefined, null, true, false, 1])('should fails immediately if the subject is %s', async (value) => {
-	expect(() => expect(value).toMatchImageSnapshot()).toThrowError(
+	await expect(() => expect(value).toMatchImageSnapshot()).rejects.toThrowError(
 		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${value}`,
 	)
 })

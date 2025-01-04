@@ -1,6 +1,7 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import {
 	type ToMatchImageSnapshotOptions,
+	matchImageSnapshot,
 	parseImageSnapshotSubject,
 	success,
 	toTaskId,
@@ -23,21 +24,7 @@ export function toMatchImageSnapshot(
 
 	/* v8 ignore start: stub as success when not in a test (e.g. in a story) */
 	if (!test) return Promise.resolve(success)
-
 	/* v8 ignore end */
 
-	const s = parseImageSnapshotSubject(subject)
-	const taskId = toTaskId(test)
-	return toMatchImageSnapshotAsync(taskId, s, options).then(() => success)
-}
-
-async function toMatchImageSnapshotAsync(taskId: string, subject: string, options?: ToMatchImageSnapshotOptions) {
-	if (options?.customizeSnapshotId) {
-		const index = await commands.imageSnapshotNextIndex(taskId)
-		const { customizeSnapshotId, ...rest } = options
-		const snapshotFileId = customizeSnapshotId(taskId, index)
-		return commands.matchImageSnapshot(taskId, subject, { ...rest, snapshotFileId })
-	}
-
-	return commands.matchImageSnapshot(taskId, subject, options)
+	return matchImageSnapshot(test, subject, options).then(() => success)
 }
