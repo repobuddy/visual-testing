@@ -27,7 +27,7 @@ export async function takeSnapshotByBrowser(
 ) {
 	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
-	return browser.takeScreenshot(filePath, subject, {
+	return browser.takeScreenshot(filePath, subject ?? 'body', {
 		timeout: options?.timeout,
 	})
 }
