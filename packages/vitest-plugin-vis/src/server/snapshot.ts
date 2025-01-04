@@ -8,8 +8,8 @@ import { file } from './file.js'
 
 export async function takeSnapshot(
 	context: BrowserCommandContext,
-	subject: string,
 	filePath: string,
+	subject: string,
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	if (isBase64String(subject)) {

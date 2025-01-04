@@ -56,7 +56,7 @@ export const matchImageSnapshot: BrowserCommand<
 		return
 	}
 
-	const resultBuffer = await takeSnapshot(context, subject, info.resultPath, options)
+	const resultBuffer = await takeSnapshot(context, info.resultPath, subject, options)
 	const baselineImage = PNG.sync.read(baselineBuffer, { skipRescale: true, checkCRC: false })
 	const resultImage = PNG.sync.read(resultBuffer, { skipRescale: true, checkCRC: false })
 	const [baselineAlignedImage, resultAlignedImage] = alignImageSizes(baselineImage, resultImage)

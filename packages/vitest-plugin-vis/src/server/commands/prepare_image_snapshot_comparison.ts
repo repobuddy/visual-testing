@@ -45,7 +45,7 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 		return
 	}
 
-	const resultBuffer = await takeSnapshot(context, subject, info.resultPath, options)
+	const resultBuffer = await takeSnapshot(context, info.resultPath, subject, options)
 	return {
 		...info,
 		projectRoot: context.project.runner.root,
