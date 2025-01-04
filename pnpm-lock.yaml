@@ -202,6 +202,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      never-fail:
+        specifier: ^1.1.4
+        version: 1.1.4
       npm-run-all2:
         specifier: ^7.0.2
         version: 7.0.2
@@ -3031,6 +3034,9 @@ packages:
   netmask@2.0.2:
     resolution: {integrity: sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg==}
     engines: {node: '>= 0.4.0'}
+
+  never-fail@1.1.4:
+    resolution: {integrity: sha512-+AO11Ex7onOLol9oNIvbxd0YtVJT2BcsyRrm3c7eiksJeYCj28McDdN8RzQfiC2MY0HqsV2xFOBnS5NnXJA3+A==}
 
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
@@ -7098,6 +7104,10 @@ snapshots:
 
   netmask@2.0.2: {}
 
+  never-fail@1.1.4:
+    dependencies:
+      tersify: 3.12.1
+
   node-domexception@1.0.0: {}
 
   node-fetch@2.6.7:
@@ -8142,7 +8152,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.3
-      '@vitest/browser': 2.1.8(@types/node@22.10.3)(playwright@1.49.1)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.3))(vitest@2.1.8)(webdriverio@9.4.1)
+      '@vitest/browser': 2.1.8(@types/node@22.10.3)(playwright@1.49.0)(typescript@5.7.2)(vite@5.4.11(@types/node@22.10.3))(vitest@2.1.8)(webdriverio@9.4.1)
     transitivePeerDependencies:
       - less
       - lightningcss

@@ -1,20 +1,26 @@
 import { mkdirp } from 'mkdirp'
-import { dirname } from 'pathe'
+import { dirname, isAbsolute } from 'pathe'
 import type { BrowserCommand } from 'vitest/node'
 import { file } from '../file.ts'
+import { assertIsRelativePath } from './_assertions.ts'
 
 export interface WriteImageSnapshotCommand {
-	writeImageSnapshot(taskId: string, snapshotId?: string | undefined): Promise<boolean>
+	/**
+	 * Writes the image snapshot to the file system.
+	 * @param relativeFilePath The file path to write the image snapshot to.
+	 * It is relative to the project root.
+	 * @param imageBase64 The base64 encoded image.
+	 */
+	writeImageSnapshot(relativeFilePath: string, imageBase64: string): Promise<void>
 }
 
-export const writeImageSnapshot: BrowserCommand<[filePath: string, base64: string]> = async (
-	context,
-	filePath,
-	base64,
+export const writeImageSnapshot: BrowserCommand<[relativeFilePath: string, imageBase64: string]> = async (
+	_,
+	relativeFilePath,
+	imageBase64,
 ) => {
-	if (!context.testPath) {
-		throw new Error('Cannot take snapshot without testPath')
-	}
-	await mkdirp(dirname(filePath))
-	await file.writeFile(filePath, base64, { encoding: 'base64' })
+	assertIsRelativePath(relativeFilePath, 'relativeFilePath')
+
+	await mkdirp(dirname(relativeFilePath))
+	await file.writeFile(relativeFilePath, imageBase64, { encoding: 'base64' })
 }
