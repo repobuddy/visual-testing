@@ -11,4 +11,10 @@ export interface ImageSnapshotMatcher {
 export interface ToMatchImageSnapshotOptions
 	extends ImageSnapshotTimeoutOptions,
 		ImageSnapshotIdOptions,
-		ImageSnapshotCompareOptions {}
+		ImageSnapshotCompareOptions {
+	/**
+	 * Expect the matcher to fail.
+	 * If it passes, it will throw an error with details.
+	 */
+	expectToFail?: boolean | undefined
+}

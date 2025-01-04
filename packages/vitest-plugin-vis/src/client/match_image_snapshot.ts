@@ -35,7 +35,20 @@ export async function matchImageSnapshot(test: Task, subject: any, options?: ToM
 		height,
 		options,
 	)
-	if (pass) return
+	if (pass) {
+		if (options?.expectToFail) {
+			throw new Error(
+				dedent`Snapshot \`${taskId}\` matched but expected to fail.
+
+					Options:    ${prettifyOptions(options)}
+					DiffAmount: ${options.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}
+
+					Expected:   ${resolve(info.projectRoot, info.baselinePath)}
+					Actual:     ${resolve(info.projectRoot, info.resultPath)}`,
+			)
+		}
+		return
+	}
 	if (server.config.snapshotOptions.updateSnapshot === 'all') {
 		await writeSnapshot(info.baselinePath, resultImage)
 		return

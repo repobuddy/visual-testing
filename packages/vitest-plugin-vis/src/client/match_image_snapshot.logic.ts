@@ -4,7 +4,7 @@ export function prettifyOptions(options: ToMatchImageSnapshotOptions | undefined
 	if (!options) return 'none'
 
 	return [
-		`failureThreshold: ${options.failureThreshold ?? 0} ${options.failureThresholdType ?? 'pixel'}`,
+		`failureThreshold: ${options.failureThreshold ?? 0} ${options.failureThresholdType ?? 'pixels'}`,
 		options.diffOptions ? `diffOptions: ${JSON.stringify(options.diffOptions)}` : '',
 		options.timeout ? `timeout: ${options.timeout} ms` : '',
 	]

@@ -70,7 +70,9 @@ it('fails when the image is different', async () => {
 		return
 	}
 	await expect(subject)
-		.toMatchImageSnapshot()
+		.toMatchImageSnapshot({
+			expectToFail: true,
+		})
 		.then(
 			() => {
 				throw new Error('Should not reach')
@@ -95,7 +97,9 @@ it('fails when the image is smaller', async () => {
 		return
 	}
 	await expect(subject)
-		.toMatchImageSnapshot()
+		.toMatchImageSnapshot({
+			expectToFail: true,
+		})
 		.then(
 			() => {
 				throw new Error('Should not reach')
@@ -121,7 +125,9 @@ it('fails when the image is larger', async () => {
 		return
 	}
 	await expect(subject)
-		.toMatchImageSnapshot()
+		.toMatchImageSnapshot({
+			expectToFail: true,
+		})
 		.then(
 			() => {
 				throw new Error('Should not reach')
@@ -158,6 +164,7 @@ it('fails when the image is different beyond failure threshold in pixels', async
 	await expect(subject)
 		.toMatchImageSnapshot({
 			customizeSnapshotId: (id) => id,
+			expectToFail: true,
 			failureThreshold: 20,
 		})
 		.then(
@@ -196,6 +203,7 @@ it('fails when the image is different beyond failure threshold in percentage', a
 	await expect(subject)
 		.toMatchImageSnapshot({
 			customizeSnapshotId: (id) => id,
+			expectToFail: true,
 			failureThreshold: 0.3,
 			failureThresholdType: 'percent',
 		})
@@ -220,6 +228,7 @@ it('fails when the image is different in 0 percentage', async () => {
 	await expect(subject)
 		.toMatchImageSnapshot({
 			customizeSnapshotId: (id) => id,
+			expectToFail: true,
 			failureThresholdType: 'percent',
 		})
 		.then(
@@ -228,6 +237,29 @@ it('fails when the image is different in 0 percentage', async () => {
 			},
 			(error) => {
 				expect(error.message).toMatch(/Expected image to match but was differ by \d+.\d+%./)
+			},
+		)
+})
+
+it('should fail with additional info when it does not fail with expectToFail', async () => {
+	setAutoSnapshotOptions(false)
+
+	page.render(<div data-testid="subject">unit test</div>)
+	const subject = page.getByTestId('subject')
+
+	await expect(subject)
+		.toMatchImageSnapshot({
+			expectToFail: true,
+			failureThreshold: 10,
+		})
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/Snapshot .* matched but expected to fail/)
+				expect(error.message).toMatch(/Options:\s+failureThreshold: 10 pixel/)
+				expect(error.message).toMatch(/DiffAmount: 0 pixels/)
 			},
 		)
 })

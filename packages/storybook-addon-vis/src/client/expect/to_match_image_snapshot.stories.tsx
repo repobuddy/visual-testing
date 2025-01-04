@@ -45,7 +45,9 @@ export const FailWithDifferentImage: StoryObj = {
 
 		// This will only execute in test environment
 		await expect(subject)
-			.toMatchImageSnapshot()
+			.toMatchImageSnapshot({
+				expectToFail: true,
+			})
 			.then(
 				() => {
 					throw new Error('Should not reach')
@@ -73,6 +75,7 @@ export const FailInPercent: StoryObj = {
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
+				expectToFail: true,
 				failureThresholdType: 'percent',
 			})
 			.then(
@@ -109,7 +112,9 @@ export const FailWhenSmaller: StoryObj = {
 
 		// This will only execute in test environment
 		await expect(subject)
-			.toMatchImageSnapshot()
+			.toMatchImageSnapshot({
+				expectToFail: true,
+			})
 			.then(
 				() => {
 					throw new Error('Should not reach')
@@ -144,7 +149,9 @@ export const FailWhenLarger: StoryObj = {
 		}
 		// This will only execute in test environment
 		await expect(subject)
-			.toMatchImageSnapshot()
+			.toMatchImageSnapshot({
+				expectToFail: true,
+			})
 			.then(
 				() => {
 					throw new Error('Should not reach')
@@ -211,6 +218,7 @@ export const FailFailureThreshold: StoryObj = {
 		await expect(subject)
 			.toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
+				expectToFail: true,
 				failureThreshold: 20,
 			})
 			.then(
@@ -277,6 +285,7 @@ export const FailFailureThresholdPercent: StoryObj = {
 		await expect(subject)
 			.toMatchImageSnapshot({
 				customizeSnapshotId: (id) => id,
+				expectToFail: true,
 				failureThreshold: 0.1,
 				failureThresholdType: 'percent',
 			})
