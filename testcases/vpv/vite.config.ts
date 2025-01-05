@@ -18,5 +18,6 @@ export default defineConfig({
 			// Also, this is easier for the user to setup.
 			'**/*.spec.ts?(x)',
 		],
+		setupFiles: ['vitest.setup.ts'],
 	},
 })
