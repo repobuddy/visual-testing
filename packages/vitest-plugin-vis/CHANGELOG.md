@@ -1,5 +1,30 @@
 # vitest-plugin-vis
 
+## 1.3.0
+
+### Minor Changes
+
+- [#139](https://github.com/repobuddy/storybook-addon-vis/pull/139) [`17510d3`](https://github.com/repobuddy/storybook-addon-vis/commit/17510d32272730ebf4677ed2c4b177f636e75cc2) Thanks [@unional](https://github.com/unional)! - Add `expectToFail` support.
+  This is useful to test where the visual should be changed beyond the threshold.
+
+- [#144](https://github.com/repobuddy/storybook-addon-vis/pull/144) [`f642dbf`](https://github.com/repobuddy/storybook-addon-vis/commit/f642dbfbb6a715ef14a944c50e656b79c926b5d4) Thanks [@unional](https://github.com/unional)! - Change `import { matchImageSnapshot } from 'vitest-plugin-vis/client'` to `import { imageSnapshotMatcher } from 'vitest-plugin-vis/client'`.
+
+  This is a bug in 1.2.0 because `matchImageSnapshot` is hard loading `@vitest/browser/context`, which causes storybook to fail to load.
+
+### Patch Changes
+
+- [#144](https://github.com/repobuddy/storybook-addon-vis/pull/144) [`2d4f1c0`](https://github.com/repobuddy/storybook-addon-vis/commit/2d4f1c02394ca4fd8880452a98399c825e686ee5) Thanks [@unional](https://github.com/unional)! - Extends `expect` and `page` in presets.
+
+- [#144](https://github.com/repobuddy/storybook-addon-vis/pull/144) [`78cc195`](https://github.com/repobuddy/storybook-addon-vis/commit/78cc195e1ae9afe2fe102e0e916cffff406e0ebd) Thanks [@unional](https://github.com/unional)! - Augment `expect` and `page` in main so that consumer can load the types:
+
+  ```json
+  {
+    "compilerOptions": {
+      "types": ["vitest-plugin-vis"]
+    }
+  }
+  ```
+
 ## 1.2.0
 
 ### Minor Changes

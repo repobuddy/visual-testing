@@ -1,5 +1,18 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.16.2
+
+### Patch Changes
+
+- [#142](https://github.com/repobuddy/storybook-addon-vis/pull/142) [`9eaf9a8`](https://github.com/repobuddy/storybook-addon-vis/commit/9eaf9a8d887c4e5340150be2367134f0185b6312) Thanks [@unional](https://github.com/unional)! - Add `/matcher`.
+
+- [#143](https://github.com/repobuddy/storybook-addon-vis/pull/143) [`7ebf3ae`](https://github.com/repobuddy/storybook-addon-vis/commit/7ebf3aefd5192e8f8b98a89295c8a328ff742b02) Thanks [@unional](https://github.com/unional)! - Use `ImageSnapshotMatcher` from `vitest-plugin-vis`.
+
+- [#144](https://github.com/repobuddy/storybook-addon-vis/pull/144) [`f642dbf`](https://github.com/repobuddy/storybook-addon-vis/commit/f642dbfbb6a715ef14a944c50e656b79c926b5d4) Thanks [@unional](https://github.com/unional)! - Use `imageSnapshotMatcher` instead of `matchImageSnapshot` to fix storybook loading issue.
+
+- Updated dependencies [[`2d4f1c0`](https://github.com/repobuddy/storybook-addon-vis/commit/2d4f1c02394ca4fd8880452a98399c825e686ee5), [`78cc195`](https://github.com/repobuddy/storybook-addon-vis/commit/78cc195e1ae9afe2fe102e0e916cffff406e0ebd), [`17510d3`](https://github.com/repobuddy/storybook-addon-vis/commit/17510d32272730ebf4677ed2c4b177f636e75cc2), [`f642dbf`](https://github.com/repobuddy/storybook-addon-vis/commit/f642dbfbb6a715ef14a944c50e656b79c926b5d4)]:
+  - vitest-plugin-vis@1.3.0
+
 ## 0.16.1
 
 ### Patch Changes
