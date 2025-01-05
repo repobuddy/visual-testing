@@ -21,7 +21,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 
-		"types": ["@testing-library/jest-dom"]
+		"types": ["storybook-addon-vis/matcher"]
 	},
 	"include": ["src"]
 }

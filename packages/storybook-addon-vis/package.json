@@ -29,6 +29,10 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		},
+		"./matcher": {
+			"types": "./dist/matcher.d.ts",
+			"import": "./dist/matcher.js"
+		},
 		"./preset": "./dist/preset.cjs",
 		"./preview": {
 			"types": "./dist/preview.d.ts",
@@ -116,6 +120,7 @@
 	"bundler": {
 		"exportEntries": [
 			"src/index.ts",
+			"src/matcher.ts",
 			"src/vitest-setup.ts"
 		],
 		"previewEntries": [

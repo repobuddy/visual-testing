@@ -307,6 +307,24 @@ const config: StorybookConfig = {
 }
 ```
 
+### TypeScript Configuration
+
+The main usage of this addon is to use the `toMatchImageSnapshot` matcher.
+
+Since it is exposed under the `expect` object of `vitest` or `@storybook/test`,
+you typically do not need to import `storybook-addon-vis` directly.
+
+Because of this, TypeScript may not recognize the matcher.
+To address this, you can add the following to your `tsconfig.json`:
+
+```json
+{
+	"compilerOptions": {
+		"types": ["storybook-addon-vis/matcher"]
+	}
+}
+```
+
 ## Usage - automatic snapshot
 
 With the `auto` preset, [`storybook-addon-vis`][storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
