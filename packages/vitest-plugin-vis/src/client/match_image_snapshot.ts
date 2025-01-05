@@ -54,7 +54,7 @@ export function imageSnapshotMatcher(
 			}
 			return
 		}
-		if (server.config.snapshotOptions.updateSnapshot === 'all') {
+		if (server.config.snapshotOptions.updateSnapshot === 'all' && !options?.expectToFail) {
 			await writeSnapshot(commands, info.baselinePath, resultImage)
 			return
 		}

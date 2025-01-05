@@ -143,7 +143,7 @@ it('passes when the image is different but within failure threshold in pixels', 
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot())) {
+	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
 		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
 	subject.element().innerHTML = 'unit text'
@@ -157,7 +157,7 @@ it('fails when the image is different beyond failure threshold in pixels', async
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot())) {
+	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
 		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
 	subject.element().innerHTML = 'unit text'
@@ -181,7 +181,7 @@ it('passes when the image is different but within failure threshold in percentag
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot())) {
+	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
 		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
 	subject.element().innerHTML = 'unit text'
@@ -196,7 +196,7 @@ it('fails when the image is different beyond failure threshold in percentage', a
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot())) {
+	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
 		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
 	subject.element().innerHTML = 'unit text'
@@ -221,7 +221,7 @@ it('fails when the image is different in 0 percentage', async () => {
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot())) {
+	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
 		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
 	subject.element().innerHTML = 'unit text'
@@ -247,8 +247,12 @@ it('should fail with additional info when it does not fail with expectToFail', a
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
+	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
+		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
+	}
 	await expect(subject)
 		.toMatchImageSnapshot({
+			customizeSnapshotId: (id) => id,
 			expectToFail: true,
 			failureThreshold: 10,
 		})
