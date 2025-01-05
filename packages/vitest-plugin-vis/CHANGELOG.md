@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.3.1
+
+### Patch Changes
+
+- [#145](https://github.com/repobuddy/storybook-addon-vis/pull/145) [`3ebc865`](https://github.com/repobuddy/storybook-addon-vis/commit/3ebc8655f3364a59de1d87930af53554dd9b4faa) Thanks [@unional](https://github.com/unional)! - Fix `expectToFail` during snapshot update.
+
 ## 1.3.0
 
 ### Minor Changes
