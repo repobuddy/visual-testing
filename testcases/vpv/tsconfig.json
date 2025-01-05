@@ -1,0 +1,10 @@
+{
+	"files": [],
+	"references": [
+		{
+			"path": "../../packages/vitest-plugin-vis"
+		},
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	]
+}

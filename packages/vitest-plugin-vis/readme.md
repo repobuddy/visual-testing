@@ -111,6 +111,24 @@ vis.presets.theme({
 })
 ```
 
+### TypeScript Configuration
+
+The main usage of this addon is to use the `toMatchImageSnapshot` matcher.
+
+Since it is exposed under the `expect` object of `vitest`,
+you typically do not need to import `storybook-addon-vis` directly.
+
+Because of this, TypeScript may not recognize the matcher.
+To address this, you can add the following to your `tsconfig.json`:
+
+```json
+{
+	"compilerOptions": {
+		"types": ["vitest-plugin-vis"]
+	}
+}
+```
+
 ## Usage
 
 ### Auto Snapshot

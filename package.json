@@ -16,6 +16,7 @@
 		"test:trv": "vitest run --project=testcase-react-vite-ts",
 		"trv": "pnpm --filter=testcase-react-vite-ts",
 		"tt": "pnpm --filter=testcase-themes",
+		"tv": "pnpm --filter=testcase-vpv",
 		"v": "turbo check coverage",
 		"verify": "turbo check coverage",
 		"verify:ci": "turbo check coverage testcase --concurrency=1",
