@@ -20,7 +20,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
-		"types": ["storybook-addon-vis/matcher"]
+		"types": ["storybook-addon-vis"]
 	},
 	"include": ["src"]
 }

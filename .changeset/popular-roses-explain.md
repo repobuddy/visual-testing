@@ -2,7 +2,7 @@
 "vitest-plugin-vis": patch
 ---
 
-Extend `expect` and `page` in main so that consumer can load the types:
+Augment `expect` and `page` in main so that consumer can load the types:
 
 ```json
 {

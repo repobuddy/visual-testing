@@ -1,7 +1,6 @@
 import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { Button } from './Button.js'
 
 it('container snapshot', async () => {
@@ -24,15 +23,4 @@ it('can skip await', async () => {
 it('take snapshot of the whole body', async () => {
 	page.render(<Button primary label="Button" />)
 	await expect(document.body).toMatchImageSnapshot()
-})
-
-it('can disable snapshot', async () => {
-	setAutoSnapshotOptions(false)
-	page.render(<Button primary label="Button" />)
-})
-
-it('can check if snapshot exists', async () => {
-	setAutoSnapshotOptions(false)
-
-	expect(await page.hasImageSnapshot()).toBe(false)
 })

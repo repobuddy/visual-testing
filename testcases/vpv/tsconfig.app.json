@@ -19,8 +19,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"noUncheckedSideEffectImports": true
-		// "types": ["vitest-plugin-vis"]
+		"noUncheckedSideEffectImports": true,
+		"types": ["vitest-plugin-vis"]
 	},
 	"include": ["src"]
 }
