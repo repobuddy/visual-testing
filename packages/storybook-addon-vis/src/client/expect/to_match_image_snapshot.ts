@@ -2,10 +2,6 @@ import type { AsyncExpectationResult } from '@vitest/expect'
 import { type ToMatchImageSnapshotOptions, matchImageSnapshot, success } from 'vitest-plugin-vis/client'
 import { getCurrentTest } from '../vitest_proxy.ts'
 
-export interface ImageSnapshotMatcher {
-	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
-}
-
 export function toMatchImageSnapshot(
 	/**
 	 * The element or locator to take the snapshot of,
