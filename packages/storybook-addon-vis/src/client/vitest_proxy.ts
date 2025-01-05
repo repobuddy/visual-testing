@@ -3,14 +3,18 @@ import type {
 	HasImageSnapshotCommand,
 	ImageSnapshotNextIndexCommand,
 	MatchImageSnapshotCommand,
+	PrepareImageSnapshotComparisonCommand,
 	SetupVisSuiteCommand,
+	WriteImageSnapshotCommand,
 } from 'vitest-plugin-vis/commands'
 
 declare module '@vitest/browser/context' {
 	interface BrowserCommands
 		extends MatchImageSnapshotCommand,
 			HasImageSnapshotCommand,
+			PrepareImageSnapshotComparisonCommand,
 			ImageSnapshotNextIndexCommand,
+			WriteImageSnapshotCommand,
 			SetupVisSuiteCommand {}
 }
 

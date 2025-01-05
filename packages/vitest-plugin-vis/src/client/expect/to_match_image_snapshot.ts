@@ -1,6 +1,7 @@
+import { commands } from '@vitest/browser/context'
 import type { AsyncExpectationResult } from '@vitest/expect'
 import { ctx } from '../ctx.ts'
-import { matchImageSnapshot } from '../match_image_snapshot.ts'
+import { imageSnapshotMatcher } from '../match_image_snapshot.ts'
 import { success } from './expectation_result.ts'
 import type { ToMatchImageSnapshotOptions } from './to_match_image_snapshot.types.ts'
 
@@ -24,5 +25,5 @@ export function toMatchImageSnapshot(
 		)
 	}
 
-	return matchImageSnapshot(test, subject, options).then(() => success)
+	return imageSnapshotMatcher(commands)(test, subject, options).then(() => success)
 }

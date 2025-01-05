@@ -1,6 +1,6 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
-import { type ToMatchImageSnapshotOptions, matchImageSnapshot, success } from 'vitest-plugin-vis/client'
-import { getCurrentTest } from '../vitest_proxy.ts'
+import { type ToMatchImageSnapshotOptions, imageSnapshotMatcher, success } from 'vitest-plugin-vis/client'
+import { commands, getCurrentTest } from '../vitest_proxy.ts'
 
 export function toMatchImageSnapshot(
 	/**
@@ -16,5 +16,5 @@ export function toMatchImageSnapshot(
 	if (!test) return Promise.resolve(success)
 	/* v8 ignore end */
 
-	return matchImageSnapshot(test, subject, options).then(() => success)
+	return imageSnapshotMatcher(commands)(test, subject, options).then(() => success)
 }
