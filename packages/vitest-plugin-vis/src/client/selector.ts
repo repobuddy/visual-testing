@@ -3,20 +3,7 @@
  *
  * @see https://github.com/vitest-dev/vitest/blob/main/packages/browser/src/client/utils.ts
  */
-import type { Locator } from '@vitest/browser/context'
 
-export function convertToSelector(elementOrLocator: Element | Locator): string {
-	if (!elementOrLocator) {
-		throw new Error('Expected element or locator to be defined.')
-	}
-	if (elementOrLocator instanceof Element) {
-		return convertElementToCssSelector(elementOrLocator)
-	}
-	if ('selector' in elementOrLocator) {
-		return (elementOrLocator as any).selector
-	}
-	throw new Error('Expected element or locator to be an instance of Element or Locator.')
-}
 export function convertElementToCssSelector(element: Element) {
 	if (!element || !(element instanceof Element)) {
 		throw new Error(`Expected DOM element to be an instance of Element, received ${typeof element}`)

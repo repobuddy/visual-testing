@@ -1,0 +1,38 @@
+{
+	"$schema": "./node_modules/knip/schema-jsonc.json",
+	"workspaces": {
+		".": {
+			"entry": ["vitest.*.ts"],
+			"project": ["*.{js,ts}"]
+		},
+		"packages/*": {
+			"entry": ["src/index.ts"],
+			"project": ["**/*.{ts,tsx}"]
+		},
+		"packages/storybook-addon-vis": {
+			"entry": [
+				"src/preset.ts",
+				"src/preview.ts",
+				"src/testing.ts",
+				"src/vitest-plugin.ts",
+				"src/vitest-setup.ts",
+				"vitest.*.ts",
+				".storybook/*.{js,ts}",
+				"*.js",
+				"src/**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.{ts,tsx}"
+			]
+		},
+		"packages/vitest-plugin-vis": {
+			"entry": [
+				"src/client.ts",
+				"src/commands.ts",
+				"src/config.ts",
+				"src/setup.ts",
+				"src/testing.ts",
+				"vitest.*.ts",
+				".storybook/*.{js,ts}",
+				"src/**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.{ts,tsx}"
+			]
+		}
+	}
+}

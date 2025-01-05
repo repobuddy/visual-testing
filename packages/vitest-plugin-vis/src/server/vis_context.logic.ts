@@ -123,10 +123,6 @@ async function setupState(suite: PartialBrowserCommandContext, visOptions: VisOp
 	return state
 }
 
-export function getSuiteId(state: VisState, testPath: string, options: VisOptions) {
-	return getSnapshotSubpath(relative(state.projectPath, testPath), options)
-}
-
 export function createSuite(state: VisState, testPath: string, options: VisOptions) {
 	const suiteId = getSuiteId(state, testPath, options)
 	return {
@@ -138,4 +134,8 @@ export function createSuite(state: VisState, testPath: string, options: VisOptio
 			tasks: {},
 		},
 	}
+}
+
+export function getSuiteId(state: VisState, testPath: string, options: VisOptions) {
+	return getSnapshotSubpath(relative(state.projectPath, testPath), options)
 }

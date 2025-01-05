@@ -24,7 +24,8 @@
 		"vis": "pnpm --filter=./packages/storybook-addon-vis",
 		"vpv": "pnpm --filter=./packages/vitest-plugin-vis",
 		"w": "turbo w",
-		"w:trv": "vitest --project=testcase-react-vite-ts"
+		"w:trv": "vitest --project=testcase-react-vite-ts",
+		"knip": "knip --config .knip.jsonc"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
@@ -33,9 +34,11 @@
 		"@commitlint/cli": "^19.5.0",
 		"@commitlint/config-conventional": "^19.5.0",
 		"@repobuddy/biome": "^1.7.1",
+		"@types/node": "^22.10.5",
 		"@vitest/coverage-v8": "^2.1.8",
 		"cross-env": "^7.0.3",
 		"husky": "^9.1.6",
+		"knip": "^5.41.1",
 		"playwright": "^1.49.1",
 		"rimraf": "^6.0.1",
 		"turbo": "^2.3.3",

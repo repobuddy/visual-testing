@@ -1,7 +1,6 @@
 import { resolve } from 'pathe'
 import { stub } from 'type-plus'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { vis } from '../config.ts'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { ctx } from './vis_context.ctx.ts'
