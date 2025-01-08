@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.3.2
+
+### Patch Changes
+
+- [`1b22d2d`](https://github.com/repobuddy/storybook-addon-vis/commit/1b22d2d290a1fb18156cda3b846a402ad51481a2) Thanks [@unional](https://github.com/unional)! - Misc update to error message
+
 ## 1.3.1
 
 ### Patch Changes

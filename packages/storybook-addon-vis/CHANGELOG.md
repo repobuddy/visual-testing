@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.16.4
+
+### Patch Changes
+
+- [`513d95c`](https://github.com/repobuddy/storybook-addon-vis/commit/513d95c9b1313a31589368daa4937e69aa64ee98) Thanks [@unional](https://github.com/unional)! - Add missing `.d.ts` files due to `tsup` set `clean` to `true` by default.
+
+- Updated dependencies [[`1b22d2d`](https://github.com/repobuddy/storybook-addon-vis/commit/1b22d2d290a1fb18156cda3b846a402ad51481a2)]:
+  - vitest-plugin-vis@1.3.2
+
 ## 0.16.3
 
 ### Patch Changes
