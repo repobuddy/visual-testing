@@ -9,7 +9,7 @@ import type { SnapshotMeta } from './snapshot_options.ts'
  * no `snapshot` tag: false
  * disabled by `!snapshot` tag: false
  */
-export function shouldTakeSnapshot(meta?: SnapshotMeta | undefined) {
+export function shouldTakeSnapshot(meta?: SnapshotMeta<any> | undefined) {
 	const m = meta ?? getAutoSnapshotOptions(ctx.getCurrentTest())
 	return document.body.childElementCount > 0 && m?.enable !== false
 }
