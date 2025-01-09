@@ -1,6 +1,6 @@
 import type { ToMatchImageSnapshotOptions } from '../client/expect/to_match_image_snapshot.types.ts'
 
-export interface VisOptions extends ToMatchImageSnapshotOptions {
+export type VisOptions<M extends 'pixel' | 'ssim' = 'pixel'> = ToMatchImageSnapshotOptions<M> & {
 	/**
 	 * Loads the `test.setupFiles` of the specified preset.
 	 */

@@ -1,3 +1,4 @@
+import ssim, { type Options } from 'ssim.js'
 import { afterEach, expect, it } from 'vitest'
 import { vis } from '../config.ts'
 import { visContext } from '../server/vis_context.ts'
@@ -99,5 +100,27 @@ it('can set preset to none', () => {
 		test: {
 			setupFiles: undefined,
 		},
+	})
+})
+
+it('can set pixelmatch options when comparison method is pixel', () => {
+	const diffOptions = { threshold: 0.1 }
+
+	vis({ comparisonMethod: 'pixel', diffOptions })
+
+	expect(visContext.__test__getOptions()).toMatchObject({
+		comparisonMethod: 'pixel',
+		diffOptions,
+	})
+})
+
+it('can set ssim options when comparison method is ssim', () => {
+	const diffOptions: Partial<Options> = { ssim: 'bezkrovny' }
+
+	vis({ comparisonMethod: 'ssim', diffOptions })
+
+	expect(visContext.__test__getOptions()).toMatchObject({
+		comparisonMethod: 'ssim',
+		diffOptions,
 	})
 })

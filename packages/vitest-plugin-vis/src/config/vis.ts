@@ -10,7 +10,7 @@ import type { VisOptions } from './types.ts'
  * If options are not provided, the plugin will use the default options,
  * which enables the `auto` preset.
  */
-export function vis(options: VisOptions = { preset: 'auto' }) {
+export function vis<M extends 'pixel' | 'ssim' = 'pixel'>(options: VisOptions<M> = { preset: 'auto' } as any) {
 	visContext.setOptions(options)
 	const preset = options?.preset
 	return {

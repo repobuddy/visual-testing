@@ -21,12 +21,12 @@ export type PartialBrowserCommandContext = {
 }
 
 export function createVisContext() {
-	let visOptions: VisOptions = {}
+	let visOptions: VisOptions<any> = {}
 	let state: VisState
 	let globalStateReady: Promise<VisState>
 
 	const context = {
-		setOptions(options: VisOptions = {}) {
+		setOptions<M extends 'pixel' | 'ssim'>(options: VisOptions<M> = {} as any) {
 			visOptions = options
 		},
 		__test__getOptions() {
@@ -102,7 +102,7 @@ export function createVisContext() {
 	return context
 }
 
-async function setupState(suite: PartialBrowserCommandContext, visOptions: VisOptions) {
+async function setupState(suite: PartialBrowserCommandContext, visOptions: Pick<VisOptions, 'snapshotRootDir'>) {
 	const snapshotRootDir = resolveSnapshotRootDir(visOptions)
 	const projectPath = suite.project.config.root
 	const platform = ctx.getSnapshotPlatform()
@@ -123,7 +123,7 @@ async function setupState(suite: PartialBrowserCommandContext, visOptions: VisOp
 	return state
 }
 
-export function createSuite(state: VisState, testPath: string, options: VisOptions) {
+export function createSuite(state: VisState, testPath: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
 	const suiteId = getSuiteId(state, testPath, options)
 	return {
 		suiteId,
@@ -136,6 +136,6 @@ export function createSuite(state: VisState, testPath: string, options: VisOptio
 	}
 }
 
-export function getSuiteId(state: VisState, testPath: string, options: VisOptions) {
+export function getSuiteId(state: VisState, testPath: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
 	return getSnapshotSubpath(relative(state.projectPath, testPath), options)
 }
