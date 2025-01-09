@@ -1,8 +1,9 @@
 import { NAME } from '../shared/constants.ts'
+import type { ComparisonMethod } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 
-export type SnapshotMeta = ToMatchImageSnapshotOptions & { enable?: boolean | undefined }
+export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> & { enable?: boolean | undefined }
 
 type Suite = { meta: Record<string, any>; suite?: Suite | undefined }
 
@@ -29,10 +30,13 @@ export type MetaTask =
  * @param task Optional. Suite or task to set the options.
  * If not provided, it will set the options for the current test.
  */
-export function setAutoSnapshotOptions(task: MetaTask, meta: SnapshotMeta | boolean): void
-export function setAutoSnapshotOptions(meta: SnapshotMeta | boolean): void
-export function setAutoSnapshotOptions(
-	...args: [task: MetaTask, meta: SnapshotMeta | boolean] | [meta: SnapshotMeta | boolean]
+export function setAutoSnapshotOptions<M extends ComparisonMethod>(
+	task: MetaTask,
+	meta: SnapshotMeta<M> | boolean,
+): void
+export function setAutoSnapshotOptions<M extends ComparisonMethod>(meta: SnapshotMeta<M> | boolean): void
+export function setAutoSnapshotOptions<M extends ComparisonMethod>(
+	...args: [task: MetaTask, meta: SnapshotMeta<M> | boolean] | [meta: SnapshotMeta<M> | boolean]
 ): void {
 	const [task, meta] = parseArgs(args)
 	if (task)
@@ -42,12 +46,12 @@ export function setAutoSnapshotOptions(
 		}
 }
 
-function parseArgs(
-	args: [task: MetaTask, meta: SnapshotMeta | boolean] | [meta: boolean | SnapshotMeta],
-): [MetaTask | undefined, SnapshotMeta] {
+function parseArgs<M extends ComparisonMethod>(
+	args: [task: MetaTask, meta: SnapshotMeta<M> | boolean] | [meta: boolean | SnapshotMeta<M>],
+): [MetaTask | undefined, SnapshotMeta<M>] {
 	return args.length === 1 ? [ctx.getCurrentTest(), parseMeta(args[0])] : [args[0], parseMeta(args[1])]
 }
 
-function parseMeta(meta: boolean | SnapshotMeta): SnapshotMeta {
-	return typeof meta === 'boolean' ? { enable: meta } : { enable: true, ...meta }
+function parseMeta<M extends ComparisonMethod>(meta: boolean | SnapshotMeta<M>): SnapshotMeta<M> {
+	return typeof meta === 'boolean' ? ({ enable: meta } as any) : { enable: true, ...meta }
 }

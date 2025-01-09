@@ -36,6 +36,19 @@ it('can omit task', ({ task }) => {
 	})
 })
 
+it('can set comparison method to ssim', ({ task }) => {
+	setAutoSnapshotOptions({
+		comparisonMethod: 'ssim',
+		diffOptions: { ssim: 'fast' },
+	})
+	expect(getAutoSnapshotOptions(task)).toEqual({
+		enable: true,
+		comparisonMethod: 'ssim',
+		diffOptions: { ssim: 'fast' },
+		failureThreshold: 0.01,
+	})
+})
+
 describe('without beforeAll', () => {
 	beforeAll((ctx) => {
 		delete (ctx.file.meta as any)[NAME]
