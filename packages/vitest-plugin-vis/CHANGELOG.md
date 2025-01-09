@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.4.0
+
+### Minor Changes
+
+- [#150](https://github.com/repobuddy/storybook-addon-vis/pull/150) [`da95b08`](https://github.com/repobuddy/storybook-addon-vis/commit/da95b08e496d1f8a8b1663e55681510803e41082) Thanks [@unional](https://github.com/unional)! - Add `ssim` support.
+
 ## 1.3.2
 
 ### Patch Changes

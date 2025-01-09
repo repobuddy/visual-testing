@@ -1,5 +1,16 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.17.0
+
+### Minor Changes
+
+- [#150](https://github.com/repobuddy/storybook-addon-vis/pull/150) [`e8ffc6b`](https://github.com/repobuddy/storybook-addon-vis/commit/e8ffc6bdc5b6df46e0f854b910db0d8a2691dcd6) Thanks [@unional](https://github.com/unional)! - Add `ssim` support.
+
+### Patch Changes
+
+- Updated dependencies [[`da95b08`](https://github.com/repobuddy/storybook-addon-vis/commit/da95b08e496d1f8a8b1663e55681510803e41082)]:
+  - vitest-plugin-vis@1.4.0
+
 ## 0.16.4
 
 ### Patch Changes
