@@ -9,8 +9,6 @@ export function compareImage<M extends ComparisonMethod>(
 	output: Uint8ClampedArray | Buffer,
 	width: number,
 	height: number,
-
-	// { comparisonMethod = 'pixel', failureThreshold = 0, failureThresholdType = 'pixel', diffOptions }:
 	options: ImageSnapshotCompareOptions<M> = {} as any,
 ) {
 	const pixelDiff =
@@ -28,6 +26,9 @@ export function compareImage<M extends ComparisonMethod>(
 	}
 }
 
+/**
+ * @author This code is based on `jest-image-snapshot` implementation.
+ */
 function compareWithSsim(
 	img1: Uint8ClampedArray | Buffer,
 	img2: Uint8ClampedArray | Buffer,
@@ -38,10 +39,13 @@ function compareWithSsim(
 ) {
 	const newImage = { data: img1, width: width, height: height }
 	const baselineImage = { data: img2, width: width, height: height }
-	const { ssim_map, mssim } = ssim(newImage as any, baselineImage as any, diffOptions)
+	const { ssim_map, mssim } = ssim(newImage as any, baselineImage as any, {
+		ssim: 'bezkrovny',
+		...diffOptions,
+	})
 	// Converts the SSIM value to different pixels based on image width and height
 	// conforms to how pixelmatch works.
-	const diffPixels = (1 - mssim) * width * height
+	const diffPixels = Math.round((1 - mssim) * width * height)
 	const diffRgbaPixels = new DataView(output.buffer, output.byteOffset)
 	for (let ln = 0; ln !== height; ++ln) {
 		for (let pos = 0; pos !== width; ++pos) {

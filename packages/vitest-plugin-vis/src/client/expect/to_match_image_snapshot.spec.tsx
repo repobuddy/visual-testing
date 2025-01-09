@@ -314,11 +314,40 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 
 describe('ssim', () => {
 	beforeEach(() => setAutoSnapshotOptions(false))
+
 	it('can compare image with ssim', async () => {
 		page.render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
 			comparisonMethod: 'ssim',
 			customizeSnapshotId: (id) => id,
 		})
+	})
+
+	it('fails when the image is different beyond failure threshold in pixels', async () => {
+		page.render(<div data-testid="subject">unit test</div>)
+		const subject = page.getByTestId('subject')
+
+		if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
+			await expect(subject).toMatchImageSnapshot({
+				comparisonMethod: 'ssim',
+				customizeSnapshotId: (id) => id,
+			})
+		}
+		subject.element().innerHTML = 'unit text'
+		await expect(subject)
+			.toMatchImageSnapshot({
+				comparisonMethod: 'ssim',
+				customizeSnapshotId: (id) => id,
+				expectToFail: true,
+				failureThreshold: 20,
+			})
+			.then(
+				() => {
+					throw new Error('Should not reach')
+				},
+				(error) => {
+					expect(error.message).toMatch(/Expected image to match within 20 pixels but was differ by \d+ pixels./)
+				},
+			)
 	})
 })
