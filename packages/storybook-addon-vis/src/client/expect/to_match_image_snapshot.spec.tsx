@@ -66,3 +66,12 @@ it('can use screen from @testing-library/react to get element', async () => {
 	const subject = screen.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot()
 })
+
+it('can use ssim comparison', async () => {
+	await MatchingElement.run()
+	const subject = page.getByTestId('subject')
+	await expect(subject).toMatchImageSnapshot({
+		comparisonMethod: 'ssim',
+		diffOptions: { ssim: 'bezkrovny' },
+	})
+})

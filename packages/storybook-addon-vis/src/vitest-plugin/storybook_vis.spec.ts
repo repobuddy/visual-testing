@@ -20,4 +20,16 @@ describe(`${storybookVis.name}()`, () => {
 		const config = result.config()
 		expect(config.test.setupFiles).toBeUndefined()
 	})
+
+	it('can set comparison method to pixel', () => {
+		const result = storybookVis({ comparisonMethod: 'pixel', diffOptions: { threshold: 0.01 } })
+		const config = result.config()
+		expect(config.test.setupFiles).toBeUndefined()
+	})
+
+	it('can set comparison method to ssim', () => {
+		const result = storybookVis({ comparisonMethod: 'ssim', diffOptions: { ssim: 'fast' } })
+		const config = result.config()
+		expect(config.test.setupFiles).toBeUndefined()
+	})
 })
