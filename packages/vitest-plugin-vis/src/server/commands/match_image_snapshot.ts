@@ -25,15 +25,14 @@ export interface MatchImageSnapshotCommand {
 	) => Promise<void>
 }
 
-export interface MatchImageSnapshotOptions
-	extends ImageSnapshotTimeoutOptions,
-		ImageSnapshotIdOptions,
-		ImageSnapshotCompareOptions {
-	/**
-	 * The snapshot file id calculated on the client side.
-	 */
-	snapshotFileId?: string | undefined
-}
+export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
+	ImageSnapshotIdOptions &
+	ImageSnapshotCompareOptions<any> & {
+		/**
+		 * The snapshot file id calculated on the client side.
+		 */
+		snapshotFileId?: string | undefined
+	}
 
 export const matchImageSnapshot: BrowserCommand<
 	[taskId: string, subject: string, options?: MatchImageSnapshotOptions | undefined]

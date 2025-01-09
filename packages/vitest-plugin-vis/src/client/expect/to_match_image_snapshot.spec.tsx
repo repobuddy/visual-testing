@@ -311,3 +311,14 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		// can't validate 2nd snapshot because it's chicken-egg problem
 	})
 })
+
+describe('ssim', () => {
+	beforeEach(() => setAutoSnapshotOptions(false))
+	it('can compare image with ssim', async () => {
+		page.render(<div>hello</div>)
+		await expect(document.body).toMatchImageSnapshot({
+			comparisonMethod: 'ssim',
+			customizeSnapshotId: (id) => id,
+		})
+	})
+})

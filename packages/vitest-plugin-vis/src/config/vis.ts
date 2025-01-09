@@ -2,6 +2,7 @@ import type { Plugin } from 'vite'
 import { commands } from '../server/commands/extend.ts'
 import { visContext } from '../server/vis_context.ts'
 import { NAME } from '../shared/constants.ts'
+import type { ComparisonMethod } from '../shared/types.ts'
 import type { VisOptions } from './types.ts'
 
 /**
@@ -10,7 +11,7 @@ import type { VisOptions } from './types.ts'
  * If options are not provided, the plugin will use the default options,
  * which enables the `auto` preset.
  */
-export function vis<M extends 'pixel' | 'ssim' = 'pixel'>(options: VisOptions<M> = { preset: 'auto' } as any) {
+export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M> = { preset: 'auto' } as any) {
 	visContext.setOptions(options)
 	const preset = options?.preset
 	return {

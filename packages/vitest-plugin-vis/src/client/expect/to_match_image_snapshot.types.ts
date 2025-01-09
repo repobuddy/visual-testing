@@ -1,14 +1,15 @@
 import type {
+	ComparisonMethod,
 	ImageSnapshotCompareOptions,
 	ImageSnapshotIdOptions,
 	ImageSnapshotTimeoutOptions,
 } from '../../shared/types.ts'
 
 export interface ImageSnapshotMatcher {
-	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
+	toMatchImageSnapshot<M extends ComparisonMethod>(options?: ToMatchImageSnapshotOptions<M> | undefined): Promise<void>
 }
 
-export type ToMatchImageSnapshotOptions<M extends 'pixel' | 'ssim' = 'pixel'> = ImageSnapshotTimeoutOptions &
+export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotIdOptions &
 	ImageSnapshotCompareOptions<M> & {
 		/**

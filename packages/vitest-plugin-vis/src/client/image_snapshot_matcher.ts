@@ -17,7 +17,7 @@ import { server } from './vitest_browser_context_proxy.ts'
 export function imageSnapshotMatcher(
 	commands: PrepareImageSnapshotComparisonCommand & WriteImageSnapshotCommand & ImageSnapshotNextIndexCommand,
 ) {
-	return async function matchImageSnapshot(test: Task, subject: any, options?: ToMatchImageSnapshotOptions) {
+	return async function matchImageSnapshot(test: Task, subject: any, options?: ToMatchImageSnapshotOptions<any>) {
 		const taskId = toTaskId(test)
 		const info = await commands.prepareImageSnapshotComparison(
 			taskId,
@@ -101,7 +101,7 @@ async function writeSnapshot(commands: WriteImageSnapshotCommand, path: string, 
 async function parseImageSnapshotOptions(
 	commands: ImageSnapshotNextIndexCommand,
 	taskId: string,
-	options: ToMatchImageSnapshotOptions,
+	options: ToMatchImageSnapshotOptions<any>,
 ) {
 	const index = await commands.imageSnapshotNextIndex(taskId)
 	const { customizeSnapshotId, ...rest } = options

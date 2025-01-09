@@ -20,7 +20,9 @@ export interface ImageSnapshotIdOptions {
 	customizeSnapshotId?: (id: string, index: number) => string
 }
 
-export type ImageSnapshotCompareOptions<M extends 'pixel' | 'ssim' = 'pixel'> = M extends 'ssim'
+export type ComparisonMethod = 'pixel' | 'ssim'
+
+export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = M extends 'ssim'
 	? {
 			comparisonMethod: M
 			/**

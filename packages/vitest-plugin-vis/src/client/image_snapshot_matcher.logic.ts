@@ -1,6 +1,6 @@
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 
-export function prettifyOptions(options: ToMatchImageSnapshotOptions | undefined) {
+export function prettifyOptions(options: ToMatchImageSnapshotOptions<any> | undefined) {
 	if (!options) return 'none'
 
 	return [
