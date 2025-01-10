@@ -46,6 +46,7 @@ describe('matchPerTheme', () => {
 		).rejects.toThrow(dedent`Snapshot \`matchpertheme/should-aggregate-all-errors\` mismatched
 
 			Theme \`theme1\` failed: theme1 failed
+
 			Theme \`theme2\` failed: theme2 failed`)
 	})
 })

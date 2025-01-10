@@ -87,7 +87,7 @@ export function createVis(commands: SetupVisSuiteCommand) {
 							.map(([themeId, error]) => {
 								return `Theme \`${themeId}\` failed: ${error.message}`
 							})
-							.join('\n')}`,
+							.join('\n\n')}`,
 						)
 					}
 				}
