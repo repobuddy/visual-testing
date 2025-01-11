@@ -65,7 +65,8 @@ export default defineConfig({
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			customizeSnapshotId: (id, index) => `${id}-${index}`,
 			platform: undefined, // if undefined this gets set internally for use in the baseline snapshot path.
-			diffOptions: undefined, // pixelmatch options
+			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
+			diffOptions: undefined,
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,
 			timeout: 5000 // 30000 on CI
