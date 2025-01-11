@@ -29,11 +29,13 @@ it('take snapshot of the whole body', async () => {
 it('uses options set in vis()', async () => {
 	setAutoSnapshotOptions(false)
 	const hasSnapshot = await page.hasImageSnapshot({ customizeSnapshotId: (id) => id })
-	const screen = page.render(<div data-testid="subject">{hasSnapshot ? 'hello' : 'world'}</div>)
+	const screen = page.render(<div data-testid="subject">hello</div>)
 	const subject = screen.getByTestId('subject')
-	if (hasSnapshot) {
-		await expect(subject).toMatchImageSnapshot()
+	if (!hasSnapshot) {
+		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
+
+	subject.element().innerHTML = 'world'
 
 	await expect(subject)
 		.toMatchImageSnapshot({
