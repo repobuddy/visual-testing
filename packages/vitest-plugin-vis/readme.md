@@ -286,6 +286,7 @@ Please follow its guide to set up your environment.
 
 Bonus note, if you want to install [Firefox] on WSL,
 you can follow these steps: [Install Firefox on Ubuntu 22.04](https://askubuntu.com/a/1444967).
+Also, you may need to `sudo apt-get install xdg-utils` to fix [`xdg-settings: not found`](https://serverfault.com/questions/1091926/running-chrome-on-ubuntu-server-how-to-solve-xdg-settings-not-found-using).
 
 ## Running on CI
 
