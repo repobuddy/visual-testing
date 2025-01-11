@@ -1,6 +1,7 @@
 import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { Button } from './Button.js'
 
 it('container snapshot', async () => {
@@ -23,4 +24,33 @@ it('can skip await', async () => {
 it('take snapshot of the whole body', async () => {
 	page.render(<Button primary label="Button" />)
 	await expect(document.body).toMatchImageSnapshot()
+})
+
+it('uses options set in vis()', async () => {
+	setAutoSnapshotOptions(false)
+	const hasSnapshot = await page.hasImageSnapshot({ customizeSnapshotId: (id) => id })
+	const screen = page.render(<div data-testid="subject">{hasSnapshot ? 'hello' : 'world'}</div>)
+	const subject = screen.getByTestId('subject')
+	if (hasSnapshot) {
+		await expect(subject).toMatchImageSnapshot()
+	}
+
+	await expect(subject)
+		.toMatchImageSnapshot({
+			expectToFail: true,
+			customizeSnapshotId: (id) => id,
+		})
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(
+					`Options:    failureThreshold: 0.01 percent
+            timeout: 15000 ms
+            comparisonMethod: ssim
+            diffOptions: {\"ssim\":\"bezkrovny\"}`,
+				)
+			},
+		)
 })

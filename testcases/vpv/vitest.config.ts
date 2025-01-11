@@ -4,7 +4,17 @@ import { defineConfig } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
-	plugins: [react(), vis()],
+	plugins: [
+		react(),
+		vis({
+			preset: 'auto',
+			comparisonMethod: 'ssim',
+			diffOptions: { ssim: 'bezkrovny' },
+			failureThreshold: 0.01,
+			failureThresholdType: 'percent',
+			timeout: 15000,
+		}),
+	],
 	test: {
 		browser: {
 			enabled: true,

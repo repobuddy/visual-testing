@@ -5,9 +5,10 @@ export function prettifyOptions(options: ToMatchImageSnapshotOptions<any> | unde
 
 	return [
 		`failureThreshold: ${options.failureThreshold ?? 0} ${options.failureThresholdType ?? 'pixels'}`,
-		options.diffOptions ? `diffOptions: ${JSON.stringify(options.diffOptions)}` : '',
 		options.timeout ? `timeout: ${options.timeout} ms` : '',
+		`comparisonMethod: ${options.comparisonMethod ?? 'pixel'}`,
+		options.diffOptions ? `diffOptions: ${JSON.stringify(options.diffOptions)}` : '',
 	]
 		.filter(Boolean)
-		.join(', ')
+		.join('\n                 ')
 }

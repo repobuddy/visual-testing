@@ -1,4 +1,5 @@
 import { join, relative } from 'pathe'
+import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { file } from './file.ts'
@@ -67,6 +68,7 @@ export function createVisContext() {
 			const diffPath = join(diffDir, snapshotFilename)
 
 			return {
+				...pick(visOptions, 'comparisonMethod', 'diffOptions', 'failureThreshold', 'failureThresholdType', 'timeout'),
 				baselinePath,
 				resultPath,
 				diffPath,

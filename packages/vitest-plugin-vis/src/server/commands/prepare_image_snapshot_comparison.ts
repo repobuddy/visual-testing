@@ -1,6 +1,12 @@
 import ci from 'is-ci'
 import type { BrowserCommand } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
+import type {
+	FailureThresholdOptions,
+	ImageSnapshotTimeoutOptions,
+	PixelComparisonOptions,
+	SsimComparisonOptions,
+} from '../../shared/types.ts'
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
@@ -14,7 +20,9 @@ type ImageSnapshotComparisonInfo = {
 	diffPath: string
 	baseline: string
 	result: string
-}
+} & ImageSnapshotTimeoutOptions &
+	FailureThresholdOptions &
+	(SsimComparisonOptions | PixelComparisonOptions)
 
 export interface PrepareImageSnapshotComparisonCommand {
 	prepareImageSnapshotComparison: (

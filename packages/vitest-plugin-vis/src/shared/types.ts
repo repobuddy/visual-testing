@@ -22,42 +22,37 @@ export interface ImageSnapshotIdOptions {
 
 export type ComparisonMethod = 'pixel' | 'ssim'
 
-export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = M extends 'ssim'
-	? {
-			comparisonMethod: M
-			/**
-			 * Custom options passed to 'ssim'
-			 */
-			diffOptions?: Partial<SsimOptions> | undefined
-			/**
-			 * Failure threshold should measure in `pixel` or `percent`.
-			 *
-			 * Default is `pixel`.
-			 */
-			failureThresholdType?: 'pixel' | 'percent' | undefined
-			/**
-			 * Failure tolerance threshold.
-			 *
-			 * Default is `0`.
-			 */
-			failureThreshold?: number | undefined
-		}
-	: {
-			comparisonMethod?: M | undefined
-			/**
-			 * Custom options passed to 'pixelmatch'
-			 */
-			diffOptions?: PixelmatchOptions | undefined
-			/**
-			 * Failure threshold should measure in `pixel` or `percent`.
-			 *
-			 * Default is `pixel`.
-			 */
-			failureThresholdType?: 'pixel' | 'percent' | undefined
-			/**
-			 * Failure tolerance threshold.
-			 *
-			 * Default is `0`.
-			 */
-			failureThreshold?: number | undefined
-		}
+export type FailureThresholdOptions = {
+	/**
+	 * Failure threshold should measure in `pixel` or `percent`.
+	 *
+	 * Default is `pixel`.
+	 */
+	failureThresholdType?: 'pixel' | 'percent' | undefined
+	/**
+	 * Failure tolerance threshold.
+	 *
+	 * Default is `0`.
+	 */
+	failureThreshold?: number | undefined
+}
+
+export type SsimComparisonOptions<M = 'ssim'> = {
+	comparisonMethod: M
+	/**
+	 * Custom options passed to 'ssim'
+	 */
+	diffOptions?: Partial<SsimOptions> | undefined
+}
+export type PixelComparisonOptions<M = 'pixel'> = {
+	comparisonMethod?: M | undefined
+	/**
+	 * Custom options passed to 'pixelmatch'
+	 */
+	diffOptions?: PixelmatchOptions | undefined
+}
+
+export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
+	? SsimComparisonOptions<M>
+	: PixelComparisonOptions<M>) &
+	FailureThresholdOptions
