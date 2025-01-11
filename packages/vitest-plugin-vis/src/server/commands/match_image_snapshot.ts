@@ -1,5 +1,4 @@
 import dedent from 'dedent'
-import ci from 'is-ci'
 import { resolve } from 'pathe'
 import { PNG } from 'pngjs'
 import type { BrowserCommand } from 'vitest/node'
@@ -41,7 +40,7 @@ export const matchImageSnapshot: BrowserCommand<
 
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
-	options.timeout = options.timeout ?? (ci ? 30000 : 5000)
+	options.timeout = options.timeout ?? 30000
 
 	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
 	const baselineBuffer = await file.tryReadFile(info.baselinePath)

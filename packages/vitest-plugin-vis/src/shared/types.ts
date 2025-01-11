@@ -5,7 +5,7 @@ export interface ImageSnapshotTimeoutOptions {
 	/**
 	 * Timeout for taking the snapshot.
 	 *
-	 * Default: 5000 ms locally, 30000 ms on CI.
+	 * Default: 30000 ms (30 seconds)
 	 */
 	timeout?: number | undefined
 }

@@ -47,7 +47,7 @@ it('uses options set in vis()', async () => {
 			(error) => {
 				expect(error.message).toMatch(
 					`Options:    failureThreshold: 0.01 percent
-            timeout: 15000 ms
+            timeout: 60000 ms
             comparisonMethod: ssim
             diffOptions: {\"ssim\":\"bezkrovny\"}`,
 				)

@@ -102,7 +102,7 @@ export default defineConfig({
 			diffOptions: undefined,
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,
-			timeout: 5000 // 30000 on CI
+			timeout: 30000
 		})
 	],
 })

@@ -12,7 +12,7 @@ export default defineConfig({
 			diffOptions: { ssim: 'bezkrovny' },
 			failureThreshold: 0.01,
 			failureThresholdType: 'percent',
-			timeout: 15000,
+			timeout: 60000,
 		}),
 	],
 	test: {

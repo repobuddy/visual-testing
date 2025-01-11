@@ -69,7 +69,7 @@ export default defineConfig({
 			diffOptions: undefined,
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,
-			timeout: 5000 // 30000 on CI
+			timeout: 30000
 		})
 	],
 	test:{
@@ -191,7 +191,7 @@ setAutoSnapshotOptions({
 	diffOptions: { threshold: 0.01 },
 	failureThreshold: 0.01,
 	failureThresholdType: 'percent',
-	timeout: 15000
+	timeout: 60000
 })
 ```
 
@@ -244,7 +244,7 @@ it('manual snapshot with options', async () => {
 		diffOptions: {
 			threshold: 0.1
 		},
-		timeout: 15000
+		timeout: 60000
 	})
 })
 ```
