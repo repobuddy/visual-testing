@@ -1,5 +1,42 @@
 # vitest-plugin-vis
 
+## 1.5.0
+
+### Minor Changes
+
+- [#162](https://github.com/repobuddy/storybook-addon-vis/pull/162) [`995140f`](https://github.com/repobuddy/storybook-addon-vis/commit/995140f0bda8c389a24f143f744dabe6d682a8ce) Thanks [@unional](https://github.com/unional)! - Support customizing `platform` by @joekrump.
+
+  For example, with `vis({ platform: 'ci' })`,
+  Instead of saving the snapshots to `<root>/__vis__/{local or process.platform}`,
+  the snapshots will be saved to `<root>/__vis__/ci`.
+
+### Patch Changes
+
+- [#156](https://github.com/repobuddy/storybook-addon-vis/pull/156) [`72959a6`](https://github.com/repobuddy/storybook-addon-vis/commit/72959a6bd2bea3d9c1cff652b8ff384c10e017f2) Thanks [@unional](https://github.com/unional)! - Add top level `types` field to `package.json` for project not using ESM module resolution.
+
+- [#160](https://github.com/repobuddy/storybook-addon-vis/pull/160) [`d2fdcbe`](https://github.com/repobuddy/storybook-addon-vis/commit/d2fdcbe023917ea9dc85ac332dfd8b46f6936f20) Thanks [@unional](https://github.com/unional)! - Remove `expectToFail` from `VisOptions`.
+  It should not have that property.
+
+- [#161](https://github.com/repobuddy/storybook-addon-vis/pull/161) [`43fc2ce`](https://github.com/repobuddy/storybook-addon-vis/commit/43fc2ce3385c0086de567816a1a1328ea4df336f) Thanks [@unional](https://github.com/unional)! - Change default timeout to 30s.
+  The initial timeout of 1s was set by Vitest.
+  It is causing tests to fail with `TimeoutError`,
+  even when getting `Locator` like `getByRole`.
+
+  This timeout will be removed in Vitest 3.
+
+  The underlying provider (`playwright`) does not have a default timeout.
+
+  Setting to 30s should be a good default for most cases.
+
+  It could still be too short for slow CI or when it is running scripts in parallel.
+  That was the case for `storybook-test-runner` but could be improved in Vitest browser mode.
+
+  If timeout is still an issue, we can further default it to 60s or even 120s.
+
+- [#158](https://github.com/repobuddy/storybook-addon-vis/pull/158) [`a020417`](https://github.com/repobuddy/storybook-addon-vis/commit/a02041770b32ca52baa35326ff77a39fe4b249c2) Thanks [@unional](https://github.com/unional)! - Add a blank line to separate the theme error messages.
+
+- [#160](https://github.com/repobuddy/storybook-addon-vis/pull/160) [`ee4ef14`](https://github.com/repobuddy/storybook-addon-vis/commit/ee4ef1492a0444bf1b24d2614c8365154038b351) Thanks [@unional](https://github.com/unional)! - Fix the global setting not being applied.
+
 ## 1.4.0
 
 ### Minor Changes
