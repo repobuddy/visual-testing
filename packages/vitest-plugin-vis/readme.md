@@ -64,6 +64,7 @@ export default defineConfig({
 			snapshotRootDir: '__vis__',
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			customizeSnapshotId: (id, index) => `${id}-${index}`,
+			platform: undefined, // if undefined this gets set internally for use in the baseline snapshot path.
 			diffOptions: undefined, // pixelmatch options
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,

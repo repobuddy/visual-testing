@@ -15,6 +15,14 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 */
 		preset?: 'manual' | 'auto' | 'none' | undefined
 		/**
+		 * The name of the subdirectory that the baseline snapshots get saved in.
+		 *
+		 * <snapshotRootDir>/<platform>/<snapshotSubpath>/<snapshotId>.png
+		 *
+		 * Default: undefined
+		 */
+		platform?: string | undefined
+		/**
 		 * The snapshot folder relative to the root of the project.
 		 *
 		 * Default: `__vis__`

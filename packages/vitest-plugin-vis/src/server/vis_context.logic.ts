@@ -104,10 +104,10 @@ export function createVisContext() {
 	return context
 }
 
-async function setupState(suite: PartialBrowserCommandContext, visOptions: Pick<VisOptions, 'snapshotRootDir'>) {
+async function setupState(suite: PartialBrowserCommandContext, visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform'>) {
 	const snapshotRootDir = resolveSnapshotRootDir(visOptions)
 	const projectPath = suite.project.config.root
-	const platform = ctx.getSnapshotPlatform()
+	const platform = visOptions.platform ?? ctx.getSnapshotPlatform()
 
 	const state = {
 		projectPath,
