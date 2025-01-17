@@ -1,5 +1,12 @@
 # vitest-plugin-vis
 
+## 1.5.1
+
+### Patch Changes
+
+- [#166](https://github.com/repobuddy/storybook-addon-vis/pull/166) [`611e0cc`](https://github.com/repobuddy/storybook-addon-vis/commit/611e0cca505bfea0fe67ce10e45af2946a7cc578) Thanks [@unional](https://github.com/unional)! - Use `config.root` instead of `runner.root`.
+  `runner.root` is protected in Vitest v3.
+
 ## 1.5.0
 
 ### Minor Changes
