@@ -59,8 +59,8 @@ jobs:
         with:
           name: snapshots
           path: |
-            '**/__vis__/__diffs__'
-            '**/__vis__/__results__'
+            */*/__vis__/__diffs__
+            */*/__vis__/__results__
 
   release:
     uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@main

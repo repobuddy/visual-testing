@@ -49,6 +49,15 @@ jobs:
       - run: ${{ inputs.build-command }}
       - run: ${{ inputs.update-snapshot-command }}
 
+      - name: Archive snapshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshots
+          path: |
+            */*/__vis__/__diffs__
+            */*/__vis__/__results__
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
