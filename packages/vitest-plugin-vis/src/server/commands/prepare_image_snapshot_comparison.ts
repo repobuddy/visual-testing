@@ -54,7 +54,7 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 	const resultBuffer = await takeSnapshot(context, info.resultPath, subject, options)
 	return {
 		...info,
-		projectRoot: context.project.runner.root,
+		projectRoot: context.project.config.root,
 		baseline: baselineBuffer.toString('base64'),
 		result: resultBuffer.toString('base64'),
 	}

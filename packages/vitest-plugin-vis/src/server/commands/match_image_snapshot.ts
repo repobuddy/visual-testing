@@ -76,8 +76,8 @@ export const matchImageSnapshot: BrowserCommand<
 
 				The image size changed form ${baselineImage.width}x${baselineImage.height} to ${resultImage.width}x${resultImage.height}
 
-				Expected:   ${resolve(context.project.runner.root, info.baselinePath)}
-				Actual:     ${resolve(context.project.runner.root, info.resultPath)}`,
+				Expected:   ${resolve(context.project.config.root, info.baselinePath)}
+				Actual:     ${resolve(context.project.config.root, info.resultPath)}`,
 		)
 	}
 
@@ -101,9 +101,9 @@ export const matchImageSnapshot: BrowserCommand<
 
 			Options:    ${JSON.stringify(options)}
 
-			Expected:   ${resolve(context.project.runner.root, info.baselinePath)}
-			Actual:     ${resolve(context.project.runner.root, info.resultPath)}
-			Difference: ${resolve(context.project.runner.root, info.diffPath)}`,
+			Expected:   ${resolve(context.project.config.root, info.baselinePath)}
+			Actual:     ${resolve(context.project.config.root, info.resultPath)}
+			Difference: ${resolve(context.project.config.root, info.diffPath)}`,
 	)
 }
 
