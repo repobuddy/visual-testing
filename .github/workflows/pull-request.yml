@@ -61,5 +61,5 @@ jobs:
         with:
           name: snapshots
           path: |
-            '**/__vis__/__diffs__'
-            '**/__vis__/__results__'
+            */*/__vis__/__diffs__
+            */*/__vis__/__results__
