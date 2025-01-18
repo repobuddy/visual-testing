@@ -1,4 +1,4 @@
-import ci from 'is-ci'
+// import ci from 'is-ci'
 import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
@@ -14,7 +14,7 @@ export default defineConfig({
 		},
 		workspace: [
 			'vitest.config.playwright.ts',
-			process.env.COVERAGE || (ci && process.platform === 'win32') ? '' : 'vitest.config.webdriverio.ts',
+			// process.env.COVERAGE || (ci && process.platform === 'win32') ? '' : 'vitest.config.webdriverio.ts',
 			'vitest.config.node.ts',
 		].filter(Boolean),
 	},
