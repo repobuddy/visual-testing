@@ -58,7 +58,7 @@ export function createVis(commands: SetupVisSuiteCommand) {
 				const meta = getAutoSnapshotOptions(ctx.getCurrentTest())
 				if (!shouldTakeSnapshot(meta)) return
 
-				await expect(getSubject(subjectDataTestId)).toMatchImageSnapshot(meta)
+				await expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
 			matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 				return async function matchImageSnapshot() {
@@ -69,7 +69,7 @@ export function createVis(commands: SetupVisSuiteCommand) {
 					for (const themeId in themes) {
 						try {
 							await themes[themeId]!()
-							await expect(getSubject(subjectDataTestId)).toMatchImageSnapshot({
+							await expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot({
 								...meta,
 								customizeSnapshotId: (id) => `${id}-${themeId}`,
 							})

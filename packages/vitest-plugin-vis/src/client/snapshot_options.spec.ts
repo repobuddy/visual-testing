@@ -49,6 +49,16 @@ it('can set comparison method to ssim', ({ task }) => {
 	})
 })
 
+it('can set subjectDataTestId', ({ task }) => {
+	setAutoSnapshotOptions({ subjectDataTestId: 'subject' })
+	expect(getAutoSnapshotOptions(task)).toEqual({
+		enable: true,
+		diffOptions: { threshold: 0.01 },
+		failureThreshold: 0.01,
+		subjectDataTestId: 'subject',
+	})
+})
+
 describe('without beforeAll', () => {
 	beforeAll((ctx) => {
 		delete (ctx.file.meta as any)[NAME]
