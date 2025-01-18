@@ -1,18 +1,13 @@
+import type { AutoSnapshotOptions } from '../config/types.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 
-export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> & {
-	enable?: boolean | undefined
-	/**
-	 * Specify the data-testid of the subject element. Default is `subject`.
-	 *
-	 * If the test does not have an element with the specified data-testid,
-	 * the `body` element will be used.
-	 */
-	subjectDataTestId?: string | undefined
-}
+export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
+	AutoSnapshotOptions & {
+		enable?: boolean | undefined
+	}
 
 type Suite = { meta: Record<string, any>; suite?: Suite | undefined }
 

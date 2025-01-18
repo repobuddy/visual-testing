@@ -9,7 +9,8 @@ export type { ComparisonMethod }
 
 export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotIdOptions &
-	ImageSnapshotCompareOptions<M> & {
+	ImageSnapshotCompareOptions<M> &
+	AutoSnapshotOptions & {
 		/**
 		 * Loads the `test.setupFiles` of the specified preset.
 		 */
@@ -49,11 +50,14 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 * If you want to keep the full path, you can simply return it.
 		 */
 		customizeSnapshotSubpath?: (subPath: string) => string
-		/**
-		 * Specify the data-testid of the subject element. Default is `subject`.
-		 *
-		 * If the test does not have an element with the specified data-testid,
-		 * the `body` element will be used.
-		 */
-		subjectDataTestId?: string | undefined
 	}
+
+export type AutoSnapshotOptions = {
+	/**
+	 * Specify the data-testid of the subject element. Default is `subject`.
+	 *
+	 * If the test does not have an element with the specified data-testid,
+	 * the `body` element will be used.
+	 */
+	subjectDataTestId?: string | undefined
+}

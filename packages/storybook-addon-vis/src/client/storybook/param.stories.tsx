@@ -52,3 +52,14 @@ export const UseSsim: StoryObj = {
 	}),
 	render: () => <div data-testid="subject">unit test</div>,
 }
+
+export const SetSubject: StoryObj = {
+	parameters: defineAutoSnapshotParam({
+		failureThreshold: 70,
+		subjectDataTestId: 'alt',
+	}),
+	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot() })],
+	render: (_, { loaded: { hasImageSnapshot } }) => (
+		<div data-testid="alt">{hasImageSnapshot ? 'unit text' : 'unit test'}</div>
+	),
+}

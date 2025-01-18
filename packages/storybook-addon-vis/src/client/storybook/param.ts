@@ -1,9 +1,12 @@
 import type { ComparisonMethod, ToMatchImageSnapshotOptions } from 'vitest-plugin-vis/client'
+import type { AutoSnapshotOptions } from 'vitest-plugin-vis/config'
 
 /**
  * Define snapshot parameter for auto snapshot.
  */
-export function defineAutoSnapshotParam<M extends ComparisonMethod>(snapshot: ToMatchImageSnapshotOptions<M>) {
+export function defineAutoSnapshotParam<M extends ComparisonMethod>(
+	snapshot: ToMatchImageSnapshotOptions<M> & AutoSnapshotOptions,
+) {
 	return { snapshot }
 }
 
