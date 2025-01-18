@@ -6,7 +6,6 @@ import type { PrepareImageSnapshotComparisonCommand } from '../server/commands/p
 import type { WriteImageSnapshotCommand } from '../server/commands/write_image_snapshot.ts'
 import { isBase64String } from '../shared/base64.ts'
 import { compareImage } from '../shared/compare_image.ts'
-import type { ComparisonMethod } from '../shared/types.ts'
 import { alignImagesToSameSize } from './align_images.ts'
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 import { toDataURL, toImageData } from './image_data.ts'
