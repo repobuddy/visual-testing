@@ -78,6 +78,7 @@ This default configuration will:
 
 - Use `pixelmatch` as the diffing algorithm.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
+- Timeout for image comparison is set to `30000 ms`.
 - Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
 - CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
 - Image snapshots of the current test run are saved in the `<root>/__vis__/__results__` directory.
@@ -97,12 +98,14 @@ export default defineConfig({
 			platform: '...', // {process.platform} or `local`
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			customizeSnapshotId: (id, index) => `${id}-${index}`,
+			// set a default subject (e.g. 'subject') to capture image snapshot
+			subjectDataTestId: undefined,
 			comparisonMethod: 'pixel',
 			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 			diffOptions: undefined,
+			timeout: 30000,
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,
-			timeout: 30000
 		})
 	],
 })
@@ -254,13 +257,13 @@ const project = setProjectAnnotations([
 	projectAnnotations
 ])
 
-// capture image snapshot for all test, and all stories with `snapshot` tag
-vis.presets.auto()
-
-// or setup visual testing but you control when to capture image snapshot
+// setup visual testing but no post-test image snapshot
 vis.presets.manual()
 
-// or capture image snapshot for all stories with `snapshot` tag,
+// capture image snapshot at the end of each test and story with `snapshot` tag
+vis.presets.auto()
+
+// capture image snapshot at the end of each test and story with `snapshot` tag
 // for multiple themes (light and dark in this example)
 vis.presets.theme({
 	light() { document.body.classList.remove('dark') },

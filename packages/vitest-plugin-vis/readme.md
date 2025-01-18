@@ -19,7 +19,7 @@ yarn add --save-dev vitest-plugin-vis
 
 ## Config
 
-Vitest visual testing plugin supports zero-config setup.
+The `vitest-plugin-vis` plugin can be used without customization.
 
 ```ts
 // vitest.config.ts
@@ -41,9 +41,10 @@ export default defineConfig({
 
 This default configuration will:
 
-- Use `pixelmatch` as the image comparison method.
 - Use the `auto` preset, taking image snapshot at the end on each rendering test.
+- Use `pixelmatch` as the image comparison method.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
+- Timeout for image comparison is set to `30000 ms`.
 - Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
 - CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
 - Image snapshots of the current test run are saved in the `<root>/__vis__/__results__` directory.
@@ -64,16 +65,18 @@ export default defineConfig({
 			platform: '...', // {process.platform} or `local`
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			customizeSnapshotId: (id, index) => `${id}-${index}`,
+			// set a default subject (e.g. 'subject') to capture image snapshot
+			subjectDataTestId: undefined,
 			comparisonMethod: 'pixel',
 			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 			diffOptions: undefined,
+			timeout: 30000,
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,
-			timeout: 30000
 		})
 	],
 	test:{
-		browser:{/* ... */}
+		browser: {/* ... */}
 	}
 })
 ```

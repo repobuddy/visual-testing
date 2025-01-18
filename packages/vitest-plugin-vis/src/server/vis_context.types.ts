@@ -8,6 +8,7 @@ export type VisState = {
 	snapshotResultDir: string
 	snapshotDiffDir: string
 	snapshotRootPath: string
+	subjectDataTestId: string | undefined
 	suites: Record<
 		string,
 		{

@@ -14,8 +14,11 @@ export default defineProject(() => {
 					customizeSnapshotSubpath(subPath) {
 						return `wb/${trimCommonFolder(subPath)}`
 					},
+					subjectDataTestId: 'subject',
 				}
-			: undefined
+			: {
+					subjectDataTestId: 'subject',
+				}
 	return {
 		plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis(options)],
 		test: {
@@ -23,8 +26,8 @@ export default defineProject(() => {
 			browser: {
 				enabled: true,
 				headless: true,
-				name: browser,
 				provider: browserProvider,
+				instances: [{ browser }],
 			},
 			include: [
 				'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',

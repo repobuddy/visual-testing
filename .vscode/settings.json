@@ -80,6 +80,7 @@
 		"*.system.ts": "test-ts",
 		"*.unit.node.ts": "test-ts",
 		"*.unit.ts": "test-ts",
+		"vitest.config.browser.ts": "vitest",
 		"vitest.config.node.ts": "vitest",
 		"vitest.config.playwright.ts": "vitest",
 		"vitest.config.webdriverio.ts": "vitest",

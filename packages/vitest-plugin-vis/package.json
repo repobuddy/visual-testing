@@ -69,12 +69,15 @@
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"test": "vitest run",
+		"t:node": "vitest --project=vpv:node",
+		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
+		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
 		"v": "run-p build cov",
 		"w": "vitest",
 		"w:cov": "cross-env COVERAGE=true vitest --coverage",
 		"w:node": "vitest --project=vpv:node",
-		"w:pw": "vitest --project=vpv:pw",
-		"w:wd": "vitest --project=vpv:wd"
+		"w:pw": "vitest --project=\"vpv:pw (*)\"",
+		"w:wd": "vitest --project=\"vpv:wd (*)\""
 	},
 	"dependencies": {
 		"@types/pixelmatch": "^5.2.6",
@@ -107,10 +110,11 @@
 		"vite": "^6.0.0",
 		"vitest": "^3.0.0",
 		"vitest-browser-react": "^0.0.4",
-		"webdriverio": "^9.4.1"
+		"webdriverio": "^9.5.7"
 	},
 	"peerDependencies": {
-		"@vitest/browser": "^3.0.0"
+		"@vitest/browser": "^2 || ^3",
+		"vitest": "^2 || ^3"
 	},
 	"publishConfig": {
 		"access": "public"

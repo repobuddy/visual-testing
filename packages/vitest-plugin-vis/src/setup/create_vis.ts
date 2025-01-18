@@ -7,6 +7,7 @@ import { getAutoSnapshotOptions } from '../client/snapshot_options.internal.js'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
 
 export function createVis(commands: SetupVisSuiteCommand) {
+	let subjectDataTestId: string | undefined
 	/**
 	 * Visual test configuration on the client side.
 	 */
@@ -49,26 +50,26 @@ export function createVis(commands: SetupVisSuiteCommand) {
 		},
 		beforeAll: {
 			async setup() {
-				await commands.setupVisSuite()
+				subjectDataTestId = (await commands.setupVisSuite()).subjectDataTestId
 			},
 		},
 		afterEach: {
 			async matchImageSnapshot() {
 				const meta = getAutoSnapshotOptions(ctx.getCurrentTest())
 				if (!shouldTakeSnapshot(meta)) return
-				await expect(document.body).toMatchImageSnapshot(meta)
+
+				await expect(getSubject(subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
 			matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 				return async function matchImageSnapshot() {
 					const test = ctx.getCurrentTest()
 					const meta = getAutoSnapshotOptions(test)
 					if (!shouldTakeSnapshot(meta)) return
-
 					const errors: any[] = []
 					for (const themeId in themes) {
 						try {
 							await themes[themeId]!()
-							await expect(document.body).toMatchImageSnapshot({
+							await expect(getSubject(subjectDataTestId)).toMatchImageSnapshot({
 								...meta,
 								customizeSnapshotId: (id) => `${id}-${themeId}`,
 							})
@@ -95,4 +96,13 @@ export function createVis(commands: SetupVisSuiteCommand) {
 		},
 	}
 	return vis
+}
+
+function getSubject(subjectDataTestId: string | undefined) {
+	if (subjectDataTestId) {
+		const subject = document.querySelector(`[data-testid="${subjectDataTestId}"]`)
+		if (subject) return subject
+	}
+
+	return document.body
 }

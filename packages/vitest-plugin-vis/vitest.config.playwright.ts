@@ -1,11 +1,11 @@
-import { defineProject } from 'vitest/config'
+import { defineConfig } from 'vitest/config'
 import { vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
-export default defineProject(() => {
+export default defineConfig(() => {
 	const browser = process.env.BROWSER ?? 'chromium'
 	return {
-		plugins: [vis({ preset: 'none' })],
+		plugins: [vis({ preset: 'none', subjectDataTestId: 'subject' })],
 		optimizeDeps: {
 			include: ['react/jsx-dev-runtime'],
 		},
@@ -14,8 +14,8 @@ export default defineProject(() => {
 			browser: {
 				enabled: true,
 				headless: true,
-				name: browser,
 				provider: 'playwright',
+				instances: [{ browser }],
 				api: 63316,
 				screenshotFailures: false,
 				screenshotDirectory: `__screenshots__/playwright/${browser}`,

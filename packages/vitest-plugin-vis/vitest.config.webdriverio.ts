@@ -1,8 +1,8 @@
-import { defineProject } from 'vitest/config'
+import { defineConfig } from 'vitest/config'
 import { trimCommonFolder, vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
-export default defineProject(() => {
+export default defineConfig(() => {
 	const browser = process.env.BROWSER ?? 'firefox'
 	return {
 		plugins: [
@@ -10,6 +10,7 @@ export default defineProject(() => {
 				customizeSnapshotSubpath(subPath) {
 					return `wb/${trimCommonFolder(subPath)}`
 				},
+				subjectDataTestId: 'subject',
 			}),
 		],
 		optimizeDeps: {
@@ -19,9 +20,9 @@ export default defineProject(() => {
 			name: 'vpv:wd',
 			browser: {
 				enabled: true,
-				headless: true,
-				name: browser,
+				// headless: true,
 				provider: 'webdriverio',
+				instances: [{ browser }],
 				api: 63317,
 				screenshotFailures: false,
 				screenshotDirectory: `__screenshots__/webdriverio/${browser}`,

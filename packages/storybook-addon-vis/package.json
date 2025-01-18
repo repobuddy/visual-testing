@@ -106,14 +106,14 @@
 		"typescript": "^5.7.2",
 		"vite": "^6.0.0",
 		"vitest-browser-react": "^0.0.4",
-		"webdriverio": "^9.4.1",
+		"webdriverio": "^9.5.7",
 		"zx": "^8.0.0"
 	},
 	"peerDependencies": {
 		"@types/pixelmatch": "^5.2.6",
-		"@vitest/browser": "^3.0.0",
+		"@vitest/browser": "^2 || ^3",
 		"storybook": "^8.3.0",
-		"vitest": "^3.0.0"
+		"vitest": "^2 || ^3"
 	},
 	"publishConfig": {
 		"access": "public"

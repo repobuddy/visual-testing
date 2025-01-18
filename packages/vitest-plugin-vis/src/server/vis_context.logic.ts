@@ -55,6 +55,7 @@ export function createVisContext() {
 			const { suiteId, suite } = createSuite(state, context.testPath, visOptions)
 			state.suites[suiteId] = suite
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
+			return pick(state, 'subjectDataTestId')
 		},
 		getSnapshotInfo(testPath: string, name: string, options?: { snapshotFileId?: string | undefined }) {
 			const info = context.getSuiteInfo(testPath, name)
@@ -106,7 +107,7 @@ export function createVisContext() {
 
 async function setupState(
 	suite: PartialBrowserCommandContext,
-	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform'>,
+	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform' | 'subjectDataTestId'>,
 ) {
 	const snapshotRootDir = resolveSnapshotRootDir(visOptions)
 	const projectPath = suite.project.config.root
@@ -122,6 +123,7 @@ async function setupState(
 		snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
 		snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
 		snapshotRootPath: join(projectPath, snapshotRootDir),
+		subjectDataTestId: visOptions.subjectDataTestId,
 		suites: {},
 	}
 	await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])

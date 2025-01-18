@@ -10,11 +10,13 @@ export interface SetupVisSuiteCommand {
 	 *
 	 * In subsequent runs, it will only remove the results and diffs directory of the current suite.
 	 */
-	setupVisSuite: () => Promise<void>
+	setupVisSuite: () => Promise<{ subjectDataTestId: string | undefined }>
 }
 
-export const setupVisSuite: BrowserCommand<[]> = async (context) => {
+export const setupVisSuite: BrowserCommand<[]> = async (
+	context,
+): Promise<{ subjectDataTestId: string | undefined }> => {
 	assertTestPathDefined(context, 'setupVisSuite')
 
-	await visContext.setupSuite(context)
+	return visContext.setupSuite(context)
 }

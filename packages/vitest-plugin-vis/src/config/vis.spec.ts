@@ -1,4 +1,4 @@
-import ssim, { type Options } from 'ssim.js'
+import type { Options } from 'ssim.js'
 import { afterEach, expect, it } from 'vitest'
 import { vis } from '../config.ts'
 import { visContext } from '../server/vis_context.ts'
@@ -129,5 +129,12 @@ it('can set ssim options when comparison method is ssim', () => {
 	expect(visContext.__test__getOptions()).toMatchObject({
 		comparisonMethod: 'ssim',
 		diffOptions,
+	})
+})
+
+it('can set the subject data test id', () => {
+	vis({ subjectDataTestId: 'test' })
+	expect(visContext.__test__getOptions()).toMatchObject({
+		subjectDataTestId: 'test',
 	})
 })
