@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.17.3
+
+### Patch Changes
+
+- [#171](https://github.com/repobuddy/storybook-addon-vis/pull/171) [`abd1c47`](https://github.com/repobuddy/storybook-addon-vis/commit/abd1c47fb032fc91ae69b10dafc5ab1186f70577) Thanks [@unional](https://github.com/unional)! - Support `subjectDataTestId` in `defineAutoSnapshotParam()`.
+
+- Updated dependencies [[`5335011`](https://github.com/repobuddy/storybook-addon-vis/commit/5335011f32b59604cd0a3b653c04ac690b6ca5fa)]:
+  - vitest-plugin-vis@1.6.0
+
 ## 0.17.2
 
 ### Patch Changes

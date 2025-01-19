@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.6.0
+
+### Minor Changes
+
+- [#171](https://github.com/repobuddy/storybook-addon-vis/pull/171) [`5335011`](https://github.com/repobuddy/storybook-addon-vis/commit/5335011f32b59604cd0a3b653c04ac690b6ca5fa) Thanks [@unional](https://github.com/unional)! - Support default subject using `data-testid` attribute.
+
 ## 1.5.1
 
 ### Patch Changes
