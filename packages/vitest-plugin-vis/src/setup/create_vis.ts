@@ -1,5 +1,5 @@
 import dedent from 'dedent'
-import { afterEach, beforeAll, expect } from 'vitest'
+import { afterEach, beforeAll } from 'vitest'
 import { toTaskId } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
@@ -56,12 +56,13 @@ export function createVis(commands: SetupVisSuiteCommand) {
 		afterEach: {
 			async matchImageSnapshot() {
 				const test = ctx.getCurrentTest()
+
 				if ((test?.result?.errors?.length ?? 0) > 0) return
 
 				const meta = getAutoSnapshotOptions(test)
 				if (!shouldTakeSnapshot(meta)) return
 
-				await expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
+				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
 			matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
 				return async function matchImageSnapshot() {
@@ -74,10 +75,12 @@ export function createVis(commands: SetupVisSuiteCommand) {
 					for (const themeId in themes) {
 						try {
 							await new Promise((a) => setTimeout(() => a(themes[themeId]!()), 10))
-							await expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot({
-								...meta,
-								customizeSnapshotId: (id) => `${id}-${themeId}`,
-							})
+							await test!.context
+								.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId))
+								.toMatchImageSnapshot({
+									...meta,
+									customizeSnapshotId: (id) => `${id}-${themeId}`,
+								})
 						} catch (error) {
 							errors.push([themeId, error])
 						}
