@@ -56,3 +56,13 @@ export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = 
 	? SsimComparisonOptions<M>
 	: PixelComparisonOptions<M>) &
 	FailureThresholdOptions
+
+export type AutoSnapshotOptions = {
+	/**
+	 * Specify the data-testid of the subject element. Default is `subject`.
+	 *
+	 * If the test does not have an element with the specified data-testid,
+	 * the `body` element will be used.
+	 */
+	subjectDataTestId?: string | undefined
+}

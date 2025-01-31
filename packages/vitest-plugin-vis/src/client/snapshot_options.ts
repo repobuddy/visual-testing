@@ -1,6 +1,5 @@
-import type { AutoSnapshotOptions } from '../config/types.ts'
 import { NAME } from '../shared/constants.ts'
-import type { ComparisonMethod } from '../shared/types.ts'
+import type { AutoSnapshotOptions, ComparisonMethod } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
 import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 

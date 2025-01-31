@@ -1,4 +1,5 @@
 import type {
+	AutoSnapshotOptions,
 	ComparisonMethod,
 	ImageSnapshotCompareOptions,
 	ImageSnapshotIdOptions,
@@ -51,13 +52,3 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 */
 		customizeSnapshotSubpath?: (subPath: string) => string
 	}
-
-export type AutoSnapshotOptions = {
-	/**
-	 * Specify the data-testid of the subject element. Default is `subject`.
-	 *
-	 * If the test does not have an element with the specified data-testid,
-	 * the `body` element will be used.
-	 */
-	subjectDataTestId?: string | undefined
-}
