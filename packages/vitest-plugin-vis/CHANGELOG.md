@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.6.4
+
+### Patch Changes
+
+- [#188](https://github.com/repobuddy/storybook-addon-vis/pull/188) [`78b117f`](https://github.com/repobuddy/storybook-addon-vis/commit/78b117fef0510c993aad33ff92114d9a786b41d8) Thanks [@unional](https://github.com/unional)! - Use bounded `expect`.
+
 ## 1.6.3
 
 ### Patch Changes
