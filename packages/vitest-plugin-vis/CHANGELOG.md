@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.6.2
+
+### Patch Changes
+
+- [#183](https://github.com/repobuddy/storybook-addon-vis/pull/183) [`49e8fbc`](https://github.com/repobuddy/storybook-addon-vis/commit/49e8fbc60a9e9e07e700a5d61164cf954186ce2d) Thanks [@unional](https://github.com/unional)! - Export `AutoSnapshotOptions` to fix the inferred type cannot be named error.
+
 ## 1.6.1
 
 ### Patch Changes
