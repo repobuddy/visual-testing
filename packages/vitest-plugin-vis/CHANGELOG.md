@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.6.3
+
+### Patch Changes
+
+- [#185](https://github.com/repobuddy/storybook-addon-vis/pull/185) [`c5296a1`](https://github.com/repobuddy/storybook-addon-vis/commit/c5296a15933cb26bb1792701c691f7ca67c5a4ee) Thanks [@unional](https://github.com/unional)! - Export `AutoSnapshotOptions` under `/client`.
+
 ## 1.6.2
 
 ### Patch Changes
