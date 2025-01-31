@@ -1,5 +1,12 @@
 # vitest-plugin-vis
 
+## 1.6.1
+
+### Patch Changes
+
+- [#182](https://github.com/repobuddy/storybook-addon-vis/pull/182) [`537cf83`](https://github.com/repobuddy/storybook-addon-vis/commit/537cf83b7cd6120876f46fc4bd5d51391128cab4) Thanks [@unional](https://github.com/unional)! - Should not take snapshot when the test failed.
+  Ensure the theme is awaited before taking the snapshot.
+
 ## 1.6.0
 
 ### Minor Changes
