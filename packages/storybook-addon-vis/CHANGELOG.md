@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.17.7
+
+### Patch Changes
+
+- [`433d0d8`](https://github.com/repobuddy/storybook-addon-vis/commit/433d0d87bcd498a56ce173534595b20563fdfa92) Thanks [@unional](https://github.com/unional)! - Export even more types to fix the inferred type cannot be named error!
+
 ## 0.17.6
 
 ### Patch Changes
