@@ -1,6 +1,6 @@
 import { page } from '@vitest/browser/context'
 import dedent from 'dedent'
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { vis } from './vis.ts'
 
 describe('matchPerTheme', () => {
@@ -48,5 +48,23 @@ describe('matchPerTheme', () => {
 			Theme \`theme1\` failed: theme1 failed
 
 			Theme \`theme2\` failed: theme2 failed`)
+	})
+
+	// cannot run this test because no way to get the failed test to pass again
+	it.skip('should not take snapshot if the test failed', async ({ onTestFinished }) => {
+		onTestFinished(
+			vis.afterEach.matchPerTheme({
+				theme1: async () => {
+					throw new Error('should not reach')
+				},
+				theme2: async () => {
+					throw new Error('should not reach')
+				},
+			}),
+		)
+		page.render(<div data-testid="subject">hello</div>)
+		const subject = page.getByTestId('subject')
+		expect(subject).toBeInTheDocument()
+		expect(subject).toHaveTextContent('world')
 	})
 })
