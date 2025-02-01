@@ -1,5 +1,5 @@
 import * as fs from 'node:fs/promises'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, it, vi } from 'vitest'
 import { file } from './file.ts'
 
 vi.mock('node:fs/promises', () => ({
@@ -8,7 +8,7 @@ vi.mock('node:fs/promises', () => ({
 }))
 
 describe(`${file.tryReadFile.name}()`, () => {
-	it('returns base64 encoded content when file exists', async () => {
+	it('returns base64 encoded content when file exists', async ({ expect }) => {
 		const mockContent = 'test content'
 		const mockBase64 = Buffer.from(mockContent).toString('base64')
 		vi.mocked(fs.readFile).mockResolvedValue(mockBase64)
@@ -18,7 +18,7 @@ describe(`${file.tryReadFile.name}()`, () => {
 		expect(fs.readFile).toHaveBeenCalledWith('existing-file.txt')
 	})
 
-	it('returns undefined when file does not exist', async () => {
+	it('returns undefined when file does not exist', async ({ expect }) => {
 		vi.mocked(fs.readFile).mockRejectedValue(new Error('File not found'))
 
 		const result = (await file.tryReadFile('non-existent-file.txt'))?.toString()
@@ -26,7 +26,7 @@ describe(`${file.tryReadFile.name}()`, () => {
 		expect(fs.readFile).toHaveBeenCalledWith('non-existent-file.txt')
 	})
 
-	it('returns undefined for any file system error', async () => {
+	it('returns undefined for any file system error', async ({ expect }) => {
 		vi.mocked(fs.readFile).mockRejectedValue(new Error('Permission denied'))
 
 		const result = (await file.tryReadFile('inaccessible-file.txt'))?.toString()
@@ -34,7 +34,7 @@ describe(`${file.tryReadFile.name}()`, () => {
 		expect(fs.readFile).toHaveBeenCalledWith('inaccessible-file.txt')
 	})
 
-	it('handles empty files correctly', async () => {
+	it('handles empty files correctly', async ({ expect }) => {
 		vi.mocked(fs.readFile).mockResolvedValue('')
 
 		const result = (await file.tryReadFile('empty-file.txt'))?.toString()

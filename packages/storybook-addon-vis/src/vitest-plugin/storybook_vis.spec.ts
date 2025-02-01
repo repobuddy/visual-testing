@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest'
+import { describe, it } from 'vitest'
 import { NAME } from '../shared/contants.ts'
 import { storybookVis } from '../vitest-plugin.ts'
 
 describe(`${storybookVis.name}()`, () => {
-	it('should return the default configuration when called without options', () => {
+	it('should return the default configuration when called without options', ({ expect }) => {
 		const result = storybookVis()
 		expect(result).toMatchObject({
 			name: NAME,
@@ -12,7 +12,7 @@ describe(`${storybookVis.name}()`, () => {
 		expect(config.test.setupFiles).toBeUndefined()
 	})
 
-	it('should return the default configuration when called with empty options', () => {
+	it('should return the default configuration when called with empty options', ({ expect }) => {
 		const result = storybookVis({})
 		expect(result).toMatchObject({
 			name: NAME,
@@ -21,13 +21,13 @@ describe(`${storybookVis.name}()`, () => {
 		expect(config.test.setupFiles).toBeUndefined()
 	})
 
-	it('can set comparison method to pixel', () => {
+	it('can set comparison method to pixel', ({ expect }) => {
 		const result = storybookVis({ comparisonMethod: 'pixel', diffOptions: { threshold: 0.01 } })
 		const config = result.config()
 		expect(config.test.setupFiles).toBeUndefined()
 	})
 
-	it('can set comparison method to ssim', () => {
+	it('can set comparison method to ssim', ({ expect }) => {
 		const result = storybookVis({ comparisonMethod: 'ssim', diffOptions: { ssim: 'fast' } })
 		const config = result.config()
 		expect(config.test.setupFiles).toBeUndefined()

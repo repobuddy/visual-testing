@@ -1,29 +1,29 @@
 import type { Options } from 'ssim.js'
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, it } from 'vitest'
 import { vis } from '../config.ts'
 import { visContext } from '../server/vis_context.ts'
 
 afterEach(() => visContext.__test__reset())
 
-it('can be used with zero config', () => {
+it('can be used with zero config', ({ expect }) => {
 	expect(vis()).toBeDefined()
 })
 
-it('can set the platform', () => {
+it('can set the platform', ({ expect }) => {
 	vis({ platform: 'custom' })
 	expect(visContext.__test__getOptions()).toEqual({
 		platform: 'custom',
 	})
 })
 
-it('can customize snapshot root directory', () => {
+it('can customize snapshot root directory', ({ expect }) => {
 	vis({ snapshotRootDir: 'custom' })
 	expect(visContext.__test__getOptions()).toEqual({
 		snapshotRootDir: 'custom',
 	})
 })
 
-it('can customize snapshot subpath to keep base folder', () => {
+it('can customize snapshot subpath to keep base folder', ({ expect }) => {
 	const customizeSnapshotSubpath = (subPath: string): string => subPath
 
 	vis({ customizeSnapshotSubpath })
@@ -33,7 +33,7 @@ it('can customize snapshot subpath to keep base folder', () => {
 	})
 })
 
-it('can set default snapshot id', () => {
+it('can set default snapshot id', ({ expect }) => {
 	const customizeSnapshotId = (id: string) => id
 
 	vis({ customizeSnapshotId })
@@ -43,28 +43,28 @@ it('can set default snapshot id', () => {
 	})
 })
 
-it('can set default snapshot timeout', () => {
+it('can set default snapshot timeout', ({ expect }) => {
 	vis({ timeout: 1000 })
 	expect(visContext.__test__getOptions()).toMatchObject({
 		timeout: 1000,
 	})
 })
 
-it('can set default failure threshold', () => {
+it('can set default failure threshold', ({ expect }) => {
 	vis({ failureThreshold: 0.01 })
 	expect(visContext.__test__getOptions()).toMatchObject({
 		failureThreshold: 0.01,
 	})
 })
 
-it('can set default failure threshold type to percent', () => {
+it('can set default failure threshold type to percent', ({ expect }) => {
 	vis({ failureThresholdType: 'percent' })
 	expect(visContext.__test__getOptions()).toMatchObject({
 		failureThresholdType: 'percent',
 	})
 })
 
-it('can set default diff options', () => {
+it('can set default diff options', ({ expect }) => {
 	const diffOptions = { threshold: 0.1 }
 
 	vis({ diffOptions })
@@ -74,7 +74,7 @@ it('can set default diff options', () => {
 	})
 })
 
-it('default preset is auto', () => {
+it('default preset is auto', ({ expect }) => {
 	const plugin = vis()
 	expect(plugin.config()).toMatchObject({
 		test: {
@@ -83,7 +83,7 @@ it('default preset is auto', () => {
 	})
 })
 
-it('can set preset to manual', () => {
+it('can set preset to manual', ({ expect }) => {
 	const plugin = vis({ preset: 'manual' })
 	expect(plugin.config()).toMatchObject({
 		test: {
@@ -92,7 +92,7 @@ it('can set preset to manual', () => {
 	})
 })
 
-it('default to no preset when options is set', () => {
+it('default to no preset when options is set', ({ expect }) => {
 	const plugin = vis({})
 	expect(plugin.config()).toMatchObject({
 		test: {
@@ -101,7 +101,7 @@ it('default to no preset when options is set', () => {
 	})
 })
 
-it('can set preset to none', () => {
+it('can set preset to none', ({ expect }) => {
 	const plugin = vis({ preset: 'none' })
 	expect(plugin.config()).toMatchObject({
 		test: {
@@ -110,7 +110,7 @@ it('can set preset to none', () => {
 	})
 })
 
-it('can set pixelmatch options when comparison method is pixel', () => {
+it('can set pixelmatch options when comparison method is pixel', ({ expect }) => {
 	const diffOptions = { threshold: 0.1 }
 
 	vis({ comparisonMethod: 'pixel', diffOptions })
@@ -121,7 +121,7 @@ it('can set pixelmatch options when comparison method is pixel', () => {
 	})
 })
 
-it('can set ssim options when comparison method is ssim', () => {
+it('can set ssim options when comparison method is ssim', ({ expect }) => {
 	const diffOptions: Partial<Options> = { ssim: 'bezkrovny' }
 
 	vis({ comparisonMethod: 'ssim', diffOptions })
@@ -132,7 +132,7 @@ it('can set ssim options when comparison method is ssim', () => {
 	})
 })
 
-it('can set the subject data test id', () => {
+it('can set the subject data test id', ({ expect }) => {
 	vis({ subjectDataTestId: 'test' })
 	expect(visContext.__test__getOptions()).toMatchObject({
 		subjectDataTestId: 'test',

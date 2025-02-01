@@ -1,5 +1,5 @@
 import { page } from '@vitest/browser/context'
-import { expect, it } from 'vitest'
+import { it } from 'vitest'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from '../testing.ts'
 import { toDataURL, toImageData } from './image_data.ts'
 
@@ -22,6 +22,6 @@ it('complete roundtrip conversion', async () => {
 	img.src = dataURL
 })
 
-it('throws an error if the input is not an image', async () => {
+it('throws an error if the input is not an image', async ({ expect }) => {
 	await expect(toImageData('something')).rejects.toThrowError()
 })

@@ -1,5 +1,6 @@
 import { page } from '@vitest/browser/context'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, it } from 'vitest'
+import { getCurrentTest } from 'vitest/suite'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from '../ctx.ts'
 import { setAutoSnapshotOptions } from '../snapshot_options.ts'
@@ -7,14 +8,14 @@ import { setAutoSnapshotOptions } from '../snapshot_options.ts'
 beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: false }))
 afterEach(() => ctx.__test__reset())
 
-it('throws when not running in a test', () => {
+it('throws when not running in a test', ({ expect }) => {
 	ctx.getCurrentTest = () => undefined as any
 	expect(() => expect(document.body).toMatchImageSnapshot()).toThrow(
 		'`toMatchImageSnapshot()` must be called in a test.',
 	)
 })
 
-it('throws an error when running in a concurrent test', () => {
+it('throws an error when running in a concurrent test', ({ expect }) => {
 	ctx.getCurrentTest = () => ({ concurrent: true }) as any
 	expect(() => expect(document.body).toMatchImageSnapshot()).toThrow(
 		'`toMatchImageSnapshot()` cannot be called in a concurrent test because ' +
@@ -22,46 +23,49 @@ it('throws an error when running in a concurrent test', () => {
 	)
 })
 
-it('accepts a Locator', async () => {
+it('accepts a Locator', async ({ expect }) => {
 	page.render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot()
 })
 
-it('accepts an element', async () => {
+it('accepts an element', async ({ expect }) => {
 	page.render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject.element()).toMatchImageSnapshot()
 })
 
-it('accepts `document.body`', async () => {
+it('accepts `document.body`', async ({ expect }) => {
 	page.render(<div data-testid="subject">hello</div>)
 	await expect(document.body).toMatchImageSnapshot()
 })
 
-it('accepts `baseElement` (same as body)', async () => {
+it('accepts `baseElement` (same as body)', async ({ expect }) => {
 	// the png file created is not valid
 	const { baseElement } = page.render(<div data-testid="subject">hello</div>)
 	await expect(baseElement).toMatchImageSnapshot()
 })
 
-it('accepts a base64 image', async () => {
+it('accepts a base64 image', async ({ expect }) => {
 	await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 })
 
-it('should fail immediately if the subject is a string but not base64 encoded', async () => {
+it('should fail immediately if the subject is a string but not base64 encoded', async ({ expect }) => {
 	await expect(() => expect('abc').toMatchImageSnapshot()).rejects.toThrowError(
 		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: abc`,
 	)
 })
 
 it.each([undefined, null, true, false, 1])('should fails immediately if the subject is %s', async (value) => {
-	await expect(() => expect(value).toMatchImageSnapshot()).rejects.toThrowError(
-		`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${value}`,
-	)
+	const test = getCurrentTest()!
+	await test.context
+		.expect(() => test.context.expect(value).toMatchImageSnapshot())
+		.rejects.toThrowError(
+			`'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: ${value}`,
+		)
 })
 
-it('fails when the image is different', async () => {
+it('fails when the image is different', async ({ expect }) => {
 	const hasImageSnapshot = await page.hasImageSnapshot()
 	page.render(<div data-testid="subject">{hasImageSnapshot ? 'Hello' : 'World'}</div>)
 	const subject = page.getByTestId('subject')
@@ -83,7 +87,7 @@ it('fails when the image is different', async () => {
 		)
 })
 
-it('fails when the image is smaller', async () => {
+it('fails when the image is smaller', async ({ expect }) => {
 	const hasImageSnapshot = await page.hasImageSnapshot()
 	const style = hasImageSnapshot ? { width: 64, height: 64 } : { width: 128, height: 128 }
 	page.render(
@@ -111,7 +115,7 @@ it('fails when the image is smaller', async () => {
 		)
 })
 
-it('fails when the image is larger', async () => {
+it('fails when the image is larger', async ({ expect }) => {
 	const hasImageSnapshot = await page.hasImageSnapshot()
 	const style = hasImageSnapshot ? { width: 128, height: 128 } : { width: 64, height: 64 }
 	page.render(
@@ -139,7 +143,7 @@ it('fails when the image is larger', async () => {
 		)
 })
 
-it('passes when the image is different but within failure threshold in pixels', async () => {
+it('passes when the image is different but within failure threshold in pixels', async ({ expect }) => {
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
@@ -153,7 +157,7 @@ it('passes when the image is different but within failure threshold in pixels', 
 	})
 })
 
-it('fails when the image is different beyond failure threshold in pixels', async () => {
+it('fails when the image is different beyond failure threshold in pixels', async ({ expect }) => {
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
@@ -177,7 +181,7 @@ it('fails when the image is different beyond failure threshold in pixels', async
 		)
 })
 
-it('passes when the image is different but within failure threshold in percentage', async () => {
+it('passes when the image is different but within failure threshold in percentage', async ({ expect }) => {
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
@@ -192,7 +196,7 @@ it('passes when the image is different but within failure threshold in percentag
 	})
 })
 
-it('fails when the image is different beyond failure threshold in percentage', async () => {
+it('fails when the image is different beyond failure threshold in percentage', async ({ expect }) => {
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
@@ -217,7 +221,7 @@ it('fails when the image is different beyond failure threshold in percentage', a
 		)
 })
 
-it('fails when the image is different in 0 percentage', async () => {
+it('fails when the image is different in 0 percentage', async ({ expect }) => {
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
@@ -241,7 +245,7 @@ it('fails when the image is different in 0 percentage', async () => {
 		)
 })
 
-it('should fail with additional info when it does not fail with expectToFail', async () => {
+it('should fail with additional info when it does not fail with expectToFail', async ({ expect }) => {
 	setAutoSnapshotOptions(false)
 
 	page.render(<div data-testid="subject">unit test</div>)
@@ -275,13 +279,13 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		page.render(<div>hello</div>)
 	})
 
-	it('can disable auto snapshot in test', async ({ task }) => {
+	it('can disable auto snapshot in test', async ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { enable: false })
 		page.render(<div>hello</div>)
 		expect(await page.hasImageSnapshot()).toBe(false)
 	})
 
-	it('does not affect manual snapshot', async ({ task }) => {
+	it('does not affect manual snapshot', async ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { enable: false })
 		page.render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
@@ -299,7 +303,7 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		page.render(<div>hello</div>)
 	})
 
-	it('can take auto snapshot and manual snapshot together', async () => {
+	it('can take auto snapshot and manual snapshot together', async ({ expect }) => {
 		page.render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot()
 		expect(
@@ -315,7 +319,7 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 describe('ssim', () => {
 	beforeEach(() => setAutoSnapshotOptions(false))
 
-	it('can compare image with ssim', async () => {
+	it('can compare image with ssim', async ({ expect }) => {
 		page.render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
 			comparisonMethod: 'ssim',
@@ -323,7 +327,7 @@ describe('ssim', () => {
 		})
 	})
 
-	it('fails when the image is different beyond failure threshold in pixels', async () => {
+	it('fails when the image is different beyond failure threshold in pixels', async ({ expect }) => {
 		page.render(<div data-testid="subject">unit test</div>)
 		const subject = page.getByTestId('subject')
 

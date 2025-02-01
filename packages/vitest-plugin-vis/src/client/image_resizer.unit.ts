@@ -1,9 +1,9 @@
-import { expect, it } from 'vitest'
+import { type ExpectStatic, it } from 'vitest'
 import { UNI_PNG_BASE64 } from '../testing.ts'
 import { toImageData } from './image_data.ts'
 import { createImageResizer, createImageResizer2 } from './image_resizer.ts'
 
-it('returns the same image if no resize is needed', async () => {
+it('returns the same image if no resize is needed', async ({ expect }) => {
 	const image = await toImageData(UNI_PNG_BASE64)
 	let result = await createImageResizer(image)(image)
 	expect(result).toBe(image)
@@ -11,15 +11,16 @@ it('returns the same image if no resize is needed', async () => {
 	expect(result).toBe(image)
 })
 
-it('takes less than 200ms to resize 16 times', async () => {
-	await shouldResizeWithin200ms(createImageResizer, await toImageData(UNI_PNG_BASE64), 4, 1)
+it('takes less than 200ms to resize 16 times', async ({ expect }) => {
+	await shouldResizeWithin200ms(expect, createImageResizer, await toImageData(UNI_PNG_BASE64), 4, 1)
 })
 
-it('takes less than 200ms to resize 16 times (createImageResizer2)', async () => {
-	await shouldResizeWithin200ms(createImageResizer2, await toImageData(UNI_PNG_BASE64), 4, 1)
+it('takes less than 200ms to resize 16 times (createImageResizer2)', async ({ expect }) => {
+	await shouldResizeWithin200ms(expect, createImageResizer2, await toImageData(UNI_PNG_BASE64), 4, 1)
 })
 
 async function shouldResizeWithin200ms(
+	expect: ExpectStatic,
 	fn: typeof createImageResizer,
 	image: ImageData,
 	factor: number,

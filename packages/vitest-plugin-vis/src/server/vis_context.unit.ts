@@ -1,6 +1,6 @@
 import { resolve } from 'pathe'
 import { stub } from 'type-plus'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { ctx } from './vis_context.ctx.ts'
@@ -11,13 +11,13 @@ describe(`${getSuiteId.name}()`, () => {
 		projectPath: '/root/project',
 	} as VisState
 
-	it('returns `testPath` as the suite id for a file in the project root', () => {
+	it('returns `testPath` as the suite id for a file in the project root', ({ expect }) => {
 		const testPath = '/root/project/test.ts'
 		const options: VisOptions = {}
 		expect(getSuiteId(mockState, testPath, options)).toBe('test.ts')
 	})
 
-	it('trims well known test folder form suite id', () => {
+	it('trims well known test folder form suite id', ({ expect }) => {
 		const options: VisOptions = {}
 		const testPaths = [
 			'/root/project/tests/code.spec.ts',
@@ -36,7 +36,7 @@ describe(`${getSuiteId.name}()`, () => {
 })
 
 describe(`${createSuite.name}()`, () => {
-	it('creates suiteId', () => {
+	it('creates suiteId', ({ expect }) => {
 		const r = createSuite(
 			{
 				projectPath: '/root/project',
@@ -47,7 +47,7 @@ describe(`${createSuite.name}()`, () => {
 		expect(r.suiteId).toBe('code.spec.ts')
 	})
 
-	it('create suite directories based on directory in state and suite id', () => {
+	it('create suite directories based on directory in state and suite id', ({ expect }) => {
 		const { suiteId, suite } = createSuite(
 			{
 				projectPath: '/root/project',
@@ -79,7 +79,7 @@ describe(`${createVisContext.name}()`, () => {
 		ctx.getSnapshotPlatform = vi.fn(() => 'local' as any)
 	})
 	describe('set up state', () => {
-		it('set projectPath to suite.project.config.root', async () => {
+		it('set projectPath to suite.project.config.root', async ({ expect }) => {
 			const visContext = createVisContext()
 			await visContext.setupSuite(stubSuite())
 			const state = visContext.__test__getState()
@@ -88,14 +88,14 @@ describe(`${createVisContext.name}()`, () => {
 			expect(state.projectPath).toMatch(/vitest-plugin-vis$/)
 		})
 
-		it('default snapshotRootDir to SNAPSHOT_ROOT_DIR', async () => {
+		it('default snapshotRootDir to SNAPSHOT_ROOT_DIR', async ({ expect }) => {
 			const visContext = createVisContext()
 			await visContext.setupSuite(stubSuite())
 			const state = visContext.__test__getState()
 
 			expect(state.snapshotRootDir).toEqual(SNAPSHOT_ROOT_DIR)
 		})
-		it('skip setup state if already set up', async () => {
+		it('skip setup state if already set up', async ({ expect }) => {
 			const visContext = createVisContext()
 			await visContext.setupSuite(stubSuite())
 			await visContext.setupSuite(stubSuite({ project: { config: { root: 'another' } } }))

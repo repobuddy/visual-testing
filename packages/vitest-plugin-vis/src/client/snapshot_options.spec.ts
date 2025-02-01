@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { beforeAll, beforeEach, describe, it } from 'vitest'
 import { setAutoSnapshotOptions } from '../client.ts'
 import { NAME } from '../shared/constants.ts'
 import { getAutoSnapshotOptions } from './snapshot_options.internal.ts'
@@ -13,12 +13,12 @@ beforeEach(({ task }) => {
 	setAutoSnapshotOptions(task, { failureThreshold: 0.01 })
 })
 
-it('should merge meta from beforeAll and beforeEach', ({ task }) => {
+it('should merge meta from beforeAll and beforeEach', ({ expect, task }) => {
 	const meta = getAutoSnapshotOptions(task)
 	expect(meta).toEqual({ enable: true, diffOptions: { threshold: 0.01 }, failureThreshold: 0.01 })
 })
 
-it('is noop when task is undefined', ({ task }) => {
+it('is noop when task is undefined', ({ expect, task }) => {
 	setAutoSnapshotOptions(undefined, false)
 	expect(getAutoSnapshotOptions(task)).toEqual({
 		enable: true,
@@ -27,7 +27,7 @@ it('is noop when task is undefined', ({ task }) => {
 	})
 })
 
-it('can omit task', ({ task }) => {
+it('can omit task', ({ expect, task }) => {
 	setAutoSnapshotOptions({ enable: false })
 	expect(getAutoSnapshotOptions(task)).toEqual({
 		enable: false,
@@ -36,7 +36,7 @@ it('can omit task', ({ task }) => {
 	})
 })
 
-it('can set comparison method to ssim', ({ task }) => {
+it('can set comparison method to ssim', ({ expect, task }) => {
 	setAutoSnapshotOptions({
 		comparisonMethod: 'ssim',
 		diffOptions: { ssim: 'fast' },
@@ -49,7 +49,7 @@ it('can set comparison method to ssim', ({ task }) => {
 	})
 })
 
-it('can set subjectDataTestId', ({ task }) => {
+it('can set subjectDataTestId', ({ expect, task }) => {
 	setAutoSnapshotOptions({ subjectDataTestId: 'subject' })
 	expect(getAutoSnapshotOptions(task)).toEqual({
 		enable: true,
@@ -64,17 +64,17 @@ describe('without beforeAll', () => {
 		delete (ctx.file.meta as any)[NAME]
 	})
 
-	it('should merge meta from beforeEach', ({ task }) => {
+	it('should merge meta from beforeEach', ({ expect, task }) => {
 		const meta = getAutoSnapshotOptions(task)
 		expect(meta).toEqual({ enable: true, failureThreshold: 0.01 })
 	})
 
-	it('should override existing meta with boolean', ({ task }) => {
+	it('should override existing meta with boolean', ({ expect, task }) => {
 		setAutoSnapshotOptions(task, false)
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: false, failureThreshold: 0.01 })
 	})
 
-	it('should override existing meta with enable: false', ({ task }) => {
+	it('should override existing meta with enable: false', ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { enable: false })
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: false, failureThreshold: 0.01 })
 	})
@@ -89,17 +89,17 @@ describe('with no beforeAll and beforeEach', () => {
 		delete (task.meta as any)[NAME]
 	})
 
-	it('should enable snapshot by default', ({ task }) => {
+	it('should enable snapshot by default', ({ expect, task }) => {
 		setAutoSnapshotOptions(task, true)
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: true })
 	})
 
-	it('should set the provided meta', ({ task }) => {
+	it('should set the provided meta', ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { failureThreshold: 0.01 })
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: true, failureThreshold: 0.01 })
 	})
 
-	it('should set enable to false when passing in false', ({ task }) => {
+	it('should set enable to false when passing in false', ({ expect, task }) => {
 		setAutoSnapshotOptions(task, false)
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: false })
 	})
@@ -116,11 +116,11 @@ describe('disable snapshot during beforeAll', () => {
 		delete (task.meta as any)[NAME]
 	})
 
-	it('should disable snapshot', ({ task }) => {
+	it('should disable snapshot', ({ expect, task }) => {
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: false })
 	})
 
-	it('can override the disable snapshot', ({ task }) => {
+	it('can override the disable snapshot', ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { enable: true })
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: true })
 	})

@@ -1,8 +1,7 @@
 import { page } from '@vitest/browser/context'
 import dedent from 'dedent'
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { describe, it } from 'vitest'
 import { setAutoSnapshotOptions } from '../client.ts'
-import { hasImageSnapshot } from '../client/page/has_image_snapshot.ts'
 import { vis } from './vis.ts'
 
 describe('matchPerTheme', () => {
@@ -19,7 +18,7 @@ describe('matchPerTheme', () => {
 		})()
 	})
 
-	it('should take all snapshots even if one fails', async () => {
+	it('should take all snapshots even if one fails', async ({ expect }) => {
 		page.render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		await expect(() =>
@@ -34,7 +33,7 @@ describe('matchPerTheme', () => {
 		).rejects.toThrow('theme1 failed')
 	})
 
-	it('should aggregate all errors', async () => {
+	it('should aggregate all errors', async ({ expect }) => {
 		page.render(<div data-testid="subject">hello</div>)
 		await expect(() =>
 			vis.afterEach.matchPerTheme({
@@ -52,7 +51,7 @@ describe('matchPerTheme', () => {
 			Theme \`theme2\` failed: theme2 failed`)
 	})
 
-	it('works with customizeSnapshotId', async () => {
+	it('works with customizeSnapshotId', async ({ expect }) => {
 		setAutoSnapshotOptions({ customizeSnapshotId: (id) => `${id}-custom` })
 
 		page.render(<div data-testid="subject">hello</div>)
@@ -71,7 +70,7 @@ describe('matchPerTheme', () => {
 	})
 
 	// cannot run this test because no way to get the failed test to pass again
-	it.skip('should not take snapshot if the test failed', async ({ onTestFinished }) => {
+	it.skip('should not take snapshot if the test failed', async ({ expect, onTestFinished }) => {
 		onTestFinished(
 			vis.afterEach.matchPerTheme({
 				theme1: async () => {
