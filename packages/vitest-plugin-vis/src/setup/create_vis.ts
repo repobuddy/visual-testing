@@ -79,7 +79,9 @@ export function createVis(commands: SetupVisSuiteCommand) {
 								.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId))
 								.toMatchImageSnapshot({
 									...meta,
-									customizeSnapshotId: (id) => `${id}-${themeId}`,
+									customizeSnapshotId: meta?.customizeSnapshotId
+										? (id, index) => `${meta.customizeSnapshotId!(id, index)}-${themeId}`
+										: (id) => `${id}-${themeId}`,
 								})
 						} catch (error) {
 							errors.push([themeId, error])

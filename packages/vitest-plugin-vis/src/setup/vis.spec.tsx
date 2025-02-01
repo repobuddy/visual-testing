@@ -1,6 +1,8 @@
 import { page } from '@vitest/browser/context'
 import dedent from 'dedent'
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { setAutoSnapshotOptions } from '../client.ts'
+import { hasImageSnapshot } from '../client/page/has_image_snapshot.ts'
 import { vis } from './vis.ts'
 
 describe('matchPerTheme', () => {
@@ -48,6 +50,24 @@ describe('matchPerTheme', () => {
 			Theme \`theme1\` failed: theme1 failed
 
 			Theme \`theme2\` failed: theme2 failed`)
+	})
+
+	it('works with customizeSnapshotId', async () => {
+		setAutoSnapshotOptions({ customizeSnapshotId: (id) => `${id}-custom` })
+
+		page.render(<div data-testid="subject">hello</div>)
+		const subject = page.getByTestId('subject')
+		await vis.afterEach.matchPerTheme({
+			theme1: async () => {
+				subject.element().innerHTML = 'theme1'
+			},
+			theme2: async () => {
+				subject.element().innerHTML = 'theme2'
+			},
+		})()
+
+		await expect(page.hasImageSnapshot({ customizeSnapshotId: (id) => `${id}-custom-theme1` })).resolves.toBe(true)
+		await expect(page.hasImageSnapshot({ customizeSnapshotId: (id) => `${id}-custom-theme2` })).resolves.toBe(true)
 	})
 
 	// cannot run this test because no way to get the failed test to pass again
