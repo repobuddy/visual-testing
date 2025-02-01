@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 1.6.5
+
+### Patch Changes
+
+- [#190](https://github.com/repobuddy/storybook-addon-vis/pull/190) [`be483d4`](https://github.com/repobuddy/storybook-addon-vis/commit/be483d412358158c4016eba573bf035252f6cbb5) Thanks [@unional](https://github.com/unional)! - Support `customizeSnapshotId` option during theme auto snapshot.
+
 ## 1.6.4
 
 ### Patch Changes
