@@ -198,6 +198,22 @@ setAutoSnapshotOptions({
 })
 ```
 
+You can also provide additional options, which you can use during theme to enable/disable snapshot for each theme:
+
+```ts
+setAutoSnapshotOptions({
+	skipDark: true
+})
+
+// in vitest.setup.ts
+vis.presets.theme({
+	async dark(options) {
+		if (options.skipDark) return false
+		document.body.classList.add('dark')
+	},
+})
+```
+
 ### Manual Snapshot
 
 You can also set the preset to `manual` and compare snapshots manually:

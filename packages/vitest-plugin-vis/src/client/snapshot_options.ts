@@ -6,6 +6,7 @@ import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapsh
 export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
 	AutoSnapshotOptions & {
 		enable?: boolean | undefined
+		[key: string]: unknown
 	}
 
 type Suite = { meta: Record<string, any>; suite?: Suite | undefined }

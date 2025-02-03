@@ -1,7 +1,7 @@
 import { NAME } from '../shared/constants.ts'
 import type { MetaTask, SnapshotMeta } from './snapshot_options.ts'
 
-export function getAutoSnapshotOptions(task: MetaTask): SnapshotMeta<any> | undefined {
+export function getAutoSnapshotOptions<M extends SnapshotMeta<any> = SnapshotMeta<any>>(task: MetaTask): M | undefined {
 	if (!task) return
 
 	const list: any[] = []

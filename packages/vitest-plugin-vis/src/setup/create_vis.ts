@@ -1,6 +1,6 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { toTaskId } from '../client.ts'
+import { type SnapshotMeta, toTaskId } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
 import { getAutoSnapshotOptions } from '../client/snapshot_options.internal.js'
@@ -43,7 +43,9 @@ export function createVis(commands: SetupVisSuiteCommand) {
 			 * })
 			 * ```
 			 */
-			theme(themes: Record<string, () => void | Promise<void>>) {
+			theme<M extends SnapshotMeta<any>>(
+				themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>,
+			) {
 				beforeAll(vis.beforeAll.setup)
 				afterEach(vis.afterEach.matchPerTheme(themes))
 			},
@@ -64,17 +66,21 @@ export function createVis(commands: SetupVisSuiteCommand) {
 
 				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
-			matchPerTheme(themes: Record<string, () => Promise<void> | void>) {
+			matchPerTheme<M extends SnapshotMeta<any>>(
+				themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>,
+			) {
 				return async function matchImageSnapshot() {
 					const test = ctx.getCurrentTest()
 					if ((test?.result?.errors?.length ?? 0) > 0) return
 
-					const meta = getAutoSnapshotOptions(test)
+					const meta = getAutoSnapshotOptions<M>(test)
 					if (!shouldTakeSnapshot(meta)) return
 					const errors: any[] = []
 					for (const themeId in themes) {
 						try {
-							await new Promise((a) => setTimeout(() => a(themes[themeId]!()), 10))
+							await new Promise((a) => setTimeout(a, 10))
+							const r = await themes[themeId]!(meta!)
+							if (r === false) continue
 							await test!.context
 								.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId))
 								.toMatchImageSnapshot({

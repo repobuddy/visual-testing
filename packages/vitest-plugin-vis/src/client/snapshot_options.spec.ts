@@ -125,3 +125,8 @@ describe('disable snapshot during beforeAll', () => {
 		expect(getAutoSnapshotOptions(task)).toEqual({ enable: true })
 	})
 })
+
+it('can define additional meta', ({ expect, task }) => {
+	setAutoSnapshotOptions(task, { foo: 'bar' })
+	expect(getAutoSnapshotOptions(task)).toMatchObject({ enable: true, foo: 'bar' })
+})

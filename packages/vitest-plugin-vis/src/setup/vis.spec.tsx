@@ -86,4 +86,14 @@ describe('matchPerTheme', () => {
 		expect(subject).toBeInTheDocument()
 		expect(subject).toHaveTextContent('world')
 	})
+
+	it('pass meta to theme handler', async ({ expect }) => {
+		setAutoSnapshotOptions(true)
+		page.render(<div data-testid="subject">hello</div>)
+		await vis.afterEach.matchPerTheme({
+			theme1(meta) {
+				expect(meta).toMatchObject({ enable: true })
+			},
+		})()
+	})
 })
