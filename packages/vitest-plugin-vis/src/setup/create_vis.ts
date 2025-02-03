@@ -6,7 +6,7 @@ import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
 import { getAutoSnapshotOptions } from '../client/snapshot_options.internal.js'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
 
-export function createVis(commands: SetupVisSuiteCommand) {
+export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCommand) {
 	let subjectDataTestId: string | undefined
 	/**
 	 * Visual test configuration on the client side.
@@ -43,9 +43,7 @@ export function createVis(commands: SetupVisSuiteCommand) {
 			 * })
 			 * ```
 			 */
-			theme<M extends SnapshotMeta<any>>(
-				themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>,
-			) {
+			theme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>) {
 				beforeAll(vis.beforeAll.setup)
 				afterEach(vis.afterEach.matchPerTheme(themes))
 			},
@@ -66,9 +64,7 @@ export function createVis(commands: SetupVisSuiteCommand) {
 
 				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
-			matchPerTheme<M extends SnapshotMeta<any>>(
-				themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>,
-			) {
+			matchPerTheme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>) {
 				return async function matchImageSnapshot() {
 					const test = ctx.getCurrentTest()
 					if ((test?.result?.errors?.length ?? 0) > 0) return
