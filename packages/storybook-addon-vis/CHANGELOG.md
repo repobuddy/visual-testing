@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.17.10
+
+### Patch Changes
+
+- [#195](https://github.com/repobuddy/storybook-addon-vis/pull/195) [`d9ed547`](https://github.com/repobuddy/storybook-addon-vis/commit/d9ed547228ca4f51abd699dc2444aab06cbf0017) Thanks [@unional](https://github.com/unional)! - Add Storybook `tags` to snapshot options.
+
+- Updated dependencies [[`972db1b`](https://github.com/repobuddy/storybook-addon-vis/commit/972db1bb1f511d9073a2600afa030ff9c46e864f)]:
+  - vitest-plugin-vis@1.7.0
+
 ## 0.17.9
 
 ### Patch Changes

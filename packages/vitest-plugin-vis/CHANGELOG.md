@@ -1,5 +1,18 @@
 # vitest-plugin-vis
 
+## 1.7.0
+
+### Minor Changes
+
+- [#195](https://github.com/repobuddy/storybook-addon-vis/pull/195) [`972db1b`](https://github.com/repobuddy/storybook-addon-vis/commit/972db1bb1f511d9073a2600afa030ff9c46e864f) Thanks [@unional](https://github.com/unional)! - Allow `setAutoSnapshotOptions` to specify additional properties.
+  Each theme in `vis.presets.theme()` and `vis.afterEach.matchPerTheme()` will receive the options.
+
+  ```ts
+  vis.presets.theme({
+  	theme1(options) { ... }
+  })
+  ```
+
 ## 1.6.5
 
 ### Patch Changes
