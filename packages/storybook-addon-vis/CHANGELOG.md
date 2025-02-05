@@ -1,5 +1,11 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.17.11
+
+### Patch Changes
+
+- [`caa49e3`](https://github.com/repobuddy/storybook-addon-vis/commit/caa49e34dd4eb6e4a31a88f2c254288ff0b6ccb1) Thanks [@unional](https://github.com/unional)! - Remove extra `vitest-plugin.js` and `vitest-plugin.d.ts`.
+
 ## 0.17.10
 
 ### Patch Changes
