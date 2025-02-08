@@ -1,5 +1,18 @@
 # vitest-plugin-vis
 
+## 2.0.0
+
+### Major Changes
+
+- [#204](https://github.com/repobuddy/storybook-addon-vis/pull/204) [`020121f`](https://github.com/repobuddy/storybook-addon-vis/commit/020121f04d08feaf071db0beb65236e79feb695d) Thanks [@unional](https://github.com/unional)! - Change the `customizeSnapshotId` to accept `context` object.
+
+  This is a breaking change.
+  Feature-wise, it is the same as before.
+  We will enable better customization by passing `viewport` to the `customizeSnapshotId` function in the future.
+
+- [#204](https://github.com/repobuddy/storybook-addon-vis/pull/204) [`76b09cc`](https://github.com/repobuddy/storybook-addon-vis/commit/76b09cc00c5fc94026e2a5ab6283300325716675) Thanks [@unional](https://github.com/unional)! - Add support to customize `snapshotRootDir` with a function.
+  Deprecate `platform` option.
+
 ## 1.7.0
 
 ### Minor Changes
