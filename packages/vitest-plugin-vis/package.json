@@ -103,14 +103,14 @@
 		"cross-env": "^7.0.3",
 		"never-fail": "^1.1.4",
 		"npm-run-all2": "^7.0.2",
-		"playwright": "^1.49.0",
+		"playwright": "latest",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
 		"vitest": "^3.0.5",
 		"vitest-browser-react": "^0.0.4",
-		"webdriverio": "^9.5.7"
+		"webdriverio": "latest"
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",

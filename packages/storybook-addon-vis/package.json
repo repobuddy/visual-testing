@@ -98,14 +98,16 @@
 		"cross-env": "^7.0.3",
 		"dedent": "^1.5.1",
 		"npm-run-all2": "^7.0.2",
+		"playwright": "latest",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"storybook": "^8.4.2",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
+		"vitest": "^3.0.5",
 		"vitest-browser-react": "^0.0.4",
-		"webdriverio": "^9.5.7",
+		"webdriverio": "latest",
 		"zx": "^8.0.0"
 	},
 	"peerDependencies": {
