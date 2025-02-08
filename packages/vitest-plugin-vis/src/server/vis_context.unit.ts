@@ -1,11 +1,12 @@
 import { resolve } from 'pathe'
-import { stub } from 'type-plus'
 import { beforeEach, describe, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
+import { createStubPartialBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
 import { ctx } from './vis_context.ctx.ts'
 import { createSuite, createVisContext, getSuiteId } from './vis_context.logic.ts'
-import type { PartialBrowserCommandContext, VisState } from './vis_context.types.ts'
+import type { VisState } from './vis_context.types.ts'
+
 describe(`${getSuiteId.name}()`, () => {
 	const mockState = {
 		projectPath: '/root/project',
@@ -65,12 +66,8 @@ describe(`${createSuite.name}()`, () => {
 })
 
 describe(`${createVisContext.name}()`, () => {
-	const stubSuite = stub.build<PartialBrowserCommandContext>({
-		project: {
-			config: {
-				root: resolve(import.meta.dirname, '../..'),
-			},
-		},
+	const stubSuite = createStubPartialBrowserCommandContext({
+		root: resolve(import.meta.dirname, '../..'),
 		testPath: import.meta.filename,
 	})
 
