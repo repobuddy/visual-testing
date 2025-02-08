@@ -17,8 +17,8 @@ export default defineConfig(() => {
 				instances: [
 					{
 						browser: 'chromium',
-						screenshotFailures: false,
-						screenshotDirectory: '__screenshots__/playwright/chromium',
+						// screenshotFailures: false,
+						// screenshotDirectory: '__screenshots__/playwright/chromium',
 					},
 					// {
 					// 	browser: 'firefox',

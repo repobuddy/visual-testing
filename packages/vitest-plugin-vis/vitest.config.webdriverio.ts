@@ -1,13 +1,13 @@
 import { defineConfig } from 'vitest/config'
-import { trimCommonFolder, vis } from './src/config.ts'
+import { vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
 	return {
 		plugins: [
 			vis({
-				customizeSnapshotSubpath(subPath) {
-					return `wb/${trimCommonFolder(subPath)}`
+				snapshotRootDir({ ci, browserName, providerName, platform }) {
+					return `__vis__/${ci ? platform : 'local'}/${providerName}/${browserName}`
 				},
 				subjectDataTestId: 'subject',
 			}),
@@ -24,7 +24,7 @@ export default defineConfig(() => {
 					// {
 					// 	browser: 'chrome',
 					// 	headless: true,
-					// 	screenshotFailures: false,
+					// 	screenshotFailures: true,
 					// 	screenshotDirectory: '__screenshots__/webdriverio/chrome',
 					// },
 					{

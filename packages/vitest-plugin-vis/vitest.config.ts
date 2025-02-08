@@ -1,4 +1,3 @@
-import ci from 'is-ci'
 import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
@@ -14,7 +13,9 @@ export default defineConfig({
 		},
 		workspace: [
 			'vitest.config.playwright.ts',
-			process.env.COVERAGE || (ci && process.platform === 'win32') ? '' : 'vitest.config.webdriverio.ts',
+			// partially blocked by https://github.com/vitest-dev/vitest/issues/6485
+			// some snapshots dimensions are not correct, causing the test to fail.
+			// process.env.COVERAGE || (ci && process.platform === 'win32') ? '' : 'vitest.config.webdriverio.ts',
 			'vitest.config.node.ts',
 		].filter(Boolean),
 	},

@@ -1,3 +1,4 @@
+import ci from 'is-ci'
 import { resolve } from 'pathe'
 import { beforeEach, describe, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
@@ -90,7 +91,7 @@ describe(`${createVisContext.name}()`, () => {
 			await visContext.setupSuite(stubSuite())
 			const state = visContext.__test__getState()
 
-			expect(state.snapshotRootDir).toEqual(SNAPSHOT_ROOT_DIR)
+			expect(state.snapshotRootDir).toEqual(`${SNAPSHOT_ROOT_DIR}/${ci ? process.platform : 'local'}`)
 		})
 		it('skip setup state if already set up', async ({ expect }) => {
 			const visContext = createVisContext()

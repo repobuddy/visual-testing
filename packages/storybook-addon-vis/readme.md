@@ -81,8 +81,9 @@ This default configuration will:
 - Timeout for image comparison is set to `30000 ms`.
 - Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
 - CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
-- Image snapshots of the current test run are saved in the `<root>/__vis__/__results__` directory.
-- Diff images are saved in the `<root>/__vis__/__diffs__` directory.
+- Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
+- Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
+- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
 
 You can customize `storybookVis()` by providing additional `options`.
 It is the same option in [`vitest-plugin-vis`][vitest-plugin-vis] minus the `preset`:
@@ -94,8 +95,15 @@ import { storybookVis, trimCommonFolder } from 'storybook-addon-vis/vitest-plugi
 export default defineConfig({
 	plugins: [
 		storybookVis({
-			snapshotRootDir: '__vis__',
-			platform: '...', // {process.platform} or `local`
+			snapshotRootDir: ({
+				ci, // true if running on CI
+				platform, // process.platform
+				providerName, // 'playwright' or 'webdriverio'
+				browserName,
+				screenshotFailures, // from `browser` config
+				screenshotDirectory, // from `browser` config
+			}) => `__vis__/${ci ? platform : 'local'}`,
+			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			customizeSnapshotId: (id, index) => `${id}-${index}`,
 			// set a default subject (e.g. 'subject') to capture image snapshot
@@ -120,14 +128,15 @@ By default, the snapshots are stored under the `__vis__` folder at the root of y
 
 ```ini
 v __vis__
-	˃ __diffs__ # where the diff images are stored
-	˃ __results__ # where the resulting snapshot of the current run are stored
 	˃ darwin # snapshot generated on macos by CI
 	˃ linux # snapshot generated on linux by CI
 	v local # snapshot generated on local machine
-		v button.stories.tsx
-			snapshot-1.png
-			snapshot-2.png
+		˃ __diffs__ # where the diff images are stored
+		˃ __results__ # where the resulting snapshot of the current run are stored
+		˃ __baselines__ # where the baseline images are stored
+			v button.stories.tsx
+				snapshot-1.png
+				snapshot-2.png
 v src
 	button.stories.tsx
 ```
@@ -178,18 +187,19 @@ With the above configuration, the snapshot folder structure will look like this:
 v __vis__
 	> # ...
 	v local # snapshot generated on local machine
-		v examples
-			v button.stories.tsx
-				snapshot-1.png
-				snapshot-2.png
-		v src
-			v button.stories.tsx
-				snapshot-1.png
-				snapshot-2.png
-		v tests
-			v button.stories.tsx
-				snapshot-1.png
-				snapshot-2.png
+		> __baselines__
+			v examples
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+			v src
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+			v tests
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
 v examples
 	button.stories.tsx
 v src
@@ -266,8 +276,8 @@ vis.presets.auto()
 // capture image snapshot at the end of each test and story with `snapshot` tag
 // for multiple themes (light and dark in this example)
 vis.presets.theme({
-	light() { document.body.classList.remove('dark') },
-	dark() { document.body.classList.add('dark') },
+	async light() { document.body.classList.remove('dark') },
+	async dark() { document.body.classList.add('dark') },
 })
 ```
 

@@ -11,6 +11,9 @@ export function createStubPartialBrowserCommandContext({ root, testPath }: { roo
 				root,
 			},
 		},
+		provider: {
+			options: {},
+		},
 		testPath,
 	})
 }

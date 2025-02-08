@@ -22,22 +22,34 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 * <snapshotRootDir>/<platform>/<snapshotSubpath>/<snapshotId>.png
 		 *
 		 * Default: undefined
+		 *
+		 * @deprecated Use `snapshotRootDir` instead.
 		 */
 		platform?: string | undefined
 		/**
 		 * The snapshot folder relative to the root of the project.
 		 *
-		 * Default: `__vis__`
+		 * Default: `{projectRoot}/__vis__/{platform}`
 		 */
-		snapshotRootDir?: string | undefined
+		snapshotRootDir?:
+			| string
+			| ((context: {
+					ci: boolean
+					browserName: string
+					providerName: string
+					platform: string
+					screenshotFailures: boolean | undefined
+					screenshotDirectory: string | undefined
+			  }) => string)
+			| undefined
 		/**
 		 * Customize the snapshot subpath.
 		 *
 		 * The snapshot subpath is used along with `snapshotRootDir` to determine the folder of the snapshots:
 		 *
-		 * - baseline: `<snapshotRootDir>/<platform>/<snapshotSubpath>/<snapshotId>.png`
-		 * - result: `<snapshotRootDir>/__results__/<snapshotSubpath>/<snapshotId>.png`
-		 * - diff: `<snapshotRootDir>/__diffs__/<snapshotSubpath>/<snapshotId>.png`
+		 * - baseline: `<snapshotRootDir>/baselines/<snapshotSubpath>/<snapshotId>.png`
+		 * - result: `<snapshotRootDir>/results/<snapshotSubpath>/<snapshotId>.png`
+		 * - diff: `<snapshotRootDir>/diffs/<snapshotSubpath>/<snapshotId>.png`
 		 *
 		 * Typically, you place your test files either in a dedicated `tests` folder or in the `src` folder along with your source code.
 		 * By default, the snapshot subpath is the test file path with that folder removed to reduces nesting of the snapshot folders.

@@ -17,6 +17,6 @@ export const setupVisSuite: BrowserCommand<[]> = async (
 	context,
 ): Promise<{ subjectDataTestId: string | undefined }> => {
 	assertTestPathDefined(context, 'setupVisSuite')
-
-	return visContext.setupSuite(context)
+	// using props not currently listed in the types
+	return visContext.setupSuite(context as any)
 }

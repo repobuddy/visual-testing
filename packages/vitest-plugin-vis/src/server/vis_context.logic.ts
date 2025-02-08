@@ -1,7 +1,7 @@
 import { join, relative } from 'pathe'
 import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
-import { DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
+import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
@@ -95,17 +95,17 @@ async function setupState(
 	suite: PartialBrowserCommandContext,
 	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform' | 'subjectDataTestId'>,
 ) {
-	const snapshotRootDir = resolveSnapshotRootDir(visOptions)
+	visOptions.platform = visOptions.platform ?? process.platform
+	const snapshotRootDir = resolveSnapshotRootDir(suite, visOptions)
 	const projectPath = suite.project.config.root
-	const platform = visOptions.platform ?? ctx.getSnapshotPlatform()
 
 	const state = {
 		projectPath,
-		platform,
+		// platform,
 		testTimeout: suite.project.config.testTimeout,
 		hookTimeout: suite.project.config.hookTimeout,
 		snapshotRootDir,
-		snapshotBaselineDir: join(snapshotRootDir, platform),
+		snapshotBaselineDir: join(snapshotRootDir, BASELINE_DIR),
 		snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
 		snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
 		snapshotRootPath: join(projectPath, snapshotRootDir),

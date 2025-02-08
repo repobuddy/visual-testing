@@ -55,8 +55,9 @@ This default configuration will:
 - Timeout for image comparison is set to `30000 ms`.
 - Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
 - CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
-- Image snapshots of the current test run are saved in the `<root>/__vis__/__results__` directory.
-- Diff images are saved in the `<root>/__vis__/__diffs__` directory.
+- Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
+- Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
+- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
 
 You can customize the configuration:
 
@@ -69,8 +70,15 @@ export default defineConfig({
 	plugins: [
 		vis({
 			preset: 'auto',
-			snapshotRootDir: '__vis__',
-			platform: '...', // {process.platform} or `local`
+			snapshotRootDir: ({
+				ci, // true if running on CI
+				platform, // process.platform
+				providerName, // 'playwright' or 'webdriverio'
+				browserName,
+				screenshotFailures, // from `browser` config
+				screenshotDirectory, // from `browser` config
+			}) => `__vis__/${ci ? platform : 'local'}`,
+			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			customizeSnapshotId: (id, index) => `${id}-${index}`,
 			// set a default subject (e.g. 'subject') to capture image snapshot
@@ -100,8 +108,7 @@ import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
 	plugins: [
-		// preset is disabled by default when you provide a custom config
-		vis({}) // or vis({ preset: 'none' })
+		vis({ preset: 'none' })
 	],
 	test:{
 		browser:{/* ... */},
@@ -121,8 +128,8 @@ vis.presets.manual()
 // or capture image snapshot for all rendering tests
 // for multiple themes (light and dark in this example)
 vis.presets.theme({
-	light() { document.body.classList.remove('dark') },
-	dark() { document.body.classList.add('dark') },
+	async light() { document.body.classList.remove('dark') },
+	async dark() { document.body.classList.add('dark') },
 })
 ```
 
@@ -303,8 +310,8 @@ The local snapshots, current run results, and diffs should be ignored by git.
 Add the following lines to your `.gitignore` file:
 
 ```sh
-**/__vis__/__diffs__
-**/__vis__/__results__
+**/__vis__/**/__diffs__
+**/__vis__/**/__results__
 **/__vis__/local
 ```
 

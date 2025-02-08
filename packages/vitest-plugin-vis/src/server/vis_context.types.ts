@@ -1,6 +1,6 @@
 export type VisState = {
 	projectPath: string
-	platform: string
+	// platform: string
 	testTimeout: number
 	hookTimeout: number
 	snapshotRootDir: string
@@ -33,6 +33,15 @@ export type PartialBrowserCommandContext = {
 			}
 			testTimeout: number
 			hookTimeout: number
+		}
+	}
+	provider: {
+		name: string
+		browserName: string
+		options: {
+			headless: boolean | undefined
+			screenshotFailures: boolean | undefined
+			screenshotDirectory: string | undefined
 		}
 	}
 	testPath: string
