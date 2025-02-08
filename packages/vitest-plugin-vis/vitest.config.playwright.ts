@@ -3,7 +3,6 @@ import { vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-	const browser = process.env.BROWSER ?? 'chromium'
 	return {
 		plugins: [vis({ preset: 'none', subjectDataTestId: 'subject' })],
 		optimizeDeps: {
@@ -15,10 +14,19 @@ export default defineConfig(() => {
 				enabled: true,
 				headless: true,
 				provider: 'playwright',
-				instances: [{ browser }],
+				instances: [
+					{
+						browser: 'chromium',
+						screenshotFailures: false,
+						screenshotDirectory: '__screenshots__/playwright/chromium',
+					},
+					// {
+					// 	browser: 'firefox',
+					// 	screenshotFailures: false,
+					// 	screenshotDirectory: '__screenshots__/playwright/firefox',
+					// },
+				],
 				api: 63316,
-				screenshotFailures: false,
-				screenshotDirectory: `__screenshots__/playwright/${browser}`,
 			},
 			include: [
 				'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',

@@ -3,7 +3,6 @@ import { trimCommonFolder, vis } from './src/config.ts'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-	const browser = process.env.BROWSER ?? 'firefox'
 	return {
 		plugins: [
 			vis({
@@ -20,12 +19,22 @@ export default defineConfig(() => {
 			name: 'vpv:wd',
 			browser: {
 				enabled: true,
-				// headless: true,
 				provider: 'webdriverio',
-				instances: [{ browser }],
+				instances: [
+					// {
+					// 	browser: 'chrome',
+					// 	headless: true,
+					// 	screenshotFailures: false,
+					// 	screenshotDirectory: '__screenshots__/webdriverio/chrome',
+					// },
+					{
+						browser: 'firefox',
+						headless: true,
+						screenshotFailures: false,
+						screenshotDirectory: '__screenshots__/webdriverio/firefox',
+					},
+				],
 				api: 63317,
-				screenshotFailures: false,
-				screenshotDirectory: `__screenshots__/webdriverio/${browser}`,
 			},
 			include: [
 				'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',
