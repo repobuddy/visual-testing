@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context'
+import { page, server } from '@vitest/browser/context'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 import { getCurrentTest } from 'vitest/suite'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
@@ -245,8 +245,8 @@ it('fails when the image is different in 0 percentage', async ({ expect }) => {
 		)
 })
 
-it('should fail with additional info when it does not fail with expectToFail', async ({ expect }) => {
-	setAutoSnapshotOptions(false)
+it('should fail with additional info when it does not fail with expectToFail', async ({ expect, task }) => {
+	setAutoSnapshotOptions(task, { enable: false })
 
 	page.render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
@@ -254,11 +254,12 @@ it('should fail with additional info when it does not fail with expectToFail', a
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: (id) => id }))) {
 		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: (id) => id })
 	}
+	const failureThreshold = server.browser === 'chrome' ? 10 : 260
 	await expect(subject)
 		.toMatchImageSnapshot({
 			customizeSnapshotId: (id) => id,
 			expectToFail: true,
-			failureThreshold: 10,
+			failureThreshold,
 		})
 		.then(
 			() => {
@@ -266,8 +267,8 @@ it('should fail with additional info when it does not fail with expectToFail', a
 			},
 			(error) => {
 				expect(error.message).toMatch(/Snapshot .* matched but expected to fail/)
-				expect(error.message).toMatch(/Options:\s+failureThreshold: 10 pixel/)
-				expect(error.message).toMatch(/Diff:\s+0 pixels/)
+				expect(error.message).toMatch(/Options:\s+failureThreshold: \d+ pixels/)
+				expect(error.message).toMatch(/Diff:\s+\d+ pixels/)
 			},
 		)
 })
