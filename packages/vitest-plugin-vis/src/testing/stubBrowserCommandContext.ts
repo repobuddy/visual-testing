@@ -1,4 +1,3 @@
-import { resolve } from 'pathe'
 import { stub } from 'type-plus'
 import type { BrowserCommandContext } from 'vitest/node'
 import type { PartialBrowserCommandContext } from '../server/vis_context.types.ts'
