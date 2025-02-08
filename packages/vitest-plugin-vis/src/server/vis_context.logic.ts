@@ -98,13 +98,11 @@ async function setupState(
 	suite: PartialBrowserCommandContext,
 	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform' | 'subjectDataTestId'>,
 ) {
-	visOptions.platform = visOptions.platform ?? process.platform
 	const snapshotRootDir = resolveSnapshotRootDir(suite, visOptions)
 	const projectPath = suite.project.config.root
 
 	const state = {
 		projectPath,
-		// platform,
 		testTimeout: suite.project.config.testTimeout,
 		hookTimeout: suite.project.config.hookTimeout,
 		snapshotRootDir,

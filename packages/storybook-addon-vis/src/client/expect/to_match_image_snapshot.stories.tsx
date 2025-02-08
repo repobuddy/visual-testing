@@ -94,7 +94,7 @@ export const FailWhenSmaller: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: (id) => id,
+					customizeSnapshotId: ({ id }) => id,
 				}),
 			}
 		},
@@ -132,7 +132,7 @@ export const FailWhenLarger: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: (id) => id,
+					customizeSnapshotId: ({ id }) => id,
 				}),
 			}
 		},
@@ -169,7 +169,7 @@ export const PassFailureThreshold: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: (id) => id,
+					customizeSnapshotId: ({ id }) => id,
 				}),
 			}
 		},
@@ -182,11 +182,11 @@ export const PassFailureThreshold: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 			})
 		}
 		await expect(subject).toMatchImageSnapshot({
-			customizeSnapshotId: (id) => id,
+			customizeSnapshotId: ({ id }) => id,
 			failureThreshold: 70,
 		})
 	},
@@ -197,7 +197,7 @@ export const FailFailureThreshold: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: (id) => id,
+					customizeSnapshotId: ({ id }) => id,
 				}),
 			}
 		},
@@ -210,14 +210,14 @@ export const FailFailureThreshold: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 			})
 			return
 		}
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 				expectToFail: true,
 				failureThreshold: 20,
 			})
@@ -237,7 +237,7 @@ export const PassFailureThresholdPercent: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: (id) => id,
+					customizeSnapshotId: ({ id }) => id,
 				}),
 			}
 		},
@@ -250,11 +250,11 @@ export const PassFailureThresholdPercent: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 			})
 		}
 		await expect(subject).toMatchImageSnapshot({
-			customizeSnapshotId: (id) => id,
+			customizeSnapshotId: ({ id }) => id,
 			failureThreshold: 1,
 			failureThresholdType: 'percent',
 		})
@@ -265,7 +265,7 @@ export const FailFailureThresholdPercent: StoryObj = {
 	loaders: [
 		async () => ({
 			hasImageSnapshot: await hasImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 			}),
 		}),
 	],
@@ -277,14 +277,14 @@ export const FailFailureThresholdPercent: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 			})
 			return
 		}
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
-				customizeSnapshotId: (id) => id,
+				customizeSnapshotId: ({ id }) => id,
 				expectToFail: true,
 				failureThreshold: 0.1,
 				failureThresholdType: 'percent',
