@@ -17,13 +17,12 @@ export interface ImageSnapshotIdOptions {
 	 * @param id The id of the snapshot.
 	 * @param index The index of the snapshot.
 	 */
-	customizeSnapshotId?: (id: string, index: number) => string
-	// customizeSnapshotId2?: (context: {
-	// 	id: string
-	// 	width: number
-	// 	height: number
-	// 	index: number
-	// }) => string
+	customizeSnapshotId?: (context: {
+		id: string
+		// width: number
+		// height: number
+		index: number
+	}) => string
 }
 
 export type ComparisonMethod = 'pixel' | 'ssim'

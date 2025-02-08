@@ -82,8 +82,8 @@ export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCo
 								.toMatchImageSnapshot({
 									...meta,
 									customizeSnapshotId: meta?.customizeSnapshotId
-										? (id, index) => `${meta.customizeSnapshotId!(id, index)}-${themeId}`
-										: (id) => `${id}-${themeId}`,
+										? ({ id, index }) => `${meta.customizeSnapshotId!({ id, index })}-${themeId}`
+										: ({ id }) => `${id}-${themeId}`,
 								})
 						} catch (error) {
 							errors.push([themeId, error])

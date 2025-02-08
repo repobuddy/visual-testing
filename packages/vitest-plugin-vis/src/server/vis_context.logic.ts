@@ -71,8 +71,11 @@ export function createVisContext() {
 		getSnapshotFilename(info: { taskId: string; task: { count: number } }, snapshotFileId: string | undefined) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
 
-			const customizeSnapshotId = visOptions.customizeSnapshotId ?? ((id, index) => `${id}-${index}`)
-			return `${customizeSnapshotId(info.taskId, info.task.count)}.png`
+			const customizeSnapshotId = visOptions.customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
+			return `${customizeSnapshotId({
+				id: info.taskId,
+				index: info.task.count,
+			})}.png`
 		},
 		getSuiteInfo(testPath: string, taskId: string) {
 			const suiteId = getSuiteId(state, testPath, visOptions)

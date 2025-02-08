@@ -107,6 +107,6 @@ async function parseImageSnapshotOptions(
 ) {
 	const index = await commands.imageSnapshotNextIndex(taskId)
 	const { customizeSnapshotId, ...rest } = options
-	const snapshotFileId = customizeSnapshotId!(taskId, index)
+	const snapshotFileId = customizeSnapshotId!({ id: taskId, index })
 	return { ...rest, snapshotFileId }
 }

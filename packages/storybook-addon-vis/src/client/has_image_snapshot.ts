@@ -13,7 +13,7 @@ export function hasImageSnapshot(options?: ImageSnapshotIdOptions | undefined) {
 	if (options?.customizeSnapshotId) {
 		return commands
 			.imageSnapshotNextIndex(taskId)
-			.then((index) => commands.hasImageSnapshot(taskId, options.customizeSnapshotId!(taskId, index)))
+			.then((index) => commands.hasImageSnapshot(taskId, options.customizeSnapshotId!({ id: taskId, index })))
 	}
 
 	return commands.hasImageSnapshot(taskId)

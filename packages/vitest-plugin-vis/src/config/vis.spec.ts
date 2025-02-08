@@ -34,7 +34,7 @@ it('can customize snapshot subpath to keep base folder', ({ expect }) => {
 })
 
 it('can set default snapshot id', ({ expect }) => {
-	const customizeSnapshotId = (id: string) => id
+	const customizeSnapshotId = ({ id }: { id: string }) => id
 
 	vis({ customizeSnapshotId })
 
