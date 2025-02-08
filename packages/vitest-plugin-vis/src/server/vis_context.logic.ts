@@ -5,21 +5,7 @@ import { DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
-import type { VisState } from './vis_context.types.ts'
-
-export type PartialBrowserCommandContext = {
-	project: {
-		config: {
-			root: string
-			snapshotOptions: {
-				updateSnapshot: 'all' | 'new' | 'none'
-			}
-			testTimeout: number
-			hookTimeout: number
-		}
-	}
-	testPath: string
-}
+import type { PartialBrowserCommandContext, VisState } from './vis_context.types.ts'
 
 export function createVisContext() {
 	let visOptions: VisOptions<any> = {}

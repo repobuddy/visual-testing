@@ -4,8 +4,8 @@ import { beforeEach, describe, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { ctx } from './vis_context.ctx.ts'
-import { type PartialBrowserCommandContext, createSuite, createVisContext, getSuiteId } from './vis_context.logic.ts'
-import type { VisState } from './vis_context.types.ts'
+import { createSuite, createVisContext, getSuiteId } from './vis_context.logic.ts'
+import type { PartialBrowserCommandContext, VisState } from './vis_context.types.ts'
 describe(`${getSuiteId.name}()`, () => {
 	const mockState = {
 		projectPath: '/root/project',

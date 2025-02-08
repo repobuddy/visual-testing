@@ -24,3 +24,16 @@ export type VisState = {
 		}
 	>
 }
+export type PartialBrowserCommandContext = {
+	project: {
+		config: {
+			root: string
+			snapshotOptions: {
+				updateSnapshot: 'all' | 'new' | 'none'
+			}
+			testTimeout: number
+			hookTimeout: number
+		}
+	}
+	testPath: string
+}
