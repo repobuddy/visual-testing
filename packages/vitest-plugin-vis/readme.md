@@ -29,11 +29,19 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
 	plugins: [vis()],
 	test: {
+		// vitest v2
 		browser: {
-			// typical browser config
 			enabled: true,
 			provider: 'playwright',
-			name: 'chromium'
+			name: 'chromium',
+		},
+		// vitest v3
+		browser: {
+			enabled: true,
+			provider: 'playwright',
+			instances: [
+				{ browser: 'chromium' }
+			]
 		}
 	}
 })
