@@ -106,7 +106,7 @@
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
 		"vitest": "^3.0.5",
-		"vitest-browser-react": "^0.0.4",
+		"vitest-browser-react": "^0.1.0",
 		"webdriverio": "latest",
 		"zx": "^8.0.0"
 	},
