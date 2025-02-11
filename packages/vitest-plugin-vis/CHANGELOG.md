@@ -1,5 +1,14 @@
 # vitest-plugin-vis
 
+## 2.0.1
+
+### Patch Changes
+
+- [#209](https://github.com/repobuddy/storybook-addon-vis/pull/209) [`a68f5c9`](https://github.com/repobuddy/storybook-addon-vis/commit/a68f5c9ea3786aa70dc03304236a67ef3fb333df) Thanks [@unional](https://github.com/unional)! - Avoid setting `setupFiles` in `vitest.config.ts` to undefined,
+  as Vite v5 does not support it.
+
+- [`24621e0`](https://github.com/repobuddy/storybook-addon-vis/commit/24621e0683bebc08d112d93c99e58d28e0dffb67) Thanks [@unional](https://github.com/unional)! - Update `type-plus`.
+
 ## 2.0.0
 
 ### Major Changes
