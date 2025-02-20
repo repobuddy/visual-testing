@@ -39,7 +39,7 @@
 		"@vitejs/plugin-react": "^4.3.3",
 		"@vitest/browser": "^3.0.5",
 		"autoprefixer": "^10.4.20",
-		"globals": "^15.11.0",
+		"globals": "^16.0.0",
 		"storybook": "^8.4.2",
 		"storybook-addon-vis": "workspace:*",
 		"tailwindcss": "^3.4.14",
