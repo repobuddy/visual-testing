@@ -1,4 +1,4 @@
-import type { PixelmatchOptions } from 'pixelmatch'
+import type pixelMatch from 'pixelmatch'
 import type { Options as SsimOptions } from 'ssim.js'
 
 export interface ImageSnapshotTimeoutOptions {
@@ -54,7 +54,7 @@ export type PixelComparisonOptions<M = 'pixel'> = {
 	/**
 	 * Custom options passed to 'pixelmatch'
 	 */
-	diffOptions?: PixelmatchOptions | undefined
+	diffOptions?: Parameters<typeof pixelMatch>[5] | undefined
 }
 
 export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'

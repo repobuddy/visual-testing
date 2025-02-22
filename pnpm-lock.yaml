@@ -159,9 +159,6 @@ importers:
 
   packages/vitest-plugin-vis:
     dependencies:
-      '@types/pixelmatch':
-        specifier: ^5.2.6
-        version: 5.2.6
       dedent:
         specifier: ^1.5.1
         version: 1.5.3
@@ -175,8 +172,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       pixelmatch:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.1.0
+        version: 7.1.0
       pngjs:
         specifier: ^7.0.0
         version: 7.0.0
@@ -3453,8 +3450,8 @@ packages:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
 
-  pixelmatch@6.0.0:
-    resolution: {integrity: sha512-FYpL4XiIWakTnIqLqvt3uN4L9B3TsuHIvhLILzTiJZMJUsGvmKNeL4H3b6I99LRyerK9W4IuOXw+N28AtRgK2g==}
+  pixelmatch@7.1.0:
+    resolution: {integrity: sha512-1wrVzJ2STrpmONHKBy228LM1b84msXDUoAzVEl0R8Mz4Ce6EPr+IVtxm8+yvrqLYMHswREkjYFaMxnyGnaY3Ng==}
     hasBin: true
 
   playwright-core@1.50.1:
@@ -7645,7 +7642,7 @@ snapshots:
 
   pirates@4.0.6: {}
 
-  pixelmatch@6.0.0:
+  pixelmatch@7.1.0:
     dependencies:
       pngjs: 7.0.0
 
