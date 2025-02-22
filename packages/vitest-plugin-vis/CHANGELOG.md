@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.1.0
+
+### Minor Changes
+
+- [#217](https://github.com/repobuddy/storybook-addon-vis/pull/217) [`472acc9`](https://github.com/repobuddy/storybook-addon-vis/commit/472acc9e5ea0e78b26343fa662fdfc82dc3aaf2a) Thanks [@unional](https://github.com/unional)! - Update `pixelmatch` to `7.1.0`.
+
 ## 2.0.1
 
 ### Patch Changes

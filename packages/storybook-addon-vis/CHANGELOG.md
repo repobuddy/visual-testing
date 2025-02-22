@@ -1,5 +1,12 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.18.2
+
+### Patch Changes
+
+- Updated dependencies [[`472acc9`](https://github.com/repobuddy/storybook-addon-vis/commit/472acc9e5ea0e78b26343fa662fdfc82dc3aaf2a)]:
+  - vitest-plugin-vis@2.1.0
+
 ## 0.18.1
 
 ### Patch Changes
