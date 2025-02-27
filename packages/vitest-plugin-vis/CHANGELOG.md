@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.1.1
+
+### Patch Changes
+
+- [#219](https://github.com/repobuddy/storybook-addon-vis/pull/219) [`bbbc8e8`](https://github.com/repobuddy/storybook-addon-vis/commit/bbbc8e89286c1dd39a67a267d64185ce5dc61908) Thanks [@unional](https://github.com/unional)! - Improve `setAutoSnapshotOptions()` to work in `beforeAll` hook without passing in the `suite` object.
+
 ## 2.1.0
 
 ### Minor Changes
