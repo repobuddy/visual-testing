@@ -7,3 +7,4 @@ if ((globalThis as any).__vitest_browser__) {
 }
 
 export const getCurrentTest = () => vitestSuite?.getCurrentTest()
+export const getCurrentSuite = () => vitestSuite?.getCurrentSuite()

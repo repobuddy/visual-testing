@@ -1,3 +1,4 @@
+import { getCurrentTest } from 'vitest/suite'
 import { NAME } from '../shared/constants.ts'
 import type { AutoSnapshotOptions, ComparisonMethod } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
@@ -53,7 +54,9 @@ export function setAutoSnapshotOptions<M extends ComparisonMethod>(
 function parseArgs<M extends ComparisonMethod>(
 	args: [task: MetaTask, meta: SnapshotMeta<M> | boolean] | [meta: boolean | SnapshotMeta<M>],
 ): [MetaTask | undefined, SnapshotMeta<M>] {
-	return args.length === 1 ? [ctx.getCurrentTest(), parseMeta(args[0])] : [args[0], parseMeta(args[1])]
+	return args.length === 1
+		? [ctx.getCurrentTest() ?? (ctx.getCurrentSuite().tasks?.[0] as any)?.file, parseMeta(args[0])]
+		: [args[0], parseMeta(args[1])]
 }
 
 function parseMeta<M extends ComparisonMethod>(meta: boolean | SnapshotMeta<M>): SnapshotMeta<M> {
