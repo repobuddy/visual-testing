@@ -83,7 +83,8 @@ export default defineConfig({
 			}) => `__vis__/${ci ? platform : 'local'}`,
 			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
-			customizeSnapshotId: ({ id, index }) => `${id}-${index}`,
+			// will change to "isAutoSnapshot ? `${id}-auto` : `${id}-${index}`" in the next major release.
+			customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-${index}`,
 			// set a default subject (e.g. 'subject') to capture image snapshot
 			subjectDataTestId: undefined,
 			comparisonMethod: 'pixel',
@@ -217,7 +218,7 @@ setAutoSnapshotOptions(true /* or false */)
 setAutoSnapshotOptions({
 	enable: true,
 	comparisonMethod: 'pixel',
-	customizeSnapshotId: ({ id, index }) => `${id}-custom-${index}`,
+	customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-custom-${index}`,
 	// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 	diffOptions: { threshold: 0.01 },
 	failureThreshold: 0.01,
@@ -285,7 +286,7 @@ it('manual snapshot with options', async ({ expect }) => {
 	page.render(<div data-testid="subject">hello world</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: ({ id, index }) => `${id}-custom-${index}`,
+		customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-custom-${index}`,
 		failureThreshold: 0.01,
 		failureThresholdType: 'percent',
 		diffOptions: {
