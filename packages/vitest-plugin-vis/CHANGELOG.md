@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.2.0
+
+### Minor Changes
+
+- [#223](https://github.com/repobuddy/storybook-addon-vis/pull/223) [`13601ef`](https://github.com/repobuddy/storybook-addon-vis/commit/13601ef5ecd4260eacf844f71dcf4ca941b88f6b) Thanks [@unional](https://github.com/unional)! - Add `vis.preset.enable()`.
+
 ## 2.1.1
 
 ### Patch Changes
