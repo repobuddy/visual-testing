@@ -1,6 +1,6 @@
+import { join } from 'node:path'
 import storybookTest from '@storybook/experimental-addon-test/vitest-plugin'
 import react from '@vitejs/plugin-react'
-import { join } from 'node:path'
 import { defineConfig } from 'vitest/config'
 import { storybookVis, trimCommonFolder } from './src/vitest-plugin.ts'
 
