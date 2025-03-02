@@ -1,6 +1,6 @@
-import { join } from 'node:path'
 import storybookTest from '@storybook/experimental-addon-test/vitest-plugin'
 import react from '@vitejs/plugin-react'
+import { join } from 'node:path'
 import { defineConfig } from 'vitest/config'
 import { storybookVis, trimCommonFolder } from './src/vitest-plugin.ts'
 
@@ -20,7 +20,24 @@ export default defineConfig(() => {
 					subjectDataTestId: 'subject',
 				}
 	return {
-		plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis(options)],
+		plugins: [
+			react(),
+			storybookTest({ configDir: join(import.meta.dirname, '.storybook') }),
+			storybookVis(options),
+			{
+				name: 'override',
+				config() {
+					return {
+						test: {
+							include: [
+								'src/client/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',
+								'src/shared/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.{ts,tsx}',
+							],
+						},
+					}
+				},
+			},
+		],
 		test: {
 			name: browserProvider === 'playwright' ? 'sav' : 'sav:wb',
 			browser: {
