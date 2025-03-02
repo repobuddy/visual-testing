@@ -1,6 +1,6 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { type SnapshotMeta, setAutoSnapshotOptions, toTaskId } from '../client.ts'
+import { type ComparisonMethod, type SnapshotMeta, toTaskId } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
 import { enableAuto, extractAutoSnapshotOptions } from '../client/snapshot_options.ts'
@@ -9,7 +9,7 @@ import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts
 /**
  * Visual test configuration on the client side.
  */
-export type VisClientConfigurator<M extends SnapshotMeta<any>> = {
+export type VisClientConfigurator<SM extends SnapshotMeta<ComparisonMethod>> = {
 	presets: {
 		/**
 		 * Enable visual testing.
@@ -45,23 +45,23 @@ export type VisClientConfigurator<M extends SnapshotMeta<any>> = {
 		 * })
 		 * ```
 		 */
-		theme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>): void
+		theme<M>(themes: Record<string, (options: M & SM) => Promise<boolean> | Promise<void> | boolean | void>): void
 	}
 	beforeAll: {
 		setup(): Promise<void>
 	}
 	afterEach: {
 		matchImageSnapshot(): Promise<void>
-		matchPerTheme(
-			themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>,
+		matchPerTheme<M>(
+			themes: Record<string, (options: M & SM) => Promise<boolean> | Promise<void> | boolean | void>,
 		): () => Promise<void>
 	}
 }
 
-export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCommand) {
+export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: SetupVisSuiteCommand) {
 	let subjectDataTestId: string | undefined
 
-	const vis: VisClientConfigurator<M> = {
+	const vis: VisClientConfigurator<SM> = {
 		presets: {
 			enable() {
 				beforeAll(vis.beforeAll.setup)
@@ -75,7 +75,7 @@ export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCo
 				afterEach(vis.afterEach.matchImageSnapshot)
 				enableAuto()
 			},
-			theme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>) {
+			theme(themes) {
 				beforeAll(vis.beforeAll.setup)
 				afterEach(vis.afterEach.matchPerTheme(themes))
 			},
@@ -96,18 +96,18 @@ export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCo
 
 				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
-			matchPerTheme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>) {
+			matchPerTheme(themes) {
 				return async function matchImageSnapshot() {
 					const test = ctx.getCurrentTest()
 					if ((test?.result?.errors?.length ?? 0) > 0) return
 
-					const meta = extractAutoSnapshotOptions<M>(test)
+					const meta = extractAutoSnapshotOptions(test)
 					if (!shouldTakeSnapshot(meta)) return
-					const errors: any[] = []
+					const errors: Array<[string, Error]> = []
 					for (const themeId in themes) {
 						try {
 							await new Promise((a) => setTimeout(a, 10))
-							const r = await themes[themeId]!(meta!)
+							const r = await themes[themeId]!(meta! as any)
 							if (r === false) continue
 							await test!.context
 								.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId))
@@ -118,11 +118,11 @@ export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCo
 										: ({ id }) => `${id}-${themeId}`,
 								})
 						} catch (error) {
-							errors.push([themeId, error])
+							errors.push([themeId, error as Error])
 						}
 					}
 					if (errors.length > 0) {
-						if (errors.length === 1) throw errors[0][1]
+						if (errors.length === 1) throw errors[0]![1]
 						const taskId = toTaskId(test!)
 						throw new AggregateError(
 							errors,

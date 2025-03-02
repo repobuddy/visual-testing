@@ -3,6 +3,7 @@
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
+		"composite": true,
 		"module": "NodeNext",
 		"moduleDetection": "force",
 		"declaration": true,

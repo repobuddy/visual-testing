@@ -18,5 +18,10 @@
 		"types": ["@vitest/browser/providers/playwright"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"references": [
+		{
+			"path": "../vitest-plugin-vis"
+		}
+	]
 }

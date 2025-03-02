@@ -1,7 +1,9 @@
 import { page } from '@vitest/browser/context'
 import dedent from 'dedent'
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
-import { setAutoSnapshotOptions } from '../client.ts'
+import type { Options } from 'ssim.js'
+import { testType } from 'type-plus'
+import { afterEach, beforeEach, describe, it } from 'vitest'
+import { type SnapshotMeta, setAutoSnapshotOptions } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { vis } from './vis.ts'
 
@@ -96,6 +98,15 @@ describe('matchPerTheme', () => {
 				expect(meta).toMatchObject({ enable: true })
 			},
 		})()
+	})
+
+	it('can specify type param', () => {
+		vis.afterEach.matchPerTheme<SnapshotMeta<'ssim'>>({
+			x(options) {
+				testType.equal<typeof options.diffOptions, Partial<Options> | undefined>(true)
+				return false
+			},
+		})
 	})
 })
 

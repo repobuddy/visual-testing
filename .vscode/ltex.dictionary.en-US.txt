@@ -12,3 +12,4 @@ Addon
 npm
 pnpm
 corepack
+param
