@@ -66,7 +66,9 @@ function parseMeta<M extends ComparisonMethod>(meta: boolean | SnapshotMeta<M>):
 	return typeof meta === 'boolean' ? ({ enable: meta } as any) : { enable: true, ...meta }
 }
 
-export function getAutoSnapshotOptions<M extends SnapshotMeta<any> = SnapshotMeta<any>>(task: MetaTask): M | undefined {
+export function extractAutoSnapshotOptions<M extends SnapshotMeta<any> = SnapshotMeta<any>>(
+	task: MetaTask,
+): M | undefined {
 	if (!task) return
 
 	const list: any[] = []
@@ -80,10 +82,7 @@ export function getAutoSnapshotOptions<M extends SnapshotMeta<any> = SnapshotMet
 	return list.reduce(
 		(acc, cur) => {
 			const meta = cur?.[NAME]
-			if (meta) {
-				return Object.assign({}, acc, meta)
-			}
-			return acc
+			return meta ? Object.assign({}, acc, meta) : acc
 		},
 		{ enable: ctx.autoEnabled },
 	)

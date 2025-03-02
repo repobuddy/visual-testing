@@ -1,5 +1,5 @@
 import { ctx } from './ctx.ts'
-import { type SnapshotMeta, getAutoSnapshotOptions } from './snapshot_options.ts'
+import { type SnapshotMeta, extractAutoSnapshotOptions } from './snapshot_options.ts'
 
 /**
  * Determine should snapshot be taken.
@@ -9,6 +9,6 @@ import { type SnapshotMeta, getAutoSnapshotOptions } from './snapshot_options.ts
  * disabled by `!snapshot` tag: false
  */
 export function shouldTakeSnapshot(meta?: SnapshotMeta<any> | undefined) {
-	const m = meta ?? getAutoSnapshotOptions(ctx.getCurrentTest())
+	const m = meta ?? extractAutoSnapshotOptions(ctx.getCurrentTest())
 	return document.body.childElementCount > 0 && m?.enable
 }

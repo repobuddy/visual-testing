@@ -3,7 +3,7 @@ import { afterEach, beforeAll } from 'vitest'
 import { type SnapshotMeta, setAutoSnapshotOptions, toTaskId } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
-import { enableAuto, getAutoSnapshotOptions } from '../client/snapshot_options.ts'
+import { enableAuto, extractAutoSnapshotOptions } from '../client/snapshot_options.ts'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
 
 /**
@@ -91,7 +91,7 @@ export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCo
 
 				if ((test?.result?.errors?.length ?? 0) > 0) return
 
-				const meta = getAutoSnapshotOptions(test)
+				const meta = extractAutoSnapshotOptions(test)
 				if (!shouldTakeSnapshot(meta)) return
 
 				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
@@ -101,7 +101,7 @@ export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCo
 					const test = ctx.getCurrentTest()
 					if ((test?.result?.errors?.length ?? 0) > 0) return
 
-					const meta = getAutoSnapshotOptions<M>(test)
+					const meta = extractAutoSnapshotOptions<M>(test)
 					if (!shouldTakeSnapshot(meta)) return
 					const errors: any[] = []
 					for (const themeId in themes) {
