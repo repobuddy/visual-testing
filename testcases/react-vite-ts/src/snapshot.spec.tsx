@@ -18,3 +18,8 @@ it('can skip await', async ({ expect }) => {
 	const subject = getByTestId('subject')
 	expect(subject).toMatchImageSnapshot()
 })
+
+it('life cycle', async () => {
+	await render(<Button label="Button" />)
+	console.info('test starts...')
+})
