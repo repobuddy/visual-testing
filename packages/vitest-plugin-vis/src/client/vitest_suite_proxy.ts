@@ -1,5 +1,4 @@
-import type { NAME } from '../shared/constants.ts'
-import type { SnapshotMeta } from './snapshot_options.ts'
+import type { CurrentTest } from '../shared/types.ts'
 
 let vitestSuite: Awaited<typeof import('vitest/suite')>
 
@@ -9,8 +8,5 @@ if ((globalThis as any).__vitest_browser__) {
 	})
 }
 
-export const getCurrentTest = () =>
-	vitestSuite?.getCurrentTest() as ReturnType<typeof vitestSuite.getCurrentTest> & {
-		meta: { [NAME]?: SnapshotMeta<'pixel' | 'ssim'> }
-	}
+export const getCurrentTest = () => vitestSuite?.getCurrentTest() as CurrentTest
 export const getCurrentSuite = () => vitestSuite?.getCurrentSuite()

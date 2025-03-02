@@ -1,7 +1,9 @@
 import { join, relative } from 'pathe'
 import { pick } from 'type-plus'
+import { getCurrentTest } from 'vitest/suite'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
+import type { CurrentTest } from '../shared/types.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
@@ -70,11 +72,13 @@ export function createVisContext() {
 		},
 		getSnapshotFilename(info: { taskId: string; task: { count: number } }, snapshotFileId: string | undefined) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
-
+			const test = getCurrentTest() as CurrentTest
+			const isAutoSnapshot = !!test?.meta.vis?.isAutoSnapshot
 			const customizeSnapshotId = visOptions.customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
 			return `${customizeSnapshotId({
 				id: info.taskId,
 				index: info.task.count,
+				isAutoSnapshot,
 			})}.png`
 		},
 		getSuiteInfo(testPath: string, taskId: string) {

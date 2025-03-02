@@ -1,4 +1,5 @@
 import type { BrowserCommands } from '@vitest/browser/context'
+import type { CurrentTest } from 'vitest-plugin-vis/client'
 import type {
 	HasImageSnapshotCommand,
 	ImageSnapshotNextIndexCommand,
@@ -36,4 +37,4 @@ export const commands = new Proxy<BrowserCommands>({} as any, {
 	},
 })
 
-export const getCurrentTest = () => vitestSuite?.getCurrentTest()
+export const getCurrentTest = () => vitestSuite?.getCurrentTest() as CurrentTest

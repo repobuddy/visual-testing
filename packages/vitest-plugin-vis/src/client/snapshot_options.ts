@@ -1,13 +1,6 @@
 import { NAME } from '../shared/constants.ts'
-import type { AutoSnapshotOptions, ComparisonMethod } from '../shared/types.ts'
+import type { ComparisonMethod, SnapshotMeta } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
-import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
-
-export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
-	AutoSnapshotOptions & {
-		enable?: boolean | undefined
-		[key: string]: unknown
-	}
 
 type Suite = { meta: Record<string, any>; suite?: Suite | undefined }
 

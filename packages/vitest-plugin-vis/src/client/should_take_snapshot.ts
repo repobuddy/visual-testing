@@ -1,5 +1,6 @@
+import type { SnapshotMeta } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
-import { type SnapshotMeta, extractAutoSnapshotOptions } from './snapshot_options.ts'
+import { extractAutoSnapshotOptions } from './snapshot_options.ts'
 
 /**
  * Determine should snapshot be taken.

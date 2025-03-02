@@ -1,5 +1,7 @@
 import type pixelMatch from 'pixelmatch'
 import type { Options as SsimOptions } from 'ssim.js'
+import type { getCurrentTest } from 'vitest/suite'
+import type { NAME } from './constants.ts'
 
 export interface ImageSnapshotTimeoutOptions {
 	/**
@@ -19,9 +21,8 @@ export interface ImageSnapshotIdOptions {
 	 */
 	customizeSnapshotId?: (context: {
 		id: string
-		// width: number
-		// height: number
 		index: number
+		isAutoSnapshot: boolean
 	}) => string
 }
 
@@ -70,4 +71,23 @@ export type AutoSnapshotOptions = {
 	 * the `body` element will be used.
 	 */
 	subjectDataTestId?: string | undefined
+}
+export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
+	ImageSnapshotIdOptions &
+	ImageSnapshotCompareOptions<M> & {
+		/**
+		 * Expect the matcher to fail.
+		 * If it passes, it will throw an error with details.
+		 */
+		expectToFail?: boolean | undefined
+	}
+
+export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
+	AutoSnapshotOptions & {
+		enable?: boolean | undefined
+		[key: string]: unknown
+	}
+
+export type CurrentTest = ReturnType<typeof getCurrentTest> & {
+	meta: { [NAME]?: SnapshotMeta<'pixel' | 'ssim'> & { isAutoSnapshot?: boolean | undefined } }
 }

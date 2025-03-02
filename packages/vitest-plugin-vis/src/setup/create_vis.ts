@@ -94,6 +94,8 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 				const meta = extractAutoSnapshotOptions(test)
 				if (!shouldTakeSnapshot(meta)) return
 
+				test.meta.vis = { ...test.meta.vis, isAutoSnapshot: true }
+
 				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
 			},
 			matchPerTheme(themes) {
@@ -114,7 +116,7 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 								.toMatchImageSnapshot({
 									...meta,
 									customizeSnapshotId: meta?.customizeSnapshotId
-										? ({ id, index }) => `${meta.customizeSnapshotId!({ id, index })}-${themeId}`
+										? ({ id, index }) => `${meta.customizeSnapshotId!({ id, index, isAutoSnapshot: true })}-${themeId}`
 										: ({ id }) => `${id}-${themeId}`,
 								})
 						} catch (error) {

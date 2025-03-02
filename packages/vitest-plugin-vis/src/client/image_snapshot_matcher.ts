@@ -1,13 +1,12 @@
 import dedent from 'dedent'
 import { resolve } from 'pathe'
-import type { Task } from 'vitest'
 import type { ImageSnapshotNextIndexCommand } from '../commands.ts'
 import type { PrepareImageSnapshotComparisonCommand } from '../server/commands/prepare_image_snapshot_comparison.ts'
 import type { WriteImageSnapshotCommand } from '../server/commands/write_image_snapshot.ts'
 import { isBase64String } from '../shared/base64.ts'
 import { compareImage } from '../shared/compare_image.ts'
+import type { CurrentTest, ToMatchImageSnapshotOptions } from '../shared/types.ts'
 import { alignImagesToSameSize } from './align_images.ts'
-import type { ToMatchImageSnapshotOptions } from './expect/to_match_image_snapshot.types.ts'
 import { toDataURL, toImageData } from './image_data.ts'
 import { prettifyOptions } from './image_snapshot_matcher.logic.ts'
 import { convertElementToCssSelector } from './selector.ts'
@@ -17,12 +16,19 @@ import { server } from './vitest_browser_context_proxy.ts'
 export function imageSnapshotMatcher(
 	commands: PrepareImageSnapshotComparisonCommand & WriteImageSnapshotCommand & ImageSnapshotNextIndexCommand,
 ) {
-	return async function matchImageSnapshot(test: Task, subject: any, options?: ToMatchImageSnapshotOptions<any>) {
+	return async function matchImageSnapshot(
+		test: CurrentTest & {},
+		subject: any,
+		options?: ToMatchImageSnapshotOptions<any>,
+	) {
+		const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
 		const taskId = toTaskId(test)
 		const info = await commands.prepareImageSnapshotComparison(
 			taskId,
 			parseImageSnapshotSubject(subject),
-			options?.customizeSnapshotId ? await parseImageSnapshotOptions(commands, taskId, options) : options,
+			options?.customizeSnapshotId
+				? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options)
+				: options,
 		)
 
 		if (!info) return
@@ -103,10 +109,11 @@ async function writeSnapshot(commands: WriteImageSnapshotCommand, path: string, 
 async function parseImageSnapshotOptions(
 	commands: ImageSnapshotNextIndexCommand,
 	taskId: string,
+	isAutoSnapshot: boolean,
 	options: ToMatchImageSnapshotOptions<any>,
 ) {
 	const index = await commands.imageSnapshotNextIndex(taskId)
 	const { customizeSnapshotId, ...rest } = options
-	const snapshotFileId = customizeSnapshotId!({ id: taskId, index })
+	const snapshotFileId = customizeSnapshotId!({ id: taskId, index, isAutoSnapshot })
 	return { ...rest, snapshotFileId }
 }

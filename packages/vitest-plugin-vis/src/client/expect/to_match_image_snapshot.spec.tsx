@@ -315,6 +315,23 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 
 		// can't validate 2nd snapshot because it's chicken-egg problem
 	})
+
+	it.sequential('can customize auto snapshot filename', async () => {
+		setAutoSnapshotOptions({
+			customizeSnapshotId({ id, isAutoSnapshot }) {
+				return isAutoSnapshot ? `${id}-at` : `${id}-invalid`
+			},
+		})
+		page.render(<div>hello</div>)
+	})
+
+	it.sequential('can customize auto snapshot filename (validate)', async ({ expect }) => {
+		expect(
+			await page.hasImageSnapshot({
+				customizeSnapshotId: ({ id }) => `${id.slice(0, -' (validate)'.length)}-at`,
+			}),
+		).toBeTruthy()
+	})
 })
 
 describe('ssim', () => {
