@@ -79,8 +79,8 @@ export function getAutoSnapshotOptions<M extends SnapshotMeta<any> = SnapshotMet
 	list.push(task.meta)
 	return list.reduce(
 		(acc, cur) => {
-			if (cur?.[NAME]) {
-				const { [NAME]: meta } = cur
+			const meta = cur?.[NAME]
+			if (meta) {
 				return Object.assign({}, acc, meta)
 			}
 			return acc
