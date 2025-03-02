@@ -1,48 +1,80 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { type SnapshotMeta, toTaskId } from '../client.ts'
+import { type SnapshotMeta, setAutoSnapshotOptions, toTaskId } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
-import { getAutoSnapshotOptions } from '../client/snapshot_options.internal.js'
+import { enableAuto, getAutoSnapshotOptions } from '../client/snapshot_options.ts'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
+
+/**
+ * Visual test configuration on the client side.
+ */
+export type VisClientConfigurator<M extends SnapshotMeta<any>> = {
+	presets: {
+		/**
+		 * Enable visual testing.
+		 *
+		 * auto snapshot is turned off by default.
+		 * You can specify the test to take a snapshot during `afterEach()` hook with `setAutoSnapshotOptions()`.
+		 */
+		enable(): void
+		/**
+		 * Enable visual testing.
+		 *
+		 * `setAutoSnapshotOptions` will have no effect in this preset.
+		 */
+		manual(): void
+		/**
+		 * Enable automatic visual testing.
+		 *
+		 * This will take a snapshot after each test.
+		 */
+		auto(): void
+		/**
+		 * Enable automatic visual testing with multiple themes.
+		 *
+		 * This will take a snapshot after each test for each theme.
+		 *
+		 * @param themes A record of theme names and their setup functions.
+		 *
+		 * @example
+		 * ```ts
+		 * vis().presets.theme({
+		 *  light() { document.body.classList.add('light') },
+		 *  dark() { document.body.classList.add('dark') },
+		 * })
+		 * ```
+		 */
+		theme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>): void
+	}
+	beforeAll: {
+		setup(): Promise<void>
+	}
+	afterEach: {
+		matchImageSnapshot(): Promise<void>
+		matchPerTheme(
+			themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>,
+		): () => Promise<void>
+	}
+}
 
 export function createVis<M extends SnapshotMeta<any>>(commands: SetupVisSuiteCommand) {
 	let subjectDataTestId: string | undefined
-	/**
-	 * Visual test configuration on the client side.
-	 */
-	const vis = {
+
+	const vis: VisClientConfigurator<M> = {
 		presets: {
-			/**
-			 * Enable manual visual testing.
-			 */
-			manual() {
-				beforeAll(vis.beforeAll.setup)
-			},
-			/**
-			 * Enable automatic visual testing.
-			 *
-			 * This will take a snapshot after each test.
-			 */
-			auto() {
+			enable() {
 				beforeAll(vis.beforeAll.setup)
 				afterEach(vis.afterEach.matchImageSnapshot)
 			},
-			/**
-			 * Enable automatic visual testing with multiple themes.
-			 *
-			 * This will take a snapshot after each test for each theme.
-			 *
-			 * @param themes A record of theme names and their setup functions.
-			 *
-			 * @example
-			 * ```ts
-			 * vis().presets.theme({
-			 *  light() { document.body.classList.add('light') },
-			 *  dark() { document.body.classList.add('dark') },
-			 * })
-			 * ```
-			 */
+			manual() {
+				beforeAll(vis.beforeAll.setup)
+			},
+			auto() {
+				beforeAll(vis.beforeAll.setup)
+				afterEach(vis.afterEach.matchImageSnapshot)
+				enableAuto()
+			},
 			theme(themes: Record<string, (options: M) => Promise<boolean> | Promise<void> | boolean | void>) {
 				beforeAll(vis.beforeAll.setup)
 				afterEach(vis.afterEach.matchPerTheme(themes))

@@ -52,11 +52,11 @@ it('can customize snapshot filename', async () => {
 	await MatchingElement.run()
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: (id) => `${id}-custom`,
+		customizeSnapshotId: ({ id }) => `${id}-custom`,
 	})
 	expect(
 		await hasImageSnapshot({
-			customizeSnapshotId: (id) => `${id}-custom`,
+			customizeSnapshotId: ({ id }) => `${id}-custom`,
 		}),
 	).toBeTruthy()
 })

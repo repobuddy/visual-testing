@@ -113,7 +113,7 @@ export default defineConfig({
 			}) => `__vis__/${ci ? platform : 'local'}`,
 			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
-			customizeSnapshotId: (id, index) => `${id}-${index}`,
+			customizeSnapshotId: ({ id, index }) => `${id}-${index}`,
 			// set a default subject (e.g. 'subject') to capture image snapshot
 			subjectDataTestId: undefined,
 			comparisonMethod: 'pixel',

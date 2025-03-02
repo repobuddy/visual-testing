@@ -2,4 +2,4 @@
 import './client/expect/augment.ts'
 import './client/page/augment.ts'
 
-export * from './client/snapshot_options.ts'
+export { type MetaTask, type SnapshotMeta, setAutoSnapshotOptions } from './client/snapshot_options.ts'

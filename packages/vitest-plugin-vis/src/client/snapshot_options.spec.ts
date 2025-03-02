@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, it } from 'vitest'
 import { setAutoSnapshotOptions } from '../client.ts'
 import { NAME } from '../shared/constants.ts'
-import { getAutoSnapshotOptions } from './snapshot_options.internal.ts'
+import { getAutoSnapshotOptions } from './snapshot_options.ts'
 
 beforeAll((suite) => {
 	// this set the `file` meta

@@ -1,7 +1,8 @@
 import { page } from '@vitest/browser/context'
 import dedent from 'dedent'
-import { describe, it } from 'vitest'
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { setAutoSnapshotOptions } from '../client.ts'
+import { ctx } from '../client/ctx.ts'
 import { vis } from './vis.ts'
 
 describe('matchPerTheme', () => {
@@ -52,7 +53,7 @@ describe('matchPerTheme', () => {
 	})
 
 	it('works with customizeSnapshotId', async ({ expect }) => {
-		setAutoSnapshotOptions({ customizeSnapshotId: (id) => `${id}-custom` })
+		setAutoSnapshotOptions({ customizeSnapshotId: ({ id }) => `${id}-custom` })
 
 		page.render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
@@ -65,8 +66,8 @@ describe('matchPerTheme', () => {
 			},
 		})()
 
-		await expect(page.hasImageSnapshot({ customizeSnapshotId: (id) => `${id}-custom-theme1` })).resolves.toBe(true)
-		await expect(page.hasImageSnapshot({ customizeSnapshotId: (id) => `${id}-custom-theme2` })).resolves.toBe(true)
+		await expect(page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => `${id}-custom-theme1` })).resolves.toBe(true)
+		await expect(page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => `${id}-custom-theme2` })).resolves.toBe(true)
 	})
 
 	// cannot run this test because no way to get the failed test to pass again
@@ -95,5 +96,22 @@ describe('matchPerTheme', () => {
 				expect(meta).toMatchObject({ enable: true })
 			},
 		})()
+	})
+})
+
+describe('presets.enable()', () => {
+	beforeEach(() => vis.presets.enable())
+
+	afterEach(() => ctx.__test__reset())
+
+	it.sequential('can enable auto snapshot', async () => {
+		setAutoSnapshotOptions({ customizeSnapshotId: ({ id }) => id })
+
+		page.render(<div data-testid="subject">hello</div>)
+	})
+	it.sequential('can enable auto snapshot (validate)', async ({ expect }) => {
+		await expect(
+			page.hasImageSnapshot({ customizeSnapshotId: () => 'presets-enable--/can-enable-auto-snapshot' }),
+		).resolves.toBe(true)
 	})
 })

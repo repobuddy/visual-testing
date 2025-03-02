@@ -40,6 +40,10 @@
 			"types": "./esm/presets/auto.d.ts",
 			"default": "./esm/presets/auto.js"
 		},
+		"./presets/enable": {
+			"types": "./esm/presets/enable.d.ts",
+			"default": "./esm/presets/enable.js"
+		},
 		"./presets/manual": {
 			"types": "./esm/presets/manual.d.ts",
 			"default": "./esm/presets/manual.js"

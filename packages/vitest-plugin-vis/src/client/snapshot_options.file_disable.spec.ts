@@ -1,6 +1,6 @@
 import { beforeAll, it } from 'vitest'
 import { setAutoSnapshotOptions } from '../client.ts'
-import { getAutoSnapshotOptions } from './snapshot_options.internal.ts'
+import { getAutoSnapshotOptions } from './snapshot_options.ts'
 
 beforeAll(() => setAutoSnapshotOptions(false))
 

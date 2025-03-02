@@ -15,7 +15,7 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		/**
 		 * Loads the `test.setupFiles` of the specified preset.
 		 */
-		preset?: 'manual' | 'auto' | 'none' | undefined
+		preset?: 'enable' | 'manual' | 'auto' | 'none' | undefined
 		/**
 		 * The name of the subdirectory that the baseline snapshots get saved in.
 		 *

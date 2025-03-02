@@ -83,7 +83,7 @@ export default defineConfig({
 			}) => `__vis__/${ci ? platform : 'local'}`,
 			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
-			customizeSnapshotId: (id, index) => `${id}-${index}`,
+			customizeSnapshotId: ({ id, index }) => `${id}-${index}`,
 			// set a default subject (e.g. 'subject') to capture image snapshot
 			subjectDataTestId: undefined,
 			comparisonMethod: 'pixel',
@@ -94,7 +94,7 @@ export default defineConfig({
 			failureThreshold: 0,
 		})
 	],
-	test:{
+	test: {
 		browser: {/* ... */}
 	}
 })
@@ -113,8 +113,8 @@ export default defineConfig({
 	plugins: [
 		vis({ preset: 'none' })
 	],
-	test:{
-		browser:{/* ... */},
+	test: {
+		browser: {/* ... */},
 		setupFiles: ['vitest.setup.ts']
 	}
 })
@@ -123,13 +123,17 @@ export default defineConfig({
 import { vis } from 'vitest-plugin-vis/setup'
 
 // if you set `preset: none` in `vitest.config.ts`,
-// you can enable `auto` or `manual` setup here
+// you can use a preset manually here.
+
+// Take snapshot at the end of each rendering test.
 vis.presets.auto()
+// Enable snapshot testing for manual snapshot only.
 vis.presets.manual()
+// Enable snapshot testing, allow auto snapshot with `setAutoSnapshotOptions()`
+vis.presets.enable()
 
-
-// or capture image snapshot for all rendering tests
-// for multiple themes (light and dark in this example)
+// Take image snapshot for each rendering test,
+// one snapshot per theme (light and dark in this example).
 //
 // Note that this changes the theme in the `afterEach` hook.
 // If you want to capture manual snapshots in different themes,
@@ -160,10 +164,10 @@ To address this, you can add the following to your `tsconfig.json`:
 
 ## Usage
 
-### Auto Snapshot
+### Auto Preset
 
 By default, the plugin will use the `auto` preset,
-which will take a snapshot at the end of each test.
+which will take a snapshot at the end of each rendering test.
 
 You can control how the auto snapshot is taken using the `setAutoSnapshotOptions` function:
 
@@ -213,7 +217,7 @@ setAutoSnapshotOptions(true /* or false */)
 setAutoSnapshotOptions({
 	enable: true,
 	comparisonMethod: 'pixel',
-	customizeSnapshotId: (id, index) => `${id}-custom-${index}`,
+	customizeSnapshotId: ({ id, index }) => `${id}-custom-${index}`,
 	// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 	diffOptions: { threshold: 0.01 },
 	failureThreshold: 0.01,
@@ -238,7 +242,7 @@ vis.presets.theme({
 })
 ```
 
-### Manual Snapshot
+### Manual Preset
 
 You can also set the preset to `manual` and compare snapshots manually:
 
@@ -251,7 +255,7 @@ export default defineConfig({
 		vis({ preset: 'manual' })
 	],
 	test:{
-		browser:{/* ... */}
+		browser: {/* ... */}
 	}
 })
 
@@ -281,7 +285,7 @@ it('manual snapshot with options', async ({ expect }) => {
 	page.render(<div data-testid="subject">hello world</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: (id, index) => `${id}-custom-${index}`,
+		customizeSnapshotId: ({ id, index }) => `${id}-custom-${index}`,
 		failureThreshold: 0.01,
 		failureThresholdType: 'percent',
 		diffOptions: {
@@ -289,6 +293,23 @@ it('manual snapshot with options', async ({ expect }) => {
 		},
 		timeout: 60000
 	})
+})
+```
+
+### Enable Preset
+
+The `enable` preset allows you to take manual snapshot,
+as well as auto snapshot at the end on a rendering test using the `setAutoSnapshotOptions` function:
+
+```ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+import { beforeEach, it } from 'vitest'
+
+
+it('take snapshot', async () => {
+	setAutoSnapshotOptions(/* options */) // e.g. `true`
+
+	// ...your test...
 })
 ```
 
@@ -311,7 +332,7 @@ it('Has Snapshot', async ({ expect }) => {
 })
 ```
 
-This is useful when you are performing some negative test.
+This is useful when you are performing negative test.
 
 ## Git Ignore
 
