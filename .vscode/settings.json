@@ -1,6 +1,7 @@
 {
 	"[javascript]": {
 		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit",
 			"source.organizeImports.biome": "explicit"
 		},
 		"editor.defaultFormatter": "biomejs.biome",
@@ -8,6 +9,7 @@
 	},
 	"[javascriptreact]": {
 		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit",
 			"source.organizeImports.biome": "explicit"
 		},
 		"editor.defaultFormatter": "biomejs.biome",
@@ -31,6 +33,7 @@
 	},
 	"[typescript]": {
 		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit",
 			"source.organizeImports.biome": "explicit"
 		},
 		"editor.defaultFormatter": "biomejs.biome",
@@ -38,6 +41,7 @@
 	},
 	"[typescriptreact]": {
 		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit",
 			"source.organizeImports.biome": "explicit"
 		},
 		"editor.defaultFormatter": "biomejs.biome",
@@ -88,7 +92,8 @@
 		"vitest.setup.playwright.ts": "vitest",
 		"vitest.setup.webdriverio.ts": "vitest"
 	},
-	"typescript.experimental.updateImportsOnPaste": true,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.updateImportsOnPaste.enabled": true,
 	"typescript.preferences.importModuleSpecifierEnding": "js",
 	"typescript.preferences.includePackageJsonAutoImports": "on",
 	"typescript.tsdk": "node_modules/typescript/lib",
