@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.3.3
+
+### Patch Changes
+
+- [#230](https://github.com/repobuddy/storybook-addon-vis/pull/230) [`4b665f9`](https://github.com/repobuddy/storybook-addon-vis/commit/4b665f940fd8f290de99875d3b0b6332e3aed38a) Thanks [@unional](https://github.com/unional)! - Fix handling multiple projects running in a workspace.
+
 ## 2.3.2
 
 ### Patch Changes
