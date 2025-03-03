@@ -96,7 +96,9 @@ describe(`${createVisContext.name}()`, () => {
 		it('skip setup state if already set up', async ({ expect }) => {
 			const visContext = createVisContext()
 			await visContext.setupSuite(stubSuite())
-			await visContext.setupSuite(stubSuite({ project: { config: { root: 'another' } } }))
+			await visContext.setupSuite(
+				stubSuite(createStubPartialBrowserCommandContext({ root: 'another', testPath: '' })()),
+			)
 			expect(visContext.__test__getState().projectPath).toMatch(/vitest-plugin-vis$/)
 		})
 	})

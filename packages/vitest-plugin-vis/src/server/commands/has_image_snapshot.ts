@@ -11,5 +11,5 @@ export const hasImageSnapshot: BrowserCommand<
 > = async (context, taskId, snapshotId, isAutoSnapshot) => {
 	assertTestPathDefined(context, 'hasImageSnapshot')
 
-	return visContext.hasImageSnapshot(context.testPath, taskId, snapshotId, isAutoSnapshot)
+	return visContext.hasImageSnapshot(context as any, taskId, snapshotId, isAutoSnapshot)
 }

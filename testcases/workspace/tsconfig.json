@@ -1,0 +1,10 @@
+{
+	"files": [],
+	"references": [
+		{
+			"path": "../../packages/storybook-addon-vis"
+		},
+		{ "path": "./tsconfig.app.json" },
+		{ "path": "./tsconfig.node.json" }
+	]
+}

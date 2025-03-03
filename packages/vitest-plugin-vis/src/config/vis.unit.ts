@@ -10,7 +10,7 @@ it('plugin name', ({ expect }) => {
 
 describe('vis().config()', () => {
 	it('do not specify browser name', ({ expect }) => {
-		const config = vis().config()
-		expect(config.test.browser.name).toBeUndefined()
+		const config = vis().config({ test: { name: 'proj' } })
+		expect(config.test?.browser.name).toBeUndefined()
 	})
 })

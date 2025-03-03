@@ -8,7 +8,7 @@ describe(`${storybookVis.name}()`, () => {
 		expect(result).toMatchObject({
 			name: NAME,
 		})
-		const config = result.config()
+		const config = result.config({ test: { name: 'proj' } })
 		expect(config.test.setupFiles).toMatchObject([])
 	})
 
@@ -17,19 +17,19 @@ describe(`${storybookVis.name}()`, () => {
 		expect(result).toMatchObject({
 			name: NAME,
 		})
-		const config = result.config()
+		const config = result.config({ test: { name: 'proj' } })
 		expect(config.test.setupFiles).toMatchObject([])
 	})
 
 	it('can set comparison method to pixel', ({ expect }) => {
 		const result = storybookVis({ comparisonMethod: 'pixel', diffOptions: { threshold: 0.01 } })
-		const config = result.config()
+		const config = result.config({ test: { name: 'proj' } })
 		expect(config.test.setupFiles).toMatchObject([])
 	})
 
 	it('can set comparison method to ssim', ({ expect }) => {
 		const result = storybookVis({ comparisonMethod: 'ssim', diffOptions: { ssim: 'fast' } })
-		const config = result.config()
+		const config = result.config({ test: { name: 'proj' } })
 		expect(config.test.setupFiles).toMatchObject([])
 	})
 })

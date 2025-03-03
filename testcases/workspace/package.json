@@ -1,0 +1,46 @@
+{
+	"name": "testcase-workspace",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"clean": "rimraf dist",
+		"nuke": "rimraf node_modules",
+		"sb": "storybook dev -p 6107",
+		"test": "vitest run",
+		"testcase": "vitest run",
+		"w": "vitest"
+	},
+	"eslintConfig": {
+		"extends": [
+			"plugin:storybook/recommended"
+		]
+	},
+	"dependencies": {
+		"clsx": "^2.1.1",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
+	},
+	"devDependencies": {
+		"@storybook/addon-essentials": "^8.6.3",
+		"@storybook/addon-links": "^8.6.3",
+		"@storybook/addon-themes": "^8.6.3",
+		"@storybook/blocks": "^8.6.3",
+		"@storybook/experimental-addon-test": "^8.6.3",
+		"@storybook/react": "^8.6.3",
+		"@storybook/react-vite": "^8.6.3",
+		"@storybook/test": "^8.6.3",
+		"@storybook/theming": "^8.3.6",
+		"@types/react": "^18.3.11",
+		"@types/react-dom": "^18.3.1",
+		"@vitejs/plugin-react": "^4.3.3",
+		"@vitest/browser": "^3.0.6",
+		"autoprefixer": "^10.4.20",
+		"globals": "^16.0.0",
+		"storybook": "^8.6.3",
+		"storybook-addon-vis": "workspace:*",
+		"tailwindcss": "^3.4.14",
+		"typescript": "^5.7.2",
+		"vitest": "^3.0.6"
+	}
+}

@@ -10,6 +10,13 @@ export function createStubPartialBrowserCommandContext({ root, testPath }: { roo
 			config: {
 				root,
 			},
+			vite: {
+				config: {
+					test: {
+						name: 'subject',
+					},
+				},
+			},
 		},
 		provider: {
 			options: {},

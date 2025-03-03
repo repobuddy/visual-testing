@@ -34,6 +34,13 @@ export type PartialBrowserCommandContext = {
 			testTimeout: number
 			hookTimeout: number
 		}
+		vite: {
+			config: {
+				test?: {
+					name: string
+				}
+			}
+		}
 	}
 	provider: {
 		name: string

@@ -12,11 +12,13 @@ import type { VisOptions } from './types.ts'
  * which enables the `auto` preset.
  */
 export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M> = { preset: 'auto' } as any) {
-	visContext.setOptions(options)
-	const preset = options?.preset
 	return {
 		name: NAME,
-		config() {
+		config(userConfig) {
+			const projectName = userConfig?.test?.name
+
+			visContext.setOptions(projectName, options)
+			const preset = options?.preset
 			return {
 				test: {
 					browser: {
