@@ -20,6 +20,7 @@ export interface MatchImageSnapshotCommand {
 	matchImageSnapshot: (
 		taskId: string | undefined,
 		subject: string,
+		isAutoSnapshot: boolean,
 		options?: MatchImageSnapshotOptions | undefined,
 	) => Promise<void>
 }
@@ -34,15 +35,15 @@ export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	}
 
 export const matchImageSnapshot: BrowserCommand<
-	[taskId: string, subject: string, options?: MatchImageSnapshotOptions | undefined]
-> = async (context, taskId, subject, options) => {
+	[taskId: string, subject: string, isAutoSnapshot: boolean, options?: MatchImageSnapshotOptions | undefined]
+> = async (context, taskId, subject, isAutoSnapshot, options) => {
 	assertTestPathDefined(context, 'matchImageSnapshot')
 
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
-	const info = visContext.getSnapshotInfo(context.testPath, taskId, options)
+	const info = visContext.getSnapshotInfo(context.testPath, taskId, isAutoSnapshot, options)
 	const baselineBuffer = await file.tryReadFile(info.baselinePath)
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {

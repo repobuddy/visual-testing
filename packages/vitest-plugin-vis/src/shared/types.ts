@@ -87,7 +87,3 @@ export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptio
 		enable?: boolean | undefined
 		[key: string]: unknown
 	}
-
-export type CurrentTest = ReturnType<typeof getCurrentTest> & {
-	meta: { [NAME]?: SnapshotMeta<'pixel' | 'ssim'> & { isAutoSnapshot?: boolean | undefined } }
-}

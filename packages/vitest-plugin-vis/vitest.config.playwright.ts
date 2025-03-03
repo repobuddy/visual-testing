@@ -4,7 +4,13 @@ import { vis } from './src/config.ts'
 // https://vitejs.dev/config/
 export default defineConfig(() => {
 	return {
-		plugins: [vis({ preset: 'none', subjectDataTestId: 'subject' })],
+		plugins: [
+			vis({
+				preset: 'none',
+				customizeSnapshotId: ({ id, index, isAutoSnapshot }) => (isAutoSnapshot ? `${id}-auto` : `${id}-${index}`),
+				subjectDataTestId: 'subject',
+			}),
+		],
 		optimizeDeps: {
 			include: ['react/jsx-dev-runtime'],
 		},

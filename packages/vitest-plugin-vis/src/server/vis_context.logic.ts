@@ -1,9 +1,7 @@
 import { join, relative } from 'pathe'
 import { pick } from 'type-plus'
-import { getCurrentTest } from 'vitest/suite'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
-import type { CurrentTest } from '../shared/types.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
@@ -45,11 +43,16 @@ export function createVisContext() {
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
 			return pick(state, 'subjectDataTestId')
 		},
-		getSnapshotInfo(testPath: string, name: string, options?: { snapshotFileId?: string | undefined }) {
-			const info = context.getSuiteInfo(testPath, name)
-			const snapshotFilename = context.getSnapshotFilename(info, options?.snapshotFileId)
+		getSnapshotInfo(
+			testPath: string,
+			name: string,
+			isAutoSnapshot: boolean,
+			options?: { snapshotFileId?: string | undefined },
+		) {
+			const suiteInfo = context.getSuiteInfo(testPath, name)
+			const snapshotFilename = context.getSnapshotFilename(suiteInfo, options?.snapshotFileId, isAutoSnapshot)
 
-			const { baselineDir, resultDir, diffDir, task } = info
+			const { baselineDir, resultDir, diffDir, task } = suiteInfo
 
 			task.count = task.count + 1
 			const baselinePath = join(baselineDir, snapshotFilename)
@@ -66,14 +69,17 @@ export function createVisContext() {
 		getTaskCount(testPath: string, taskId: string) {
 			return context.getSuiteInfo(testPath, taskId).task.count
 		},
-		hasImageSnapshot(testPath: string, taskId: string, snapshotFileId: string | undefined) {
+		hasImageSnapshot(testPath: string, taskId: string, snapshotFileId: string | undefined, isAutoSnapshot: boolean) {
 			const info = context.getSuiteInfo(testPath, taskId)
-			return file.existFile(join(info.baselineDir, context.getSnapshotFilename(info, snapshotFileId)))
+			return file.existFile(join(info.baselineDir, context.getSnapshotFilename(info, snapshotFileId, isAutoSnapshot)))
 		},
-		getSnapshotFilename(info: { taskId: string; task: { count: number } }, snapshotFileId: string | undefined) {
+		getSnapshotFilename(
+			info: { taskId: string; task: { count: number } },
+
+			snapshotFileId: string | undefined,
+			isAutoSnapshot: boolean,
+		) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
-			const test = getCurrentTest() as CurrentTest
-			const isAutoSnapshot = !!test?.meta.vis?.isAutoSnapshot
 			const customizeSnapshotId = visOptions.customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
 			return `${customizeSnapshotId({
 				id: info.taskId,

@@ -1,3 +1,4 @@
+import { isA } from '@vitest/expect'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { ImageSnapshotNextIndexCommand } from '../commands.ts'
@@ -5,13 +6,14 @@ import type { PrepareImageSnapshotComparisonCommand } from '../server/commands/p
 import type { WriteImageSnapshotCommand } from '../server/commands/write_image_snapshot.ts'
 import { isBase64String } from '../shared/base64.ts'
 import { compareImage } from '../shared/compare_image.ts'
-import type { CurrentTest, ToMatchImageSnapshotOptions } from '../shared/types.ts'
+import type { ToMatchImageSnapshotOptions } from '../shared/types.ts'
 import { alignImagesToSameSize } from './align_images.ts'
 import { toDataURL, toImageData } from './image_data.ts'
 import { prettifyOptions } from './image_snapshot_matcher.logic.ts'
 import { convertElementToCssSelector } from './selector.ts'
 import { toTaskId } from './task_id.ts'
 import { server } from './vitest_browser_context_proxy.ts'
+import type { CurrentTest } from './vitest_suite_proxy.ts'
 
 export function imageSnapshotMatcher(
 	commands: PrepareImageSnapshotComparisonCommand & WriteImageSnapshotCommand & ImageSnapshotNextIndexCommand,
@@ -26,6 +28,7 @@ export function imageSnapshotMatcher(
 		const info = await commands.prepareImageSnapshotComparison(
 			taskId,
 			parseImageSnapshotSubject(subject),
+			isAutoSnapshot,
 			options?.customizeSnapshotId
 				? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options)
 				: options,
