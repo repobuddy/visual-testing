@@ -10,16 +10,18 @@ export function hasImageSnapshot(options?: ImageSnapshotIdOptions | undefined) {
 	if (!test) return false
 
 	const taskId = toTaskId(test)
+	const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
 	if (options?.customizeSnapshotId) {
 		return commands
 			.imageSnapshotNextIndex(taskId)
 			.then((index) =>
 				commands.hasImageSnapshot(
 					taskId,
-					options.customizeSnapshotId!({ id: taskId, index, isAutoSnapshot: !!test.meta.vis?.isAutoSnapshot }),
+					options.customizeSnapshotId!({ id: taskId, index, isAutoSnapshot }),
+					isAutoSnapshot,
 				),
 			)
 	}
 
-	return commands.hasImageSnapshot(taskId)
+	return commands.hasImageSnapshot(taskId, undefined, isAutoSnapshot)
 }
