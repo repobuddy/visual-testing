@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.18.6
+
+### Patch Changes
+
+- [#227](https://github.com/repobuddy/storybook-addon-vis/pull/227) [`b74a986`](https://github.com/repobuddy/storybook-addon-vis/commit/b74a9863fdef5227ae9fb5a23927be7b0323148f) Thanks [@unional](https://github.com/unional)! - Adjust `vitest-plugin-vis` usage
+
+- Updated dependencies [[`13ef2a5`](https://github.com/repobuddy/storybook-addon-vis/commit/13ef2a53ca1a5e319b90e2c9d6a8f09945d87c0e)]:
+  - vitest-plugin-vis@2.3.1
+
 ## 0.18.5
 
 ### Patch Changes

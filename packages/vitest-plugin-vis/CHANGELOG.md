@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.3.1
+
+### Patch Changes
+
+- [#227](https://github.com/repobuddy/storybook-addon-vis/pull/227) [`13ef2a5`](https://github.com/repobuddy/storybook-addon-vis/commit/13ef2a53ca1a5e319b90e2c9d6a8f09945d87c0e) Thanks [@unional](https://github.com/unional)! - Fix handling of `isAutoSnapshot` handling on the server side.
+
 ## 2.3.0
 
 ### Minor Changes
