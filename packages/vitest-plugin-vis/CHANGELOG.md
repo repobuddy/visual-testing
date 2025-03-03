@@ -1,5 +1,13 @@
 # vitest-plugin-vis
 
+## 2.3.0
+
+### Minor Changes
+
+- [#225](https://github.com/repobuddy/storybook-addon-vis/pull/225) [`15bbbed`](https://github.com/repobuddy/storybook-addon-vis/commit/15bbbedb717b57d94c334e26d99b59431f1f17e0) Thanks [@unional](https://github.com/unional)! - Add type param to `vis.presets.theme()` and `vis.afterEach.matchPerTheme()`.
+
+- [#225](https://github.com/repobuddy/storybook-addon-vis/pull/225) [`4692f23`](https://github.com/repobuddy/storybook-addon-vis/commit/4692f2360737e03699646a68572f7456badd53b6) Thanks [@unional](https://github.com/unional)! - Add `isAutoSnapshot` prop to `customizeSnapshotId()`.
+
 ## 2.2.0
 
 ### Minor Changes
