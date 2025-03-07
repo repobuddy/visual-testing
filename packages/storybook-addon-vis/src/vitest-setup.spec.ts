@@ -1,7 +1,6 @@
 import { testType } from 'type-plus'
 import { beforeAll, describe, expect, it } from 'vitest'
-import { type SnapshotMeta, setAutoSnapshotOptions } from 'vitest-plugin-vis'
-import { vis } from './vitest-setup.ts'
+import { setAutoSnapshotOptions, vis, type SnapshotMeta } from './vitest-setup.ts'
 
 beforeAll(() => setAutoSnapshotOptions(false))
 
