@@ -1,6 +1,9 @@
 export type VisState = {
+	[projectPath: string]: VisProjectState
+}
+
+export type VisProjectState = {
 	projectPath: string
-	// platform: string
 	testTimeout: number
 	hookTimeout: number
 	snapshotRootDir: string
@@ -24,6 +27,7 @@ export type VisState = {
 		}
 	>
 }
+
 export type PartialBrowserCommandContext = {
 	project: {
 		config: {

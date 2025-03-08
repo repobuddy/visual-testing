@@ -61,7 +61,6 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 
 	const projectRoot = context.project.config.root
 	const info = visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
-
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {

@@ -6,7 +6,7 @@ import { getProjectName } from './commands/browser_command_context.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { ctx } from './vis_context.ctx.ts'
-import type { PartialBrowserCommandContext, VisState } from './vis_context.types.ts'
+import type { PartialBrowserCommandContext, VisProjectState, VisState } from './vis_context.types.ts'
 
 export function createVisContext() {
 	let visOptionsRecord: Record<string, VisOptions<any>> = {}
@@ -23,8 +23,9 @@ export function createVisContext() {
 		__test__reset() {
 			visOptionsRecord = {} as any
 		},
-		__test__getState() {
-			return state
+		__test__getState(context: PartialBrowserCommandContext) {
+			const projectRoot = getProjectRoot(context)
+			return state[projectRoot]!
 		},
 		/**
 		 * Setup suite is called on each test file's beforeAll hook.
@@ -39,10 +40,14 @@ export function createVisContext() {
 				await globalStateReady
 			}
 
-			const { suiteId, suite } = createSuite(state, context.testPath, visOptionsRecord)
-			state.suites[suiteId] = suite
+			const projectRoot = getProjectRoot(context)
+			const projectState = state[projectRoot]!
+
+			const { suiteId, suite } = createSuite(projectState, context.testPath, visOptionsRecord)
+			projectState.suites[suiteId] = suite
+
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
-			return pick(state, 'subjectDataTestId')
+			return pick(projectState, 'subjectDataTestId')
 		},
 		getSnapshotInfo(
 			browserContext: PartialBrowserCommandContext,
@@ -114,10 +119,11 @@ export function createVisContext() {
 			})}.png`
 		},
 		getSuiteInfo(browserContext: PartialBrowserCommandContext, testPath: string, taskId: string) {
-			const projectRoot = browserContext.project.config.root
+			const projectRoot = getProjectRoot(browserContext)
+			const projectState = state[projectRoot]!
 
-			const suiteId = getSuiteId(state, testPath, visOptionsRecord)
-			const suite = state.suites[suiteId]!
+			const suiteId = getSuiteId(projectState, testPath, visOptionsRecord)
+			const suite = projectState.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
 				projectRoot,
@@ -134,16 +140,16 @@ export function createVisContext() {
 }
 
 async function setupState(
-	suite: PartialBrowserCommandContext,
+	browserContext: PartialBrowserCommandContext,
 	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform' | 'subjectDataTestId'>,
 ) {
-	const snapshotRootDir = resolveSnapshotRootDir(suite, visOptions)
-	const projectPath = suite.project.config.root
+	const snapshotRootDir = resolveSnapshotRootDir(browserContext, visOptions)
+	const projectPath = getProjectRoot(browserContext)
 
 	const state = {
 		projectPath,
-		testTimeout: suite.project.config.testTimeout,
-		hookTimeout: suite.project.config.hookTimeout,
+		testTimeout: browserContext.project.config.testTimeout,
+		hookTimeout: browserContext.project.config.hookTimeout,
 		snapshotRootDir,
 		snapshotBaselineDir: join(snapshotRootDir, BASELINE_DIR),
 		snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
@@ -153,10 +159,14 @@ async function setupState(
 		suites: {},
 	}
 	await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])
-	return state
+	return { [projectPath]: state }
 }
 
-export function createSuite(state: VisState, testPath: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
+export function createSuite(
+	state: VisProjectState,
+	testPath: string,
+	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
+) {
 	const suiteId = getSuiteId(state, testPath, options)
 	return {
 		suiteId,
@@ -169,10 +179,18 @@ export function createSuite(state: VisState, testPath: string, options: Pick<Vis
 	}
 }
 
-export function getSuiteId(state: VisState, testPath: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
+export function getSuiteId(
+	state: VisProjectState,
+	testPath: string,
+	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
+) {
 	return getSnapshotSubpath(relative(state.projectPath, testPath), options)
 }
 
 function getVisOptions(visOptionsRecord: Record<string, VisOptions<any>>, context: PartialBrowserCommandContext) {
 	return visOptionsRecord[getProjectName(context) ?? '__default']!
+}
+
+function getProjectRoot(context: PartialBrowserCommandContext) {
+	return context.project.config.root
 }
