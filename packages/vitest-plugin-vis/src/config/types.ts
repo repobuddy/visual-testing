@@ -35,11 +35,11 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 			| string
 			| ((context: {
 					ci: boolean
-					browserName: string
+					browserName?: string | undefined
 					providerName: string
 					platform: string
-					screenshotFailures: boolean | undefined
-					screenshotDirectory: string | undefined
+					screenshotFailures?: boolean | undefined
+					screenshotDirectory?: string | undefined
 			  }) => string)
 			| undefined
 		/**

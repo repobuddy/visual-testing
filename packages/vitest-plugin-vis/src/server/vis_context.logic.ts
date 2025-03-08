@@ -1,4 +1,4 @@
-import { join, relative } from 'pathe'
+import { join, relative, resolve } from 'pathe'
 import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
@@ -50,7 +50,7 @@ export function createVisContext() {
 			isAutoSnapshot: boolean,
 			options?: { snapshotFileId?: string | undefined },
 		) {
-			const suiteInfo = context.getSuiteInfo(browserContext.testPath, name)
+			const suiteInfo = context.getSuiteInfo(browserContext, browserContext.testPath, name)
 			const snapshotFilename = context.getSnapshotFilename(
 				browserContext,
 				suiteInfo,
@@ -79,8 +79,8 @@ export function createVisContext() {
 				diffPath,
 			}
 		},
-		getTaskCount(testPath: string, taskId: string) {
-			return context.getSuiteInfo(testPath, taskId).task.count
+		getTaskCount(browserContext: PartialBrowserCommandContext, taskId: string) {
+			return context.getSuiteInfo(browserContext, browserContext.testPath, taskId).task.count
 		},
 		hasImageSnapshot(
 			browserContext: PartialBrowserCommandContext,
@@ -88,9 +88,14 @@ export function createVisContext() {
 			snapshotFileId: string | undefined,
 			isAutoSnapshot: boolean,
 		) {
-			const info = context.getSuiteInfo(browserContext.testPath, taskId)
+			const info = context.getSuiteInfo(browserContext, browserContext.testPath, taskId)
+
 			return file.existFile(
-				join(info.baselineDir, context.getSnapshotFilename(browserContext, info, snapshotFileId, isAutoSnapshot)),
+				resolve(
+					info.projectRoot,
+					info.baselineDir,
+					context.getSnapshotFilename(browserContext, info, snapshotFileId, isAutoSnapshot),
+				),
 			)
 		},
 		getSnapshotFilename(
@@ -108,11 +113,14 @@ export function createVisContext() {
 				isAutoSnapshot,
 			})}.png`
 		},
-		getSuiteInfo(testPath: string, taskId: string) {
+		getSuiteInfo(browserContext: PartialBrowserCommandContext, testPath: string, taskId: string) {
+			const projectRoot = browserContext.project.config.root
+
 			const suiteId = getSuiteId(state, testPath, visOptionsRecord)
 			const suite = state.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
+				projectRoot,
 				suiteId,
 				taskId,
 				baselineDir: suite.baselineDir,

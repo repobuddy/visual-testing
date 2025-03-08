@@ -1,3 +1,4 @@
+import { resolve } from 'pathe'
 import type { BrowserCommand } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
 import type {
@@ -13,11 +14,29 @@ import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './match_image_snapshot.ts'
 
 type ImageSnapshotComparisonInfo = {
+	/**
+	 * Path to the project root.
+	 */
 	projectRoot: string
+	/**
+	 * Path to the baseline image relative to the project root.
+	 */
 	baselinePath: string
+	/**
+	 * Path to the result image relative to the project root.
+	 */
 	resultPath: string
+	/**
+	 * Path to the diff image relative to the project root.
+	 */
 	diffPath: string
+	/**
+	 * Base64 encoded baseline image.
+	 */
 	baseline: string
+	/**
+	 * Base64 encoded result image.
+	 */
 	result: string
 } & ImageSnapshotTimeoutOptions &
 	FailureThresholdOptions &
@@ -40,21 +59,23 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
+	const projectRoot = context.project.config.root
 	const info = visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
-	const baselineBuffer = await file.tryReadFile(info.baselinePath)
+
+	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {
-			await writeSnapshot(info.baselinePath, subject)
+			await writeSnapshot(resolve(projectRoot, info.baselinePath), subject)
 		} else {
-			await takeSnapshotByBrowser(context, info.baselinePath, subject, options)
+			await takeSnapshotByBrowser(context, resolve(projectRoot, info.baselinePath), subject, options)
 		}
 		return
 	}
 
-	const resultBuffer = await takeSnapshot(context, info.resultPath, subject, options)
+	const resultBuffer = await takeSnapshot(context, resolve(projectRoot, info.resultPath), subject, options)
 	return {
 		...info,
-		projectRoot: context.project.config.root,
+		projectRoot,
 		baseline: baselineBuffer.toString('base64'),
 		result: resultBuffer.toString('base64'),
 	}

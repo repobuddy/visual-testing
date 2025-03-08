@@ -1,6 +1,6 @@
 import type { BrowserCommandContext } from 'vitest/node'
 
-export function getProjectName(context: { project: { vite: { config: { test?: { name: string } } } } }) {
+export function getProjectName(context: { project: { vite: { config: { test?: { name?: string | undefined } } } } }) {
 	return context.project.vite.config.test?.name
 }
 

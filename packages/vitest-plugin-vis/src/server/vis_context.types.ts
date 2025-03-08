@@ -37,18 +37,18 @@ export type PartialBrowserCommandContext = {
 		vite: {
 			config: {
 				test?: {
-					name: string
+					name?: string | undefined
 				}
 			}
 		}
 	}
 	provider: {
 		name: string
-		browserName: string
-		options: {
-			headless: boolean | undefined
-			screenshotFailures: boolean | undefined
-			screenshotDirectory: string | undefined
+		browserName?: string | undefined
+		options?: {
+			headless?: boolean | undefined
+			screenshotFailures?: boolean | undefined
+			screenshotDirectory?: string | undefined
 		}
 	}
 	testPath: string

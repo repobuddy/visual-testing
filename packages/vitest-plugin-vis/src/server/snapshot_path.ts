@@ -13,8 +13,8 @@ export function resolveSnapshotRootDir(suite: PartialBrowserCommandContext, opti
 		browserName: suite.provider.browserName,
 		providerName: suite.provider.name,
 		platform: process.platform,
-		screenshotFailures: suite.provider.options.screenshotFailures,
-		screenshotDirectory: suite.provider.options.screenshotDirectory,
+		screenshotFailures: suite.provider.options?.screenshotFailures,
+		screenshotDirectory: suite.provider.options?.screenshotDirectory,
 	})
 }
 

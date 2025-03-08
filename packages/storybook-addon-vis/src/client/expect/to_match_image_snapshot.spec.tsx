@@ -10,7 +10,7 @@ import * as stories from './to_match_image_snapshot.stories.tsx'
 const { MatchingElement } = composeStories(stories)
 
 it('accepts Locator', async () => {
-	const screen = page.render(<div data-testid="subject">unit</div>)
+	const screen = render(<div data-testid="subject">unit</div>)
 	const locator = screen.getByTestId('subject')
 	await expect(locator).toMatchImageSnapshot()
 })
