@@ -6,7 +6,6 @@ import {
 	prepareImageSnapshotComparison,
 } from './prepare_image_snapshot_comparison.ts'
 import { type SetupVisSuiteCommand, setupVisSuite } from './setup_vis_suite.ts'
-import { type WriteImageSnapshotCommand, writeImageSnapshot } from './write_image_snapshot.ts'
 
 declare module '@vitest/browser/context' {
 	interface BrowserCommands
@@ -14,7 +13,6 @@ declare module '@vitest/browser/context' {
 			ImageSnapshotNextIndexCommand,
 			HasImageSnapshotCommand,
 			PrepareImageSnapshotComparisonCommand,
-			WriteImageSnapshotCommand,
 			MatchImageSnapshotCommand {}
 }
 
@@ -24,5 +22,4 @@ export const commands = {
 	hasImageSnapshot,
 	matchImageSnapshot,
 	prepareImageSnapshotComparison,
-	writeImageSnapshot,
 }

@@ -1,8 +1,8 @@
+import type { BrowserCommands } from '@vitest/browser/context'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { ImageSnapshotNextIndexCommand } from '../commands.ts'
 import type { PrepareImageSnapshotComparisonCommand } from '../server/commands/prepare_image_snapshot_comparison.ts'
-import type { WriteImageSnapshotCommand } from '../server/commands/write_image_snapshot.ts'
 import { isBase64String } from '../shared/base64.ts'
 import { compareImage } from '../shared/compare_image.ts'
 import type { ToMatchImageSnapshotOptions } from '../shared/types.ts'
@@ -15,7 +15,7 @@ import { server } from './vitest_browser_context_proxy.ts'
 import type { CurrentTest } from './vitest_suite_proxy.ts'
 
 export function imageSnapshotMatcher(
-	commands: PrepareImageSnapshotComparisonCommand & WriteImageSnapshotCommand & ImageSnapshotNextIndexCommand,
+	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
 ) {
 	return async function matchImageSnapshot(
 		test: CurrentTest & {},
@@ -65,11 +65,11 @@ export function imageSnapshotMatcher(
 			return
 		}
 		if (server.config.snapshotOptions.updateSnapshot === 'all' && !options?.expectToFail) {
-			await writeSnapshot(commands, info.baselinePath, resultImage)
+			await writeSnapshot(commands, resolve(info.projectRoot, info.baselinePath), resultImage)
 			return
 		}
 
-		await writeSnapshot(commands, info.diffPath, diffImage)
+		await writeSnapshot(commands, resolve(info.projectRoot, info.diffPath), diffImage)
 
 		throw new Error(
 			dedent`Snapshot \`${taskId}\` mismatched
@@ -103,9 +103,9 @@ export function parseImageSnapshotSubject(subject: any) {
 	)
 }
 
-async function writeSnapshot(commands: WriteImageSnapshotCommand, path: string, image: ImageData) {
+async function writeSnapshot(commands: BrowserCommands, path: string, image: ImageData) {
 	const content = (await toDataURL(image)).split(',')[1]!
-	return commands.writeImageSnapshot(path, content)
+	return commands.writeFile(path, content, { encoding: 'base64' })
 }
 
 async function parseImageSnapshotOptions(

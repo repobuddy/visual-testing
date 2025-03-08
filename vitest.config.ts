@@ -11,5 +11,9 @@ export default defineConfig({
 				'**/*.stories.{js,mjs,jsx,tsx}',
 			],
 		},
+		workspace: [
+			'./packages/vitest-plugin-vis/vitest.config.node.ts',
+			'./packages/vitest-plugin-vis/vitest.config.playwright.ts',
+		],
 	},
 })
