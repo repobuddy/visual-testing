@@ -48,5 +48,10 @@
 		"vitest": "^3.0.6",
 		"webdriverio": "latest"
 	},
-	"packageManager": "pnpm@10.6.1"
+	"packageManager": "pnpm@10.6.1",
+	"pnpm": {
+		"patchedDependencies": {
+			"webdriverio": "patches/webdriverio.patch"
+		}
+	}
 }

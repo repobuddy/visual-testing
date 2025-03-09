@@ -6,7 +6,9 @@ export function webdriverio(context: BrowserCommandContext): BrowserApi {
 	return {
 		async takeScreenshot(filePath, selector) {
 			const element = await page.$(`${selector}`)
-			return element.saveScreenshot(filePath)
+			// biome-ignore lint/suspicious/noConsoleLog: <explanation>
+			console.log('takeScreenshot', selector, element)
+			return await element.saveScreenshot(filePath)
 		},
 	}
 }

@@ -12,11 +12,12 @@ export default defineConfig({
 			],
 		},
 		workspace: [
-			'vitest.config.playwright.ts',
+			// 'vitest.config.playwright.ts',
+			'vitest.config.webdriverio.ts',
 			// partially blocked by https://github.com/vitest-dev/vitest/issues/6485
 			// some snapshots dimensions are not correct, causing the test to fail.
 			// process.env.COVERAGE || (ci && process.platform === 'win32') ? '' : 'vitest.config.webdriverio.ts',
-			'vitest.config.node.ts',
+			// 'vitest.config.node.ts',
 		].filter(Boolean),
 	},
 })

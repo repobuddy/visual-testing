@@ -1,0 +1,12 @@
+diff --git a/build/node.js b/build/node.js
+index 5752245978f3e0b69e2281ece6dc654ebaf07f3a..2fc127b0cb9dc3c3af764866593d3b6bad2e7d5a 100644
+--- a/build/node.js
++++ b/build/node.js
+@@ -491,6 +491,7 @@ async function saveElementScreenshot(filepath) {
+   const absoluteFilepath = getAbsoluteFilepath(filepath);
+   await assertDirectoryExists(absoluteFilepath);
+   const screenBuffer = await this.takeElementScreenshot(this.elementId);
++	console.log('saveElementScreenshot', this.elementId, screenBuffer)
+   const screenshot = Buffer.from(screenBuffer, "base64");
+   await fs7.writeFile(absoluteFilepath, screenshot);
+   return screenshot;
