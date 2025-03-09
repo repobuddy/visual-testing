@@ -60,7 +60,7 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 	options.timeout = options.timeout ?? 30000
 
 	const projectRoot = context.project.config.root
-	const info = visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
+	const info = await visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {

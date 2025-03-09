@@ -11,6 +11,9 @@
 		"clean": {
 			"cache": false
 		},
+		"clean:vis:local": {
+			"cache": false
+		},
 		"coverage": {
 			"dependsOn": ["^build"],
 			"outputs": ["coverage/**", "__vis__/**"]

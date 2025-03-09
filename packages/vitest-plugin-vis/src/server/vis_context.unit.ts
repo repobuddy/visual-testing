@@ -81,7 +81,7 @@ describe(`${createVisContext.name}()`, () => {
 			const visContext = createVisContext()
 			const commandContext = stubCommandContext()
 			await visContext.setupSuite(commandContext)
-			const state = visContext.__test__getState(commandContext)
+			const state = await visContext.__test__getState(commandContext)
 
 			expect(state.projectRoot).toEqual(commandContext.project.config.root)
 			expect(state.projectRoot).toMatch(/vitest-plugin-vis$/)
@@ -91,19 +91,9 @@ describe(`${createVisContext.name}()`, () => {
 			const visContext = createVisContext()
 			const context = stubCommandContext()
 			await visContext.setupSuite(context)
-			const state = visContext.__test__getState(context)
+			const state = await visContext.__test__getState(context)
 
 			expect(state.snapshotRootDir).toEqual(`${SNAPSHOT_ROOT_DIR}/${ci ? process.platform : 'local'}`)
-		})
-		// todo
-		it.skip('skip setup state if already set up', async ({ expect }) => {
-			const visContext = createVisContext()
-			const context = stubCommandContext()
-			await visContext.setupSuite(context)
-			await visContext.setupSuite(
-				stubCommandContext(createStubPartialBrowserCommandContext({ root: 'another', testPath: '' })()),
-			)
-			expect(visContext.__test__getState(context).projectRoot).toMatch(/vitest-plugin-vis$/)
 		})
 	})
 })

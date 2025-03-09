@@ -10,8 +10,7 @@ import type { PartialBrowserCommandContext, VisProjectState, VisState } from './
 
 export function createVisContext() {
 	let visOptionsRecord: Record<string, VisOptions<any>> = {}
-	let state: VisState
-	let globalStateReady: Promise<VisState>
+	const state: VisState = {}
 
 	const context = {
 		setOptions<M extends 'pixel' | 'ssim'>(projectName: string | undefined, options: VisOptions<M> = {} as any) {
@@ -33,15 +32,13 @@ export function createVisContext() {
 		 * It needs to make sure there is no race condition between the test files.
 		 */
 		async setupSuite(context: PartialBrowserCommandContext) {
-			if (!globalStateReady) {
-				globalStateReady = setupState(context, getVisOptions(visOptionsRecord, context) ?? {})
-				state = await globalStateReady
-			} else {
-				await globalStateReady
+			const projectRoot = getProjectRoot(context)
+
+			if (!state[projectRoot]) {
+				state[projectRoot] = setupState(context, getVisOptions(visOptionsRecord, context) ?? {})
 			}
 
-			const projectRoot = getProjectRoot(context)
-			const projectState = state[projectRoot]!
+			const projectState = await state[projectRoot]
 
 			const { suiteId, suite } = createSuite(projectState, context.testPath, visOptionsRecord)
 			projectState.suites[suiteId] = suite
@@ -49,13 +46,13 @@ export function createVisContext() {
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
 			return pick(projectState, 'subjectDataTestId')
 		},
-		getSnapshotInfo(
+		async getSnapshotInfo(
 			browserContext: PartialBrowserCommandContext,
 			name: string,
 			isAutoSnapshot: boolean,
 			options?: { snapshotFileId?: string | undefined },
 		) {
-			const suiteInfo = context.getSuiteInfo(browserContext, browserContext.testPath, name)
+			const suiteInfo = await context.getSuiteInfo(browserContext, browserContext.testPath, name)
 			const snapshotFilename = context.getSnapshotFilename(
 				browserContext,
 				suiteInfo,
@@ -84,16 +81,16 @@ export function createVisContext() {
 				diffPath,
 			}
 		},
-		getTaskCount(browserContext: PartialBrowserCommandContext, taskId: string) {
-			return context.getSuiteInfo(browserContext, browserContext.testPath, taskId).task.count
+		async getTaskCount(browserContext: PartialBrowserCommandContext, taskId: string) {
+			return (await context.getSuiteInfo(browserContext, browserContext.testPath, taskId)).task.count
 		},
-		hasImageSnapshot(
+		async hasImageSnapshot(
 			browserContext: PartialBrowserCommandContext,
 			taskId: string,
 			snapshotFileId: string | undefined,
 			isAutoSnapshot: boolean,
 		) {
-			const info = context.getSuiteInfo(browserContext, browserContext.testPath, taskId)
+			const info = await context.getSuiteInfo(browserContext, browserContext.testPath, taskId)
 
 			return file.existFile(
 				resolve(
@@ -118,9 +115,9 @@ export function createVisContext() {
 				isAutoSnapshot,
 			})}.png`
 		},
-		getSuiteInfo(browserContext: PartialBrowserCommandContext, testPath: string, taskId: string) {
+		async getSuiteInfo(browserContext: PartialBrowserCommandContext, testPath: string, taskId: string) {
 			const projectRoot = getProjectRoot(browserContext)
-			const projectState = state[projectRoot]!
+			const projectState = await state[projectRoot]!
 
 			const suiteId = getSuiteId(projectState, testPath, visOptionsRecord)
 			const suite = projectState.suites[suiteId]!
@@ -159,7 +156,7 @@ async function setupState(
 		suites: {},
 	}
 	await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])
-	return { [projectRoot]: state }
+	return state
 }
 
 export function createSuite(

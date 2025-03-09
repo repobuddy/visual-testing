@@ -60,6 +60,7 @@
 		"build": "tsup",
 		"build:sb": "storybook build",
 		"clean": "rimraf coverage dist esm *.tsbuildinfo vitest.*.timestamp*",
+		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "vitest run --coverage",
 		"coverage": "vitest run --coverage",
 		"dev": "run-p build:watch w",

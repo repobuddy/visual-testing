@@ -1,5 +1,5 @@
 export type VisState = {
-	[projectPath: string]: VisProjectState
+	[projectPath: string]: Promise<VisProjectState>
 }
 
 export type VisProjectState = {

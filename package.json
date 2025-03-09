@@ -8,6 +8,7 @@
 		"check": "biome check",
 		"check:fix": "biome check --write",
 		"clean": "turbo clean",
+		"clean:vis:local": "turbo clean:vis:local",
 		"coverage": "turbo coverage",
 		"cs": "changeset",
 		"nuke": "turbo nuke && rimraf node_modules",

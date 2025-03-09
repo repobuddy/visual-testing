@@ -68,6 +68,7 @@
 		"build": "tsc",
 		"build:watch": "tsc -w",
 		"clean": "rimraf coverage esm *.tsbuildinfo vitest.*.timestamp*",
+		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "cross-env COVERAGE=true vitest run --coverage",
 		"coverage": "cross-env COVERAGE=true vitest run --coverage",
 		"dev": "run-p build:watch w",

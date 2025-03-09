@@ -16,8 +16,8 @@ export default defineConfig({
 			'./packages/storybook-addon-vis/vitest.config.browser.ts',
 			'./packages/vitest-plugin-vis/vitest.config.node.ts',
 			'./packages/vitest-plugin-vis/vitest.config.playwright.ts',
-			'./testcases/react-vite-ts/vite.config.ts',
-			// './testcases/*',
+			// './testcases/react-vite-ts/vite.config.ts',
+			'./testcases/*',
 		],
 	},
 })

@@ -51,7 +51,7 @@ function parseArgs<M extends ComparisonMethod>(
 	args: [task: MetaTask, meta: SnapshotMeta<M> | boolean] | [meta: boolean | SnapshotMeta<M>],
 ): [MetaTask | undefined, SnapshotMeta<M>] {
 	return args.length === 1
-		? [ctx.getCurrentTest() ?? (ctx.getCurrentSuite().tasks?.[0] as any)?.file, parseMeta(args[0])]
+		? [ctx.getCurrentTest() ?? (ctx.getCurrentSuite()?.tasks?.[0] as any)?.file, parseMeta(args[0])]
 		: [args[0], parseMeta(args[1])]
 }
 

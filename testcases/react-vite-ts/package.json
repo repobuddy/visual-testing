@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"clean": "rimraf dist",
+		"clean:vis:local": "rimraf __vis__/local",
 		"nuke": "rimraf node_modules",
 		"sb": "storybook dev -p 6106",
 		"test": "vitest run",
