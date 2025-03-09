@@ -16,12 +16,8 @@ jobs:
           - 22
     runs-on: ${{ matrix.os }}
     env:
-      PLAYWRIGHT_PATH: "~/.cache/ms-playwright"
+      PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
-      - name: Get AppData Directory
-        if: matrix.os == 'windows-latest'
-        run: echo ("PLAYWRIGHT_PATH=" + $env:LOCALAPPDATA + "\ms-playwright") >> $env:GITHUB_ENV
-
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
       - name: Setup Node.js ${{ matrix.node-version }}
@@ -40,8 +36,8 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install playwright browsers
-        run: pnpx playwright install --with-deps chromium firefox
         if: steps.cache-playwright.outputs.cache-hit != 'true'
+        run: pnpx playwright install --with-deps chromium firefox
 
       - name: Install Dependencies
         run: pnpm install
