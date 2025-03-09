@@ -1,8 +1,8 @@
 import { vis } from '#vitest-plugin-vis/config'
-import { defineProject } from 'vitest/config'
+import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
-export default defineProject({
+export default defineConfig({
 	plugins: [
 		vis({
 			snapshotRootDir({ ci, browserName, providerName, platform }) {
@@ -25,6 +25,12 @@ export default defineProject({
 					headless: true,
 					screenshotFailures: false,
 					screenshotDirectory: '__screenshots__/webdriverio/chrome',
+					// @ts-ignore
+					capabilities: {
+						'goog:chromeOptions': {
+							args: ['--window-size=1280,720'],
+						},
+					},
 				},
 				// {
 				// 	browser: 'firefox',
