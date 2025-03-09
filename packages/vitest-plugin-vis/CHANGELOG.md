@@ -1,5 +1,13 @@
 # vitest-plugin-vis
 
+## 2.4.0
+
+### Minor Changes
+
+- [#240](https://github.com/repobuddy/storybook-addon-vis/pull/240) [`16c7886`](https://github.com/repobuddy/storybook-addon-vis/commit/16c78862fc5a14e7137fb3c7d3c60c9fe6ff674f) Thanks [@unional](https://github.com/unional)! - Fix relative path issue regarding workspace support.
+
+- [#240](https://github.com/repobuddy/storybook-addon-vis/pull/240) [`2c7afe9`](https://github.com/repobuddy/storybook-addon-vis/commit/2c7afe9778b3ea60b0667b3bae5a0ac066995c65) Thanks [@unional](https://github.com/unional)! - Support monorepo workspace usage.
+
 ## 2.3.3
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 0.19.0
+
+### Minor Changes
+
+- [#238](https://github.com/repobuddy/storybook-addon-vis/pull/238) [`51346e2`](https://github.com/repobuddy/storybook-addon-vis/commit/51346e2c0c13850200b32db39a83d0d68f76cf26) Thanks [@unional](https://github.com/unional)! - Export `setAutoSnapshotOptions` and `SnapshotMeta` which are useful under `storybook-addon-vis/vitest-setup`.
+
+### Patch Changes
+
+- Updated dependencies [[`16c7886`](https://github.com/repobuddy/storybook-addon-vis/commit/16c78862fc5a14e7137fb3c7d3c60c9fe6ff674f), [`2c7afe9`](https://github.com/repobuddy/storybook-addon-vis/commit/2c7afe9778b3ea60b0667b3bae5a0ac066995c65)]:
+  - vitest-plugin-vis@2.4.0
+
 ## 0.18.8
 
 ### Patch Changes
