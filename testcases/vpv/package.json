@@ -21,7 +21,7 @@
 		"@vitejs/plugin-react": "^4.3.3",
 		"@vitest/browser": "^3.0.6",
 		"typescript": "^5.7.2",
-		"vitest": "^3.0.6",
+		"vitest": "^3.0.8",
 		"vitest-browser-react": "^0.1.0",
 		"vitest-plugin-vis": "workspace:*"
 	}

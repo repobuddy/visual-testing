@@ -37,7 +37,7 @@
 		"storybook": "^8.6.3",
 		"storybook-addon-vis": "workspace:*",
 		"typescript": "^5.7.2",
-		"vitest": "^3.0.6",
+		"vitest": "^3.0.8",
 		"vitest-browser-react": "^0.1.0"
 	}
 }
