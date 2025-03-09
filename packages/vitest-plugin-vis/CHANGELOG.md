@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.4.1
+
+### Patch Changes
+
+- [#246](https://github.com/repobuddy/visual-testing/pull/246) [`e877872`](https://github.com/repobuddy/visual-testing/commit/e877872131ef2b14981cd8203b7f85f4141e4dd9) Thanks [@unional](https://github.com/unional)! - Fix workspace feature to work with multiple browser instances.
+
 ## 2.4.0
 
 ### Minor Changes
