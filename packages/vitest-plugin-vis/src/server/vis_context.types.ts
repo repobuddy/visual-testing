@@ -3,7 +3,7 @@ export type VisState = {
 }
 
 export type VisProjectState = {
-	projectPath: string
+	projectRoot: string
 	testTimeout: number
 	hookTimeout: number
 	snapshotRootDir: string

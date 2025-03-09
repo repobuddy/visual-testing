@@ -10,7 +10,7 @@ import type { VisProjectState } from './vis_context.types.ts'
 
 describe(`${getSuiteId.name}()`, () => {
 	const mockState = {
-		projectPath: '/root/project',
+		projectRoot: '/root/project',
 	} as VisProjectState
 
 	it('returns `testPath` as the suite id for a file in the project root', ({ expect }) => {
@@ -41,7 +41,7 @@ describe(`${createSuite.name}()`, () => {
 	it('creates suiteId', ({ expect }) => {
 		const r = createSuite(
 			{
-				projectPath: '/root/project',
+				projectRoot: '/root/project',
 			} as VisProjectState,
 			'/root/project/src/code.spec.ts',
 			{},
@@ -52,7 +52,7 @@ describe(`${createSuite.name}()`, () => {
 	it('create suite directories based on directory in state and suite id', ({ expect }) => {
 		const { suiteId, suite } = createSuite(
 			{
-				projectPath: '/root/project',
+				projectRoot: '/root/project',
 				snapshotBaselineDir: `/root/project/${SNAPSHOT_ROOT_DIR}/local`,
 				snapshotResultDir: `/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}`,
 				snapshotDiffDir: `/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}`,
@@ -83,8 +83,8 @@ describe(`${createVisContext.name}()`, () => {
 			await visContext.setupSuite(commandContext)
 			const state = visContext.__test__getState(commandContext)
 
-			expect(state.projectPath).toEqual(commandContext.project.config.root)
-			expect(state.projectPath).toMatch(/vitest-plugin-vis$/)
+			expect(state.projectRoot).toEqual(commandContext.project.config.root)
+			expect(state.projectRoot).toMatch(/vitest-plugin-vis$/)
 		})
 
 		it('default snapshotRootDir to SNAPSHOT_ROOT_DIR', async ({ expect }) => {
@@ -103,7 +103,7 @@ describe(`${createVisContext.name}()`, () => {
 			await visContext.setupSuite(
 				stubCommandContext(createStubPartialBrowserCommandContext({ root: 'another', testPath: '' })()),
 			)
-			expect(visContext.__test__getState(context).projectPath).toMatch(/vitest-plugin-vis$/)
+			expect(visContext.__test__getState(context).projectRoot).toMatch(/vitest-plugin-vis$/)
 		})
 	})
 })
