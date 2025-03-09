@@ -24,8 +24,7 @@ export function createVisContext() {
 			state = {}
 		},
 		__test__getState(context: PartialBrowserCommandContext) {
-			const projectRoot = getProjectRoot(context)
-			return state[projectRoot]!
+			return state[getProjectId(context)]!
 		},
 		/**
 		 * Setup suite is called on each test file's beforeAll hook.
@@ -33,13 +32,13 @@ export function createVisContext() {
 		 * It needs to make sure there is no race condition between the test files.
 		 */
 		async setupSuite(context: PartialBrowserCommandContext) {
-			const projectRoot = getProjectRoot(context)
+			const projectId = getProjectId(context)
 
-			if (!state[projectRoot]) {
-				state[projectRoot] = setupState(context, getVisOptions(visOptionsRecord, context) ?? {})
+			if (!state[projectId]) {
+				state[projectId] = setupState(context, getVisOptions(visOptionsRecord, context) ?? {})
 			}
 
-			const projectState = await state[projectRoot]
+			const projectState = await state[projectId]
 
 			const { suiteId, suite } = createSuite(projectState, context.testPath, visOptionsRecord)
 			projectState.suites[suiteId] = suite
@@ -117,14 +116,14 @@ export function createVisContext() {
 			})}.png`
 		},
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
-			const projectRoot = getProjectRoot(browserContext)
-			const projectState = await state[projectRoot]!
+			const projectId = getProjectId(browserContext)
+			const projectState = await state[projectId]!
 
 			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptionsRecord)
 			const suite = projectState.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
-				projectRoot,
+				projectRoot: projectState.projectRoot,
 				suiteId,
 				taskId,
 				baselineDir: suite.baselineDir,
@@ -191,4 +190,8 @@ function getVisOptions(visOptionsRecord: Record<string, VisOptions<any>>, contex
 
 function getProjectRoot(context: PartialBrowserCommandContext) {
 	return context.project.config.root
+}
+
+function getProjectId(context: PartialBrowserCommandContext) {
+	return `${context.project.config.root}/${context.project.config.name}`
 }

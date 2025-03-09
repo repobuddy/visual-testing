@@ -1,5 +1,6 @@
 import { page } from '@vitest/browser/context'
 import { afterEach, it } from 'vitest'
+import { render } from 'vitest-browser-react'
 import { ctx } from '../ctx.ts'
 
 afterEach(() => ctx.__test__reset())
@@ -26,7 +27,7 @@ it('returns false when no snapshot exists', async ({ expect }) => {
 })
 
 it('returns true when the snapshot exists', async ({ expect }) => {
-	page.render(<div data-testid="subject">hello</div>)
+	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
 		customizeSnapshotId: ({ id }) => id,

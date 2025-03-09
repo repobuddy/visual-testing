@@ -31,6 +31,7 @@ export type VisProjectState = {
 export type PartialBrowserCommandContext = {
 	project: {
 		config: {
+			name: string
 			root: string
 			snapshotOptions: {
 				updateSnapshot: 'all' | 'new' | 'none'

@@ -1,10 +1,10 @@
-import { page } from '@vitest/browser/context'
 import { it } from 'vitest'
+import { render } from 'vitest-browser-react'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from '../testing.ts'
 import { toDataURL, toImageData } from './image_data.ts'
 
 it('complete roundtrip conversion', async () => {
-	const { getByTestId } = page.render(
+	const { getByTestId } = render(
 		<div>
 			<img style={{ width: 128, height: 128 }} src={UNI_PNG_URL} />
 			<canvas data-testid="canvas" width={128} height={128} />

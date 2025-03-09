@@ -3,13 +3,14 @@ import dedent from 'dedent'
 import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
 import { afterEach, beforeEach, describe, it } from 'vitest'
+import { render } from 'vitest-browser-react'
 import { type SnapshotMeta, setAutoSnapshotOptions } from '../client.ts'
 import { ctx } from '../client/ctx.ts'
 import { vis } from './vis.ts'
 
 describe('matchPerTheme', () => {
 	it('should take a snapshot for each theme', async () => {
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		await vis.afterEach.matchPerTheme({
 			theme1: async () => {
@@ -22,8 +23,19 @@ describe('matchPerTheme', () => {
 	})
 
 	it('should take all snapshots even if one fails', async ({ expect }) => {
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
+		if (
+			!page.hasImageSnapshot({
+				customizeSnapshotId: ({ id }) => `${id}-theme2`,
+			})
+		) {
+			await vis.afterEach.matchPerTheme({
+				theme2: async () => {
+					subject.element().innerHTML = 'theme2'
+				},
+			})()
+		}
 		await expect(() =>
 			vis.afterEach.matchPerTheme({
 				theme1: async () => {
@@ -37,7 +49,7 @@ describe('matchPerTheme', () => {
 	})
 
 	it('should aggregate all errors', async ({ expect }) => {
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 		await expect(() =>
 			vis.afterEach.matchPerTheme({
 				theme1: async () => {
@@ -57,7 +69,7 @@ describe('matchPerTheme', () => {
 	it('works with customizeSnapshotId', async ({ expect }) => {
 		setAutoSnapshotOptions({ customizeSnapshotId: ({ id }) => `${id}-custom` })
 
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		await vis.afterEach.matchPerTheme({
 			theme1: async () => {
@@ -84,7 +96,7 @@ describe('matchPerTheme', () => {
 				},
 			}),
 		)
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		expect(subject).toBeInTheDocument()
 		expect(subject).toHaveTextContent('world')
@@ -92,7 +104,7 @@ describe('matchPerTheme', () => {
 
 	it('pass meta to theme handler', async ({ expect }) => {
 		setAutoSnapshotOptions(true)
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 		await vis.afterEach.matchPerTheme({
 			theme1(meta) {
 				expect(meta).toMatchObject({ enable: true })
@@ -118,7 +130,7 @@ describe('presets.enable()', () => {
 	it.sequential('can enable auto snapshot', async () => {
 		setAutoSnapshotOptions({ customizeSnapshotId: ({ id }) => id })
 
-		page.render(<div data-testid="subject">hello</div>)
+		render(<div data-testid="subject">hello</div>)
 	})
 	it.sequential('can enable auto snapshot (validate)', async ({ expect }) => {
 		await expect(

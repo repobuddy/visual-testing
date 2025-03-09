@@ -1,5 +1,6 @@
 import { page, server } from '@vitest/browser/context'
 import { afterEach, beforeEach, describe, it } from 'vitest'
+import { render } from 'vitest-browser-react'
 import { getCurrentTest } from 'vitest/suite'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from '../ctx.ts'
@@ -24,25 +25,25 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 })
 
 it('accepts a Locator', async ({ expect }) => {
-	page.render(<div data-testid="subject">hello</div>)
+	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot()
 })
 
 it('accepts an element', async ({ expect }) => {
-	page.render(<div data-testid="subject">hello</div>)
+	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject.element()).toMatchImageSnapshot()
 })
 
 it('accepts `document.body`', async ({ expect }) => {
-	page.render(<div data-testid="subject">hello</div>)
+	render(<div data-testid="subject">hello</div>)
 	await expect(document.body).toMatchImageSnapshot()
 })
 
 it('accepts `baseElement` (same as body)', async ({ expect }) => {
 	// the png file created is not valid
-	const { baseElement } = page.render(<div data-testid="subject">hello</div>)
+	const { baseElement } = render(<div data-testid="subject">hello</div>)
 	await expect(baseElement).toMatchImageSnapshot()
 })
 
@@ -67,7 +68,7 @@ it.each([undefined, null, true, false, 1])('should fails immediately if the subj
 
 it('fails when the image is different', async ({ expect }) => {
 	const hasImageSnapshot = await page.hasImageSnapshot()
-	page.render(<div data-testid="subject">{hasImageSnapshot ? 'Hello' : 'World'}</div>)
+	render(<div data-testid="subject">{hasImageSnapshot ? 'Hello' : 'World'}</div>)
 	const subject = page.getByTestId('subject')
 	if (!hasImageSnapshot) {
 		await expect(subject).toMatchImageSnapshot()
@@ -90,7 +91,7 @@ it('fails when the image is different', async ({ expect }) => {
 it('fails when the image is smaller', async ({ expect }) => {
 	const hasImageSnapshot = await page.hasImageSnapshot()
 	const style = hasImageSnapshot ? { width: 64, height: 64 } : { width: 128, height: 128 }
-	page.render(
+	render(
 		<div data-testid="subject" style={style}>
 			Hello
 		</div>,
@@ -118,7 +119,7 @@ it('fails when the image is smaller', async ({ expect }) => {
 it('fails when the image is larger', async ({ expect }) => {
 	const hasImageSnapshot = await page.hasImageSnapshot()
 	const style = hasImageSnapshot ? { width: 128, height: 128 } : { width: 64, height: 64 }
-	page.render(
+	render(
 		<div data-testid="subject" style={style}>
 			Hello
 		</div>,
@@ -144,7 +145,7 @@ it('fails when the image is larger', async ({ expect }) => {
 })
 
 it('passes when the image is different but within failure threshold in pixels', async ({ expect }) => {
-	page.render(<div data-testid="subject">unit test</div>)
+	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
@@ -158,7 +159,7 @@ it('passes when the image is different but within failure threshold in pixels', 
 })
 
 it('fails when the image is different beyond failure threshold in pixels', async ({ expect }) => {
-	page.render(<div data-testid="subject">unit test</div>)
+	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
@@ -182,7 +183,7 @@ it('fails when the image is different beyond failure threshold in pixels', async
 })
 
 it('passes when the image is different but within failure threshold in percentage', async ({ expect }) => {
-	page.render(<div data-testid="subject">unit test</div>)
+	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
@@ -197,7 +198,7 @@ it('passes when the image is different but within failure threshold in percentag
 })
 
 it('fails when the image is different beyond failure threshold in percentage', async ({ expect }) => {
-	page.render(<div data-testid="subject">unit test</div>)
+	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
@@ -222,7 +223,7 @@ it('fails when the image is different beyond failure threshold in percentage', a
 })
 
 it('fails when the image is different in 0 percentage', async ({ expect }) => {
-	page.render(<div data-testid="subject">unit test</div>)
+	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
@@ -248,7 +249,7 @@ it('fails when the image is different in 0 percentage', async ({ expect }) => {
 it('should fail with additional info when it does not fail with expectToFail', async ({ expect, task }) => {
 	setAutoSnapshotOptions(task, { enable: false })
 
-	page.render(<div data-testid="subject">unit test</div>)
+	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
 	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
@@ -277,18 +278,18 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 	beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: true }))
 
 	it('can enable auto snapshot from nested beforeEach', () => {
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 	})
 
 	it('can disable auto snapshot in test', async ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { enable: false })
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 		expect(await page.hasImageSnapshot()).toBe(false)
 	})
 
 	it('does not affect manual snapshot', async ({ expect, task }) => {
 		setAutoSnapshotOptions(task, { enable: false })
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
 			customizeSnapshotId: ({ id }) => id,
 		})
@@ -301,11 +302,11 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 
 	it('can enable auto snapshot', ({ task }) => {
 		setAutoSnapshotOptions(task, { enable: true })
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 	})
 
 	it('can take auto snapshot and manual snapshot together', async ({ expect }) => {
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot()
 		expect(
 			await page.hasImageSnapshot({
@@ -322,7 +323,7 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 				return isAutoSnapshot ? `${id}-at` : `${id}-invalid`
 			},
 		})
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 	})
 
 	it.sequential('can customize auto snapshot filename (validate)', async ({ expect }) => {
@@ -338,7 +339,7 @@ describe('ssim', () => {
 	beforeEach(() => setAutoSnapshotOptions(false))
 
 	it('can compare image with ssim', async ({ expect }) => {
-		page.render(<div>hello</div>)
+		render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
 			comparisonMethod: 'ssim',
 			customizeSnapshotId: ({ id }) => id,
@@ -346,7 +347,7 @@ describe('ssim', () => {
 	})
 
 	it('fails when the image is different beyond failure threshold in pixels', async ({ expect }) => {
-		page.render(<div data-testid="subject">unit test</div>)
+		render(<div data-testid="subject">unit test</div>)
 		const subject = page.getByTestId('subject')
 
 		if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {

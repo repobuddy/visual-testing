@@ -1,7 +1,7 @@
 import { it } from 'vitest'
-import * as index from './index.ts'
+import * as client from './client.ts'
 
 it('ensure extractAutoSnapshotOptions is not exported', () => {
 	// @ts-expect-error
-	index.extractAutoSnapshotOptions
+	client.extractAutoSnapshotOptions
 })
