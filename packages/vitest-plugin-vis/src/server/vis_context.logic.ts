@@ -10,7 +10,7 @@ import type { PartialBrowserCommandContext, VisProjectState, VisState } from './
 
 export function createVisContext() {
 	let visOptionsRecord: Record<string, VisOptions<any>> = {}
-	const state: VisState = {}
+	let state: VisState = {}
 
 	const context = {
 		setOptions<M extends 'pixel' | 'ssim'>(projectName: string | undefined, options: VisOptions<M> = {} as any) {
@@ -20,7 +20,8 @@ export function createVisContext() {
 			return visOptionsRecord[projectName]
 		},
 		__test__reset() {
-			visOptionsRecord = {} as any
+			visOptionsRecord = {}
+			state = {}
 		},
 		__test__getState(context: PartialBrowserCommandContext) {
 			const projectRoot = getProjectRoot(context)
@@ -52,7 +53,7 @@ export function createVisContext() {
 			isAutoSnapshot: boolean,
 			options?: { snapshotFileId?: string | undefined },
 		) {
-			const suiteInfo = await context.getSuiteInfo(browserContext, browserContext.testPath, name)
+			const suiteInfo = await context.getSuiteInfo(browserContext, name)
 			const snapshotFilename = context.getSnapshotFilename(
 				browserContext,
 				suiteInfo,
@@ -82,7 +83,7 @@ export function createVisContext() {
 			}
 		},
 		async getTaskCount(browserContext: PartialBrowserCommandContext, taskId: string) {
-			return (await context.getSuiteInfo(browserContext, browserContext.testPath, taskId)).task.count
+			return (await context.getSuiteInfo(browserContext, taskId)).task.count
 		},
 		async hasImageSnapshot(
 			browserContext: PartialBrowserCommandContext,
@@ -90,7 +91,7 @@ export function createVisContext() {
 			snapshotFileId: string | undefined,
 			isAutoSnapshot: boolean,
 		) {
-			const info = await context.getSuiteInfo(browserContext, browserContext.testPath, taskId)
+			const info = await context.getSuiteInfo(browserContext, taskId)
 
 			return file.existFile(
 				resolve(
@@ -115,11 +116,11 @@ export function createVisContext() {
 				isAutoSnapshot,
 			})}.png`
 		},
-		async getSuiteInfo(browserContext: PartialBrowserCommandContext, testPath: string, taskId: string) {
+		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectRoot = getProjectRoot(browserContext)
 			const projectState = await state[projectRoot]!
 
-			const suiteId = getSuiteId(projectState, testPath, visOptionsRecord)
+			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptionsRecord)
 			const suite = projectState.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
