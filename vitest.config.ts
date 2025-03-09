@@ -13,9 +13,10 @@ export default defineConfig({
 		},
 		workspace: [
 			'./packages/storybook-addon-vis/vitest.config.node.ts',
-			'./packages/storybook-addon-vis/vitest.config.browser.ts',
+			'./packages/storybook-addon-vis/vitest.config.playwright.ts',
 			'./packages/vitest-plugin-vis/vitest.config.node.ts',
 			'./packages/vitest-plugin-vis/vitest.config.playwright.ts',
+			// './packages/vitest-plugin-vis/vitest.config.webdriverio.ts',
 			// './testcases/react-vite-ts/vite.config.ts',
 			'./testcases/*',
 		],

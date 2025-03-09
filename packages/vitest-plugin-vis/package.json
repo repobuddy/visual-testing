@@ -58,6 +58,9 @@
 		},
 		"./package.json": "./package.json"
 	},
+	"imports": {
+		"#vitest-plugin-vis/config": "./src/config.ts"
+	},
 	"types": "./esm/index.d.ts",
 	"files": [
 		"esm",
@@ -113,8 +116,7 @@
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
 		"vitest": "^3.0.6",
-		"vitest-browser-react": "^0.1.0",
-		"webdriverio": "latest"
+		"vitest-browser-react": "^0.1.0"
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",

@@ -48,6 +48,9 @@
 		},
 		"./package.json": "./package.json"
 	},
+	"imports": {
+		"#storybook-addon-vis/vitest-plugin": "./src/vitest-plugin.ts"
+	},
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist",

@@ -13,6 +13,6 @@ export default defineConfig({
 				'src/preset.ts',
 			],
 		},
-		workspace: ['vitest.config.browser.ts', 'vitest.config.node.ts'],
+		workspace: ['vitest.config.playwright.ts', 'vitest.config.node.ts'],
 	},
 })
