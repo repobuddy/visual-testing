@@ -20,7 +20,7 @@
 		"tv": "pnpm --filter=testcase-vpv",
 		"v": "turbo check coverage",
 		"verify": "turbo check coverage",
-		"verify:ci": "turbo check coverage testcase --concurrency=1",
+		"verify:ci": "turbo check coverage test testcase --concurrency=1",
 		"version": "changeset version",
 		"sav": "pnpm --filter=./packages/storybook-addon-vis",
 		"vis": "pnpm --filter=./packages/storybook-addon-vis",
