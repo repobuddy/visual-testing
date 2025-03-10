@@ -48,6 +48,13 @@ it('accepts `baseElement` (same as body)', async ({ expect }) => {
 	await expect(baseElement).toMatchImageSnapshot()
 })
 
+it('can take full page snapshot', async ({ expect }) => {
+	render(<div data-testid="subject">hello </div>)
+	await expect(document.body).toMatchImageSnapshot({
+		fullPage: true,
+	})
+})
+
 it('accepts a base64 image', async ({ expect }) => {
 	await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 })

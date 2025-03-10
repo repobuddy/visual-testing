@@ -9,6 +9,7 @@ import { isSameSize } from '../../shared/is_same_size.ts'
 import type {
 	ImageSnapshotCompareOptions,
 	ImageSnapshotIdOptions,
+	ImageSnapshotOptions,
 	ImageSnapshotTimeoutOptions,
 } from '../../shared/types.ts'
 import { file } from '../file.ts'
@@ -25,7 +26,8 @@ export interface MatchImageSnapshotCommand {
 	) => Promise<void>
 }
 
-export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
+export type MatchImageSnapshotOptions = ImageSnapshotOptions &
+	ImageSnapshotTimeoutOptions &
 	ImageSnapshotIdOptions &
 	ImageSnapshotCompareOptions<any> & {
 		/**

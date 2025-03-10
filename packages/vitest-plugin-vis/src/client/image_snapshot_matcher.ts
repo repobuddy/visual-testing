@@ -1,6 +1,7 @@
 import type { BrowserCommands } from '@vitest/browser/context'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
+import { inspect } from 'type-plus'
 import type { ImageSnapshotNextIndexCommand } from '../commands.ts'
 import type { PrepareImageSnapshotComparisonCommand } from '../server/commands/prepare_image_snapshot_comparison.ts'
 import { isBase64String } from '../shared/base64.ts'
@@ -28,9 +29,12 @@ export function imageSnapshotMatcher(
 			taskId,
 			parseImageSnapshotSubject(subject),
 			isAutoSnapshot,
-			options?.customizeSnapshotId
-				? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options)
-				: options,
+			inspect(
+				options?.customizeSnapshotId
+					? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options)
+					: options,
+				(o) => console.log('opt', o),
+			),
 		)
 
 		if (!info) return
