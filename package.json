@@ -48,5 +48,5 @@
 		"vitest": "^3.0.8",
 		"webdriverio": "latest"
 	},
-	"packageManager": "pnpm@10.6.1"
+	"packageManager": "pnpm@10.6.2"
 }
