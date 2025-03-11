@@ -1,14 +1,15 @@
 import ci from 'is-ci'
-import { resolve } from 'pathe'
+import { relative, resolve } from 'pathe'
 import { beforeEach, describe, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { createStubPartialBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
+import { getProjectName } from './commands/browser_command_context.ts'
 import { ctx } from './vis_context.ctx.ts'
 import { createSuite, createVisContext, getSuiteId } from './vis_context.logic.ts'
 import type { VisProjectState } from './vis_context.types.ts'
 
-describe(`${getSuiteId.name}()`, () => {
+describe(`${getSuiteId.name}`, () => {
 	const mockState = {
 		projectRoot: '/root/project',
 	} as VisProjectState
@@ -37,7 +38,7 @@ describe(`${getSuiteId.name}()`, () => {
 	})
 })
 
-describe(`${createSuite.name}()`, () => {
+describe(`${createSuite.name}`, () => {
 	it('creates suiteId', ({ expect }) => {
 		const r = createSuite(
 			{
@@ -66,7 +67,7 @@ describe(`${createSuite.name}()`, () => {
 	})
 })
 
-describe(`${createVisContext.name}()`, () => {
+describe(`${createVisContext.name}`, () => {
 	const stubCommandContext = createStubPartialBrowserCommandContext({
 		root: resolve(import.meta.dirname, '../..'),
 		testPath: import.meta.filename,
@@ -94,6 +95,20 @@ describe(`${createVisContext.name}()`, () => {
 			const state = await visContext.__test__getState(context)
 
 			expect(state.snapshotRootDir).toEqual(`${SNAPSHOT_ROOT_DIR}/${ci ? process.platform : 'local'}`)
+		})
+
+		it('honors the provided customizeSnapshotSubpath', async ({ expect }) => {
+			const visContext = createVisContext()
+			const browserContext = stubCommandContext()
+			const suiteId = relative(browserContext.project.config.root, browserContext.testPath)
+
+			const customizeSnapshotSubpath = (subPath: string) => subPath
+			visContext.setOptions(getProjectName(browserContext), { customizeSnapshotSubpath })
+
+			await visContext.setupSuite(browserContext)
+
+			const suiteInfo = await visContext.getSuiteInfo(browserContext, 'some-test.ts/testname')
+			expect(suiteInfo.suiteId).toBe(suiteId)
 		})
 	})
 })

@@ -31,16 +31,17 @@ export function createVisContext() {
 		 * Test files include vitest test files and storybook story files.
 		 * It needs to make sure there is no race condition between the test files.
 		 */
-		async setupSuite(context: PartialBrowserCommandContext) {
-			const projectId = getProjectId(context)
+		async setupSuite(browserContext: PartialBrowserCommandContext) {
+			const projectId = getProjectId(browserContext)
 
+			const visOptions = getVisOptions(visOptionsRecord, browserContext)
 			if (!state[projectId]) {
-				state[projectId] = setupState(context, getVisOptions(visOptionsRecord, context) ?? {})
+				state[projectId] = setupState(browserContext, visOptions)
 			}
 
 			const projectState = await state[projectId]
 
-			const { suiteId, suite } = createSuite(projectState, context.testPath, visOptionsRecord)
+			const { suiteId, suite } = createSuite(projectState, browserContext.testPath, visOptions)
 			projectState.suites[suiteId] = suite
 
 			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
@@ -118,8 +119,8 @@ export function createVisContext() {
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectId = getProjectId(browserContext)
 			const projectState = await state[projectId]!
-
-			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptionsRecord)
+			const visOptions = getVisOptions(visOptionsRecord, browserContext)
+			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptions)
 			const suite = projectState.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
@@ -185,7 +186,7 @@ export function getSuiteId(
 }
 
 function getVisOptions(visOptionsRecord: Record<string, VisOptions<any>>, context: PartialBrowserCommandContext) {
-	return visOptionsRecord[getProjectName(context) ?? '__default']!
+	return visOptionsRecord[getProjectName(context) ?? '__default'] ?? {}
 }
 
 function getProjectRoot(context: PartialBrowserCommandContext) {
