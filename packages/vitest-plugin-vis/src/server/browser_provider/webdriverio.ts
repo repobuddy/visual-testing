@@ -8,9 +8,8 @@ export function webdriverio(context: BrowserCommandContext): BrowserApi {
 			const element = await browser.$(`${selector}`)
 			return element.saveScreenshot(filePath)
 		},
-		async takePageScreenshot(filePath) {
-			// page.saveDocumentScreenshot(filePath)
-			return browser.saveScreenshot(filePath)
+		async takePageScreenshot(filePath, options) {
+			return browser.saveScreenshot(filePath, { fullPage: options?.fullPage })
 		},
 	}
 }
