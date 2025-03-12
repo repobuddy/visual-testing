@@ -1,8 +1,8 @@
 import { mkdirp } from 'mkdirp'
 import { dirname } from 'pathe'
 import type { BrowserCommandContext } from 'vitest/node'
-import type { ImageSnapshotTimeoutOptions } from '../client-api.ts'
 import { isBase64String } from '../shared/base64.ts'
+import type { ImageSnapshotTimeoutOptions, PageImageSnapshotOptions } from '../shared/types.ts'
 import { browserApi } from './browser_provider/browser_api.ts'
 import { file } from './file.js'
 
@@ -35,12 +35,13 @@ export async function takeSnapshotByBrowser(
 export async function takePageSnapshot(
 	context: BrowserCommandContext,
 	filePath: string,
-	options: ImageSnapshotTimeoutOptions | undefined,
+	options: (PageImageSnapshotOptions & ImageSnapshotTimeoutOptions) | undefined,
 ) {
 	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
 	return browser.takePageScreenshot(filePath, {
 		timeout: options?.timeout,
+		fullPage: options?.fullPage,
 	})
 }
 
