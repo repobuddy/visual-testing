@@ -1,4 +1,4 @@
-import { type ImageSnapshotIdOptions, toTaskId } from 'vitest-plugin-vis/client'
+import { type ImageSnapshotIdOptions, toTaskId } from 'vitest-plugin-vis/client-api'
 import { ctx } from './ctx.ts'
 import { commands } from './vitest_proxy.ts'
 

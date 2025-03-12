@@ -1,5 +1,5 @@
 import type { BrowserCommands } from '@vitest/browser/context'
-import type { SnapshotTestMeta } from 'vitest-plugin-vis/client'
+import type { SnapshotTestMeta } from 'vitest-plugin-vis/client-api'
 
 let browserContext: Awaited<typeof import('@vitest/browser/context')>
 let vitestSuite: Awaited<typeof import('vitest/suite')>

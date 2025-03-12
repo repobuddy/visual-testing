@@ -28,9 +28,9 @@
 			"types": "./esm/config.d.ts",
 			"default": "./esm/config.js"
 		},
-		"./client": {
-			"types": "./esm/client.d.ts",
-			"default": "./esm/client.js"
+		"./client-api": {
+			"types": "./esm/client-api.d.ts",
+			"default": "./esm/client-api.js"
 		},
 		"./presets/auto": {
 			"types": "./esm/presets/auto.d.ts",
