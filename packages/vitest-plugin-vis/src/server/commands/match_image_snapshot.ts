@@ -6,16 +6,15 @@ import { isBase64String } from '../../shared/base64.ts'
 import { compareImage } from '../../shared/compare_image.ts'
 import { getMaxSize } from '../../shared/get_max_size.ts'
 import { isSameSize } from '../../shared/is_same_size.ts'
-import type {
-	ImageSnapshotCompareOptions,
-	ImageSnapshotIdOptions,
-	ImageSnapshotTimeoutOptions,
-} from '../../shared/types.ts'
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot, writeSnapshotBuffer } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
+import type { MatchImageSnapshotOptions } from './types.ts'
 
+/**
+ * @deprecated not used.
+ */
 export interface MatchImageSnapshotCommand {
 	matchImageSnapshot: (
 		taskId: string | undefined,
@@ -25,15 +24,9 @@ export interface MatchImageSnapshotCommand {
 	) => Promise<void>
 }
 
-export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
-	ImageSnapshotIdOptions &
-	ImageSnapshotCompareOptions<any> & {
-		/**
-		 * The snapshot file id calculated on the client side.
-		 */
-		snapshotFileId?: string | undefined
-	}
-
+/**
+ * @deprecated not used.
+ */
 export const matchImageSnapshot: BrowserCommand<
 	[taskId: string, subject: string, isAutoSnapshot: boolean, options?: MatchImageSnapshotOptions | undefined]
 > = async (context, taskId, subject, isAutoSnapshot, options) => {
