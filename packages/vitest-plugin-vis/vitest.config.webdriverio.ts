@@ -27,9 +27,9 @@ export default defineConfig({
 					screenshotDirectory: '__screenshots__/webdriverio/chrome',
 					// @ts-ignore
 					capabilities: {
-						'goog:chromeOptions': {
-							args: ['--window-size=1280,720'],
-						},
+						// 'goog:chromeOptions': {
+						// 	args: ['--window-size=1280,720'],
+						// },
 					},
 				},
 				// {
