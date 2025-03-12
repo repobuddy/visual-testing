@@ -18,9 +18,15 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 	)
 })
 
-it.skip('takes an image snapshot', async () => {
+it('takes an image snapshot', async () => {
 	render(<div>hello world</div>)
-	await page.toMatchImageSnapshot()
+	await page.toMatchImageSnapshot({
+		customizeSnapshotId: ({ id }) => id,
+	})
 
-	await expect(page.hasImageSnapshot()).resolves.toBe(true)
+	await expect(
+		page.hasImageSnapshot({
+			customizeSnapshotId: ({ id }) => id,
+		}),
+	).resolves.toBe(true)
 })
