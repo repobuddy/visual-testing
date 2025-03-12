@@ -1,5 +1,6 @@
 import './server/commands/augment.ts'
 
+export * from './client/actions/has_image_snapshot_action.ts'
 export { setAutoSnapshotOptions, type MetaTask } from './client/auto_snapshot_options.ts'
 export * from './client/expect/expectation_result.ts'
 export type * from './client/expect/to_match_image_snapshot.types.ts'
