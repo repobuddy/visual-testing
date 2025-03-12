@@ -11,7 +11,7 @@ export const visAnnotations = {
 			enable: isSnapshotEnabled(ctx.tags),
 			...ctx.parameters?.snapshot,
 			tags: ctx.tags,
-			...test.meta.vis,
+			...test?.meta.vis,
 		})
 	},
 } satisfies ProjectAnnotations<Renderer>
