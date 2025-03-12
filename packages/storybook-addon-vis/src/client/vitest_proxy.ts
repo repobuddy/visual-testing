@@ -1,19 +1,5 @@
 import type { BrowserCommands } from '@vitest/browser/context'
 import type { SnapshotTestMeta } from 'vitest-plugin-vis/client'
-import type {
-	HasImageSnapshotCommand,
-	ImageSnapshotNextIndexCommand,
-	PrepareImageSnapshotComparisonCommand,
-	SetupVisSuiteCommand,
-} from 'vitest-plugin-vis/commands'
-
-declare module '@vitest/browser/context' {
-	interface BrowserCommands
-		extends HasImageSnapshotCommand,
-			PrepareImageSnapshotComparisonCommand,
-			ImageSnapshotNextIndexCommand,
-			SetupVisSuiteCommand {}
-}
 
 let browserContext: Awaited<typeof import('@vitest/browser/context')>
 let vitestSuite: Awaited<typeof import('vitest/suite')>

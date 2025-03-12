@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite'
-import { commands } from '../server/commands/extend.ts'
+import { commands } from '../server/commands/commands.ts'
 import { visContext } from '../server/vis_context.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
