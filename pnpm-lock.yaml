@@ -57,8 +57,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       webdriverio:
-        specifier: latest
-        version: 9.11.0
+        specifier: ^9.12.0
+        version: 9.12.0
 
   packages/storybook-addon-vis:
     dependencies:
@@ -107,7 +107,7 @@ importers:
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
         specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       '@vitest/coverage-istanbul':
         specifier: ^3.0.8
         version: 3.0.8(vitest@3.0.8)
@@ -155,7 +155,7 @@ importers:
         version: 0.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
       webdriverio:
         specifier: latest
-        version: 9.11.0
+        version: 9.12.0
       zx:
         specifier: ^8.0.0
         version: 8.2.2
@@ -204,7 +204,7 @@ importers:
         version: 19.0.2
       '@vitest/browser':
         specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       '@vitest/coverage-istanbul':
         specifier: ^3.0.8
         version: 3.0.8(vitest@3.0.8)
@@ -223,9 +223,6 @@ importers:
       npm-run-all2:
         specifier: ^7.0.2
         version: 7.0.2
-      playwright:
-        specifier: latest
-        version: 1.51.0
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -286,7 +283,7 @@ importers:
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
         specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       globals:
         specifier: ^16.0.0
         version: 16.0.0
@@ -356,7 +353,7 @@ importers:
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
         specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -399,7 +396,7 @@ importers:
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
         specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -463,7 +460,7 @@ importers:
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
         specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.1)
@@ -4348,8 +4345,8 @@ packages:
     resolution: {integrity: sha512-KQdI5sK+YwnUqol8MhvW9y6V+fhaW82KRhqMYnVCOrG4sJFWg7A9OIqR11Buco804HpzxyocRO6MnOQrNvP0vQ==}
     engines: {node: '>=18.20.0'}
 
-  webdriverio@9.11.0:
-    resolution: {integrity: sha512-FYdq/3OJj04t4a+hooXt6GQ1L7i8BpZyB9BmKOW5iEKnG8vyyOE9nyOEj5SaAKU9dVJFrR8jBNdIALFDmABpRA==}
+  webdriverio@9.12.0:
+    resolution: {integrity: sha512-QQ+HFL1POqQwOeyb3cpu+PfJw73JXGzqKUH/tMTK9+pG3Dd3AfeXJIKJw0RJBPjEgv/D2Di8u/wk41Yf5Dce6g==}
     engines: {node: '>=18.20.0'}
     peerDependencies:
       puppeteer-core: ^22.3.0
@@ -5525,7 +5522,7 @@ snapshots:
       storybook: 8.6.3(prettier@2.8.8)
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       '@vitest/runner': 3.0.8
       vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     transitivePeerDependencies:
@@ -5771,7 +5768,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser@3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)':
+  '@vitest/browser@3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)':
     dependencies:
       '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
       '@vitest/mocker': 3.0.8(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
@@ -5784,7 +5781,7 @@ snapshots:
       ws: 8.18.1
     optionalDependencies:
       playwright: 1.51.0
-      webdriverio: 9.11.0
+      webdriverio: 9.12.0
     transitivePeerDependencies:
       - '@testing-library/dom'
       - '@types/node'
@@ -5825,7 +5822,7 @@ snapshots:
       tinyrainbow: 2.0.0
       vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     optionalDependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -8401,7 +8398,7 @@ snapshots:
 
   vitest-browser-react@0.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8):
     dependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
@@ -8411,7 +8408,7 @@ snapshots:
 
   vitest-browser-react@0.1.0(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8):
     dependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
@@ -8443,7 +8440,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.5
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.11.0)
+      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
     transitivePeerDependencies:
       - jiti
       - less
@@ -8491,7 +8488,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriverio@9.11.0:
+  webdriverio@9.12.0:
     dependencies:
       '@types/node': 20.17.9
       '@types/sinonjs__fake-timers': 8.1.5
