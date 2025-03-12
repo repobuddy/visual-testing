@@ -21,7 +21,7 @@ export function toMatchImageSnapshot(
 	if (test.concurrent) {
 		throw new Error(
 			'`toMatchImageSnapshot()` cannot be called in a concurrent test because ' +
-				"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
+				"concurrent tests run at the same time in the same iframe and affect each other's environment.",
 		)
 	}
 
