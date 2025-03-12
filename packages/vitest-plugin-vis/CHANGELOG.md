@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 2.5.0
+
+### Minor Changes
+
+- [#254](https://github.com/repobuddy/visual-testing/pull/254) [`1ae06c4`](https://github.com/repobuddy/visual-testing/commit/1ae06c4ab648c1f05a95ba09ccf1088c6fbcf363) Thanks [@unional](https://github.com/unional)! - Add `themes` support to `auto()` and deprecate `theme()`.
+
 ## 2.4.2
 
 ### Patch Changes
