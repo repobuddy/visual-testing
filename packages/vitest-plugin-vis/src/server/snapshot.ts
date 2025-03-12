@@ -32,6 +32,18 @@ export async function takeSnapshotByBrowser(
 	})
 }
 
+export async function takePageSnapshot(
+	context: BrowserCommandContext,
+	filePath: string,
+	options: ImageSnapshotTimeoutOptions | undefined,
+) {
+	await mkdirp(dirname(filePath))
+	const browser = browserApi(context)
+	return browser.takePageScreenshot(filePath, {
+		timeout: options?.timeout,
+	})
+}
+
 export async function writeSnapshot(filePath: string, subject: string) {
 	await mkdirp(dirname(filePath))
 	await file.writeFile(filePath, subject, { encoding: 'base64' })
