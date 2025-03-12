@@ -44,7 +44,7 @@ type ImageSnapshotComparisonInfo = {
 
 export interface PrepareImageSnapshotComparisonCommand {
 	prepareImageSnapshotComparison: (
-		taskId: string | undefined,
+		taskId: string,
 		subject: string,
 		isAutoSnapshot: boolean,
 		options?: MatchImageSnapshotOptions | undefined,
@@ -52,7 +52,7 @@ export interface PrepareImageSnapshotComparisonCommand {
 }
 
 export const prepareImageSnapshotComparison: BrowserCommand<
-	[taskId: string, snapshotId: string, isAutoSnapshot: boolean, options?: MatchImageSnapshotOptions | undefined]
+	Parameters<PrepareImageSnapshotComparisonCommand['prepareImageSnapshotComparison']>
 > = async (context, taskId, subject, isAutoSnapshot, options) => {
 	assertTestPathDefined(context, 'prepareImageSnapshotComparison')
 	// vitest:browser passes in `null` when not defined
