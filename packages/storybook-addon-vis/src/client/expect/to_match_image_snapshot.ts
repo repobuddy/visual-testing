@@ -4,7 +4,7 @@ import {
 	type ToMatchImageSnapshotOptions,
 	matchImageSnapshot,
 	success,
-} from 'vitest-plugin-vis/client'
+} from 'vitest-plugin-vis/client-api'
 import { commands, getCurrentTest } from '../vitest_proxy.ts'
 
 export function toMatchImageSnapshot<M extends ComparisonMethod>(

@@ -1,6 +1,6 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { type ComparisonMethod, type SnapshotMeta, toTaskId } from '../client.ts'
+import { type ComparisonMethod, type SnapshotMeta, toTaskId } from '../client-api.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
 import { enableAuto, extractAutoSnapshotOptions } from '../client/snapshot_options.ts'
