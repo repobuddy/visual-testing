@@ -22,7 +22,7 @@ export default defineConfig({
 			instances: [
 				{
 					browser: 'chrome',
-					headless: true,
+					// headless: true,
 					screenshotFailures: false,
 					screenshotDirectory: '__screenshots__/webdriverio/chrome',
 					// @ts-ignore
