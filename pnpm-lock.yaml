@@ -151,8 +151,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
-        specifier: ^0.1.0
-        version: 0.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
+        specifier: ^0.1.1
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
       webdriverio:
         specifier: latest
         version: 9.12.0
@@ -239,8 +239,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
-        specifier: ^0.1.0
-        version: 0.1.0(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8)
+        specifier: ^0.1.1
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8)
 
   testcases/react-vite-ts:
     dependencies:
@@ -300,8 +300,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
-        specifier: ^0.1.0
-        version: 0.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
+        specifier: ^0.1.1
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
 
   testcases/themes:
     dependencies:
@@ -404,8 +404,8 @@ importers:
         specifier: ^3.0.8
         version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
-        specifier: ^0.1.0
-        version: 0.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
+        specifier: ^0.1.1
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
       vitest-plugin-vis:
         specifier: workspace:*
         version: link:../../packages/vitest-plugin-vis
@@ -4285,8 +4285,8 @@ packages:
       yaml:
         optional: true
 
-  vitest-browser-react@0.1.0:
-    resolution: {integrity: sha512-+gTux9mZi/ovwOGYgzxTX8/v7aM+MnkYlI/lh+10S37Nm6hLf9dy8HBi4u3j6d49a64aKot++yDLRZKhQkMrNA==}
+  vitest-browser-react@0.1.1:
+    resolution: {integrity: sha512-n9l+sIAexKqqfBuEkjVGdfZ4xAn1Gn/+wc4Mo8KsUSUOVoM9evSY0rVXdMIzCQqloT/zvmFGAtziFINkqu+t7g==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       '@types/react': '>18.0.0'
@@ -8396,7 +8396,7 @@ snapshots:
       jiti: 2.4.2
       yaml: 2.6.0
 
-  vitest-browser-react@0.1.0(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8):
+  vitest-browser-react@0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8):
     dependencies:
       '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       react: 18.3.1
@@ -8406,7 +8406,7 @@ snapshots:
       '@types/react': 18.3.12
       '@types/react-dom': 18.3.1
 
-  vitest-browser-react@0.1.0(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8):
+  vitest-browser-react@0.1.1(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8):
     dependencies:
       '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
       react: 19.0.0
