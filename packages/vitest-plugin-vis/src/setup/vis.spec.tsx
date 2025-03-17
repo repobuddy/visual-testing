@@ -4,7 +4,7 @@ import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { type SnapshotMeta, setAutoSnapshotOptions } from '../client.ts'
+import { type SnapshotMeta, setAutoSnapshotOptions } from '../client-api.ts'
 import { ctx } from '../client/ctx.ts'
 import { vis } from './vis.ts'
 

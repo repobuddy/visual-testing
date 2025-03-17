@@ -9,7 +9,9 @@ export interface ImageSnapshotNextIndexCommand {
 	imageSnapshotNextIndex(taskId: string): Promise<number>
 }
 
-export const imageSnapshotNextIndex: BrowserCommand<[taskId: string]> = async (context, taskId) => {
+export const imageSnapshotNextIndex: BrowserCommand<
+	Parameters<ImageSnapshotNextIndexCommand['imageSnapshotNextIndex']>
+> = async (context, taskId) => {
 	assertTestPathDefined(context, 'imageSnapshotNextIndex')
 
 	return visContext.getTaskCount(context, taskId)

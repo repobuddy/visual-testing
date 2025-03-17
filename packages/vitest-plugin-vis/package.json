@@ -28,13 +28,9 @@
 			"types": "./esm/config.d.ts",
 			"default": "./esm/config.js"
 		},
-		"./client": {
-			"types": "./esm/client.d.ts",
-			"default": "./esm/client.js"
-		},
-		"./commands": {
-			"types": "./esm/commands.d.ts",
-			"default": "./esm/commands.js"
+		"./client-api": {
+			"types": "./esm/client-api.d.ts",
+			"default": "./esm/client-api.js"
 		},
 		"./presets/auto": {
 			"types": "./esm/presets/auto.d.ts",
@@ -110,13 +106,12 @@
 		"cross-env": "^7.0.3",
 		"never-fail": "^1.1.4",
 		"npm-run-all2": "^7.0.2",
-		"playwright": "latest",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
 		"vitest": "^3.0.8",
-		"vitest-browser-react": "^0.1.0"
+		"vitest-browser-react": "^0.1.1"
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",
