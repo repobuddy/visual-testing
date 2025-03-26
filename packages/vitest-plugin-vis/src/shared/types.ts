@@ -81,6 +81,10 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 		expectToFail?: boolean | undefined
 	}
 
+export interface PageImageSnapshotOptions {
+	fullPage?: boolean | undefined
+}
+
 export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
 	AutoSnapshotOptions & {
 		enable?: boolean | undefined
