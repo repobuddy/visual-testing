@@ -1,5 +1,5 @@
 import type { BrowserCommandContext } from 'vitest/node'
-import type { PartialBrowserCommandContext } from './vis_context.types.ts'
+import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
 
 export function getProjectName(context: { project: { vite: { config: { test?: { name?: string | undefined } } } } }) {
 	return context.project.vite.config.test?.name

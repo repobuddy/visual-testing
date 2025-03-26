@@ -1,6 +1,6 @@
 import { stub } from 'type-plus'
 import type { BrowserCommandContext } from 'vitest/node'
-import type { PartialBrowserCommandContext } from '../server/vis_context.types.ts'
+import type { PartialBrowserCommandContext } from '../server/vis_server_context.types.ts'
 
 export const stubBrowserCommandContext = stub.build<BrowserCommandContext>({})
 

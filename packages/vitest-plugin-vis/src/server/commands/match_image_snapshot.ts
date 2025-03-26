@@ -8,7 +8,7 @@ import { getMaxSize } from '../../shared/get_max_size.ts'
 import { isSameSize } from '../../shared/is_same_size.ts'
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot, writeSnapshotBuffer } from '../snapshot.ts'
-import { visContext } from '../vis_context.ts'
+import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
 
@@ -36,7 +36,7 @@ export const matchImageSnapshot: BrowserCommand<
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
-	const info = await visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
+	const info = await visServerContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
 	const baselineBuffer = await file.tryReadFile(info.baselinePath)
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {

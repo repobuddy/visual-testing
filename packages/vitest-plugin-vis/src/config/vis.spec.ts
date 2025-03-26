@@ -1,9 +1,9 @@
 import type { Options } from 'ssim.js'
 import { afterEach, it } from 'vitest'
 import { vis } from '../config.ts'
-import { visContext } from '../server/vis_context.ts'
+import { visServerContext } from '../server/vis_server_context.ts'
 
-afterEach(() => visContext.__test__reset())
+afterEach(() => visServerContext.__test__reset())
 
 it('can be used with zero config', ({ expect }) => {
 	expect(vis()).toBeDefined()
@@ -12,7 +12,7 @@ it('can be used with zero config', ({ expect }) => {
 it('can set the platform', ({ expect }) => {
 	vis({ platform: 'custom' }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toEqual({
+	expect(visServerContext.__test__getOptions('proj')).toEqual({
 		platform: 'custom',
 	})
 })
@@ -20,7 +20,7 @@ it('can set the platform', ({ expect }) => {
 it('can customize snapshot root directory', ({ expect }) => {
 	vis({ snapshotRootDir: 'custom' }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toEqual({
+	expect(visServerContext.__test__getOptions('proj')).toEqual({
 		snapshotRootDir: 'custom',
 	})
 })
@@ -30,7 +30,7 @@ it('can customize snapshot subpath to keep base folder', ({ expect }) => {
 
 	vis({ customizeSnapshotSubpath }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		customizeSnapshotSubpath,
 	})
 })
@@ -40,7 +40,7 @@ it('can set default snapshot id', ({ expect }) => {
 
 	vis({ customizeSnapshotId }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		customizeSnapshotId,
 	})
 })
@@ -48,7 +48,7 @@ it('can set default snapshot id', ({ expect }) => {
 it('can set default snapshot timeout', ({ expect }) => {
 	vis({ timeout: 1000 }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		timeout: 1000,
 	})
 })
@@ -56,7 +56,7 @@ it('can set default snapshot timeout', ({ expect }) => {
 it('can set default failure threshold', ({ expect }) => {
 	vis({ failureThreshold: 0.01 }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		failureThreshold: 0.01,
 	})
 })
@@ -64,7 +64,7 @@ it('can set default failure threshold', ({ expect }) => {
 it('can set default failure threshold type to percent', ({ expect }) => {
 	vis({ failureThresholdType: 'percent' }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		failureThresholdType: 'percent',
 	})
 })
@@ -74,7 +74,7 @@ it('can set default diff options', ({ expect }) => {
 
 	vis({ diffOptions }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		diffOptions,
 	})
 })
@@ -130,7 +130,7 @@ it('can set pixelmatch options when comparison method is pixel', ({ expect }) =>
 
 	vis({ comparisonMethod: 'pixel', diffOptions }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		comparisonMethod: 'pixel',
 		diffOptions,
 	})
@@ -141,7 +141,7 @@ it('can set ssim options when comparison method is ssim', ({ expect }) => {
 
 	vis({ comparisonMethod: 'ssim', diffOptions }).config({ test: { name: 'proj' } })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		comparisonMethod: 'ssim',
 		diffOptions,
 	})
@@ -149,7 +149,7 @@ it('can set ssim options when comparison method is ssim', ({ expect }) => {
 
 it('can set the subject data test id', ({ expect }) => {
 	vis({ subjectDataTestId: 'test' }).config({ test: { name: 'proj' } })
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	expect(visServerContext.__test__getOptions('proj')).toMatchObject({
 		subjectDataTestId: 'test',
 	})
 })

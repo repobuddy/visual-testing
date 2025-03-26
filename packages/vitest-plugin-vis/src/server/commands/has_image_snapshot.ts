@@ -1,5 +1,5 @@
 import type { BrowserCommand } from 'vitest/node'
-import { visContext } from '../vis_context.ts'
+import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface HasImageSnapshotCommand {
@@ -14,5 +14,5 @@ export const hasImageSnapshot: BrowserCommand<Parameters<HasImageSnapshotCommand
 ) => {
 	assertTestPathDefined(context, 'hasImageSnapshot')
 
-	return visContext.hasImageSnapshot(context as any, taskId, snapshotId, isAutoSnapshot)
+	return visServerContext.hasImageSnapshot(context as any, taskId, snapshotId, isAutoSnapshot)
 }

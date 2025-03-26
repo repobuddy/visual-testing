@@ -5,9 +5,9 @@ import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { createStubPartialBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
 import { getProjectName } from './browser_command_context.ts'
-import { ctx } from './vis_context.ctx.ts'
-import { createSuite, createVisContext, getSuiteId } from './vis_context.logic.ts'
-import type { VisProjectState } from './vis_context.types.ts'
+import { deps } from './vis_server_context.deps.ts'
+import { createSuite, createVisServerContext, getSuiteId } from './vis_server_context.logic.ts'
+import type { VisProjectState } from './vis_server_context.types.ts'
 
 describe(`${getSuiteId.name}`, () => {
 	const mockState = {
@@ -67,19 +67,19 @@ describe(`${createSuite.name}`, () => {
 	})
 })
 
-describe(`${createVisContext.name}`, () => {
+describe(`${createVisServerContext.name}`, () => {
 	const stubCommandContext = createStubPartialBrowserCommandContext({
 		root: resolve(import.meta.dirname, '../..'),
 		testPath: import.meta.filename,
 	})
 
 	beforeEach(() => {
-		ctx.rimraf = vi.fn() as any
-		ctx.getSnapshotPlatform = vi.fn(() => 'local' as any)
+		deps.rimraf = vi.fn() as any
+		deps.getSnapshotPlatform = vi.fn(() => 'local' as any)
 	})
 	describe('set up state', () => {
 		it('set projectPath to suite.project.config.root', async ({ expect }) => {
-			const visContext = createVisContext()
+			const visContext = createVisServerContext()
 			const commandContext = stubCommandContext()
 			await visContext.setupSuite(commandContext)
 			const state = await visContext.__test__getState(commandContext)
@@ -89,7 +89,7 @@ describe(`${createVisContext.name}`, () => {
 		})
 
 		it('default snapshotRootDir to SNAPSHOT_ROOT_DIR', async ({ expect }) => {
-			const visContext = createVisContext()
+			const visContext = createVisServerContext()
 			const context = stubCommandContext()
 			await visContext.setupSuite(context)
 			const state = await visContext.__test__getState(context)
@@ -98,7 +98,7 @@ describe(`${createVisContext.name}`, () => {
 		})
 
 		it('honors the provided customizeSnapshotSubpath', async ({ expect }) => {
-			const visContext = createVisContext()
+			const visContext = createVisServerContext()
 			const browserContext = stubCommandContext()
 			const suiteId = relative(browserContext.project.config.root, browserContext.testPath)
 

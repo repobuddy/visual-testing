@@ -15,6 +15,7 @@ export function playwright(context: BrowserCommandContext): BrowserApi {
 			return context.page.screenshot({
 				timeout: options?.timeout,
 				path: filePath,
+
 				fullPage: options?.fullPage,
 			})
 		},
