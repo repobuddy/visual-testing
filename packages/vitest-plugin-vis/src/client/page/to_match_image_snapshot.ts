@@ -5,7 +5,7 @@ export interface ToMatchImageSnapshotAction {
 	toMatchImageSnapshot(this: BrowserPage): Promise<void>
 }
 
-export async function toMatchImageSnapshot(this: BrowserPage) {
+export function toMatchImageSnapshot(this: BrowserPage) {
 	const test = ctx.getCurrentTest()
 	if (!test) {
 		throw new Error('`toMatchImageSnapshot()` must be called in a test.')
@@ -17,4 +17,6 @@ export async function toMatchImageSnapshot(this: BrowserPage) {
 				"concurrent tests run at the same time in the same iframe and affect each other's environment.",
 		)
 	}
+
+	return Promise.resolve()
 }
