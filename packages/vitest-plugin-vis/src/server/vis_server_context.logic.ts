@@ -139,7 +139,7 @@ export function createVisServerContext() {
 
 async function setupState(
 	browserContext: PartialBrowserCommandContext,
-	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform' | 'subjectDataTestId'>,
+	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subjectDataTestId'>,
 ) {
 	const snapshotRootDir = resolveSnapshotRootDir(browserContext, visOptions)
 	const projectRoot = getProjectRoot(browserContext)

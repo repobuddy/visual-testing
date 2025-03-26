@@ -9,14 +9,6 @@ it('can be used with zero config', ({ expect }) => {
 	expect(vis()).toBeDefined()
 })
 
-it('can set the platform', ({ expect }) => {
-	vis({ platform: 'custom' }).config({ test: { name: 'proj' } })
-
-	expect(visServerContext.__test__getOptions('proj')).toEqual({
-		platform: 'custom',
-	})
-})
-
 it('can customize snapshot root directory', ({ expect }) => {
 	vis({ snapshotRootDir: 'custom' }).config({ test: { name: 'proj' } })
 
