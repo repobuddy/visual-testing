@@ -21,7 +21,7 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 	ctx.getCurrentTest = () => ({ concurrent: true }) as any
 	expect(() => expect(document.body).toMatchImageSnapshot()).toThrow(
 		'`toMatchImageSnapshot()` cannot be called in a concurrent test because ' +
-			"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
+			"concurrent tests run at the same time in the same iframe and affect each other's environment.",
 	)
 })
 
