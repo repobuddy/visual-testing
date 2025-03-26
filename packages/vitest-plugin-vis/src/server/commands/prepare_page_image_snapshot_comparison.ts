@@ -1,6 +1,5 @@
 import { resolve } from 'pathe'
 import type { BrowserCommand } from 'vitest/node'
-import { isBase64String } from '../../shared/base64.ts'
 import type {
 	FailureThresholdOptions,
 	ImageSnapshotTimeoutOptions,
@@ -9,7 +8,7 @@ import type {
 } from '../../shared/types.ts'
 import { getProjectRoot } from '../browser_command_context.ts'
 import { file } from '../file.ts'
-import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
+import { takePageSnapshot } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
@@ -43,19 +42,18 @@ type ImageSnapshotComparisonInfo = {
 	FailureThresholdOptions &
 	(SsimComparisonOptions | PixelComparisonOptions)
 
-export interface PrepareImageSnapshotComparisonCommand {
-	prepareImageSnapshotComparison: (
+export interface PreparePageImageSnapshotComparisonCommand {
+	preparePageImageSnapshotComparison: (
 		taskId: string,
-		subject: string,
 		isAutoSnapshot: boolean,
 		options?: MatchImageSnapshotOptions | undefined,
 	) => Promise<ImageSnapshotComparisonInfo | undefined>
 }
 
-export const prepareImageSnapshotComparison: BrowserCommand<
-	Parameters<PrepareImageSnapshotComparisonCommand['prepareImageSnapshotComparison']>
-> = async (context, taskId, subject, isAutoSnapshot, options) => {
-	assertTestPathDefined(context, 'prepareImageSnapshotComparison')
+export const preparePageImageSnapshotComparison: BrowserCommand<
+	Parameters<PreparePageImageSnapshotComparisonCommand['preparePageImageSnapshotComparison']>
+> = async (context, taskId, isAutoSnapshot, options) => {
+	assertTestPathDefined(context, 'preparePageImageSnapshotComparison')
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
@@ -64,15 +62,11 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 	const info = await visContext.getSnapshotInfo(context, taskId, isAutoSnapshot, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
-		if (isBase64String(subject)) {
-			await writeSnapshot(resolve(projectRoot, info.baselinePath), subject)
-		} else {
-			await takeSnapshotByBrowser(context, resolve(projectRoot, info.baselinePath), subject, options)
-		}
+		await takePageSnapshot(context, resolve(projectRoot, info.baselinePath), options)
 		return
 	}
 
-	const resultBuffer = await takeSnapshot(context, resolve(projectRoot, info.resultPath), subject, options)
+	const resultBuffer = await takePageSnapshot(context, resolve(projectRoot, info.resultPath), options)
 	return {
 		...info,
 		projectRoot,
