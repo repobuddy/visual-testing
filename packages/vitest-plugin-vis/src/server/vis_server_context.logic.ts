@@ -2,13 +2,13 @@ import { join, relative, resolve } from 'pathe'
 import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
-import { getProjectName } from './commands/browser_command_context.ts'
+import { getProjectId, getProjectName, getProjectRoot } from './browser_command_context.ts'
 import { file } from './file.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
-import { ctx } from './vis_context.ctx.ts'
-import type { PartialBrowserCommandContext, VisProjectState, VisState } from './vis_context.types.ts'
+import { deps } from './vis_server_context.deps.ts'
+import type { PartialBrowserCommandContext, VisProjectState, VisState } from './vis_server_context.types.ts'
 
-export function createVisContext() {
+export function createVisServerContext() {
 	let visOptionsRecord: Record<string, VisOptions<any>> = {}
 	let state: VisState = {}
 
@@ -44,7 +44,7 @@ export function createVisContext() {
 			const { suiteId, suite } = createSuite(projectState, browserContext.testPath, visOptions)
 			projectState.suites[suiteId] = suite
 
-			await Promise.allSettled([ctx.rimraf(suite.diffDir), ctx.rimraf(suite.resultDir)])
+			await Promise.allSettled([deps.rimraf(suite.diffDir), deps.rimraf(suite.resultDir)])
 			return pick(projectState, 'subjectDataTestId')
 		},
 		async getSnapshotInfo(
@@ -139,7 +139,7 @@ export function createVisContext() {
 
 async function setupState(
 	browserContext: PartialBrowserCommandContext,
-	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'platform' | 'subjectDataTestId'>,
+	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subjectDataTestId'>,
 ) {
 	const snapshotRootDir = resolveSnapshotRootDir(browserContext, visOptions)
 	const projectRoot = getProjectRoot(browserContext)
@@ -156,7 +156,7 @@ async function setupState(
 		subjectDataTestId: visOptions.subjectDataTestId,
 		suites: {},
 	}
-	await Promise.allSettled([ctx.rimraf(join(state.snapshotDiffDir)), ctx.rimraf(join(state.snapshotResultDir))])
+	await Promise.allSettled([deps.rimraf(join(state.snapshotDiffDir)), deps.rimraf(join(state.snapshotResultDir))])
 	return state
 }
 
@@ -187,12 +187,4 @@ export function getSuiteId(
 
 function getVisOptions(visOptionsRecord: Record<string, VisOptions<any>>, context: PartialBrowserCommandContext) {
 	return visOptionsRecord[getProjectName(context) ?? '__default'] ?? {}
-}
-
-function getProjectRoot(context: PartialBrowserCommandContext) {
-	return context.project.config.root
-}
-
-function getProjectId(context: PartialBrowserCommandContext) {
-	return `${context.project.config.root}/${context.project.config.name}`
 }

@@ -7,13 +7,14 @@ import type {
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 } from '../../shared/types.ts'
+import { getProjectRoot } from '../browser_command_context.ts'
 import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
-import { visContext } from '../vis_context.ts'
+import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
-import type { MatchImageSnapshotOptions } from './match_image_snapshot.ts'
+import type { MatchImageSnapshotOptions } from './types.ts'
 
-type ImageSnapshotComparisonInfo = {
+export type ImageSnapshotComparisonInfo = {
 	/**
 	 * Path to the project root.
 	 */
@@ -44,7 +45,7 @@ type ImageSnapshotComparisonInfo = {
 
 export interface PrepareImageSnapshotComparisonCommand {
 	prepareImageSnapshotComparison: (
-		taskId: string | undefined,
+		taskId: string,
 		subject: string,
 		isAutoSnapshot: boolean,
 		options?: MatchImageSnapshotOptions | undefined,
@@ -52,15 +53,15 @@ export interface PrepareImageSnapshotComparisonCommand {
 }
 
 export const prepareImageSnapshotComparison: BrowserCommand<
-	[taskId: string, snapshotId: string, isAutoSnapshot: boolean, options?: MatchImageSnapshotOptions | undefined]
+	Parameters<PrepareImageSnapshotComparisonCommand['prepareImageSnapshotComparison']>
 > = async (context, taskId, subject, isAutoSnapshot, options) => {
 	assertTestPathDefined(context, 'prepareImageSnapshotComparison')
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
-	const projectRoot = context.project.config.root
-	const info = await visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
+	const projectRoot = getProjectRoot(context)
+	const info = await visServerContext.getSnapshotInfo(context, taskId, isAutoSnapshot, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {

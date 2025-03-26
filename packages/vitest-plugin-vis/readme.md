@@ -8,7 +8,7 @@ Vitest visual testing plugin allowing you to capture and compare image snapshots
 It requires [Vitest Browser Mode][vitest-browser-mode] to work.
 
 This plugin is inspired by [`jest-image-snapshot`][jest-image-snapshot],
-and extracted from [`storybook-addon-vis`][storybook-addon-vis] for better modularity.
+and extracted from [`storybook-addon-vis`][storybook-addon-vis] to use directly in Vitest.
 
 ## Install
 
@@ -22,7 +22,7 @@ yarn add --save-dev vitest-plugin-vis
 
 ## Config
 
-The `vitest-plugin-vis` plugin can be used without customization.
+The [`vitest-plugin-vis`][vitest-plugin-vis] plugin can be used without customization.
 
 ```ts
 // vitest.config.ts
@@ -62,7 +62,7 @@ This default configuration will:
 - Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
 - Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
 
-You can customize the configuration:
+Here is the actual default configuration:
 
 ```ts
 // vitest.config.ts
@@ -81,12 +81,15 @@ export default defineConfig({
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
-			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
-			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
-			// will change to "isAutoSnapshot ? `${id}-auto` : `${id}-${index}`" in the next major release.
-			customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-${index}`,
+			// Customize the snapshot info
+			snapshotInfo: ({ path, name, key }) => ({
+				path: trimCommonFolder(path),
+				name,
+				postfix: `-${key}`
+			}),
 			// set a default subject (e.g. 'subject') to capture image snapshot
 			subjectDataTestId: undefined,
+			// 'pixel' or 'ssim'
 			comparisonMethod: 'pixel',
 			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 			diffOptions: undefined,
@@ -94,16 +97,24 @@ export default defineConfig({
 			failureThresholdType: 'pixel',
 			failureThreshold: 0,
 		})
-	],
-	test: {
-		browser: {/* ... */}
-	}
+	]
 })
 ```
 
-If you want to do a custom snapshot at the end of each test,
-such as taking a snapshot for each theme,
-you can set it up using a custom setup file:
+### `preset`
+
+The `preset` option set up typical visual testing scenarios:
+
+- `auto` (default): Automatically take a snapshot at the end of each rendering test.
+- `manual`: You control which test(s) should take a snapshot automatically with the `setAutoSnapshotOptions()` function.
+- `none`: Without preset. Set up your visual testing strategy in `vitest.setup.ts`.
+
+When using the `auto` or `manual` preset,
+manual snapshots are enabled. You can take manual snapshot using the `expect().toMatchImageSnapshot()` matcher,
+or the `page.toMatchImageSnapshot()` for full page snapshot.
+
+If you want to customize the snapshot behavior,
+you can set the `preset` to `none` and configure your own snapshot strategy in `vitest.setup.ts`:
 
 ```ts
 // vitest.config.ts
@@ -123,31 +134,27 @@ export default defineConfig({
 // vitest.setup.ts
 import { vis } from 'vitest-plugin-vis/setup'
 
-// if you set `preset: none` in `vitest.config.ts`,
-// you can use a preset manually here.
-
-// Take snapshot at the end of each rendering test.
-vis.presets.auto()
-// Enable snapshot testing for manual snapshot only.
-vis.presets.manual()
-// Enable snapshot testing, allow auto snapshot with `setAutoSnapshotOptions()`
-vis.presets.enable()
-
-// Take image snapshot for each rendering test,
-// one snapshot per theme (light and dark in this example).
-//
-// Note that this changes the theme in the `afterEach` hook.
-// If you want to capture manual snapshots in different themes,
-// configure Vitest to run the tests in different themes.
-vis.presets.theme({
-	async light() { document.body.classList.remove('dark') },
-	async dark() { document.body.classList.add('dark') },
+vis.setup({
+	auto: true,
+	auto: async ({ meta }) => meta['darkOnly'],
+	auto: {
+		async light() { document.body.classList.remove('dark') },
+		async dark() { document.body.classList.add('dark') },
+	}
 })
 ```
 
+As seen in the example above,
+you can configure the `auto` preset to:
+
+- Enable/disable auto snapshot for all tests with `auto: true/false`,
+- Perform some actions before the snapshot is taken,
+- Skip certain snapshots for specific tests by returning `false` in the function,
+- Take snapshots for different themes by providing an object.
+
 ### TypeScript Configuration
 
-The main usage of this addon is to use the `toMatchImageSnapshot` matcher.
+The main usage of this add-on is to use the `toMatchImageSnapshot` matcher.
 
 Since it is exposed under the `expect` object of `vitest`,
 you typically do not need to import `vitest-plugin-vis` directly.
@@ -163,9 +170,27 @@ To address this, you can add the following to your `tsconfig.json`:
 }
 ```
 
+Or use the triple-slash reference.
+
+To do that, create a typing file, e.g. `types/vitest-plugin-vis.d.ts`:
+
+```ts
+/// <reference types="vitest-plugin-vis" />
+```
+
+Make sure to include this file in your `tsconfig.json`:
+
+```json
+{
+	"files": ["types/vitest-plugin-vis.d.ts"],
+	// or
+	"include": ["src", "types"]
+}
+```
+
 ## Usage
 
-### Auto Preset
+### Automatic snapshots
 
 By default, the plugin will use the `auto` preset,
 which will take a snapshot at the end of each rendering test.
@@ -178,53 +203,47 @@ import { beforeEach, it } from 'vitest'
 
 beforeAll((suite) => {
 	// Apply options to all tests in the current suite (file)
-	setAutoSnapshotOptions(suite, /* options */)
-	// or
 	setAutoSnapshotOptions(/* options */)
 })
 
 beforeEach(({ task }) => {
 	// Apply options to all tests in the current scope
-	setAutoSnapshotOptions(task, /* options */)
-	// or
 	setAutoSnapshotOptions(/* options */)
 })
 
 
 it('disable snapshot per test', async ({ task }) => {
 	// Apply options to this test only
-	setAutoSnapshotOptions(task, /* options */)
-	// or
 	setAutoSnapshotOptions(/* options */)
 })
 
-describe('nested scope', () => {
+describe('nested scope', ()  => {
 	beforeEach(({ task }) => {
 		// Apply options to all tests in the current scope
-		setAutoSnapshotOptions(task, /* options */)
-		// or
 		setAutoSnapshotOptions(/* options */)
 	})
 })
 ```
 
-The options are similar to `expect(...).toMatchImageSnapshot(options)`:
+It supports options of `expect(...).toMatchImageSnapshot(options)`:
 
 ```ts
-// enable/disable auto snapshot
-setAutoSnapshotOptions(true /* or false */)
-
-// detailed options
 setAutoSnapshotOptions({
 	enable: true,
 	comparisonMethod: 'pixel',
 	customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-custom-${index}`,
-	// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 	diffOptions: { threshold: 0.01 },
 	failureThreshold: 0.01,
 	failureThresholdType: 'percent',
 	timeout: 60000
 })
+```
+
+You can also enable/disable auto snapshot by passing boolean:
+
+```ts
+// enable/disable auto snapshot
+setAutoSnapshotOptions(true /* or false */)
 ```
 
 You can also provide additional options, which you can use during theme to enable/disable snapshot for each theme:
@@ -235,38 +254,28 @@ setAutoSnapshotOptions({
 })
 
 // in vitest.setup.ts
-vis.presets.theme({
-	async dark(options) {
-		if (options.skipDark) return false
-		document.body.classList.add('dark')
-	},
+vis.setup({
+	auto: {
+		async dark(options) {
+			if (options.skipDark) return false
+			document.body.classList.add('dark')
+		},
+	}
 })
 ```
 
-### Manual Preset
+### Manual Snapshots
 
-You can also set the preset to `manual` and compare snapshots manually:
+You can take snapshots manually:
 
 ```ts
-// vitest.config.ts
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-	plugins: [
-		vis({ preset: 'manual' })
-	],
-	test:{
-		browser: {/* ... */}
-	}
-})
-
 // some.test.ts
-import 'vitest-browser-react' // do this in your setup file to get `page.render`
+import { render } from 'vitest-browser-react'
 import { page } from '@vitest/browser/context'
 import { it } from 'vitest'
 
 it('manual snapshot', async ({ expect }) => {
-	page.render(<div data-testid="subject">hello world</div>)
+	render(<div data-testid="subject">hello world</div>)
 	await expect(document.body).toMatchImageSnapshot(/* options */)
 	// or
 	const subject = page.getByTestId('subject')
@@ -278,12 +287,12 @@ You can customize the snapshot comparison options per assertion:
 
 ```ts
 // some.test.ts
-import 'vitest-browser-react' // do this in your setup file to get `page.render`
+import { render } from 'vitest-browser-react'
 import { page } from '@vitest/browser/context'
 import { it } from 'vitest'
 
 it('manual snapshot with options', async ({ expect }) => {
-	page.render(<div data-testid="subject">hello world</div>)
+	render(<div data-testid="subject">hello world</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
 		customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-custom-${index}`,
@@ -297,20 +306,16 @@ it('manual snapshot with options', async ({ expect }) => {
 })
 ```
 
-### Enable Preset
+### Full Page Snapshot
 
-The `enable` preset allows you to take manual snapshot,
-as well as auto snapshot at the end on a rendering test using the `setAutoSnapshotOptions` function:
+You can also take a full page snapshot:
 
 ```ts
-import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
-import { beforeEach, it } from 'vitest'
+import { page } from '@vitest/browser/context'
+import { it } from 'vitest'
 
-
-it('take snapshot', async () => {
-	setAutoSnapshotOptions(/* options */) // e.g. `true`
-
-	// ...your test...
+it('full page snapshot', async () => {
+	await page.toMatchImageSnapshot({ fullPage: true })
 })
 ```
 
@@ -334,6 +339,47 @@ it('Has Snapshot', async ({ expect }) => {
 ```
 
 This is useful when you are performing negative test.
+
+### `webdriverio` Support
+
+While Vitest Browser Mode supports both `playwright` and `webdriverio`,
+`webdriverio` currently does not work well with visual testing.
+
+There are two issues we are aware of:
+
+> `element click intercepted: WebDriverError: element click intercepted: Element is not clickable at point`
+
+This occurs in CI when `--window-size` is not set.
+To work around this issue, you can set the `--window-size` flag in your config:
+
+```ts
+// vitest.config.ts
+
+export default {
+	test: {
+		browser: {
+			instances: [
+				{
+					browser: 'chrome',
+					capabilities: {
+						'goog:chromeOptions': {
+						args: ['--window-size=1280,720']
+						}
+					}
+				}
+			]
+		}
+	}
+}
+```
+
+> `fullPage` is not working
+
+This occurs when the browser is in `headless` mode.
+But even when it is not in `headless` mode,
+the resulting snapshot is still not capturing the full page.
+
+For the time being, we recommend using `playwright` for visual testing.
 
 ## Git Ignore
 
@@ -361,6 +407,55 @@ When running on CI, the plugin will save the image snapshots in the `<root>/__vi
 
 The image snapshots are taken on the server side using `playwright` or `webdriverio` depending on your browser provider.
 It is recommended to run your tests serially to avoid flakiness.
+
+## Migrating from v2
+
+[`vitest-plugin-vis`][vitest-plugin-vis] v3 is a number of breaking changes from v2.
+
+If you are using `vitest-plugin-vis` v2,
+you can follow the migration guide here to use v3.
+
+> Preset changes
+
+The `enable` and `manual` options are combined as `manual`.
+The only difference between `enable` and `manual` was that `manual` was not capable to take automatic snapshot even when you use `setAutoSnapshotOptions` in your test.
+
+> `platform` option is removed
+
+The `platform` option is removed.
+It is replaced with `snapshotRootDir` which takes a function to determine the snapshot root directory.
+
+> `customizeSnapshotSubpath` and `customizeSnapshotId` is replaced with `snapshotInfo`
+
+In v3, we need a stable snapshot ID to be able to identify snapshots originated from the same test.
+We couldn't to that with `customizeSnapshotSubpath` and `customizeSnapshotId`.
+
+With `snapshotInfo`, you can still customize the snapshot overall path,
+but it is separated into three parts: `path`, `name`, and `key`.
+
+Let's say you have a test file `src/components/x/x.test.ts`.
+Within that file, you have a test:
+
+```ts
+// src/components/x/x.test.ts
+
+describe('some scope', () => {
+	it('should do something', () => {
+		// ...
+	})
+})
+```
+
+For this test, the `snapshotInfo()` will be called with:
+
+- `path`: `src/components/x/x.test.ts`
+- `name`: `some scope/should do something`
+
+The `key` indicates which snapshot it is:
+
+- `key`: `'auto'` when using the `auto` preset
+- `key`: `'some key'` is the key of the object when you pass an object to the `auto` props.
+- `key`: `0..n` for each manual snapshot
 
 ## FAQ
 
