@@ -7,8 +7,8 @@ export function playwright(context: BrowserCommandContext): BrowserApi {
 			// The `Locator` type from `vitest` has less props than the `Locator` in `playwright`
 			const subject = context.iframe.locator(selector)
 			return subject.screenshot({
-				timeout: options?.timeout,
 				path: filePath,
+				...options,
 			})
 		},
 	}
