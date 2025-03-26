@@ -11,5 +11,11 @@ export function playwright(context: BrowserCommandContext): BrowserApi {
 				...options,
 			})
 		},
+		async takePageScreenshot(filePath, options) {
+			return context.page.screenshot({
+				timeout: options?.timeout,
+				path: filePath,
+			})
+		},
 	}
 }
