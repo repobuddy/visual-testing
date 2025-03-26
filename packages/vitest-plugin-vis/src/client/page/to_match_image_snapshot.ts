@@ -1,11 +1,13 @@
-import type { BrowserPage } from '@vitest/browser/context'
+import { commands } from '@vitest/browser/context'
+import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import { matchPageImageSnapshotAction } from '../actions/match_page_image_snapshot_action.ts'
 import { ctx } from '../ctx.ts'
 
 export interface ToMatchImageSnapshotAction {
-	toMatchImageSnapshot(this: BrowserPage): Promise<void>
+	toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined): Promise<void>
 }
 
-export function toMatchImageSnapshot(this: BrowserPage) {
+export function toMatchImageSnapshot(options?: ToMatchImageSnapshotOptions | undefined) {
 	const test = ctx.getCurrentTest()
 	if (!test) {
 		throw new Error('`toMatchImageSnapshot()` must be called in a test.')
@@ -18,5 +20,5 @@ export function toMatchImageSnapshot(this: BrowserPage) {
 		)
 	}
 
-	return Promise.resolve()
+	return matchPageImageSnapshotAction(commands, test, options)
 }
