@@ -14,7 +14,7 @@ import { visContext } from '../vis_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
 
-type ImageSnapshotComparisonInfo = {
+export type ImageSnapshotComparisonInfo = {
 	/**
 	 * Path to the project root.
 	 */
