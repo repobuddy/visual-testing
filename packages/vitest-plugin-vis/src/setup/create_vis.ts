@@ -28,12 +28,17 @@ export type VisClientConfigurator<SM extends SnapshotMeta<ComparisonMethod>> = {
 		 * Enable automatic visual testing.
 		 *
 		 * This will take a snapshot after each test.
+		 * If the `themes` option is provided, it will take a snapshot for each theme.
 		 */
-		auto(): void
+		auto<M>(
+			themes?: Record<string, (options: M & SM) => Promise<boolean> | Promise<void> | boolean | void> | undefined,
+		): void
 		/**
 		 * Enable automatic visual testing with multiple themes.
 		 *
 		 * This will take a snapshot after each test for each theme.
+		 *
+		 * @deprecated Use `auto` instead.
 		 *
 		 * @param themes A record of theme names and their setup functions.
 		 *
@@ -70,10 +75,14 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 			manual() {
 				beforeAll(vis.beforeAll.setup)
 			},
-			auto() {
+			auto(themes) {
 				beforeAll(vis.beforeAll.setup)
-				afterEach(vis.afterEach.matchImageSnapshot)
-				enableAuto()
+				if (themes) {
+					afterEach(vis.afterEach.matchPerTheme(themes))
+				} else {
+					afterEach(vis.afterEach.matchImageSnapshot)
+					enableAuto()
+				}
 			},
 			theme(themes) {
 				beforeAll(vis.beforeAll.setup)
