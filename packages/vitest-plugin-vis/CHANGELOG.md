@@ -1,5 +1,12 @@
 # vitest-plugin-vis
 
+## 2.4.4
+
+### Patch Changes
+
+- [`0b83a6e`](https://github.com/repobuddy/visual-testing/commit/0b83a6e63fe7d7d770277dfd020443972ebbd9ad) - Sanitize suite ID to prevent invalid paths. (#270)
+  Thanks @jacob-noble for the contribution 🎉
+
 ## 2.4.3
 
 ### Patch Changes
