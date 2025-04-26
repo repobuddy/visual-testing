@@ -69,7 +69,7 @@ async function setupState(
 	return state
 }
 
-export function createModule(state: VisSuite, testPath: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
+export function createModule(state: VisSuite, testPath: string, options: Pick<VisOptions, 'snapshotSubpath'>) {
 	const taskSubpath = getTaskSubpath(state, testPath, options)
 	return {
 		taskSubpath,
@@ -80,11 +80,7 @@ export function createModule(state: VisSuite, testPath: string, options: Pick<Vi
 	}
 }
 
-export function getTaskSubpath(
-	state: VisSuite,
-	testPath: string,
-	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
-) {
+export function getTaskSubpath(state: VisSuite, testPath: string, options: Pick<VisOptions, 'snapshotSubpath'>) {
 	return getSnapshotSubpath(relative(state.projectRoot, testPath), options)
 }
 

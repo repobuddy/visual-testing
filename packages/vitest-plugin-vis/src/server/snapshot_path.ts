@@ -23,7 +23,7 @@ function getSnapshotRootDir(snapshotRootDir: string) {
 	return `${snapshotRootDir}/${ci ? platform : 'local'}`
 }
 
-export function getSnapshotSubpath(suiteName: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
-	const customizeSnapshotSubpath = options.customizeSnapshotSubpath ?? trimCommonFolder
-	return customizeSnapshotSubpath(suiteName)
+export function getSnapshotSubpath(suiteName: string, options: Pick<VisOptions, 'snapshotSubpath'>) {
+	const customizeSnapshotSubpath = options.snapshotSubpath ?? (({ subpath }) => trimCommonFolder(subpath))
+	return customizeSnapshotSubpath({ subpath: suiteName })
 }

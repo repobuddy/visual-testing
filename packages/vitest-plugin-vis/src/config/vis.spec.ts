@@ -19,16 +19,16 @@ it('can customize snapshot root directory', () => {
 })
 
 it('can customize snapshot subpath to keep base folder', () => {
-	const customizeSnapshotSubpath = (subPath: string): string => subPath
+	const snapshotSubpath = ({ subpath }: { subpath: string }): string => subpath
 
-	const plugin = vis({ customizeSnapshotSubpath })
+	const plugin = vis({ snapshotSubpath })
 
 	const { userConfig, browserCommandContext } = stubSuite()
 
 	plugin.config(userConfig)
 
 	expect(getVisOption(browserCommandContext)).toMatchObject({
-		customizeSnapshotSubpath,
+		snapshotSubpath,
 	})
 })
 

@@ -50,7 +50,7 @@ describe(`${createVisServerContext.name}`, () => {
 			const browserContext = stubCommandContext()
 			const suiteId = relative(browserContext.project.config.root, browserContext.testPath)
 
-			const customizeSnapshotSubpath = (subPath: string) => subPath
+			const customizeSnapshotSubpath = ({ subpath }: { subpath: string }) => subpath
 			const userConfig = stubUserConfig({
 				root: resolve(import.meta.dirname, '../..'),
 				test: {
@@ -58,7 +58,7 @@ describe(`${createVisServerContext.name}`, () => {
 					browser: { name: 'chrome', provider: 'playwright' },
 				},
 			})
-			setVisOption(userConfig, { customizeSnapshotSubpath })
+			setVisOption(userConfig, { snapshotSubpath: customizeSnapshotSubpath })
 
 			await setupSuite(browserContext)
 

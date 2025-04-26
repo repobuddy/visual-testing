@@ -91,7 +91,7 @@ describe(`${getSnapshotSubpath.name}()`, () => {
 	it('should use customizeSnapshotSubpath when provided', ({ expect }) => {
 		const suiteName = 'tests/myTestSuite'
 		const options: VisOptions = {
-			customizeSnapshotSubpath: (name) => name,
+			snapshotSubpath: ({ subpath }) => subpath,
 		}
 		const result = getSnapshotSubpath(suiteName, options)
 		expect(result).toBe('tests/myTestSuite')
