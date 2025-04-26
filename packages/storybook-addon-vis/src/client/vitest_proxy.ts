@@ -1,21 +1,17 @@
 import type { BrowserCommands } from '@vitest/browser/context'
-import type { CurrentTest } from 'vitest-plugin-vis/client'
+import type { SnapshotTestMeta } from 'vitest-plugin-vis/client'
 import type {
 	HasImageSnapshotCommand,
 	ImageSnapshotNextIndexCommand,
-	MatchImageSnapshotCommand,
 	PrepareImageSnapshotComparisonCommand,
 	SetupVisSuiteCommand,
-	WriteImageSnapshotCommand,
 } from 'vitest-plugin-vis/commands'
 
 declare module '@vitest/browser/context' {
 	interface BrowserCommands
-		extends MatchImageSnapshotCommand,
-			HasImageSnapshotCommand,
+		extends HasImageSnapshotCommand,
 			PrepareImageSnapshotComparisonCommand,
 			ImageSnapshotNextIndexCommand,
-			WriteImageSnapshotCommand,
 			SetupVisSuiteCommand {}
 }
 
@@ -37,4 +33,5 @@ export const commands = new Proxy<BrowserCommands>({} as any, {
 	},
 })
 
-export const getCurrentTest = () => vitestSuite?.getCurrentTest() as CurrentTest
+export const getCurrentTest = () =>
+	vitestSuite?.getCurrentTest() as (ReturnType<typeof vitestSuite.getCurrentTest> & SnapshotTestMeta) | undefined
