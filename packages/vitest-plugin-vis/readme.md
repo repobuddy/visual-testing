@@ -56,13 +56,64 @@ This default configuration will:
 - Use `pixelmatch` as the image comparison method.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
 - Timeout for image comparison is set to `30000 ms`.
-- Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
-- CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
-- Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
-- Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
-- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
+- Save image snapshots using the default directory structure.
 
-Here is the actual default configuration:
+### Customizing snapshot path
+
+Let's say you have this test:
+
+```ts
+// src/components/MyComponent.spec.tsx
+
+describe('MyComponent', () => {
+	describe('className', () => {
+		it('can customize className', () => {
+			// ...
+		})
+	})
+})
+```
+
+By default, when you run the test locally, the image snapshot will be saved in the following path:
+
+```sh
+__vis__/local/__baselines__/components/MyComponent.spec.tsx/MyComponent/className/can-customize-className-auto.png
+```
+
+This path can be broken down into a few parts:
+
+> `__vis__/local`: `snapshotRootDir`
+
+This is the `snapshotRootDir` where the image snapshots folders are placed.
+When running on CI, the `snapshotRootDir` is default to `__vis__/<process.platform>`.
+
+> `__baselines__`: baseline folder
+
+This is the folder where the baseline images are saved and used for comparison.
+There is also a `__results__` folder where the current test run images are saved,
+and a `__diffs__` folder where the diff images are saved if the comparison fails.
+
+> `components/MyComponent.spec.tsx`: `snapshotSubpath`
+
+This is part of the path based on the path of the test file relative to the project root.
+By default, the plugin will trim the common folder such as `src` or `test` from the path to reduce the path length.
+
+If you place your test files in multiple folders,
+such as in both `tests` and `src` folders,
+and they might have files with the same name and create conflicting snapshots,
+you can customize it.
+
+> `MyComponent/className/can-customize-className`: `snapshotId`
+
+This is the ID of the snapshot based on the test name and scope.
+This is not customizable.
+
+> `auto`: `snapshotKey`
+
+This is the key of the snapshot.
+In this case, it is `auto` because the snapshot is taken automatically at the end of the test.
+
+You can customize the `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey` with corresponding options:
 
 ```ts
 // vitest.config.ts
@@ -72,30 +123,16 @@ import { vis, trimCommonFolder } from 'vitest-plugin-vis/config'
 export default defineConfig({
 	plugins: [
 		vis({
-			preset: 'auto',
 			snapshotRootDir: ({
 				ci, // true if running on CI
 				platform, // process.platform
 				providerName, // 'playwright' or 'webdriverio'
-				browserName,
+				browserName, // 'chromium', 'firefox', etc.
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
-			// Customize the snapshot info
-			snapshotInfo: ({ path, name, key }) => ({
-				path: trimCommonFolder(path),
-				name,
-				postfix: `-${key}`
-			}),
-			// set a default subject (e.g. 'subject') to capture image snapshot
-			subjectDataTestId: undefined,
-			// 'pixel' or 'ssim'
-			comparisonMethod: 'pixel',
-			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
-			diffOptions: undefined,
-			timeout: 30000,
-			failureThresholdType: 'pixel',
-			failureThreshold: 0,
+			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+			snapshotKey: ({ key }) => key,
 		})
 	]
 })
@@ -103,7 +140,21 @@ export default defineConfig({
 
 ### `preset`
 
-The `preset` option set up typical visual testing scenarios:
+The `preset` option set up typical visual testing scenarios.
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			preset: 'auto' // or 'manual' or 'none'
+		})
+	],
+})
+```
 
 - `auto` (default): Automatically take a snapshot at the end of each rendering test.
 - `manual`: You control which test(s) should take a snapshot automatically with the `setAutoSnapshotOptions()` function.
@@ -151,6 +202,31 @@ you can configure the `auto` preset to:
 - Perform some actions before the snapshot is taken,
 - Skip certain snapshots for specific tests by returning `false` in the function,
 - Take snapshots for different themes by providing an object.
+
+### Customizing snapshot comparison options
+
+You can customize the snapshot comparison options globally in the config:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			// set a default subject (e.g. 'subject') to capture image snapshot
+			subjectDataTestId: undefined,
+			comparisonMethod: 'pixel', // or 'ssim'
+			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
+			diffOptions: undefined,
+			timeout: 30000,
+			failureThresholdType: 'pixel',
+			failureThreshold: 0,
+		})
+	]
+})
+```
 
 ### TypeScript Configuration
 
@@ -231,7 +307,7 @@ It supports options of `expect(...).toMatchImageSnapshot(options)`:
 setAutoSnapshotOptions({
 	enable: true,
 	comparisonMethod: 'pixel',
-	customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-custom-${index}`,
+	snapshotKey: 'auto',
 	diffOptions: { threshold: 0.01 },
 	failureThreshold: 0.01,
 	failureThresholdType: 'percent',
