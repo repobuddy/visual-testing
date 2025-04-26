@@ -4,7 +4,7 @@ import type { BrowserCommandContext } from 'vitest/node'
 import { isBase64String } from '../shared/base64.ts'
 import type { ImageSnapshotTimeoutOptions, PageImageSnapshotOptions } from '../shared/types.ts'
 import { browserApi } from './browser_provider/browser_api.ts'
-import { snapshotWriter } from './fs/snapshot_writer.ts'
+import { snapshotWriter } from './snapshot_writer.ts'
 
 export async function takeSnapshot(
 	context: BrowserCommandContext,

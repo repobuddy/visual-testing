@@ -8,9 +8,9 @@ import type {
 	SsimComparisonOptions,
 } from '../../shared/types.ts'
 import { getProjectRoot } from '../browser_command_context.ts'
-import { file } from '../file.ts'
-import { snapshotWriter } from '../fs/snapshot_writer.ts'
+import { file } from '../externals/file.ts'
 import { takeSnapshot, takeSnapshotByBrowser } from '../snapshot.ts'
+import { snapshotWriter } from '../snapshot_writer.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
