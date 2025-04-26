@@ -76,7 +76,7 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 					setAutoSnapshotOptions(true)
 					await vis.beforeAll.setup()
 				})
-				afterEach(() => vis.afterEach.matchPerTheme({ async auto() {} }))
+				afterEach(vis.afterEach.matchImageSnapshot)
 			},
 			theme(themes) {
 				beforeAll(async () => {
@@ -93,18 +93,7 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 		},
 		afterEach: {
 			async matchImageSnapshot() {
-				const test = ctx.getCurrentTest()
-
-				if ((test?.result?.errors?.length ?? 0) > 0) return
-
-				const options = extractAutoSnapshotOptions(test)
-				if (!shouldTakeSnapshot(options)) return
-
-				test.meta.vis = { ...test.meta.vis, isAutoSnapshot: true }
-
-				await test!.context
-					.expect(getSubject(options?.subjectDataTestId ?? subjectDataTestId))
-					.toMatchImageSnapshot(options)
+				return vis.afterEach.matchPerTheme({ async auto() {} })()
 			},
 			matchPerTheme(themes) {
 				return async function matchImageSnapshot() {
