@@ -44,19 +44,6 @@ it('can change the default snapshot auto key with string', () => {
 	})
 })
 
-it('can change the default snapshot auto key with function', () => {
-	const snapshotKey = () => 'custom'
-	const plugin = vis({ snapshotKey })
-
-	const { userConfig, browserCommandContext } = stubSuite()
-
-	plugin.config(userConfig)
-
-	expect(getVisOption(browserCommandContext)).toMatchObject({
-		snapshotKey,
-	})
-})
-
 it('can set default snapshot timeout', () => {
 	const plugin = vis({ timeout: 1000 })
 

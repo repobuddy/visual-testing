@@ -374,7 +374,7 @@ it('manual snapshot with options', async ({ expect }) => {
 	render(<div data-testid="subject">hello world</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-custom-${index}`,
+		snapshotKey: 'custom',
 		failureThreshold: 0.01,
 		failureThresholdType: 'percent',
 		diffOptions: {
@@ -504,13 +504,20 @@ The only difference between `enable` and `manual` was that `manual` was not capa
 The `platform` option is removed.
 It is replaced with `snapshotRootDir` which takes a function to determine the snapshot root directory.
 
-> `customizeSnapshotSubpath` and `customizeSnapshotId` is replaced with `snapshotInfo`
+> `customizeSnapshotSubpath` is replaced with `snapshotSubpath`
+
+The main difference is that `customizeSnapshotSubpath` receives the `subpath` as a string,
+while `snapshotSubpath` receives `{ subpath: string }`.
+
+This change allows us to expand it by adding more properties such as `viewport` in the future.
+
+> `customizeSnapshotId` is replaced with `snapshotKey`
 
 In v3, we need a stable snapshot ID to be able to identify snapshots originated from the same test.
-We couldn't to that with `customizeSnapshotSubpath` and `customizeSnapshotId`.
+We couldn't to that with `customizeSnapshotId`.
 
-With `snapshotInfo`, you can still customize the snapshot overall path,
-but it is separated into three parts: `path`, `name`, and `key`.
+The `snapshotKey` has a reduced responsibility of only customizing the snapshot key,
+which is added to the end of the snapshot filename.
 
 Let's say you have a test file `src/components/x/x.test.ts`.
 Within that file, you have a test:
@@ -525,16 +532,78 @@ describe('some scope', () => {
 })
 ```
 
-For this test, the `snapshotInfo()` will be called with:
+By default, the snapshot will be saved in the following path:
 
-- `path`: `src/components/x/x.test.ts`
-- `name`: `some scope/should do something`
+```sh
+// auto snapshot
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-auto.png
 
-The `key` indicates which snapshot it is:
+// manual snapshot
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-1.png
 
-- `key`: `'auto'` when using the `auto` preset
-- `key`: `'some key'` is the key of the object when you pass an object to the `auto` props.
-- `key`: `0..n` for each manual snapshot
+// auto snapshot map: `{ light() {...}, dark() {...} }`
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-light.png
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-dark.png
+```
+
+The `snapshotKey` defined in your config or is `setAutoSnapshotOptions()` will affect the auto snapshot
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			snapshotKey: 'custom'
+		})
+	]
+})
+
+// or
+// src/components/x/x.test.ts
+
+describe('some scope', () => {
+	it('should do something', () => {
+		setAutoSnapshotOptions({
+			snapshotKey: 'custom'
+		})
+		// ...
+	})
+})
+```
+
+```sh
+// auto snapshot
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-auto.png
+// becomes
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-custom.png
+```
+
+If you define a `snapshotKey` in your manual snapshot,
+expectedly it will be used for that snapshot only.
+
+```ts
+// src/components/x/x.test.ts
+
+describe('some scope', () => {
+	it('should do something', () => {
+		expect(document.body).toMatchImageSnapshot({
+			snapshotKey: 'custom'
+		})
+		page.toMatchImageSnapshot({
+			snapshotKey: 'custom'
+		})
+	})
+})
+```
+
+```sh
+// manual snapshot
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-1.png
+// becomes
+__vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-custom.png
+```
 
 ## FAQ
 

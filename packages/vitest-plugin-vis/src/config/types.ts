@@ -52,14 +52,7 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 */
 		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
 		/**
-		 * Customize the `snapshotKey` of the snapshots.
-		 *
-		 * If you specify a string, it will be used as the key for automatic snapshot.
-		 *
-		 * If you specify a function, it will invoked when:
-		 *
-		 * - taking automatic snapshot: invoked with the `key = auto`
-		 * - taking manual snapshot without customizing the key: invoked with the `key = '0', '1', ...`
+		 * Customize the `snapshotKey` of the auto snapshots.
 		 */
-		snapshotKey?: string | ((options: { key: string | number }) => string) | undefined
+		snapshotKey?: string | undefined
 	}

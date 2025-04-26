@@ -69,9 +69,6 @@ export function createVisServerContext() {
 		) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
 			const visOptions = getVisOption(browserContext)
-			if (typeof visOptions.snapshotKey === 'function') {
-				return `${info.taskId}-${visOptions.snapshotKey({ key: isAutoSnapshot ? 'auto' : info.task.count })}.png`
-			}
 			if (typeof visOptions.snapshotKey === 'string') {
 				return `${info.taskId}-${visOptions.snapshotKey}.png`
 			}
