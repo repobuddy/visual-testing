@@ -112,12 +112,11 @@ export default defineConfig({
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
-			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
-			// will change to "isAutoSnapshot ? `${id}-auto` : `${id}-${index}`" in the next major release.
-			customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-${index}`,
+			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+			snapshotKey: 'auto',
 			// set a default subject (e.g. 'subject') to capture image snapshot
 			subjectDataTestId: undefined,
-			comparisonMethod: 'pixel',
+			comparisonMethod: 'pixel', // or 'ssim'
 			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 			diffOptions: undefined,
 			timeout: 30000,

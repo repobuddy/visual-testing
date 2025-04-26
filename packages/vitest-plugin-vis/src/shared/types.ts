@@ -91,6 +91,6 @@ export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptio
 
 export type SnapshotTestMeta = {
 	meta: {
-		[NAME]?: SnapshotMeta<'pixel' | 'ssim'> & { isAutoSnapshot?: boolean | undefined }
+		[NAME]?: SnapshotMeta<'pixel' | 'ssim'>
 	}
 }

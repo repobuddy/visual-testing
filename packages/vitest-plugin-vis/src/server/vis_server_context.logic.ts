@@ -10,16 +10,10 @@ export function createVisServerContext() {
 		async getSnapshotInfo(
 			browserContext: PartialBrowserCommandContext,
 			name: string,
-			isAutoSnapshot: boolean,
 			options?: { snapshotFileId?: string | undefined },
 		) {
 			const suiteInfo = await context.getSuiteInfo(browserContext, name)
-			const snapshotFilename = context.getSnapshotFilename(
-				browserContext,
-				suiteInfo,
-				options?.snapshotFileId,
-				isAutoSnapshot,
-			)
+			const snapshotFilename = context.getSnapshotFilename(browserContext, suiteInfo, options?.snapshotFileId)
 
 			const { baselineDir, resultDir, diffDir, task } = suiteInfo
 
@@ -49,30 +43,24 @@ export function createVisServerContext() {
 			browserContext: PartialBrowserCommandContext,
 			taskId: string,
 			snapshotFileId: string | undefined,
-			isAutoSnapshot: boolean,
 		) {
 			const info = await context.getSuiteInfo(browserContext, taskId)
 
 			return file.existFile(
-				resolve(
-					info.projectRoot,
-					info.baselineDir,
-					context.getSnapshotFilename(browserContext, info, snapshotFileId, isAutoSnapshot),
-				),
+				resolve(info.projectRoot, info.baselineDir, context.getSnapshotFilename(browserContext, info, snapshotFileId)),
 			)
 		},
 		getSnapshotFilename(
 			browserContext: PartialBrowserCommandContext,
 			info: { taskId: string; task: { count: number } },
 			snapshotFileId: string | undefined,
-			isAutoSnapshot: boolean,
 		) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
 			const visOptions = getVisOption(browserContext)
 			if (typeof visOptions.snapshotKey === 'string') {
 				return `${info.taskId}-${visOptions.snapshotKey}.png`
 			}
-			return `${info.taskId}-${isAutoSnapshot ? 'auto' : info.task.count}.png`
+			return `${info.taskId}-${info.task.count}.png`
 		},
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectState = await getSuite(browserContext)

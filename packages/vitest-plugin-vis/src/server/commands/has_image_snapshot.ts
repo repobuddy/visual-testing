@@ -3,16 +3,15 @@ import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface HasImageSnapshotCommand {
-	hasImageSnapshot(taskId: string, snapshotId: string | undefined, isAutoSnapshot: boolean): Promise<boolean>
+	hasImageSnapshot(taskId: string, snapshotId: string | undefined): Promise<boolean>
 }
 
 export const hasImageSnapshot: BrowserCommand<Parameters<HasImageSnapshotCommand['hasImageSnapshot']>> = async (
 	context,
 	taskId,
 	snapshotId,
-	isAutoSnapshot,
 ) => {
 	assertTestPathDefined(context, 'hasImageSnapshot')
 
-	return visServerContext.hasImageSnapshot(context as any, taskId, snapshotId, isAutoSnapshot)
+	return visServerContext.hasImageSnapshot(context as any, taskId, snapshotId)
 }

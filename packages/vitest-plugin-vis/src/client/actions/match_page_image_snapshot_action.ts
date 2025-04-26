@@ -12,13 +12,8 @@ export async function matchPageImageSnapshotAction(
 	test: CurrentTest & {},
 	options?: ToMatchImageSnapshotOptions<any>,
 ) {
-	const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
 	const taskId = toTaskId(test)
-	const info = await commands.preparePageImageSnapshotComparison(
-		taskId,
-		isAutoSnapshot,
-		parseImageSnapshotOptions(taskId, options),
-	)
+	const info = await commands.preparePageImageSnapshotComparison(taskId, parseImageSnapshotOptions(taskId, options))
 
 	if (!info) return
 

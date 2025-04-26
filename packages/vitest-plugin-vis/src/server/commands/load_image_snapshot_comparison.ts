@@ -10,7 +10,7 @@ export interface LoadImageSnapshotComparisonCommand {
 
 export const loadImageSnapshotComparison: BrowserCommand<[taskId: string]> = async (context, taskId) => {
 	assertTestPathDefined(context, 'loadImageSnapshotComparison')
-	const info = await visServerContext.getSnapshotInfo(context, taskId, false, undefined)
+	const info = await visServerContext.getSnapshotInfo(context, taskId, undefined)
 
 	const resultBuffer = await file.tryReadFile(info.resultPath)
 	const diffBuffer = await file.tryReadFile(info.diffPath)

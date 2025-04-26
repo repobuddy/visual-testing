@@ -15,12 +15,10 @@ export async function matchImageSnapshotAction(
 	subject: any,
 	options?: ToMatchImageSnapshotOptions<any>,
 ) {
-	const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
 	const taskId = toTaskId(test)
 	const info = await commands.prepareImageSnapshotComparison(
 		taskId,
 		parseImageSnapshotSubject(subject),
-		isAutoSnapshot,
 		parseImageSnapshotOptions(taskId, options),
 	)
 

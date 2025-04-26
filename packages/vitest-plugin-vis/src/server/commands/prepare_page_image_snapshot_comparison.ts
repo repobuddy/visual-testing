@@ -45,21 +45,20 @@ type ImageSnapshotComparisonInfo = {
 export interface PreparePageImageSnapshotComparisonCommand {
 	preparePageImageSnapshotComparison: (
 		taskId: string,
-		isAutoSnapshot: boolean,
 		options?: MatchImageSnapshotOptions | undefined,
 	) => Promise<ImageSnapshotComparisonInfo | undefined>
 }
 
 export const preparePageImageSnapshotComparison: BrowserCommand<
 	Parameters<PreparePageImageSnapshotComparisonCommand['preparePageImageSnapshotComparison']>
-> = async (context, taskId, isAutoSnapshot, options) => {
+> = async (context, taskId, options) => {
 	assertTestPathDefined(context, 'preparePageImageSnapshotComparison')
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
 	const projectRoot = getProjectRoot(context)
-	const info = await visServerContext.getSnapshotInfo(context, taskId, isAutoSnapshot, options)
+	const info = await visServerContext.getSnapshotInfo(context, taskId, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		await takePageSnapshot(context, resolve(projectRoot, info.baselinePath), options)
