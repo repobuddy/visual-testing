@@ -1,15 +1,14 @@
-import type { Options } from 'ssim.js'
-import { afterEach, it } from 'vitest'
-import { vis } from '../config.ts'
+import { vis, type PixelComparisonOptions, type SsimComparisonOptions } from '#vitest-plugin-vis/config'
+import { afterEach, expect, it } from 'vitest'
 import { visServerContext } from '../server/vis_server_context.ts'
 
 afterEach(() => visServerContext.__test__reset())
 
-it('can be used with zero config', ({ expect }) => {
+it('can be used with zero config', () => {
 	expect(vis()).toBeDefined()
 })
 
-it('can customize snapshot root directory', ({ expect }) => {
+it('can customize snapshot root directory', () => {
 	const plugin = vis({ snapshotRootDir: 'custom' })
 
 	plugin.config({})
@@ -19,7 +18,7 @@ it('can customize snapshot root directory', ({ expect }) => {
 	})
 })
 
-it('can customize snapshot subpath to keep base folder', ({ expect }) => {
+it('can customize snapshot subpath to keep base folder', () => {
 	const customizeSnapshotSubpath = (subPath: string): string => subPath
 
 	const plugin = vis({ customizeSnapshotSubpath })
@@ -31,7 +30,7 @@ it('can customize snapshot subpath to keep base folder', ({ expect }) => {
 	})
 })
 
-it('can set default snapshot id', ({ expect }) => {
+it('can set default snapshot id', () => {
 	const customizeSnapshotId = ({ id }: { id: string }) => id
 
 	const plugin = vis({ customizeSnapshotId })
@@ -43,7 +42,7 @@ it('can set default snapshot id', ({ expect }) => {
 	})
 })
 
-it('can set default snapshot timeout', ({ expect }) => {
+it('can set default snapshot timeout', () => {
 	const plugin = vis({ timeout: 1000 })
 
 	plugin.config({})
@@ -53,7 +52,7 @@ it('can set default snapshot timeout', ({ expect }) => {
 	})
 })
 
-it('can set default failure threshold', ({ expect }) => {
+it('can set default failure threshold', () => {
 	const plugin = vis({ failureThreshold: 0.01 })
 
 	plugin.config({})
@@ -63,7 +62,7 @@ it('can set default failure threshold', ({ expect }) => {
 	})
 })
 
-it('can set default failure threshold type to percent', ({ expect }) => {
+it('can set default failure threshold type to percent', () => {
 	const plugin = vis({ failureThresholdType: 'percent' })
 
 	plugin.config({})
@@ -73,7 +72,7 @@ it('can set default failure threshold type to percent', ({ expect }) => {
 	})
 })
 
-it('can set default diff options', ({ expect }) => {
+it('can set default diff options', () => {
 	const diffOptions = { threshold: 0.1 }
 
 	const plugin = vis({ diffOptions })
@@ -85,7 +84,7 @@ it('can set default diff options', ({ expect }) => {
 	})
 })
 
-it('default preset is auto', ({ expect }) => {
+it('default preset is auto', () => {
 	const plugin = vis()
 
 	expect(plugin.config({})).toMatchObject({
@@ -95,7 +94,7 @@ it('default preset is auto', ({ expect }) => {
 	})
 })
 
-it('can set preset to manual', ({ expect }) => {
+it('can set preset to manual', () => {
 	const plugin = vis({ preset: 'manual' })
 
 	expect(plugin.config({})).toMatchObject({
@@ -105,7 +104,7 @@ it('can set preset to manual', ({ expect }) => {
 	})
 })
 
-it('can set preset to enable', ({ expect }) => {
+it('can set preset to enable', () => {
 	const plugin = vis({ preset: 'enable' })
 
 	expect(plugin.config({})).toMatchObject({
@@ -115,7 +114,7 @@ it('can set preset to enable', ({ expect }) => {
 	})
 })
 
-it('default to no preset when options is set', ({ expect }) => {
+it('default to no preset when options is set', () => {
 	const plugin = vis({})
 
 	expect(plugin.config({})).toMatchObject({
@@ -125,7 +124,7 @@ it('default to no preset when options is set', ({ expect }) => {
 	})
 })
 
-it('can set preset to none', ({ expect }) => {
+it('can set preset to none', () => {
 	const plugin = vis({ preset: 'none' })
 
 	expect(plugin.config({})).toMatchObject({
@@ -135,30 +134,40 @@ it('can set preset to none', ({ expect }) => {
 	})
 })
 
-it('can set pixelmatch options when comparison method is pixel', ({ expect }) => {
-	const diffOptions = { threshold: 0.1 }
-
-	vis({ comparisonMethod: 'pixel', diffOptions }).config({})
-
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+it('can set pixelmatch options when comparison method is pixel', () => {
+	const options: PixelComparisonOptions = {
 		comparisonMethod: 'pixel',
-		diffOptions,
-	})
+		diffOptions: {
+			threshold: 0.1,
+		},
+	}
+	const plugin = vis(options)
+
+	plugin.config({})
+
+	expect(visServerContext.__test__getOptions()).toMatchObject(options)
 })
 
-it('can set ssim options when comparison method is ssim', ({ expect }) => {
-	const diffOptions: Partial<Options> = { ssim: 'bezkrovny' }
-
-	vis({ comparisonMethod: 'ssim', diffOptions }).config({})
-
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+it('can set ssim options when comparison method is ssim', () => {
+	const options: SsimComparisonOptions = {
 		comparisonMethod: 'ssim',
-		diffOptions,
-	})
+		diffOptions: {
+			ssim: 'bezkrovny',
+		},
+	}
+
+	const plugin = vis(options)
+
+	plugin.config({})
+
+	expect(visServerContext.__test__getOptions()).toMatchObject(options)
 })
 
-it('can set the subject data test id', ({ expect }) => {
-	vis({ subjectDataTestId: 'test' }).config({})
+it('can set the subject data test id', () => {
+	const plugin = vis({ subjectDataTestId: 'test' })
+
+	plugin.config({})
+
 	expect(visServerContext.__test__getOptions()).toMatchObject({
 		subjectDataTestId: 'test',
 	})

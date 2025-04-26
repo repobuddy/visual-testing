@@ -4,9 +4,13 @@ import type {
 	ImageSnapshotCompareOptions,
 	ImageSnapshotIdOptions,
 	ImageSnapshotTimeoutOptions,
+	PixelComparisonOptions,
+	PixelDiffOptions,
+	SsimComparisonOptions,
+	SsimDiffOptions,
 } from '../shared/types.ts'
 
-export type { ComparisonMethod }
+export type { ComparisonMethod, PixelComparisonOptions, PixelDiffOptions, SsimComparisonOptions, SsimDiffOptions }
 
 export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotIdOptions &
