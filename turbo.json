@@ -26,6 +26,9 @@
 			"dependsOn": ["^build"],
 			"outputs": ["__vis__/**"]
 		},
+		"test:type": {
+			"dependsOn": ["^build"]
+		},
 		"testcase": {
 			"dependsOn": ["^build"]
 		},
