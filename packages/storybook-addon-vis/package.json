@@ -108,7 +108,7 @@
 		"storybook": "^8.6.3",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.9",
+		"vite": "catalog:",
 		"vitest": "catalog:",
 		"vitest-browser-react": "^0.1.1",
 		"webdriverio": "latest",
