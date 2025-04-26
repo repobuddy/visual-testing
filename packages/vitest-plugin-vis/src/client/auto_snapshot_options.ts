@@ -12,10 +12,6 @@ export type MetaTask =
 	  }
 	| undefined
 
-export function enableAuto() {
-	ctx.autoEnabled = true
-}
-
 /**
  * Set the snapshot options for auto snapshot.
  *
@@ -64,6 +60,6 @@ export function extractAutoSnapshotOptions<M extends SnapshotMeta<any> = Snapsho
 			const meta = cur?.[NAME]
 			return meta ? Object.assign({}, acc, meta) : acc
 		},
-		{ enable: ctx.autoEnabled },
+		{ enable: false },
 	)
 }

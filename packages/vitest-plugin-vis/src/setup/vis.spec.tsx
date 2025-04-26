@@ -9,6 +9,8 @@ import { ctx } from './vis.ctx.ts'
 import { vis, vis2 } from './vis.ts'
 
 describe('matchPerTheme', () => {
+	beforeEach(() => setAutoSnapshotOptions(true))
+
 	it('should take a snapshot for each theme', async () => {
 		render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')

@@ -1,6 +1,6 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { enableAuto, extractAutoSnapshotOptions } from '../client/auto_snapshot_options.ts'
+import { extractAutoSnapshotOptions, setAutoSnapshotOptions } from '../client/auto_snapshot_options.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
 import { toTaskId } from '../client/task_id.ts'
@@ -72,12 +72,17 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 				beforeAll(vis.beforeAll.setup)
 			},
 			auto() {
-				beforeAll(vis.beforeAll.setup)
-				afterEach(vis.afterEach.matchImageSnapshot)
-				enableAuto()
+				beforeAll(async () => {
+					setAutoSnapshotOptions(true)
+					await vis.beforeAll.setup()
+				})
+				afterEach(() => vis.afterEach.matchPerTheme({ async auto() {} }))
 			},
 			theme(themes) {
-				beforeAll(vis.beforeAll.setup)
+				beforeAll(async () => {
+					setAutoSnapshotOptions(true)
+					await vis.beforeAll.setup()
+				})
 				afterEach(vis.afterEach.matchPerTheme(themes))
 			},
 		},
@@ -114,12 +119,11 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 							await new Promise((a) => setTimeout(a, 10))
 							const r = await themes[themeId]!(meta! as any)
 							if (r === false) continue
-							await test!.context
-								.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId))
-								.toMatchImageSnapshot({
-									...meta,
-									snapshotKey: meta?.snapshotKey ?? themeId,
-								})
+							const subject = getSubject(meta?.subjectDataTestId ?? subjectDataTestId)
+							await test!.context.expect(subject).toMatchImageSnapshot({
+								...meta,
+								snapshotKey: meta?.snapshotKey ?? themeId,
+							})
 						} catch (error) {
 							errors.push([themeId, error as Error])
 						}
