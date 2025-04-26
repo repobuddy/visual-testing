@@ -116,9 +116,7 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 								.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId))
 								.toMatchImageSnapshot({
 									...meta,
-									customizeSnapshotId: meta?.customizeSnapshotId
-										? ({ id, index }) => `${meta.customizeSnapshotId!({ id, index, isAutoSnapshot: true })}-${themeId}`
-										: ({ id }) => `${id}-${themeId}`,
+									snapshotKey: meta?.snapshotKey ?? themeId,
 								})
 						} catch (error) {
 							errors.push([themeId, error as Error])

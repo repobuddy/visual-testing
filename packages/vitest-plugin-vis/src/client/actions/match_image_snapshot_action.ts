@@ -21,9 +21,7 @@ export async function matchImageSnapshotAction(
 		taskId,
 		parseImageSnapshotSubject(subject),
 		isAutoSnapshot,
-		options?.customizeSnapshotId || options?.snapshotKey
-			? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options)
-			: options,
+		options?.snapshotKey ? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options) : options,
 	)
 
 	if (!info) return

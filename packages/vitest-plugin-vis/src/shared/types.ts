@@ -13,17 +13,6 @@ export interface ImageSnapshotTimeoutOptions {
 
 export interface ImageSnapshotIdOptions {
 	/**
-	 * Customize the snapshot id. This is used as the filename of the snapshot: `${snapshotId}.png`
-	 *
-	 * @param id The id of the snapshot.
-	 * @param index The index of the snapshot.
-	 */
-	customizeSnapshotId?: (context: {
-		id: string
-		index: number
-		isAutoSnapshot: boolean
-	}) => string
-	/**
 	 * Customize the `snapshotKey` of the snapshot.
 	 */
 	snapshotKey?: string | undefined

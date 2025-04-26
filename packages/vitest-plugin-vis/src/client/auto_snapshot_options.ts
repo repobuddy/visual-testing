@@ -30,11 +30,12 @@ export function enableAuto() {
  */
 export function setAutoSnapshotOptions<M extends ComparisonMethod>(meta: SnapshotMeta<M> | boolean): void {
 	const task = getTask()
-	if (task)
-		task.meta[NAME] = {
-			...task.meta[NAME],
-			...parseMeta(meta),
-		}
+	if (!task) return
+
+	task.meta[NAME] = {
+		...task.meta[NAME],
+		...parseMeta(meta),
+	}
 }
 
 function getTask(): MetaTask | undefined {

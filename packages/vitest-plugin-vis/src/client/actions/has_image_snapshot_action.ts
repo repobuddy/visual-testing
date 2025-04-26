@@ -15,17 +15,6 @@ export function hasImageSnapshotAction(
 			.imageSnapshotNextIndex(taskId)
 			.then(() => commands.hasImageSnapshot(taskId, `${taskId}-${options.snapshotKey}`, isAutoSnapshot))
 	}
-	if (options?.customizeSnapshotId) {
-		return commands
-			.imageSnapshotNextIndex(taskId)
-			.then((index) =>
-				commands.hasImageSnapshot(
-					taskId,
-					options.customizeSnapshotId!({ id: taskId, index, isAutoSnapshot }),
-					isAutoSnapshot,
-				),
-			)
-	}
 
 	return commands.hasImageSnapshot(taskId, undefined, isAutoSnapshot)
 }

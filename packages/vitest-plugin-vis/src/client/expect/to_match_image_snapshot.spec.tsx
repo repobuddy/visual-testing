@@ -319,28 +319,11 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		await expect(document.body).toMatchImageSnapshot()
 		expect(
 			await page.hasImageSnapshot({
-				customizeSnapshotId: ({ id }) => `${id}-1`,
+				snapshotKey: '1',
 			}),
 		).toBe(true)
 
 		// can't validate 2nd snapshot because it's chicken-egg problem
-	})
-
-	it.sequential('can customize auto snapshot filename', async () => {
-		setAutoSnapshotOptions({
-			customizeSnapshotId({ id, isAutoSnapshot }) {
-				return isAutoSnapshot ? `${id}-at` : `${id}-invalid`
-			},
-		})
-		render(<div>hello</div>)
-	})
-
-	it.sequential('can customize auto snapshot filename (validate)', async ({ expect }) => {
-		expect(
-			await page.hasImageSnapshot({
-				customizeSnapshotId: ({ id }) => `${id.slice(0, -' (validate)'.length)}-at`,
-			}),
-		).toBeTruthy()
 	})
 })
 
