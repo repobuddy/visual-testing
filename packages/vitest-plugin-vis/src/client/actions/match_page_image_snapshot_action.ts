@@ -17,7 +17,7 @@ export async function matchPageImageSnapshotAction(
 	const info = await commands.preparePageImageSnapshotComparison(
 		taskId,
 		isAutoSnapshot,
-		options?.snapshotKey ? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options) : options,
+		parseImageSnapshotOptions(taskId, options),
 	)
 
 	if (!info) return
