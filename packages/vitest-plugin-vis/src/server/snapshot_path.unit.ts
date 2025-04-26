@@ -1,8 +1,10 @@
 import ci from 'is-ci'
+import { afterEach, beforeEach } from 'node:test'
 import { resolve } from 'pathe'
-import { describe, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { createStubPartialBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
+import { stubSuite } from '../testing/stubSuite.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 
 const stubContext = createStubPartialBrowserCommandContext({
@@ -40,6 +42,27 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 			},
 		)
 		expect(result).toBe(`custom_chrome_webdriverio_${process.platform}`)
+	})
+
+	describe('when in CI', () => {
+		beforeEach(() => {
+			vi.mock('is-ci', () => ({
+				default: true, // Mocking `is-ci` as true
+			}))
+			vi.mock('node:process', () => ({
+				platform: 'linux', // Mocking process.platform as 'linux'
+			}))
+		})
+		afterEach(() => {
+			vi.resetAllMocks()
+		})
+
+		it('should use process.platform', () => {
+			const { browserCommandContext } = stubSuite()
+
+			const result = resolveSnapshotRootDir(browserCommandContext as any, {})
+			expect(result).toBe('__vis__/linux')
+		})
 	})
 })
 

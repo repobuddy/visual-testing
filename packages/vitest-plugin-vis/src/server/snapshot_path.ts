@@ -4,17 +4,17 @@ import { SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { trimCommonFolder } from '../shared/trim_common_folder.ts'
 import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
 
-export function resolveSnapshotRootDir(suite: PartialBrowserCommandContext, options: VisOptions) {
+export function resolveSnapshotRootDir(browserCommandContext: PartialBrowserCommandContext, options: VisOptions) {
 	if (!options.snapshotRootDir) return getSnapshotRootDir(SNAPSHOT_ROOT_DIR)
 	const snapshotRootDir = options.snapshotRootDir
 	if (typeof snapshotRootDir === 'string') return getSnapshotRootDir(snapshotRootDir)
 	return snapshotRootDir({
 		ci,
-		browserName: suite.provider.browserName,
-		providerName: suite.provider.name,
+		browserName: browserCommandContext.provider.browserName,
+		providerName: browserCommandContext.provider.name,
 		platform: process.platform,
-		screenshotFailures: suite.provider.options?.screenshotFailures,
-		screenshotDirectory: suite.provider.options?.screenshotDirectory,
+		screenshotFailures: browserCommandContext.provider.options?.screenshotFailures,
+		screenshotDirectory: browserCommandContext.provider.options?.screenshotDirectory,
 	})
 }
 

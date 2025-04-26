@@ -18,7 +18,7 @@ const suites: VisState = {}
 export async function setupSuite(browserContext: PartialBrowserCommandContext) {
 	const projectId = getProjectId(browserContext)
 
-	const visOptions = getVisOption(browserContext) ?? {}
+	const visOptions = getVisOption(browserContext)
 	if (!suites[projectId]) {
 		suites[projectId] = setupState(browserContext, visOptions)
 	}
@@ -82,10 +82,4 @@ export function getSuiteId(
 
 export function getSuite(context: PartialBrowserCommandContext) {
 	return suites[getProjectId(context)]!
-}
-
-export function resetSuites() {
-	Object.keys(suites).forEach((key) => {
-		delete suites[key]
-	})
 }

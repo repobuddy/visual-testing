@@ -23,13 +23,6 @@ export function getVisOption(context: {
 	return visOptions[id] ?? {}
 }
 
-export function deleteVisOption(context: {
-	project: { vite: { config: { test?: { name?: string | undefined } } } }
-}) {
-	const id = getProjectName(context) ?? DEFAULT_PROJECT_NAME
-	delete visOptions[id]
-}
-
 export function resetVisOptions() {
 	Object.keys(visOptions).forEach((key) => {
 		delete visOptions[key]
