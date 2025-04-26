@@ -4,7 +4,8 @@ import { beforeEach, describe, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { createStubPartialBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
-import { getProjectName } from './browser_command_context.ts'
+import { stubUserConfig } from '../testing/stubUserConfig.ts'
+import { setVisOption } from './vis_options.ts'
 import { deps } from './vis_server_context.deps.ts'
 import { createSuite, createVisServerContext, getSuiteId } from './vis_server_context.logic.ts'
 import type { VisProjectState } from './vis_server_context.types.ts'
@@ -68,15 +69,23 @@ describe(`${createSuite.name}`, () => {
 })
 
 describe(`${createVisServerContext.name}`, () => {
+	const userConfig = stubUserConfig({
+		test: {
+			name: 'subject',
+			browser: { name: 'chrome', provider: 'playwright' },
+		},
+	})
 	const stubCommandContext = createStubPartialBrowserCommandContext({
 		root: resolve(import.meta.dirname, '../..'),
 		testPath: import.meta.filename,
 	})
 
 	beforeEach(() => {
+		setVisOption(userConfig, undefined)
 		deps.rimraf = vi.fn() as any
 		deps.getSnapshotPlatform = vi.fn(() => 'local' as any)
 	})
+
 	describe('set up state', () => {
 		it('set projectPath to suite.project.config.root', async ({ expect }) => {
 			const visContext = createVisServerContext()
@@ -103,7 +112,14 @@ describe(`${createVisServerContext.name}`, () => {
 			const suiteId = relative(browserContext.project.config.root, browserContext.testPath)
 
 			const customizeSnapshotSubpath = (subPath: string) => subPath
-			visContext.setOptions(getProjectName(browserContext), { customizeSnapshotSubpath })
+			const userConfig = stubUserConfig({
+				root: resolve(import.meta.dirname, '../..'),
+				test: {
+					name: 'subject',
+					browser: { name: 'chrome', provider: 'playwright' },
+				},
+			})
+			setVisOption(userConfig, { customizeSnapshotSubpath })
 
 			await visContext.setupSuite(browserContext)
 

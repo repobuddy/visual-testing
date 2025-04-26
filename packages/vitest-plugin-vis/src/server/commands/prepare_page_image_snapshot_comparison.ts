@@ -6,8 +6,8 @@ import type {
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 } from '../../shared/types.ts'
-import { getProjectRoot } from '../browser_command_context.ts'
 import { file } from '../externals/file.ts'
+import { getProjectRoot } from '../project.ts'
 import { takePageSnapshot } from '../snapshot.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'

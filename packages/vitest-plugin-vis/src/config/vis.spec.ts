@@ -1,6 +1,8 @@
 import { vis, type PixelComparisonOptions, type SsimComparisonOptions } from '#vitest-plugin-vis/config'
 import { afterEach, expect, it } from 'vitest'
+import { getVisOption } from '../server/vis_options.ts'
 import { visServerContext } from '../server/vis_server_context.ts'
+import { stubSuite } from '../testing/stubSuite.ts'
 
 afterEach(() => visServerContext.__test__reset())
 
@@ -10,10 +12,11 @@ it('can be used with zero config', () => {
 
 it('can customize snapshot root directory', () => {
 	const plugin = vis({ snapshotRootDir: 'custom' })
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	plugin.config({})
+	plugin.config(userConfig)
 
-	expect(visServerContext.__test__getOptions()).toEqual({
+	expect(getVisOption(browserCommandContext)).toEqual({
 		snapshotRootDir: 'custom',
 	})
 })
@@ -23,9 +26,11 @@ it('can customize snapshot subpath to keep base folder', () => {
 
 	const plugin = vis({ customizeSnapshotSubpath })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		customizeSnapshotSubpath,
 	})
 })
@@ -35,9 +40,11 @@ it('can set default snapshot id', () => {
 
 	const plugin = vis({ customizeSnapshotId })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		customizeSnapshotId,
 	})
 })
@@ -45,9 +52,11 @@ it('can set default snapshot id', () => {
 it('can set default snapshot timeout', () => {
 	const plugin = vis({ timeout: 1000 })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		timeout: 1000,
 	})
 })
@@ -55,9 +64,11 @@ it('can set default snapshot timeout', () => {
 it('can set default failure threshold', () => {
 	const plugin = vis({ failureThreshold: 0.01 })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		failureThreshold: 0.01,
 	})
 })
@@ -65,9 +76,11 @@ it('can set default failure threshold', () => {
 it('can set default failure threshold type to percent', () => {
 	const plugin = vis({ failureThresholdType: 'percent' })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		failureThresholdType: 'percent',
 	})
 })
@@ -77,9 +90,11 @@ it('can set default diff options', () => {
 
 	const plugin = vis({ diffOptions })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		diffOptions,
 	})
 })
@@ -143,9 +158,11 @@ it('can set pixelmatch options when comparison method is pixel', () => {
 	}
 	const plugin = vis(options)
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject(options)
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject(options)
 })
 
 it('can set ssim options when comparison method is ssim', () => {
@@ -158,17 +175,21 @@ it('can set ssim options when comparison method is ssim', () => {
 
 	const plugin = vis(options)
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject(options)
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject(options)
 })
 
 it('can set the subject data test id', () => {
 	const plugin = vis({ subjectDataTestId: 'test' })
 
-	plugin.config({})
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visServerContext.__test__getOptions()).toMatchObject({
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		subjectDataTestId: 'test',
 	})
 })

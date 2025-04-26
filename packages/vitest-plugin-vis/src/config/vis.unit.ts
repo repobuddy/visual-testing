@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest'
 import { vis } from '../config.ts'
+import { getVisOption } from '../server/vis_options.ts'
 import { visServerContext } from '../server/vis_server_context.ts'
+import { stubSuite } from '../testing/stubSuite.ts'
 
 afterEach(() => visServerContext.__test__reset())
 
@@ -15,16 +17,37 @@ describe('vis().config()', () => {
 	})
 
 	it('uses __default as project name when no name is provided', () => {
-		vis().config({ test: {} })
+		const plugin = vis()
 
-		expect(visServerContext.__test__getOptions()).toBeDefined()
+		const { userConfig, browserCommandContext } = stubSuite({
+			test: {},
+		})
+
+		plugin.config(userConfig)
+
+		expect(getVisOption(browserCommandContext)).toBeDefined()
 	})
 
 	it('uses provided project name', () => {
 		const plugin = vis()
 
-		plugin.config({ test: { name: 'my-project' } })
+		const { userConfig, browserCommandContext } = stubSuite(
+			{
+				test: { name: 'my-project' },
+			},
+			{
+				project: {
+					vite: {
+						config: {
+							test: { name: 'my-project' },
+						},
+					},
+				},
+			},
+		)
 
-		expect(visServerContext.__test__getOptions('my-project')).toBeDefined()
+		plugin.config(userConfig)
+
+		expect(getVisOption(browserCommandContext)).toBeDefined()
 	})
 })

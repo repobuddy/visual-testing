@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 import { commands } from '../server/commands/commands.ts'
-import { visServerContext } from '../server/vis_server_context.ts'
+import { setVisOption } from '../server/vis_options.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
 import type { VisOptions } from './types.ts'
@@ -15,9 +15,7 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 	return {
 		name: NAME,
 		config(userConfig) {
-			const projectName = userConfig?.test?.name
-
-			visServerContext.setOptions(projectName, options)
+			setVisOption(userConfig, options)
 			const preset = options?.preset
 			return {
 				test: {

@@ -7,8 +7,8 @@ import type {
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 } from '../../shared/types.ts'
-import { getProjectRoot } from '../browser_command_context.ts'
 import { file } from '../externals/file.ts'
+import { getProjectRoot } from '../project.ts'
 import { takeSnapshot, takeSnapshotByBrowser } from '../snapshot.ts'
 import { snapshotWriter } from '../snapshot_writer.ts'
 import { visServerContext } from '../vis_server_context.ts'

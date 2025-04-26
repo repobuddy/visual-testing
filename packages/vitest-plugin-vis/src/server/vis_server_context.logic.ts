@@ -2,25 +2,19 @@ import { join, relative, resolve } from 'pathe'
 import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
-import { getProjectId, getProjectName, getProjectRoot } from './browser_command_context.ts'
 import { file } from './externals/file.ts'
+import { getProjectId, getProjectRoot } from './project.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
+import { getVisOption, resetVisOptions } from './vis_options.ts'
 import { deps } from './vis_server_context.deps.ts'
 import type { PartialBrowserCommandContext, VisProjectState, VisState } from './vis_server_context.types.ts'
 
 export function createVisServerContext() {
-	let visOptionsRecord: Record<string, VisOptions<any>> = {}
 	let state: VisState = {}
 
 	const context = {
-		setOptions<M extends 'pixel' | 'ssim'>(projectName: string | undefined, options: VisOptions<M> = {} as any) {
-			visOptionsRecord[projectName ?? '__default'] = options
-		},
-		__test__getOptions(projectName = '__default') {
-			return visOptionsRecord[projectName]
-		},
 		__test__reset() {
-			visOptionsRecord = {}
+			resetVisOptions()
 			state = {}
 		},
 		__test__getState(context: PartialBrowserCommandContext) {
@@ -34,7 +28,7 @@ export function createVisServerContext() {
 		async setupSuite(browserContext: PartialBrowserCommandContext) {
 			const projectId = getProjectId(browserContext)
 
-			const visOptions = getVisOptions(visOptionsRecord, browserContext)
+			const visOptions = getVisOptions(browserContext)
 			if (!state[projectId]) {
 				state[projectId] = setupState(browserContext, visOptions)
 			}
@@ -70,7 +64,7 @@ export function createVisServerContext() {
 
 			return {
 				...pick(
-					getVisOptions(visOptionsRecord, browserContext),
+					getVisOptions(browserContext),
 					'comparisonMethod',
 					'diffOptions',
 					'failureThreshold',
@@ -109,7 +103,7 @@ export function createVisServerContext() {
 		) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
 			const customizeSnapshotId =
-				getVisOptions(visOptionsRecord, browserContext).customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
+				getVisOptions(browserContext).customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
 			return `${customizeSnapshotId({
 				id: info.taskId,
 				index: info.task.count,
@@ -119,7 +113,7 @@ export function createVisServerContext() {
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectId = getProjectId(browserContext)
 			const projectState = await state[projectId]!
-			const visOptions = getVisOptions(visOptionsRecord, browserContext)
+			const visOptions = getVisOptions(browserContext)
 			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptions)
 			const suite = projectState.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
@@ -187,6 +181,6 @@ export function getSuiteId(
 	return parsedSuiteId
 }
 
-function getVisOptions(visOptionsRecord: Record<string, VisOptions<any>>, context: PartialBrowserCommandContext) {
-	return visOptionsRecord[getProjectName(context) ?? '__default'] ?? {}
+function getVisOptions(context: PartialBrowserCommandContext) {
+	return getVisOption(context) ?? {}
 }
