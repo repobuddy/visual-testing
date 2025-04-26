@@ -19,6 +19,9 @@
 		"url": "https://github.com/unional"
 	},
 	"type": "module",
+	"imports": {
+		"#vitest-plugin-vis/config": "./src/config.ts"
+	},
 	"exports": {
 		".": {
 			"types": "./esm/index.d.ts",
@@ -54,9 +57,6 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"imports": {
-		"#vitest-plugin-vis/config": "./src/config.ts"
-	},
 	"types": "./esm/index.d.ts",
 	"files": [
 		"esm",
@@ -72,10 +72,10 @@
 		"coverage": "cross-env COVERAGE=true vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
-		"test": "vitest run",
 		"t:node": "vitest --project=vpv:node",
 		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
+		"test": "vitest run",
 		"v": "run-p build cov",
 		"w": "vitest",
 		"w:c": "cross-env COVERAGE=true vitest --coverage",
@@ -100,10 +100,10 @@
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",
 		"@types/react": "^19.0.2",
-		"@vitest/browser": "^3.0.8",
-		"@vitest/coverage-istanbul": "^3.0.8",
-		"@vitest/coverage-v8": "^3.0.8",
-		"@vitest/expect": "^3.0.8",
+		"@vitest/browser": "catalog:",
+		"@vitest/coverage-istanbul": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"@vitest/expect": "catalog:",
 		"cross-env": "^7.0.3",
 		"never-fail": "^1.1.4",
 		"npm-run-all2": "^7.0.2",
@@ -111,7 +111,7 @@
 		"react-dom": "^19.0.0",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
-		"vitest": "^3.0.8",
+		"vitest": "catalog:",
 		"vitest-browser-react": "^0.1.1"
 	},
 	"peerDependencies": {

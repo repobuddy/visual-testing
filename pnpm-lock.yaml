@@ -4,6 +4,24 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@vitest/browser':
+      specifier: ^3.0.9
+      version: 3.0.9
+    '@vitest/coverage-istanbul':
+      specifier: ^3.0.9
+      version: 3.0.9
+    '@vitest/coverage-v8':
+      specifier: ^3.0.9
+      version: 3.0.9
+    '@vitest/expect':
+      specifier: ^3.0.9
+      version: 3.0.9
+    vitest:
+      specifier: ^3.0.9
+      version: 3.0.9
+
 importers:
 
   .:
@@ -30,8 +48,8 @@ importers:
         specifier: ^22.10.5
         version: 22.10.5
       '@vitest/coverage-v8':
-        specifier: ^3.0.8
-        version: 3.0.8(@vitest/browser@3.0.8)(vitest@3.0.8)
+        specifier: 'catalog:'
+        version: 3.0.9(@vitest/browser@3.0.9)(vitest@3.0.9)
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -54,8 +72,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       webdriverio:
         specifier: ^9.12.0
         version: 9.12.0
@@ -83,7 +101,7 @@ importers:
         version: 8.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))
       '@storybook/experimental-addon-test':
         specifier: ^8.6.3
-        version: 8.6.3(@vitest/browser@3.0.8)(@vitest/runner@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.8)
+        version: 8.6.3(@vitest/browser@3.0.9)(@vitest/runner@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.9)
       '@storybook/react':
         specifier: ^8.6.3
         version: 8.6.3(@storybook/test@8.6.3(storybook@8.6.3(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(typescript@5.7.2)
@@ -106,14 +124,14 @@ importers:
         specifier: ^4.2.1
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
-        specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       '@vitest/coverage-istanbul':
-        specifier: ^3.0.8
-        version: 3.0.8(vitest@3.0.8)
+        specifier: 'catalog:'
+        version: 3.0.9(vitest@3.0.9)
       '@vitest/expect':
-        specifier: ^3.0.8
-        version: 3.0.8
+        specifier: 'catalog:'
+        version: 3.0.9
       boxen:
         specifier: ^8.0.1
         version: 8.0.1
@@ -148,11 +166,11 @@ importers:
         specifier: ^6.0.9
         version: 6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0)
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^0.1.1
-        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.9)
       webdriverio:
         specifier: latest
         version: 9.12.0
@@ -203,17 +221,17 @@ importers:
         specifier: ^19.0.2
         version: 19.0.2
       '@vitest/browser':
-        specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       '@vitest/coverage-istanbul':
-        specifier: ^3.0.8
-        version: 3.0.8(vitest@3.0.8)
+        specifier: 'catalog:'
+        version: 3.0.9(vitest@3.0.9)
       '@vitest/coverage-v8':
-        specifier: ^3.0.8
-        version: 3.0.8(@vitest/browser@3.0.8)(vitest@3.0.8)
+        specifier: 'catalog:'
+        version: 3.0.9(@vitest/browser@3.0.9)(vitest@3.0.9)
       '@vitest/expect':
-        specifier: ^3.0.8
-        version: 3.0.8
+        specifier: 'catalog:'
+        version: 3.0.9
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -236,11 +254,11 @@ importers:
         specifier: ^6.0.9
         version: 6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0)
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^0.1.1
-        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8)
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.9)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.9)
 
   testcases/react-vite-ts:
     dependencies:
@@ -262,7 +280,7 @@ importers:
         version: 8.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))
       '@storybook/experimental-addon-test':
         specifier: ^8.6.3
-        version: 8.6.3(@vitest/browser@3.0.8)(@vitest/runner@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.8)
+        version: 8.6.3(@vitest/browser@3.0.9)(@vitest/runner@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.9)
       '@storybook/react':
         specifier: ^8.6.3
         version: 8.6.3(@storybook/test@8.6.3(storybook@8.6.3(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(typescript@5.7.2)
@@ -282,8 +300,8 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
-        specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       globals:
         specifier: ^16.0.0
         version: 16.0.0
@@ -297,11 +315,11 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^0.1.1
-        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.9)
 
   testcases/themes:
     dependencies:
@@ -329,7 +347,7 @@ importers:
         version: 8.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))
       '@storybook/experimental-addon-test':
         specifier: ^8.6.3
-        version: 8.6.3(@vitest/browser@3.0.8)(@vitest/runner@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.8)
+        version: 8.6.3(@vitest/browser@3.0.9)(@vitest/runner@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.9)
       '@storybook/react':
         specifier: ^8.6.3
         version: 8.6.3(@storybook/test@8.6.3(storybook@8.6.3(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(typescript@5.7.2)
@@ -352,8 +370,8 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
-        specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -373,8 +391,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
 
   testcases/vpv:
     dependencies:
@@ -395,17 +413,17 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
-        specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^0.1.1
-        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8)
+        version: 0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.9)
       vitest-plugin-vis:
         specifier: workspace:*
         version: link:../../packages/vitest-plugin-vis
@@ -436,7 +454,7 @@ importers:
         version: 8.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))
       '@storybook/experimental-addon-test':
         specifier: ^8.6.3
-        version: 8.6.3(@vitest/browser@3.0.8)(@vitest/runner@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.8)
+        version: 8.6.3(@vitest/browser@3.0.9)(@vitest/runner@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.9)
       '@storybook/react':
         specifier: ^8.6.3
         version: 8.6.3(@storybook/test@8.6.3(storybook@8.6.3(prettier@2.8.8)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(typescript@5.7.2)
@@ -459,8 +477,8 @@ importers:
         specifier: ^4.3.3
         version: 4.3.3(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
       '@vitest/browser':
-        specifier: ^3.0.8
-        version: 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.1)
@@ -480,8 +498,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vitest:
-        specifier: ^3.0.8
-        version: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+        specifier: 'catalog:'
+        version: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
 
 packages:
 
@@ -1728,12 +1746,12 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0
 
-  '@vitest/browser@3.0.8':
-    resolution: {integrity: sha512-ARAGav2gJE/t+qF44fOwJlK0dK8ZJEYjZ725ewHzN6liBAJSCt9elqv/74iwjl5RJzel00k/wufJB7EEu+MJEw==}
+  '@vitest/browser@3.0.9':
+    resolution: {integrity: sha512-P9dcCeMkA3/oYGfUzRFZJLZxiOpApztxhPsQDUiZzAzLoZonWhse2+vPB0xEBP8Q0lX1WCEEmtY7HzBRi4oYBA==}
     peerDependencies:
       playwright: '*'
       safaridriver: '*'
-      vitest: 3.0.8
+      vitest: 3.0.9
       webdriverio: ^7.0.0 || ^8.0.0 || ^9.0.0
     peerDependenciesMeta:
       playwright:
@@ -1743,16 +1761,16 @@ packages:
       webdriverio:
         optional: true
 
-  '@vitest/coverage-istanbul@3.0.8':
-    resolution: {integrity: sha512-v/frNs3RF//gQP/+AkXG2Bk51qiK1bGRubq/vgM7CxEw40Jl3N9rMpgAOAz8ELL9HAWvAZ9fswR8YyHhO1HxSQ==}
+  '@vitest/coverage-istanbul@3.0.9':
+    resolution: {integrity: sha512-/TXh2qmOhclmVPjOnPTpIO4Xr6l2P5EwyXQygenwq4/ZQ/vPsrz+GCRZF9kBeQi6xrGcHv368Si9PGImWQawVg==}
     peerDependencies:
-      vitest: 3.0.8
+      vitest: 3.0.9
 
-  '@vitest/coverage-v8@3.0.8':
-    resolution: {integrity: sha512-y7SAKsQirsEJ2F8bulBck4DoluhI2EEgTimHd6EEUgJBGKy9tC25cpywh1MH4FvDGoG2Unt7+asVd1kj4qOSAw==}
+  '@vitest/coverage-v8@3.0.9':
+    resolution: {integrity: sha512-15OACZcBtQ34keIEn19JYTVuMFTlFrClclwWjHo/IRPg/8ELpkgNTl0o7WLP9WO9XGH6+tip9CPYtEOrIDJvBA==}
     peerDependencies:
-      '@vitest/browser': 3.0.8
-      vitest: 3.0.8
+      '@vitest/browser': 3.0.9
+      vitest: 3.0.9
     peerDependenciesMeta:
       '@vitest/browser':
         optional: true
@@ -1760,11 +1778,11 @@ packages:
   '@vitest/expect@2.0.5':
     resolution: {integrity: sha512-yHZtwuP7JZivj65Gxoi8upUN2OzHTi3zVfjwdpu2WrvCZPLwsJ2Ey5ILIPccoW23dd/zQBlJ4/dhi7DWNyXCpA==}
 
-  '@vitest/expect@3.0.8':
-    resolution: {integrity: sha512-Xu6TTIavTvSSS6LZaA3EebWFr6tsoXPetOWNMOlc7LO88QVVBwq2oQWBoDiLCN6YTvNYsGSjqOO8CAdjom5DCQ==}
+  '@vitest/expect@3.0.9':
+    resolution: {integrity: sha512-5eCqRItYgIML7NNVgJj6TVCmdzE7ZVgJhruW0ziSQV4V7PvLkDL1bBkBdcTs/VuIz0IxPb5da1IDSqc1TR9eig==}
 
-  '@vitest/mocker@3.0.8':
-    resolution: {integrity: sha512-n3LjS7fcW1BCoF+zWZxG7/5XvuYH+lsFg+BDwwAz0arIwHQJFUEsKBQ0BLU49fCxuM/2HSeBPHQD8WjgrxMfow==}
+  '@vitest/mocker@3.0.9':
+    resolution: {integrity: sha512-ryERPIBOnvevAkTq+L1lD+DTFBRcjueL9lOUfXsLfwP92h4e+Heb+PjiqS3/OURWPtywfafK0kj++yDFjWUmrA==}
     peerDependencies:
       msw: ^2.4.9
       vite: ^5.0.0 || ^6.0.0
@@ -1780,20 +1798,20 @@ packages:
   '@vitest/pretty-format@2.1.8':
     resolution: {integrity: sha512-9HiSZ9zpqNLKlbIDRWOnAWqgcA7xu+8YxXSekhr0Ykab7PAYFkhkwoqVArPOtJhPmYeE2YHgKZlj3CP36z2AJQ==}
 
-  '@vitest/pretty-format@3.0.8':
-    resolution: {integrity: sha512-BNqwbEyitFhzYMYHUVbIvepOyeQOSFA/NeJMIP9enMntkkxLgOcgABH6fjyXG85ipTgvero6noreavGIqfJcIg==}
+  '@vitest/pretty-format@3.0.9':
+    resolution: {integrity: sha512-OW9F8t2J3AwFEwENg3yMyKWweF7oRJlMyHOMIhO5F3n0+cgQAJZBjNgrF8dLwFTEXl5jUqBLXd9QyyKv8zEcmA==}
 
-  '@vitest/runner@3.0.8':
-    resolution: {integrity: sha512-c7UUw6gEcOzI8fih+uaAXS5DwjlBaCJUo7KJ4VvJcjL95+DSR1kova2hFuRt3w41KZEFcOEiq098KkyrjXeM5w==}
+  '@vitest/runner@3.0.9':
+    resolution: {integrity: sha512-NX9oUXgF9HPfJSwl8tUZCMP1oGx2+Sf+ru6d05QjzQz4OwWg0psEzwY6VexP2tTHWdOkhKHUIZH+fS6nA7jfOw==}
 
-  '@vitest/snapshot@3.0.8':
-    resolution: {integrity: sha512-x8IlMGSEMugakInj44nUrLSILh/zy1f2/BgH0UeHpNyOocG18M9CWVIFBaXPt8TrqVZWmcPjwfG/ht5tnpba8A==}
+  '@vitest/snapshot@3.0.9':
+    resolution: {integrity: sha512-AiLUiuZ0FuA+/8i19mTYd+re5jqjEc2jZbgJ2up0VY0Ddyyxg/uUtBDpIFAy4uzKaQxOW8gMgBdAJJ2ydhu39A==}
 
   '@vitest/spy@2.0.5':
     resolution: {integrity: sha512-c/jdthAhvJdpfVuaexSrnawxZz6pywlTPe84LUB2m/4t3rl2fTo9NFGBG4oWgaD+FTgDDV8hJ/nibT7IfH3JfA==}
 
-  '@vitest/spy@3.0.8':
-    resolution: {integrity: sha512-MR+PzJa+22vFKYb934CejhR4BeRpMSoxkvNoDit68GQxRLSf11aT6CTj3XaqUU9rxgWJFnqicN/wxw6yBRkI1Q==}
+  '@vitest/spy@3.0.9':
+    resolution: {integrity: sha512-/CcK2UDl0aQ2wtkp3YVWldrpLRNCfVcIOFGlVGKO4R5eajsH393Z1yiXLVQ7vWsj26JOEjeZI0x5sm5P4OGUNQ==}
 
   '@vitest/utils@2.0.5':
     resolution: {integrity: sha512-d8HKbqIcya+GR67mkZbrzhS5kKhtp8dQLcmRZLGTscGVg7yImT82cIrhtn2L8+VujWcy6KZweApgNmPsTAO/UQ==}
@@ -1801,8 +1819,8 @@ packages:
   '@vitest/utils@2.1.8':
     resolution: {integrity: sha512-dwSoui6djdwbfFmIgbIjX2ZhIoG7Ex/+xpxyiEgIGzjliY8xGkcpITKTlp6B4MgtGkF2ilvm97cPM96XZaAgcA==}
 
-  '@vitest/utils@3.0.8':
-    resolution: {integrity: sha512-nkBC3aEhfX2PdtQI/QwAWp8qZWwzASsU4Npbcd5RdMPBSSLCpkZp52P3xku3s3uA0HIEhGvEcF8rNkBsz9dQ4Q==}
+  '@vitest/utils@3.0.9':
+    resolution: {integrity: sha512-ilHM5fHhZ89MCp5aAaM9uhfl1c2JdxVxl3McqsdVyVNN6JffnEen8UMCdRTzOhGXNQGo5GNL9QugHrz727Wnng==}
 
   '@wdio/config@9.11.0':
     resolution: {integrity: sha512-lBcmd7r+3nHJwIWDZ/cLIXcIL9rCmQmMvMWQ+Ykcrlc2khePX92VZyd0igptrZATJGD3tQ7VySR5Bozz6uMzyA==}
@@ -4240,8 +4258,8 @@ packages:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
-  vite-node@3.0.8:
-    resolution: {integrity: sha512-6PhR4H9VGlcwXZ+KWCdMqbtG649xCPZqfI9j2PsK1FcXgEzro5bGHcVKFCTqPLaNKZES8Evqv4LwvZARsq5qlg==}
+  vite-node@3.0.9:
+    resolution: {integrity: sha512-w3Gdx7jDcuT9cNn9jExXgOyKmf5UOTb6WMHz8LGAm54eS1Elf5OuBhCxl6zJxGhEeIkgsE1WbHuoL0mj/UXqXg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
@@ -4301,16 +4319,16 @@ packages:
       '@types/react-dom':
         optional: true
 
-  vitest@3.0.8:
-    resolution: {integrity: sha512-dfqAsNqRGUc8hB9OVR2P0w8PZPEckti2+5rdZip0WIz9WW0MnImJ8XiR61QhqLa92EQzKP2uPkzenKOAHyEIbA==}
+  vitest@3.0.9:
+    resolution: {integrity: sha512-BbcFDqNyBlfSpATmTtXOAOj71RNKDDvjBM/uPfnxxVGrG+FSH2RQIwgeEngTaTkuU/h0ScFvf+tRcKfYXzBybQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/debug': ^4.1.12
       '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
-      '@vitest/browser': 3.0.8
-      '@vitest/ui': 3.0.8
+      '@vitest/browser': 3.0.9
+      '@vitest/ui': 3.0.9
       happy-dom: '*'
       jsdom: '*'
     peerDependenciesMeta:
@@ -5511,7 +5529,7 @@ snapshots:
       storybook: 8.6.3(prettier@2.8.8)
       unplugin: 1.16.0
 
-  '@storybook/experimental-addon-test@8.6.3(@vitest/browser@3.0.8)(@vitest/runner@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.8)':
+  '@storybook/experimental-addon-test@8.6.3(@vitest/browser@3.0.9)(@vitest/runner@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@2.8.8))(vitest@3.0.9)':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -5522,9 +5540,9 @@ snapshots:
       storybook: 8.6.3(prettier@2.8.8)
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
-      '@vitest/runner': 3.0.8
-      vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+      '@vitest/browser': 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
+      '@vitest/runner': 3.0.9
+      vitest: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -5768,29 +5786,29 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser@3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)':
+  '@vitest/browser@3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)':
     dependencies:
+      '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
-      '@vitest/mocker': 3.0.8(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
-      '@vitest/utils': 3.0.8
+      '@vitest/mocker': 3.0.9(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
+      '@vitest/utils': 3.0.9
       magic-string: 0.30.17
       msw: 2.7.3(@types/node@22.10.5)(typescript@5.7.2)
       sirv: 3.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+      vitest: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
       ws: 8.18.1
     optionalDependencies:
       playwright: 1.51.0
       webdriverio: 9.12.0
     transitivePeerDependencies:
-      - '@testing-library/dom'
       - '@types/node'
       - bufferutil
       - typescript
       - utf-8-validate
       - vite
 
-  '@vitest/coverage-istanbul@3.0.8(vitest@3.0.8)':
+  '@vitest/coverage-istanbul@3.0.9(vitest@3.0.9)':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       debug: 4.4.0
@@ -5802,11 +5820,11 @@ snapshots:
       magicast: 0.3.5
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+      vitest: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@3.0.8(@vitest/browser@3.0.8)(vitest@3.0.8)':
+  '@vitest/coverage-v8@3.0.9(@vitest/browser@3.0.9)(vitest@3.0.9)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 1.0.2
@@ -5820,9 +5838,9 @@ snapshots:
       std-env: 3.8.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+      vitest: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     optionalDependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+      '@vitest/browser': 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -5833,16 +5851,16 @@ snapshots:
       chai: 5.2.0
       tinyrainbow: 1.2.0
 
-  '@vitest/expect@3.0.8':
+  '@vitest/expect@3.0.9':
     dependencies:
-      '@vitest/spy': 3.0.8
-      '@vitest/utils': 3.0.8
+      '@vitest/spy': 3.0.9
+      '@vitest/utils': 3.0.9
       chai: 5.2.0
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.0.8(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))':
+  '@vitest/mocker@3.0.9(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))':
     dependencies:
-      '@vitest/spy': 3.0.8
+      '@vitest/spy': 3.0.9
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
@@ -5857,18 +5875,18 @@ snapshots:
     dependencies:
       tinyrainbow: 1.2.0
 
-  '@vitest/pretty-format@3.0.8':
+  '@vitest/pretty-format@3.0.9':
     dependencies:
       tinyrainbow: 2.0.0
 
-  '@vitest/runner@3.0.8':
+  '@vitest/runner@3.0.9':
     dependencies:
-      '@vitest/utils': 3.0.8
+      '@vitest/utils': 3.0.9
       pathe: 2.0.3
 
-  '@vitest/snapshot@3.0.8':
+  '@vitest/snapshot@3.0.9':
     dependencies:
-      '@vitest/pretty-format': 3.0.8
+      '@vitest/pretty-format': 3.0.9
       magic-string: 0.30.17
       pathe: 2.0.3
 
@@ -5876,7 +5894,7 @@ snapshots:
     dependencies:
       tinyspy: 3.0.2
 
-  '@vitest/spy@3.0.8':
+  '@vitest/spy@3.0.9':
     dependencies:
       tinyspy: 3.0.2
 
@@ -5893,9 +5911,9 @@ snapshots:
       loupe: 3.1.3
       tinyrainbow: 1.2.0
 
-  '@vitest/utils@3.0.8':
+  '@vitest/utils@3.0.9':
     dependencies:
-      '@vitest/pretty-format': 3.0.8
+      '@vitest/pretty-format': 3.0.9
       loupe: 3.1.3
       tinyrainbow: 2.0.0
 
@@ -7067,7 +7085,7 @@ snapshots:
       '@babel/parser': 7.26.2
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
-      semver: 7.6.3
+      semver: 7.7.1
     transitivePeerDependencies:
       - supports-color
 
@@ -7265,7 +7283,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.6.3
+      semver: 7.7.1
 
   map-or-similar@1.5.0: {}
 
@@ -8364,7 +8382,7 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  vite-node@3.0.8(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0):
+  vite-node@3.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
@@ -8396,35 +8414,35 @@ snapshots:
       jiti: 2.4.2
       yaml: 2.6.0
 
-  vitest-browser-react@0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.8):
+  vitest-browser-react@0.1.1(@types/react-dom@18.3.1)(@types/react@18.3.12)(@vitest/browser@3.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vitest@3.0.9):
     dependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+      '@vitest/browser': 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+      vitest: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     optionalDependencies:
       '@types/react': 18.3.12
       '@types/react-dom': 18.3.1
 
-  vitest-browser-react@0.1.1(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.8):
+  vitest-browser-react@0.1.1(@types/react-dom@18.3.1)(@types/react@19.0.2)(@vitest/browser@3.0.9)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@3.0.9):
     dependencies:
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+      '@vitest/browser': 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
-      vitest: 3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
+      vitest: 3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0)
     optionalDependencies:
       '@types/react': 19.0.2
       '@types/react-dom': 18.3.1
 
-  vitest@3.0.8(@types/node@22.10.5)(@vitest/browser@3.0.8)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0):
+  vitest@3.0.9(@types/node@22.10.5)(@vitest/browser@3.0.9)(jiti@2.4.2)(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(yaml@2.6.0):
     dependencies:
-      '@vitest/expect': 3.0.8
-      '@vitest/mocker': 3.0.8(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
-      '@vitest/pretty-format': 3.0.8
-      '@vitest/runner': 3.0.8
-      '@vitest/snapshot': 3.0.8
-      '@vitest/spy': 3.0.8
-      '@vitest/utils': 3.0.8
+      '@vitest/expect': 3.0.9
+      '@vitest/mocker': 3.0.9(msw@2.7.3(@types/node@22.10.5)(typescript@5.7.2))(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))
+      '@vitest/pretty-format': 3.0.9
+      '@vitest/runner': 3.0.9
+      '@vitest/snapshot': 3.0.9
+      '@vitest/spy': 3.0.9
+      '@vitest/utils': 3.0.9
       chai: 5.2.0
       debug: 4.4.0
       expect-type: 1.1.0
@@ -8436,11 +8454,11 @@ snapshots:
       tinypool: 1.0.2
       tinyrainbow: 2.0.0
       vite: 6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0)
-      vite-node: 3.0.8(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0)
+      vite-node: 3.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.5
-      '@vitest/browser': 3.0.8(@testing-library/dom@10.4.0)(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.8)(webdriverio@9.12.0)
+      '@vitest/browser': 3.0.9(@types/node@22.10.5)(playwright@1.51.0)(typescript@5.7.2)(vite@6.0.9(@types/node@22.10.5)(jiti@2.4.2)(yaml@2.6.0))(vitest@3.0.9)(webdriverio@9.12.0)
     transitivePeerDependencies:
       - jiti
       - less
