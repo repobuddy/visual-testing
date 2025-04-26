@@ -57,7 +57,9 @@ it('can set default snapshot timeout', () => {
 })
 
 it('can set default failure threshold', () => {
-	const plugin = vis({ failureThreshold: 0.01 })
+	const plugin = vis({
+		failureThreshold: 0.01,
+	})
 
 	const { userConfig, browserCommandContext } = stubSuite()
 

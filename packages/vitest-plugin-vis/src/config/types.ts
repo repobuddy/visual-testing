@@ -1,7 +1,7 @@
 import type {
 	AutoSnapshotOptions,
 	ComparisonMethod,
-	ImageSnapshotCompareOptions,
+	FailureThresholdOptions,
 	ImageSnapshotKeyOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
@@ -12,8 +12,23 @@ import type {
 
 export type { ComparisonMethod, PixelComparisonOptions, PixelDiffOptions, SsimComparisonOptions, SsimDiffOptions }
 
-export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
-	ImageSnapshotCompareOptions<M> &
+export type VisOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
+	? {
+			comparisonMethod: M
+			/**
+			 * Custom options passed to 'ssim'
+			 */
+			diffOptions?: Partial<SsimDiffOptions> | undefined
+		}
+	: {
+			comparisonMethod?: M | undefined
+			/**
+			 * Custom options passed to 'pixelmatch'
+			 */
+			diffOptions?: PixelDiffOptions | undefined
+		}) &
+	FailureThresholdOptions &
+	ImageSnapshotTimeoutOptions &
 	ImageSnapshotKeyOptions &
 	AutoSnapshotOptions & {
 		/**
