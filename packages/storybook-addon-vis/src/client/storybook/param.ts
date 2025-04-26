@@ -16,7 +16,7 @@ export type {
 	ComparisonMethod,
 	FailureThresholdOptions,
 	ImageSnapshotCompareOptions,
-	ImageSnapshotKeyOptions as ImageSnapshotIdOptions,
+	ImageSnapshotKeyOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	SsimComparisonOptions,
