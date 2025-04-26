@@ -112,6 +112,9 @@ This is not customizable.
 
 This is the key of the snapshot.
 In this case, it is `auto` because the snapshot is taken automatically at the end of the test.
+If you take a manual snapshot, the key will be `0`, `1`, etc.
+If you customize it when taking the snapshot,
+the global customization will not be used.
 
 You can customize the `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey` with corresponding options:
 

@@ -21,7 +21,7 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 it('returns false when no snapshot exists', async ({ expect }) => {
 	expect(
 		await page.hasImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'non-existing-snapshot',
 		}),
 	).toBe(false)
 })
@@ -30,11 +30,11 @@ it('returns true when the snapshot exists', async ({ expect }) => {
 	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: ({ id }) => id,
+		snapshotKey: 'existing-snapshot',
 	})
 	expect(
 		await page.hasImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'existing-snapshot',
 		}),
 	).toBe(true)
 })

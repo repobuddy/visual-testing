@@ -23,6 +23,10 @@ export interface ImageSnapshotIdOptions {
 		index: number
 		isAutoSnapshot: boolean
 	}) => string
+	/**
+	 * Customize the `snapshotKey` of the snapshot.
+	 */
+	snapshotKey?: string | undefined
 }
 
 export type ComparisonMethod = 'pixel' | 'ssim'

@@ -2,7 +2,6 @@ import type {
 	AutoSnapshotOptions,
 	ComparisonMethod,
 	ImageSnapshotCompareOptions,
-	ImageSnapshotIdOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	PixelDiffOptions,
@@ -13,7 +12,6 @@ import type {
 export type { ComparisonMethod, PixelComparisonOptions, PixelDiffOptions, SsimComparisonOptions, SsimDiffOptions }
 
 export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
-	ImageSnapshotIdOptions &
 	ImageSnapshotCompareOptions<M> &
 	AutoSnapshotOptions & {
 		/**
@@ -52,5 +50,16 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 *                     To retain the full path, simply return it.
 		 * @returns The customized snapshot subpath.
 		 */
-		snapshotSubpath?: (options: { subpath: string }) => string
+		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
+		/**
+		 * Customize the `snapshotKey` of the snapshots.
+		 *
+		 * If you specify a string, it will be used as the key for automatic snapshot.
+		 *
+		 * If you specify a function, it will invoked when:
+		 *
+		 * - taking automatic snapshot: invoked with the `key = auto`
+		 * - taking manual snapshot without customizing the key: invoked with the `key = '0', '1', ...`
+		 */
+		snapshotKey?: string | ((options: { key: string | number }) => string) | undefined
 	}

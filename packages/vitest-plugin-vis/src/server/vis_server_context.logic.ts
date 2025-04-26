@@ -68,13 +68,14 @@ export function createVisServerContext() {
 			isAutoSnapshot: boolean,
 		) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
-			const customizeSnapshotId =
-				getVisOption(browserContext).customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
-			return `${customizeSnapshotId({
-				id: info.taskId,
-				index: info.task.count,
-				isAutoSnapshot,
-			})}.png`
+			const visOptions = getVisOption(browserContext)
+			if (typeof visOptions.snapshotKey === 'function') {
+				return `${info.taskId}-${visOptions.snapshotKey({ key: isAutoSnapshot ? 'auto' : info.task.count })}.png`
+			}
+			if (typeof visOptions.snapshotKey === 'string') {
+				return `${info.taskId}-${visOptions.snapshotKey}.png`
+			}
+			return `${info.taskId}-${isAutoSnapshot ? 'auto' : info.task.count}.png`
 		},
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectState = await getSuite(browserContext)

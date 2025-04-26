@@ -32,17 +32,28 @@ it('can customize snapshot subpath to keep base folder', () => {
 	})
 })
 
-it('can set default snapshot id', () => {
-	const customizeSnapshotId = ({ id }: { id: string }) => id
-
-	const plugin = vis({ customizeSnapshotId })
+it('can change the default snapshot auto key with string', () => {
+	const plugin = vis({ snapshotKey: 'custom' })
 
 	const { userConfig, browserCommandContext } = stubSuite()
 
 	plugin.config(userConfig)
 
 	expect(getVisOption(browserCommandContext)).toMatchObject({
-		customizeSnapshotId,
+		snapshotKey: 'custom',
+	})
+})
+
+it('can change the default snapshot auto key with function', () => {
+	const snapshotKey = () => 'custom'
+	const plugin = vis({ snapshotKey })
+
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
+		snapshotKey,
 	})
 })
 

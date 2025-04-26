@@ -8,7 +8,10 @@ export async function parseImageSnapshotOptions(
 	options: ToMatchImageSnapshotOptions<any>,
 ) {
 	const index = await commands.imageSnapshotNextIndex(taskId)
-	const { customizeSnapshotId, ...rest } = options
+	const { customizeSnapshotId, snapshotKey, ...rest } = options
+	if (snapshotKey) {
+		return { ...rest, snapshotFileId: `${taskId}-${snapshotKey}` }
+	}
 	const snapshotFileId = customizeSnapshotId!({ id: taskId, index, isAutoSnapshot })
 	return { ...rest, snapshotFileId }
 }

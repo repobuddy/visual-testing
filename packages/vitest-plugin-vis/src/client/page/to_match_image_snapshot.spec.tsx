@@ -21,12 +21,12 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 it('takes an image snapshot', async () => {
 	render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
-		customizeSnapshotId: ({ id }) => id,
+		snapshotKey: 'test-snapshot',
 	})
 
 	await expect(
 		page.hasImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'test-snapshot',
 		}),
 	).resolves.toBe(true)
 })
@@ -35,11 +35,11 @@ it('supports full page image snapshot', async () => {
 	render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
 		fullPage: true,
-		customizeSnapshotId: ({ id }) => id,
+		snapshotKey: 'test-snapshot',
 	})
 	await expect(
 		page.hasImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'test-snapshot',
 		}),
 	).resolves.toBe(true)
 })

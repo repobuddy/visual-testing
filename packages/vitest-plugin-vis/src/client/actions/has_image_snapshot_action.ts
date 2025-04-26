@@ -10,6 +10,11 @@ export function hasImageSnapshotAction(
 ) {
 	const taskId = toTaskId(test)
 	const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
+	if (options?.snapshotKey) {
+		return commands
+			.imageSnapshotNextIndex(taskId)
+			.then(() => commands.hasImageSnapshot(taskId, `${taskId}-${options.snapshotKey}`, isAutoSnapshot))
+	}
 	if (options?.customizeSnapshotId) {
 		return commands
 			.imageSnapshotNextIndex(taskId)

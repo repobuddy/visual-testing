@@ -149,12 +149,12 @@ it('passes when the image is different but within failure threshold in pixels', 
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
-		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: ({ id }) => id })
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey: 'unit-test' })
 	}
 	subject.element().innerHTML = 'unit text'
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: ({ id }) => id,
+		snapshotKey: 'unit-test',
 		failureThreshold: 70,
 	})
 })
@@ -165,13 +165,13 @@ it('fails when the image is different beyond failure threshold in pixels', async
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
-		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: ({ id }) => id })
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey: 'unit-test' })
 	}
 	subject.element().innerHTML = 'unit text'
 	await expect(subject)
 		.toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'unit-test',
 			expectToFail: true,
 			failureThreshold,
 		})
@@ -191,12 +191,12 @@ it('passes when the image is different but within failure threshold in percentag
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
-		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: ({ id }) => id })
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey: 'unit-test' })
 	}
 	subject.element().innerHTML = 'unit text'
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: ({ id }) => id,
+		snapshotKey: 'unit-test',
 		failureThreshold: 1,
 		failureThresholdType: 'percent',
 	})
@@ -208,13 +208,13 @@ it('fails when the image is different beyond failure threshold in percentage', a
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
-		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: ({ id }) => id })
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey: 'unit-test' })
 	}
 	subject.element().innerHTML = 'unit text'
 	await expect(subject)
 		.toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'unit-test',
 			expectToFail: true,
 			failureThreshold,
 			failureThresholdType: 'percent',
@@ -235,13 +235,13 @@ it('fails when the image is different in 0 percentage', async ({ expect }) => {
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
-		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: ({ id }) => id })
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey: 'unit-test' })
 	}
 	subject.element().innerHTML = 'unit text'
 	await expect(subject)
 		.toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'unit-test',
 			expectToFail: true,
 			failureThresholdType: 'percent',
 		})
@@ -261,13 +261,13 @@ it('should fail with additional info when it does not fail with expectToFail', a
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
-	if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
-		await expect(subject).toMatchImageSnapshot({ customizeSnapshotId: ({ id }) => id })
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey: 'unit-test' })
 	}
 	const failureThreshold = server.browser === 'chrome' ? 10 : 260
 	await expect(subject)
 		.toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'unit-test',
 			expectToFail: true,
 			failureThreshold,
 		})
@@ -300,11 +300,11 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		setAutoSnapshotOptions(task, { enable: false })
 		render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'unit-test',
 		})
 		expect(
 			await page.hasImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'unit-test',
 			}),
 		).toBe(true)
 	})
@@ -351,7 +351,7 @@ describe('ssim', () => {
 		render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
 			comparisonMethod: 'ssim',
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'unit-test',
 		})
 	})
 
@@ -359,17 +359,17 @@ describe('ssim', () => {
 		render(<div data-testid="subject">unit test</div>)
 		const subject = page.getByTestId('subject')
 
-		if (!(await page.hasImageSnapshot({ customizeSnapshotId: ({ id }) => id }))) {
+		if (!(await page.hasImageSnapshot({ snapshotKey: 'unit-test' }))) {
 			await expect(subject).toMatchImageSnapshot({
 				comparisonMethod: 'ssim',
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'unit-test',
 			})
 		}
 		subject.element().innerHTML = 'unit text'
 		await expect(subject)
 			.toMatchImageSnapshot({
 				comparisonMethod: 'ssim',
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'unit-test',
 				expectToFail: true,
 				failureThreshold: 20,
 			})
