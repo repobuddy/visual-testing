@@ -9,7 +9,8 @@ import type {
 } from '../../shared/types.ts'
 import { getProjectRoot } from '../browser_command_context.ts'
 import { file } from '../file.ts'
-import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
+import { snapshotWriter } from '../fs/snapshot_writer.ts'
+import { takeSnapshot, takeSnapshotByBrowser } from '../snapshot.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
@@ -65,7 +66,7 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {
-			await writeSnapshot(resolve(projectRoot, info.baselinePath), subject)
+			await snapshotWriter.writeBase64(resolve(projectRoot, info.baselinePath), subject)
 		} else {
 			await takeSnapshotByBrowser(context, resolve(projectRoot, info.baselinePath), subject, options)
 		}

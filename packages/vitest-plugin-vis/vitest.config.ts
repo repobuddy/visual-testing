@@ -11,6 +11,7 @@ export default defineConfig({
 				'**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}',
 				'src/presets',
 				'src/server/browser_provider',
+				'src/server/fs',
 			],
 		},
 		workspace: [
