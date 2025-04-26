@@ -11,7 +11,7 @@ import { file } from '../file.ts'
 import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
 import { visContext } from '../vis_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
-import type { MatchImageSnapshotOptions } from './match_image_snapshot.ts'
+import type { MatchImageSnapshotOptions } from './types.ts'
 
 type ImageSnapshotComparisonInfo = {
 	/**
