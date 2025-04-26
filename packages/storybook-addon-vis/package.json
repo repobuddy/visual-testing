@@ -60,7 +60,7 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
 	],
 	"scripts": {
-		"build": "tsup",
+		"build": "tsup --tsconfig tsconfig.tsup.json",
 		"build:sb": "storybook build",
 		"clean": "rimraf coverage dist esm *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",

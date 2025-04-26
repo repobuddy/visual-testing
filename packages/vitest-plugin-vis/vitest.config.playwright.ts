@@ -6,7 +6,6 @@ export default defineProject({
 	plugins: [
 		vis({
 			preset: 'none',
-			customizeSnapshotId: ({ id, index, isAutoSnapshot }) => (isAutoSnapshot ? `${id}-auto` : `${id}-${index}`),
 			subjectDataTestId: 'subject',
 		}),
 	],

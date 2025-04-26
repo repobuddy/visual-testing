@@ -64,8 +64,8 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
 	],
 	"scripts": {
-		"build": "tsc",
-		"build:watch": "tsc -w",
+		"build": "tsc -b tsconfig.esm.json",
+		"build:watch": "tsc  -b tsconfig.esm.json -w",
 		"clean": "rimraf coverage esm *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "cross-env COVERAGE=true vitest run --coverage",

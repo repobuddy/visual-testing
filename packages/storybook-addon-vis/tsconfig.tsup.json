@@ -1,10 +1,9 @@
 {
 	"compilerOptions": {
 		"allowImportingTsExtensions": true,
-		"composite": true,
 		// "esModuleInterop": true,
 		// "experimentalDecorators": true,
-		"isolatedModules": true,
+		"isolatedModules": false,
 		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"module": "ESNext",

@@ -19,7 +19,7 @@
 		"tt": "pnpm --filter=testcase-themes",
 		"tv": "pnpm --filter=testcase-vpv",
 		"v": "turbo check coverage",
-		"verify": "turbo check test:type coverage",
+		"verify": "turbo check test:type coverage testcase",
 		"verify:ci": "turbo check test:type coverage test testcase --concurrency=1",
 		"version": "changeset version",
 		"sav": "pnpm --filter=./packages/storybook-addon-vis",

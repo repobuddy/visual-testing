@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		// "allowImportingTsExtensions": true,
+		"composite": true,
+		// "isolatedModules": true,
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		// "rewriteRelativeImportExtensions": true,
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"strict": true,
+		// "target": "ES2020",
+		"verbatimModuleSyntax": true
+	},
+	"include": ["*.ts", "src/vitest-plugin.ts"]
+}

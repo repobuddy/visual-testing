@@ -1,17 +1,22 @@
 {
 	"compilerOptions": {
 		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
 		"isolatedModules": true,
-		// "lib": ["ESNext", "DOM.Iterable", "DOM"],
+		"jsx": "react-jsx",
+		"lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"module": "NodeNext",
 		"moduleDetection": "force",
 		"noUncheckedIndexedAccess": true,
+		"outDir": "esm",
+		"resolveJsonModule": true,
 		"rewriteRelativeImportExtensions": true,
+		"rootDir": "src",
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2020",
 		"verbatimModuleSyntax": true
 	},
-	"include": ["*.ts"],
-	"references": [{ "path": "./tsconfig.esm.json" }]
+	"include": ["src", "types"]
 }
