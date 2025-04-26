@@ -9,11 +9,11 @@ import type {
 import { compareImage } from '../shared/compare_image.ts'
 import type { ToMatchImageSnapshotOptions } from '../shared/types.ts'
 import { alignImagesToSameSize } from './align_images.ts'
+import { prettifyOptions } from './compare_image_snapshot.logic.ts'
 import { toDataURL, toImageData } from './image_data.ts'
-import { prettifyOptions } from './match_image_snapshot.logic.ts'
 import { server } from './vitest_browser_context_proxy.ts'
 
-export async function compareSnapshot(
+export async function compareImageSnapshot(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
 	taskId: string,
 	info: ImageSnapshotComparisonInfo,

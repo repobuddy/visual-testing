@@ -1,5 +1,5 @@
 import { it } from 'vitest'
-import { prettifyOptions } from './match_image_snapshot.logic.ts'
+import { prettifyOptions } from './compare_image_snapshot.logic.ts'
 
 it('returns none when no options', ({ expect }) => {
 	expect(prettifyOptions(undefined)).toBe('none')
