@@ -16,7 +16,7 @@ export function createVisServerContext() {
 		setOptions<M extends 'pixel' | 'ssim'>(projectName: string | undefined, options: VisOptions<M> = {} as any) {
 			visOptionsRecord[projectName ?? '__default'] = options
 		},
-		__test__getOptions(projectName: string) {
+		__test__getOptions(projectName = '__default') {
 			return visOptionsRecord[projectName]
 		},
 		__test__reset() {
