@@ -51,6 +51,7 @@
 		"Configurator",
 		"divs",
 		"EISDIR",
+		"esbuild",
 		"estree",
 		"mssim",
 		"nocheck",
