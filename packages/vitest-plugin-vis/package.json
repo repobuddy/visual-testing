@@ -78,8 +78,9 @@
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
 		"v": "run-p build cov",
 		"w": "vitest",
-		"w:cov": "cross-env COVERAGE=true vitest --coverage",
-		"w:node": "vitest --project=vpv:node",
+		"w:c": "cross-env COVERAGE=true vitest --coverage",
+		"w:n": "vitest --project=vpv:node",
+		"w:n:c": "vitest --project=vpv:node --coverage",
 		"w:pw": "vitest --project=\"vpv:pw (*)\"",
 		"w:wd": "vitest --project=\"vpv:wd (*)\""
 	},
