@@ -11,7 +11,7 @@ export interface ImageSnapshotTimeoutOptions {
 	timeout?: number | undefined
 }
 
-export interface ImageSnapshotIdOptions {
+export interface ImageSnapshotKeyOptions {
 	/**
 	 * Customize the `snapshotKey` of the snapshot.
 	 */
@@ -70,7 +70,7 @@ export type AutoSnapshotOptions = {
 	subjectDataTestId?: string | undefined
 }
 export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
-	ImageSnapshotIdOptions &
+	ImageSnapshotKeyOptions &
 	ImageSnapshotCompareOptions<M> & {
 		/**
 		 * Expect the matcher to fail.

@@ -1,5 +1,5 @@
 import { type BrowserPage, commands } from '@vitest/browser/context'
-import type { ImageSnapshotIdOptions } from '../../shared/types.ts'
+import type { ImageSnapshotKeyOptions } from '../../shared/types.ts'
 import { hasImageSnapshotAction } from '../actions/has_image_snapshot_action.ts'
 import { ctx } from '../ctx.ts'
 
@@ -7,10 +7,10 @@ export interface HasImageSnapshotAction {
 	/**
 	 * Check if the snapshot image exists.
 	 */
-	hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOptions | undefined): Promise<boolean>
+	hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotKeyOptions | undefined): Promise<boolean>
 }
 
-export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOptions | undefined) {
+export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotKeyOptions | undefined) {
 	const test = ctx.getCurrentTest()
 	if (!test) {
 		throw new Error('`hasImageSnapshot()` must be called in a test.')
