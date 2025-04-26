@@ -20,7 +20,7 @@ export function getVisOption(context: {
 }) {
 	const id = getProjectName(context) ?? DEFAULT_PROJECT_NAME
 
-	return visOptions[id]
+	return visOptions[id] ?? {}
 }
 
 export function deleteVisOption(context: {

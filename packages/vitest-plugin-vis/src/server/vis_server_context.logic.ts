@@ -1,45 +1,15 @@
-import { join, relative, resolve } from 'pathe'
+import { join, resolve } from 'pathe'
 import { pick } from 'type-plus'
-import type { VisOptions } from '../config/types.ts'
-import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { file } from './externals/file.ts'
-import { getProjectId, getProjectRoot } from './project.ts'
-import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
+import { getSuite, getSuiteId, resetSuites } from './suite.ts'
 import { getVisOption, resetVisOptions } from './vis_options.ts'
-import { deps } from './vis_server_context.deps.ts'
-import type { PartialBrowserCommandContext, VisProjectState, VisState } from './vis_server_context.types.ts'
+import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
 
 export function createVisServerContext() {
-	let state: VisState = {}
-
 	const context = {
 		__test__reset() {
 			resetVisOptions()
-			state = {}
-		},
-		__test__getState(context: PartialBrowserCommandContext) {
-			return state[getProjectId(context)]!
-		},
-		/**
-		 * Setup suite is called on each test file's beforeAll hook.
-		 * Test files include vitest test files and storybook story files.
-		 * It needs to make sure there is no race condition between the test files.
-		 */
-		async setupSuite(browserContext: PartialBrowserCommandContext) {
-			const projectId = getProjectId(browserContext)
-
-			const visOptions = getVisOptions(browserContext)
-			if (!state[projectId]) {
-				state[projectId] = setupState(browserContext, visOptions)
-			}
-
-			const projectState = await state[projectId]
-
-			const { suiteId, suite } = createSuite(projectState, browserContext.testPath, visOptions)
-			projectState.suites[suiteId] = suite
-
-			await Promise.allSettled([deps.rimraf(suite.diffDir), deps.rimraf(suite.resultDir)])
-			return pick(projectState, 'subjectDataTestId')
+			resetSuites()
 		},
 		async getSnapshotInfo(
 			browserContext: PartialBrowserCommandContext,
@@ -64,7 +34,7 @@ export function createVisServerContext() {
 
 			return {
 				...pick(
-					getVisOptions(browserContext),
+					getVisOption(browserContext),
 					'comparisonMethod',
 					'diffOptions',
 					'failureThreshold',
@@ -103,7 +73,7 @@ export function createVisServerContext() {
 		) {
 			if (snapshotFileId) return `${snapshotFileId}.png`
 			const customizeSnapshotId =
-				getVisOptions(browserContext).customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
+				getVisOption(browserContext).customizeSnapshotId ?? (({ id, index }) => `${id}-${index}`)
 			return `${customizeSnapshotId({
 				id: info.taskId,
 				index: info.task.count,
@@ -111,9 +81,8 @@ export function createVisServerContext() {
 			})}.png`
 		},
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
-			const projectId = getProjectId(browserContext)
-			const projectState = await state[projectId]!
-			const visOptions = getVisOptions(browserContext)
+			const projectState = await getSuite(browserContext)
+			const visOptions = getVisOption(browserContext)
 			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptions)
 			const suite = projectState.suites[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
@@ -129,58 +98,4 @@ export function createVisServerContext() {
 		},
 	}
 	return context
-}
-
-async function setupState(
-	browserContext: PartialBrowserCommandContext,
-	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subjectDataTestId'>,
-) {
-	const snapshotRootDir = resolveSnapshotRootDir(browserContext, visOptions)
-	const projectRoot = getProjectRoot(browserContext)
-
-	const state = {
-		projectRoot,
-		testTimeout: browserContext.project.config.testTimeout,
-		hookTimeout: browserContext.project.config.hookTimeout,
-		snapshotRootDir,
-		snapshotBaselineDir: join(snapshotRootDir, BASELINE_DIR),
-		snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
-		snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
-		snapshotRootPath: join(projectRoot, snapshotRootDir),
-		subjectDataTestId: visOptions.subjectDataTestId,
-		suites: {},
-	}
-	await Promise.allSettled([deps.rimraf(join(state.snapshotDiffDir)), deps.rimraf(join(state.snapshotResultDir))])
-	return state
-}
-
-export function createSuite(
-	state: VisProjectState,
-	testPath: string,
-	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
-) {
-	const suiteId = getSuiteId(state, testPath, options)
-	return {
-		suiteId,
-		suite: {
-			baselineDir: join(state.snapshotBaselineDir, suiteId),
-			resultDir: join(state.snapshotResultDir, suiteId),
-			diffDir: join(state.snapshotDiffDir, suiteId),
-			tasks: {},
-		},
-	}
-}
-
-export function getSuiteId(
-	state: VisProjectState,
-	testPath: string,
-	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
-) {
-	const suiteId = getSnapshotSubpath(relative(state.projectRoot, testPath), options)
-	const parsedSuiteId = suiteId.replaceAll('..', '__')
-	return parsedSuiteId
-}
-
-function getVisOptions(context: PartialBrowserCommandContext) {
-	return getVisOption(context) ?? {}
 }

@@ -1,5 +1,5 @@
 import type { BrowserCommand } from 'vitest/node'
-import { visServerContext } from '../vis_server_context.ts'
+import { setupSuite } from '../suite.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface SetupVisSuiteCommand {
@@ -18,5 +18,5 @@ export const setupVisSuite: BrowserCommand<[]> = async (
 ): Promise<{ subjectDataTestId: string | undefined }> => {
 	assertTestPathDefined(context, 'setupVisSuite')
 	// using props not currently listed in the types
-	return visServerContext.setupSuite(context as any)
+	return setupSuite(context as any)
 }
