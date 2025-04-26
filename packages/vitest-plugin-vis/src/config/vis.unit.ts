@@ -1,10 +1,7 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { vis } from '../config.ts'
 import { getVisOption } from '../server/vis_options.ts'
-import { visServerContext } from '../server/vis_server_context.ts'
 import { stubSuite } from '../testing/stubSuite.ts'
-
-afterEach(() => visServerContext.__test__reset())
 
 it('set plugin name to vis', () => {
 	expect(vis().name).toBe('vis')

@@ -22,9 +22,3 @@ export function getVisOption(context: {
 
 	return visOptions[id] ?? {}
 }
-
-export function resetVisOptions() {
-	Object.keys(visOptions).forEach((key) => {
-		delete visOptions[key]
-	})
-}

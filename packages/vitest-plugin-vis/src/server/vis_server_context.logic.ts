@@ -2,14 +2,11 @@ import { join, resolve } from 'pathe'
 import { pick } from 'type-plus'
 import { file } from './externals/file.ts'
 import { getSuite, getSuiteId } from './suite.ts'
-import { getVisOption, resetVisOptions } from './vis_options.ts'
+import { getVisOption } from './vis_options.ts'
 import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
 
 export function createVisServerContext() {
 	const context = {
-		__test__reset() {
-			resetVisOptions()
-		},
 		async getSnapshotInfo(
 			browserContext: PartialBrowserCommandContext,
 			name: string,
