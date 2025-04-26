@@ -92,12 +92,14 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 
 				if ((test?.result?.errors?.length ?? 0) > 0) return
 
-				const meta = extractAutoSnapshotOptions(test)
-				if (!shouldTakeSnapshot(meta)) return
+				const options = extractAutoSnapshotOptions(test)
+				if (!shouldTakeSnapshot(options)) return
 
 				test.meta.vis = { ...test.meta.vis, isAutoSnapshot: true }
 
-				await test!.context.expect(getSubject(meta?.subjectDataTestId ?? subjectDataTestId)).toMatchImageSnapshot(meta)
+				await test!.context
+					.expect(getSubject(options?.subjectDataTestId ?? subjectDataTestId))
+					.toMatchImageSnapshot(options)
 			},
 			matchPerTheme(themes) {
 				return async function matchImageSnapshot() {
