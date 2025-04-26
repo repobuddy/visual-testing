@@ -16,6 +16,7 @@
 		},
 		"coverage": {
 			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["coverage/**", "__vis__/**"]
 		},
 		"nuke": {
@@ -24,6 +25,7 @@
 		},
 		"test": {
 			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"]
 		},
 		"test:type": {
@@ -34,6 +36,7 @@
 		},
 		"w": {
 			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"],
 			"persistent": true
 		}
