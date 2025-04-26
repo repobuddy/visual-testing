@@ -124,7 +124,7 @@ export const FailWhenSmaller: StoryObj = {
 				},
 				(error) => {
 					expect(error.message).toMatch(/^Snapshot .* mismatched/)
-					expect(error.message).toMatch(/The image size changed form 128x128 to 64x64/)
+					expect(error.message).toMatch(/The image size changed from 128x128 to 64x64/)
 				},
 			)
 	},
@@ -164,7 +164,7 @@ export const FailWhenLarger: StoryObj = {
 				},
 				(error) => {
 					expect(error.message).toMatch(/^Snapshot .* mismatched/)
-					expect(error.message).toMatch(/The image size changed form 128x128 to 64x64/)
+					expect(error.message).toMatch(/The image size changed from 64x64 to 128x128/)
 				},
 			)
 	},

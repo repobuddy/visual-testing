@@ -64,6 +64,10 @@ export async function compareImageSnapshot(
 								? `Expected image to match within ${options.failureThreshold}% but was differ by ${diffAmount}%.`
 								: `Expected image to match within ${options.failureThreshold} pixels but was differ by ${diffAmount} pixels.`
 							: `Expected image to match but was differ by ${options?.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}.`
+					}${
+						baselineImage.width !== resultImage.width || baselineImage.height !== resultImage.height
+							? `\nThe image size changed from ${baselineImage.width}x${baselineImage.height} to ${resultImage.width}x${resultImage.height}.`
+							: ''
 					}
 
 					Options:    ${prettifyOptions(options)}
