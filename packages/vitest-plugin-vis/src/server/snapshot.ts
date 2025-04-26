@@ -1,7 +1,7 @@
 import { mkdirp } from 'mkdirp'
 import { dirname } from 'pathe'
 import type { BrowserCommandContext } from 'vitest/node'
-import type { ImageSnapshotTimeoutOptions } from '../client.ts'
+import type { ImageSnapshotTimeoutOptions } from '../client-api.ts'
 import { isBase64String } from '../shared/base64.ts'
 import { browserApi } from './browser_provider/browser_api.ts'
 import { file } from './file.js'
