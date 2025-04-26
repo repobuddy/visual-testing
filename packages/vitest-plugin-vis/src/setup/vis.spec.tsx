@@ -2,10 +2,11 @@ import { page } from '@vitest/browser/context'
 import dedent from 'dedent'
 import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
-import { beforeEach, describe, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi, type Awaitable, type File, type Suite } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { type SnapshotMeta, setAutoSnapshotOptions } from '../client-api.ts'
-import { vis } from './vis.ts'
+import { setAutoSnapshotOptions, type SnapshotMeta } from '../client-api.ts'
+import { ctx } from './vis.ctx.ts'
+import { vis, vis2 } from './vis.ts'
 
 describe('matchPerTheme', () => {
 	it('should take a snapshot for each theme', async () => {
@@ -109,5 +110,30 @@ describe('presets.enable()', () => {
 
 	it('can enable auto snapshot', async () => {
 		render(<div data-testid="subject">hello</div>)
+	})
+})
+
+describe('vis', () => {
+	const beforeAllListeners: Array<(suite: Readonly<Suite | File>) => Awaitable<unknown>> = []
+	beforeEach(() => {
+		ctx.beforeAll = vi.fn((fn) => {
+			beforeAllListeners.push(fn)
+		})
+		ctx.beforeEach = vi.fn()
+		ctx.afterEach = vi.fn()
+		ctx.commands = {
+			setupVisSuite: vi.fn(),
+		} as any
+	})
+	afterEach(() => {
+		ctx.reset()
+	})
+
+	it('invokes setupVisSuite during beforeAll', async () => {
+		vis2()
+		expect(ctx.beforeAll).toHaveBeenCalled()
+		expect(beforeAllListeners).toHaveLength(1)
+		await Promise.all(beforeAllListeners.map((fn) => fn({} as any)))
+		expect(ctx.commands.setupVisSuite).toHaveBeenCalled()
 	})
 })
