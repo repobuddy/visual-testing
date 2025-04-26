@@ -1,5 +1,4 @@
 import { join, relative } from 'pathe'
-import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
@@ -20,7 +19,7 @@ export async function setupSuite(browserContext: PartialBrowserCommandContext) {
 	const visOptions = getVisOption(browserContext)
 
 	if (!suites[suiteId]) {
-		suites[suiteId] = setupState(browserContext, visOptions)
+		suites[suiteId] = createSuite(browserContext, visOptions)
 	}
 
 	const suite = await suites[suiteId]
@@ -33,7 +32,15 @@ export async function setupSuite(browserContext: PartialBrowserCommandContext) {
 	suite.modules[taskSubpath] = { baselineDir, diffDir, resultDir, tasks }
 
 	await Promise.allSettled([deps.rimraf(diffDir), deps.rimraf(resultDir)])
-	return pick(suite, 'subjectDataTestId')
+	return {
+		comparisonMethod: visOptions.comparisonMethod,
+		diffOptions: visOptions.diffOptions,
+		failureThreshold: visOptions.failureThreshold,
+		failureThresholdType: visOptions.failureThresholdType,
+		snapshotKey: visOptions.snapshotKey,
+		subjectDataTestId: visOptions.subjectDataTestId,
+		timeout: visOptions.timeout,
+	}
 }
 
 /**
@@ -46,7 +53,7 @@ export function getSuiteId(context: {
 	return `${getProjectName(context)}/${context.project.config.name}`
 }
 
-async function setupState(
+async function createSuite(
 	browserContext: PartialBrowserCommandContext,
 	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subjectDataTestId'>,
 ) {

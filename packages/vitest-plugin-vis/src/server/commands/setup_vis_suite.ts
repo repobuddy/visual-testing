@@ -1,4 +1,6 @@
+import type { Pick } from 'type-plus'
 import type { BrowserCommand } from 'vitest/node'
+import type { VisOptions } from '../../config/types.ts'
 import { setupSuite } from '../suite.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
@@ -10,13 +12,23 @@ export interface SetupVisSuiteCommand {
 	 *
 	 * In subsequent runs, it will only remove the results and diffs directory of the current suite.
 	 */
-	setupVisSuite: () => Promise<{ subjectDataTestId: string | undefined }>
+	setupVisSuite: () => Promise<
+		Pick<
+			VisOptions,
+			| 'comparisonMethod'
+			| 'diffOptions'
+			| 'failureThreshold'
+			| 'failureThresholdType'
+			| 'snapshotKey'
+			| 'subjectDataTestId'
+			| 'timeout'
+		>
+	>
 }
 
 export const setupVisSuite: BrowserCommand<[]> = async (
 	context,
 ): Promise<{ subjectDataTestId: string | undefined }> => {
 	assertTestPathDefined(context, 'setupVisSuite')
-	// using props not currently listed in the types
-	return setupSuite(context as any)
+	return setupSuite(context)
 }
