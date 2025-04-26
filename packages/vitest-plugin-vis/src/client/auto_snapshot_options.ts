@@ -27,32 +27,20 @@ export function enableAuto() {
  *   setAutoSnapshotOptions(task, ...)
  * })
  * ```
- *
- * @param task Optional. Suite or task to set the options.
- * If not provided, it will set the options for the current test.
  */
-export function setAutoSnapshotOptions<M extends ComparisonMethod>(
-	task: MetaTask,
-	meta: SnapshotMeta<M> | boolean,
-): void
-export function setAutoSnapshotOptions<M extends ComparisonMethod>(meta: SnapshotMeta<M> | boolean): void
-export function setAutoSnapshotOptions<M extends ComparisonMethod>(
-	...args: [task: MetaTask, meta: SnapshotMeta<M> | boolean] | [meta: SnapshotMeta<M> | boolean]
-): void {
-	const [task, meta] = parseArgs(args)
+export function setAutoSnapshotOptions<M extends ComparisonMethod>(meta: SnapshotMeta<M> | boolean): void {
+	const [task, m] = parseArgs(meta)
 	if (task)
 		task.meta[NAME] = {
 			...task.meta[NAME],
-			...meta,
+			...m,
 		}
 }
 
 function parseArgs<M extends ComparisonMethod>(
-	args: [task: MetaTask, meta: SnapshotMeta<M> | boolean] | [meta: boolean | SnapshotMeta<M>],
+	meta: boolean | SnapshotMeta<M>,
 ): [MetaTask | undefined, SnapshotMeta<M>] {
-	return args.length === 1
-		? [ctx.getCurrentTest() ?? (ctx.getCurrentSuite()?.tasks?.[0] as any)?.file, parseMeta(args[0])]
-		: [args[0], parseMeta(args[1])]
+	return [ctx.getCurrentTest() ?? (ctx.getCurrentSuite()?.tasks?.[0] as any)?.file, parseMeta(meta)]
 }
 
 function parseMeta<M extends ComparisonMethod>(meta: boolean | SnapshotMeta<M>): SnapshotMeta<M> {

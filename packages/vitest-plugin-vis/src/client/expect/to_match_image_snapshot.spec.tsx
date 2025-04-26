@@ -6,7 +6,7 @@ import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { setAutoSnapshotOptions } from '../auto_snapshot_options.ts'
 import { ctx } from '../ctx.ts'
 
-beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: false }))
+beforeEach(() => setAutoSnapshotOptions({ enable: false }))
 
 afterEach(() => ctx.__test__reset())
 
@@ -255,8 +255,8 @@ it('fails when the image is different in 0 percentage', async ({ expect }) => {
 		)
 })
 
-it('should fail with additional info when it does not fail with expectToFail', async ({ expect, task }) => {
-	setAutoSnapshotOptions(task, { enable: false })
+it('should fail with additional info when it does not fail with expectToFail', async ({ expect }) => {
+	setAutoSnapshotOptions({ enable: false })
 
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
@@ -284,20 +284,20 @@ it('should fail with additional info when it does not fail with expectToFail', a
 })
 
 describe(`${setAutoSnapshotOptions.name}()`, () => {
-	beforeEach(({ task }) => setAutoSnapshotOptions(task, { enable: true }))
+	beforeEach(() => setAutoSnapshotOptions({ enable: true }))
 
 	it('can enable auto snapshot from nested beforeEach', () => {
 		render(<div>hello</div>)
 	})
 
-	it('can disable auto snapshot in test', async ({ expect, task }) => {
-		setAutoSnapshotOptions(task, { enable: false })
+	it('can disable auto snapshot in test', async ({ expect }) => {
+		setAutoSnapshotOptions({ enable: false })
 		render(<div>hello</div>)
 		expect(await page.hasImageSnapshot()).toBe(false)
 	})
 
-	it('does not affect manual snapshot', async ({ expect, task }) => {
-		setAutoSnapshotOptions(task, { enable: false })
+	it('does not affect manual snapshot', async ({ expect }) => {
+		setAutoSnapshotOptions({ enable: false })
 		render(<div>hello</div>)
 		await expect(document.body).toMatchImageSnapshot({
 			snapshotKey: 'unit-test',
@@ -309,8 +309,8 @@ describe(`${setAutoSnapshotOptions.name}()`, () => {
 		).toBe(true)
 	})
 
-	it('can enable auto snapshot', ({ task }) => {
-		setAutoSnapshotOptions(task, { enable: true })
+	it('can enable auto snapshot', () => {
+		setAutoSnapshotOptions({ enable: true })
 		render(<div>hello</div>)
 	})
 
