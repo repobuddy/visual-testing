@@ -1,4 +1,5 @@
 import ci from 'is-ci'
+import { platform } from 'node:process'
 import { afterEach, beforeEach } from 'node:test'
 import { resolve } from 'pathe'
 import { describe, expect, it, vi } from 'vitest'
@@ -15,16 +16,16 @@ const stubContext = createStubPartialBrowserCommandContext({
 describe(`${resolveSnapshotRootDir.name}()`, () => {
 	it('should return "__vis__/..." if snapshotRootDir is undefined', ({ expect }) => {
 		const result = resolveSnapshotRootDir(stubContext(), {})
-		expect(result).toBe(`__vis__/${ci ? process.platform : 'local'}`)
+		expect(result).toBe(`__vis__/${ci ? platform : 'local'}`)
 	})
 	it('should return "__vis__/..." if options is undefined', ({ expect }) => {
 		const result = resolveSnapshotRootDir(stubContext(), {})
-		expect(result).toBe(`__vis__/${ci ? process.platform : 'local'}`)
+		expect(result).toBe(`__vis__/${ci ? platform : 'local'}`)
 	})
 
 	it('should return the provided snapshotRootDir if defined', ({ expect }) => {
 		const result = resolveSnapshotRootDir(stubContext(), { snapshotRootDir: 'custom_dir' })
-		expect(result).toBe(`custom_dir/${ci ? process.platform : 'local'}`)
+		expect(result).toBe(`custom_dir/${ci ? platform : 'local'}`)
 	})
 
 	it('should use function to customize snapshotRootDir', ({ expect }) => {
@@ -41,7 +42,7 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 				},
 			},
 		)
-		expect(result).toBe(`custom_chrome_webdriverio_${process.platform}`)
+		expect(result).toBe(`custom_chrome_webdriverio_${platform}`)
 	})
 
 	describe('when in CI', () => {

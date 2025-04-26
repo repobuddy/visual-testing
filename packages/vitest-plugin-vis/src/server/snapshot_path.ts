@@ -1,4 +1,5 @@
 import ci from 'is-ci'
+import { platform } from 'node:process'
 import type { VisOptions } from '../config/types.ts'
 import { SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { trimCommonFolder } from '../shared/trim_common_folder.ts'
@@ -12,14 +13,14 @@ export function resolveSnapshotRootDir(browserCommandContext: PartialBrowserComm
 		ci,
 		browserName: browserCommandContext.provider.browserName,
 		providerName: browserCommandContext.provider.name,
-		platform: process.platform,
+		platform,
 		screenshotFailures: browserCommandContext.provider.options?.screenshotFailures,
 		screenshotDirectory: browserCommandContext.provider.options?.screenshotDirectory,
 	})
 }
 
 function getSnapshotRootDir(snapshotRootDir: string) {
-	return `${snapshotRootDir}/${ci ? process.platform : 'local'}`
+	return `${snapshotRootDir}/${ci ? platform : 'local'}`
 }
 
 export function getSnapshotSubpath(suiteName: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
