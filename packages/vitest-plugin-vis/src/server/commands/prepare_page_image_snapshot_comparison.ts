@@ -9,7 +9,7 @@ import type {
 import { getProjectRoot } from '../browser_command_context.ts'
 import { file } from '../file.ts'
 import { takePageSnapshot } from '../snapshot.ts'
-import { visContext } from '../vis_context.ts'
+import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
 
@@ -59,7 +59,7 @@ export const preparePageImageSnapshotComparison: BrowserCommand<
 	options.timeout = options.timeout ?? 30000
 
 	const projectRoot = getProjectRoot(context)
-	const info = await visContext.getSnapshotInfo(context, taskId, isAutoSnapshot, options)
+	const info = await visServerContext.getSnapshotInfo(context, taskId, isAutoSnapshot, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		await takePageSnapshot(context, resolve(projectRoot, info.baselinePath), options)

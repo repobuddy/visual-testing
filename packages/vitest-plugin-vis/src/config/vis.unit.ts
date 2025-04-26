@@ -1,8 +1,8 @@
 import { afterEach, describe, it } from 'vitest'
 import { vis } from '../config.ts'
-import { visContext } from '../server/vis_context.ts'
+import { visServerContext } from '../server/vis_server_context.ts'
 
-afterEach(() => visContext.__test__reset())
+afterEach(() => visServerContext.__test__reset())
 
 it('plugin name', ({ expect }) => {
 	expect(vis().name).toBe('vis')
