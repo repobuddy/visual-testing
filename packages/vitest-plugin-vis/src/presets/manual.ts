@@ -1,5 +1,6 @@
-import { vis } from '../setup/vis.ts'
+import { beforeAll } from 'vitest'
 import '../client/expect/extend.ts'
 import '../client/page/extend.ts'
+import { vis } from '../setup/vis.ts'
 
-vis.presets.manual()
+beforeAll(() => vis.beforeAll.setup())

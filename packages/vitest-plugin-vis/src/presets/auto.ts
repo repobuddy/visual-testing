@@ -1,5 +1,11 @@
-import { vis } from '../setup/vis.ts'
+import { afterEach, beforeAll } from 'vitest'
+import { setAutoSnapshotOptions } from '../client-api.ts'
 import '../client/expect/extend.ts'
 import '../client/page/extend.ts'
+import { vis } from '../setup/vis.ts'
 
-vis.presets.auto()
+beforeAll(() => {
+	vis.beforeAll.setup()
+	setAutoSnapshotOptions(true)
+})
+afterEach(() => vis.afterEach.matchImageSnapshot())
