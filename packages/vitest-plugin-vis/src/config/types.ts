@@ -2,6 +2,7 @@ import type {
 	AutoSnapshotOptions,
 	ComparisonMethod,
 	ImageSnapshotCompareOptions,
+	ImageSnapshotKeyOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	PixelDiffOptions,
@@ -13,6 +14,7 @@ export type { ComparisonMethod, PixelComparisonOptions, PixelDiffOptions, SsimCo
 
 export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<M> &
+	ImageSnapshotKeyOptions &
 	AutoSnapshotOptions & {
 		/**
 		 * Loads the `test.setupFiles` of the specified preset.
@@ -51,8 +53,4 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTime
 		 * @returns The customized snapshot subpath.
 		 */
 		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
-		/**
-		 * Customize the `snapshotKey` of the auto snapshots.
-		 */
-		snapshotKey?: string | undefined
 	}
