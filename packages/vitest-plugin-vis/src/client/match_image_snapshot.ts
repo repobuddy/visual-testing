@@ -8,71 +8,67 @@ import { compareImage } from '../shared/compare_image.ts'
 import type { ToMatchImageSnapshotOptions } from '../shared/types.ts'
 import { alignImagesToSameSize } from './align_images.ts'
 import { toDataURL, toImageData } from './image_data.ts'
-import { prettifyOptions } from './image_snapshot_matcher.logic.ts'
+import { prettifyOptions } from './match_image_snapshot.logic.ts'
 import { convertElementToCssSelector } from './selector.ts'
 import { toTaskId } from './task_id.ts'
 import { server } from './vitest_browser_context_proxy.ts'
 import type { CurrentTest } from './vitest_suite_proxy.ts'
 
-export function imageSnapshotMatcher(
+export async function matchImageSnapshot(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
+	test: CurrentTest & {},
+	subject: any,
+	options?: ToMatchImageSnapshotOptions<any>,
 ) {
-	return async function matchImageSnapshot(
-		test: CurrentTest & {},
-		subject: any,
-		options?: ToMatchImageSnapshotOptions<any>,
-	) {
-		const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
-		const taskId = toTaskId(test)
-		const info = await commands.prepareImageSnapshotComparison(
-			taskId,
-			parseImageSnapshotSubject(subject),
-			isAutoSnapshot,
-			options?.customizeSnapshotId
-				? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options)
-				: options,
-		)
+	const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
+	const taskId = toTaskId(test)
+	const info = await commands.prepareImageSnapshotComparison(
+		taskId,
+		parseImageSnapshotSubject(subject),
+		isAutoSnapshot,
+		options?.customizeSnapshotId ? await parseImageSnapshotOptions(commands, taskId, isAutoSnapshot, options) : options,
+	)
 
-		if (!info) return
+	if (!info) return
 
-		options = { ...info, ...options } as any
+	options = { ...info, ...options } as any
 
-		const baselineImage = await toImageData(info.baseline)
-		const resultImage = await toImageData(info.result)
-		const [baselineAlignedImage, resultAlignedImage] = alignImagesToSameSize(baselineImage, resultImage)
-		const { width, height } = baselineAlignedImage
-		const diffImage = new ImageData(width, height)
-		const { pass, diffAmount } = compareImage(
-			baselineAlignedImage.data,
-			resultAlignedImage.data,
-			diffImage.data,
-			width,
-			height,
-			options,
-		)
-		if (pass) {
-			if (options?.expectToFail) {
-				throw new Error(
-					dedent`Snapshot \`${taskId}\` matched but expected to fail.
+	const baselineImage = await toImageData(info.baseline)
+	const resultImage = await toImageData(info.result)
+	const [baselineAlignedImage, resultAlignedImage] = alignImagesToSameSize(baselineImage, resultImage)
+	const { width, height } = baselineAlignedImage
+	const diffImage = new ImageData(width, height)
+	const { pass, diffAmount } = compareImage(
+		baselineAlignedImage.data,
+		resultAlignedImage.data,
+		diffImage.data,
+		width,
+		height,
+		options,
+	)
+	if (pass) {
+		if (options?.expectToFail) {
+			throw new Error(
+				dedent`Snapshot \`${taskId}\` matched but expected to fail.
 
 							Options:    ${prettifyOptions(options)}
 							Diff:       ${options.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}
 
 							Expected:   ${resolve(info.projectRoot, info.baselinePath)}
 							Actual:     ${resolve(info.projectRoot, info.resultPath)}`,
-				)
-			}
-			return
+			)
 		}
-		if (server.config.snapshotOptions.updateSnapshot === 'all' && !options?.expectToFail) {
-			await writeSnapshot(commands, resolve(info.projectRoot, info.baselinePath), resultImage)
-			return
-		}
+		return
+	}
+	if (server.config.snapshotOptions.updateSnapshot === 'all' && !options?.expectToFail) {
+		await writeSnapshot(commands, resolve(info.projectRoot, info.baselinePath), resultImage)
+		return
+	}
 
-		await writeSnapshot(commands, resolve(info.projectRoot, info.diffPath), diffImage)
+	await writeSnapshot(commands, resolve(info.projectRoot, info.diffPath), diffImage)
 
-		throw new Error(
-			dedent`Snapshot \`${taskId}\` mismatched
+	throw new Error(
+		dedent`Snapshot \`${taskId}\` mismatched
 
 					${
 						options?.failureThreshold
@@ -87,8 +83,7 @@ export function imageSnapshotMatcher(
 					Expected:   ${resolve(info.projectRoot, info.baselinePath)}
 					Actual:     ${resolve(info.projectRoot, info.resultPath)}
 					Difference: ${resolve(info.projectRoot, info.diffPath)}`,
-		)
-	}
+	)
 }
 
 /**
