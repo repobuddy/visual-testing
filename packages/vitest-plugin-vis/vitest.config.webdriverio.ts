@@ -18,11 +18,11 @@ export default defineConfig({
 		name: 'vpv:wd',
 		browser: {
 			enabled: true,
+			headless: true,
 			provider: 'webdriverio',
 			instances: [
 				{
 					browser: 'chrome',
-					headless: true,
 					screenshotFailures: false,
 					screenshotDirectory: '__screenshots__/webdriverio/chrome',
 					// @ts-ignore
