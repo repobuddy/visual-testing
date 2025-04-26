@@ -20,11 +20,11 @@ export function enableAuto() {
  * Set the snapshot options for auto snapshot.
  *
  * ```ts
- * beforeAll((suite) => setAutoSnapshotOptions(suite, ...))
- * beforeEach(({ task }) => setAutoSnapshotOptions(task, ...))
+ * beforeAll(() => setAutoSnapshotOptions(...))
+ * beforeEach(() => setAutoSnapshotOptions(...))
  *
- * it('...', ({ task }) => {
- *   setAutoSnapshotOptions(task, ...)
+ * it('...', () => {
+ *   setAutoSnapshotOptions(...)
  * })
  * ```
  */

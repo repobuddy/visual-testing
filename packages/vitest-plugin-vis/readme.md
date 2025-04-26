@@ -280,24 +280,24 @@ You can control how the auto snapshot is taken using the `setAutoSnapshotOptions
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { beforeEach, it } from 'vitest'
 
-beforeAll((suite) => {
+beforeAll(() => {
 	// Apply options to all tests in the current suite (file)
 	setAutoSnapshotOptions(/* options */)
 })
 
-beforeEach(({ task }) => {
+beforeEach(() => {
 	// Apply options to all tests in the current scope
 	setAutoSnapshotOptions(/* options */)
 })
 
 
-it('disable snapshot per test', async ({ task }) => {
+it('disable snapshot per test', async () => {
 	// Apply options to this test only
 	setAutoSnapshotOptions(/* options */)
 })
 
-describe('nested scope', ()  => {
-	beforeEach(({ task }) => {
+describe('nested scope', () => {
+	beforeEach(() => {
 		// Apply options to all tests in the current scope
 		setAutoSnapshotOptions(/* options */)
 	})
