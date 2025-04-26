@@ -7,20 +7,10 @@ export const stubBrowserCommandContext = stub.build<BrowserCommandContext>({})
 export function createStubPartialBrowserCommandContext({ root, testPath }: { root: string; testPath: string }) {
 	return stub.build<PartialBrowserCommandContext>({
 		project: {
-			config: {
-				root,
-			},
-			vite: {
-				config: {
-					test: {
-						name: 'subject',
-					},
-				},
-			},
+			config: { root },
+			vite: { config: { test: { name: 'subject' } } },
 		},
-		provider: {
-			options: {},
-		},
+		provider: { options: {} },
 		testPath,
 	})
 }
