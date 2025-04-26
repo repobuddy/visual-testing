@@ -16,8 +16,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2020",
-		"types": ["@vitest/browser/providers/playwright", "@vitest/browser/providers/webdriverio", "vitest-browser-react"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["src"]
+	"include": ["src", "types"]
 }
