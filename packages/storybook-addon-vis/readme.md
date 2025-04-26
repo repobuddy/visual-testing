@@ -112,7 +112,6 @@ export default defineConfig({
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
-			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
 			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
 			// will change to "isAutoSnapshot ? `${id}-auto` : `${id}-${index}`" in the next major release.
 			customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-${index}`,

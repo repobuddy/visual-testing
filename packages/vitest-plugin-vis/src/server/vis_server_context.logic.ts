@@ -79,16 +79,16 @@ export function createVisServerContext() {
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectState = await getSuite(browserContext)
 			const visOptions = getVisOption(browserContext)
-			const suiteId = getTaskSubpath(projectState, browserContext.testPath, visOptions)
-			const suite = projectState.modules[suiteId]!
-			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
+			const moduleId = getTaskSubpath(projectState, browserContext.testPath, visOptions)
+			const m = projectState.modules[moduleId]!
+			const task = (m.tasks[taskId] = m.tasks[taskId] ?? { count: 1 })
 			return {
 				projectRoot: projectState.projectRoot,
-				suiteId,
+				suiteId: moduleId,
 				taskId,
-				baselineDir: suite.baselineDir,
-				resultDir: suite.resultDir,
-				diffDir: suite.diffDir,
+				baselineDir: m.baselineDir,
+				resultDir: m.resultDir,
+				diffDir: m.diffDir,
 				task,
 			}
 		},

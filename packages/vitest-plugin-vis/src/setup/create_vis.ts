@@ -1,10 +1,11 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { type ComparisonMethod, type SnapshotMeta, toTaskId } from '../client-api.ts'
 import { enableAuto, extractAutoSnapshotOptions } from '../client/auto_snapshot_options.ts'
 import { ctx } from '../client/ctx.ts'
 import { shouldTakeSnapshot } from '../client/should_take_snapshot.ts'
+import { toTaskId } from '../client/task_id.ts'
 import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
+import type { ComparisonMethod, SnapshotMeta } from '../shared/types.ts'
 
 /**
  * Visual test configuration on the client side.
