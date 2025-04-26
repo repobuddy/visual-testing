@@ -29,18 +29,16 @@ export function enableAuto() {
  * ```
  */
 export function setAutoSnapshotOptions<M extends ComparisonMethod>(meta: SnapshotMeta<M> | boolean): void {
-	const [task, m] = parseArgs(meta)
+	const task = getTask()
 	if (task)
 		task.meta[NAME] = {
 			...task.meta[NAME],
-			...m,
+			...parseMeta(meta),
 		}
 }
 
-function parseArgs<M extends ComparisonMethod>(
-	meta: boolean | SnapshotMeta<M>,
-): [MetaTask | undefined, SnapshotMeta<M>] {
-	return [ctx.getCurrentTest() ?? (ctx.getCurrentSuite()?.tasks?.[0] as any)?.file, parseMeta(meta)]
+function getTask(): MetaTask | undefined {
+	return ctx.getCurrentTest() ?? (ctx.getCurrentSuite()?.tasks?.[0] as any)?.file
 }
 
 function parseMeta<M extends ComparisonMethod>(meta: boolean | SnapshotMeta<M>): SnapshotMeta<M> {
