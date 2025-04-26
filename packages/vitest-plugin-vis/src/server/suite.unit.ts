@@ -1,18 +1,19 @@
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
-import { createSuite, getSuiteId } from './suite.ts'
-import type { VisProjectState } from './vis_server_context.types.ts'
+import { stubSuite } from '../testing/stubSuite.js'
+import { createModule, getSuiteId, getTaskSubpath } from './suite.ts'
+import type { VisSuite } from './vis_server_context.types.ts'
 
-describe(`${getSuiteId.name}`, () => {
+describe(`${getTaskSubpath.name}`, () => {
 	const mockState = {
 		projectRoot: '/root/project',
-	} as VisProjectState
+	} as VisSuite
 
 	it('returns `testPath` as the suite id for a file in the project root', ({ expect }) => {
 		const testPath = '/root/project/test.ts'
 		const options: VisOptions = {}
-		expect(getSuiteId(mockState, testPath, options)).toBe('test.ts')
+		expect(getTaskSubpath(mockState, testPath, options)).toBe('test.ts')
 	})
 
 	it('trims well known test folder form suite id', ({ expect }) => {
@@ -27,37 +28,95 @@ describe(`${getSuiteId.name}`, () => {
 			'/root/project/lib/code.spec.ts',
 		]
 		testPaths.forEach((testPath) => {
-			const result = getSuiteId(mockState, testPath, options)
+			const result = getTaskSubpath(mockState, testPath, options)
 			expect(result).toBe('code.spec.ts')
 		})
 	})
 })
 
-describe(`${createSuite.name}`, () => {
+describe(`${createModule.name}`, () => {
 	it('creates suiteId', ({ expect }) => {
-		const r = createSuite(
+		const r = createModule(
 			{
 				projectRoot: '/root/project',
-			} as VisProjectState,
+			} as VisSuite,
 			'/root/project/src/code.spec.ts',
 			{},
 		)
-		expect(r.suiteId).toBe('code.spec.ts')
+		expect(r.taskSubpath).toBe('code.spec.ts')
 	})
 
 	it('create suite directories based on directory in state and suite id', ({ expect }) => {
-		const { suiteId, suite } = createSuite(
+		const {
+			taskSubpath: suiteId,
+			baselineDir,
+			diffDir,
+			resultDir,
+		} = createModule(
 			{
 				projectRoot: '/root/project',
 				snapshotBaselineDir: `/root/project/${SNAPSHOT_ROOT_DIR}/local`,
 				snapshotResultDir: `/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}`,
 				snapshotDiffDir: `/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}`,
-			} as VisProjectState,
+			} as VisSuite,
 			'/root/project/src/code.spec.ts',
 			{},
 		)
-		expect(suite.baselineDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/local/${suiteId}`)
-		expect(suite.resultDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}/${suiteId}`)
-		expect(suite.diffDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}/${suiteId}`)
+		expect(baselineDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/local/${suiteId}`)
+		expect(resultDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}/${suiteId}`)
+		expect(diffDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}/${suiteId}`)
+	})
+})
+
+describe(`${getSuiteId.name}`, () => {
+	it('should return the correct project ID', () => {
+		const { browserCommandContext } = stubSuite(
+			{},
+			{
+				project: {
+					config: {
+						root: '/path/to/project',
+						name: 'my-project',
+					},
+				},
+			},
+		)
+
+		const result = getSuiteId(browserCommandContext)
+		expect(result).toBe('undefined/my-project')
+	})
+
+	it('should handle empty root and name gracefully', () => {
+		const { browserCommandContext } = stubSuite(
+			{},
+			{
+				project: {
+					config: {
+						root: '',
+						name: '',
+					},
+				},
+			},
+		)
+
+		const result = getSuiteId(browserCommandContext)
+		expect(result).toBe('undefined/')
+	})
+
+	it('should handle missing name property', () => {
+		const { browserCommandContext } = stubSuite(
+			{},
+			{
+				project: {
+					config: {
+						root: '/path/to/project',
+						name: undefined as unknown as string,
+					},
+				},
+			},
+		)
+
+		const result = getSuiteId(browserCommandContext)
+		expect(result).toBe('undefined/undefined')
 	})
 })

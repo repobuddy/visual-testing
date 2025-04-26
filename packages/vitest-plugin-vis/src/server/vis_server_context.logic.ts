@@ -1,7 +1,7 @@
 import { join, resolve } from 'pathe'
 import { pick } from 'type-plus'
 import { file } from './externals/file.ts'
-import { getSuite, getSuiteId } from './suite.ts'
+import { getSuite, getTaskSubpath } from './suite.ts'
 import { getVisOption } from './vis_options.ts'
 import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
 
@@ -79,8 +79,8 @@ export function createVisServerContext() {
 		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
 			const projectState = await getSuite(browserContext)
 			const visOptions = getVisOption(browserContext)
-			const suiteId = getSuiteId(projectState, browserContext.testPath, visOptions)
-			const suite = projectState.suites[suiteId]!
+			const suiteId = getTaskSubpath(projectState, browserContext.testPath, visOptions)
+			const suite = projectState.modules[suiteId]!
 			const task = (suite.tasks[taskId] = suite.tasks[taskId] ?? { count: 1 })
 			return {
 				projectRoot: projectState.projectRoot,

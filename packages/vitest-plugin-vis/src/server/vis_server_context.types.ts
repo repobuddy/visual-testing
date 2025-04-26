@@ -1,8 +1,8 @@
-export type VisState = {
-	[projectPath: string]: Promise<VisProjectState>
+export type VisSuites = {
+	[projectPath: string]: Promise<VisSuite>
 }
 
-export type VisProjectState = {
+export type VisSuite = {
 	projectRoot: string
 	testTimeout: number
 	hookTimeout: number
@@ -12,7 +12,7 @@ export type VisProjectState = {
 	snapshotDiffDir: string
 	snapshotRootPath: string
 	subjectDataTestId: string | undefined
-	suites: Record<
+	modules: Record<
 		string,
 		{
 			baselineDir: string

@@ -2,13 +2,13 @@ import { join, relative } from 'pathe'
 import { pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
-import { getProjectId, getProjectRoot } from './project.ts'
+import { getProjectName, getProjectRoot } from './project.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { getVisOption } from './vis_options.ts'
 import { deps } from './vis_server_context.deps.ts'
-import type { PartialBrowserCommandContext, VisProjectState, VisState } from './vis_server_context.types.ts'
+import type { PartialBrowserCommandContext, VisSuite, VisSuites } from './vis_server_context.types.ts'
 
-const suites: VisState = {}
+const suites: VisSuites = {}
 
 /**
  * Setup suite is called on each test file's beforeAll hook.
@@ -16,20 +16,34 @@ const suites: VisState = {}
  * It needs to make sure there is no race condition between the test files.
  */
 export async function setupSuite(browserContext: PartialBrowserCommandContext) {
-	const projectId = getProjectId(browserContext)
-
+	const suiteId = getSuiteId(browserContext)
 	const visOptions = getVisOption(browserContext)
-	if (!suites[projectId]) {
-		suites[projectId] = setupState(browserContext, visOptions)
+
+	if (!suites[suiteId]) {
+		suites[suiteId] = setupState(browserContext, visOptions)
 	}
 
-	const projectState = await suites[projectId]
+	const suite = await suites[suiteId]
 
-	const { suiteId, suite } = createSuite(projectState, browserContext.testPath, visOptions)
-	projectState.suites[suiteId] = suite
+	const { taskSubpath, baselineDir, diffDir, resultDir, tasks } = createModule(
+		suite,
+		browserContext.testPath,
+		visOptions,
+	)
+	suite.modules[taskSubpath] = { baselineDir, diffDir, resultDir, tasks }
 
-	await Promise.allSettled([deps.rimraf(suite.diffDir), deps.rimraf(suite.resultDir)])
-	return pick(projectState, 'subjectDataTestId')
+	await Promise.allSettled([deps.rimraf(diffDir), deps.rimraf(resultDir)])
+	return pick(suite, 'subjectDataTestId')
+}
+
+/**
+ * Suite ID also contains the project name to make it unique
+ * across different projects.
+ */
+export function getSuiteId(context: {
+	project: { config: { root: string; name: string }; vite: { config: { test?: { name?: string | undefined } } } }
+}) {
+	return `${getProjectName(context)}/${context.project.config.name}`
 }
 
 async function setupState(
@@ -49,31 +63,25 @@ async function setupState(
 		snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
 		snapshotRootPath: join(projectRoot, snapshotRootDir),
 		subjectDataTestId: visOptions.subjectDataTestId,
-		suites: {},
+		modules: {},
 	}
 	await Promise.allSettled([deps.rimraf(join(state.snapshotDiffDir)), deps.rimraf(join(state.snapshotResultDir))])
 	return state
 }
 
-export function createSuite(
-	state: VisProjectState,
-	testPath: string,
-	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
-) {
-	const suiteId = getSuiteId(state, testPath, options)
+export function createModule(state: VisSuite, testPath: string, options: Pick<VisOptions, 'customizeSnapshotSubpath'>) {
+	const taskSubpath = getTaskSubpath(state, testPath, options)
 	return {
-		suiteId,
-		suite: {
-			baselineDir: join(state.snapshotBaselineDir, suiteId),
-			resultDir: join(state.snapshotResultDir, suiteId),
-			diffDir: join(state.snapshotDiffDir, suiteId),
-			tasks: {},
-		},
+		taskSubpath,
+		baselineDir: join(state.snapshotBaselineDir, taskSubpath),
+		resultDir: join(state.snapshotResultDir, taskSubpath),
+		diffDir: join(state.snapshotDiffDir, taskSubpath),
+		tasks: {},
 	}
 }
 
-export function getSuiteId(
-	state: VisProjectState,
+export function getTaskSubpath(
+	state: VisSuite,
 	testPath: string,
 	options: Pick<VisOptions, 'customizeSnapshotSubpath'>,
 ) {
@@ -81,5 +89,5 @@ export function getSuiteId(
 }
 
 export function getSuite(context: PartialBrowserCommandContext) {
-	return suites[getProjectId(context)]!
+	return suites[getSuiteId(context)]!
 }
