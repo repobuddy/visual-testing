@@ -86,6 +86,7 @@
 	},
 	"dependencies": {
 		"dedent": "^1.5.1",
+		"glob": "^11.0.2",
 		"is-ci": "^4.0.0",
 		"mkdirp": "^3.0.1",
 		"pathe": "^2.0.0",
