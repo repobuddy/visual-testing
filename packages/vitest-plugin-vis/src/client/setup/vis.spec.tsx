@@ -4,7 +4,7 @@ import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { setAutoSnapshotOptions, type SnapshotMeta } from '../../index.ts'
+import { setAutoSnapshotOptions } from '../../index.ts'
 import { vis } from '../../setup.ts'
 
 describe('matchPerTheme', () => {
@@ -96,7 +96,7 @@ describe('matchPerTheme', () => {
 	})
 
 	it('can specify type param', () => {
-		vis.afterEach.matchPerTheme<SnapshotMeta<'ssim'>>({
+		vis.afterEach.matchPerTheme<'ssim'>({
 			x(options) {
 				testType.equal<typeof options.diffOptions, Partial<Options> | undefined>(true)
 				return false

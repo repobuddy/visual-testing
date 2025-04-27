@@ -10,7 +10,7 @@ import { toTaskId } from '../task_id.ts'
 /**
  * Visual test configuration on the client side.
  */
-export type VisClientConfigurator<SM extends SnapshotMeta<ComparisonMethod>> = {
+export type VisClientConfigurator<GM extends Record<string, any> | unknown = unknown> = {
 	presets: {
 		/**
 		 * Enable visual testing.
@@ -46,15 +46,17 @@ export type VisClientConfigurator<SM extends SnapshotMeta<ComparisonMethod>> = {
 		 * })
 		 * ```
 		 */
-		theme<M>(themes: Record<string, (options: M & SM) => Promise<boolean> | Promise<void> | boolean | void>): void
+		theme<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
+			themes: Record<string, (options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void>,
+		): void
 	}
 	beforeAll: {
 		setup(): Promise<void>
 	}
 	afterEach: {
 		matchImageSnapshot(): Promise<void>
-		matchPerTheme<M>(
-			themes: Record<string, (options: M & SM) => Promise<boolean> | Promise<void> | boolean | void>,
+		matchPerTheme<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
+			themes: Record<string, (options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void>,
 		): () => Promise<void>
 	}
 }
