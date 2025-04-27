@@ -61,10 +61,10 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 	}
 }
 
-export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: SetupVisSuiteCommand) {
+export function createVis<GM extends Record<string, any> | unknown = unknown>(commands: SetupVisSuiteCommand) {
 	let subjectDataTestId: string | undefined
 
-	const vis: VisClientConfigurator<SM> = {
+	const vis: VisClientConfigurator<GM> = {
 		presets: {
 			enable() {
 				beforeAll(vis.beforeAll.setup)
