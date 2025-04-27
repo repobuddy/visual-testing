@@ -4,8 +4,8 @@ import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { setAutoSnapshotOptions, type SnapshotMeta } from '../client-api.ts'
-import { vis } from './vis.ts'
+import { setAutoSnapshotOptions, type SnapshotMeta } from '../../index.ts'
+import { vis } from '../../setup.ts'
 
 describe('matchPerTheme', () => {
 	beforeEach(() => setAutoSnapshotOptions(true))

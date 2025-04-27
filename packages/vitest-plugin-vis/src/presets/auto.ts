@@ -1,8 +1,6 @@
 import { afterEach, beforeAll } from 'vitest'
-import { setAutoSnapshotOptions } from '../client-api.ts'
-import '../client/expect/extend.ts'
-import '../client/page/extend.ts'
-import { vis } from '../setup/vis.ts'
+import { setAutoSnapshotOptions } from '../index.ts'
+import { vis } from '../setup.ts'
 
 beforeAll(() => {
 	vis.beforeAll.setup()
