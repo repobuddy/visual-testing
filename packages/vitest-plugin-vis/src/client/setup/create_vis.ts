@@ -90,7 +90,7 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 		},
 		beforeAll: {
 			async setup() {
-				subjectDataTestId = (await commands.setupVisSuite()).subjectDataTestId
+				subjectDataTestId = (await commands.setupVisSuite()).subject
 			},
 		},
 		afterEach: {
@@ -110,7 +110,7 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 							await new Promise((a) => setTimeout(a, 10))
 							const r = await themes[themeId]!(meta! as any)
 							if (r === false) continue
-							const subject = getSubject(meta?.subjectDataTestId ?? subjectDataTestId)
+							const subject = getSubject(meta?.subject ?? subjectDataTestId)
 							await test!.context.expect(subject).toMatchImageSnapshot({
 								...meta,
 								snapshotKey: meta?.snapshotKey ?? themeId,
@@ -140,11 +140,6 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 	return vis
 }
 
-function getSubject(subjectDataTestId: string | undefined) {
-	if (subjectDataTestId) {
-		const subject = document.querySelector(`[data-testid="${subjectDataTestId}"]`)
-		if (subject) return subject
-	}
-
-	return document.body
+function getSubject(subject: string | undefined) {
+	return subject ? (document.querySelector(subject) ?? document.body) : document.body
 }

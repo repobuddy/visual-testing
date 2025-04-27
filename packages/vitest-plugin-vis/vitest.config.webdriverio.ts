@@ -8,7 +8,7 @@ export default defineConfig({
 			snapshotRootDir({ ci, browserName, providerName, platform }) {
 				return `__vis__/${ci ? platform : 'local'}/${providerName}/${browserName}`
 			},
-			subjectDataTestId: 'subject',
+			subject: '[data-testid="subject"]',
 		}),
 	],
 	optimizeDeps: {

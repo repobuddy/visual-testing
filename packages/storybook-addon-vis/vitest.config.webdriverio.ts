@@ -12,7 +12,7 @@ export default defineProject({
 			snapshotSubpath({ subpath }) {
 				return `wb/${trimCommonFolder(subpath)}`
 			},
-			subjectDataTestId: 'subject',
+			subject: '[data-testid="subject"]',
 		}),
 		{
 			name: 'override',

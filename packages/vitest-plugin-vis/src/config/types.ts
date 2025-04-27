@@ -1,8 +1,8 @@
 import type {
-	AutoSnapshotOptions,
 	ComparisonMethod,
 	FailureThresholdOptions,
 	ImageSnapshotKeyOptions,
+	ImageSnapshotSubjectOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	PixelDiffOptions,
@@ -30,7 +30,7 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
 	FailureThresholdOptions &
 	ImageSnapshotTimeoutOptions &
 	ImageSnapshotKeyOptions &
-	AutoSnapshotOptions & {
+	ImageSnapshotSubjectOptions & {
 		/**
 		 * Loads the `test.setupFiles` of the specified preset.
 		 */

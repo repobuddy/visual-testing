@@ -180,13 +180,13 @@ it('can set ssim options when comparison method is ssim', () => {
 })
 
 it('can set the subject data test id', () => {
-	const plugin = vis({ subjectDataTestId: 'test' })
+	const plugin = vis({ subject: '[data-testid="test"]' })
 
 	const { userConfig, browserCommandContext } = stubSuite()
 
 	plugin.config(userConfig)
 
 	expect(getVisOption(browserCommandContext)).toMatchObject({
-		subjectDataTestId: 'test',
+		subject: '[data-testid="test"]',
 	})
 })

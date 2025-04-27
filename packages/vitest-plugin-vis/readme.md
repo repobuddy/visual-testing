@@ -58,6 +58,71 @@ This default configuration will:
 - Timeout for image comparison is set to `30000 ms`.
 - Save image snapshots using the default directory structure.
 
+### `preset`
+
+The `preset` option set up typical visual testing scenarios.
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			preset: 'auto' // or 'manual' or 'none'
+		})
+	],
+})
+```
+
+- `auto` (default): Automatically take a snapshot at the end of each rendering test.
+- `manual`: You control which test(s) should take a snapshot automatically with the `setAutoSnapshotOptions()` function.
+- `none`: Without preset. Set up your visual testing strategy in `vitest.setup.ts`.
+
+When using the `auto` or `manual` preset,
+manual snapshots are enabled. You can take manual snapshot using the `expect().toMatchImageSnapshot()` matcher,
+or the `page.toMatchImageSnapshot()` for full page snapshot.
+
+If you want to customize the snapshot behavior,
+you can set the `preset` to `none` and configure your own snapshot strategy in `vitest.setup.ts`:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({ preset: 'none' })
+	],
+	test: {
+		browser: {/* ... */},
+		setupFiles: ['vitest.setup.ts']
+	}
+})
+
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: true,
+	auto: async ({ meta }) => meta['darkOnly'],
+	auto: {
+		async light() { document.body.classList.remove('dark') },
+		async dark() { document.body.classList.add('dark') },
+	}
+})
+```
+
+As seen in the example above,
+you can configure the `auto` preset to:
+
+- Enable/disable auto snapshot for all tests with `auto: true/false`,
+- Perform some actions before the snapshot is taken,
+- Skip certain snapshots for specific tests by returning `false` in the function,
+- Take snapshots for different themes by providing an object.
+
 ### Customizing snapshot path
 
 Let's say you have this test:
@@ -141,9 +206,11 @@ export default defineConfig({
 })
 ```
 
-### `preset`
+### Customizing auto snapshot subject
 
-The `preset` option set up typical visual testing scenarios.
+By default, auto snapshots are taken from the `document.body` element.
+
+You can customize this globally by specifying your selector in the `subject` option:
 
 ```ts
 // vitest.config.ts
@@ -153,58 +220,26 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
 	plugins: [
 		vis({
-			preset: 'auto' // or 'manual' or 'none'
+			subject: '[data-testid="subject"]'
 		})
-	],
+	]
 })
 ```
 
-- `auto` (default): Automatically take a snapshot at the end of each rendering test.
-- `manual`: You control which test(s) should take a snapshot automatically with the `setAutoSnapshotOptions()` function.
-- `none`: Without preset. Set up your visual testing strategy in `vitest.setup.ts`.
-
-When using the `auto` or `manual` preset,
-manual snapshots are enabled. You can take manual snapshot using the `expect().toMatchImageSnapshot()` matcher,
-or the `page.toMatchImageSnapshot()` for full page snapshot.
-
-If you want to customize the snapshot behavior,
-you can set the `preset` to `none` and configure your own snapshot strategy in `vitest.setup.ts`:
+You can also customize the subject per test using the `setAutoSnapshotOptions` function:
 
 ```ts
-// vitest.config.ts
-import { defineConfig } from 'vitest/config'
-import { vis } from 'vitest-plugin-vis/config'
+// some.test.ts
+import { page } from '@vitest/browser/context'
+import { expect, it } from 'vitest'
+import { render } from 'vitest-browser-react'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 
-export default defineConfig({
-	plugins: [
-		vis({ preset: 'none' })
-	],
-	test: {
-		browser: {/* ... */},
-		setupFiles: ['vitest.setup.ts']
-	}
-})
-
-// vitest.setup.ts
-import { vis } from 'vitest-plugin-vis/setup'
-
-vis.setup({
-	auto: true,
-	auto: async ({ meta }) => meta['darkOnly'],
-	auto: {
-		async light() { document.body.classList.remove('dark') },
-		async dark() { document.body.classList.add('dark') },
-	}
+it('set your own subject', async () => {
+	setAutoSnapshotOptions({ subject: '[data-testid="subject"]' })
+	render(<div data-testid="subject">hello world</div>)
 })
 ```
-
-As seen in the example above,
-you can configure the `auto` preset to:
-
-- Enable/disable auto snapshot for all tests with `auto: true/false`,
-- Perform some actions before the snapshot is taken,
-- Skip certain snapshots for specific tests by returning `false` in the function,
-- Take snapshots for different themes by providing an object.
 
 ### Customizing snapshot comparison options
 
@@ -603,6 +638,26 @@ describe('some scope', () => {
 __vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-1.png
 // becomes
 __vis__/local/__baselines__/components/x/x.test.ts/some-scope/should-do-something-custom.png
+```
+
+> `subjectDataTestId` is replaced with `subject`
+
+If you are using `subjectDataTestId` in your config,
+you can replace it with `subject` in your config.
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			// subjectDataTestId: 'subject'
+			subject: '[data-testid="subject"]'
+		})
+	]
+})
 ```
 
 ## FAQ

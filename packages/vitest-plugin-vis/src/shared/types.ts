@@ -60,14 +60,14 @@ export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = 
 	: PixelComparisonOptions<M>) &
 	FailureThresholdOptions
 
-export type AutoSnapshotOptions = {
+export type ImageSnapshotSubjectOptions = {
 	/**
 	 * Specify the data-testid of the subject element. Default is `subject`.
 	 *
 	 * If the test does not have an element with the specified data-testid,
 	 * the `body` element will be used.
 	 */
-	subjectDataTestId?: string | undefined
+	subject?: string | undefined
 }
 export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotKeyOptions &
@@ -84,7 +84,7 @@ export interface PageImageSnapshotOptions {
 }
 
 export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
-	AutoSnapshotOptions & {
+	ImageSnapshotSubjectOptions & {
 		enable?: boolean | undefined
 		[key: string]: unknown
 	}

@@ -38,7 +38,7 @@ export async function setupSuite(browserContext: PartialBrowserCommandContext) {
 		failureThreshold: visOptions.failureThreshold,
 		failureThresholdType: visOptions.failureThresholdType,
 		snapshotKey: visOptions.snapshotKey,
-		subjectDataTestId: visOptions.subjectDataTestId,
+		subject: visOptions.subject,
 		timeout: visOptions.timeout,
 	}
 }
@@ -55,7 +55,7 @@ export function getSuiteId(context: {
 
 async function createSuite(
 	browserContext: PartialBrowserCommandContext,
-	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subjectDataTestId'>,
+	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subject'>,
 ) {
 	const snapshotRootDir = resolveSnapshotRootDir(browserContext, visOptions)
 	const projectRoot = getProjectRoot(browserContext)
@@ -69,7 +69,7 @@ async function createSuite(
 		snapshotResultDir: join(snapshotRootDir, RESULT_DIR),
 		snapshotDiffDir: join(snapshotRootDir, DIFF_DIR),
 		snapshotRootPath: join(projectRoot, snapshotRootDir),
-		subjectDataTestId: visOptions.subjectDataTestId,
+		subject: visOptions.subject,
 		modules: {},
 	}
 	await Promise.allSettled([deps.rimraf(join(state.snapshotDiffDir)), deps.rimraf(join(state.snapshotResultDir))])

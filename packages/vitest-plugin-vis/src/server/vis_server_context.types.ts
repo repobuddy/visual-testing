@@ -11,7 +11,7 @@ export type VisSuite = {
 	snapshotResultDir: string
 	snapshotDiffDir: string
 	snapshotRootPath: string
-	subjectDataTestId: string | undefined
+	subject: string | undefined
 	modules: Record<
 		string,
 		{

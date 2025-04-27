@@ -20,15 +20,13 @@ export interface SetupVisSuiteCommand {
 			| 'failureThreshold'
 			| 'failureThresholdType'
 			| 'snapshotKey'
-			| 'subjectDataTestId'
+			| 'subject'
 			| 'timeout'
 		>
 	>
 }
 
-export const setupVisSuite: BrowserCommand<[]> = async (
-	context,
-): Promise<{ subjectDataTestId: string | undefined }> => {
+export const setupVisSuite: BrowserCommand<[]> = async (context): Promise<{ subject: string | undefined }> => {
 	assertTestPathDefined(context, 'setupVisSuite')
 	return setupSuite(context)
 }

@@ -9,7 +9,7 @@ export default defineProject({
 		react(),
 		storybookTest({ configDir: join(import.meta.dirname, '.storybook') }),
 		storybookVis({
-			subjectDataTestId: 'subject',
+			subject: '[data-testid="subject"]',
 		}),
 		{
 			name: 'override',

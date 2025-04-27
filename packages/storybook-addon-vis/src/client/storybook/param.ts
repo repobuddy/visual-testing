@@ -1,9 +1,9 @@
 import type {
-	AutoSnapshotOptions,
 	ComparisonMethod,
 	FailureThresholdOptions,
 	ImageSnapshotCompareOptions,
 	ImageSnapshotKeyOptions,
+	ImageSnapshotSubjectOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	SsimComparisonOptions,
@@ -12,11 +12,11 @@ import type {
 
 // This fix the inferred type cannot be named error
 export type {
-	AutoSnapshotOptions,
 	ComparisonMethod,
 	FailureThresholdOptions,
 	ImageSnapshotCompareOptions,
 	ImageSnapshotKeyOptions,
+	ImageSnapshotSubjectOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	SsimComparisonOptions,
@@ -27,7 +27,7 @@ export type {
  * Define snapshot parameter for auto snapshot.
  */
 export function defineAutoSnapshotParam<M extends ComparisonMethod>(
-	snapshot: ToMatchImageSnapshotOptions<M> & AutoSnapshotOptions,
+	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions,
 ) {
 	return { snapshot }
 }

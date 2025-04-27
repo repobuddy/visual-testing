@@ -6,7 +6,7 @@ export default defineProject({
 	plugins: [
 		vis({
 			preset: 'none',
-			subjectDataTestId: 'subject',
+			subject: '[data-testid="subject"]',
 		}),
 	],
 	optimizeDeps: {

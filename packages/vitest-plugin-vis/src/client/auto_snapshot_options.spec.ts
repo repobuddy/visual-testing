@@ -40,13 +40,13 @@ it('can set comparison method to ssim', ({ expect, task }) => {
 	})
 })
 
-it('can set subjectDataTestId', ({ expect, task }) => {
-	setAutoSnapshotOptions({ subjectDataTestId: 'subject' })
+it('can set subject', ({ expect, task }) => {
+	setAutoSnapshotOptions({ subject: 'subject' })
 	expect(extractAutoSnapshotOptions(task)).toEqual({
 		enable: true,
 		diffOptions: { threshold: 0.01 },
 		failureThreshold: 0.01,
-		subjectDataTestId: 'subject',
+		subject: 'subject',
 	})
 })
 
