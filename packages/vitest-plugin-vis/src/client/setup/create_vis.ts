@@ -75,15 +75,15 @@ export function createVis<SM extends SnapshotMeta<ComparisonMethod>>(commands: S
 			},
 			auto() {
 				beforeAll(async () => {
-					setAutoSnapshotOptions(true)
 					await vis.beforeAll.setup()
+					setAutoSnapshotOptions(true)
 				})
 				afterEach(vis.afterEach.matchImageSnapshot)
 			},
 			theme(themes) {
 				beforeAll(async () => {
-					setAutoSnapshotOptions(true)
 					await vis.beforeAll.setup()
+					setAutoSnapshotOptions(true)
 				})
 				afterEach(vis.afterEach.matchPerTheme(themes))
 			},
