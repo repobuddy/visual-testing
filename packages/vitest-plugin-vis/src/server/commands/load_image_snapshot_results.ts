@@ -1,6 +1,4 @@
 import type { BrowserCommand } from 'vitest/node'
-import { file } from '../externals/file.ts'
-import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface ImageSnapshotResult {
@@ -15,21 +13,22 @@ export interface LoadImageSnapshotResultsCommand {
 
 export const loadImageSnapshotResults: BrowserCommand<[taskId: string]> = async (
 	context,
-	taskId,
+	_taskId,
 ): Promise<ImageSnapshotResult[]> => {
 	assertTestPathDefined(context, 'loadImageSnapshotResults')
 
-	const info = await visServerContext.getSnapshotInfo(context, taskId)
+	return []
+	// const info = await visServerContext.getSnapshotInfo(context, taskId)
 
-	const baselineBuffer = await file.tryReadFile(info.baselinePath)
-	const resultBuffer = await file.tryReadFile(info.resultPath)
-	const diffBuffer = await file.tryReadFile(info.diffPath)
+	// const baselineBuffer = await file.tryReadFile(info.baselinePath)
+	// const resultBuffer = await file.tryReadFile(info.resultPath)
+	// const diffBuffer = await file.tryReadFile(info.diffPath)
 
-	return [
-		{
-			baseline: baselineBuffer?.toString('base64'),
-			result: resultBuffer?.toString('base64'),
-			diff: diffBuffer?.toString('base64'),
-		},
-	]
+	// return [
+	// 	{
+	// 		baseline: baselineBuffer?.toString('base64'),
+	// 		result: resultBuffer?.toString('base64'),
+	// 		diff: diffBuffer?.toString('base64'),
+	// 	},
+	// ]
 }

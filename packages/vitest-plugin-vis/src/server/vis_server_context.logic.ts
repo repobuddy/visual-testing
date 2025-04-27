@@ -37,6 +37,7 @@ export function createVisServerContext() {
 				diffPath,
 			}
 		},
+
 		async getTaskCount(browserContext: PartialBrowserCommandContext, taskId: string) {
 			return (await context.getSuiteInfo(browserContext, taskId)).task.count
 		},
