@@ -3,4 +3,4 @@ import { createVis } from 'vitest-plugin-vis/setup'
 import { commands } from './client/vitest_proxy.ts'
 
 export const vis = createVis<{ tags: string[] }>(commands)
-export { setAutoSnapshotOptions, type SnapshotMeta } from 'vitest-plugin-vis'
+export { setAutoSnapshotOptions } from 'vitest-plugin-vis'

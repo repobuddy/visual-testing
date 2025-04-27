@@ -1,5 +1,6 @@
 import type pixelMatch from 'pixelmatch'
 import type { Options as SsimDiffOptions } from 'ssim.js'
+import type { SnapshotMeta } from '../client/snapshot_meta.ts'
 import type { NAME } from './constants.ts'
 
 export interface ImageSnapshotTimeoutOptions {
@@ -83,14 +84,8 @@ export interface PageImageSnapshotOptions {
 	fullPage?: boolean | undefined
 }
 
-export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
-	ImageSnapshotSubjectOptions & {
-		enable?: boolean | undefined
-		[key: string]: unknown
-	}
-
 export type SnapshotTestMeta = {
 	meta: {
-		[NAME]?: SnapshotMeta<'pixel' | 'ssim'>
+		[NAME]?: SnapshotMeta<ComparisonMethod>
 	}
 }

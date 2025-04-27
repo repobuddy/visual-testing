@@ -1,10 +1,11 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
 import type { SetupVisSuiteCommand } from '../../server/commands/setup_vis_suite.ts'
-import type { ComparisonMethod, SnapshotMeta } from '../../shared/types.ts'
+import type { ComparisonMethod } from '../../shared/types.ts'
 import { extractAutoSnapshotOptions, setAutoSnapshotOptions } from '../auto_snapshot_options.ts'
 import { ctx } from '../ctx.ts'
 import { shouldTakeSnapshot } from '../should_take_snapshot.ts'
+import type { SnapshotMeta } from '../snapshot_meta.ts'
 import { toTaskId } from '../task_id.ts'
 
 /**
