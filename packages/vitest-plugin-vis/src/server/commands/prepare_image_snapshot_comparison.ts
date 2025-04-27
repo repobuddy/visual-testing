@@ -40,6 +40,10 @@ export type ImageSnapshotComparisonInfo = {
 	 * Base64 encoded result image.
 	 */
 	result: string
+	/**
+	 * Base64 encoded diff image.
+	 */
+	diff?: string | undefined
 } & ImageSnapshotTimeoutOptions &
 	FailureThresholdOptions &
 	(SsimComparisonOptions | PixelComparisonOptions)
@@ -54,7 +58,7 @@ export interface PrepareImageSnapshotComparisonCommand {
 
 export const prepareImageSnapshotComparison: BrowserCommand<
 	Parameters<PrepareImageSnapshotComparisonCommand['prepareImageSnapshotComparison']>
-> = async (context, taskId, subject, options) => {
+> = async (context, taskId, subject, options): Promise<ImageSnapshotComparisonInfo | undefined> => {
 	assertTestPathDefined(context, 'prepareImageSnapshotComparison')
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
