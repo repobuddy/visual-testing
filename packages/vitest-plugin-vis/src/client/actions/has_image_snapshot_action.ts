@@ -10,5 +10,5 @@ export function hasImageSnapshotAction(
 ) {
 	const taskId = toTaskId(test)
 
-	return commands.hasImageSnapshot(taskId, options?.snapshotKey ? `${taskId}-${options.snapshotKey}` : undefined)
+	return commands.hasImageSnapshot(taskId, options?.snapshotKey)
 }

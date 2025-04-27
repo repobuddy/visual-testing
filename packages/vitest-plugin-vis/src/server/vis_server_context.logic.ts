@@ -1,5 +1,6 @@
 import { join, resolve } from 'pathe'
 import { pick } from 'type-plus'
+import type { ImageSnapshotKeyOptions } from '../client-api.ts'
 import { file } from './externals/file.ts'
 import { getSuite, getTaskSubpath } from './suite.ts'
 import { getVisOption } from './vis_options.ts'
@@ -9,11 +10,11 @@ export function createVisServerContext() {
 	const context = {
 		async getSnapshotInfo(
 			browserContext: PartialBrowserCommandContext,
-			name: string,
-			options?: { snapshotFileId?: string | undefined },
+			taskId: string,
+			options?: ImageSnapshotKeyOptions,
 		) {
-			const suiteInfo = await context.getSuiteInfo(browserContext, name)
-			const snapshotFilename = context.getSnapshotFilename(browserContext, suiteInfo, options?.snapshotFileId)
+			const suiteInfo = await context.getSuiteInfo(browserContext, taskId)
+			const snapshotFilename = context.getSnapshotFilename(browserContext, suiteInfo, options?.snapshotKey)
 
 			const { baselineDir, resultDir, diffDir, task } = suiteInfo
 
@@ -42,20 +43,20 @@ export function createVisServerContext() {
 		async hasImageSnapshot(
 			browserContext: PartialBrowserCommandContext,
 			taskId: string,
-			snapshotFileId: string | undefined,
+			snapshotKey: string | undefined,
 		) {
 			const info = await context.getSuiteInfo(browserContext, taskId)
 
 			return file.existFile(
-				resolve(info.projectRoot, info.baselineDir, context.getSnapshotFilename(browserContext, info, snapshotFileId)),
+				resolve(info.projectRoot, info.baselineDir, context.getSnapshotFilename(browserContext, info, snapshotKey)),
 			)
 		},
 		getSnapshotFilename(
 			browserContext: PartialBrowserCommandContext,
 			info: { taskId: string; task: { count: number } },
-			snapshotFileId: string | undefined,
+			snapshotKey: string | undefined,
 		) {
-			if (snapshotFileId) return `${snapshotFileId}.png`
+			if (snapshotKey) return `${info.taskId}-${snapshotKey}.png`
 			const visOptions = getVisOption(browserContext)
 			if (typeof visOptions.snapshotKey === 'string') {
 				return `${info.taskId}-${visOptions.snapshotKey}.png`
