@@ -3,15 +3,12 @@ import type { ImageSnapshotNextIndexCommand } from '../../commands.ts'
 import type { PrepareImageSnapshotComparisonCommand } from '../../server/commands/prepare_image_snapshot_comparison.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { compareImageSnapshot } from '../compare_image_snapshot.ts'
-import { toTaskId } from '../task_id.ts'
-import type { CurrentTest } from '../vitest_suite_proxy.ts'
 
 export async function matchPageImageSnapshotAction(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
-	test: CurrentTest & {},
+	taskId: string,
 	options?: ToMatchImageSnapshotOptions<any>,
 ) {
-	const taskId = toTaskId(test)
 	const info = await commands.preparePageImageSnapshotComparison(taskId, options)
 
 	if (!info) return

@@ -5,16 +5,13 @@ import { isBase64String } from '../../shared/base64.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { compareImageSnapshot } from '../compare_image_snapshot.ts'
 import { convertElementToCssSelector } from '../selector.ts'
-import { toTaskId } from '../task_id.ts'
-import type { CurrentTest } from '../vitest_suite_proxy.ts'
 
 export async function matchImageSnapshotAction(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
-	test: CurrentTest & {},
+	taskId: string,
 	subject: any,
 	options?: ToMatchImageSnapshotOptions<any>,
 ) {
-	const taskId = toTaskId(test)
 	const info = await commands.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
 
 	if (!info) return

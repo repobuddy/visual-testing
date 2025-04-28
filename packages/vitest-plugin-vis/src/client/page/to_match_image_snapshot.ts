@@ -2,6 +2,7 @@ import { commands } from '@vitest/browser/context'
 import type { PageImageSnapshotOptions, ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { matchPageImageSnapshotAction } from '../actions/match_page_image_snapshot_action.ts'
 import { ctx } from '../ctx.ts'
+import { toTaskId } from '../task_id.ts'
 
 export interface ToMatchPageImageSnapshotOptions extends ToMatchImageSnapshotOptions, PageImageSnapshotOptions {}
 
@@ -22,5 +23,5 @@ export function toMatchImageSnapshot(options?: ToMatchPageImageSnapshotOptions |
 		)
 	}
 
-	return matchPageImageSnapshotAction(commands, test, options)
+	return matchPageImageSnapshotAction(commands, toTaskId(test), options)
 }

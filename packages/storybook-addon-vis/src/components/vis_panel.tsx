@@ -1,11 +1,16 @@
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { AddonPanel } from 'storybook/internal/components'
 
 interface PanelProps {
 	active: boolean
 }
 
-export const VisPanel = memo(function Panel(props: PanelProps) {
+export const VisPanel = memo(function VisResultsPanel(props: PanelProps) {
+	useEffect(() => {
+		// loadImageSnapshotResultsAction(commands, getCurrentTest()!).then((results) => {
+		// 	console.debug('loadImageSnapshotResultsAction results:', results)
+		// })
+	}, [])
 	return (
 		<AddonPanel {...props}>
 			<div>Hello world</div>

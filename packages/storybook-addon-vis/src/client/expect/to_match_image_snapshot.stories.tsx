@@ -1,11 +1,14 @@
 import type { StoryObj } from '@storybook/react'
+
 import { expect } from '@storybook/test'
 import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing.ts'
 
 export default {
 	title: 'expect matchers/toMatchImageSnapshot',
-	render: () => <div data-testid="subject">unit</div>,
+	render: () => {
+		return <div data-testid="subject">unit</div>
+	},
 }
 
 export const MatchingCanvasElement: StoryObj = {

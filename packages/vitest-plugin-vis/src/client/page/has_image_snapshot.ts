@@ -2,6 +2,7 @@ import { type BrowserPage, commands } from '@vitest/browser/context'
 import type { ImageSnapshotKeyOptions } from '../../shared/types.ts'
 import { hasImageSnapshotAction } from '../actions/has_image_snapshot_action.ts'
 import { ctx } from '../ctx.ts'
+import { toTaskId } from '../task_id.ts'
 
 export interface HasImageSnapshotAction {
 	/**
@@ -22,5 +23,5 @@ export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotKeyOp
 				"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
 		)
 	}
-	return hasImageSnapshotAction(commands, test, options)
+	return hasImageSnapshotAction(commands, toTaskId(test), options)
 }

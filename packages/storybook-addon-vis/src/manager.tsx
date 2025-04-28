@@ -5,7 +5,7 @@ import { NAME, VIS_PANEL_ID } from './shared/contants.ts'
 
 // Register the addon
 addons.register(NAME, (api) => {
-	const isSnapshotStory = () => {
+	const _isSnapshotStory = () => {
 		const tags = api.getCurrentStoryData()?.tags
 		return isSnapshotEnabled(tags)
 	}
@@ -17,7 +17,6 @@ addons.register(NAME, (api) => {
 		match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
 		render({ active }) {
 			if (!active) return null
-			isSnapshotStory()
 			return <VisPanel active={active} />
 		},
 	})
