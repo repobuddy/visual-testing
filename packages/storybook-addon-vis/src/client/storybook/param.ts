@@ -31,7 +31,3 @@ export function defineAutoSnapshotParam<M extends ComparisonMethod>(
 ) {
 	return { snapshot }
 }
-
-export function isSnapshotEnabled(tags: string[]) {
-	return tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
-}

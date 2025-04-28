@@ -1,6 +1,6 @@
 import type { ProjectAnnotations, Renderer, StoryContext } from 'storybook/internal/types'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
-import { isSnapshotEnabled } from '../client/storybook/param.ts'
+import { isSnapshotEnabled } from '../client/storybook/tags.ts'
 import { getCurrentTest } from '../client/vitest_proxy.ts'
 
 export const visAnnotations = {
