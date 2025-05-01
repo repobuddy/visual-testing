@@ -1,7 +1,7 @@
 import { addons, types } from 'storybook/internal/manager-api'
 import { isSnapshotEnabled } from './client/storybook/tags.ts'
 import { VisPanel } from './components/vis_panel.tsx'
-import { NAME, VIS_PANEL_ID } from './shared/contants.ts'
+import { NAME, VIS_PANEL_ID, type VisEvent } from './shared/contants.ts'
 
 // Register the addon
 addons.register(NAME, (api) => {
@@ -10,6 +10,13 @@ addons.register(NAME, (api) => {
 		return isSnapshotEnabled(tags)
 	}
 
+	api.on(NAME, ({ type, ...payload }: VisEvent) => {
+		console.log('manager api.on', type, payload)
+		if (type === 'responseImageSnapshotResults') {
+			console.log('responseImageSnapshotResults', payload)
+		}
+	})
+
 	// Register the tool
 	addons.add(VIS_PANEL_ID, {
 		type: types.PANEL,
@@ -17,6 +24,11 @@ addons.register(NAME, (api) => {
 		match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
 		render({ active }) {
 			if (!active) return null
+			const storyData = api.getCurrentStoryData()
+			console.log('manager emitting requestImageSnapshotResults', storyData)
+
+			api.emit(NAME, { type: 'requestImageSnapshotResults', taskId: storyData.name })
+
 			return <VisPanel active={active} />
 		},
 	})

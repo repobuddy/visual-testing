@@ -29,16 +29,4 @@ export const loadImageSnapshotResults: BrowserCommand<[taskId: string]> = async 
 	assertTestPathDefined(context, 'loadImageSnapshotResults')
 
 	return visServerContext.getSnapshotResults(context, taskId)
-
-	// const baselineBuffer = await file.tryReadFile(info.baselinePath)
-	// const resultBuffer = await file.tryReadFile(info.resultPath)
-	// const diffBuffer = await file.tryReadFile(info.diffPath)
-
-	// return [
-	// 	{
-	// 		baseline: baselineBuffer?.toString('base64'),
-	// 		result: resultBuffer?.toString('base64'),
-	// 		diff: diffBuffer?.toString('base64'),
-	// 	},
-	// ]
 }

@@ -12,4 +12,5 @@ function managerEntries(entry = []) {
 module.exports = {
 	managerEntries,
 	previewAnnotations,
+	...require('../dist/preset.cjs'),
 }
