@@ -109,7 +109,7 @@
 		"@vitest/expect": "^3.0.8",
 		"cross-env": "^7.0.3",
 		"never-fail": "^1.1.4",
-		"npm-run-all2": "^7.0.2",
+		"npm-run-all2": "^8.0.0",
 		"playwright": "latest",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
