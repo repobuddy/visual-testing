@@ -47,6 +47,10 @@
 			"types": "./esm/presets/manual.d.ts",
 			"default": "./esm/presets/manual.js"
 		},
+		"./server-api": {
+			"types": "./esm/server-api.d.ts",
+			"default": "./esm/server-api.js"
+		},
 		"./setup": {
 			"types": "./esm/setup.d.ts",
 			"default": "./esm/setup.js"
