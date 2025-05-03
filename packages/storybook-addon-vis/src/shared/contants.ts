@@ -6,13 +6,12 @@ export type VisEvent = ImageSnapshotResultsRequest | ImageSnapshotResultsRespons
 export type ImageSnapshotResultsRequest = {
 	type: 'requestImageSnapshotResults'
 	taskId: string
-
 	taskPath: string
 }
 
 export type ImageSnapshotResultsResponse = {
 	type: 'responseImageSnapshotResults'
-	storyId: string
+	taskId: string
 	results: {
 		key: string
 		baseline?: string | undefined

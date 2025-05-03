@@ -11,9 +11,9 @@ addons.register(NAME, (api) => {
 	}
 
 	api.on(NAME, ({ type, ...payload }: VisEvent) => {
-		console.log('manager api.on', type, payload)
+		console.info('manager api.on', type, payload)
 		if (type === 'responseImageSnapshotResults') {
-			console.log('responseImageSnapshotResults', payload)
+			console.info('responseImageSnapshotResults', payload)
 		}
 	})
 
@@ -25,7 +25,7 @@ addons.register(NAME, (api) => {
 		render({ active }) {
 			if (!active) return null
 			const storyData = api.getCurrentStoryData()
-			console.log('manager emitting requestImageSnapshotResults', storyData)
+			console.info('manager emitting requestImageSnapshotResults', storyData)
 
 			api.emit(NAME, { type: 'requestImageSnapshotResults', taskId: storyData.name })
 

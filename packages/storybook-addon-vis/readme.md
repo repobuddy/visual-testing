@@ -35,6 +35,54 @@ pnpm add --save-dev storybook-addon-vis
 yarn add --save-dev storybook-addon-vis
 ```
 
+## Migrating to 1.0
+
+[`storybook-addon-vis`][storybook-addon-vis] 1.0 has made some major improvements over the previous version. Along with the new features, there are some breaking changes.
+
+> [!WARNING]
+> Snapshot folder structure customization has changed.
+
+In previous version,
+you can customize the snapshot folder structure with the `snapshotRootDir`, `customizeSnapshotSubpath`, and `customizeSnapshotId` options to the `storybookVis` function.
+
+In 1.0,
+the options are changed to `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey`.
+
+The biggest change is that the `snapshotKey` now only allows you to specify a string that is used at the end of the snapshot file name.
+See [`vitest-plugin-vis`](https://github.com/repobuddy/visual-testing?tab=readme-ov-file#customizing-snapshot-path) for more details.
+
+> [!warning]
+> `storybook-addon-vis/preview` is moved to `storybook-addon-vis/vitest-setup`.
+
+In previous version,
+you import the `visAnnotations` from `storybook-addon-vis/preview` and add it to your `vitest.setup.ts`, and use the `vis` object from `storybook-addon-vis/vitest-setup` to add the preset:
+
+```ts
+import * as visAnnotations from 'storybook-addon-vis/preview'
+import { vis } from 'storybook-addon-vis/vitest-setup'
+
+const project = setProjectAnnotations([
+	visAnnotations, // add this
+	projectAnnotations
+])
+
+vis.presets.enable()
+```
+
+In 1.0,
+they are combined:
+
+```ts
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+
+const project = setProjectAnnotations([
+	visAnnotations, // add this
+	projectAnnotations
+])
+
+vis()
+```
+
 ## Config
 
 This add-on provides features on both [Storybook] and [Vitest],
@@ -257,7 +305,7 @@ causes inconsistency and confuses both the editor and you.
 
 #### Edit Vitest Setup
 
-After you set up [Storybook Test Addon][storybook-test-addon],
+After you set up [Storybook Test addon][storybook-test-addon],
 you should have a `.storybook/vitest.setup.ts` like this (using React as an example):
 
 ```ts
