@@ -93,6 +93,9 @@ importers:
         specifier: workspace:^
         version: link:../vitest-plugin-vis
     devDependencies:
+      '@repobuddy/storybook':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@storybook/addon-essentials':
         specifier: ^8.6.3
         version: 8.6.3(@types/react@18.3.12)(storybook@8.6.3(prettier@3.5.3))
@@ -162,6 +165,9 @@ importers:
       storybook:
         specifier: ^8.6.3
         version: 8.6.3(prettier@3.5.3)
+      storybook-addon-tag-badges:
+        specifier: ^1.4.0
+        version: 1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@3.5.3))
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(jiti@2.4.2)(postcss@8.5.3)(typescript@5.7.2)(yaml@2.6.0)
@@ -1401,6 +1407,9 @@ packages:
     peerDependencies:
       '@biomejs/biome': '>= 1.8.0'
 
+  '@repobuddy/storybook@0.2.0':
+    resolution: {integrity: sha512-CKYH6FUpLbb9X2C4NLoRByaZI6XIVT2F4jyYxRXDnj+SBSVc3M+ieU+UEegs7xZvy5wuID+68xwb6l+s6k/jYw==}
+
   '@repobuddy/typescript@2.1.0':
     resolution: {integrity: sha512-b9owazWwMPs357qqti4CrIt7+isqcPbsUOZmW+Yc0L7OVz2YmrHhCgg2ggFGQgSFhhMWc/mQQ18K8VVR5KxPBQ==}
 
@@ -1744,6 +1753,13 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  '@storybook/icons@1.4.0':
+    resolution: {integrity: sha512-Td73IeJxOyalzvjQL+JXx72jlIYHgs+REaHiREOqfpo3A2AYYG71AUbcv+lg7mEDIweKVCxsMQ0UKo634c8XeA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
 
   '@storybook/instrumenter@8.6.3':
     resolution: {integrity: sha512-Y5n6JWCWdOqok08Hgklsc98TBoqROhAhBRSzNWuIaLsRhz8EziXQtuEkWqmVbyYOys25iTZiK3S8+QQkOzGrBw==}
@@ -4139,6 +4155,12 @@ packages:
   std-env@3.8.1:
     resolution: {integrity: sha512-vj5lIj3Mwf9D79hBkltk5qmkFI+biIKWS2IBxEyEU3AX1tUf7AoL8nSazCOiiqQsGKIq01SClsKEzweu34uwvA==}
 
+  storybook-addon-tag-badges@1.4.0:
+    resolution: {integrity: sha512-ecVwNVT4zIpnB14ltXCTHsWqykW2lgiHrDJW1VeblI3+aU9uMaSZG0zuey+r3vehMeODADnRNrcdk6sN9MAmBA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      storybook: ^8.4.0
+
   storybook@8.6.3:
     resolution: {integrity: sha512-Vbmd8/FXp6X0AOMak6arcg3WdkHj+2AYJTNHbCPVHsCEbnREyRZIG+Eq5/Ffmy6byiz+4OAX5HwsHGSMR6Xmow==}
     hasBin: true
@@ -5617,6 +5639,8 @@ snapshots:
     dependencies:
       '@biomejs/biome': 1.9.4
 
+  '@repobuddy/storybook@0.2.0': {}
+
   '@repobuddy/typescript@2.1.0':
     dependencies:
       clibuilder: 9.0.0
@@ -5921,6 +5945,11 @@ snapshots:
   '@storybook/global@5.0.0': {}
 
   '@storybook/icons@1.2.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@storybook/icons@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -8531,6 +8560,14 @@ snapshots:
   statuses@2.0.1: {}
 
   std-env@3.8.1: {}
+
+  storybook-addon-tag-badges@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.3(prettier@3.5.3)):
+    dependencies:
+      '@storybook/icons': 1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      storybook: 8.6.3(prettier@3.5.3)
+    transitivePeerDependencies:
+      - react
+      - react-dom
 
   storybook@8.6.3(prettier@3.5.3):
     dependencies:

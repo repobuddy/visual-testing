@@ -6,6 +6,7 @@ import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing.ts'
 
 export default {
 	title: 'expect matchers/toMatchImageSnapshot',
+	tags: ['version:1.0.0'],
 	render: () => {
 		return <div data-testid="subject">unit</div>
 	},
