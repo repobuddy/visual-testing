@@ -1,6 +1,6 @@
 import { testType } from 'type-plus'
 import { beforeAll, describe, expect, it } from 'vitest'
-import { setAutoSnapshotOptions, vis, type SnapshotMeta } from './vitest-setup.ts'
+import { setAutoSnapshotOptions, vis } from './vitest-setup.ts'
 
 beforeAll(() => setAutoSnapshotOptions(false))
 
@@ -14,7 +14,7 @@ describe('vis.presets.theme()', () => {
 		})
 	})
 	it('can customize the option type', () => {
-		vis.presets.theme<SnapshotMeta<'ssim'>>({
+		vis.presets.theme<'ssim'>({
 			x(options) {
 				testType.canAssign<
 					typeof options.diffOptions,

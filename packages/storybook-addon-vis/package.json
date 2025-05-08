@@ -29,6 +29,7 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		},
+		"./manager": "./dist/manager.js",
 		"./matcher": {
 			"types": "./dist/matcher.d.ts",
 			"import": "./dist/matcher.js"
@@ -60,7 +61,7 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
 	],
 	"scripts": {
-		"build": "tsup",
+		"build": "tsup --tsconfig tsconfig.tsup.json",
 		"build:sb": "storybook build",
 		"clean": "rimraf coverage dist esm *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
@@ -84,8 +85,10 @@
 		"vitest-plugin-vis": "workspace:^"
 	},
 	"devDependencies": {
+		"@repobuddy/storybook": "^0.2.0",
 		"@storybook/addon-essentials": "^8.6.3",
 		"@storybook/addon-links": "^8.6.3",
+		"@storybook/addon-storysource": "^8.6.12",
 		"@storybook/blocks": "^8.6.3",
 		"@storybook/experimental-addon-test": "^8.6.3",
 		"@storybook/react": "^8.6.3",
@@ -95,9 +98,9 @@
 		"@types/react": "^18.2.65",
 		"@types/react-dom": "^18.2.21",
 		"@vitejs/plugin-react": "^4.2.1",
-		"@vitest/browser": "^3.0.8",
-		"@vitest/coverage-istanbul": "^3.0.8",
-		"@vitest/expect": "^3.0.8",
+		"@vitest/browser": "catalog:",
+		"@vitest/coverage-istanbul": "catalog:",
+		"@vitest/expect": "catalog:",
 		"boxen": "^8.0.1",
 		"cross-env": "^7.0.3",
 		"dedent": "^1.5.1",
@@ -106,11 +109,12 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"storybook": "^8.6.3",
+		"storybook-addon-tag-badges": "^1.4.0",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.9",
-		"vitest": "^3.0.8",
-		"vitest-browser-react": "^0.1.0",
+		"vite": "catalog:",
+		"vitest": "catalog:",
+		"vitest-browser-react": "^0.1.1",
 		"webdriverio": "latest",
 		"zx": "^8.0.0"
 	},
@@ -129,8 +133,8 @@
 			"src/matcher.ts",
 			"src/vitest-setup.ts"
 		],
-		"previewEntries": [
-			"src/preview.ts"
+		"managerEntries": [
+			"src/manager.tsx"
 		],
 		"nodeEntries": [
 			"./src/preset.ts"

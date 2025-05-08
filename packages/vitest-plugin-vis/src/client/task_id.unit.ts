@@ -27,6 +27,10 @@ it('should convert task name to lowercase and replace non-alphanumeric character
 	)
 })
 
+it('should convert task name with .. to --', ({ expect, task }) => {
+	expect(toTaskId(task)).to.equal('should-convert-task-name-with----to---')
+})
+
 describe('nested level 1', () => {
 	it('should include nesting', ({ expect, task }) => {
 		expect(toTaskId(task)).to.equal('nested-level-1/should-include-nesting')

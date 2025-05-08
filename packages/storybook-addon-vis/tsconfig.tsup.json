@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		// "esModuleInterop": true,
+		// "experimentalDecorators": true,
+		"isolatedModules": false,
+		"jsx": "react-jsx",
+		"lib": ["ESNext", "DOM.Iterable", "DOM"],
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"outDir": "esm",
+		"rewriteRelativeImportExtensions": true,
+		// "noImplicitAny": true,
+		"rootDir": "src",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ES2020",
+		"types": ["@vitest/browser/providers/playwright"],
+		"verbatimModuleSyntax": true
+	},
+	"include": ["src"],
+	"references": [{ "path": "../vitest-plugin-vis/tsconfig.esm.json" }]
+}

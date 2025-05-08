@@ -19,6 +19,9 @@
 		"url": "https://github.com/unional"
 	},
 	"type": "module",
+	"imports": {
+		"#vitest-plugin-vis/config": "./src/config.ts"
+	},
 	"exports": {
 		".": {
 			"types": "./esm/index.d.ts",
@@ -28,13 +31,9 @@
 			"types": "./esm/config.d.ts",
 			"default": "./esm/config.js"
 		},
-		"./client": {
-			"types": "./esm/client.d.ts",
-			"default": "./esm/client.js"
-		},
-		"./commands": {
-			"types": "./esm/commands.d.ts",
-			"default": "./esm/commands.js"
+		"./client-api": {
+			"types": "./esm/client-api.d.ts",
+			"default": "./esm/client-api.js"
 		},
 		"./presets/auto": {
 			"types": "./esm/presets/auto.d.ts",
@@ -48,6 +47,10 @@
 			"types": "./esm/presets/manual.d.ts",
 			"default": "./esm/presets/manual.js"
 		},
+		"./server-api": {
+			"types": "./esm/server-api.d.ts",
+			"default": "./esm/server-api.js"
+		},
 		"./setup": {
 			"types": "./esm/setup.d.ts",
 			"default": "./esm/setup.js"
@@ -58,9 +61,6 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"imports": {
-		"#vitest-plugin-vis/config": "./src/config.ts"
-	},
 	"types": "./esm/index.d.ts",
 	"files": [
 		"esm",
@@ -68,27 +68,29 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
 	],
 	"scripts": {
-		"build": "tsc",
-		"build:watch": "tsc -w",
+		"build": "tsc -b tsconfig.esm.json",
+		"build:watch": "tsc  -b tsconfig.esm.json -w",
 		"clean": "rimraf coverage esm *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "cross-env COVERAGE=true vitest run --coverage",
 		"coverage": "cross-env COVERAGE=true vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
-		"test": "vitest run",
 		"t:node": "vitest --project=vpv:node",
 		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
+		"test": "vitest run",
 		"v": "run-p build cov",
 		"w": "vitest",
-		"w:cov": "cross-env COVERAGE=true vitest --coverage",
-		"w:node": "vitest --project=vpv:node",
+		"w:c": "cross-env COVERAGE=true vitest --coverage",
+		"w:n": "vitest --project=vpv:node",
+		"w:n:c": "vitest --project=vpv:node --coverage",
 		"w:pw": "vitest --project=\"vpv:pw (*)\"",
 		"w:wd": "vitest --project=\"vpv:wd (*)\""
 	},
 	"dependencies": {
 		"dedent": "^1.5.1",
+		"glob": "^11.0.2",
 		"is-ci": "^4.0.0",
 		"mkdirp": "^3.0.1",
 		"pathe": "^2.0.0",
@@ -103,20 +105,19 @@
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",
 		"@types/react": "^19.0.2",
-		"@vitest/browser": "^3.0.8",
-		"@vitest/coverage-istanbul": "^3.0.8",
-		"@vitest/coverage-v8": "^3.0.8",
-		"@vitest/expect": "^3.0.8",
+		"@vitest/browser": "catalog:",
+		"@vitest/coverage-istanbul": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"@vitest/expect": "catalog:",
 		"cross-env": "^7.0.3",
 		"never-fail": "^1.1.4",
 		"npm-run-all2": "^7.0.2",
-		"playwright": "latest",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.9",
-		"vitest": "^3.0.8",
-		"vitest-browser-react": "^0.1.0"
+		"vite": "catalog:",
+		"vitest": "catalog:",
+		"vitest-browser-react": "^0.1.1"
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",

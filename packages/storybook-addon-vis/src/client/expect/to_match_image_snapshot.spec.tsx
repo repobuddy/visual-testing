@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react'
 import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { hasImageSnapshot, setAutoSnapshotOptions } from '../../index.ts'
+import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64 } from '../../testing.ts'
 import * as stories from './to_match_image_snapshot.stories.tsx'
 
@@ -48,35 +48,15 @@ it.each([undefined, null, true, false, 1])('should fails immediately if the subj
 	)
 })
 
-it('can customize snapshot filename', async () => {
+it('can customize snapshot key', async () => {
 	await MatchingElement.run()
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		customizeSnapshotId: ({ id }) => `${id}-custom`,
+		snapshotKey: 'custom',
 	})
 	expect(
 		await hasImageSnapshot({
-			customizeSnapshotId: ({ id }) => `${id}-custom`,
-		}),
-	).toBeTruthy()
-})
-
-it.sequential('can customize auto snapshot filename', async () => {
-	setAutoSnapshotOptions({
-		enable: true,
-		customizeSnapshotId({ id, isAutoSnapshot }) {
-			return isAutoSnapshot ? `${id}-at` : `${id}-invalid`
-		},
-	})
-
-	await MatchingElement.run()
-})
-
-it.sequential('can customize auto snapshot filename (validate)', async () => {
-	setAutoSnapshotOptions(false)
-	expect(
-		await hasImageSnapshot({
-			customizeSnapshotId: ({ id }) => `${id.slice(0, -' (validate)'.length)}-at`,
+			snapshotKey: 'custom',
 		}),
 	).toBeTruthy()
 })

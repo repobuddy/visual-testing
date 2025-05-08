@@ -1,10 +1,10 @@
 import { mkdirp } from 'mkdirp'
 import { dirname } from 'pathe'
 import type { BrowserCommandContext } from 'vitest/node'
-import type { ImageSnapshotTimeoutOptions } from '../client.ts'
 import { isBase64String } from '../shared/base64.ts'
+import type { ImageSnapshotTimeoutOptions, PageImageSnapshotOptions } from '../shared/types.ts'
 import { browserApi } from './browser_provider/browser_api.ts'
-import { file } from './file.js'
+import { snapshotWriter } from './snapshot_writer.ts'
 
 export async function takeSnapshot(
 	context: BrowserCommandContext,
@@ -13,7 +13,7 @@ export async function takeSnapshot(
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	if (isBase64String(subject)) {
-		await writeSnapshot(filePath, subject)
+		await snapshotWriter.writeBase64(filePath, subject)
 		return Buffer.from(subject, 'base64')
 	}
 	return takeSnapshotByBrowser(context, filePath, subject, options)
@@ -32,11 +32,15 @@ export async function takeSnapshotByBrowser(
 	})
 }
 
-export async function writeSnapshot(filePath: string, subject: string) {
+export async function takePageSnapshot(
+	context: BrowserCommandContext,
+	filePath: string,
+	options: (PageImageSnapshotOptions & ImageSnapshotTimeoutOptions) | undefined,
+) {
 	await mkdirp(dirname(filePath))
-	await file.writeFile(filePath, subject, { encoding: 'base64' })
-}
-export async function writeSnapshotBuffer(filePath: string, subject: Buffer) {
-	await mkdirp(dirname(filePath))
-	await file.writeFile(filePath, subject)
+	const browser = browserApi(context)
+	return browser.takePageScreenshot(filePath, {
+		timeout: options?.timeout,
+		fullPage: options?.fullPage,
+	})
 }

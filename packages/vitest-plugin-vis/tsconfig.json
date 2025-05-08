@@ -1,23 +1,17 @@
 {
 	"compilerOptions": {
-		"isolatedModules": true,
-		"jsx": "react-jsx",
-		"lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"composite": true,
+		"isolatedModules": true,
+		// "lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"module": "NodeNext",
 		"moduleDetection": "force",
-		"declaration": true,
-		"declarationMap": true,
 		"noUncheckedIndexedAccess": true,
-		"outDir": "esm",
-		"resolveJsonModule": true,
 		"rewriteRelativeImportExtensions": true,
-		"rootDir": "src",
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2020",
-		"types": ["@vitest/browser/providers/playwright", "@vitest/browser/providers/webdriverio", "vitest-browser-react"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["src"]
+	"include": ["*.ts"],
+	"references": [{ "path": "./tsconfig.esm.json" }]
 }
