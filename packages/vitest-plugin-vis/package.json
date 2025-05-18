@@ -116,7 +116,7 @@
 		"typescript": "^5.7.2",
 		"vite": "^6.0.9",
 		"vitest": "^3.0.8",
-		"vitest-browser-react": "^0.1.0"
+		"vitest-browser-react": "^0.2.0"
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",
