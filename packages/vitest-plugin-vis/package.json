@@ -70,7 +70,7 @@
 	"scripts": {
 		"build": "tsc -b tsconfig.esm.json",
 		"build:watch": "tsc  -b tsconfig.esm.json -w",
-		"clean": "rimraf coverage esm *.tsbuildinfo vitest.*.timestamp*",
+		"clean": "rimraf coverage esm --glob *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "cross-env COVERAGE=true vitest run --coverage",
 		"coverage": "cross-env COVERAGE=true vitest run --coverage",

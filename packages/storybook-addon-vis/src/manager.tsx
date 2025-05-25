@@ -14,7 +14,7 @@ addons.register(NAME, (api) => {
 	// Register the tool
 	addons.add(VIS_PANEL_ID, {
 		type: types.PANEL,
-		title: 'Storybook Vis',
+		title: 'Vis',
 		match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
 		render({ active }) {
 			if (!active) return null
