@@ -10,7 +10,7 @@ const preview: Preview = {
 		},
 	},
 	initialGlobals: {
-		background: { value: 'light' },
+		background: { value: 'dark' },
 	},
 }
 
