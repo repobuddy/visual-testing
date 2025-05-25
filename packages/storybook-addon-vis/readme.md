@@ -357,7 +357,7 @@ vis.presets.theme({
 
 ### Storybook Configuration
 
-For [Storybook], all you need is to add the `storybook-addon-vis` to your `.storybook/main.js`:
+For [Storybook], you need to add the `storybook-addon-vis` to your `.storybook/main.js`:
 
 ```ts
 // .storybook/main.ts
@@ -397,6 +397,32 @@ const config: StorybookConfig = {
 	]
 }
 ```
+
+If you customize the `snapshotRootDir` or `snapshotSubpath`, you need to provide those info to the addon:
+
+```ts
+// .storybook/main.ts
+const config: StorybookConfig = {
+	addons: [
+		[{
+			name: 'storybook-addon-vis',
+			options: {
+				visSuites: [
+					{
+						// or `snapshotRootDir: '__vis__/custom'`
+						snapshotRootDir: ({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`,
+						snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+					},
+				],
+			}
+		}]
+	]
+}
+```
+
+You can provide multiple suites to the addon,
+which is useful if you want to check the result from different environments,
+or from different Vitest configurations.
 
 ### TypeScript Configuration
 
