@@ -5,8 +5,8 @@ const config: StorybookConfig = {
 	addons: [
 		getAbsolutePath('@storybook/addon-links'),
 		getAbsolutePath('@storybook/addon-essentials'),
-		'@storybook/addon-storysource',
-		'storybook-addon-tag-badges',
+		getAbsolutePath('@storybook/addon-storysource'),
+		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook/experimental-addon-test'),
 		'./local-preset.js',
 	],

@@ -18,6 +18,7 @@
 		"trv": "pnpm --filter=testcase-react-vite-ts",
 		"tt": "pnpm --filter=testcase-themes",
 		"tv": "pnpm --filter=testcase-vpv",
+		"tw": "pnpm --filter=testcase-workspace",
 		"v": "turbo check coverage",
 		"verify": "turbo check test:type coverage testcase",
 		"verify:ci": "turbo check test:type coverage test testcase --concurrency=1",
