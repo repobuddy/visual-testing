@@ -8,6 +8,7 @@ const config: StorybookConfig = {
 		getAbsolutePath('@storybook/addon-storysource'),
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook/experimental-addon-test'),
+		getAbsolutePath('storybook-dark-mode'),
 		'./local-preset.js',
 	],
 	framework: {
