@@ -11,7 +11,7 @@ const config: StorybookConfig = {
 		getAbsolutePath('@storybook/experimental-addon-test'),
 		getAbsolutePath('storybook-dark-mode'),
 		{
-			name: './local-preset.js',
+			name: './local-preset.cjs',
 			options: {
 				visSuites: [
 					{
