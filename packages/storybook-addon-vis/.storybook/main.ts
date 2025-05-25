@@ -1,4 +1,3 @@
-import { defineStorybookVisOptions } from '#storybook-addon-vis/server'
 import type { StorybookConfig } from '@storybook/react-vite'
 import { dirname, join } from 'node:path'
 
@@ -13,18 +12,16 @@ const config: StorybookConfig = {
 		getAbsolutePath('storybook-dark-mode'),
 		{
 			name: './local-preset.js',
-			options: defineStorybookVisOptions({
+			options: {
 				visSuites: [
 					{
 						snapshotRootDir: '__vis__/linux',
-						snapshotSubpath: ({ subpath }) => subpath,
 					},
 					{
 						snapshotRootDir: '__vis__/local',
-						snapshotSubpath: ({ subpath }) => subpath,
 					},
 				],
-			}),
+			},
 		},
 	],
 	framework: {
