@@ -33,7 +33,14 @@ export const VisPanel = memo(function VisResultsPanel({ active, snapshotResults 
 									))}
 								</>
 							) : (
-								<SnapshotRow>{key}</SnapshotRow>
+								<>
+									<SnapshotRow>{key}</SnapshotRow>
+									<img
+										key={results[0].filePath}
+										src={`data:image/png;base64,${results[0].base64}`}
+										alt={results[0].fileName}
+									/>
+								</>
 							)}
 						</div>
 					))}
