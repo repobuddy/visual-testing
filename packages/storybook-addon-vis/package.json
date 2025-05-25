@@ -43,10 +43,6 @@
 			"types": "./dist/preview.d.ts",
 			"import": "./dist/preview.js"
 		},
-		"./server": {
-			"types": "./dist/server.d.ts",
-			"import": "./dist/server.js"
-		},
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
 			"import": "./dist/vitest-setup.js"
@@ -86,6 +82,10 @@
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
+		"glob": "^11.0.2",
+		"is-ci": "^4.1.0",
+		"memoize": "^10.1.0",
+		"pathe": "^2.0.3",
 		"type-plus": "8.0.0-beta.7",
 		"vitest-plugin-vis": "workspace:^"
 	},
