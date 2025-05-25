@@ -1,8 +1,9 @@
 import { globSync } from 'glob'
 import ci from 'is-ci'
 import memoize from 'memoize'
+import { readFileSync } from 'node:fs'
 import { platform } from 'node:process'
-import { resolve } from 'pathe'
+import { basename, resolve } from 'pathe'
 import type { StorybookVisOptions } from './vis_options.ts'
 
 const SNAPSHOT_ROOT_DIR = '__vis__'
@@ -45,14 +46,29 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 					const baselineFiles = globSync(baselineGlob)
 					const resultFiles = globSync(resultGlob)
 					const diffFiles = globSync(diffGlob)
-					return {
-						baselineGlob,
-						resultGlob,
-						diffGlob,
-						baselineFiles,
-						resultFiles,
-						diffFiles,
-					}
+					return [
+						...baselineFiles.map((filePath) => ({
+							filePath,
+							fileName: basename(filePath),
+							snapshotRootDir,
+							type: 'baseline',
+							base64: readFileSync(filePath, 'base64'),
+						})),
+						...resultFiles.map((filePath) => ({
+							filePath,
+							fileName: basename(filePath),
+							snapshotRootDir,
+							type: 'result',
+							base64: readFileSync(filePath, 'base64'),
+						})),
+						...diffFiles.map((filePath) => ({
+							filePath,
+							fileName: basename(filePath),
+							snapshotRootDir,
+							type: 'diff',
+							base64: readFileSync(filePath, 'base64'),
+						})),
+					]
 				})
 		},
 	}
