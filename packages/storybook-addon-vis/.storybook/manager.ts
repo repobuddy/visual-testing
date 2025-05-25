@@ -1,4 +1,5 @@
-import { brandTitle, tagBadges } from '@repobuddy/storybook/manager'
+import { brandTitle } from '@repobuddy/storybook/manager'
+import { tagBadges } from '@repobuddy/storybook/storybook-addon-tag-badges'
 import { addons } from 'storybook/internal/manager-api'
 import { themes } from 'storybook/internal/theming'
 
