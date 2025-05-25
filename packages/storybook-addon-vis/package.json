@@ -75,6 +75,8 @@
 		"t:n": "vitest run -c vitest.config.node.ts",
 		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
 		"test": "vitest run",
+		"test:node": "vitest run -c vitest.config.node.ts",
+		"test:pw": "vitest run -c vitest.config.playwright.ts",
 		"test:type": "tsc --noEmit",
 		"v": "run-p build cov",
 		"w": "vitest",
