@@ -8,7 +8,6 @@ import type { StorybookVisOptions } from './vis_options.ts'
 
 const SNAPSHOT_ROOT_DIR = '__vis__'
 const BASELINE_DIR = '__baselines__'
-const RESULT_DIR = '__results__'
 const DIFF_DIR = '__diffs__'
 
 export function createStorybookVisServer(options: StorybookVisOptions) {
@@ -40,11 +39,9 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 				.flatMap(({ snapshotRootDir, snapshotSubpath }) => {
 					const taskGlob = `${name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-*.png`
 					const baselineGlob = resolve(snapshotRootDir, BASELINE_DIR, snapshotSubpath, taskGlob)
-					const resultGlob = resolve(snapshotRootDir, RESULT_DIR, snapshotSubpath, taskGlob)
 					const diffGlob = resolve(snapshotRootDir, DIFF_DIR, snapshotSubpath, taskGlob)
 
 					const baselineFiles = globSync(baselineGlob)
-					const resultFiles = globSync(resultGlob)
 					const diffFiles = globSync(diffGlob)
 					return [
 						...baselineFiles.map((filePath) => ({
@@ -52,13 +49,6 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 							fileName: basename(filePath),
 							snapshotRootDir,
 							type: 'baseline',
-							base64: readFileSync(filePath, 'base64'),
-						})),
-						...resultFiles.map((filePath) => ({
-							filePath,
-							fileName: basename(filePath),
-							snapshotRootDir,
-							type: 'result',
 							base64: readFileSync(filePath, 'base64'),
 						})),
 						...diffFiles.map((filePath) => ({
