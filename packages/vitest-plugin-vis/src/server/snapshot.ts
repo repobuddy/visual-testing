@@ -1,5 +1,5 @@
 import { mkdirp } from 'mkdirp'
-import { dirname } from 'pathe'
+import { dirname, resolve } from 'pathe'
 import type { BrowserCommandContext } from 'vitest/node'
 import { isBase64String } from '../shared/base64.ts'
 import type { ImageSnapshotTimeoutOptions, PageImageSnapshotOptions } from '../shared/types.ts'
@@ -8,38 +8,43 @@ import { snapshotWriter } from './snapshot_writer.ts'
 
 export async function takeSnapshot(
 	context: BrowserCommandContext,
-	filePath: string,
+	projectRoot: string,
+	relativeFilePath: string,
 	subject: string,
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
 	if (isBase64String(subject)) {
-		await snapshotWriter.writeBase64(filePath, subject)
+		await snapshotWriter.writeBase64(resolve(projectRoot, relativeFilePath), subject)
 		return Buffer.from(subject, 'base64')
 	}
-	return takeSnapshotByBrowser(context, filePath, subject, options)
+	return takeSnapshotByBrowser(context, projectRoot, relativeFilePath, subject, options)
 }
 
 export async function takeSnapshotByBrowser(
 	context: BrowserCommandContext,
-	filePath: string,
+	projectRoot: string,
+	relativeFilePath: string,
 	subject: string,
 	options: ImageSnapshotTimeoutOptions | undefined,
 ) {
+	const filePath = resolve(projectRoot, relativeFilePath)
 	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
-	return browser.takeScreenshot(filePath, subject ?? 'body', {
+	return browser.takeScreenshot(projectRoot, relativeFilePath, subject ?? 'body', {
 		timeout: options?.timeout,
 	})
 }
 
 export async function takePageSnapshot(
 	context: BrowserCommandContext,
-	filePath: string,
+	projectRoot: string,
+	relativeFilePath: string,
 	options: (PageImageSnapshotOptions & ImageSnapshotTimeoutOptions) | undefined,
 ) {
+	const filePath = resolve(projectRoot, relativeFilePath)
 	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
-	return browser.takePageScreenshot(filePath, {
+	return browser.takePageScreenshot(projectRoot, relativeFilePath, {
 		timeout: options?.timeout,
 		fullPage: options?.fullPage,
 	})

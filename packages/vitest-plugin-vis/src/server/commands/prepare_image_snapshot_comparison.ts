@@ -66,17 +66,18 @@ export const prepareImageSnapshotComparison: BrowserCommand<
 
 	const projectRoot = getProjectRoot(context)
 	const info = await visServerContext.getSnapshotInfo(context, taskId, options)
+
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {
 			await snapshotWriter.writeBase64(resolve(projectRoot, info.baselinePath), subject)
 		} else {
-			await takeSnapshotByBrowser(context, resolve(projectRoot, info.baselinePath), subject, options)
+			await takeSnapshotByBrowser(context, projectRoot, info.baselinePath, subject, options)
 		}
 		return
 	}
 
-	const resultBuffer = await takeSnapshot(context, resolve(projectRoot, info.resultPath), subject, options)
+	const resultBuffer = await takeSnapshot(context, projectRoot, info.resultPath, subject, options)
 	return {
 		...info,
 		projectRoot,

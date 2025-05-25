@@ -1,6 +1,7 @@
 export interface BrowserApi {
 	takeScreenshot(
-		filePath: string,
+		projectRoot: string,
+		relativeFilePath: string,
 		selector: string,
 		options:
 			| {
@@ -9,7 +10,8 @@ export interface BrowserApi {
 			| undefined,
 	): Promise<Buffer>
 	takePageScreenshot(
-		filePath: string,
+		projectRoot: string,
+		relativeFilePath: string,
 		options:
 			| {
 					fullPage?: boolean | undefined

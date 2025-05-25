@@ -63,7 +63,7 @@
 	"scripts": {
 		"build": "tsup --tsconfig tsconfig.tsup.json",
 		"build:sb": "storybook build",
-		"clean": "rimraf coverage dist esm *.tsbuildinfo vitest.*.timestamp*",
+		"clean": "rimraf coverage dist esm --glob *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "vitest run --coverage",
 		"coverage": "vitest run --coverage",

@@ -61,11 +61,11 @@ export const preparePageImageSnapshotComparison: BrowserCommand<
 	const info = await visServerContext.getSnapshotInfo(context, taskId, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
-		await takePageSnapshot(context, resolve(projectRoot, info.baselinePath), options)
+		await takePageSnapshot(context, projectRoot, info.baselinePath, options)
 		return
 	}
 
-	const resultBuffer = await takePageSnapshot(context, resolve(projectRoot, info.resultPath), options)
+	const resultBuffer = await takePageSnapshot(context, projectRoot, info.resultPath, options)
 	return {
 		...info,
 		projectRoot,
