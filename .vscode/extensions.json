@@ -6,6 +6,8 @@
 		"github.vscode-pull-request-github",
 		"neo-ltex.ltex",
 		"streetsidesoftware.code-spell-checker",
-		"unional.vscode-sort-package-json"
+		"unional.vscode-sort-package-json",
+		"bradlc.vscode-tailwindcss",
+		"mishalestev.tailwind-css-language-mode-formatter"
 	]
 }
