@@ -23,6 +23,10 @@
 		"url": "https://github.com/unional"
 	},
 	"type": "module",
+	"imports": {
+		"#storybook-addon-vis/vitest-plugin": "./src/vitest-plugin.ts",
+		"#storybook-addon-vis/server": "./src/server.ts"
+	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -39,6 +43,10 @@
 			"types": "./dist/preview.d.ts",
 			"import": "./dist/preview.js"
 		},
+		"./server": {
+			"types": "./dist/server.d.ts",
+			"import": "./dist/server.js"
+		},
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
 			"import": "./dist/vitest-setup.js"
@@ -48,9 +56,6 @@
 			"import": "./dist/vitest-plugin.js"
 		},
 		"./package.json": "./package.json"
-	},
-	"imports": {
-		"#storybook-addon-vis/vitest-plugin": "./src/vitest-plugin.ts"
 	},
 	"types": "./dist/index.d.ts",
 	"files": [

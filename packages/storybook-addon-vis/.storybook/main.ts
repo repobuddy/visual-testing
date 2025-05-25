@@ -1,5 +1,7 @@
+import { defineStorybookVisOptions } from '#storybook-addon-vis/server'
 import type { StorybookConfig } from '@storybook/react-vite'
 import { dirname, join } from 'node:path'
+
 const config: StorybookConfig = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
 	addons: [
@@ -9,7 +11,21 @@ const config: StorybookConfig = {
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook/experimental-addon-test'),
 		getAbsolutePath('storybook-dark-mode'),
-		'./local-preset.js',
+		{
+			name: './local-preset.js',
+			options: defineStorybookVisOptions({
+				visSuites: [
+					{
+						snapshotRootDir: '__vis__/linux',
+						snapshotSubpath: ({ subpath }) => subpath,
+					},
+					{
+						snapshotRootDir: '__vis__/local',
+						snapshotSubpath: ({ subpath }) => subpath,
+					},
+				],
+			}),
+		},
 	],
 	framework: {
 		name: getAbsolutePath('@storybook/react-vite'),

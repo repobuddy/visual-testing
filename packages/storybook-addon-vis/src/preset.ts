@@ -1,9 +1,8 @@
 import type { Channel } from 'storybook/internal/channels'
-import type { Options } from 'storybook/internal/types'
+import type { StorybookVisOptions } from './server/vis_options.ts'
 import { NAME, type VisEvent } from './shared/contants.ts'
 
-export const experimental_serverChannel = async (channel: Channel, _options: Options) => {
-	console.info('experimental_serverChannel triggered')
+export const experimental_serverChannel = async (channel: Channel, _options: StorybookVisOptions) => {
 	channel.on(NAME, ({ type, taskId }: VisEvent) => {
 		console.info('channel.on', type, taskId)
 		if (type === 'requestImageSnapshotResults') {
