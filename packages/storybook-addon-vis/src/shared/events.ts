@@ -21,10 +21,13 @@ export type ImageSnapshotResultsResponse = {
 	type: typeof IMAGE_SNAPSHOT_RESULTS_RESPONSE
 	name: string
 	importPath: string
-	results: {
-		key: string
-		baseline?: string | undefined
-		diff?: string | undefined
-		result?: string | undefined
-	}
+	results: ImageSnapshotResults[]
+}
+
+export type ImageSnapshotResults = {
+	filePath: string
+	fileName: string
+	snapshotRootDir: string
+	type: 'baseline' | 'diff' | 'result'
+	base64: string
 }
