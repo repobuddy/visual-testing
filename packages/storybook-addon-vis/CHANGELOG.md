@@ -1,5 +1,14 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 1.0.1
+
+### Patch Changes
+
+- [`702f458`](https://github.com/repobuddy/visual-testing/commit/702f45898c2a554bf263f86695b3e1b4c212737a) Thanks [@unional](https://github.com/unional)! - Add refresh button to vis panel.
+
+- Updated dependencies [[`9a25501`](https://github.com/repobuddy/visual-testing/commit/9a255013ee3b5beb319da140648b5f4d44e59c8a)]:
+  - vitest-plugin-vis@3.0.1
+
 ## 1.0.0
 
 ### Major Changes
