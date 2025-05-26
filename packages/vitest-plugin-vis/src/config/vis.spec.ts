@@ -44,6 +44,14 @@ it('can change the default snapshot auto key with string', () => {
 	})
 })
 
+it('reject snapshot key with dash', () => {
+	const plugin = vis({ snapshotKey: 'invalid-key' })
+
+	const { userConfig } = stubSuite()
+
+	expect(() => plugin.config(userConfig)).toThrowError('Snapshot key cannot contain dash')
+})
+
 it('can set default snapshot timeout', () => {
 	const plugin = vis({ timeout: 1000 })
 
@@ -179,7 +187,7 @@ it('can set ssim options when comparison method is ssim', () => {
 	expect(getVisOption(browserCommandContext)).toMatchObject(options)
 })
 
-it('can set the subject data test id', () => {
+it('can set the subject selector to data test id', () => {
 	const plugin = vis({ subject: '[data-testid="test"]' })
 
 	const { userConfig, browserCommandContext } = stubSuite()

@@ -200,6 +200,7 @@ export default defineConfig({
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
 			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+			// Alphanumeric characters, and underscore are allowed. Dash is not allowed.
 			snapshotKey: 'auto',
 		})
 	]

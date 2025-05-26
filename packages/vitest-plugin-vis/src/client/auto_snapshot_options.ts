@@ -1,3 +1,4 @@
+import { assertSnapshotKeyWithoutDash } from '../shared/asserts.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
 import { ctx } from './ctx.ts'
@@ -26,6 +27,10 @@ export type MetaTask =
  * ```
  */
 export function setAutoSnapshotOptions<M extends ComparisonMethod>(meta: SnapshotMeta<M> | boolean): void {
+	if (typeof meta === 'object') {
+		assertSnapshotKeyWithoutDash(meta.snapshotKey)
+	}
+
 	const task = getTask()
 	if (!task) return
 

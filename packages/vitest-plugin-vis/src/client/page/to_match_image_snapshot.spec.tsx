@@ -18,15 +18,21 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 	)
 })
 
+it('rejects snapshot key with dash', async ({ expect }) => {
+	await expect(() => page.toMatchImageSnapshot({ snapshotKey: 'invalid-key' })).rejects.toThrowError(
+		'Snapshot key cannot contain dash',
+	)
+})
+
 it('takes an image snapshot', async () => {
 	render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
-		snapshotKey: 'test-snapshot',
+		snapshotKey: 'test_snapshot',
 	})
 
 	await expect(
 		page.hasImageSnapshot({
-			snapshotKey: 'test-snapshot',
+			snapshotKey: 'test_snapshot',
 		}),
 	).resolves.toBe(true)
 })
@@ -35,11 +41,11 @@ it('supports full page image snapshot', async () => {
 	render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
 		fullPage: true,
-		snapshotKey: 'test-snapshot',
+		snapshotKey: 'test_snapshot',
 	})
 	await expect(
 		page.hasImageSnapshot({
-			snapshotKey: 'test-snapshot',
+			snapshotKey: 'test_snapshot',
 		}),
 	).resolves.toBe(true)
 })

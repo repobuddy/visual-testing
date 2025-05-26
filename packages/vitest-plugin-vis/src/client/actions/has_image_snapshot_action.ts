@@ -6,5 +6,9 @@ export function hasImageSnapshotAction(
 	taskId: string,
 	options?: ImageSnapshotKeyOptions | undefined,
 ) {
+	if (options?.snapshotKey?.includes('-')) {
+		throw new Error('Snapshot key cannot contain dash')
+	}
+
 	return commands.hasImageSnapshot(taskId, options?.snapshotKey)
 }

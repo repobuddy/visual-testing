@@ -18,10 +18,14 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 	)
 })
 
+it('rejects snapshot key with dash', ({ expect }) => {
+	expect(() => page.hasImageSnapshot({ snapshotKey: 'invalid-key' })).toThrowError('Snapshot key cannot contain dash')
+})
+
 it('returns false when no snapshot exists', async ({ expect }) => {
 	expect(
 		await page.hasImageSnapshot({
-			snapshotKey: 'non-existing-snapshot',
+			snapshotKey: 'non_existing_snapshot',
 		}),
 	).toBe(false)
 })
@@ -30,11 +34,11 @@ it('returns true when the snapshot exists', async ({ expect }) => {
 	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot({
-		snapshotKey: 'existing-snapshot',
+		snapshotKey: 'existing_snapshot',
 	})
 	expect(
 		await page.hasImageSnapshot({
-			snapshotKey: 'existing-snapshot',
+			snapshotKey: 'existing_snapshot',
 		}),
 	).toBe(true)
 })

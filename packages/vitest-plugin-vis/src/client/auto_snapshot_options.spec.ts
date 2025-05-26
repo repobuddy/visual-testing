@@ -121,3 +121,7 @@ it('can define additional meta', ({ expect, task }) => {
 	setAutoSnapshotOptions({ foo: 'bar' })
 	expect(extractAutoSnapshotOptions(task)).toMatchObject({ enable: true, foo: 'bar' })
 })
+
+it('reject snapshot key with dash', ({ expect }) => {
+	expect(() => setAutoSnapshotOptions({ snapshotKey: 'invalid-key' })).toThrowError('Snapshot key cannot contain dash')
+})
