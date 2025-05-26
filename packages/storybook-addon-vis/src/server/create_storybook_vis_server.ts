@@ -4,11 +4,8 @@ import memoize from 'memoize'
 import { readFileSync } from 'node:fs'
 import { platform } from 'node:process'
 import { basename, resolve } from 'pathe'
+import { BASELINE_DIR, DIFF_DIR, SNAPSHOT_ROOT_DIR, trimCommonFolder } from 'vitest-plugin-vis/server-utils'
 import type { StorybookVisOptions } from './vis_options.ts'
-
-const SNAPSHOT_ROOT_DIR = '__vis__'
-const BASELINE_DIR = '__baselines__'
-const DIFF_DIR = '__diffs__'
 
 export function createStorybookVisServer(options: StorybookVisOptions) {
 	const visSuites = options.visSuites ?? [{ snapshotRootDir: SNAPSHOT_ROOT_DIR }]
@@ -62,11 +59,4 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 				})
 		},
 	}
-}
-
-function trimCommonFolder(suiteName: string) {
-	const suiteDir = suiteName.split('/', 1)[0]!
-	if (['tests', 'test', 'src', 'source', 'js', 'ts', 'lib'].includes(suiteDir))
-		return suiteName.slice(suiteDir.length + 1)
-	return suiteName
 }
