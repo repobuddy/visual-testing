@@ -1,5 +1,12 @@
 # vitest-plugin-vis
 
+## 3.0.1
+
+### Patch Changes
+
+- [`9a25501`](https://github.com/repobuddy/visual-testing/commit/9a255013ee3b5beb319da140648b5f4d44e59c8a) Thanks [@unional](https://github.com/unional)! - Fix `manual` preset to be the same as `enable` in v2.
+  Note `enable` is deprecated and will be removed in v4.
+
 ## 3.0.0
 
 ### Major Changes
