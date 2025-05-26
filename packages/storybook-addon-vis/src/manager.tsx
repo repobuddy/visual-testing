@@ -34,7 +34,15 @@ addons.register(NAME, (api) => {
 				api.emit(NAME, requestImageSnapshotResults(storyData))
 				return dispose
 			}, [storyData])
-			return <VisPanel active={active} snapshotResults={snapshotResults} />
+			return (
+				<VisPanel
+					active={active}
+					snapshotResults={snapshotResults}
+					onRefresh={() => {
+						api.emit(NAME, requestImageSnapshotResults(storyData))
+					}}
+				/>
+			)
 		},
 	})
 })

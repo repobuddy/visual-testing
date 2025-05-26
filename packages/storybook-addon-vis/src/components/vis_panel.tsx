@@ -1,5 +1,6 @@
+import { RefreshIcon } from '@storybook/icons'
 import { memo } from 'react'
-import { AddonPanel, Placeholder, ScrollArea } from 'storybook/internal/components'
+import { AddonPanel, IconButton, Placeholder, ScrollArea } from 'storybook/internal/components'
 import { styled } from 'storybook/internal/theming'
 import { SNAPSHOT_ROOT_DIR } from 'vitest-plugin-vis/client-api'
 import type { ImageSnapshotResults } from '../shared/events.ts'
@@ -7,9 +8,10 @@ import type { ImageSnapshotResults } from '../shared/events.ts'
 interface PanelProps {
 	active: boolean
 	snapshotResults: ImageSnapshotResults[]
+	onRefresh: () => void
 }
 
-export const VisPanel = memo(function VisResultsPanel({ active, snapshotResults = [] }: PanelProps) {
+export const VisPanel = memo(function VisPanel({ active, snapshotResults = [], onRefresh }: PanelProps) {
 	const groupedResults = snapshotResults.reduce(
 		(acc, result) => {
 			const suiteName = result.snapshotRootDir.slice(SNAPSHOT_ROOT_DIR.length + 1)
@@ -34,7 +36,12 @@ export const VisPanel = memo(function VisResultsPanel({ active, snapshotResults 
 								</>
 							) : (
 								<>
-									<SnapshotRow>{key}</SnapshotRow>
+									<SnapshotRow>
+										<span>{key}</span>
+										<IconButton onClick={() => onRefresh()}>
+											<RefreshIcon />
+										</IconButton>
+									</SnapshotRow>
 									<img
 										key={results[0].filePath}
 										src={`data:image/png;base64,${results[0].base64}`}
@@ -53,6 +60,9 @@ export const VisPanel = memo(function VisResultsPanel({ active, snapshotResults 
 })
 
 const SnapshotRow = styled.div<{ failed?: boolean }>(({ theme, failed }) => ({
+	display: 'flex',
+	alignItems: 'center',
+	gap: '0.5rem',
 	paddingBlock: '0.5rem',
 	paddingInline: '0.2rem',
 	backgroundColor: failed ? theme.background.negative : theme.background.positive,
