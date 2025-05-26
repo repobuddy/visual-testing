@@ -39,6 +39,6 @@
 		"storybook-addon-vis": "workspace:*",
 		"typescript": "^5.7.2",
 		"vitest": "catalog:",
-		"vitest-browser-react": "^0.1.1"
+		"vitest-browser-react": "^0.2.0"
 	}
 }
