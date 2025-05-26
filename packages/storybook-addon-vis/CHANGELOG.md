@@ -1,5 +1,32 @@
 # v0.0.16 (Tue Oct 29 2024)
 
+## 1.0.0
+
+### Major Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`a7c2a49`](https://github.com/repobuddy/visual-testing/commit/a7c2a49891c4b5b1724ff8f2f4a81ec01ae16c2c) Thanks [@unional](https://github.com/unional)! - Move `storybook-addon-vis/preview` into `storybook-addon-vis/vitest-setup`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`d8c2dac`](https://github.com/repobuddy/visual-testing/commit/d8c2dace2fb6f56fe555d122590937029736e713) Thanks [@unional](https://github.com/unional)! - Add `Storybook Vis` panel to show the results of the visual tests.
+
+### Minor Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`36dcd4e`](https://github.com/repobuddy/visual-testing/commit/36dcd4e5ecf00078fbcf6ddf30852fab6e962eff) Thanks [@unional](https://github.com/unional)! - Rename `ImageSnapshotIdOptions` to `ImageSnapshotKeyOptions`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`ccb67af`](https://github.com/repobuddy/visual-testing/commit/ccb67aff835baaefc883004fbada7a811425dbd3) Thanks [@unional](https://github.com/unional)! - Remove `SnapshotMeta` from API.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`ba025cb`](https://github.com/repobuddy/visual-testing/commit/ba025cb9872ac184646b41912d87b4608d5f2b01) Thanks [@unional](https://github.com/unional)! - Add `StorybookVisOptions`
+
+### Patch Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`29ea8dc`](https://github.com/repobuddy/visual-testing/commit/29ea8dc41c1fe64a15f35840617e629b12e4123b) Thanks [@unional](https://github.com/unional)! - Rename `matchImageSnapshot` to `matchImageSnapshotAction` (breaking).
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`fbaa75b`](https://github.com/repobuddy/visual-testing/commit/fbaa75be2421bf70e0a7a7a296f307d8564421e7) Thanks [@unional](https://github.com/unional)! - Use `hasImageSnapshotAction` from `vitest-plugin-vis`.
+
+- [`f19d4c9`](https://github.com/repobuddy/visual-testing/commit/f19d4c931f346b5cf813a3d66131ae92fb6f07c5) - Depends on `vitest-plugin-vis` with version range `^`.
+
+- Updated dependencies [[`1d322c4`](https://github.com/repobuddy/visual-testing/commit/1d322c439db6f6160dbc70a6710e00ed03e3ce19), [`38734c5`](https://github.com/repobuddy/visual-testing/commit/38734c508633168e73d87c264b3dabf44dd617b8), [`14f57c5`](https://github.com/repobuddy/visual-testing/commit/14f57c5be3569d7620d7288b0fc9aba7a3a798b6), [`7ff4a7b`](https://github.com/repobuddy/visual-testing/commit/7ff4a7b22e20c94b554b2c99e406b93343953d0f), [`b68f90a`](https://github.com/repobuddy/visual-testing/commit/b68f90a74899bfed4fca3083696b955f35f5f11b), [`6f74919`](https://github.com/repobuddy/visual-testing/commit/6f74919691ac97dd9759447cc7feab58cf7f24d8), [`29ea8dc`](https://github.com/repobuddy/visual-testing/commit/29ea8dc41c1fe64a15f35840617e629b12e4123b), [`594c9c9`](https://github.com/repobuddy/visual-testing/commit/594c9c9511ea74dde10329eeee64f51a257f92bd), [`34973ca`](https://github.com/repobuddy/visual-testing/commit/34973ca0a017f35e58ce4e706da1a83a693ee6a9), [`4c9bf36`](https://github.com/repobuddy/visual-testing/commit/4c9bf365db466c159395996c56ca76b2112bef09), [`aa957fc`](https://github.com/repobuddy/visual-testing/commit/aa957fc3dcae07a43583e219b33b92a19de31f6b), [`899ce35`](https://github.com/repobuddy/visual-testing/commit/899ce35a89488bc1c00ed3771c2a4d51e042fee2), [`f3ef08c`](https://github.com/repobuddy/visual-testing/commit/f3ef08cc57bdaa3a5d28d0588fde81d115e79150), [`abcedab`](https://github.com/repobuddy/visual-testing/commit/abcedabc46860ddd5fc015be9ccd38e6959cc77a), [`5539f6d`](https://github.com/repobuddy/visual-testing/commit/5539f6d6d0d4d192b1a8318fa5c91543a46abd39), [`eb1eeee`](https://github.com/repobuddy/visual-testing/commit/eb1eeeeab6021ba5d58306519333d5099a173ee0), [`4f9ce14`](https://github.com/repobuddy/visual-testing/commit/4f9ce14214531cd430c14a9e703a9652744864fe), [`fb8603d`](https://github.com/repobuddy/visual-testing/commit/fb8603df43c71303b92f40ddfc6b9d42982b1dd2), [`1b1c13a`](https://github.com/repobuddy/visual-testing/commit/1b1c13a986b708a8e1adc52cf05f52c46e937000), [`11e52da`](https://github.com/repobuddy/visual-testing/commit/11e52da2ebd7dc5d4d5d252942b7edbc40c81713), [`2f57b5b`](https://github.com/repobuddy/visual-testing/commit/2f57b5bf35f149b3058df5fd0b2e663387d26bf3), [`ccb67af`](https://github.com/repobuddy/visual-testing/commit/ccb67aff835baaefc883004fbada7a811425dbd3), [`31d9e29`](https://github.com/repobuddy/visual-testing/commit/31d9e29186a2fb0caa2e4c26be002e248f1160de), [`577e42b`](https://github.com/repobuddy/visual-testing/commit/577e42b5321b50b183a71a23c54dfaa87d5ad7a5), [`c3ec8f8`](https://github.com/repobuddy/visual-testing/commit/c3ec8f8f538f9aa84f17e4749dc46563d1605ed0), [`d7e7802`](https://github.com/repobuddy/visual-testing/commit/d7e780233226f4d6bfea955819789a00687a1fe9), [`033f725`](https://github.com/repobuddy/visual-testing/commit/033f725ca44bb8e213e94b6b001e7d8657fc48d7), [`766c035`](https://github.com/repobuddy/visual-testing/commit/766c035e798334e44e6489de86f05f4809e7fb76), [`51b4855`](https://github.com/repobuddy/visual-testing/commit/51b48557f66447b302ad1a27a9482db42c4dc90d), [`755f18a`](https://github.com/repobuddy/visual-testing/commit/755f18aba217a9d3beca842701b68f85873561e4), [`3c8eee0`](https://github.com/repobuddy/visual-testing/commit/3c8eee04308506040dafede505ab53736545c20d), [`f7ce143`](https://github.com/repobuddy/visual-testing/commit/f7ce1438e435aaaac6449b7f138034bb34b598f3), [`ea3735f`](https://github.com/repobuddy/visual-testing/commit/ea3735fbb88ecf93ef6f1b287871afe44a8185de), [`6978c83`](https://github.com/repobuddy/visual-testing/commit/6978c8371b626e508044f422bbfe9c3694337565)]:
+  - vitest-plugin-vis@3.0.0
+
 ## 0.19.4
 
 ### Patch Changes

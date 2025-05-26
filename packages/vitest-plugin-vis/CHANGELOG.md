@@ -1,5 +1,86 @@
 # vitest-plugin-vis
 
+## 3.0.0
+
+### Major Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`1d322c4`](https://github.com/repobuddy/visual-testing/commit/1d322c439db6f6160dbc70a6710e00ed03e3ce19) Thanks [@unional](https://github.com/unional)! - Remove `parseImageSnapshotSubject` from the public API (breaking change).
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`38734c5`](https://github.com/repobuddy/visual-testing/commit/38734c508633168e73d87c264b3dabf44dd617b8) Thanks [@unional](https://github.com/unional)! - Remove the ability to customize `snapshotKey` with function.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`14f57c5`](https://github.com/repobuddy/visual-testing/commit/14f57c5be3569d7620d7288b0fc9aba7a3a798b6) Thanks [@unional](https://github.com/unional)! - Remove `shouldTaeSnapshot()` from API.
+  The consumer don't need to know. Tell don't ask.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`b68f90a`](https://github.com/repobuddy/visual-testing/commit/b68f90a74899bfed4fca3083696b955f35f5f11b) Thanks [@unional](https://github.com/unional)! - Update `customizeSnapshotSubpath` to `snapshotSubpath`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`29ea8dc`](https://github.com/repobuddy/visual-testing/commit/29ea8dc41c1fe64a15f35840617e629b12e4123b) Thanks [@unional](https://github.com/unional)! - Rename `matchImageSnapshot` to `matchImageSnapshotAction` (breaking).
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`4c9bf36`](https://github.com/repobuddy/visual-testing/commit/4c9bf365db466c159395996c56ca76b2112bef09) Thanks [@unional](https://github.com/unional)! - Move `/client` to `/client-api` to indicate that it's an API, not meant to be used directly (breaking).
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`899ce35`](https://github.com/repobuddy/visual-testing/commit/899ce35a89488bc1c00ed3771c2a4d51e042fee2) Thanks [@unional](https://github.com/unional)! - Change `imageSnapshotMatcher` to `matchImageSnapshot` (breaking change).
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`abcedab`](https://github.com/repobuddy/visual-testing/commit/abcedabc46860ddd5fc015be9ccd38e6959cc77a) Thanks [@unional](https://github.com/unional)! - Replace `subjectDataTestId` with `subject`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`4f9ce14`](https://github.com/repobuddy/visual-testing/commit/4f9ce14214531cd430c14a9e703a9652744864fe) Thanks [@unional](https://github.com/unional)! - Remove `matchImageSnapshot` command.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`fb8603d`](https://github.com/repobuddy/visual-testing/commit/fb8603df43c71303b92f40ddfc6b9d42982b1dd2) Thanks [@unional](https://github.com/unional)! - Remove extra `/commands` export.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`11e52da`](https://github.com/repobuddy/visual-testing/commit/11e52da2ebd7dc5d4d5d252942b7edbc40c81713) Thanks [@unional](https://github.com/unional)! - Rename `ImageSnapshotIdOptions` to `ImageSnapshotKeyOptions`
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`2f57b5b`](https://github.com/repobuddy/visual-testing/commit/2f57b5bf35f149b3058df5fd0b2e663387d26bf3) Thanks [@unional](https://github.com/unional)! - Improve `vis.presets.theme()` and `vis.afterEach.matchPerTheme()` type params to not depends on `SnapshotMeta`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`ccb67af`](https://github.com/repobuddy/visual-testing/commit/ccb67aff835baaefc883004fbada7a811425dbd3) Thanks [@unional](https://github.com/unional)! - Remove `SnapshotMeta` from API.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`31d9e29`](https://github.com/repobuddy/visual-testing/commit/31d9e29186a2fb0caa2e4c26be002e248f1160de) Thanks [@unional](https://github.com/unional)! - Remove `isAutosnapshot` from commands signature.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`d7e7802`](https://github.com/repobuddy/visual-testing/commit/d7e780233226f4d6bfea955819789a00687a1fe9) Thanks [@unional](https://github.com/unional)! - Remove the first argument from the `setAutoSnapshotOptions` function.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`033f725`](https://github.com/repobuddy/visual-testing/commit/033f725ca44bb8e213e94b6b001e7d8657fc48d7) Thanks [@unional](https://github.com/unional)! - Remove `customizeSnapshotId`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`51b4855`](https://github.com/repobuddy/visual-testing/commit/51b48557f66447b302ad1a27a9482db42c4dc90d) Thanks [@unional](https://github.com/unional)! - Remove `toTaskId` from public API.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`755f18a`](https://github.com/repobuddy/visual-testing/commit/755f18aba217a9d3beca842701b68f85873561e4) Thanks [@unional](https://github.com/unional)! - Remove `platform` support.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`ea3735f`](https://github.com/repobuddy/visual-testing/commit/ea3735fbb88ecf93ef6f1b287871afe44a8185de) Thanks [@unional](https://github.com/unional)! - Remove server context from `/server-api`. It can't be used outside of Vitest.
+  Rename `/server-api` to `/server-utils` as it is not an API.
+
+### Minor Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`7ff4a7b`](https://github.com/repobuddy/visual-testing/commit/7ff4a7b22e20c94b554b2c99e406b93343953d0f) Thanks [@unional](https://github.com/unional)! - Change `actions` to take `taskId` instead of `test`.
+  This allows the `taskId` to be built from other means, such as from Storybook runtime.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`6f74919`](https://github.com/repobuddy/visual-testing/commit/6f74919691ac97dd9759447cc7feab58cf7f24d8) Thanks [@unional](https://github.com/unional)! - Add `loadImageSnapshotResultsAction`
+
+- [#283](https://github.com/repobuddy/visual-testing/pull/283) [`594c9c9`](https://github.com/repobuddy/visual-testing/commit/594c9c9511ea74dde10329eeee64f51a257f92bd) Thanks [@unional](https://github.com/unional)! - Restrict `snapshotKey` to not accept dash `-`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`34973ca`](https://github.com/repobuddy/visual-testing/commit/34973ca0a017f35e58ce4e706da1a83a693ee6a9) Thanks [@unional](https://github.com/unional)! - Add `page.toMatchImageSnapshot`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`aa957fc`](https://github.com/repobuddy/visual-testing/commit/aa957fc3dcae07a43583e219b33b92a19de31f6b) Thanks [@unional](https://github.com/unional)! - Deprecate `MatchImageSnapshotCommand`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`f3ef08c`](https://github.com/repobuddy/visual-testing/commit/f3ef08cc57bdaa3a5d28d0588fde81d115e79150) Thanks [@unional](https://github.com/unional)! - Add image size diff message
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`5539f6d`](https://github.com/repobuddy/visual-testing/commit/5539f6d6d0d4d192b1a8318fa5c91543a46abd39) Thanks [@unional](https://github.com/unional)! - Support full page screenshots with `playwright`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`1b1c13a`](https://github.com/repobuddy/visual-testing/commit/1b1c13a986b708a8e1adc52cf05f52c46e937000) Thanks [@unional](https://github.com/unional)! - Pass options to page screenshot
+
+- [#283](https://github.com/repobuddy/visual-testing/pull/283) [`577e42b`](https://github.com/repobuddy/visual-testing/commit/577e42b5321b50b183a71a23c54dfaa87d5ad7a5) Thanks [@unional](https://github.com/unional)! - Export `trimCommonFolder` under `/server-utils`
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`766c035`](https://github.com/repobuddy/visual-testing/commit/766c035e798334e44e6489de86f05f4809e7fb76) Thanks [@unional](https://github.com/unional)! - Adjust code to work with latest `webdriverio`.
+  It now expect file paths relative to the project root to save screenshots.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`3c8eee0`](https://github.com/repobuddy/visual-testing/commit/3c8eee04308506040dafede505ab53736545c20d) Thanks [@unional](https://github.com/unional)! - Add `vis.setup()`.
+  Deprecate `vis.presets.enable()`, `vis.presets.manual()`, `vis.presets.auto()`, and `vis.presets.theme()`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`f7ce143`](https://github.com/repobuddy/visual-testing/commit/f7ce1438e435aaaac6449b7f138034bb34b598f3) Thanks [@unional](https://github.com/unional)! - Export types to `/config`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`6978c83`](https://github.com/repobuddy/visual-testing/commit/6978c8371b626e508044f422bbfe9c3694337565) Thanks [@unional](https://github.com/unional)! - Add `hasImageSnapshotAction` to contain the business logic.
+
+### Patch Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`eb1eeee`](https://github.com/repobuddy/visual-testing/commit/eb1eeeeab6021ba5d58306519333d5099a173ee0) Thanks [@unional](https://github.com/unional)! - Adjust commands type.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`c3ec8f8`](https://github.com/repobuddy/visual-testing/commit/c3ec8f8f538f9aa84f17e4749dc46563d1605ed0) Thanks [@unional](https://github.com/unional)! - Export missing `SnapshotTestMeta` type.
+
 ## 2.4.4
 
 ### Patch Changes
