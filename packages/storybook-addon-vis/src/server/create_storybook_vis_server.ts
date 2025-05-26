@@ -34,29 +34,29 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 					}
 				})
 				.flatMap(({ snapshotRootDir, snapshotSubpath }) => {
-					const taskGlob = `${name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-*.png`
+					const taskId = name.replace(/[^a-z0-9]/gi, '-').toLowerCase()
+					const taskGlob = `${taskId}-*.png`
 					const baselineGlob = resolve(snapshotRootDir, BASELINE_DIR, snapshotSubpath, taskGlob)
 					const diffGlob = resolve(snapshotRootDir, DIFF_DIR, snapshotSubpath, taskGlob)
 
-					const baselineFiles = globSync(baselineGlob)
-					const diffFiles = globSync(diffGlob)
+					const taskIdRegex = new RegExp(`${taskId}-[^-]*.png$`)
+					const baselineFiles = globSync(baselineGlob).filter((filePath) => taskIdRegex.test(filePath))
+					const diffFiles = globSync(diffGlob).filter((filePath) => taskIdRegex.test(filePath))
 					return [
-						...baselineFiles.map((filePath) => ({
-							filePath,
-							fileName: basename(filePath),
-							snapshotRootDir,
-							type: 'baseline',
-							base64: readFileSync(filePath, 'base64'),
-						})),
-						...diffFiles.map((filePath) => ({
-							filePath,
-							fileName: basename(filePath),
-							snapshotRootDir,
-							type: 'diff',
-							base64: readFileSync(filePath, 'base64'),
-						})),
+						...baselineFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'baseline')),
+						...diffFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'diff')),
 					]
 				})
 		},
+	}
+}
+
+function mapFileToResult(filePath: string, snapshotRootDir: string, type: 'baseline' | 'diff') {
+	return {
+		filePath,
+		fileName: basename(filePath),
+		snapshotRootDir,
+		type,
+		base64: readFileSync(filePath, 'base64'),
 	}
 }
