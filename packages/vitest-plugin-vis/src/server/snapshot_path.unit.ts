@@ -68,7 +68,7 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 })
 
 describe(`${getSnapshotSubpath.name}()`, () => {
-	it('should use defaultCustomizeSnapshotSubpath when customizeSnapshotSubpath is not provided', ({ expect }) => {
+	it('should use defaultSnapshotSubpath when snapshotSubpath is not provided', ({ expect }) => {
 		const options: VisOptions = {}
 		const suiteNames = [
 			'tests/myTestSuite',
@@ -88,7 +88,7 @@ describe(`${getSnapshotSubpath.name}()`, () => {
 		expect(result).toBe('a/b')
 	})
 
-	it('should use customizeSnapshotSubpath when provided', ({ expect }) => {
+	it('should use snapshotSubpath when provided', ({ expect }) => {
 		const suiteName = 'tests/myTestSuite'
 		const options: VisOptions = {
 			snapshotSubpath: ({ subpath }) => subpath,

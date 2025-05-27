@@ -229,7 +229,7 @@ By default, [`storybook-addon-vis`][storybook-addon-vis] removes that folder to 
 
 If you place your test files in multiple folders,
 such as in both `tests` and `src` folders,
-you can use `customizeSnapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
+you can use `snapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
 
 ```ts
 // vitest.config.ts

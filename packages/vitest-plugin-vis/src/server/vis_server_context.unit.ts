@@ -45,12 +45,12 @@ describe(`${createVisServerContext.name}`, () => {
 			expect(state.snapshotRootDir).toEqual(`${SNAPSHOT_ROOT_DIR}/${ci ? process.platform : 'local'}`)
 		})
 
-		it('honors the provided customizeSnapshotSubpath', async ({ expect }) => {
+		it('honors the provided snapshotSubpath', async ({ expect }) => {
 			const visContext = createVisServerContext()
 			const browserContext = stubCommandContext()
 			const suiteId = relative(browserContext.project.config.root, browserContext.testPath)
 
-			const customizeSnapshotSubpath = ({ subpath }: { subpath: string }) => subpath
+			const snapshotSubpath = ({ subpath }: { subpath: string }) => subpath
 			const userConfig = stubUserConfig({
 				root: resolve(import.meta.dirname, '../..'),
 				test: {
@@ -58,7 +58,7 @@ describe(`${createVisServerContext.name}`, () => {
 					browser: { name: 'chrome', provider: 'playwright' },
 				},
 			})
-			setVisOption(userConfig, { snapshotSubpath: customizeSnapshotSubpath })
+			setVisOption(userConfig, { snapshotSubpath })
 
 			await setupSuite(browserContext)
 
