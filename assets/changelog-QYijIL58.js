@@ -1,4 +1,4 @@
-import{j as t}from"./jsx-runtime-Cf8x2fCZ.js";import{useMDXComponents as a}from"./index-DI2gBlDf.js";import{M as i,b as s}from"./index-DEkWjMFa.js";import"./index-yBjzXJbu.js";import"./index-BlmOqGMO.js";import"./index-DUfm9Vh_.js";import"./index-fNjTmf9T.js";import"./iframe-Joza8t-l.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const d=`# CHANGE LOG
+import{j as t}from"./jsx-runtime-Cf8x2fCZ.js";import{useMDXComponents as a}from"./index-DI2gBlDf.js";import{M as i,b as s}from"./index-COMFhhUq.js";import"./index-yBjzXJbu.js";import"./index-BlmOqGMO.js";import"./index-hfhMq73W.js";import"./index-fNjTmf9T.js";import"./iframe-CkrkBDBo.js";import"./index-CXQShRbs.js";import"./index-DrFu-skq.js";const d=`# CHANGE LOG
 
 ## 1.1.0
 
