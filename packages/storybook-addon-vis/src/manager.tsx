@@ -32,6 +32,9 @@ addons.register(NAME, (api) => {
 							setSnapshotResults(event.results)
 						}
 					}),
+					// api.on('UNIVERSAL_STORE:storybook/test', (event) => {
+					// 	console.log('storybook/test', event)
+					// }),
 				]
 				api.emit(NAME, requestImageSnapshotResults(storyData))
 				return () => disposes.forEach((dispose) => dispose())
