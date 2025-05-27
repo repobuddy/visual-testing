@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 1.0.2
+
+### Patch Changes
+
+- [#286](https://github.com/repobuddy/visual-testing/pull/286) [`b4aebba`](https://github.com/repobuddy/visual-testing/commit/b4aebba9053fe6da5edfaf99ccac407f8391c022) Thanks [@unional](https://github.com/unional)! - Remove `@types/pixelmatch` from peer dependency.
+
 ## 1.0.1
 
 ### Patch Changes
