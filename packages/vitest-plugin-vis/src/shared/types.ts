@@ -84,6 +84,9 @@ export interface PageImageSnapshotOptions {
 	fullPage?: boolean | undefined
 }
 
+export type ToMatchPageImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ToMatchImageSnapshotOptions<M> &
+	PageImageSnapshotOptions
+
 export type SnapshotTestMeta = {
 	meta: {
 		[NAME]?: SnapshotMeta<ComparisonMethod>
