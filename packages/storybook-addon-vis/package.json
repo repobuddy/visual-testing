@@ -130,7 +130,6 @@
 		"zx": "^8.0.0"
 	},
 	"peerDependencies": {
-		"@types/pixelmatch": "^5.2.6",
 		"@vitest/browser": "^2 || ^3",
 		"storybook": "^8.3.0",
 		"vitest": "^2 || ^3"
