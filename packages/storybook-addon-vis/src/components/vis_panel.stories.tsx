@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
-import { ThemeProvider, themes } from 'storybook/internal/theming'
+import { convert, ThemeProvider, themes } from 'storybook/internal/theming'
 import type { ImageSnapshotResults } from '../shared/events.ts'
 import { VisPanel } from './vis_panel.tsx'
 
@@ -21,7 +21,7 @@ const meta: Meta<typeof VisPanel> = {
 	},
 	decorators: [
 		(Story) => (
-			<ThemeProvider theme={themes.dark}>
+			<ThemeProvider theme={convert(themes.dark)}>
 				<Story />
 			</ThemeProvider>
 		),

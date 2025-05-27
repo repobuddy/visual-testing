@@ -23,16 +23,18 @@ addons.register(NAME, (api) => {
 			const storyData = api.getCurrentStoryData()
 
 			useEffect(() => {
-				const dispose = api.on(NAME, (event: VisEvent) => {
-					if (event.name !== storyData.name) return
-					if (event.importPath !== storyData.importPath) return
+				const disposes = [
+					api.on(NAME, (event: VisEvent) => {
+						if (event.name !== storyData.name) return
+						if (event.importPath !== storyData.importPath) return
 
-					if (event.type === IMAGE_SNAPSHOT_RESULTS_RESPONSE) {
-						setSnapshotResults(event.results)
-					}
-				})
+						if (event.type === IMAGE_SNAPSHOT_RESULTS_RESPONSE) {
+							setSnapshotResults(event.results)
+						}
+					}),
+				]
 				api.emit(NAME, requestImageSnapshotResults(storyData))
-				return dispose
+				return () => disposes.forEach((dispose) => dispose())
 			}, [storyData])
 			return (
 				<VisPanel
