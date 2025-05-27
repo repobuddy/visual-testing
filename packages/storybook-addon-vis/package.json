@@ -62,7 +62,7 @@
 	],
 	"scripts": {
 		"build": "tsup --tsconfig tsconfig.tsup.json",
-		"build:sb": "NODE_ENV=production storybook build",
+		"build:sb": "cross-env NODE_ENV=production storybook build",
 		"clean": "rimraf coverage dist esm --glob *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "vitest run --coverage",

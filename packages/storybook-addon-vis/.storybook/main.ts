@@ -25,7 +25,7 @@ const config: StorybookConfig = {
 		},
 	],
 	tags: {
-		private: {
+		internal: {
 			excludeFromSidebar: process.env.NODE_ENV === 'production',
 		},
 	},
