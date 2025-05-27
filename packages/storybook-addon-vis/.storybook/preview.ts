@@ -1,4 +1,3 @@
-import { defineParameters } from '@repobuddy/storybook'
 import {
 	createDarkModeDocsContainer,
 	defineDarkModeParam,
@@ -9,24 +8,27 @@ import type { Preview } from '@storybook/react'
 import '../tailwind.css'
 
 const preview: Preview = {
-	parameters: defineParameters(
-		{
-			controls: {
-				matchers: {
-					color: /(background|color)$/i,
-					date: /Date$/,
-				},
-			},
-			docs: {
-				container: createDarkModeDocsContainer(),
+	parameters: {
+		controls: {
+			matchers: {
+				color: /(background|color)$/i,
+				date: /Date$/,
 			},
 		},
-		defineDarkModeParam({
+		docs: {
+			container: createDarkModeDocsContainer(),
+		},
+		options: {
+			storySort: {
+				order: ['Overview', 'Installation', 'Basic Setup', 'Changelog'],
+			},
+		},
+		...defineDarkModeParam({
 			classTarget: 'html',
 			stylePreview: true,
 			darkClass: 'dark',
 		}),
-	),
+	},
 	initialGlobals: {
 		background: { value: 'dark' },
 	},

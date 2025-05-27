@@ -9,4 +9,4 @@ const project = setProjectAnnotations([visAnnotations, projectAnnotations])
 
 beforeAll(project.beforeAll)
 
-vis.setup({ auto: true })
+vis.setup()
