@@ -103,6 +103,62 @@ vis.setup({
 })
 ```
 
+## Multiple vitest projects or custom paths
+
+If your setup uses multiple vitest projects or custom paths,
+you need to tell the addon where to load the snapshot so it can show them in the `Vis` panel.
+
+For example,
+
+```ts
+// vitest.config.ts
+
+export default defineConfig({
+	test: {
+		workspace: [{
+			plugins: [
+				storybookVis({
+					snapshotRootDir: '__vis__/chromium',
+					// or
+					snapshotSubpath: '...'
+				}),
+			],
+		}, {
+			plugins: [
+				storybookVis({
+					snapshotRootDir: '__vis__/firefox',
+					// or
+					snapshotSubpath: '...'
+				}),
+			],
+		}],
+	}
+})
+```
+
+Update your `.storybook/main.ts` to specify the correct paths:
+
+```ts
+// .storybook/main.ts
+
+export default {
+  addons: [
+		{
+			name: 'storybook-addon-vis',
+			options: {
+				visProjects: [{
+					snapshotRootDir: '__vis__/chromium',
+					snapshotSubpath: '...'
+				},{
+					snapshotRootDir: '__vis__/firefox',
+					snapshotSubpath: '...'
+				}]
+			}
+		}
+	]
+}
+```
+
 ## Taking specific snapshots
 
 Say you want to take snapshots for multiple themes,
@@ -124,10 +180,12 @@ vis.setup({
 	auto: {
 		async dark({ tags }) {
 			if (tags.includes('skip-dark')) return false
+			document.body.classList.add('dark')
 		}
 	}
 })
 ```
 
 [storybook-addon-vis]: https://www.npmjs.com/package/storybook-addon-vis
+[storybook-test-addon]: https://storybook.js.org/docs/writing-tests/test-addon
 [vitest-plugin-vis]: https://www.npmjs.com/package/vitest-plugin-vis
