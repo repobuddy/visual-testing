@@ -1,5 +1,16 @@
 # CHANGE LOG
 
+## 1.1.0
+
+### Minor Changes
+
+- [#289](https://github.com/repobuddy/visual-testing/pull/289) [`2649ed1`](https://github.com/repobuddy/visual-testing/commit/2649ed17fb8f12870070d093b33a80006885fab9) Thanks [@unional](https://github.com/unional)! - Add `page.toMatchImageSnapshot()`.
+
+### Patch Changes
+
+- Updated dependencies [[`9ba3e59`](https://github.com/repobuddy/visual-testing/commit/9ba3e59dc6ecf4f2943200db6a51a07791ac5c6d)]:
+  - vitest-plugin-vis@3.1.0
+
 ## 1.0.2
 
 ### Patch Changes
