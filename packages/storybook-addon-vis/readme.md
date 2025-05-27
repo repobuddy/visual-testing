@@ -240,7 +240,7 @@ export default defineConfig({
 	plugins: [
 		storybookVis({
 			// keep the folder structure
-			customizeSnapshotSubpath: (subpath) => subpath
+			snapshotSubpath: (subpath) => subpath
 		})
 	],
 	// ...
