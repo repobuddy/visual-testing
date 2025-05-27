@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 3.1.0
+
+### Minor Changes
+
+- [#289](https://github.com/repobuddy/visual-testing/pull/289) [`9ba3e59`](https://github.com/repobuddy/visual-testing/commit/9ba3e59dc6ecf4f2943200db6a51a07791ac5c6d) Thanks [@unional](https://github.com/unional)! - Export `matchPageImageSnapshotAction` and types in `/client-api`
+
 ## 3.0.1
 
 ### Patch Changes
