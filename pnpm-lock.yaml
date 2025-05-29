@@ -106,8 +106,8 @@ importers:
         version: link:../vitest-plugin-vis
     devDependencies:
       '@repobuddy/storybook':
-        specifier: ^0.13.0
-        version: 0.13.0(@storybook/blocks@8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.5.3)))(storybook-addon-tag-badges@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(storybook-dark-mode@4.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))
+        specifier: ^0.15.0
+        version: 0.15.0(@storybook/blocks@8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.5.3)))(storybook-addon-tag-badges@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(storybook-dark-mode@4.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))
       '@storybook/addon-essentials':
         specifier: ^8.6.14
         version: 8.6.14(@types/react@18.3.22)(storybook@8.6.14(prettier@3.5.3))
@@ -1355,8 +1355,8 @@ packages:
     peerDependencies:
       '@biomejs/biome': '>= 1.8.0'
 
-  '@repobuddy/storybook@0.13.0':
-    resolution: {integrity: sha512-FEkRS5QMbOXL7NBOc7DYSBMDBnRmTqyl/GtVdheROeU9fsXpoHVeJ6/mn3+uj2DRy78yf0bs+eWQyiPtmR4Now==}
+  '@repobuddy/storybook@0.15.0':
+    resolution: {integrity: sha512-PUrQbRdTNRzRA7Xu3Wx2j+YvM7M2xwAwmPCW3VBk8Vhx92Z8cpjESZQlNXavTgqLFrGq5Fc0tmdqPJjMY8BAoQ==}
     peerDependencies:
       '@storybook/blocks': '>= 8.6.12'
       '@storybook/theming': '>= 8.6.12'
@@ -2955,6 +2955,9 @@ packages:
 
   htmlfy@0.6.5:
     resolution: {integrity: sha512-2idle1yo+Ft3ttDc4cZkVPaWBS5F15Pyrq4XGecSxF2ksqZVUzuCTd0OXar1vxq9UDQX/lzfr/iDwYo3aRuOTA==}
+
+  htmlfy@0.7.5:
+    resolution: {integrity: sha512-woog97QSD0MJVXDs4nNz3S/XIb+wa/UgunpaI29tbXaTB9SlNvQalw1XolE4m3BPp3xkJMx96I27Lb/clesPLA==}
 
   htmlparser2@9.1.0:
     resolution: {integrity: sha512-5zfg6mHUoaer/97TxnGpxmbR7zJtPwIYFMZ/H5ucTlPZhKvtum05yiPK3Mgai3a0DyVxv7qYqoweaEd2nrYQzQ==}
@@ -5720,10 +5723,11 @@ snapshots:
     dependencies:
       '@biomejs/biome': 1.9.4
 
-  '@repobuddy/storybook@0.13.0(@storybook/blocks@8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.5.3)))(storybook-addon-tag-badges@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(storybook-dark-mode@4.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))':
+  '@repobuddy/storybook@0.15.0(@storybook/blocks@8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.5.3)))(storybook-addon-tag-badges@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(storybook-dark-mode@4.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))':
     dependencies:
       '@just-web/css': 0.5.0
       '@repobuddy/test': 1.0.0
+      htmlfy: 0.7.5
     optionalDependencies:
       '@storybook/blocks': 8.6.14(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3))
       '@storybook/theming': 8.6.14(storybook@8.6.14(prettier@3.5.3))
@@ -7409,6 +7413,8 @@ snapshots:
   html-escaper@2.0.2: {}
 
   htmlfy@0.6.5: {}
+
+  htmlfy@0.7.5: {}
 
   htmlparser2@9.1.0:
     dependencies:
