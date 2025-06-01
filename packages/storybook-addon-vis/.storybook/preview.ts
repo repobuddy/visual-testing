@@ -3,7 +3,7 @@ import {
 	defineDarkModeParam,
 	withDarkMode,
 } from '@repobuddy/storybook/storybook-dark-mode'
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react-vite'
 
 import '../tailwind.css'
 

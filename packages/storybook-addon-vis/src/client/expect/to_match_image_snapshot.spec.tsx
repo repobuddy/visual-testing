@@ -1,4 +1,4 @@
-import { composeStories } from '@storybook/react'
+import { composeStories } from '@storybook/react-vite'
 import { screen } from '@testing-library/react'
 import { page } from '@vitest/browser/context'
 import { expect, it } from 'vitest'

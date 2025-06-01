@@ -1,4 +1,4 @@
-import { composeStories } from '@storybook/react'
+import { composeStories } from '@storybook/react-vite'
 import { it } from 'vitest'
 import * as rawStories from './story_snapshot.stories'
 
