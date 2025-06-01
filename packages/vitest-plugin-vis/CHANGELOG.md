@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 3.2.0
+
+### Minor Changes
+
+- [#303](https://github.com/repobuddy/visual-testing/pull/303) [`b697842`](https://github.com/repobuddy/visual-testing/commit/b6978423c581c97bea8761339a3bc9c50054c511) Thanks [@unional](https://github.com/unional)! - Export `getSnapshotRootDir()` under `/server-utils`
+
 ## 3.1.0
 
 ### Minor Changes
