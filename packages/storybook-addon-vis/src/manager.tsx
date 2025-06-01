@@ -15,7 +15,8 @@ addons.register(NAME, (api) => {
 	addons.add(VIS_PANEL_ID, {
 		type: types.PANEL,
 		title: 'Vis',
-		match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
+		match: ({ tabId, viewMode }) =>
+			(globalThis as any)['CONFIG_TYPE'] === 'DEVELOPMENT' && !tabId && viewMode === 'story',
 		render({ active }) {
 			if (!active) return null
 			const [snapshotResults, setSnapshotResults] = useState<ImageSnapshotResults[]>([])
