@@ -19,7 +19,7 @@ export function resolveSnapshotRootDir(browserCommandContext: PartialBrowserComm
 	})
 }
 
-function getSnapshotRootDir(snapshotRootDir: string) {
+export function getSnapshotRootDir(snapshotRootDir: string) {
 	return `${snapshotRootDir}/${ci ? platform : 'local'}`
 }
 
