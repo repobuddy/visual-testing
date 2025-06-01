@@ -1,7 +1,9 @@
 name: release
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - releases/*
 
 jobs:
   verify:
