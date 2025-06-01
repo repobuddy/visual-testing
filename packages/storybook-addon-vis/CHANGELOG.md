@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 2.0.0
+
+### Major Changes
+
+- [#297](https://github.com/repobuddy/visual-testing/pull/297) [`e71893a`](https://github.com/repobuddy/visual-testing/commit/e71893afed69d732f61a6daf166ff5a97e3c305e) Thanks [@unional](https://github.com/unional)! - Supports Storybook 9.0.0
+
 ## 1.1.0
 
 ### Minor Changes
