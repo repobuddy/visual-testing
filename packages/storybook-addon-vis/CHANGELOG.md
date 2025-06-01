@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 2.0.2
+
+### Patch Changes
+
+- [#306](https://github.com/repobuddy/visual-testing/pull/306) [`4923c82`](https://github.com/repobuddy/visual-testing/commit/4923c82062bccab2e37863d9c193b96388c8c92d) Thanks [@unional](https://github.com/unional)! - Fix loading snapshots on Vis panel without options.
+
 ## 2.0.1
 
 ### Patch Changes
