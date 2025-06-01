@@ -1,3 +1,0 @@
-import{j as r}from"./jsx-runtime-Cf8x2fCZ.js";import"./index-yBjzXJbu.js";const d={title:"tags/per meta",render:()=>r.jsx(r.Fragment,{children:"unit test"}),tags:["snapshot"],parameters:{layout:"centered"}},s={},e={tags:["!snapshot"]};var t,a,o;s.parameters={...s.parameters,docs:{...(t=s.parameters)==null?void 0:t.docs,source:{originalSource:"{}",...(o=(a=s.parameters)==null?void 0:a.docs)==null?void 0:o.source}}};var p,n,c;e.parameters={...e.parameters,docs:{...(p=e.parameters)==null?void 0:p.docs,source:{originalSource:`{
-  tags: ['!snapshot']
-}`,...(c=(n=e.parameters)==null?void 0:n.docs)==null?void 0:c.source}}};const u=["TakeSnapshot","SkipSnapshot"];export{e as SkipSnapshot,s as TakeSnapshot,u as __namedExportsOrder,d as default};
