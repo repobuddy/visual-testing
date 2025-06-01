@@ -80,7 +80,7 @@ export default defineConfig(async (options) => {
 				'vitest',
 				'@vitest/expect',
 				'@vitest/browser',
-				'@storybook/test',
+				'storybook/test',
 			],
 		})
 	}
@@ -117,7 +117,7 @@ export default defineConfig(async (options) => {
 			external: [
 				...globalPreviewPackages,
 				// external `@storybook/test` to fix `Failed to resolve import "@storybook/global"`
-				'@storybook/test',
+				'storybook/test',
 			],
 		})
 	}

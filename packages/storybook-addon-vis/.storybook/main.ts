@@ -4,12 +4,10 @@ import { dirname, join } from 'node:path'
 const config: StorybookConfig = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
 	addons: [
-		getAbsolutePath('@storybook/addon-links'),
-		getAbsolutePath('@storybook/addon-essentials'),
-		getAbsolutePath('@storybook/addon-storysource'),
-		getAbsolutePath('@storybook/experimental-addon-test'),
-		getAbsolutePath('storybook-dark-mode'),
+		getAbsolutePath('@storybook/addon-docs'),
+		getAbsolutePath('@storybook/addon-vitest'),
 		getAbsolutePath('storybook-addon-tag-badges'),
+		getAbsolutePath('storybook-dark-mode2'),
 		{
 			name: './local-preset.cjs',
 			options: {

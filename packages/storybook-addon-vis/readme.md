@@ -25,6 +25,11 @@ This add-on provides similar functionality to [`jest-image-snapshot`][jest-image
 In addition, you can capture image snapshot manually,
 and controls how the auto image snapshot(s) are taken.
 
+> [!NOTE]
+> [storybook-addon-vis] 2.0.0 supports Storybook 9.
+>
+> For Storybook 8, please use 1.x.
+
 ## Install
 
 ```sh
@@ -99,7 +104,7 @@ For [Vitest], you need to:
 
 ```ts
 // vitest.config.ts
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 

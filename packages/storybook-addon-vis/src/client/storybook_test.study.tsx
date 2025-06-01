@@ -1,5 +1,5 @@
-import { composeStories } from '@storybook/react'
-import { screen } from '@storybook/test'
+import { composeStories } from '@storybook/react-vite'
+import { screen } from 'storybook/test'
 import { page } from '@vitest/browser/context'
 import { test } from 'vitest'
 import * as stories from './expect/to_match_image_snapshot.stories.tsx'
