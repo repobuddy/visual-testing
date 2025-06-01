@@ -4,23 +4,32 @@ import memoize from 'memoize'
 import { readFileSync } from 'node:fs'
 import { platform } from 'node:process'
 import { basename, resolve } from 'pathe'
-import { BASELINE_DIR, DIFF_DIR, SNAPSHOT_ROOT_DIR, trimCommonFolder } from 'vitest-plugin-vis/server-utils'
+import {
+	BASELINE_DIR,
+	DIFF_DIR,
+	getSnapshotRootDir,
+	SNAPSHOT_ROOT_DIR,
+	trimCommonFolder,
+} from 'vitest-plugin-vis/server-utils'
 import type { StorybookVisOptions } from './vis_options.ts'
 
 export function createStorybookVisServer(options: StorybookVisOptions) {
-	const visSuites = options.visProjects ?? [{ snapshotRootDir: SNAPSHOT_ROOT_DIR }]
+	const visSuites = options.visProjects ?? [{}]
 	return {
 		options,
 		async getImageSnapshotResults(name: string, importPath: string) {
 			return visSuites
 				.map((suite) => {
 					const snapshotRootDir =
-						(typeof suite.snapshotRootDir === 'function'
-							? memoize(suite.snapshotRootDir)({
-									ci,
-									platform,
-								})
-							: suite.snapshotRootDir) ?? SNAPSHOT_ROOT_DIR
+						typeof suite.snapshotRootDir === 'string'
+							? suite.snapshotRootDir
+							: typeof suite.snapshotRootDir === 'function'
+								? memoize(suite.snapshotRootDir)({
+										ci,
+										platform,
+									})
+								: memoize(getSnapshotRootDir)(SNAPSHOT_ROOT_DIR)
+
 					const snapshotSubpathFn =
 						typeof suite.snapshotSubpath === 'function'
 							? memoize(suite.snapshotSubpath)
