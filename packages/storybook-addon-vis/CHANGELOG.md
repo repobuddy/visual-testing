@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## 1.1.2
+
+### Patch Changes
+
+- [#303](https://github.com/repobuddy/visual-testing/pull/303) [`a98af5b`](https://github.com/repobuddy/visual-testing/commit/a98af5bbb9a02152cefd07bda1a094fa8afdd9be) Thanks [@unional](https://github.com/unional)! - Fix loading snapshots on Vis panel without options.
+
+- Updated dependencies [[`b697842`](https://github.com/repobuddy/visual-testing/commit/b6978423c581c97bea8761339a3bc9c50054c511)]:
+  - vitest-plugin-vis@3.2.0
+
 ## 1.1.1
 
 ### Patch Changes
