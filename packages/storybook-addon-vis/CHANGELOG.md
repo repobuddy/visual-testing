@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 2.0.1
+
+### Patch Changes
+
+- [`a68f517`](https://github.com/repobuddy/visual-testing/commit/a68f517fddfb663dd3b313bcef975fc2393d52be) Thanks [@unional](https://github.com/unional)! - Remove `preview.js`.
+
 ## 2.0.0
 
 ### Major Changes
