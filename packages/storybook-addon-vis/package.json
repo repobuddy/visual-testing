@@ -38,10 +38,6 @@
 			"import": "./dist/matcher.js"
 		},
 		"./preset": "./dist/preset.cjs",
-		"./preview": {
-			"types": "./dist/preview.d.ts",
-			"import": "./dist/preview.js"
-		},
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
 			"import": "./dist/vitest-setup.js"
