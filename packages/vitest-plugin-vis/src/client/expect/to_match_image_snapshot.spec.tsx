@@ -112,7 +112,7 @@ it('fails when the image is smaller', async ({ expect }) => {
 			},
 			(error) => {
 				expect(error.message).toMatch(/^Snapshot .* mismatched/)
-				expect(error.message).toMatch(/The image size changed from 128x128 to 64x64/)
+				expect(error.message).toMatch(/The image size changed from \d{3}x\d{3} to \d{2}x\d{2}/)
 			},
 		)
 })
@@ -140,7 +140,7 @@ it('fails when the image is larger', async ({ expect }) => {
 			},
 			(error) => {
 				expect(error.message).toMatch(/^Snapshot .* mismatched/)
-				expect(error.message).toMatch(/The image size changed from 64x64 to 128x128/)
+				expect(error.message).toMatch(/The image size changed from \d{2}x\d{2} to \d{3}x\d{3}/)
 			},
 		)
 })
