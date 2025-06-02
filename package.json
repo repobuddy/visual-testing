@@ -49,5 +49,5 @@
 		"vitest": "catalog:",
 		"webdriverio": "^9.12.2"
 	},
-	"packageManager": "pnpm@10.11.0"
+	"packageManager": "pnpm@10.11.1"
 }
