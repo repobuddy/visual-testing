@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 2.0.5
+
+### Patch Changes
+
+- [`e1eb154`](https://github.com/repobuddy/visual-testing/commit/e1eb1548c842a3041587bf2f51c54f5d8e83bca4) Thanks [@unional](https://github.com/unional)! - Hide `Vis Panel` on production build
+
 ## 2.0.4
 
 ### Patch Changes
