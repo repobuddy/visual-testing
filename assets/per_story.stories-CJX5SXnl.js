@@ -1,4 +1,4 @@
-import{j as h}from"./iframe-B2BsmYzY.js";const g={title:"tags/per story",render:()=>h.jsx("div",{"data-testid":"subject",children:"unit test"})},s={tags:["snapshot"]},a={tags:["!snapshot"]},t={tags:["!snapshot","snapshot"]};var r,e,o;s.parameters={...s.parameters,docs:{...(r=s.parameters)==null?void 0:r.docs,source:{originalSource:`{
+import{j as h}from"./iframe-Dx8bheBJ.js";const g={title:"tags/per story",render:()=>h.jsx("div",{"data-testid":"subject",children:"unit test"})},s={tags:["snapshot"]},a={tags:["!snapshot"]},t={tags:["!snapshot","snapshot"]};var r,e,o;s.parameters={...s.parameters,docs:{...(r=s.parameters)==null?void 0:r.docs,source:{originalSource:`{
   tags: ['snapshot']
 }`,...(o=(e=s.parameters)==null?void 0:e.docs)==null?void 0:o.source}}};var n,p,c;a.parameters={...a.parameters,docs:{...(n=a.parameters)==null?void 0:n.docs,source:{originalSource:`{
   tags: ['!snapshot']

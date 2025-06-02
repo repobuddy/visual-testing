@@ -1,4 +1,10 @@
-import{j as t,M as a,h as i}from"./iframe-B2BsmYzY.js";import{useMDXComponents as s}from"./index-DZbrIOvs.js";const d=`# CHANGE LOG
+import{j as t,M as a,h as i}from"./iframe-Dx8bheBJ.js";import{useMDXComponents as s}from"./index-DkPskhUi.js";const d=`# CHANGE LOG
+
+## 2.0.5
+
+### Patch Changes
+
+- [\`e1eb154\`](https://github.com/repobuddy/visual-testing/commit/e1eb1548c842a3041587bf2f51c54f5d8e83bca4) Thanks [@unional](https://github.com/unional)! - Hide \`Vis Panel\` on production build
 
 ## 2.0.4
 
