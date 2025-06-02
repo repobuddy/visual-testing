@@ -4,4 +4,89 @@ import { Meta, Markdown } from "@storybook/addon-docs/blocks";
 
 # Vitest Visual Testing Plugin
 
-Vitest visual testing plugin allowing you to capture and compare image snapshots automatically and manually.
+[vitest-plugin-vis] provides visual testing for [Vitest] when running in [Browser Mode][browser-mode].
+
+It offers a new unique features:
+
+- You can capture and compare image snapshot both automatically and manually.
+- You can take a snapshot of the whole page or a specific component.
+- You can take snapshots in different environments, platform, browser, screen size and themes.
+- The snapshots are stored locally in the `__vis__` directory.
+- You can enable, disable, and customize how the snapshots are taken and compared.
+
+## Install
+
+[vitest-plugin-vis] works with Vitest 2.0.0 or later.
+
+```sh
+npm install --save-dev vitest-plugin-vis
+
+pnpm add --save-dev vitest-plugin-vis
+
+yarn add --save-dev vitest-plugin-vis
+```
+
+## Basic Configuration
+
+To use [vitest-plugin-vis], you need to add it to your Vitest configuration.
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+	test: {
+		// vitest v2
+		browser: {
+			enabled: true,
+			provider: 'playwright',
+			name: 'chromium',
+		},
+		// vitest v3
+		browser: {
+			enabled: true,
+			provider: 'playwright',
+			instances: [
+				{ browser: 'chromium' }
+			]
+		}
+	}
+})
+```
+
+This default configuration will:
+
+- Use the `auto` preset, taking image snapshot at the end on each rendering test.
+- Use `pixelmatch` as the image comparison method.
+- Set config to compare image snapshot with a failure threshold of `0 pixels`.
+- Timeout for image comparison is set to `30000 ms`.
+- Save image snapshots in the `<project-root>/__vis__` directory.
+
+## Update .gitignore
+
+By default, [vitest-plugin-vis] will save image snapshots in the `<project-root>/__vis__` directory.
+
+Under this directory, you will find different set of snapshots for different environments:
+
+- `local`: For snapshots taken locally.
+- `<platform: ubuntu | darwin | win32>`: Fom snapshots taken in respective CI.
+
+In each platform directory, there are 3 directories:
+
+- `__baselines__`: The directory for the baseline snapshots. This should be committed to the repository (except for `local`).
+- `__results__`: The directory for the current snapshots created when Vitest runs.
+- `__diffs__`: The directory for the diffs between the current snapshot and the baseline snapshot.
+
+Because of that, you should add the following lines to your `.gitignore` file:
+
+```gitignore
+**/__vis__/local
+**/__vis__/**/__diffs__
+**/__vis__/**/__results__
+```
+
+[browser-mode]: https://vitest.dev/guide/browser
+[vitest]: https://vitest.dev
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis

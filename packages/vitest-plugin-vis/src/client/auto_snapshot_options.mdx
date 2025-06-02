@@ -1,0 +1,255 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { setAutoSnapshotOptions } from '../index'
+
+<Meta title="vitest-plugin-vis/setAutoSnapshotOptions" />
+
+# setAutoSnapshotOptions
+
+A function to configure visual snapshot testing options for the current test or test suite.
+
+## Usage
+
+You can use `setAutoSnapshotOptions` in `beforeAll`, `beforeEach`, or individual test cases to control snapshot behavior:
+
+```ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+beforeAll(() => {
+	setAutoSnapshotOptions(...)
+})
+
+beforeEach(() => {
+	setAutoSnapshotOptions(...)
+})
+
+// Set options for a specific test
+it('...', () => {
+	setAutoSnapshotOptions(...)
+})
+```
+
+## Options
+
+The function accepts either a boolean value or an options object with the following properties:
+
+### Basic Control
+
+#### `enable` (boolean)
+Controls whether auto snapshots are enabled for the test.
+
+```ts
+// Enable auto snapshots
+setAutoSnapshotOptions({ enable: true })
+
+// Disable auto snapshots
+setAutoSnapshotOptions({ enable: false })
+
+// Shorthand for enable: true
+setAutoSnapshotOptions(true)
+
+// Shorthand for enable: false
+setAutoSnapshotOptions(false)
+```
+
+### Subject Selection
+
+#### `subject` (string)
+Specifies the CSS selector for the element to snapshot. If not provided or element not found, defaults to `document.body`.
+
+```ts
+// Snapshot a specific element
+setAutoSnapshotOptions({
+  subject: '[data-testid="main-content"]'
+})
+
+// Snapshot by class name
+setAutoSnapshotOptions({
+  subject: '.my-component'
+})
+
+// Snapshot by ID
+setAutoSnapshotOptions({
+  subject: '#app-container'
+})
+```
+
+### Snapshot Identification
+
+#### `snapshotKey` (string)
+Customizes the snapshot key/name for the test.
+
+```ts
+// Custom snapshot key
+setAutoSnapshotOptions({
+  snapshotKey: 'my-custom-snapshot'
+})
+
+// Dynamic snapshot key based on test data
+setAutoSnapshotOptions({
+  snapshotKey: `user-profile-${userId}`
+})
+```
+
+### Timing Options
+
+#### `timeout` (number)
+Sets the timeout for taking the snapshot in milliseconds. Default is 30000ms (30 seconds).
+
+```ts
+// Set custom timeout
+setAutoSnapshotOptions({
+  timeout: 60000 // 60 seconds
+})
+
+// Quick timeout for fast tests
+setAutoSnapshotOptions({
+  timeout: 5000 // 5 seconds
+})
+```
+
+### Comparison Methods
+
+#### `comparisonMethod` ('pixel' | 'ssim')
+Specifies the algorithm used for image comparison.
+
+```ts
+// Use pixel-based comparison (default)
+setAutoSnapshotOptions({
+  comparisonMethod: 'pixel'
+})
+
+// Use SSIM (Structural Similarity Index) comparison
+setAutoSnapshotOptions({
+  comparisonMethod: 'ssim'
+})
+```
+
+### Failure Thresholds
+
+#### `failureThreshold` (number)
+Sets the tolerance level for differences before considering a test failed.
+
+```ts
+// Allow 5% difference
+setAutoSnapshotOptions({
+  failureThreshold: 0.05,
+  failureThresholdType: 'percent'
+})
+
+// Allow 100 different pixels
+setAutoSnapshotOptions({
+  failureThreshold: 100,
+  failureThresholdType: 'pixel'
+})
+```
+
+#### `failureThresholdType` ('pixel' | 'percent')
+Specifies whether the failure threshold is measured in pixels or percentage. Default is 'pixel'.
+
+```ts
+// Threshold as percentage
+setAutoSnapshotOptions({
+  failureThreshold: 2.5,
+  failureThresholdType: 'percent'
+})
+
+// Threshold as pixel count (default)
+setAutoSnapshotOptions({
+  failureThreshold: 50,
+  failureThresholdType: 'pixel'
+})
+```
+
+### Diff Options
+
+#### `diffOptions` (object)
+Provides custom options for the comparison algorithm.
+
+For pixel comparison (using pixelmatch):
+```ts
+setAutoSnapshotOptions({
+  comparisonMethod: 'pixel',
+  diffOptions: {
+    threshold: 0.1,        // Matching threshold (0-1)
+    includeAA: false,      // Include anti-aliased pixels
+    alpha: 0.1,            // Blending factor of unchanged pixels
+    aaColor: [255, 255, 0], // Color of anti-aliased pixels
+    diffColor: [255, 0, 255] // Color of different pixels
+  }
+})
+```
+
+For SSIM comparison:
+```ts
+setAutoSnapshotOptions({
+  comparisonMethod: 'ssim',
+  diffOptions: {
+    ssim: 'fast',          // 'fast', 'original', or 'bezkrovny'
+    windowSize: 11,        // Window size for SSIM calculation
+    k1: 0.01,             // Algorithm parameter
+    k2: 0.03              // Algorithm parameter
+  }
+})
+```
+
+### Testing Options
+
+#### `expectToFail` (boolean)
+Expects the snapshot comparison to fail. Useful for testing error conditions.
+
+```ts
+// Expect this snapshot to fail
+setAutoSnapshotOptions({
+  expectToFail: true
+})
+```
+
+## Complete Examples
+
+### Basic Setup
+```ts
+beforeEach(() => {
+  setAutoSnapshotOptions({
+    enable: true,
+    subject: '[data-testid="app"]',
+    timeout: 10000
+  })
+})
+```
+
+### High-Precision SSIM Comparison
+```ts
+it('should match with high precision', () => {
+  setAutoSnapshotOptions({
+    comparisonMethod: 'ssim',
+    diffOptions: { ssim: 'bezkrovny' },
+    failureThreshold: 0.01,
+    failureThresholdType: 'percent'
+  })
+})
+```
+
+### Pixel-Perfect Comparison
+```ts
+it('should be pixel perfect', () => {
+  setAutoSnapshotOptions({
+    comparisonMethod: 'pixel',
+    diffOptions: { threshold: 0 },
+    failureThreshold: 0,
+    failureThresholdType: 'pixel'
+  })
+})
+```
+
+### Custom Subject with Tolerance
+```ts
+it('should snapshot modal with tolerance', () => {
+  setAutoSnapshotOptions({
+    subject: '[data-testid="modal"]',
+    failureThreshold: 5,
+    failureThresholdType: 'percent',
+    snapshotKey: 'modal-open'
+  })
+})
+```
+

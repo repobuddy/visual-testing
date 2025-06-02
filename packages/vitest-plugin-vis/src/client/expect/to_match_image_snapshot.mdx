@@ -11,3 +11,33 @@ It works with:
 - Image files (png)
 - Image data (Buffer, Uint8Array)
 - Base64 encoded image strings
+
+### Manual Snapshot Control
+
+When using manual setup, you can control snapshots programmatically in your tests:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Setup without auto snapshots
+vis.setup()
+```
+
+Then in your tests:
+
+```ts
+// some.test.ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+it('should take snapshot manually', async ({ expect }) => {
+	// Enable auto snapshot for this test
+	setAutoSnapshotOptions(true)
+
+	// Your test code here
+	render(<MyComponent />)
+
+	// Manual snapshot
+	await expect(document.body).toMatchImageSnapshot()
+})
+```
