@@ -4,6 +4,5 @@ import './client/page/extend.ts'
 
 export * from './client/setup/vis.ts'
 
-// This is exported for main/app boundary separation
-// They can co-exist in the same export file thanks to ESM.
+// This is deprecated and moved to `/client-api`.
 export * from './client/setup/create_vis.ts'
