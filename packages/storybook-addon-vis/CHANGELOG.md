@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## 2.0.3
+
+### Patch Changes
+
+- [#308](https://github.com/repobuddy/visual-testing/pull/308) [`d6e5979`](https://github.com/repobuddy/visual-testing/commit/d6e597906efcc1c5fa6383b365a0f9fdad4d792f) Thanks [@unional](https://github.com/unional)! - Update `preset.js` to ESM.
+  This fix the issue when running in Node 22.12+ where ESM is enabled by default.
+
 ## 2.0.2
 
 ### Patch Changes
