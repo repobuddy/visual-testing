@@ -1,0 +1,328 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="page/hasImageSnapshot" />
+
+# page.hasImageSnapshot
+
+`page.hasImageSnapshot()` is a utility method that checks if an image snapshot exists for the current test.
+
+This method allows you to conditionally execute code based on whether a snapshot has been previously created for the current test. It's particularly useful for negative testing scenarios, conditional snapshot creation, and handling different behavior for first-time runs vs. subsequent runs.
+
+## Basic Usage
+
+```ts
+import { page } from '@vitest/browser/context'
+
+it('should check if snapshot exists', async ({ expect }) => {
+	const hasSnapshot = await page.hasImageSnapshot()
+
+	if (!hasSnapshot) {
+		// First run - create baseline snapshot
+		await page.toMatchImageSnapshot()
+	} else {
+		// Subsequent runs - perform comparison
+		await expect(page.getByTestId('component')).toMatchImageSnapshot()
+	}
+})
+```
+
+## Options
+
+The `page.hasImageSnapshot()` method accepts an optional options object:
+
+### `snapshotKey`
+
+Custom key to identify the specific snapshot. If not provided, uses the default snapshot key for the test.
+
+```ts
+it('should check for specific snapshot', async ({ expect }) => {
+	// Check for default snapshot
+	const hasDefaultSnapshot = await page.hasImageSnapshot()
+
+	// Check for custom snapshot
+	const hasCustomSnapshot = await page.hasImageSnapshot({
+		snapshotKey: 'dark_mode'
+	})
+
+	expect(hasDefaultSnapshot).toBe(false)
+	expect(hasCustomSnapshot).toBe(false)
+})
+```
+
+**Important**: The `snapshotKey` cannot contain dash characters (-) as they are reserved for internal path separation.
+
+```ts
+// ❌ This will throw an error
+await page.hasImageSnapshot({ snapshotKey: 'invalid-key' })
+// Error: Snapshot key cannot contain dash
+
+// ✅ Use underscores or camelCase instead
+await page.hasImageSnapshot({ snapshotKey: 'valid_key' })
+await page.hasImageSnapshot({ snapshotKey: 'validKey' })
+```
+
+## Use Cases
+
+### Negative Testing
+
+Test behavior when snapshots don't exist:
+
+```ts
+it('should handle missing snapshots gracefully', async ({ expect }) => {
+	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey: 'nonexistent' })
+	expect(hasSnapshot).toBe(false)
+
+	// Now create the snapshot
+	await page.toMatchImageSnapshot({ snapshotKey: 'nonexistent' })
+
+	// Verify it now exists
+	const hasSnapshotAfter = await page.hasImageSnapshot({ snapshotKey: 'nonexistent' })
+	expect(hasSnapshotAfter).toBe(true)
+})
+```
+
+### Conditional Snapshot Creation
+
+Handle different behavior for first-time runs vs. subsequent runs:
+
+```ts
+it('should create or compare snapshots conditionally', async ({ expect }) => {
+	const hasSnapshot = await page.hasImageSnapshot()
+
+	if (!hasSnapshot) {
+		// First run - setup and create baseline
+		render(<MyComponent theme="light" />)
+		await page.toMatchImageSnapshot()
+	} else {
+		// Subsequent runs - test different scenarios
+		render(<MyComponent theme="dark" />)
+		await expect(page.getByTestId('component')).toMatchImageSnapshot({
+			expectToFail: true,
+			snapshotKey: 'dark_theme'
+		})
+	}
+})
+```
+
+### Theme or State-Specific Snapshots
+
+Work with different themes or application states:
+
+```ts
+it('should support theme-specific snapshots', async ({ expect }) => {
+	// Check for dark mode snapshot
+	const hasDarkSnapshot = await page.hasImageSnapshot({ snapshotKey: 'dark_mode' })
+
+	if (!hasDarkSnapshot) {
+		// Setup dark mode and create snapshot
+		document.body.classList.add('dark')
+		render(<MyApp />)
+		await page.toMatchImageSnapshot({ snapshotKey: 'dark_mode' })
+	}
+
+	// Check for light mode snapshot
+	const hasLightSnapshot = await page.hasImageSnapshot({ snapshotKey: 'light_mode' })
+
+	if (!hasLightSnapshot) {
+		// Setup light mode and create snapshot
+		document.body.classList.remove('dark')
+		render(<MyApp />)
+		await page.toMatchImageSnapshot({ snapshotKey: 'light_mode' })
+	}
+})
+```
+
+### Progressive Snapshot Building
+
+Build up complex test scenarios progressively:
+
+```ts
+it('should build snapshots progressively', async ({ expect }) => {
+	// Check if we have the base component snapshot
+	const hasBaseSnapshot = await page.hasImageSnapshot({ snapshotKey: 'base' })
+
+	if (!hasBaseSnapshot) {
+		render(<BaseComponent />)
+		await page.toMatchImageSnapshot({ snapshotKey: 'base' })
+	}
+
+	// Check if we have the enhanced component snapshot
+	const hasEnhancedSnapshot = await page.hasImageSnapshot({ snapshotKey: 'enhanced' })
+
+	if (!hasEnhancedSnapshot) {
+		render(<EnhancedComponent />)
+		await page.toMatchImageSnapshot({ snapshotKey: 'enhanced' })
+	}
+
+	// Now we can safely compare both exist
+	expect(await page.hasImageSnapshot({ snapshotKey: 'base' })).toBe(true)
+	expect(await page.hasImageSnapshot({ snapshotKey: 'enhanced' })).toBe(true)
+})
+```
+
+## Behavior and Limitations
+
+### Test Context Required
+
+The method must be called within a test context:
+
+```ts
+// ❌ This will throw an error
+const hasSnapshot = await page.hasImageSnapshot()
+// Error: `hasImageSnapshot()` must be called in a test.
+
+// ✅ Call within a test
+it('should work in test context', async () => {
+	const hasSnapshot = await page.hasImageSnapshot()
+	// This works correctly
+})
+```
+
+### Concurrent Tests Not Supported
+
+Cannot be used in concurrent tests because they share the same iframe environment:
+
+```ts
+// ❌ This will throw an error
+it.concurrent('should not work in concurrent test', async () => {
+	const hasSnapshot = await page.hasImageSnapshot()
+	// Error: `hasImageSnapshot()` cannot be called in a concurrent test because
+	// concurrent tests run at the same time in the same iframe and affect each other's environment.
+})
+
+// ✅ Use regular tests
+it('should work in regular test', async () => {
+	const hasSnapshot = await page.hasImageSnapshot()
+	// This works correctly
+})
+```
+
+### Async Operation
+
+Always returns a Promise, so you must use `await` or `.then()`:
+
+```ts
+// ✅ Using await
+const hasSnapshot = await page.hasImageSnapshot()
+
+// ✅ Using .then()
+page.hasImageSnapshot().then(hasSnapshot => {
+	if (hasSnapshot) {
+		// Handle existing snapshot
+	}
+})
+
+// ❌ Don't forget await
+const hasSnapshot = page.hasImageSnapshot() // This is a Promise, not a boolean!
+```
+
+## Error Handling
+
+The method will throw errors in specific cases:
+
+```ts
+// Test context errors
+try {
+	await page.hasImageSnapshot()
+} catch (error) {
+	// Error: `hasImageSnapshot()` must be called in a test.
+}
+
+// Concurrent test errors
+it.concurrent('concurrent test', async () => {
+	try {
+		await page.hasImageSnapshot()
+	} catch (error) {
+		// Error: `hasImageSnapshot()` cannot be called in a concurrent test because
+		// concurrent tests run at the same time in the same iframe and affect each other's environment.
+	}
+})
+
+// Snapshot key validation errors
+try {
+	await page.hasImageSnapshot({ snapshotKey: 'invalid-key' })
+} catch (error) {
+	// Error: Snapshot key cannot contain dash
+}
+```
+
+## Integration with Other Methods
+
+`page.hasImageSnapshot()` works seamlessly with other visual testing methods:
+
+```ts
+it('should integrate with other methods', async ({ expect }) => {
+	// Check if snapshot exists
+	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey: 'integration' })
+
+	if (!hasSnapshot) {
+		// Create page snapshot
+		await page.toMatchImageSnapshot({ snapshotKey: 'integration' })
+	}
+
+	// Now test element snapshots
+	const element = page.getByTestId('component')
+	await expect(element).toMatchImageSnapshot({ snapshotKey: 'element' })
+
+	// Verify both snapshots exist
+	expect(await page.hasImageSnapshot({ snapshotKey: 'integration' })).toBe(true)
+	expect(await page.hasImageSnapshot({ snapshotKey: 'element' })).toBe(true)
+})
+```
+
+## Best Practices
+
+### Use Descriptive Snapshot Keys
+
+```ts
+// ✅ Good - descriptive and clear
+await page.hasImageSnapshot({ snapshotKey: 'homepage_header' })
+await page.hasImageSnapshot({ snapshotKey: 'modal_open_state' })
+await page.hasImageSnapshot({ snapshotKey: 'dark_theme_sidebar' })
+
+// ❌ Avoid - unclear purpose
+await page.hasImageSnapshot({ snapshotKey: 'test1' })
+await page.hasImageSnapshot({ snapshotKey: 'snapshot' })
+```
+
+### Handle Both Cases
+
+Always handle both the existence and non-existence cases:
+
+```ts
+it('should handle both snapshot states', async () => {
+	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey: 'feature' })
+
+	if (hasSnapshot) {
+		// Test against existing snapshot
+		render(<FeatureComponent />)
+		await page.toMatchImageSnapshot({ snapshotKey: 'feature' })
+	} else {
+		// Create initial snapshot
+		render(<FeatureComponent />)
+		await page.toMatchImageSnapshot({ snapshotKey: 'feature' })
+	}
+})
+```
+
+### Combine with Conditional Logic
+
+Use with environment or configuration checks:
+
+```ts
+it('should adapt to environment', async () => {
+	const isDarkMode = process.env.THEME === 'dark'
+	const snapshotKey = isDarkMode ? 'dark_mode' : 'light_mode'
+
+	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey })
+
+	if (!hasSnapshot) {
+		// Setup appropriate theme
+		if (isDarkMode) {
+			document.body.classList.add('dark')
+		}
+		render(<App />)
+		await page.toMatchImageSnapshot({ snapshotKey })
+	}
+})
+```
