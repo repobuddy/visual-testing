@@ -18,6 +18,11 @@ const preview: Preview = {
 		docs: {
 			container: createDarkModeDocsContainer(),
 		},
+		options: {
+			storySort: {
+				order: ['Overview', 'Changelog'],
+			},
+		},
 		...defineDarkModeParam({
 			classTarget: 'html',
 			stylePreview: true,

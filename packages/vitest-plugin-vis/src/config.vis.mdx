@@ -1,0 +1,186 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+
+<Meta title="vitest-plugin-vis/config/vis" />
+
+`vis` from `vitest-plugin-vis/config` is the Vitest plugin of `vitest-plugin-vis`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+})
+```
+
+It provides a lot of options to customize the behavior of the plugin.
+(You can learn more about the default configuration [here](/docs/overview--docs#basic-configuration).)
+
+## Preset
+
+The `preset` option set up typical visual testing strategies.
+
+### `auto`
+
+The `auto` preset is the default preset.
+It will take a snapshot of the page at the end of each rendering test.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'auto' })],
+})
+```
+
+### `manual`
+
+The `manual` preset is for manual testing.
+It will not take any snapshot automatically.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'manual' })],
+})
+```
+
+See [Manual Snapshot](/docs/expect-tomatchimagesnapshot--docs) section on how to take an image snapshot manually.
+
+### `custom`
+
+The `custom` preset is for advanced users.
+It will not take any snapshot automatically.
+You need to set up your own visual testing strategy in `vitest.setup.ts`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'custom' })],
+	test: {
+		// Set up your own visual testing strategy in `vitest.setup.ts`.
+		setupFiles: ['./vitest.setup.ts'],
+	}
+})
+```
+
+When using the `custom` preset, you can set up your own visual testing strategy in `vitest.setup.ts` using the `vis` object from `vitest-plugin-vis/setup`.
+
+#### Basic Setup
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Basic setup - enables visual testing without auto snapshots
+vis.setup()
+
+// Enable auto snapshots for all tests
+vis.setup({ auto: true })
+
+// Disable auto snapshots (same as vis.setup())
+vis.setup({ auto: false })
+```
+
+#### Conditional Auto Snapshots
+
+You can control when auto snapshots are taken based on test metadata:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Take snapshots only for tests with specific metadata
+vis.setup({
+	auto: async ({ meta }) => meta['visualTest'] === true
+})
+
+// Skip snapshots for tests marked as 'skipSnapshot'
+vis.setup({
+	auto: async ({ meta }) => !meta['skipSnapshot']
+})
+```
+
+#### Multi-Theme Setup
+
+Set up automatic snapshots for multiple themes (e.g., light and dark mode):
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		async light() {
+			document.body.classList.remove('dark')
+			document.body.classList.add('light')
+		},
+		async dark() {
+			document.body.classList.add('dark')
+			document.body.classList.remove('light')
+		}
+	}
+})
+```
+
+#### Conditional Theme Snapshots
+
+You can conditionally skip themes based on test metadata:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		async light({ meta }) {
+			if (meta['skipLight']) return false
+			document.body.classList.remove('dark')
+		},
+		async dark({ meta }) {
+			if (meta['skipDark']) return false
+			document.body.classList.add('dark')
+		}
+	}
+})
+```
+
+#### Advanced Theme Configuration
+
+You can set up more complex theme configurations:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		async desktop() {
+			document.body.style.width = '1200px'
+			document.body.classList.add('desktop')
+		},
+		async tablet() {
+			document.body.style.width = '768px'
+			document.body.classList.add('tablet')
+		},
+		async mobile() {
+			document.body.style.width = '375px'
+			document.body.classList.add('mobile')
+		},
+		async 'dark-desktop'({ meta }) {
+			if (meta['skipDark']) return false
+			document.body.style.width = '1200px'
+			document.body.classList.add('desktop', 'dark')
+		}
+	}
+})
+```
+
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+
+
