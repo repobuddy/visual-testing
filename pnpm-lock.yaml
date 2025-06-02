@@ -109,13 +109,13 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(storybook-addon-tag-badges@2.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)))(storybook-dark-mode2@5.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)))
       '@storybook/addon-docs':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(@types/react@18.3.23)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))
       '@storybook/addon-vitest':
-        specifier: 9.0.3
-        version: 9.0.3(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
+        specifier: 9.0.4
+        version: 9.0.4(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
       '@storybook/react-vite':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.38.0)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.6.0))
       '@tailwindcss/cli':
         specifier: ^4.1.7
@@ -166,7 +166,7 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       storybook:
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)
       storybook-addon-tag-badges:
         specifier: ^2.0.0
@@ -297,10 +297,10 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@storybook/addon-vitest':
-        specifier: ^9.0.3
-        version: 9.0.3(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
+        specifier: ^9.0.4
+        version: 9.0.4(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
       '@storybook/react-vite':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.38.0)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.6.0))
       '@types/react':
         specifier: ^18.3.11
@@ -318,7 +318,7 @@ importers:
         specifier: ^16.0.0
         version: 16.2.0
       storybook:
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)
       storybook-addon-vis:
         specifier: workspace:*
@@ -349,13 +349,13 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@storybook/addon-themes':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))
       '@storybook/addon-vitest':
-        specifier: ^9.0.3
-        version: 9.0.3(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
+        specifier: ^9.0.4
+        version: 9.0.4(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
       '@storybook/react-vite':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.38.0)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.6.0))
       '@types/react':
         specifier: ^18.3.11
@@ -376,7 +376,7 @@ importers:
         specifier: ^16.0.0
         version: 16.2.0
       storybook:
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)
       storybook-addon-vis:
         specifier: workspace:*
@@ -441,13 +441,13 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@storybook/addon-themes':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))
       '@storybook/addon-vitest':
-        specifier: ^9.0.3
-        version: 9.0.3(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
+        specifier: ^9.0.4
+        version: 9.0.4(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)
       '@storybook/react-vite':
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.38.0)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(yaml@2.6.0))
       '@types/react':
         specifier: ^18.3.11
@@ -468,7 +468,7 @@ importers:
         specifier: ^16.0.0
         version: 16.2.0
       storybook:
-        specifier: ^9.0.3
+        specifier: ^9.0.4
         version: 9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)
       storybook-addon-vis:
         specifier: workspace:*
@@ -1383,12 +1383,12 @@ packages:
     peerDependencies:
       storybook: ^9.0.4
 
-  '@storybook/addon-vitest@9.0.3':
-    resolution: {integrity: sha512-/SnPSDocb0bNzcuhrCRuGy8PFlxNMH4oI5T0CURjJGY/K7Vo2fXanVAoF5uKQd+tSJU0blcDqay6OISb+wVRXw==}
+  '@storybook/addon-vitest@9.0.4':
+    resolution: {integrity: sha512-BLcS7uEmSAVbNeU+LzNY3dBnXw17zGCr+vf/XEu76d69K9Kw1LNIoq6w5PwlY1eh0z90y5S7ukC2VfuH/7IalA==}
     peerDependencies:
       '@vitest/browser': ^3.0.0
       '@vitest/runner': ^3.0.0
-      storybook: ^9.0.3
+      storybook: ^9.0.4
       vitest: ^3.0.0
     peerDependenciesMeta:
       '@vitest/browser':
@@ -5345,7 +5345,7 @@ snapshots:
       storybook: 9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-vitest@9.0.3(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)':
+  '@storybook/addon-vitest@9.0.4(@vitest/browser@3.1.4)(@vitest/runner@3.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.4(@testing-library/dom@10.4.0)(prettier@3.5.3))(vitest@3.1.4)':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7804,7 +7804,7 @@ snapshots:
       esbuild: 0.25.4
       esbuild-register: 3.6.0(esbuild@0.25.4)
       recast: 0.23.9
-      semver: 7.7.1
+      semver: 7.7.2
       ws: 8.18.1
     optionalDependencies:
       prettier: 3.5.3
