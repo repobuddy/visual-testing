@@ -19,7 +19,15 @@ export function resolveSnapshotRootDir(browserCommandContext: PartialBrowserComm
 	})
 }
 
-export function getSnapshotRootDir(snapshotRootDir: string) {
+/**
+ * Gets the root directory for storing snapshots.
+ *
+ * @param snapshotRootDir - Base directory for snapshots. Defaults to `__vis__`.
+ * @returns The full snapshot root directory path, which includes a platform-specific subdirectory:
+ * - When running in CI: `<snapshotRootDir>/<platform>` (e.g. `__vis__/linux`)
+ * - When running locally: `<snapshotRootDir>/local`
+ */
+export function getSnapshotRootDir(snapshotRootDir = SNAPSHOT_ROOT_DIR) {
 	return `${snapshotRootDir}/${ci ? platform : 'local'}`
 }
 
