@@ -121,6 +121,7 @@
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",
+		"@storybook/addon-vitest": "^9.0.0",
 		"storybook": "^9.0.0",
 		"vitest": "^2 || ^3"
 	},
