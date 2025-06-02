@@ -51476,7 +51476,7 @@ At();
 var $X = k(Za(), 1), qn = k(DX(), 1);
 
 // src/manager-api/version.ts
-var FX = "9.0.3";
+var FX = "9.0.4";
 
 // src/manager-api/modules/versions.ts
 var { VERSIONCHECK: p8e } = te, jX = (0, $X.default)(1)(() => {
