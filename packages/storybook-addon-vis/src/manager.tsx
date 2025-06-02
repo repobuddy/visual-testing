@@ -12,42 +12,44 @@ import {
 // Register the addon
 addons.register(NAME, (api) => {
 	// Register the tool
-	addons.add(VIS_PANEL_ID, {
-		type: types.PANEL,
-		title: 'Vis',
-		match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
-		render({ active }) {
-			if (!active) return null
-			const [snapshotResults, setSnapshotResults] = useState<ImageSnapshotResults[]>([])
+	if ((globalThis as any).CONFIG_TYPE === 'DEVELOPMENT') {
+		addons.add(VIS_PANEL_ID, {
+			type: types.PANEL,
+			title: 'Vis',
+			match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
+			render({ active }) {
+				if (!active) return null
+				const [snapshotResults, setSnapshotResults] = useState<ImageSnapshotResults[]>([])
 
-			const storyData = api.getCurrentStoryData()
+				const storyData = api.getCurrentStoryData()
 
-			useEffect(() => {
-				const disposes = [
-					api.on(NAME, (event: VisEvent) => {
-						if (event.name !== storyData.name) return
-						if (event.importPath !== storyData.importPath) return
+				useEffect(() => {
+					const disposes = [
+						api.on(NAME, (event: VisEvent) => {
+							if (event.name !== storyData.name) return
+							if (event.importPath !== storyData.importPath) return
 
-						if (event.type === IMAGE_SNAPSHOT_RESULTS_RESPONSE) {
-							setSnapshotResults(event.results)
-						}
-					}),
-					// api.on('UNIVERSAL_STORE:storybook/test', (event) => {
-					// 	console.log('storybook/test', event)
-					// }),
-				]
-				api.emit(NAME, requestImageSnapshotResults(storyData))
-				return () => disposes.forEach((dispose) => dispose())
-			}, [storyData])
-			return (
-				<VisPanel
-					active={active}
-					snapshotResults={snapshotResults}
-					onRefresh={() => {
-						api.emit(NAME, requestImageSnapshotResults(storyData))
-					}}
-				/>
-			)
-		},
-	})
+							if (event.type === IMAGE_SNAPSHOT_RESULTS_RESPONSE) {
+								setSnapshotResults(event.results)
+							}
+						}),
+						// api.on('UNIVERSAL_STORE:storybook/test', (event) => {
+						// 	console.log('storybook/test', event)
+						// }),
+					]
+					api.emit(NAME, requestImageSnapshotResults(storyData))
+					return () => disposes.forEach((dispose) => dispose())
+				}, [storyData])
+				return (
+					<VisPanel
+						active={active}
+						snapshotResults={snapshotResults}
+						onRefresh={() => {
+							api.emit(NAME, requestImageSnapshotResults(storyData))
+						}}
+					/>
+				)
+			},
+		})
+	}
 })
