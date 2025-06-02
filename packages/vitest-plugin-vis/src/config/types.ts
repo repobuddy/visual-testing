@@ -34,12 +34,14 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
 		/**
 		 * Loads the `test.setupFiles` of the specified preset.
 		 *
-		 * Note: 'enable` is deprecated. Use `manual` for the same effect.
+		 * Note:
+		 * - 'enable` is deprecated. Use `manual` for the same effect.
+		 * - 'none` is deprecated. Use `custom` for the same effect.
 		 *
 		 * @default 'auto'
 		 *
 		 */
-		preset?: 'enable' | 'manual' | 'auto' | 'none' | undefined
+		preset?: 'enable' | 'manual' | 'auto' | 'custom' | 'none' | undefined
 		/**
 		 * The snapshot folder relative to the root of the project.
 		 *
