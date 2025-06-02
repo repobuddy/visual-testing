@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## 2.0.4
+
+### Patch Changes
+
+- [#314](https://github.com/repobuddy/visual-testing/pull/314) [`9bf9224`](https://github.com/repobuddy/visual-testing/commit/9bf9224ff20ed03d378c78be0794a49d3cb9839b) Thanks [@unional](https://github.com/unional)! - Add `@storybook/addon-vitest` as peer dependency.
+
+- Updated dependencies [[`090e613`](https://github.com/repobuddy/visual-testing/commit/090e61305e31c264bfec84a34ca42b702642f37d), [`4fb0a22`](https://github.com/repobuddy/visual-testing/commit/4fb0a22f63ab16e27594598e21e2ab7426727d07), [`150924d`](https://github.com/repobuddy/visual-testing/commit/150924d8ef44fb61002c1b58a1baf14277177a69)]:
+  - vitest-plugin-vis@3.3.0
+
 ## 2.0.3
 
 ### Patch Changes

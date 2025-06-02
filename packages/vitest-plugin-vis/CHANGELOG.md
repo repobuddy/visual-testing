@@ -1,5 +1,18 @@
 # vitest-plugin-vis
 
+## 3.3.0
+
+### Minor Changes
+
+- [#314](https://github.com/repobuddy/visual-testing/pull/314) [`090e613`](https://github.com/repobuddy/visual-testing/commit/090e61305e31c264bfec84a34ca42b702642f37d) Thanks [@unional](https://github.com/unional)! - Deprecate `createVis` in `vitest-plugin-vis/setup`.
+  It is moved to `/client-api`.
+
+- [#314](https://github.com/repobuddy/visual-testing/pull/314) [`150924d`](https://github.com/repobuddy/visual-testing/commit/150924d8ef44fb61002c1b58a1baf14277177a69) Thanks [@unional](https://github.com/unional)! - Deprecate preset `none`, replace it with `custom`.
+
+### Patch Changes
+
+- [#314](https://github.com/repobuddy/visual-testing/pull/314) [`4fb0a22`](https://github.com/repobuddy/visual-testing/commit/4fb0a22f63ab16e27594598e21e2ab7426727d07) Thanks [@unional](https://github.com/unional)! - Allow `getSnapshotRootDir` to be called without specifying a snapshot root directory.
+
 ## 3.2.0
 
 ### Minor Changes
