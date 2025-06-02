@@ -3,6 +3,7 @@ import './client/storybook/expect_extend.ts'
 import './shared/global_matcher_augment.ts'
 
 import { createVis } from 'vitest-plugin-vis/client-api'
+import 'vitest-plugin-vis/setup' // for Vitest extends
 import { commands } from './client/vitest_proxy.ts'
 
 export const vis = createVis<{ tags: string[] }>(commands)
