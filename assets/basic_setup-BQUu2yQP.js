@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-B7ifLxA0.js";import{useMDXComponents as n}from"./index-Dn7EKK3f.js";function o(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",li:"li",p:"p",pre:"pre",ul:"ul",...n(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Basic Setup"}),`
+import{j as t,M as i}from"./iframe-DJcZLFuM.js";import{useMDXComponents as n}from"./index-CYMiWs5z.js";function o(s){const e={a:"a",code:"code",h1:"h1",h2:"h2",li:"li",p:"p",pre:"pre",ul:"ul",...n(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Basic Setup"}),`
 `,t.jsx(e.h1,{id:"basic-setup",children:"Basic Setup"}),`
 `,t.jsx(e.p,{children:"The basic setup is pretty straightforward."}),`
 `,t.jsx(e.h2,{id:"vitest",children:"Vitest"}),`
