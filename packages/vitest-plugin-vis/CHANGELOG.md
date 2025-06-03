@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 3.3.1
+
+### Patch Changes
+
+- [`5b25658`](https://github.com/repobuddy/visual-testing/commit/5b256581ea5b41816c72bbd25a1271da2c258bd1) Thanks [@unional](https://github.com/unional)! - Fix `vis().setup({ auto: ... })` type to accept sync and async function with no return value.
+
 ## 3.3.0
 
 ### Minor Changes
