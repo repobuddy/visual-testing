@@ -1,4 +1,11 @@
-import{j as t,M as a,h as i}from"./iframe-Dx8bheBJ.js";import{useMDXComponents as s}from"./index-DkPskhUi.js";const d=`# CHANGE LOG
+import{j as t,M as a,h as i}from"./iframe-DkOfIvyu.js";import{useMDXComponents as s}from"./index-CR-jKs2l.js";const d=`# CHANGE LOG
+
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies [[\`5b25658\`](https://github.com/repobuddy/visual-testing/commit/5b256581ea5b41816c72bbd25a1271da2c258bd1)]:
+  - vitest-plugin-vis@3.3.1
 
 ## 2.0.5
 
