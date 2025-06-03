@@ -45,13 +45,13 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 			| boolean
 			| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
 					options: SnapshotMeta<C> & M & GM,
-			  ) => boolean | Promise<boolean>)
+			  ) => Promise<boolean> | Promise<void> | boolean | void)
 			| Record<
 					string,
 					| boolean
 					| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
 							options: SnapshotMeta<C> & M & GM,
-					  ) => boolean | Promise<boolean>)
+					  ) => Promise<boolean> | Promise<void> | boolean | void)
 			  >
 	}): void
 	/**
