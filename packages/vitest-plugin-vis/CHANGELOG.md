@@ -1,5 +1,12 @@
 # vitest-plugin-vis
 
+## 3.3.2
+
+### Patch Changes
+
+- [`cb735b9`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f) Thanks [@unional](https://github.com/unional)! - Revert the change of adding `createVis` from `vitest-plugin-vis/setup` to `vitest-plugin-vis/client-api`.
+  `createVis` imports `vitest`, which cannot be imported in the client side.
+
 ## 3.3.1
 
 ### Patch Changes

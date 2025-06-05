@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## 2.0.7
+
+### Patch Changes
+
+- [`cb735b9`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f) Thanks [@unional](https://github.com/unional)! - Revert importing `createVis` from `vitest-plugin-vis/client-api`.
+  `createVis` imports `vitest`, which cannot be imported in the client side.
+- Updated dependencies [[`cb735b9`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f)]:
+  - vitest-plugin-vis@3.3.2
+
 ## 2.0.6
 
 ### Patch Changes
