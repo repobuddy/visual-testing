@@ -1,4 +1,13 @@
-import{j as t,M as a,h as i}from"./iframe-DkOfIvyu.js";import{useMDXComponents as s}from"./index-CR-jKs2l.js";const d=`# CHANGE LOG
+import{j as t,M as a,h as i}from"./iframe-BR-FK7oF.js";import{useMDXComponents as s}from"./index-DM8BNS6o.js";const d=`# CHANGE LOG
+
+## 2.0.7
+
+### Patch Changes
+
+- [\`cb735b9\`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f) Thanks [@unional](https://github.com/unional)! - Revert importing \`createVis\` from \`vitest-plugin-vis/client-api\`.
+  \`createVis\` imports \`vitest\`, which cannot be imported in the client side.
+- Updated dependencies [[\`cb735b9\`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f)]:
+  - vitest-plugin-vis@3.3.2
 
 ## 2.0.6
 
