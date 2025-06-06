@@ -1,5 +1,12 @@
 # vitest-plugin-vis
 
+## 3.4.0
+
+### Minor Changes
+
+- [`30026e2`](https://github.com/repobuddy/visual-testing/commit/30026e2a1ac1aceed84cf35b5b13fcc565b39c25) Thanks [@unional](https://github.com/unional)! - Handle the case where the test config name is an object with a label.
+  Vitest 3.2.0 starts doing this when running in workspace/project mode.
+
 ## 3.3.2
 
 ### Patch Changes
