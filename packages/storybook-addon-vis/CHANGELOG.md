@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 2.1.0
+
+### Minor Changes
+
+- [`05b7ae2`](https://github.com/repobuddy/visual-testing/commit/05b7ae26a604328831f9b3317c99c39bcf73ac93) Thanks [@unional](https://github.com/unional)! - Add CJS support for Storybook `.storybook/main.ts` usage.
+
 ## 2.0.7
 
 ### Patch Changes
