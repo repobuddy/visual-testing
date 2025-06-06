@@ -1,7 +1,9 @@
 name: release
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - releases/*
 
 jobs:
   verify:
@@ -11,7 +13,6 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node-version:
-          - 18
           - 20
           - 22
     runs-on: ${{ matrix.os }}
@@ -46,7 +47,7 @@ jobs:
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 10
-          max_attempts: 3
+          max_attempts: 2
           command: pnpm verify:ci
 
       - name: Archive snapshots
@@ -62,3 +63,12 @@ jobs:
     uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@main
     needs: verify
     secrets: inherit
+
+  docgen:
+    permissions:
+      contents: write
+    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@main
+    needs: release
+    if: github.ref == 'refs/heads/main' && needs.release.outputs.published == 'true'
+    with:
+      publish-dir: ./packages/storybook-addon-vis/storybook-static

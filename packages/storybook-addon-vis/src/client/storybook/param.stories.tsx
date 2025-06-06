@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { expect } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 import { defineAutoSnapshotParam, hasImageSnapshot } from '../../index.ts'
 
 export default {
@@ -56,7 +56,7 @@ export const UseSsim: StoryObj = {
 export const SetSubject: StoryObj = {
 	parameters: defineAutoSnapshotParam({
 		failureThreshold: 70,
-		subjectDataTestId: 'alt',
+		subject: '[data-testid="alt"]',
 	}),
 	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot() })],
 	render: (_, { loaded: { hasImageSnapshot } }) => (

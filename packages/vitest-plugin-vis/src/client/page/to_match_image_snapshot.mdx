@@ -1,0 +1,471 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="page/toMatchImageSnapshot" />
+
+# page.toMatchImageSnapshot
+
+`page.toMatchImageSnapshot()` is a method that captures and compares full page or viewport screenshots against baseline images.
+
+Unlike `expect().toMatchImageSnapshot()` which targets specific elements, `page.toMatchImageSnapshot()` is designed for capturing entire pages or viewports, making it ideal for full-page visual regression testing.
+
+## Basic Usage
+
+```ts
+import { page } from '@vitest/browser/context'
+
+it('should take a page snapshot', async () => {
+	// Your test setup here
+	render(<MyApp />)
+
+	// Take a viewport snapshot
+	await page.toMatchImageSnapshot()
+})
+```
+
+## Options
+
+The `page.toMatchImageSnapshot()` method accepts an optional options object with the following properties:
+
+### Page Capture Options
+
+#### `fullPage`
+
+Capture the entire page including content below the fold, not just the visible viewport.
+
+```ts
+it('should capture full page', async () => {
+	render(<LongPageContent />)
+
+	// Capture the entire scrollable page
+	await page.toMatchImageSnapshot({
+		fullPage: true
+	})
+})
+
+it('should capture viewport only', async () => {
+	render(<LongPageContent />)
+
+	// Capture only the visible viewport (default)
+	await page.toMatchImageSnapshot({
+		fullPage: false // default
+	})
+})
+```
+
+### Snapshot Identification
+
+#### `snapshotKey`
+
+Customize the snapshot key/name for the snapshot file.
+
+```ts
+it('should use custom snapshot key', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'homepage_layout'
+	})
+})
+```
+
+### Failure Threshold
+
+#### `failureThreshold` and `failureThresholdType`
+
+Control how much difference is allowed before the test fails.
+
+```ts
+// Allow up to 100 pixels to be different
+it('should allow pixel differences', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		failureThreshold: 100,
+		failureThresholdType: 'pixel' // default
+	})
+})
+
+// Allow up to 0.5% difference
+it('should allow percentage differences', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		failureThreshold: 0.005,
+		failureThresholdType: 'percent'
+	})
+})
+```
+
+### Comparison Methods
+
+#### `comparisonMethod`
+
+Choose between pixel-by-pixel comparison or structural similarity comparison.
+
+```ts
+// Default pixel comparison
+it('should use pixel comparison', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		comparisonMethod: 'pixel' // default
+	})
+})
+
+// SSIM (Structural Similarity) comparison
+it('should use SSIM comparison', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		comparisonMethod: 'ssim'
+	})
+})
+```
+
+### Diff Options
+
+#### `diffOptions` for Pixel Comparison
+
+When using `comparisonMethod: 'pixel'` (default), you can customize pixelmatch options:
+
+```ts
+it('should use custom pixel diff options', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		comparisonMethod: 'pixel',
+		diffOptions: {
+			threshold: 0.1,           // Matching threshold (0-1, default: 0.1)
+			includeAA: false,         // Include anti-aliased pixels (default: false)
+			alpha: 0.1,              // Blending factor for unchanged pixels (default: 0.1)
+			aaColor: [255, 255, 0],  // Color for anti-aliased pixels [R, G, B]
+			diffColor: [255, 0, 0],  // Color for different pixels [R, G, B]
+			diffColorAlt: null,      // Alternative color for dark-on-light differences
+			diffMask: false          // Draw diff over transparent background (default: false)
+		}
+	})
+})
+```
+
+#### `diffOptions` for SSIM Comparison
+
+When using `comparisonMethod: 'ssim'`, you can customize SSIM options:
+
+```ts
+it('should use custom SSIM diff options', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		comparisonMethod: 'ssim',
+		diffOptions: {
+			ssim: 'bezkrovny',  // 'bezkrovny' (fast, default) | 'fast' (accurate) | 'weber' | 'original'
+			windowSize: 11,     // Window size for SSIM calculation (default: 11)
+			k1: 0.01,          // First stability constant (default: 0.01)
+			k2: 0.03,          // Second stability constant (default: 0.03)
+			bitDepth: 8,       // Bits per channel (default: 8)
+			downsample: 'original' // 'original' | 'fast' | false
+		}
+	})
+})
+```
+
+### Timeout
+
+#### `timeout`
+
+Set a timeout for taking the snapshot.
+
+```ts
+it('should use custom timeout', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		timeout: 60000 // 60 seconds (default: 30000ms)
+	})
+})
+```
+
+### Testing Utilities
+
+#### `expectToFail`
+
+Expect the matcher to fail - useful for testing that changes are detected.
+
+```ts
+it('should detect page differences', async () => {
+	render(<MyApp />)
+
+	// First, create the baseline
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'page_changes' }))) {
+		await page.toMatchImageSnapshot({
+			snapshotKey: 'page_changes'
+		})
+		return
+	}
+
+	// Modify the page
+	document.body.style.backgroundColor = 'red'
+
+	// Expect the test to fail due to changes
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'page_changes',
+		expectToFail: true
+	})
+	.then(
+		() => {
+			throw new Error('Should not reach - expected failure')
+		},
+		(error) => {
+			expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels/)
+		}
+	)
+})
+```
+
+## Complete Example
+
+Here's a comprehensive example showing multiple options:
+
+```ts
+it('should demonstrate all page snapshot options', async () => {
+	render(<MyComplexApp />)
+
+	await page.toMatchImageSnapshot({
+		// Page capture
+		fullPage: true,
+
+		// Snapshot identification
+		snapshotKey: 'full_app_layout',
+
+		// Failure threshold
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent',
+
+		// Comparison method
+		comparisonMethod: 'ssim',
+
+		// SSIM-specific options
+		diffOptions: {
+			ssim: 'bezkrovny',
+			windowSize: 11,
+			k1: 0.01,
+			k2: 0.03
+		},
+
+		// Timeout
+		timeout: 45000,
+
+		// Testing utility
+		expectToFail: false
+	})
+})
+```
+
+## Use Cases
+
+### Full Page Layout Testing
+
+Perfect for testing complete page layouts, including content below the fold:
+
+```ts
+it('should capture entire homepage layout', async () => {
+	render(<Homepage />)
+
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'homepage_complete',
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent'
+	})
+})
+```
+
+### Viewport Testing
+
+Test how your application appears in the current viewport:
+
+```ts
+it('should capture above-the-fold content', async () => {
+	render(<LandingPage />)
+
+	await page.toMatchImageSnapshot({
+		fullPage: false, // default - viewport only
+		snapshotKey: 'landing_viewport'
+	})
+})
+```
+
+### Responsive Design Testing
+
+Test different viewport sizes by combining with browser configuration:
+
+```ts
+it('should test mobile layout', async () => {
+	// Assuming viewport is configured for mobile in test setup
+	render(<ResponsiveApp />)
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'mobile_layout',
+		fullPage: true
+	})
+})
+```
+
+### Cross-Browser Consistency
+
+Ensure consistent rendering across different browsers:
+
+```ts
+it('should render consistently across browsers', async () => {
+	render(<CrossBrowserApp />)
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'cross_browser_test',
+		comparisonMethod: 'ssim', // More forgiving for browser differences
+		failureThreshold: 0.02,
+		failureThresholdType: 'percent'
+	})
+})
+```
+
+## Comparison Method Recommendations
+
+### When to use Pixel Comparison (`comparisonMethod: 'pixel'`)
+
+- **Default choice** for most page-level visual regression tests
+- **Precise detection** of layout shifts, color changes, and text modifications
+- **Good for** detecting critical visual regressions
+- **Fast execution** for most page sizes
+
+### When to use SSIM Comparison (`comparisonMethod: 'ssim'`)
+
+- **Structural similarity** comparison that's more forgiving of minor rendering differences
+- **Reduced false positives** from browser-specific rendering variations
+- **Better for** pages with complex graphics, gradients, or anti-aliased content
+- **Recommended for** cross-browser testing where minor pixel differences are expected
+
+```ts
+// Recommended SSIM configuration for page testing
+it('should use recommended SSIM settings for pages', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		comparisonMethod: 'ssim',
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent',
+		diffOptions: {
+			ssim: 'bezkrovny' // Fast and accurate for most cases
+		}
+	})
+})
+```
+
+## Best Practices
+
+### 1. Use Descriptive Snapshot Keys
+
+```ts
+// Good
+await page.toMatchImageSnapshot({
+	snapshotKey: 'dashboard_with_data_loaded'
+})
+
+// Better
+await page.toMatchImageSnapshot({
+	snapshotKey: 'user_dashboard_logged_in_state'
+})
+```
+
+### 2. Consider Page Loading States
+
+```ts
+it('should wait for page to be fully loaded', async () => {
+	render(<AsyncApp />)
+
+	// Wait for async content to load
+	await page.waitForSelector('[data-testid="content-loaded"]')
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'fully_loaded_page'
+	})
+})
+```
+
+### 3. Use Appropriate Failure Thresholds
+
+```ts
+// For critical UI elements - strict comparison
+await page.toMatchImageSnapshot({
+	snapshotKey: 'critical_layout',
+	failureThreshold: 0 // No differences allowed
+})
+
+// For pages with dynamic content - more lenient
+await page.toMatchImageSnapshot({
+	snapshotKey: 'dynamic_content_page',
+	failureThreshold: 0.5,
+	failureThresholdType: 'percent'
+})
+```
+
+### 4. Choose Full Page vs Viewport Strategically
+
+```ts
+// Use fullPage for complete layout testing
+await page.toMatchImageSnapshot({
+	fullPage: true,
+	snapshotKey: 'complete_article_layout'
+})
+
+// Use viewport for above-the-fold testing
+await page.toMatchImageSnapshot({
+	fullPage: false,
+	snapshotKey: 'hero_section'
+})
+```
+
+## Limitations
+
+### Concurrent Tests
+
+`page.toMatchImageSnapshot()` cannot be used in concurrent tests as they share the same browser environment:
+
+```ts
+// ❌ This will throw an error
+it.concurrent('concurrent test', async () => {
+	await page.toMatchImageSnapshot() // Error: cannot be called in concurrent test
+})
+
+// ✅ Use regular tests instead
+it('sequential test', async () => {
+	await page.toMatchImageSnapshot() // Works fine
+})
+```
+
+### WebDriverIO Considerations
+
+When using WebDriverIO as the browser provider:
+
+- `fullPage` option may not work correctly in headless mode
+- Consider setting explicit window size in configuration
+- Playwright is recommended for more reliable visual testing
+
+```ts
+// vitest.config.ts - WebDriverIO workaround
+export default {
+	test: {
+		browser: {
+			instances: [
+				{
+					browser: 'chrome',
+					capabilities: {
+						'goog:chromeOptions': {
+							args: ['--window-size=1280,720']
+						}
+					}
+				}
+			]
+		}
+	}
+}
+```

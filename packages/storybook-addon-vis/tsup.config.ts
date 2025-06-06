@@ -71,17 +71,10 @@ export default defineConfig(async (options) => {
 			},
 			clean: false,
 			minify: false,
-			format: ['esm'],
+			format: ['esm', 'cjs'],
 			target: [...BROWSER_TARGET, ...NODE_TARGET],
 			platform: 'neutral',
-			external: [
-				...globalManagerPackages,
-				...globalPreviewPackages,
-				'vitest',
-				'@vitest/expect',
-				'@vitest/browser',
-				'@storybook/test',
-			],
+			external: [...globalManagerPackages, ...globalPreviewPackages, 'vitest', '@vitest/expect', '@vitest/browser'],
 		})
 	}
 
@@ -114,11 +107,7 @@ export default defineConfig(async (options) => {
 			format: ['esm'],
 			target: BROWSER_TARGET,
 			platform: 'browser',
-			external: [
-				...globalPreviewPackages,
-				// external `@storybook/test` to fix `Failed to resolve import "@storybook/global"`
-				'@storybook/test',
-			],
+			external: globalPreviewPackages,
 		})
 	}
 

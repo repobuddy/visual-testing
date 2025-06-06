@@ -1,37 +1,33 @@
 import type {
-	AutoSnapshotOptions,
 	ComparisonMethod,
 	FailureThresholdOptions,
 	ImageSnapshotCompareOptions,
-	ImageSnapshotIdOptions,
+	ImageSnapshotKeyOptions,
+	ImageSnapshotSubjectOptions,
 	ImageSnapshotTimeoutOptions,
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 	ToMatchImageSnapshotOptions,
-} from 'vitest-plugin-vis/client'
+} from 'vitest-plugin-vis/client-api'
 
 // This fix the inferred type cannot be named error
 export type {
-	AutoSnapshotOptions,
 	ComparisonMethod,
-	ImageSnapshotCompareOptions,
-	ImageSnapshotIdOptions,
-	ImageSnapshotTimeoutOptions,
-	ToMatchImageSnapshotOptions,
-	SsimComparisonOptions,
-	PixelComparisonOptions,
 	FailureThresholdOptions,
+	ImageSnapshotCompareOptions,
+	ImageSnapshotKeyOptions,
+	ImageSnapshotSubjectOptions,
+	ImageSnapshotTimeoutOptions,
+	PixelComparisonOptions,
+	SsimComparisonOptions,
+	ToMatchImageSnapshotOptions,
 }
 
 /**
  * Define snapshot parameter for auto snapshot.
  */
 export function defineAutoSnapshotParam<M extends ComparisonMethod>(
-	snapshot: ToMatchImageSnapshotOptions<M> & AutoSnapshotOptions,
+	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions,
 ) {
 	return { snapshot }
-}
-
-export function isSnapshotEnabled(tags: string[]) {
-	return tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
 }

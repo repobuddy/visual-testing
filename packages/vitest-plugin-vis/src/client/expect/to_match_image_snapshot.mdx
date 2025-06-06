@@ -1,0 +1,298 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="expect/toMatchImageSnapshot" />
+
+# toMatchImageSnapshot
+
+`expect().toMatchImageSnapshot()` is a custom matcher that compares the current DOM to a snapshot image.
+
+It can be used whether you have enabled the `auto` preset or not.
+
+But typically, you would disable the auto snapshot when doing manual snapshot testing.
+
+You can disable the auto snapshot at various levels:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Setup without auto snapshots
+vis.setup()
+```
+
+```ts
+// some.test.ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+beforeAll(() => {
+	setAutoSnapshotOptions(false)
+})
+
+beforeEach(() => {
+	setAutoSnapshotOptions(false)
+})
+
+it('...', () => {
+	setAutoSnapshotOptions(false)
+})
+```
+
+## Basic Usage
+
+```ts
+// some.test.ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+it('should take snapshot manually', async ({ expect }) => {
+	// Your test code here
+	render(<MyComponent />)
+
+	// Manual snapshot
+	await expect(document.body).toMatchImageSnapshot()
+})
+```
+
+## Options
+
+The `toMatchImageSnapshot()` matcher accepts an optional options object with the following properties:
+
+### Snapshot Identification
+
+#### `snapshotKey`
+
+Customize the snapshot key/name for the snapshot file.
+
+```ts
+it('should use custom snapshot key', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		snapshotKey: 'my_custom_snapshot'
+	})
+})
+```
+
+### Failure Threshold
+
+#### `failureThreshold` and `failureThresholdType`
+
+Control how much difference is allowed before the test fails.
+
+```ts
+// Allow up to 50 pixels to be different
+it('should allow pixel differences', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		failureThreshold: 50,
+		failureThresholdType: 'pixel' // default
+	})
+})
+
+// Allow up to 1% difference
+it('should allow percentage differences', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent'
+	})
+})
+```
+
+### Comparison Methods
+
+#### `comparisonMethod`
+
+Choose between pixel-by-pixel comparison or structural similarity comparison.
+
+```ts
+// Default pixel comparison
+it('should use pixel comparison', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		comparisonMethod: 'pixel' // default
+	})
+})
+
+// SSIM (Structural Similarity) comparison
+it('should use SSIM comparison', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		comparisonMethod: 'ssim'
+	})
+})
+```
+
+### Diff Options
+
+#### `diffOptions` for Pixel Comparison
+
+When using `comparisonMethod: 'pixel'` (default), you can customize pixelmatch options:
+
+```ts
+it('should use custom pixel diff options', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		comparisonMethod: 'pixel',
+		diffOptions: {
+			threshold: 0.1,           // Matching threshold (0-1, default: 0.1)
+			includeAA: false,         // Include anti-aliased pixels (default: false)
+			alpha: 0.1,              // Blending factor for unchanged pixels (default: 0.1)
+			aaColor: [255, 255, 0],  // Color for anti-aliased pixels [R, G, B]
+			diffColor: [255, 0, 0],  // Color for different pixels [R, G, B]
+			diffColorAlt: null,      // Alternative color for dark-on-light differences
+			diffMask: false          // Draw diff over transparent background (default: false)
+		}
+	})
+})
+```
+
+#### `diffOptions` for SSIM Comparison
+
+When using `comparisonMethod: 'ssim'`, you can customize SSIM options:
+
+```ts
+it('should use custom SSIM diff options', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		comparisonMethod: 'ssim',
+		diffOptions: {
+			ssim: 'bezkrovny',  // 'bezkrovny' (fast, default) | 'fast' (accurate) | 'weber' | 'original'
+			windowSize: 11,     // Window size for SSIM calculation (default: 11)
+			k1: 0.01,          // First stability constant (default: 0.01)
+			k2: 0.03,          // Second stability constant (default: 0.03)
+			bitDepth: 8,       // Bits per channel (default: 8)
+			downsample: 'original' // 'original' | 'fast' | false
+		}
+	})
+})
+```
+
+### Timeout
+
+#### `timeout`
+
+Set a timeout for taking the snapshot.
+
+```ts
+it('should use custom timeout', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		timeout: 60000 // 60 seconds (default: 30000ms)
+	})
+})
+```
+
+### Testing Utilities
+
+#### `expectToFail`
+
+Expect the matcher to fail - useful for testing that changes are detected.
+
+```ts
+it('should detect differences', async ({ expect }) => {
+	render(<MyComponent />)
+
+	// First, create the baseline
+	if (!(await page.hasImageSnapshot({ snapshotKey: 'test_changes' }))) {
+		await expect(document.body).toMatchImageSnapshot({
+			snapshotKey: 'test_changes'
+		})
+		return
+	}
+
+	// Modify the component
+	document.body.style.backgroundColor = 'red'
+
+	// Expect the test to fail due to changes
+	await expect(document.body)
+		.toMatchImageSnapshot({
+			snapshotKey: 'test_changes',
+			expectToFail: true
+		})
+		.then(
+			() => {
+				throw new Error('Should not reach - expected failure')
+			},
+			(error) => {
+				expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels/)
+			}
+		)
+})
+```
+
+## Complete Example
+
+Here's a comprehensive example showing multiple options:
+
+```ts
+it('should demonstrate all options', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		// Snapshot identification
+		snapshotKey: 'comprehensive_test',
+
+		// Failure threshold
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent',
+
+		// Comparison method
+		comparisonMethod: 'ssim',
+
+		// SSIM-specific options
+		diffOptions: {
+			ssim: 'bezkrovny',
+			windowSize: 11,
+			k1: 0.01,
+			k2: 0.03
+		},
+
+		// Timeout
+		timeout: 45000,
+
+		// Testing utility
+		expectToFail: false
+	})
+})
+```
+
+## Comparison Method Recommendations
+
+### When to use Pixel Comparison (`comparisonMethod: 'pixel'`)
+
+- **Default choice** for most visual regression tests
+- **Precise pixel-by-pixel** comparison
+- **Good for detecting** small UI changes, text changes, layout shifts
+- **Fast execution** for most image sizes
+- **Customizable colors** for diff visualization
+
+### When to use SSIM Comparison (`comparisonMethod: 'ssim'`)
+
+- **Structural similarity** comparison that correlates better with human perception
+- **Reduced false positives** - less likely to fail on minor rendering differences
+- **Better for images** with gradients, shadows, or anti-aliasing
+- **Recommended threshold**: 1% (`failureThreshold: 0.01, failureThresholdType: 'percent'`)
+- **Performance considerations**: Use `ssim: 'bezkrovny'` for speed, `ssim: 'fast'` for accuracy
+
+```ts
+// Recommended SSIM configuration
+it('should use recommended SSIM settings', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		comparisonMethod: 'ssim',
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent',
+		diffOptions: {
+			ssim: 'bezkrovny' // Fast and accurate for most cases
+		}
+	})
+})
+```

@@ -1,0 +1,76 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+
+<Meta title="vitest-plugin-vis/config/vis" />
+
+`vis` from `vitest-plugin-vis/config` is the Vitest plugin of `vitest-plugin-vis`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+})
+```
+
+It provides a lot of options to customize the behavior of the plugin.
+(You can learn more about the default configuration [here](/docs/overview--docs#basic-configuration).)
+
+## Preset
+
+The `preset` option set up typical visual testing strategies.
+
+### `auto`
+
+The `auto` preset is the default preset.
+It will take a snapshot of the page at the end of each rendering test.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'auto' })],
+})
+```
+
+### `manual`
+
+The `manual` preset is for manual testing.
+It will not take any snapshot automatically.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'manual' })],
+})
+```
+
+See [Manual Snapshot](/docs/expect-tomatchimagesnapshot--docs) section on how to take an image snapshot manually.
+
+### `custom`
+
+The `custom` preset is for advanced users.
+It will not take any snapshot automatically.
+You need to set up your own visual testing strategy in `vitest.setup.ts`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'custom' })],
+	test: {
+		// Set up your own visual testing strategy in `vitest.setup.ts`.
+		setupFiles: ['./vitest.setup.ts'],
+	}
+})
+```
+
+When using the `custom` preset, you can set up your own visual testing strategy in `vitest.setup.ts` using the [vis](/docs/vitest-plugin-vis-setup-vis--docs) object from `vitest-plugin-vis/setup`.
+
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+
+

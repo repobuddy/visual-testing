@@ -23,7 +23,12 @@ Since it is running in an actual browser,
 This add-on provides similar functionality to [`jest-image-snapshot`][jest-image-snapshot].
 
 In addition, you can capture image snapshot manually,
-and more controls to the auto image snapshot taken.
+and controls how the auto image snapshot(s) are taken.
+
+> [!NOTE]
+> [storybook-addon-vis] 2.0.0 supports Storybook 9.
+>
+> For Storybook 8, please use 1.x.
 
 ## Install
 
@@ -33,6 +38,54 @@ npm install --save-dev storybook-addon-vis
 pnpm add --save-dev storybook-addon-vis
 
 yarn add --save-dev storybook-addon-vis
+```
+
+## Migrating to 1.0
+
+[`storybook-addon-vis`][storybook-addon-vis] 1.0 has made some major improvements over the previous version. Along with the new features, there are some breaking changes.
+
+> [!WARNING]
+> Snapshot folder structure customization has changed.
+
+In previous version,
+you can customize the snapshot folder structure with the `snapshotRootDir`, `customizeSnapshotSubpath`, and `customizeSnapshotId` options to the `storybookVis` function.
+
+In 1.0,
+the options are changed to `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey`.
+
+The biggest change is that the `snapshotKey` now only allows you to specify a string that is used at the end of the snapshot file name.
+See [`vitest-plugin-vis`](https://github.com/repobuddy/visual-testing?tab=readme-ov-file#customizing-snapshot-path) for more details.
+
+> [!warning]
+> `storybook-addon-vis/preview` is moved to `storybook-addon-vis/vitest-setup`.
+
+In previous version,
+you import the `visAnnotations` from `storybook-addon-vis/preview` and add it to your `vitest.setup.ts`, and use the `vis` object from `storybook-addon-vis/vitest-setup` to add the preset:
+
+```ts
+import * as visAnnotations from 'storybook-addon-vis/preview'
+import { vis } from 'storybook-addon-vis/vitest-setup'
+
+const project = setProjectAnnotations([
+	visAnnotations, // add this
+	projectAnnotations
+])
+
+vis.presets.enable()
+```
+
+In 1.0,
+they are combined:
+
+```ts
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+
+const project = setProjectAnnotations([
+	visAnnotations, // add this
+	projectAnnotations
+])
+
+vis.setup()
 ```
 
 ## Config
@@ -51,7 +104,7 @@ For [Vitest], you need to:
 
 ```ts
 // vitest.config.ts
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
 import { defineConfig } from 'vitest/config'
 
@@ -112,13 +165,12 @@ export default defineConfig({
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
-			platform: '...', // {process.platform} or `local` (deprecated use `snapshotRootDir` instead)
-			customizeSnapshotSubpath: (subpath) => trimCommonFolder(subpath),
-			// will change to "isAutoSnapshot ? `${id}-auto` : `${id}-${index}`" in the next major release.
-			customizeSnapshotId: ({ id, index, isAutoSnapshot }) => `${id}-${index}`,
-			// set a default subject (e.g. 'subject') to capture image snapshot
-			subjectDataTestId: undefined,
-			comparisonMethod: 'pixel',
+			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+			// Alphanumeric characters, and underscore are allowed. Dash is not allowed.
+			snapshotKey: 'auto',
+			// set a default subject selector (e.g. `[data-testid="subject"]`) to capture image snapshot
+			subject: undefined,
+			comparisonMethod: 'pixel', // or 'ssim'
 			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
 			diffOptions: undefined,
 			timeout: 30000,
@@ -182,7 +234,7 @@ By default, [`storybook-addon-vis`][storybook-addon-vis] removes that folder to 
 
 If you place your test files in multiple folders,
 such as in both `tests` and `src` folders,
-you can use `customizeSnapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
+you can use `snapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
 
 ```ts
 // vitest.config.ts
@@ -193,7 +245,7 @@ export default defineConfig({
 	plugins: [
 		storybookVis({
 			// keep the folder structure
-			customizeSnapshotSubpath: (subpath) => subpath
+			snapshotSubpath: (subpath) => subpath
 		})
 	],
 	// ...
@@ -259,7 +311,7 @@ causes inconsistency and confuses both the editor and you.
 
 #### Edit Vitest Setup
 
-After you set up [Storybook Test Addon][storybook-test-addon],
+After you set up [Storybook Test addon][storybook-test-addon],
 you should have a `.storybook/vitest.setup.ts` like this (using React as an example):
 
 ```ts
@@ -278,40 +330,39 @@ beforeAll(project.beforeAll)
 Edit it to add the following:
 
 ```ts
-import * as visAnnotations from 'storybook-addon-vis/preview'
-import { vis } from 'storybook-addon-vis/vitest-setup'
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
 
 const project = setProjectAnnotations([
 	visAnnotations, // add this
 	projectAnnotations
 ])
 
-// setup visual testing but no post-test image snapshot support
-vis.presets.manual()
-
-// setup visual testing with post-test image snapshot support.
+// setup visual testing.
+// This setup does not capture image snapshot in test files automatically.
 // use `setAutoSnapshotOptions()` in your test to enable it.
-vis.presets.enable()
+vis.setup()
 
-// capture image snapshot at the end of each test and story with `snapshot` tag
-// Note: starting in 1.0.0, the `snapshot` tag will be automatically added.
-vis.presets.auto()
+// capture image snapshot at the end of each test
+vis.setup({ auto: true })
 
-// capture image snapshot at the end of each test and story with `snapshot` tag
-// for multiple themes (light and dark in this example).
+// capture image snapshot at the end of each test for multiple themes (light and dark in this example).
 //
 // Note that this changes the theme in the `afterEach` hook.
 // If you want to capture manual snapshots in different themes,
 // configure Vitest to run the tests in different themes.
-vis.presets.theme({
-	async light() { document.body.classList.remove('dark') },
-	async dark() { document.body.classList.add('dark') },
+vis.setup({
+	auto: {
+		async light() { document.body.classList.remove('dark') },
+		async dark() { document.body.classList.add('dark') },
+	}
 })
 ```
 
+All setup above will enable snapshot testing in storybook when the story has the `snapshot` tag.
+
 ### Storybook Configuration
 
-For [Storybook], all you need is to add the `storybook-addon-vis` to your `.storybook/main.js`:
+For [Storybook], you need to add the `storybook-addon-vis` to your `.storybook/main.js`:
 
 ```ts
 // .storybook/main.ts
@@ -352,6 +403,32 @@ const config: StorybookConfig = {
 }
 ```
 
+If you customize the `snapshotRootDir` or `snapshotSubpath`, you need to provide them to the addon:
+
+```ts
+// .storybook/main.ts
+const config: StorybookConfig = {
+	addons: [
+		[{
+			name: 'storybook-addon-vis',
+			options: {
+				visProjects: [
+					{
+						// or `snapshotRootDir: '__vis__/custom'`
+						snapshotRootDir: ({ ci, platform }) => '..your-snapshot-folder...',
+						snapshotSubpath: ({ subpath }) => '...your-subpath...',
+					},
+				],
+			}
+		}]
+	]
+}
+```
+
+You can provide multiple projects to the addon,
+which is useful if you want to see the results from different environments,
+or from different Vitest configurations.
+
 ### TypeScript Configuration
 
 The main usage of this addon is to use the `toMatchImageSnapshot` matcher.
@@ -370,9 +447,17 @@ To address this, you can add the following to your `tsconfig.json`:
 }
 ```
 
+Or use the triple-slash reference.
+
+To do that, create a typing file, e.g. `types/storybook-addon-vis.d.ts`:
+
+```ts
+/// <reference types="storybook-addon-vis/matcher" />
+```
+
 ## Usage - automatic snapshot
 
-With the `auto` or `enable` preset, [`storybook-addon-vis`][storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
+With visual testing enabled, [`storybook-addon-vis`][storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
 
 As how tags work in [Storybook], you can add the tag globally, per story file, or per story.
 
@@ -426,10 +511,12 @@ export const MyStory = {
 }
 
 // in vitest.setup.ts
-vis.presets.theme({
-	async light({ tags }) {
-		if (tags.includes('!light')) return false
-		document.body.classList.remove('dark')
+vis.setup({
+	auto: {
+		async light({ tags }) {
+			if (tags.includes('!light')) return false
+			document.body.classList.remove('dark')
+		}
 	}
 })
 ```

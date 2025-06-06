@@ -1,4 +1,127 @@
-# v0.0.16 (Tue Oct 29 2024)
+# CHANGE LOG
+
+## 2.0.7
+
+### Patch Changes
+
+- [`cb735b9`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f) Thanks [@unional](https://github.com/unional)! - Revert importing `createVis` from `vitest-plugin-vis/client-api`.
+  `createVis` imports `vitest`, which cannot be imported in the client side.
+- Updated dependencies [[`cb735b9`](https://github.com/repobuddy/visual-testing/commit/cb735b93422c254befd37a124785924502b99b5f)]:
+  - vitest-plugin-vis@3.3.2
+
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`5b25658`](https://github.com/repobuddy/visual-testing/commit/5b256581ea5b41816c72bbd25a1271da2c258bd1)]:
+  - vitest-plugin-vis@3.3.1
+
+## 2.0.5
+
+### Patch Changes
+
+- [`e1eb154`](https://github.com/repobuddy/visual-testing/commit/e1eb1548c842a3041587bf2f51c54f5d8e83bca4) Thanks [@unional](https://github.com/unional)! - Hide `Vis Panel` on production build
+
+## 2.0.4
+
+### Patch Changes
+
+- [#314](https://github.com/repobuddy/visual-testing/pull/314) [`9bf9224`](https://github.com/repobuddy/visual-testing/commit/9bf9224ff20ed03d378c78be0794a49d3cb9839b) Thanks [@unional](https://github.com/unional)! - Add `@storybook/addon-vitest` as peer dependency.
+
+- Updated dependencies [[`090e613`](https://github.com/repobuddy/visual-testing/commit/090e61305e31c264bfec84a34ca42b702642f37d), [`4fb0a22`](https://github.com/repobuddy/visual-testing/commit/4fb0a22f63ab16e27594598e21e2ab7426727d07), [`150924d`](https://github.com/repobuddy/visual-testing/commit/150924d8ef44fb61002c1b58a1baf14277177a69)]:
+  - vitest-plugin-vis@3.3.0
+
+## 2.0.3
+
+### Patch Changes
+
+- [#308](https://github.com/repobuddy/visual-testing/pull/308) [`d6e5979`](https://github.com/repobuddy/visual-testing/commit/d6e597906efcc1c5fa6383b365a0f9fdad4d792f) Thanks [@unional](https://github.com/unional)! - Update `preset.js` to ESM.
+  This fix the issue when running in Node 22.12+ where ESM is enabled by default.
+
+## 2.0.2
+
+### Patch Changes
+
+- [#306](https://github.com/repobuddy/visual-testing/pull/306) [`4923c82`](https://github.com/repobuddy/visual-testing/commit/4923c82062bccab2e37863d9c193b96388c8c92d) Thanks [@unional](https://github.com/unional)! - Fix loading snapshots on Vis panel without options.
+
+## 2.0.1
+
+### Patch Changes
+
+- [`a68f517`](https://github.com/repobuddy/visual-testing/commit/a68f517fddfb663dd3b313bcef975fc2393d52be) Thanks [@unional](https://github.com/unional)! - Remove `preview.js`.
+
+## 2.0.0
+
+### Major Changes
+
+- [#297](https://github.com/repobuddy/visual-testing/pull/297) [`e71893a`](https://github.com/repobuddy/visual-testing/commit/e71893afed69d732f61a6daf166ff5a97e3c305e) Thanks [@unional](https://github.com/unional)! - Supports Storybook 9.0.0
+
+## 1.1.0
+
+### Minor Changes
+
+- [#289](https://github.com/repobuddy/visual-testing/pull/289) [`2649ed1`](https://github.com/repobuddy/visual-testing/commit/2649ed17fb8f12870070d093b33a80006885fab9) Thanks [@unional](https://github.com/unional)! - Add `page.toMatchImageSnapshot()`.
+
+### Patch Changes
+
+- Updated dependencies [[`9ba3e59`](https://github.com/repobuddy/visual-testing/commit/9ba3e59dc6ecf4f2943200db6a51a07791ac5c6d)]:
+  - vitest-plugin-vis@3.1.0
+
+## 1.0.2
+
+### Patch Changes
+
+- [#286](https://github.com/repobuddy/visual-testing/pull/286) [`b4aebba`](https://github.com/repobuddy/visual-testing/commit/b4aebba9053fe6da5edfaf99ccac407f8391c022) Thanks [@unional](https://github.com/unional)! - Remove `@types/pixelmatch` from peer dependency.
+
+## 1.0.1
+
+### Patch Changes
+
+- [`702f458`](https://github.com/repobuddy/visual-testing/commit/702f45898c2a554bf263f86695b3e1b4c212737a) Thanks [@unional](https://github.com/unional)! - Add refresh button to vis panel.
+
+- Updated dependencies [[`9a25501`](https://github.com/repobuddy/visual-testing/commit/9a255013ee3b5beb319da140648b5f4d44e59c8a)]:
+  - vitest-plugin-vis@3.0.1
+
+## 1.0.0
+
+### Major Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`a7c2a49`](https://github.com/repobuddy/visual-testing/commit/a7c2a49891c4b5b1724ff8f2f4a81ec01ae16c2c) Thanks [@unional](https://github.com/unional)! - Move `storybook-addon-vis/preview` into `storybook-addon-vis/vitest-setup`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`d8c2dac`](https://github.com/repobuddy/visual-testing/commit/d8c2dace2fb6f56fe555d122590937029736e713) Thanks [@unional](https://github.com/unional)! - Add `Storybook Vis` panel to show the results of the visual tests.
+
+### Minor Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`36dcd4e`](https://github.com/repobuddy/visual-testing/commit/36dcd4e5ecf00078fbcf6ddf30852fab6e962eff) Thanks [@unional](https://github.com/unional)! - Rename `ImageSnapshotIdOptions` to `ImageSnapshotKeyOptions`.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`ccb67af`](https://github.com/repobuddy/visual-testing/commit/ccb67aff835baaefc883004fbada7a811425dbd3) Thanks [@unional](https://github.com/unional)! - Remove `SnapshotMeta` from API.
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`ba025cb`](https://github.com/repobuddy/visual-testing/commit/ba025cb9872ac184646b41912d87b4608d5f2b01) Thanks [@unional](https://github.com/unional)! - Add `StorybookVisOptions`
+
+### Patch Changes
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`29ea8dc`](https://github.com/repobuddy/visual-testing/commit/29ea8dc41c1fe64a15f35840617e629b12e4123b) Thanks [@unional](https://github.com/unional)! - Rename `matchImageSnapshot` to `matchImageSnapshotAction` (breaking).
+
+- [#259](https://github.com/repobuddy/visual-testing/pull/259) [`fbaa75b`](https://github.com/repobuddy/visual-testing/commit/fbaa75be2421bf70e0a7a7a296f307d8564421e7) Thanks [@unional](https://github.com/unional)! - Use `hasImageSnapshotAction` from `vitest-plugin-vis`.
+
+- [`f19d4c9`](https://github.com/repobuddy/visual-testing/commit/f19d4c931f346b5cf813a3d66131ae92fb6f07c5) - Depends on `vitest-plugin-vis` with version range `^`.
+
+- Updated dependencies [[`1d322c4`](https://github.com/repobuddy/visual-testing/commit/1d322c439db6f6160dbc70a6710e00ed03e3ce19), [`38734c5`](https://github.com/repobuddy/visual-testing/commit/38734c508633168e73d87c264b3dabf44dd617b8), [`14f57c5`](https://github.com/repobuddy/visual-testing/commit/14f57c5be3569d7620d7288b0fc9aba7a3a798b6), [`7ff4a7b`](https://github.com/repobuddy/visual-testing/commit/7ff4a7b22e20c94b554b2c99e406b93343953d0f), [`b68f90a`](https://github.com/repobuddy/visual-testing/commit/b68f90a74899bfed4fca3083696b955f35f5f11b), [`6f74919`](https://github.com/repobuddy/visual-testing/commit/6f74919691ac97dd9759447cc7feab58cf7f24d8), [`29ea8dc`](https://github.com/repobuddy/visual-testing/commit/29ea8dc41c1fe64a15f35840617e629b12e4123b), [`594c9c9`](https://github.com/repobuddy/visual-testing/commit/594c9c9511ea74dde10329eeee64f51a257f92bd), [`34973ca`](https://github.com/repobuddy/visual-testing/commit/34973ca0a017f35e58ce4e706da1a83a693ee6a9), [`4c9bf36`](https://github.com/repobuddy/visual-testing/commit/4c9bf365db466c159395996c56ca76b2112bef09), [`aa957fc`](https://github.com/repobuddy/visual-testing/commit/aa957fc3dcae07a43583e219b33b92a19de31f6b), [`899ce35`](https://github.com/repobuddy/visual-testing/commit/899ce35a89488bc1c00ed3771c2a4d51e042fee2), [`f3ef08c`](https://github.com/repobuddy/visual-testing/commit/f3ef08cc57bdaa3a5d28d0588fde81d115e79150), [`abcedab`](https://github.com/repobuddy/visual-testing/commit/abcedabc46860ddd5fc015be9ccd38e6959cc77a), [`5539f6d`](https://github.com/repobuddy/visual-testing/commit/5539f6d6d0d4d192b1a8318fa5c91543a46abd39), [`eb1eeee`](https://github.com/repobuddy/visual-testing/commit/eb1eeeeab6021ba5d58306519333d5099a173ee0), [`4f9ce14`](https://github.com/repobuddy/visual-testing/commit/4f9ce14214531cd430c14a9e703a9652744864fe), [`fb8603d`](https://github.com/repobuddy/visual-testing/commit/fb8603df43c71303b92f40ddfc6b9d42982b1dd2), [`1b1c13a`](https://github.com/repobuddy/visual-testing/commit/1b1c13a986b708a8e1adc52cf05f52c46e937000), [`11e52da`](https://github.com/repobuddy/visual-testing/commit/11e52da2ebd7dc5d4d5d252942b7edbc40c81713), [`2f57b5b`](https://github.com/repobuddy/visual-testing/commit/2f57b5bf35f149b3058df5fd0b2e663387d26bf3), [`ccb67af`](https://github.com/repobuddy/visual-testing/commit/ccb67aff835baaefc883004fbada7a811425dbd3), [`31d9e29`](https://github.com/repobuddy/visual-testing/commit/31d9e29186a2fb0caa2e4c26be002e248f1160de), [`577e42b`](https://github.com/repobuddy/visual-testing/commit/577e42b5321b50b183a71a23c54dfaa87d5ad7a5), [`c3ec8f8`](https://github.com/repobuddy/visual-testing/commit/c3ec8f8f538f9aa84f17e4749dc46563d1605ed0), [`d7e7802`](https://github.com/repobuddy/visual-testing/commit/d7e780233226f4d6bfea955819789a00687a1fe9), [`033f725`](https://github.com/repobuddy/visual-testing/commit/033f725ca44bb8e213e94b6b001e7d8657fc48d7), [`766c035`](https://github.com/repobuddy/visual-testing/commit/766c035e798334e44e6489de86f05f4809e7fb76), [`51b4855`](https://github.com/repobuddy/visual-testing/commit/51b48557f66447b302ad1a27a9482db42c4dc90d), [`755f18a`](https://github.com/repobuddy/visual-testing/commit/755f18aba217a9d3beca842701b68f85873561e4), [`3c8eee0`](https://github.com/repobuddy/visual-testing/commit/3c8eee04308506040dafede505ab53736545c20d), [`f7ce143`](https://github.com/repobuddy/visual-testing/commit/f7ce1438e435aaaac6449b7f138034bb34b598f3), [`ea3735f`](https://github.com/repobuddy/visual-testing/commit/ea3735fbb88ecf93ef6f1b287871afe44a8185de), [`6978c83`](https://github.com/repobuddy/visual-testing/commit/6978c8371b626e508044f422bbfe9c3694337565)]:
+  - vitest-plugin-vis@3.0.0
+
+## 0.19.4
+
+### Patch Changes
+
+- Updated dependencies [[`0b83a6e`](https://github.com/repobuddy/visual-testing/commit/0b83a6e63fe7d7d770277dfd020443972ebbd9ad)]:
+  - vitest-plugin-vis@2.4.4
+
+## 0.19.3
+
+### Patch Changes
+
+- Updated dependencies [[`57be521`](https://github.com/repobuddy/visual-testing/commit/57be5217c3c12a7313c724c144c9227a4f227a4c)]:
+  - vitest-plugin-vis@2.4.3
 
 ## 0.19.2
 

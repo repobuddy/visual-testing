@@ -1,8 +1,9 @@
 {
 	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"composite": true,
 		// "esModuleInterop": true,
 		// "experimentalDecorators": true,
-		"incremental": false,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
@@ -19,9 +20,5 @@
 		"verbatimModuleSyntax": true
 	},
 	"include": ["src"],
-	"references": [
-		{
-			"path": "../vitest-plugin-vis"
-		}
-	]
+	"references": [{ "path": "../vitest-plugin-vis/tsconfig.esm.json" }]
 }

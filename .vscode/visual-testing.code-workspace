@@ -1,0 +1,37 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../.github"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"tailwind.css": "tailwindcss"
+		},
+		"git-graph.dialog.general.referenceInputSpaceSubstitution": "Hyphen",
+		"material-icon-theme.files.associations": {
+			"*.accept.ts": "test-ts",
+			"*.excalidraw": "maven",
+			"*.integrate.ts": "test-ts",
+			"*.spec.node.ts": "test-ts",
+			"*.study.ts": "test-ts",
+			"*.system.ts": "test-ts",
+			"*.unit.node.ts": "test-ts",
+			"*.unit.ts": "test-ts",
+			"vitest.config.browser.ts": "vitest",
+			"vitest.config.node.ts": "vitest",
+			"vitest.config.playwright.ts": "vitest",
+			"vitest.config.webdriverio.ts": "vitest",
+			"vitest.setup.ts": "vitest",
+			"vitest.setup.playwright.ts": "vitest",
+			"vitest.setup.webdriverio.ts": "vitest"
+		},
+		"typescript.updateImportsOnPaste.enabled": true,
+		"typescript.preferences.includePackageJsonAutoImports": "on",
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"typescript.tsserver.web.projectWideIntellisense.enabled": true
+	}
+}

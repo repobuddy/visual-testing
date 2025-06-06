@@ -1,16 +1,17 @@
 import { type BrowserPage, commands } from '@vitest/browser/context'
-import type { ImageSnapshotIdOptions } from '../../shared/types.ts'
+import type { ImageSnapshotKeyOptions } from '../../shared/types.ts'
+import { hasImageSnapshotAction } from '../actions/has_image_snapshot_action.ts'
 import { ctx } from '../ctx.ts'
 import { toTaskId } from '../task_id.ts'
 
 export interface HasImageSnapshotAction {
-	hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOptions | undefined): Promise<boolean>
+	/**
+	 * Check if the snapshot image exists.
+	 */
+	hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotKeyOptions | undefined): Promise<boolean>
 }
 
-/**
- * Check if the snapshot image exists.
- */
-export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOptions | undefined) {
+export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotKeyOptions | undefined) {
 	const test = ctx.getCurrentTest()
 	if (!test) {
 		throw new Error('`hasImageSnapshot()` must be called in a test.')
@@ -22,19 +23,5 @@ export function hasImageSnapshot(this: BrowserPage, options?: ImageSnapshotIdOpt
 				"concurrent tests run at the same time in the same iframe and affect each other's environment. ",
 		)
 	}
-	const taskId = toTaskId(test)
-	const isAutoSnapshot = !!test.meta.vis?.isAutoSnapshot
-	if (options?.customizeSnapshotId) {
-		return commands
-			.imageSnapshotNextIndex(taskId)
-			.then((index) =>
-				commands.hasImageSnapshot(
-					taskId,
-					options.customizeSnapshotId!({ id: taskId, index, isAutoSnapshot }),
-					isAutoSnapshot,
-				),
-			)
-	}
-
-	return commands.hasImageSnapshot(taskId, undefined, isAutoSnapshot)
+	return hasImageSnapshotAction(commands, toTaskId(test), options)
 }

@@ -1,0 +1,10 @@
+name: github-page
+on:
+  workflow_dispatch:
+jobs:
+  docgen:
+    permissions:
+      contents: write
+    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@main
+    with:
+      publish-dir: ./packages/storybook-addon-vis/storybook-static

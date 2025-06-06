@@ -1,0 +1,153 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+
+<Meta title="vitest-plugin-vis/config/trimCommonFolder" />
+
+# trimCommonFolder
+
+The `trimCommonFolder` function is a utility that removes common folder prefixes from file paths to generate cleaner snapshot sub-paths.
+
+## Purpose
+
+When generating snapshot paths, test files are often located in common directories like `src`, `tests`, `test`, etc. The `trimCommonFolder` function removes these common prefixes to create shorter, more meaningful snapshot directory structures.
+
+## Usage
+
+The default `snapshotSubpath` option in `vitest-plugin-vis/config` uses this function to trim common folder prefixes from the test file path:
+
+```ts
+// vitest.config.ts
+import { vis, trimCommonFolder } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath)
+	})]
+})
+```
+
+You can use it in your own custom `snapshotSubpath` function.
+
+## Function Signature
+
+```ts
+function trimCommonFolder(suiteName: string): string
+```
+
+## Supported Common Folders
+
+The function recognizes and removes the following common folder prefixes:
+
+- `tests` - Common test directory
+- `test` - Alternative test directory
+- `src` - Source code directory
+- `source` - Alternative source directory
+- `js` - JavaScript files directory
+- `ts` - TypeScript files directory
+- `lib` - Library files directory
+
+## Examples
+
+### Trimming Source Directories
+
+```ts
+trimCommonFolder('src/components/Button.spec.ts')
+// Returns: 'components/Button.spec.ts'
+
+trimCommonFolder('source/utils/helpers.test.ts')
+// Returns: 'utils/helpers.test.ts'
+```
+
+### Trimming Test Directories
+
+```ts
+trimCommonFolder('tests/unit/Button.spec.ts')
+// Returns: 'unit/Button.spec.ts'
+
+trimCommonFolder('test/integration/api.test.ts')
+// Returns: 'integration/api.test.ts'
+```
+
+### Trimming Language-Specific Directories
+
+```ts
+trimCommonFolder('js/components/Modal.spec.js')
+// Returns: 'components/Modal.spec.js'
+
+trimCommonFolder('ts/types/User.test.ts')
+// Returns: 'types/User.test.ts'
+
+trimCommonFolder('lib/utils/format.spec.ts')
+// Returns: 'utils/format.spec.ts'
+```
+
+### No Trimming Cases
+
+```ts
+// Unrecognized folder - no trimming
+trimCommonFolder('app/components/Button.spec.ts')
+// Returns: 'app/components/Button.spec.ts'
+
+// File in root - no trimming
+trimCommonFolder('Button.spec.ts')
+// Returns: 'Button.spec.ts'
+
+// No slash separator - no trimming
+trimCommonFolder('index.ts')
+// Returns: 'index.ts'
+```
+
+### Before and After Snapshot Paths
+
+Without `trimCommonFolder`:
+```
+__vis__/local/__baselines__/src/components/Button.spec.ts/Button/should-render-correctly-auto.png
+```
+
+With `trimCommonFolder`:
+```
+__vis__/local/__baselines__/components/Button.spec.ts/Button/should-render-correctly-auto.png
+```
+
+## Custom Implementation
+
+You can create your own trimming logic by implementing a similar function:
+
+```ts
+// Custom trimming function
+function customTrimFolder(suiteName: string) {
+  const customFolders = ['app', 'pages', 'components']
+  const suiteDir = suiteName.split('/', 1)[0]!
+
+  if (customFolders.includes(suiteDir)) {
+    return suiteName.slice(suiteDir.length + 1)
+  }
+
+  return suiteName
+}
+
+// Use in config
+export default defineConfig({
+  plugins: [
+    vis({
+      snapshotSubpath: ({ subpath }) => customTrimFolder(subpath)
+    })
+  ]
+})
+```
+
+### Case Sensitivity
+
+The function is case-sensitive and only matches exact lowercase folder names:
+
+```ts
+trimCommonFolder('SRC/components/Button.spec.ts')
+// Returns: 'SRC/components/Button.spec.ts' (no trimming)
+
+trimCommonFolder('Src/components/Button.spec.ts')
+// Returns: 'Src/components/Button.spec.ts' (no trimming)
+```
+
+## Related
+
+- [vis config](/docs/vitest-plugin-vis-config-vis--docs) - Main plugin configuration
+- [Snapshot Path Customization](/docs/vitest-plugin-vis-config-vis--docs#customizing-snapshot-path) - How to customize snapshot paths

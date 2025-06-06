@@ -8,7 +8,7 @@ export default defineConfig({
 			snapshotRootDir({ ci, browserName, providerName, platform }) {
 				return `__vis__/${ci ? platform : 'local'}/${providerName}/${browserName}`
 			},
-			subjectDataTestId: 'subject',
+			subject: '[data-testid="subject"]',
 		}),
 	],
 	optimizeDeps: {
@@ -18,11 +18,11 @@ export default defineConfig({
 		name: 'vpv:wd',
 		browser: {
 			enabled: true,
+			headless: true,
 			provider: 'webdriverio',
 			instances: [
 				{
 					browser: 'chrome',
-					headless: true,
 					screenshotFailures: false,
 					screenshotDirectory: '__screenshots__/webdriverio/chrome',
 					// @ts-ignore

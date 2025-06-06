@@ -16,7 +16,7 @@ it('subject snapshot', async ({ expect }) => {
 it('can skip await', async ({ expect }) => {
 	const { getByTestId } = await render(<Button label="Button" data-testid="subject" />)
 	const subject = getByTestId('subject')
-	expect(subject).toMatchImageSnapshot()
+	await expect(subject).toMatchImageSnapshot()
 })
 
 it('life cycle', async () => {

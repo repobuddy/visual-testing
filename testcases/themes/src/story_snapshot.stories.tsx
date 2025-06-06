@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { expect } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 import { hasImageSnapshot } from 'storybook-addon-vis'
 import { Button } from './Button.js'
 
@@ -25,6 +25,6 @@ export const Secondary: StoryObj = {
 		label: 'Button2',
 	},
 	async play() {
-		expect(await hasImageSnapshot()).toEqual(false)
+		await expect(await hasImageSnapshot()).toEqual(false)
 	},
 }

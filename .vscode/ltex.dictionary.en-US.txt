@@ -1,2 +1,6 @@
 Vitest
 monorepo
+addon
+pathe
+Vis
+async

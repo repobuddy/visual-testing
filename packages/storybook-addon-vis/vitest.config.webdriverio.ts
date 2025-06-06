@@ -1,5 +1,5 @@
 import { storybookVis, trimCommonFolder } from '#storybook-addon-vis/vitest-plugin'
-import storybookTest from '@storybook/experimental-addon-test/vitest-plugin'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import { join } from 'node:path'
 import { defineProject } from 'vitest/config'
@@ -9,10 +9,10 @@ export default defineProject({
 		react(),
 		storybookTest({ configDir: join(import.meta.dirname, '.storybook') }),
 		storybookVis({
-			customizeSnapshotSubpath(subPath) {
-				return `wb/${trimCommonFolder(subPath)}`
+			snapshotSubpath({ subpath }) {
+				return `wb/${trimCommonFolder(subpath)}`
 			},
-			subjectDataTestId: 'subject',
+			subject: '[data-testid="subject"]',
 		}),
 		{
 			name: 'override',

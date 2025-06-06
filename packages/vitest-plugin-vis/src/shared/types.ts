@@ -1,6 +1,6 @@
 import type pixelMatch from 'pixelmatch'
-import type { Options as SsimOptions } from 'ssim.js'
-import type { getCurrentTest } from 'vitest/suite'
+import type { Options as SsimDiffOptions } from 'ssim.js'
+import type { SnapshotMeta } from '../client/snapshot_meta.ts'
 import type { NAME } from './constants.ts'
 
 export interface ImageSnapshotTimeoutOptions {
@@ -12,18 +12,11 @@ export interface ImageSnapshotTimeoutOptions {
 	timeout?: number | undefined
 }
 
-export interface ImageSnapshotIdOptions {
+export interface ImageSnapshotKeyOptions {
 	/**
-	 * Customize the snapshot id. This is used as the filename of the snapshot: `${snapshotId}.png`
-	 *
-	 * @param id The id of the snapshot.
-	 * @param index The index of the snapshot.
+	 * Customize the `snapshotKey` of the snapshot.
 	 */
-	customizeSnapshotId?: (context: {
-		id: string
-		index: number
-		isAutoSnapshot: boolean
-	}) => string
+	snapshotKey?: string | undefined
 }
 
 export type ComparisonMethod = 'pixel' | 'ssim'
@@ -48,32 +41,37 @@ export type SsimComparisonOptions<M = 'ssim'> = {
 	/**
 	 * Custom options passed to 'ssim'
 	 */
-	diffOptions?: Partial<SsimOptions> | undefined
+	diffOptions?: Partial<SsimDiffOptions> | undefined
 }
+
+export type { SsimDiffOptions }
+
 export type PixelComparisonOptions<M = 'pixel'> = {
 	comparisonMethod?: M | undefined
 	/**
 	 * Custom options passed to 'pixelmatch'
 	 */
-	diffOptions?: Parameters<typeof pixelMatch>[5] | undefined
+	diffOptions?: PixelDiffOptions | undefined
 }
+
+export type PixelDiffOptions = Parameters<typeof pixelMatch>[5]
 
 export type ImageSnapshotCompareOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
 	? SsimComparisonOptions<M>
 	: PixelComparisonOptions<M>) &
 	FailureThresholdOptions
 
-export type AutoSnapshotOptions = {
+export type ImageSnapshotSubjectOptions = {
 	/**
-	 * Specify the data-testid of the subject element. Default is `subject`.
+	 * Specify the query of the subject element.
 	 *
-	 * If the test does not have an element with the specified data-testid,
+	 * If the test does not have an element with the specified query,
 	 * the `body` element will be used.
 	 */
-	subjectDataTestId?: string | undefined
+	subject?: string | undefined
 }
 export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
-	ImageSnapshotIdOptions &
+	ImageSnapshotKeyOptions &
 	ImageSnapshotCompareOptions<M> & {
 		/**
 		 * Expect the matcher to fail.
@@ -82,8 +80,15 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 		expectToFail?: boolean | undefined
 	}
 
-export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
-	AutoSnapshotOptions & {
-		enable?: boolean | undefined
-		[key: string]: unknown
+export interface PageImageSnapshotOptions {
+	fullPage?: boolean | undefined
+}
+
+export type ToMatchPageImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ToMatchImageSnapshotOptions<M> &
+	PageImageSnapshotOptions
+
+export type SnapshotTestMeta = {
+	meta: {
+		[NAME]?: SnapshotMeta<ComparisonMethod>
 	}
+}

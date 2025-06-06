@@ -1,6 +1,6 @@
 {
 	"name": "vitest-plugin-vis",
-	"version": "2.4.2",
+	"version": "3.3.2",
 	"description": "Vitest visual testing plugin",
 	"keywords": [
 		"image-snapshot",
@@ -9,8 +9,8 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/repobuddy/storybook-image-snapshot",
-		"directory": "packages/vitest-image-snapshot"
+		"url": "https://github.com/repobuddy/visual-testing",
+		"directory": "packages/vitest-plugin-vis"
 	},
 	"license": "MIT",
 	"author": {
@@ -19,6 +19,9 @@
 		"url": "https://github.com/unional"
 	},
 	"type": "module",
+	"imports": {
+		"#vitest-plugin-vis/config": "./src/config.ts"
+	},
 	"exports": {
 		".": {
 			"types": "./esm/index.d.ts",
@@ -28,13 +31,9 @@
 			"types": "./esm/config.d.ts",
 			"default": "./esm/config.js"
 		},
-		"./client": {
-			"types": "./esm/client.d.ts",
-			"default": "./esm/client.js"
-		},
-		"./commands": {
-			"types": "./esm/commands.d.ts",
-			"default": "./esm/commands.js"
+		"./client-api": {
+			"types": "./esm/client-api.d.ts",
+			"default": "./esm/client-api.js"
 		},
 		"./presets/auto": {
 			"types": "./esm/presets/auto.d.ts",
@@ -48,6 +47,10 @@
 			"types": "./esm/presets/manual.d.ts",
 			"default": "./esm/presets/manual.js"
 		},
+		"./server-utils": {
+			"types": "./esm/server-utils.d.ts",
+			"default": "./esm/server-utils.js"
+		},
 		"./setup": {
 			"types": "./esm/setup.d.ts",
 			"default": "./esm/setup.js"
@@ -58,9 +61,6 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"imports": {
-		"#vitest-plugin-vis/config": "./src/config.ts"
-	},
 	"types": "./esm/index.d.ts",
 	"files": [
 		"esm",
@@ -68,27 +68,30 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
 	],
 	"scripts": {
-		"build": "tsc",
-		"build:watch": "tsc -w",
-		"clean": "rimraf coverage esm *.tsbuildinfo vitest.*.timestamp*",
+		"build": "tsc -b tsconfig.esm.json",
+		"build:watch": "tsc  -b tsconfig.esm.json -w",
+		"clean": "rimraf coverage esm --glob *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "cross-env COVERAGE=true vitest run --coverage",
 		"coverage": "cross-env COVERAGE=true vitest run --coverage",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
-		"test": "vitest run",
+		"sb": "storybook dev -p 6007",
 		"t:node": "vitest --project=vpv:node",
 		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
+		"test": "vitest run",
 		"v": "run-p build cov",
 		"w": "vitest",
-		"w:cov": "cross-env COVERAGE=true vitest --coverage",
-		"w:node": "vitest --project=vpv:node",
+		"w:c": "cross-env COVERAGE=true vitest --coverage",
+		"w:n": "vitest --project=vpv:node",
+		"w:n:c": "vitest --project=vpv:node --coverage",
 		"w:pw": "vitest --project=\"vpv:pw (*)\"",
 		"w:wd": "vitest --project=\"vpv:wd (*)\""
 	},
 	"dependencies": {
 		"dedent": "^1.5.1",
+		"glob": "^11.0.2",
 		"is-ci": "^4.0.0",
 		"mkdirp": "^3.0.1",
 		"pathe": "^2.0.0",
@@ -99,24 +102,32 @@
 		"type-plus": "8.0.0-beta.7"
 	},
 	"devDependencies": {
+		"@repobuddy/storybook": "^1.0.0",
 		"@repobuddy/typescript": "^2.1.0",
+		"@storybook/addon-docs": "^9.0.4",
+		"@storybook/addon-vitest": "^9.0.4",
+		"@storybook/react-vite": "^9.0.4",
+		"@tailwindcss/vite": "^4.1.7",
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",
-		"@types/react": "^19.0.2",
-		"@vitest/browser": "^3.0.8",
-		"@vitest/coverage-istanbul": "^3.0.8",
-		"@vitest/coverage-v8": "^3.0.8",
-		"@vitest/expect": "^3.0.8",
+		"@types/react": "^18.2.65",
+		"@vitest/browser": "catalog:",
+		"@vitest/coverage-istanbul": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"@vitest/expect": "catalog:",
 		"cross-env": "^7.0.3",
 		"never-fail": "^1.1.4",
-		"npm-run-all2": "^7.0.2",
-		"playwright": "latest",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
+		"npm-run-all2": "^8.0.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"storybook": "^9.0.4",
+		"storybook-addon-tag-badges": "^2.0.0",
+		"storybook-dark-mode2": "^5.0.2",
+		"tailwindcss": "^4.1.7",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.9",
-		"vitest": "^3.0.8",
-		"vitest-browser-react": "^0.1.0"
+		"vite": "catalog:",
+		"vitest": "catalog:",
+		"vitest-browser-react": "^0.2.0"
 	},
 	"peerDependencies": {
 		"@vitest/browser": "^2 || ^3",

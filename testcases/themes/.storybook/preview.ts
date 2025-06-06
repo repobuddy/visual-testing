@@ -1,6 +1,6 @@
 import { withThemeByClassName } from '@storybook/addon-themes'
-import type { Preview } from '@storybook/react'
-import { themes } from '@storybook/theming'
+import type { Preview } from '@storybook/react-vite'
+import { themes } from 'storybook/theming'
 import { useEffect } from 'react'
 
 import '../src/input.css'
@@ -37,7 +37,7 @@ const addStyleSheetDecorator = (storyFn: any) => {
 	return storyFn()
 }
 
-/** @type { import('@storybook/react').Preview } */
+/** @type { import('@storybook/react-vite').Preview } */
 const preview: Preview = {
 	decorators: [
 		withThemeByClassName({

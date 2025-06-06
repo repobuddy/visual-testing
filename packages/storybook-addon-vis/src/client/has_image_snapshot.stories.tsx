@@ -1,5 +1,5 @@
-import type { StoryObj } from '@storybook/react'
-import { expect } from '@storybook/test'
+import type { StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 import { hasImageSnapshot } from './has_image_snapshot.ts'
 
 export default {

@@ -1,0 +1,121 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Basic Setup" />
+
+# Basic Setup
+
+The basic setup is pretty straightforward.
+
+
+## Vitest
+
+For [Vitest], you need to add the following to your `vitest.config.ts`:
+
+```ts
+// vitest.config.ts
+
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookTest(),
+		storybookVis() // ADD THIS
+	],
+	test: {
+		// vitest v2
+		browser: {
+			enabled: true,
+			headless: true,
+			provider: 'playwright',
+			name: 'chromium',
+		},
+		// vitest v3
+		browser: {
+			enabled: true,
+			headless: true,
+			provider: 'playwright',
+			instances: [
+				{ browser: 'chromium' }
+			]
+		}
+		// recommend to set to false
+		globals: false,
+		// Needed by both Storybook Test Addon and Storybook Visual Testing
+		setupFiles: ['./vitest.setup.ts'],
+	}
+})
+```
+
+And your `vitest.setup.ts`:
+
+```ts
+// vitest.setup.ts
+
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+import { beforeAll } from 'vitest'
+import * as projectAnnotations from './preview.ts'
+
+const project = setProjectAnnotations([
+	projectAnnotations,
+	visAnnotations // ADD THIS
+])
+
+beforeAll(project.beforeAll)
+
+// ADD THIS to setup visual testing
+vis.setup()
+```
+
+## Storybook
+
+For [Storybook], update your `.storybook/main.ts` to add the addon:
+
+```ts
+// .storybook/main.ts
+
+const config: StorybookConfig = {
+	// ...
+	addons: [
+		// ...
+		'@storybook/experimental-addon-test',
+		'storybook-addon-vis' // ADD THIS
+	]
+}
+```
+
+With this setup, [storybook-addon-vis] is configured to do the following:
+
+- Take snapshots for every story with the `snapshot` tag.
+- Use `pixelmatch` as the comparison algorithm.
+	- Compare snapshots with a failure threshold of `0 pixels`.
+	- Timeout for image comparison is set to `30000 ms`.
+- Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
+- CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
+- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
+- Current test images are saved in the `<root>/__vis__/*/__results__` directory.
+- Diff images (if any) are saved in the `<root>/__vis__/*/__diffs__` directory.
+- You can review the baseline and diff images in addon `Vis` panel.
+
+## Git (or other version control system)
+
+Since [storybook-addon-vis][storybook-addon-vis] will save snapshot on your file system,
+you need to tell your v2ersion control system to ignore the snapshot directory.
+
+With the basic setup, add this to your `.gitignore` (or your version control system's ignore file):
+
+```ini
+# snapshot images
+__vis__/local
+__vis__/**/__results__
+__vis__/**/__diffs__
+```
+
+Note that the `__vis__/*/__baselines__` should not be ignored,
+as it is used to store the baseline images.
+They should be committed to your repository.
+
+[storybook-addon-vis]: https://www.npmjs.com/package/storybook-addon-vis
+[Vitest]: https://vitest.dev/
+[Storybook]: https://storybook.js.org/

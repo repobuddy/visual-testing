@@ -5,7 +5,7 @@
 		"build": {
 			"dependsOn": ["^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
-			"outputs": ["dist/**", "esm/**"]
+			"outputs": ["dist/**", "esm/**", "*.tsbuildinfo"]
 		},
 		"//#check": {},
 		"clean": {
@@ -16,21 +16,37 @@
 		},
 		"coverage": {
 			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["coverage/**", "__vis__/**"]
 		},
 		"nuke": {
 			"cache": false,
 			"dependsOn": ["clean"]
 		},
+		"storybook-addon-vis#coverage": {
+			"dependsOn": ["build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["coverage/**", "__vis__/**"]
+		},
+		"storybook-addon-vis#test": {
+			"dependsOn": ["build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["__vis__/**"]
+		},
 		"test": {
 			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"]
+		},
+		"test:type": {
+			"dependsOn": ["^build"]
 		},
 		"testcase": {
 			"dependsOn": ["^build"]
 		},
 		"w": {
 			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"],
 			"persistent": true
 		}

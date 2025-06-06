@@ -1,11 +1,15 @@
-import type { StoryObj } from '@storybook/react'
-import { expect } from '@storybook/test'
+import type { StoryObj } from '@storybook/react-vite'
+
+import { expect } from 'storybook/test'
 import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing.ts'
 
 export default {
 	title: 'expect matchers/toMatchImageSnapshot',
-	render: () => <div data-testid="subject">unit</div>,
+	tags: ['version:1.0'],
+	render: () => {
+		return <div data-testid="subject">unit</div>
+	},
 }
 
 export const MatchingCanvasElement: StoryObj = {
@@ -94,7 +98,7 @@ export const FailWhenSmaller: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: ({ id }) => id,
+					snapshotKey: 'smaller',
 				}),
 			}
 		},
@@ -106,13 +110,16 @@ export const FailWhenSmaller: StoryObj = {
 	async play({ canvas, loaded: { hasImageSnapshot } }) {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
-			await expect(subject).toMatchImageSnapshot()
+			await expect(subject).toMatchImageSnapshot({
+				snapshotKey: 'smaller',
+			})
 			return
 		}
 
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
+				snapshotKey: 'smaller',
 				expectToFail: true,
 			})
 			.then(
@@ -121,7 +128,7 @@ export const FailWhenSmaller: StoryObj = {
 				},
 				(error) => {
 					expect(error.message).toMatch(/^Snapshot .* mismatched/)
-					expect(error.message).toMatch(/The image size changed form 128x128 to 64x64/)
+					expect(error.message).toMatch(/The image size changed from \d{3}x\d{3} to \d{2}x\d{2}/)
 				},
 			)
 	},
@@ -132,7 +139,7 @@ export const FailWhenLarger: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: ({ id }) => id,
+					snapshotKey: 'larger',
 				}),
 			}
 		},
@@ -144,12 +151,15 @@ export const FailWhenLarger: StoryObj = {
 	async play({ canvas, loaded: { hasImageSnapshot } }) {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
-			await expect(subject).toMatchImageSnapshot()
+			await expect(subject).toMatchImageSnapshot({
+				snapshotKey: 'larger',
+			})
 			return
 		}
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
+				snapshotKey: 'larger',
 				expectToFail: true,
 			})
 			.then(
@@ -158,7 +168,7 @@ export const FailWhenLarger: StoryObj = {
 				},
 				(error) => {
 					expect(error.message).toMatch(/^Snapshot .* mismatched/)
-					expect(error.message).toMatch(/The image size changed form 128x128 to 64x64/)
+					expect(error.message).toMatch(/The image size changed from \d{2}x\d{2} to \d{3}x\d{3}/)
 				},
 			)
 	},
@@ -169,7 +179,7 @@ export const PassFailureThreshold: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: ({ id }) => id,
+					snapshotKey: 'threshold',
 				}),
 			}
 		},
@@ -182,11 +192,11 @@ export const PassFailureThreshold: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
 			})
 		}
 		await expect(subject).toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'threshold',
 			failureThreshold: 70,
 		})
 	},
@@ -197,7 +207,7 @@ export const FailFailureThreshold: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: ({ id }) => id,
+					snapshotKey: 'threshold',
 				}),
 			}
 		},
@@ -210,14 +220,15 @@ export const FailFailureThreshold: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
 			})
 			return
 		}
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
+
 				expectToFail: true,
 				failureThreshold: 20,
 			})
@@ -237,7 +248,7 @@ export const PassFailureThresholdPercent: StoryObj = {
 		async () => {
 			return {
 				hasImageSnapshot: await hasImageSnapshot({
-					customizeSnapshotId: ({ id }) => id,
+					snapshotKey: 'threshold',
 				}),
 			}
 		},
@@ -250,11 +261,12 @@ export const PassFailureThresholdPercent: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
 			})
 		}
 		await expect(subject).toMatchImageSnapshot({
-			customizeSnapshotId: ({ id }) => id,
+			snapshotKey: 'threshold',
+
 			failureThreshold: 1,
 			failureThresholdType: 'percent',
 		})
@@ -265,7 +277,7 @@ export const FailFailureThresholdPercent: StoryObj = {
 	loaders: [
 		async () => ({
 			hasImageSnapshot: await hasImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
 			}),
 		}),
 	],
@@ -277,14 +289,15 @@ export const FailFailureThresholdPercent: StoryObj = {
 		const subject = canvas.getByTestId('subject')
 		if (!hasImageSnapshot) {
 			await expect(subject).toMatchImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
 			})
 			return
 		}
 		// This will only execute in test environment
 		await expect(subject)
 			.toMatchImageSnapshot({
-				customizeSnapshotId: ({ id }) => id,
+				snapshotKey: 'threshold',
+
 				expectToFail: true,
 				failureThreshold: 0.1,
 				failureThresholdType: 'percent',

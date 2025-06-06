@@ -7,13 +7,15 @@ import type {
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 } from '../../shared/types.ts'
-import { file } from '../file.ts'
-import { takeSnapshot, takeSnapshotByBrowser, writeSnapshot } from '../snapshot.ts'
-import { visContext } from '../vis_context.ts'
+import { file } from '../externals/file.ts'
+import { getProjectRoot } from '../project.ts'
+import { takeSnapshot, takeSnapshotByBrowser } from '../snapshot.ts'
+import { snapshotWriter } from '../snapshot_writer.ts'
+import { visServerContext } from '../vis_server_context.ts'
 import { assertTestPathDefined } from './_assertions.ts'
-import type { MatchImageSnapshotOptions } from './match_image_snapshot.ts'
+import type { MatchImageSnapshotOptions } from './types.ts'
 
-type ImageSnapshotComparisonInfo = {
+export type ImageSnapshotComparisonInfo = {
 	/**
 	 * Path to the project root.
 	 */
@@ -38,40 +40,44 @@ type ImageSnapshotComparisonInfo = {
 	 * Base64 encoded result image.
 	 */
 	result: string
+	/**
+	 * Base64 encoded diff image.
+	 */
+	diff?: string | undefined
 } & ImageSnapshotTimeoutOptions &
 	FailureThresholdOptions &
 	(SsimComparisonOptions | PixelComparisonOptions)
 
 export interface PrepareImageSnapshotComparisonCommand {
 	prepareImageSnapshotComparison: (
-		taskId: string | undefined,
+		taskId: string,
 		subject: string,
-		isAutoSnapshot: boolean,
 		options?: MatchImageSnapshotOptions | undefined,
 	) => Promise<ImageSnapshotComparisonInfo | undefined>
 }
 
 export const prepareImageSnapshotComparison: BrowserCommand<
-	[taskId: string, snapshotId: string, isAutoSnapshot: boolean, options?: MatchImageSnapshotOptions | undefined]
-> = async (context, taskId, subject, isAutoSnapshot, options) => {
+	Parameters<PrepareImageSnapshotComparisonCommand['prepareImageSnapshotComparison']>
+> = async (context, taskId, subject, options): Promise<ImageSnapshotComparisonInfo | undefined> => {
 	assertTestPathDefined(context, 'prepareImageSnapshotComparison')
 	// vitest:browser passes in `null` when not defined
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
-	const projectRoot = context.project.config.root
-	const info = await visContext.getSnapshotInfo(context as any, taskId, isAutoSnapshot, options)
+	const projectRoot = getProjectRoot(context)
+	const info = await visServerContext.getSnapshotInfo(context, taskId, options)
+
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
 	if (!baselineBuffer) {
 		if (isBase64String(subject)) {
-			await writeSnapshot(resolve(projectRoot, info.baselinePath), subject)
+			await snapshotWriter.writeBase64(resolve(projectRoot, info.baselinePath), subject)
 		} else {
-			await takeSnapshotByBrowser(context, resolve(projectRoot, info.baselinePath), subject, options)
+			await takeSnapshotByBrowser(context, projectRoot, info.baselinePath, subject, options)
 		}
 		return
 	}
 
-	const resultBuffer = await takeSnapshot(context, resolve(projectRoot, info.resultPath), subject, options)
+	const resultBuffer = await takeSnapshot(context, projectRoot, info.resultPath, subject, options)
 	return {
 		...info,
 		projectRoot,

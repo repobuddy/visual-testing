@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
-import { commands } from '../server/commands/extend.ts'
-import { visContext } from '../server/vis_context.ts'
+import { commands } from '../server/commands/commands.ts'
+import { setVisOption } from '../server/vis_options.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
 import type { VisOptions } from './types.ts'
@@ -15,9 +15,7 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 	return {
 		name: NAME,
 		config(userConfig) {
-			const projectName = userConfig?.test?.name
-
-			visContext.setOptions(projectName, options)
+			setVisOption(userConfig, options)
 			const preset = options?.preset
 			return {
 				test: {
@@ -25,7 +23,7 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 						name: undefined as unknown as string,
 						commands,
 					},
-					setupFiles: preset && preset !== 'none' ? [`vitest-plugin-vis/presets/${preset}`] : [],
+					setupFiles: preset && preset !== 'none' && preset !== 'custom' ? [`vitest-plugin-vis/presets/${preset}`] : [],
 				},
 			}
 		},

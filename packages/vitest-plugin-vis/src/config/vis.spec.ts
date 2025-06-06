@@ -1,155 +1,210 @@
-import type { Options } from 'ssim.js'
-import { afterEach, it } from 'vitest'
-import { vis } from '../config.ts'
-import { visContext } from '../server/vis_context.ts'
+import { vis, type PixelComparisonOptions, type SsimComparisonOptions } from '#vitest-plugin-vis/config'
+import { expect, it } from 'vitest'
+import { getVisOption } from '../server/vis_options.ts'
+import { stubSuite } from '../testing/stubSuite.ts'
 
-afterEach(() => visContext.__test__reset())
-
-it('can be used with zero config', ({ expect }) => {
+it('can be used with zero config', () => {
 	expect(vis()).toBeDefined()
 })
 
-it('can set the platform', ({ expect }) => {
-	vis({ platform: 'custom' }).config({ test: { name: 'proj' } })
+it('can customize snapshot root directory', () => {
+	const plugin = vis({ snapshotRootDir: 'custom' })
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visContext.__test__getOptions('proj')).toEqual({
-		platform: 'custom',
-	})
-})
+	plugin.config(userConfig)
 
-it('can customize snapshot root directory', ({ expect }) => {
-	vis({ snapshotRootDir: 'custom' }).config({ test: { name: 'proj' } })
-
-	expect(visContext.__test__getOptions('proj')).toEqual({
+	expect(getVisOption(browserCommandContext)).toEqual({
 		snapshotRootDir: 'custom',
 	})
 })
 
-it('can customize snapshot subpath to keep base folder', ({ expect }) => {
-	const customizeSnapshotSubpath = (subPath: string): string => subPath
+it('can customize snapshot subpath to keep base folder', () => {
+	const snapshotSubpath = ({ subpath }: { subpath: string }): string => subpath
 
-	vis({ customizeSnapshotSubpath }).config({ test: { name: 'proj' } })
+	const plugin = vis({ snapshotSubpath })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
-		customizeSnapshotSubpath,
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
+		snapshotSubpath,
 	})
 })
 
-it('can set default snapshot id', ({ expect }) => {
-	const customizeSnapshotId = ({ id }: { id: string }) => id
+it('can change the default snapshot auto key with string', () => {
+	const plugin = vis({ snapshotKey: 'custom' })
 
-	vis({ customizeSnapshotId }).config({ test: { name: 'proj' } })
+	const { userConfig, browserCommandContext } = stubSuite()
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
-		customizeSnapshotId,
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
+		snapshotKey: 'custom',
 	})
 })
 
-it('can set default snapshot timeout', ({ expect }) => {
-	vis({ timeout: 1000 }).config({ test: { name: 'proj' } })
+it('reject snapshot key with dash', () => {
+	const plugin = vis({ snapshotKey: 'invalid-key' })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	const { userConfig } = stubSuite()
+
+	expect(() => plugin.config(userConfig)).toThrowError('Snapshot key cannot contain dash')
+})
+
+it('can set default snapshot timeout', () => {
+	const plugin = vis({ timeout: 1000 })
+
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		timeout: 1000,
 	})
 })
 
-it('can set default failure threshold', ({ expect }) => {
-	vis({ failureThreshold: 0.01 }).config({ test: { name: 'proj' } })
+it('can set default failure threshold', () => {
+	const plugin = vis({
+		failureThreshold: 0.01,
+	})
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		failureThreshold: 0.01,
 	})
 })
 
-it('can set default failure threshold type to percent', ({ expect }) => {
-	vis({ failureThresholdType: 'percent' }).config({ test: { name: 'proj' } })
+it('can set default failure threshold type to percent', () => {
+	const plugin = vis({ failureThresholdType: 'percent' })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		failureThresholdType: 'percent',
 	})
 })
 
-it('can set default diff options', ({ expect }) => {
+it('can set default diff options', () => {
 	const diffOptions = { threshold: 0.1 }
 
-	vis({ diffOptions }).config({ test: { name: 'proj' } })
+	const plugin = vis({ diffOptions })
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
 		diffOptions,
 	})
 })
 
-it('default preset is auto', ({ expect }) => {
+it('default preset is auto', () => {
 	const plugin = vis()
-	expect(plugin.config({ test: { name: 'proj' } })).toMatchObject({
+
+	expect(plugin.config({})).toMatchObject({
 		test: {
 			setupFiles: ['vitest-plugin-vis/presets/auto'],
 		},
 	})
 })
 
-it('can set preset to manual', ({ expect }) => {
+it('can set preset to manual', () => {
 	const plugin = vis({ preset: 'manual' })
-	expect(plugin.config({ test: { name: 'proj' } })).toMatchObject({
+
+	expect(plugin.config({})).toMatchObject({
 		test: {
 			setupFiles: ['vitest-plugin-vis/presets/manual'],
 		},
 	})
 })
 
-it('can set preset to enable', ({ expect }) => {
+it('can set preset to enable', () => {
 	const plugin = vis({ preset: 'enable' })
-	expect(plugin.config({ test: { name: 'proj' } })).toMatchObject({
+
+	expect(plugin.config({})).toMatchObject({
 		test: {
 			setupFiles: ['vitest-plugin-vis/presets/enable'],
 		},
 	})
 })
 
-it('default to no preset when options is set', ({ expect }) => {
+it('default to no preset when options is set', () => {
 	const plugin = vis({})
-	expect(plugin.config({ test: { name: 'proj' } })).toMatchObject({
+
+	expect(plugin.config({})).toMatchObject({
 		test: {
 			setupFiles: [],
 		},
 	})
 })
 
-it('can set preset to none', ({ expect }) => {
+it('none gets no setup file', () => {
 	const plugin = vis({ preset: 'none' })
 
-	expect(plugin.config({ test: { name: 'proj' } })).toMatchObject({
+	expect(plugin.config({})).toMatchObject({
 		test: {
 			setupFiles: [],
 		},
 	})
 })
 
-it('can set pixelmatch options when comparison method is pixel', ({ expect }) => {
-	const diffOptions = { threshold: 0.1 }
+it('custom gets no setup file', () => {
+	const plugin = vis({ preset: 'custom' })
 
-	vis({ comparisonMethod: 'pixel', diffOptions }).config({ test: { name: 'proj' } })
+	expect(plugin.config({})).toMatchObject({
+		test: {
+			setupFiles: [],
+		},
+	})
+})
 
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+it('can set pixelmatch options when comparison method is pixel', () => {
+	const options: PixelComparisonOptions = {
 		comparisonMethod: 'pixel',
-		diffOptions,
-	})
+		diffOptions: {
+			threshold: 0.1,
+		},
+	}
+	const plugin = vis(options)
+
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject(options)
 })
 
-it('can set ssim options when comparison method is ssim', ({ expect }) => {
-	const diffOptions: Partial<Options> = { ssim: 'bezkrovny' }
-
-	vis({ comparisonMethod: 'ssim', diffOptions }).config({ test: { name: 'proj' } })
-
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
+it('can set ssim options when comparison method is ssim', () => {
+	const options: SsimComparisonOptions = {
 		comparisonMethod: 'ssim',
-		diffOptions,
-	})
+		diffOptions: {
+			ssim: 'bezkrovny',
+		},
+	}
+
+	const plugin = vis(options)
+
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject(options)
 })
 
-it('can set the subject data test id', ({ expect }) => {
-	vis({ subjectDataTestId: 'test' }).config({ test: { name: 'proj' } })
-	expect(visContext.__test__getOptions('proj')).toMatchObject({
-		subjectDataTestId: 'test',
+it('can set the subject selector to data test id', () => {
+	const plugin = vis({ subject: '[data-testid="test"]' })
+
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
+		subject: '[data-testid="test"]',
 	})
 })

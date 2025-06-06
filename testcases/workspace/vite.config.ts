@@ -1,4 +1,4 @@
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin'
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import { join } from 'node:path'
 import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
@@ -14,13 +14,6 @@ export default defineConfig({
 			provider: 'playwright',
 			instances: [{ browser: 'chromium' }],
 		},
-		include: [
-			// But we are including them here to cover the scenario that
-			// not all tests are stories.
-			// Also, this is easier for the user to setup.
-			'**/*.spec.ts?(x)',
-			'**/*.stories.?(m)[jt]s?(x)',
-		],
 		setupFiles: ['./.storybook/vitest.setup.ts'],
 	},
 })
