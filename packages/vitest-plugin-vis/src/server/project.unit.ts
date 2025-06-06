@@ -43,6 +43,24 @@ describe('getProjectName', () => {
 		const result = getProjectName(context)
 		expect(result).toBeUndefined()
 	})
+
+	it('should return the project name if the test config is an object with a label', () => {
+		const context = {
+			project: {
+				vite: {
+					config: {
+						test: {
+							name: {
+								label: 'my-project',
+							},
+						},
+					},
+				},
+			},
+		}
+		const result = getProjectName(context)
+		expect(result).toBe('my-project')
+	})
 })
 
 describe('getProjectRoot', () => {
