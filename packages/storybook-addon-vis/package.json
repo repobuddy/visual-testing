@@ -29,17 +29,20 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
 		},
 		"./manager": "./dist/manager.js",
 		"./matcher": {
 			"types": "./dist/matcher.d.ts",
-			"import": "./dist/matcher.js"
+			"import": "./dist/matcher.js",
+			"require": "./dist/matcher.cjs"
 		},
 		"./preset": "./dist/preset.cjs",
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
-			"import": "./dist/vitest-setup.js"
+			"import": "./dist/vitest-setup.js",
+			"require": "./dist/vitest-setup.cjs"
 		},
 		"./vitest-plugin": {
 			"types": "./vitest-plugin.d.ts",

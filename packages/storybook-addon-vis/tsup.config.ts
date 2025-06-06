@@ -71,7 +71,7 @@ export default defineConfig(async (options) => {
 			},
 			clean: false,
 			minify: false,
-			format: ['esm'],
+			format: ['esm', 'cjs'],
 			target: [...BROWSER_TARGET, ...NODE_TARGET],
 			platform: 'neutral',
 			external: [...globalManagerPackages, ...globalPreviewPackages, 'vitest', '@vitest/expect', '@vitest/browser'],
