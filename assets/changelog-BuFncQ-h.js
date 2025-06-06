@@ -1,4 +1,10 @@
-import{j as t,M as a,h as i}from"./iframe-BR-FK7oF.js";import{useMDXComponents as s}from"./index-DM8BNS6o.js";const d=`# CHANGE LOG
+import{j as t,M as a,h as i}from"./iframe-CRYxoAtM.js";import{useMDXComponents as s}from"./index-DMlVJ-Qh.js";const d=`# CHANGE LOG
+
+## 2.1.0
+
+### Minor Changes
+
+- [\`05b7ae2\`](https://github.com/repobuddy/visual-testing/commit/05b7ae26a604328831f9b3317c99c39bcf73ac93) Thanks [@unional](https://github.com/unional)! - Add CJS support for Storybook \`.storybook/main.ts\` usage.
 
 ## 2.0.7
 

@@ -1,0 +1,3 @@
+import{j as a}from"./iframe-CRYxoAtM.js";const d={title:"tags/per meta",render:()=>a.jsx(a.Fragment,{children:"unit test"}),tags:["snapshot"],parameters:{layout:"centered"}},s={},e={tags:["!snapshot"]};var r,t,o;s.parameters={...s.parameters,docs:{...(r=s.parameters)==null?void 0:r.docs,source:{originalSource:"{}",...(o=(t=s.parameters)==null?void 0:t.docs)==null?void 0:o.source}}};var p,n,c;e.parameters={...e.parameters,docs:{...(p=e.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  tags: ['!snapshot']
+}`,...(c=(n=e.parameters)==null?void 0:n.docs)==null?void 0:c.source}}};const i=["TakeSnapshot","SkipSnapshot"];export{e as SkipSnapshot,s as TakeSnapshot,i as __namedExportsOrder,d as default};

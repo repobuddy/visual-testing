@@ -1,4 +1,4 @@
-import{j as e,M as a}from"./iframe-BR-FK7oF.js";import{useMDXComponents as t}from"./index-DM8BNS6o.js";function s(o){const n={a:"a",code:"code",h1:"h1",li:"li",p:"p",ul:"ul",...t(),...o.components};return e.jsxs(e.Fragment,{children:[e.jsx(a,{title:"Overview"}),`
+import{j as e,M as a}from"./iframe-CRYxoAtM.js";import{useMDXComponents as t}from"./index-DMlVJ-Qh.js";function s(o){const n={a:"a",code:"code",h1:"h1",li:"li",p:"p",ul:"ul",...t(),...o.components};return e.jsxs(e.Fragment,{children:[e.jsx(a,{title:"Overview"}),`
 `,e.jsx(n.h1,{id:"storybook-visual-testing-addon",children:"Storybook Visual Testing addon"}),`
 `,e.jsxs(n.p,{children:[e.jsx(n.a,{href:"https://github.com/repobuddy/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," enables self contained Visual Testing for ",e.jsx(n.a,{href:"https://storybook.js.org",rel:"nofollow",children:"Storybook"}),"."]}),`
 `,e.jsx(n.p,{children:"It offers a new unique features:"}),`

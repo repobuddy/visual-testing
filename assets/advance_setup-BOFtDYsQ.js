@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-BR-FK7oF.js";import{useMDXComponents as o}from"./index-DM8BNS6o.js";function n(e){const s={a:"a",code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...o(),...e.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Advance Setup"}),`
+import{j as t,M as i}from"./iframe-CRYxoAtM.js";import{useMDXComponents as o}from"./index-DMlVJ-Qh.js";function n(e){const s={a:"a",code:"code",h1:"h1",h2:"h2",p:"p",pre:"pre",...o(),...e.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Advance Setup"}),`
 `,t.jsx(s.h1,{id:"advance-setup",children:"Advance Setup"}),`
 `,t.jsxs(s.p,{children:[t.jsx(s.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," is very flexible and provides a lot of options to customize the visual testing."]}),`
 `,t.jsxs(s.p,{children:["It is built on top of ",t.jsx(s.a,{href:"https://www.npmjs.com/package/vitest-plugin-vis",rel:"nofollow",children:"vitest-plugin-vis"}),`,
