@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`30026e2`](https://github.com/repobuddy/visual-testing/commit/30026e2a1ac1aceed84cf35b5b13fcc565b39c25)]:
+  - vitest-plugin-vis@3.4.0
+
 ## 2.1.0
 
 ### Minor Changes
