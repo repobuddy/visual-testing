@@ -1,0 +1,21 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# Master Cursor Rule Index
+
+This rule always applies. It provides an overview of all Cursor rules in this project, describing their purpose and linking to each rule file. Use this rule as a starting point to understand the available rules and when to apply them.
+
+## Rule List
+
+### [commit-messages.mdc](mdc:commit-messages.mdc)
+**Purpose:** Explains how to write commit messages using the Conventional Commits format, as enforced by commitlint. Includes step-by-step instructions, examples, and special handling for certain folders.
+
+### [cursor-rules.mdc](mdc:cursor-rules.mdc)
+**Purpose:** Describes how to create, name, and structure Cursor rules in this project. Includes directory conventions, file naming, and required content structure for rules.
+
+### [installing-packages.mdc](mdc:installing-packages.mdc)
+**Purpose:** Provides instructions and best practices for installing new dependencies using pnpm, including workspace management and commit guidelines.
+
+When you use any rule file, let me know this rule file is being used in the chat by mentioning the rule filename.

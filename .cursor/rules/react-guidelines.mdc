@@ -1,0 +1,138 @@
+---
+description:
+globs: *.tsx
+alwaysApply: false
+---
+# React Development Guidelines
+
+This document outlines the best practices and patterns for React development in our project.
+
+## Basic Styling
+
+1. Use simple string values for className props:
+   ```typescript
+   // ✅ Good example
+   export const Default: StoryObj = {
+     render: () => (
+       <YourComponent className="flex gap-4" />
+     )
+   }
+
+   // ❌ Bad example - avoid curly braces for simple strings
+   export const Default: StoryObj = {
+     render: () => (
+       <YourComponent className={"flex gap-4"} />
+     )
+   }
+   ```
+
+## Component Structure
+
+1. Use functional components with TypeScript
+2. Use function statement whenever possible
+3. Follow the following file structure:
+   ```tsx
+   // ✅ Good example
+   interface Props {
+     // Props interface
+   }
+
+   export function Component({ prop1, prop2 }: Props) {
+     // Component implementation
+     return <div>...</div>
+   }
+   ```
+
+## State Management
+
+1. Use React hooks for local state:
+   ```tsx
+   // ✅ Good example
+   const [state, setState] = useState<StateType>(initialState)
+   ```
+
+2. For global state:
+   - Use React Context for simple state sharing
+   - Consider Redux or Zustand for complex state management
+
+## Performance Optimization
+
+1. Use `memo` for expensive components:
+   ```typescript
+   // ✅ Good example
+	 import { memo } from 'react'
+
+   export const ExpensiveComponent = memo(({ prop }) => {
+     // Component implementation
+   })
+   ```
+
+2. Use useMemo and useCallback appropriately:
+   ```typescript
+   // ✅ Good example
+   const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+   const memoizedCallback = useCallback(() => {
+     doSomething(a, b)
+   }, [a, b])
+   ```
+
+## Testing
+
+1. Write tests for all components as Storybook stories:
+2. Create stories for all components:
+   ```typescript
+   // ✅ Good example
+   import type { Meta, StoryObj } from '@storybook/react'
+
+   const meta: Meta<typeof Component> = {
+     title: 'components/Component',
+     component: Component,
+   }
+
+   export default meta
+   type Story = StoryObj<typeof Component>
+
+   export const Default: Story = {
+     args: {
+       // Component props
+     },
+   }
+   ```
+
+## Error Handling
+
+1. Use Error Boundaries for component-level error handling:
+   ```typescript
+   // ✅ Good example
+   class ErrorBoundary extends React.Component {
+     state = { hasError: false }
+
+     static getDerivedStateFromError(error) {
+       return { hasError: true }
+     }
+
+     render() {
+       if (this.state.hasError) {
+         return <h1>Something went wrong.</h1>
+       }
+       return this.props.children
+     }
+   }
+   ```
+
+## Accessibility
+
+1. Use semantic HTML elements
+2. Include proper ARIA attributes
+3. Ensure keyboard navigation works
+4. Maintain proper heading hierarchy
+
+## Code Organization
+
+1. Keep components small and focused
+2. Do not use barrel exports (index.ts) for component directories
+3. Group related components in feature folders
+4. Keep business logic in custom hooks
+
+Remember to follow these guidelines when developing React components.
+When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.

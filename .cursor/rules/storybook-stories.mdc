@@ -1,0 +1,147 @@
+---
+description: How to generate Storybook stories
+globs: 
+alwaysApply: false
+---
+# Writing Storybook Stories
+
+This document outlines the standards and best practices for creating Storybook stories in our project.
+
+## Basic Story Structure
+
+1. Use the new Component Story Format (CSF) with TypeScript:
+   ```typescript
+   import type { Meta, StoryObj } from '@repobudde/storybook'
+
+   const meta: Meta<typeof YourComponent> {
+		 title: 'components/YourComponent',
+		 tags: ['version:1.0.0'],
+     component: YourComponent,
+     // Add parameters if needed
+   } satisfies Meta
+
+   export default meta
+
+   type Story = StoryObj<typeof meta>
+
+   export const BasicUsage: Story = {
+     // Story implementation
+   }
+   ```
+
+## Story Organization
+
+1. Story files should:
+   - Be placed next to the component file
+   - Use the `.stories.tsx` extension
+   - Follow the naming pattern: `component-name.stories.tsx` or `component-name.some-props.stories.tsx`
+
+2. Story naming conventions:
+   - Default/primary story should be named `BasicUsage`
+   - Additional stories should be named descriptively: `WithError`, `Loading`, etc.
+   - Use Add additional description to the story:
+   ```ts
+	 import { defineDocsParam } from '@repobuddy/storybook'
+
+	 export const SomeStory: Story = {
+		parameters: defineDocsParam({
+			description: {
+				story: 'Additional message goes here'
+			}
+		})
+	 }
+	 ```
+
+
+## Story Implementation Patterns
+
+
+1. For simple stories, use the args pattern:
+   ```typescript
+   export const Default: Story = {
+     args: {
+       prop1: 'value1',
+       prop2: 'value2',
+     }
+   }
+   ```
+
+2. For complex stories, use the render function:
+   ```typescript
+   export const Complex: Story = {
+     render: () => (
+       <YourComponent>
+         <ChildComponent />
+       </YourComponent>
+     )
+   }
+   ```
+
+## Testing and Documentation
+
+1. Stories serve as visual tests and documentation
+2. Include edge cases and error states
+3. Document component props and usage in the story file
+4. Use story parameters to add documentation:
+   ```ts
+	 import { defineDocsParam } from '@repobuddy/storybook'
+
+	 export const SomeStory: Story = {
+		parameters: defineDocsParam({
+			description: {
+				story: 'Additional message goes here'
+			}
+		})
+	 }
+   ```
+5. Use the `play` function to interact and validate the behavior.
+
+## Example
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/react'
+import { CopyButton } from './copy-button.tsx'
+
+const meta = {
+  title: 'components/CopyButton/isDisabled',
+  component: Button,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
+  argTypes: {
+    backgroundColor: { control: 'color' },
+  },
+} satisfies Meta<typeof Button>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Enabled: Story = {
+	name: 'isDisabled: false',
+  args: {
+    label: 'Copy Button',
+		isDisabled: false
+  },
+}
+
+export const Disabled: Story = {
+	name: 'isDisabled: true',
+  args: {
+    label: 'Copy Button',
+		isDisabled: true
+  },
+}
+```
+
+## Best Practices
+
+1. Keep stories simple and focused
+2. Test all component variations
+3. Include interactive examples where relevant
+4. Use TypeScript for type safety
+5. Follow the project's component guidelines
+
+Remember to follow these guidelines when creating new Storybook stories.
+When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.

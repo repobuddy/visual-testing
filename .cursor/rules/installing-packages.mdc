@@ -1,0 +1,46 @@
+---
+description: How to installing packages
+globs:
+alwaysApply: false
+---
+# Installing Packages
+
+This rule explains how to properly install new dependencies (packages) in this project, including workspace and local package management, and best practices.
+
+## Step-by-step Instructions
+
+1. **Determine the correct workspace**: Make sure you are in the correct package directory (e.g., `libraries/design`, `apps/web`, etc.) before running any install command.
+2. **Use the correct package manager**: This project uses [pnpm](mdc:https:/pnpm.io).
+3. **Install a new dependency**:
+   - For a regular dependency: `pnpm add <package-name>`
+   - For a dev dependency: `pnpm add -D <package-name>`
+   - For a specific version: `pnpm add <package-name>@<version>`
+4. **For monorepos (workspaces)**:
+   - To add a dependency to the root: `pnpm add -w <package-name>`
+5. **Commit changes**: After installing, commit the updated `package.json` and `pnpm-lock.yaml` files.
+6. **Avoid unnecessary global installs**: Prefer local installs unless a tool must be available globally.
+
+## Guidelines
+
+- Always check if the package already exists in the workspace before installing.
+- Prefer the latest stable version unless a specific version is required.
+- For peer dependencies, follow the instructions in the package documentation.
+- If you encounter issues, check the package manager's documentation or consult the team.
+
+## Example
+
+```sh
+# Install a regular dependency in the current package
+pnpm add lodash
+
+# Install a dev dependency in the currend package
+pnpm add -D typescript --workspace=design
+
+# Install a specific version
+pnpm add react@19.1.0
+
+# Install a dependency in the root
+pnpm add -w typescript
+```
+
+When you use this rule file, let me know this rule file is being used in the chat by mentioning the rule filename.
