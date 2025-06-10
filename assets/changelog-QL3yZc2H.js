@@ -1,4 +1,4 @@
-import{j as t,M as a,h as i}from"./iframe-D8KJyJFa.js";import{useMDXComponents as s}from"./index-Dp22bfiB.js";const d=`# CHANGE LOG
+import{j as t,M as a,h as i}from"./iframe-DA2IN9lb.js";import{useMDXComponents as s}from"./index-GT6Q4-lv.js";const d=`# CHANGE LOG
 
 ## 2.1.1
 
