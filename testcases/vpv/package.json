@@ -12,11 +12,11 @@
 		"w": "vitest"
 	},
 	"dependencies": {
-		"react": "^18.3.1",
+		"react": "^19.1.0",
 		"react-dom": "^18.3.1"
 	},
 	"devDependencies": {
-		"@types/react": "^18.3.11",
+		"@types/react": "^19.1.6",
 		"@types/react-dom": "^18.3.1",
 		"@vitejs/plugin-react": "^4.3.4",
 		"@vitest/browser": "catalog:",
