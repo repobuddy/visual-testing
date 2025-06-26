@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 3.4.1
+
+### Patch Changes
+
+- [`fff3b67`](https://github.com/repobuddy/visual-testing/commit/fff3b67613746f5ca48e3a7bfd988059ae8dd16b) Thanks [@unional](https://github.com/unional)! - Update `failureThreshold` JSDoc.
+
 ## 3.4.0
 
 ### Minor Changes
