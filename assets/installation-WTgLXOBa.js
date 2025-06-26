@@ -1,4 +1,4 @@
-import{j as o,M as a}from"./iframe-DA2IN9lb.js";import{useMDXComponents as t}from"./index-GT6Q4-lv.js";function e(n){const s={a:"a",code:"code",h1:"h1",p:"p",pre:"pre",...t(),...n.components};return o.jsxs(o.Fragment,{children:[o.jsx(a,{title:"Installation"}),`
+import{j as o,M as a}from"./iframe-B_cy3Fgk.js";import{useMDXComponents as t}from"./index-DoPxPsB-.js";function e(n){const s={a:"a",code:"code",h1:"h1",p:"p",pre:"pre",...t(),...n.components};return o.jsxs(o.Fragment,{children:[o.jsx(a,{title:"Installation"}),`
 `,o.jsx(s.h1,{id:"installation",children:"Installation"}),`
 `,o.jsxs(s.p,{children:[o.jsx(s.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," works with ",o.jsx(s.a,{href:"https://storybook.js.org/docs/writing-tests/test-addon",rel:"nofollow",children:"Storybook Test addon"}),`,
 so naturally you need to have it setup first.`]}),`
