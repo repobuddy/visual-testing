@@ -31,7 +31,21 @@ export type FailureThresholdOptions = {
 	/**
 	 * Failure tolerance threshold.
 	 *
+	 * If `failureThresholdType` is `pixel`, the value is the number of pixels that are allowed to be different.
+	 * If `failureThresholdType` is `percent`, the value is the percentage of pixels that are allowed to be different.
+	 *
 	 * Default is `0`.
+	 *
+	 * @example
+	 * ```ts
+	 * // Allow 10 pixels to be different
+	 * failureThresholdType: 'pixel'
+	 * failureThreshold: 10
+	 *
+	 * // Allow 10% of pixels to be different
+	 * failureThresholdType: 'percent'
+	 * failureThreshold: 10
+	 * ```
 	 */
 	failureThreshold?: number | undefined
 }
