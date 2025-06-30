@@ -30,7 +30,7 @@
 		"@vitejs/plugin-react": "^4.3.3",
 		"@vitest/browser": "catalog:",
 		"globals": "^16.0.0",
-		"storybook": "^9.0.4",
+		"storybook": "^9.0.14",
 		"storybook-addon-vis": "workspace:*",
 		"typescript": "^5.7.2",
 		"vitest": "catalog:",
