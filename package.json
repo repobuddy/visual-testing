@@ -36,7 +36,7 @@
 		"@changesets/cli": "^2.28.1",
 		"@commitlint/cli": "^19.8.0",
 		"@commitlint/config-conventional": "^19.8.0",
-		"@repobuddy/biome": "^1.7.1",
+		"@repobuddy/biome": "^2.0.0",
 		"@types/node": "^22.15.29",
 		"@vitest/coverage-v8": "catalog:",
 		"cross-env": "^7.0.3",
