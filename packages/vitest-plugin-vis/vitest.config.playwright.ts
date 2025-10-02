@@ -22,6 +22,10 @@ export default defineProject({
 				{
 					browser: 'chromium',
 					screenshotFailures: false,
+					viewport: {
+						width: 1280,
+						height: 720,
+					},
 					// screenshotDirectory: '__screenshots__/playwright/chromium',
 				},
 				// {

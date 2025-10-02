@@ -34,7 +34,15 @@ export default defineProject({
 			enabled: true,
 			headless: true,
 			provider: 'webdriverio',
-			instances: [{ browser: 'chrome' }],
+			instances: [
+				{
+					browser: 'chrome',
+					viewport: {
+						width: 1280,
+						height: 720,
+					},
+				},
+			],
 		},
 		setupFiles: ['.storybook/vitest.setup.webdriverio.ts'],
 		// enables globals only for testing global usage
