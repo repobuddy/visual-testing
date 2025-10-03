@@ -45,8 +45,8 @@ importers:
         specifier: ^19.8.0
         version: 19.8.1
       '@repobuddy/biome':
-        specifier: ^1.7.1
-        version: 1.7.1(@biomejs/biome@2.2.5)
+        specifier: ^2.0.1
+        version: 2.0.1(@biomejs/biome@2.2.5)
       '@types/node':
         specifier: ^22.15.29
         version: 22.15.29
@@ -1256,8 +1256,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@repobuddy/biome@1.7.1':
-    resolution: {integrity: sha512-2G5MpFkzXo6Y0P0ijsvAzYWpagO06WnQInekX8hKYhzusXKGuJfqqIbXs6JdBM4FJk9Uj50Ho3ui7ck+fI8trg==}
+  '@repobuddy/biome@2.0.1':
+    resolution: {integrity: sha512-9IfrOWqSVxNGELrq+LxYK1sBA3/ZQzbP1csruaGyaYmA5MPABj25/TiIvU8BnbdmDJQ+DTgWYoelIXSATXZpyg==}
     peerDependencies:
       '@biomejs/biome': '>= 1.8.0'
 
@@ -5329,7 +5329,7 @@ snapshots:
       - bare-buffer
       - supports-color
 
-  '@repobuddy/biome@1.7.1(@biomejs/biome@2.2.5)':
+  '@repobuddy/biome@2.0.1(@biomejs/biome@2.2.5)':
     dependencies:
       '@biomejs/biome': 2.2.5
 
