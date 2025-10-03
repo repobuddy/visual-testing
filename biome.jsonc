@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.2.5/schema.json",
 	"extends": ["@repobuddy/biome/recommended"],
 	"vcs": {
 		"enabled": true,
@@ -9,7 +9,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["node_modules/", ".vscode/*.txt", "**/esm", "*.code-workspace", "tailwind.css"]
+		"includes": ["!tailwind.css", "!*.code-workspace", "!esm", "!.vscode"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -21,9 +21,6 @@
 				"noSvgWithoutTitle": "off",
 				"useAltText": "off",
 				"useSemanticElements": "off"
-			},
-			"correctness": {
-				"useImportExtensions": "error"
 			},
 			"suspicious": {
 				"noArrayIndexKey": "off"
