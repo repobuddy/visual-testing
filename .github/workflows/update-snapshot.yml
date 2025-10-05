@@ -9,7 +9,7 @@ on:
       update-snapshot-command:
         description: 'Command to run to update the snapshot'
         required: true
-        default: 'pnpm test -- -- -u'
+        default: 'pnpm test -- -u'
 jobs:
   update-snapshot:
     runs-on: ubuntu-latest
