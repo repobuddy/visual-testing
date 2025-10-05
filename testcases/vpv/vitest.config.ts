@@ -16,6 +16,7 @@ export default defineConfig({
 		}),
 	],
 	test: {
+		name: 'tv:pw',
 		browser: {
 			enabled: true,
 			headless: true,

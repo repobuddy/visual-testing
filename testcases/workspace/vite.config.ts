@@ -8,6 +8,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis()],
 	test: {
+		name: 'tw:pw',
 		browser: {
 			enabled: true,
 			headless: true,
