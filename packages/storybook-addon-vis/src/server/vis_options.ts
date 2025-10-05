@@ -7,13 +7,7 @@
  */
 export type StorybookVisOptions = {
 	visProjects: Array<{
-		snapshotRootDir:
-			| string
-			| ((context: {
-					ci: boolean
-					platform: string
-			  }) => string)
-			| undefined
+		snapshotRootDir: string | ((context: { ci: boolean; platform: string }) => string) | undefined
 		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
 	}>
 }

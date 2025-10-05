@@ -26,10 +26,10 @@ async function shouldResizeWithin200ms(
 	factor: number,
 	length: number,
 ) {
-	const startTime = new Date().getTime()
+	const startTime = Date.now()
 	const resize = fn({ width: image.width * factor, height: image.height * factor })
 	await Promise.all(Array.from({ length }).map(async () => resize(image)))
-	const endTime = new Date().getTime()
+	const endTime = Date.now()
 	const executionTime = endTime - startTime
 	expect(executionTime / length).toBeLessThan(200)
 }

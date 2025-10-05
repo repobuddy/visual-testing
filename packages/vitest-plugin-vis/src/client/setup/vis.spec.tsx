@@ -97,8 +97,8 @@ describe('matchPerTheme', () => {
 
 	it('can specify type param', () => {
 		vis.afterEach.matchPerTheme<'ssim'>({
-			x(options) {
-				testType.equal<typeof options.diffOptions, Partial<Options> | undefined>(true)
+			x(_options) {
+				testType.equal<typeof _options.diffOptions, Partial<Options> | undefined>(true)
 				return false
 			},
 		})

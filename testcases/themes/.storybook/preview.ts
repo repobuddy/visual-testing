@@ -1,9 +1,9 @@
 import { withThemeByClassName } from '@storybook/addon-themes'
 import type { Preview } from '@storybook/react-vite'
-import { themes } from 'storybook/theming'
 import { useEffect } from 'react'
+import { themes } from 'storybook/theming'
 
-import '../src/input.css'
+import '../src/tailwind.css'
 
 const cleanup = () => {
 	const existing = globalThis.document.querySelector('style[data-theme-css]')

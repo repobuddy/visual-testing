@@ -28,9 +28,8 @@ export default defineConfig(async (options) => {
 	//   }
 	// }
 	const packageJson = (await readFile('./package.json', 'utf8').then(JSON.parse)) as BundlerConfig
-	const {
-		bundler: { exportEntries = [], managerEntries = [], previewEntries = [], nodeEntries = [] } = {},
-	} = packageJson
+	const { bundler: { exportEntries = [], managerEntries = [], previewEntries = [], nodeEntries = [] } = {} } =
+		packageJson
 
 	const commonConfig: Options = {
 		splitting: false,
