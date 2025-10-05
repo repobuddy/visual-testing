@@ -41,6 +41,12 @@
 		"test:type": {
 			"dependsOn": ["^build"]
 		},
+		"test:u": {
+			"cache": false,
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["__vis__/**"]
+		},
 		"testcase": {
 			"dependsOn": ["^build"]
 		},
