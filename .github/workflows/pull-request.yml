@@ -33,8 +33,6 @@ jobs:
         with:
           path: ${{ env.PLAYWRIGHT_PATH }}
           key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
 
       - name: Install playwright browsers
         if: steps.cache-playwright.outputs.cache-hit != 'true'
