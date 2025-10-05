@@ -18,7 +18,6 @@ addons.register(NAME, (api) => {
 			title: 'Vis',
 			match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
 			render({ active }) {
-				if (!active) return null
 				const [snapshotResults, setSnapshotResults] = useState<ImageSnapshotResults[]>([])
 
 				const storyData = api.getCurrentStoryData()
@@ -38,8 +37,14 @@ addons.register(NAME, (api) => {
 						// }),
 					]
 					api.emit(NAME, requestImageSnapshotResults(storyData))
-					return () => disposes.forEach((dispose) => dispose())
+					return () =>
+						disposes.forEach((dispose) => {
+							dispose()
+						})
 				}, [storyData])
+
+				if (!active) return null
+
 				return (
 					<VisPanel
 						active={active}

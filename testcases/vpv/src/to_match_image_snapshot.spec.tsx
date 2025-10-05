@@ -2,7 +2,7 @@ import { page } from '@vitest/browser/context'
 import { it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
-import { Button } from './Button.js'
+import { Button } from './Button.tsx'
 
 it('container snapshot', async ({ expect }) => {
 	const { container } = await render(<Button label="Button" />)
@@ -51,7 +51,7 @@ it('uses options set in vis()', async ({ expect }) => {
 					`Options:    failureThreshold: 0.01 percent
             timeout: 60000 ms
             comparisonMethod: ssim
-            diffOptions: {\"ssim\":\"bezkrovny\"}`,
+            diffOptions: {"ssim":"bezkrovny"}`,
 				)
 			},
 		)

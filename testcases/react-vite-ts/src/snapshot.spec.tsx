@@ -1,6 +1,6 @@
 import { it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { Button } from './Button.js'
+import { Button } from './Button.tsx'
 
 it('container snapshot', async ({ expect }) => {
 	const { container } = await render(<Button label="Button" />)

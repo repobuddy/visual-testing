@@ -7,9 +7,9 @@ export default {
 
 export const CaptureSubjectOnly: StoryObj = {
 	render: () => (
-		<div>
+		<div className="flex flex-col gap-2">
 			<div data-testid="subject">subject</div>
-			<div>Not subject</div>
+			<div className="text-red-500">This will not be captured</div>
 		</div>
 	),
 }

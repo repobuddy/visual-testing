@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
-import { stubSuite } from '../testing/stubSuite.js'
+import { stubSuite } from '../testing/stubSuite.ts'
 import { createModule, getSuiteId, getTaskSubpath } from './suite.ts'
 import type { VisSuite } from './vis_server_context.types.ts'
 

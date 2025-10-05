@@ -18,9 +18,7 @@ export function setVisOption(
 	visOptions[id] = options
 }
 
-export function getVisOption(context: {
-	project: { vite: { config: { test?: { name?: string | undefined } } } }
-}) {
+export function getVisOption(context: { project: { vite: { config: { test?: { name?: string | undefined } } } } }) {
 	const id = getProjectName(context) ?? DEFAULT_PROJECT_NAME
 
 	return visOptions[id] ?? {}

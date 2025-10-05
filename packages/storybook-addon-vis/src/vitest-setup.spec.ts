@@ -15,9 +15,9 @@ describe('vis.presets.theme()', () => {
 	})
 	it('can customize the option type', () => {
 		vis.presets.theme<'ssim'>({
-			x(options) {
+			x(_options) {
 				testType.canAssign<
-					typeof options.diffOptions,
+					typeof _options.diffOptions,
 					{ ssim?: 'fast' | 'original' | 'bezkrovny' | 'weber' | undefined }
 				>(true)
 			},
