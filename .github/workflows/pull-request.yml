@@ -48,16 +48,14 @@ jobs:
           max_attempts: 3
           command: pnpm verify:ci
       - name: Detect snapshot changes
-        uses: dorny/paths-filter@v3
+        uses: tj-actions/changed-files@v47
         id: snapshot-changes
         with:
-          base: HEAD
-          filters: |
-            snapshots:
-              - '*/*/__vis__/**/__baselines__/**'
+          files: |
+            */*/__vis__/**/__baselines__/**
 
       - name: Create Pull Request
-        if: matrix.node-version == '22' && steps.snapshot-changes.outputs.snapshots == 'true'
+        if: matrix.node-version == '22' && steps.snapshot-changes.outputs.any_changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "test: update snapshot"
