@@ -81,6 +81,7 @@
 		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
 		"test": "vitest run",
+		"test:u": "vitest run -u",
 		"v": "run-p build cov",
 		"w": "vitest",
 		"w:c": "cross-env COVERAGE=true vitest --coverage",

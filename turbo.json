@@ -48,7 +48,14 @@
 			"outputs": ["__vis__/**"]
 		},
 		"testcase": {
-			"dependsOn": ["^build"]
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["__vis__/**"]
+		},
+		"testcase:u": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["__vis__/**"]
 		},
 		"w": {
 			"dependsOn": ["^build"],

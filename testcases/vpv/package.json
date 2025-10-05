@@ -9,6 +9,7 @@
 		"nuke": "rimraf node_modules",
 		"test": "vitest run",
 		"testcase": "vitest run",
+		"testcase:u": "vitest run -u",
 		"w": "vitest"
 	},
 	"dependencies": {
