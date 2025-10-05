@@ -47,16 +47,24 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: pnpm verify:ci
+      - name: Detect snapshot changes
+        uses: dorny/paths-filter@v3
+        id: snapshot-changes
+        with:
+          filters: |
+            snapshots:
+              - '*/*/__vis__/**/__diffs__'
+              - '*/*/__vis__/**/__results__'
 
       - name: Create Pull Request
-        if: 'git status --porcelain | grep -q ".*"'
+        if: matrix.node-version == '22' && steps.snapshot-changes.outputs.snapshots == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "test: update snapshot"
           token: ${{ secrets.CI_GITHUB_TOKEN }}
           title: "test: update snapshot"
           body: "This PR updates the snapshot"
-          branch: vis-bot/update-snapshot/${{ github.head_ref }}
+          branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.node-version }}
           base: ${{ github.head_ref }}
           labels: "snapshot"
           draft: false

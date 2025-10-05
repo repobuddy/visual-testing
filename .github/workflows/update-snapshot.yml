@@ -53,8 +53,8 @@ jobs:
         with:
           name: snapshots
           path: |
-            */*/__vis__/__diffs__
-            */*/__vis__/__results__
+            */*/__vis__/**/__diffs__
+            */*/__vis__/**/__results__
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
