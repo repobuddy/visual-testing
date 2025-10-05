@@ -25,12 +25,7 @@ export default defineConfig({
 					browser: 'chrome',
 					screenshotFailures: false,
 					screenshotDirectory: '__screenshots__/webdriverio/chrome',
-					// @ts-expect-error
-					capabilities: {
-						'goog:chromeOptions': {
-							args: ['--window-size=1280,720'],
-						},
-					},
+					viewport: { width: 1280, height: 720 },
 				},
 				// {
 				// 	browser: 'firefox',
