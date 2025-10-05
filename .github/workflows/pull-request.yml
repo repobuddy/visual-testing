@@ -54,8 +54,7 @@ jobs:
           base: HEAD
           filters: |
             snapshots:
-              - '*/*/__vis__/**/__diffs__'
-              - '*/*/__vis__/**/__results__'
+              - '*/*/__vis__/**/__baselines__/**'
 
       - name: Create Pull Request
         if: matrix.node-version == '22' && steps.snapshot-changes.outputs.snapshots == 'true'
