@@ -64,8 +64,8 @@ jobs:
           commit-message: "test: update snapshot"
           token: ${{ secrets.CI_GITHUB_TOKEN }}
           title: "test: update snapshot"
-          body: "This PR updates the snapshot"
-          branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.node-version }}
+          body: This PR updates the snapshot for ${{matrix.os}} node ${{matrix.node-version}}"
+          branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.os }}-${{ matrix.node-version }}
           base: ${{ github.head_ref }}
           labels: "snapshot"
           draft: false
