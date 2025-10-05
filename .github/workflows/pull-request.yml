@@ -51,6 +51,7 @@ jobs:
         uses: tj-actions/changed-files@v47
         id: snapshot-changes
         with:
+          base_sha: 'HEAD'
           files: |
             */*/__vis__/**/__baselines__/**
 
