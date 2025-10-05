@@ -19,6 +19,12 @@
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["coverage/**", "__vis__/**"]
 		},
+		"coverage:u": {
+			"cache": false,
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["coverage/**", "__vis__/**"]
+		},
 		"nuke": {
 			"cache": false,
 			"dependsOn": ["clean"]
@@ -28,7 +34,19 @@
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["coverage/**", "__vis__/**"]
 		},
+		"storybook-addon-vis#coverage:u": {
+			"cache": false,
+			"dependsOn": ["build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["coverage/**", "__vis__/**"]
+		},
 		"storybook-addon-vis#test": {
+			"dependsOn": ["build"],
+			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
+			"outputs": ["__vis__/**"]
+		},
+		"storybook-addon-vis#test:u": {
+			"cache": false,
 			"dependsOn": ["build"],
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"]
