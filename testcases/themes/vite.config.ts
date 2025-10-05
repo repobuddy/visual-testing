@@ -14,6 +14,7 @@ export default defineConfig({
 		browserTestPreset({ includeGeneralTests: true }),
 	],
 	test: {
+		name: 'tt:pw',
 		browser: {
 			enabled: true,
 			headless: true,
