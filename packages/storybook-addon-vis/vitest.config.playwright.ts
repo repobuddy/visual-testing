@@ -31,7 +31,7 @@ export default defineProject({
 			enabled: true,
 			headless: true,
 			provider: 'playwright',
-			instances: [{ browser: 'chromium' }],
+			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},
 		setupFiles: ['.storybook/vitest.setup.ts'],
 		// enables globals only for testing global usage
