@@ -65,6 +65,7 @@
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "vitest run --coverage",
 		"coverage": "vitest run --coverage",
+		"coverage:u": "vitest run --coverage -u",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"prerelease": "zx scripts/prepublish-checks.js",

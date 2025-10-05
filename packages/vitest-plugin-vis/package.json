@@ -74,6 +74,7 @@
 		"clean:vis:local": "rimraf __vis__/local",
 		"cov": "cross-env COVERAGE=true vitest run --coverage",
 		"coverage": "cross-env COVERAGE=true vitest run --coverage",
+		"coverage:u": "cross-env COVERAGE=true vitest run --coverage -u",
 		"dev": "run-p build:watch w",
 		"nuke": "rimraf node_modules",
 		"sb": "storybook dev -p 6007",
