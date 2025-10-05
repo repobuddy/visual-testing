@@ -10,6 +10,7 @@
 		"sb": "storybook dev -p 6107",
 		"test": "vitest run",
 		"testcase": "vitest run",
+		"testcase:u": "vitest run -u",
 		"w": "vitest"
 	},
 	"eslintConfig": {
