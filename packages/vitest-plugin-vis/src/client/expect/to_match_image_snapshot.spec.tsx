@@ -208,9 +208,8 @@ it('passes when the image is different but within failure threshold in percentag
 	})
 })
 
-it('fails when the image is different beyond failure threshold in percentage', async ({ expect, task }) => {
-	const isWebdriverIO = /:wd/.test(task.file.projectName ?? '')
-	const failureThreshold = isWebdriverIO ? 0.1 : 0.2
+it('fails when the image is different beyond failure threshold in percentage', async ({ expect }) => {
+	const failureThreshold = 0.1
 	render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')
 
