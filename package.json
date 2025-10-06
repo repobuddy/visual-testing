@@ -40,7 +40,7 @@
 		"@repobuddy/biome": "^2.0.1",
 		"@types/node": "^22.15.29",
 		"@vitest/coverage-v8": "catalog:",
-		"cross-env": "^7.0.3",
+		"cross-env": "^10.0.0",
 		"husky": "^9.1.7",
 		"knip": "^5.64.1",
 		"playwright": "latest",

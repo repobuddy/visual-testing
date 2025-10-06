@@ -107,7 +107,7 @@
 		"@vitest/coverage-istanbul": "catalog:",
 		"@vitest/expect": "catalog:",
 		"boxen": "^8.0.1",
-		"cross-env": "^7.0.3",
+		"cross-env": "^10.0.0",
 		"dedent": "^1.5.1",
 		"npm-run-all2": "^8.0.0",
 		"playwright": "latest",
