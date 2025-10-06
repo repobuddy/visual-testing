@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 3.5.0
+
+### Minor Changes
+
+- [#393](https://github.com/repobuddy/visual-testing/pull/393) [`147858a`](https://github.com/repobuddy/visual-testing/commit/147858aff23a1fca22ae2bb3a453c7a8b4eb9e02) Thanks [@unional](https://github.com/unional)! - Adjust types to work with `vite` v7.
+
 ## 3.4.1
 
 ### Patch Changes
