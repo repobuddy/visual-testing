@@ -23,7 +23,7 @@
 		"@vitest/browser": "catalog:",
 		"typescript": "^5.7.2",
 		"vitest": "catalog:",
-		"vitest-browser-react": "^0.2.0",
+		"vitest-browser-react": "^0.3.0",
 		"vitest-plugin-vis": "workspace:*"
 	}
 }
