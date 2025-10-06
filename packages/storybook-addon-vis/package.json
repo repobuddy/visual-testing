@@ -102,7 +102,7 @@
 		"@testing-library/react": "^16.0.1",
 		"@types/react": "^18.2.65",
 		"@types/react-dom": "^18.2.21",
-		"@vitejs/plugin-react": "^4.2.1",
+		"@vitejs/plugin-react": "^5.0.0",
 		"@vitest/browser": "catalog:",
 		"@vitest/coverage-istanbul": "catalog:",
 		"@vitest/expect": "catalog:",
