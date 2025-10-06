@@ -1,3 +1,5 @@
+import type { UserConfig } from 'vitest/node'
+
 export type VisSuites = {
 	[projectPath: string]: Promise<VisSuite>
 }
@@ -42,7 +44,7 @@ export type PartialBrowserCommandContext = {
 		vite: {
 			config: {
 				test?: {
-					name?: string | undefined
+					name?: UserConfig['name'] | undefined
 				}
 			}
 		}

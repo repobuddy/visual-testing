@@ -1,4 +1,4 @@
-import type { Plugin } from 'vite'
+import type { PluginOption } from 'vite'
 import { commands } from '../server/commands/commands.ts'
 import { setVisOption } from '../server/vis_options.ts'
 import { NAME } from '../shared/constants.ts'
@@ -14,7 +14,7 @@ import type { VisOptions } from './types.ts'
 export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M> = { preset: 'auto' } as any) {
 	return {
 		name: NAME,
-		config(userConfig) {
+		config(this: unknown, userConfig) {
 			setVisOption(userConfig, options)
 			const preset = options?.preset
 			return {
@@ -27,5 +27,5 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 				},
 			}
 		},
-	} satisfies Plugin
+	} satisfies PluginOption
 }

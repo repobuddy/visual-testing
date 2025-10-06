@@ -1,4 +1,5 @@
 import { join, relative } from 'pathe'
+import type { UserConfig } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
@@ -48,7 +49,10 @@ export async function setupSuite(browserContext: PartialBrowserCommandContext) {
  * across different projects.
  */
 export function getSuiteId(context: {
-	project: { config: { root: string; name: string }; vite: { config: { test?: { name?: string | undefined } } } }
+	project: {
+		config: { root: string; name: string }
+		vite: { config: { test?: { name?: UserConfig['name'] | undefined } } }
+	}
 }) {
 	return `${getProjectName(context)}/${context.project.config.name}`
 }
