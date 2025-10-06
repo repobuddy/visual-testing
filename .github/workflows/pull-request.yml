@@ -9,7 +9,6 @@ on:
       - '**/__vis__/**/__baselines__/**'
 jobs:
   verify:
-    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     strategy:
       matrix:
         os:
