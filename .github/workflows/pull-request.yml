@@ -2,11 +2,11 @@ name: pull-request
 on:
   pull_request:
     types: [opened, synchronize]
-    branches-ignore:
-      - 'changeset-release/*'
-      - 'vis-bot/update-snapshot/*'
+    paths-ignore:
+      - '**/__vis__/**/__baselines__/**'
 jobs:
   verify:
+    if: ${{ !startsWith(github.head_ref, 'changeset-release/') }}
     strategy:
       matrix:
         os:
