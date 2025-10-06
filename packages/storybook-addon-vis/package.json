@@ -74,17 +74,17 @@
 		"t:n": "vitest run -c vitest.config.node.ts",
 		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
 		"test": "vitest run",
-		"test:u": "vitest run -u",
 		"test:node": "vitest run -c vitest.config.node.ts",
 		"test:pw": "vitest run -c vitest.config.playwright.ts",
 		"test:type": "tsc --noEmit",
+		"test:u": "vitest run -u",
 		"v": "run-p build cov",
 		"w": "vitest",
 		"w:cov": "vitest --coverage",
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
-		"@storybook/icons": "^1.4.0",
+		"@storybook/icons": "^1.6.0",
 		"glob": "^11.0.2",
 		"is-ci": "^4.1.0",
 		"memoize": "^10.1.0",
@@ -93,10 +93,11 @@
 		"vitest-plugin-vis": "workspace:^"
 	},
 	"devDependencies": {
-		"@repobuddy/storybook": "^1.0.0",
-		"@storybook/addon-docs": "^9.0.4",
-		"@storybook/addon-vitest": "9.0.4",
-		"@storybook/react-vite": "^9.0.4",
+		"@repobuddy/storybook": "^1.0.1",
+		"@storybook-community/storybook-dark-mode": "^6.0.7",
+		"@storybook/addon-docs": "^9.1.10",
+		"@storybook/addon-vitest": "9.1.10",
+		"@storybook/react-vite": "^9.1.10",
 		"@tailwindcss/cli": "^4.1.7",
 		"@tailwindcss/vite": "^4.1.7",
 		"@testing-library/react": "^16.0.1",
@@ -114,8 +115,7 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"storybook": "^9.1.10",
-		"storybook-addon-tag-badges": "^2.0.0",
-		"storybook-dark-mode2": "^5.0.2",
+		"storybook-addon-tag-badges": "^2.0.2",
 		"tailwindcss": "^4.1.7",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.2",
@@ -126,9 +126,9 @@
 		"zx": "^8.0.0"
 	},
 	"peerDependencies": {
+		"@storybook/addon-vitest": "^9.1.10",
 		"@vitest/browser": "^2 || ^3",
-		"@storybook/addon-vitest": "^9.0.0",
-		"storybook": "^9.0.0",
+		"storybook": "^9.1.10",
 		"vitest": "^2 || ^3"
 	},
 	"publishConfig": {

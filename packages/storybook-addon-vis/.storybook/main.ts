@@ -7,7 +7,7 @@ const config: StorybookConfig = {
 		getAbsolutePath('@storybook/addon-docs'),
 		getAbsolutePath('@storybook/addon-vitest'),
 		getAbsolutePath('storybook-addon-tag-badges'),
-		getAbsolutePath('storybook-dark-mode2'),
+		getAbsolutePath('@storybook-community/storybook-dark-mode'),
 		{
 			name: './local-preset.cjs',
 			options: {
@@ -35,6 +35,6 @@ const config: StorybookConfig = {
 }
 export default config
 
-function getAbsolutePath(value: string): string {
+function getAbsolutePath(value: string) {
 	return dirname(require.resolve(join(value, 'package.json')))
 }
