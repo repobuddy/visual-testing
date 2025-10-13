@@ -64,7 +64,7 @@ importers:
         version: 5.64.1(@types/node@22.15.29)(typescript@5.8.3)
       playwright:
         specifier: latest
-        version: 1.55.1
+        version: 1.56.0
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -128,19 +128,19 @@ importers:
         version: 4.1.8(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       '@testing-library/react':
         specifier: ^16.0.1
-        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.0
       '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.0(@types/react@19.2.0)
+        specifier: ^19.2.1
+        version: 19.2.1(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.0.4(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       '@vitest/browser':
         specifier: 'catalog:'
-        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4)
@@ -161,7 +161,7 @@ importers:
         version: 8.0.4
       playwright:
         specifier: latest
-        version: 1.55.1
+        version: 1.56.0
       react:
         specifier: ^19.0.0
         version: 19.2.0
@@ -191,7 +191,7 @@ importers:
         version: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^1.0.0
-        version: 1.0.1(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
+        version: 1.0.1(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
       webdriverio:
         specifier: latest
         version: 9.20.0
@@ -264,7 +264,7 @@ importers:
         version: 19.2.0
       '@vitest/browser':
         specifier: 'catalog:'
-        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4)
@@ -309,7 +309,7 @@ importers:
         version: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^1.0.0
-        version: 1.0.1(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
+        version: 1.0.1(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
 
   testcases/react-vite-ts:
     dependencies:
@@ -333,14 +333,14 @@ importers:
         specifier: ^19.0.0
         version: 19.2.0
       '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.0(@types/react@19.2.0)
+        specifier: ^19.2.1
+        version: 19.2.1(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.0.4(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))
       '@vitest/browser':
         specifier: 'catalog:'
-        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       globals:
         specifier: ^16.0.0
         version: 16.2.0
@@ -361,7 +361,7 @@ importers:
         version: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@1.21.7)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^1.0.0
-        version: 1.0.1(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
+        version: 1.0.1(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
 
   testcases/themes:
     dependencies:
@@ -391,14 +391,14 @@ importers:
         specifier: ^19.0.0
         version: 19.2.0
       '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.0(@types/react@19.2.0)
+        specifier: ^19.2.1
+        version: 19.2.1(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.0.4(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       '@vitest/browser':
         specifier: 'catalog:'
-        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.21(postcss@8.5.6)
@@ -434,14 +434,14 @@ importers:
         specifier: ^19.0.0
         version: 19.2.0
       '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.0(@types/react@19.2.0)
+        specifier: ^19.2.1
+        version: 19.2.1(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.0.4(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       '@vitest/browser':
         specifier: 'catalog:'
-        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       typescript:
         specifier: ^5.7.2
         version: 5.8.3
@@ -450,7 +450,7 @@ importers:
         version: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
       vitest-browser-react:
         specifier: ^1.0.0
-        version: 1.0.1(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
+        version: 1.0.1(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4)
       vitest-plugin-vis:
         specifier: workspace:*
         version: link:../../packages/vitest-plugin-vis
@@ -483,14 +483,14 @@ importers:
         specifier: ^19.0.0
         version: 19.2.0
       '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.0(@types/react@19.2.0)
+        specifier: ^19.2.1
+        version: 19.2.1(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.0.4(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       '@vitest/browser':
         specifier: 'catalog:'
-        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+        version: 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.21(postcss@8.5.6)
@@ -1704,8 +1704,8 @@ packages:
   '@types/pngjs@6.0.5':
     resolution: {integrity: sha512-0k5eKfrA83JOZPppLtS2C7OUtyNAl2wKNxfyYl9Q5g9lPkgBl/9hNyAu6HuEH2J4XmIv2znEpkDd0SaZVxW6iQ==}
 
-  '@types/react-dom@19.2.0':
-    resolution: {integrity: sha512-brtBs0MnE9SMx7px208g39lRmC5uHZs96caOJfTjFcYSLHNamvaSMfJNagChVNkup2SdtOxKX1FDBkRSJe1ZAg==}
+  '@types/react-dom@19.2.1':
+    resolution: {integrity: sha512-/EEvYBdT3BflCWvTMO7YkYBHVE9Ci6XdqZciZANQgKpaiDRGOLIlRo91jbTNRQjgPFWVaRxcYc0luVNFitz57A==}
     peerDependencies:
       '@types/react': ^19.2.0
 
@@ -3439,13 +3439,13 @@ packages:
   pkg-types@1.3.1:
     resolution: {integrity: sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==}
 
-  playwright-core@1.55.1:
-    resolution: {integrity: sha512-Z6Mh9mkwX+zxSlHqdr5AOcJnfp+xUWLCt9uKV18fhzA8eyxUd8NUWzAjxUh55RZKSYwDGX0cfaySdhZJGMoJ+w==}
+  playwright-core@1.56.0:
+    resolution: {integrity: sha512-1SXl7pMfemAMSDn5rkPeZljxOCYAmQnYLBTExuh6E8USHXGSX3dx6lYZN/xPpTz1vimXmPA9CDnILvmJaB8aSQ==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.55.1:
-    resolution: {integrity: sha512-cJW4Xd/G3v5ovXtJJ52MAOclqeac9S/aGGgRzLabuF8TnIb6xHvMzKIa6JmrRzUkeXJgfL1MhukP0NK6l39h3A==}
+  playwright@1.56.0:
+    resolution: {integrity: sha512-X5Q1b8lOdWIE4KAoHpW3SE8HvUB+ZZsUoN64ZhjnN8dOb1UpujxBtENGiZFE+9F/yhzJwYa+ca3u43FeLbboHA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -5406,7 +5406,7 @@ snapshots:
       storybook: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       '@vitest/runner': 3.2.4
       vitest: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@1.21.7)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
     transitivePeerDependencies:
@@ -5421,7 +5421,7 @@ snapshots:
       storybook: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       ts-dedent: 2.2.0
     optionalDependencies:
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       '@vitest/runner': 3.2.4
       vitest: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
     transitivePeerDependencies:
@@ -5632,7 +5632,7 @@ snapshots:
       picocolors: 1.1.1
       redent: 3.0.0
 
-  '@testing-library/react@16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@testing-library/react@16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@babel/runtime': 7.27.0
       '@testing-library/dom': 10.4.0
@@ -5640,7 +5640,7 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
     optionalDependencies:
       '@types/react': 19.2.0
-      '@types/react-dom': 19.2.0(@types/react@19.2.0)
+      '@types/react-dom': 19.2.1(@types/react@19.2.0)
 
   '@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0)':
     dependencies:
@@ -5713,7 +5713,7 @@ snapshots:
     dependencies:
       '@types/node': 22.15.29
 
-  '@types/react-dom@19.2.0(@types/react@19.2.0)':
+  '@types/react-dom@19.2.1(@types/react@19.2.0)':
     dependencies:
       '@types/react': 19.2.0
 
@@ -5766,7 +5766,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser@3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)':
+  '@vitest/browser@3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
@@ -5778,7 +5778,7 @@ snapshots:
       vitest: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@1.21.7)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
       ws: 8.18.3
     optionalDependencies:
-      playwright: 1.55.1
+      playwright: 1.56.0
       webdriverio: 9.20.0
     transitivePeerDependencies:
       - bufferutil
@@ -5786,7 +5786,7 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/browser@3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)':
+  '@vitest/browser@3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
@@ -5798,7 +5798,7 @@ snapshots:
       vitest: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
       ws: 8.18.3
     optionalDependencies:
-      playwright: 1.55.1
+      playwright: 1.56.0
       webdriverio: 9.20.0
     transitivePeerDependencies:
       - bufferutil
@@ -5839,7 +5839,7 @@ snapshots:
       tinyrainbow: 2.0.0
       vitest: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
     optionalDependencies:
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -7517,11 +7517,11 @@ snapshots:
       mlly: 1.7.4
       pathe: 2.0.3
 
-  playwright-core@1.55.1: {}
+  playwright-core@1.56.0: {}
 
-  playwright@1.55.1:
+  playwright@1.56.0:
     dependencies:
-      playwright-core: 1.55.1
+      playwright-core: 1.56.0
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -8400,15 +8400,15 @@ snapshots:
       lightningcss: 1.30.1
       yaml: 2.6.0
 
-  vitest-browser-react@1.0.1(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4):
+  vitest-browser-react@1.0.1(@types/react-dom@19.2.1(@types/react@19.2.0))(@types/react@19.2.0)(@vitest/browser@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@3.2.4):
     dependencies:
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       vitest: 3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0)
     optionalDependencies:
       '@types/react': 19.2.0
-      '@types/react-dom': 19.2.0(@types/react@19.2.0)
+      '@types/react-dom': 19.2.1(@types/react@19.2.0)
 
   vitest@3.2.4(@types/node@22.15.29)(@vitest/browser@3.2.4)(jiti@1.21.7)(lightningcss@1.30.1)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(yaml@2.6.0):
     dependencies:
@@ -8437,7 +8437,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.15.29
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
     transitivePeerDependencies:
       - jiti
       - less
@@ -8479,7 +8479,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.15.29
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.55.1)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
+      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(playwright@1.56.0)(vite@7.1.9(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
     transitivePeerDependencies:
       - jiti
       - less

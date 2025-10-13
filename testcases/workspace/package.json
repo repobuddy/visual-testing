@@ -29,7 +29,7 @@
 		"@storybook/addon-vitest": "^9.1.10",
 		"@storybook/react-vite": "^9.1.10",
 		"@types/react": "^19.0.0",
-		"@types/react-dom": "^19.0.0",
+		"@types/react-dom": "^19.2.1",
 		"@vitejs/plugin-react": "^5.0.0",
 		"@vitest/browser": "catalog:",
 		"autoprefixer": "^10.4.20",
