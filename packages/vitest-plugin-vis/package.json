@@ -113,7 +113,7 @@
 		"@tailwindcss/vite": "^4.1.14",
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",
-		"@types/react": "^19.0.0",
+		"@types/react": "^19.2.2",
 		"@vitest/browser": "catalog:",
 		"@vitest/coverage-istanbul": "catalog:",
 		"@vitest/coverage-v8": "catalog:",
