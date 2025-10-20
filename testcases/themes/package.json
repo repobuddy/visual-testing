@@ -36,7 +36,7 @@
 		"globals": "^16.0.0",
 		"storybook": "^9.1.10",
 		"storybook-addon-vis": "workspace:*",
-		"tailwindcss": "^3",
+		"tailwindcss": "^4",
 		"typescript": "^5.7.2",
 		"vitest": "catalog:"
 	}
