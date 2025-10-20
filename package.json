@@ -45,7 +45,7 @@
 		"knip": "^5.64.3",
 		"playwright": "latest",
 		"rimraf": "^6.0.1",
-		"turbo": "^2.4.4",
+		"turbo": "^2.5.8",
 		"typescript": "^5.8.2",
 		"vitest": "catalog:",
 		"webdriverio": "^9.12.2"
