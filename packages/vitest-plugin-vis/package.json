@@ -109,7 +109,7 @@
 		"@storybook-community/storybook-dark-mode": "^6.0.8",
 		"@storybook/addon-docs": "^9.1.10",
 		"@storybook/addon-vitest": "^9.1.13",
-		"@storybook/react-vite": "^9.1.10",
+		"@storybook/react-vite": "^9.1.15",
 		"@tailwindcss/vite": "^4.1.14",
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",
