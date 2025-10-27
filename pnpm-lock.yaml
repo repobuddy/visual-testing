@@ -107,7 +107,7 @@ importers:
     devDependencies:
       '@repobuddy/storybook':
         specifier: ^1.0.1
-        version: 1.0.1(storybook-addon-tag-badges@2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))
+        version: 1.0.1(storybook-addon-tag-badges@3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))
       '@storybook-community/storybook-dark-mode':
         specifier: ^6.0.8
         version: 6.0.8(@storybook/addon-docs@9.1.10(@types/react@19.2.2)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
@@ -172,8 +172,8 @@ importers:
         specifier: ^9.1.10
         version: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       storybook-addon-tag-badges:
-        specifier: ^2.0.2
-        version: 2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
+        specifier: ^3.0.0
+        version: 3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       tailwindcss:
         specifier: ^4.1.14
         version: 4.1.14
@@ -234,7 +234,7 @@ importers:
     devDependencies:
       '@repobuddy/storybook':
         specifier: ^1.0.1
-        version: 1.0.1(storybook-addon-tag-badges@2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))
+        version: 1.0.1(storybook-addon-tag-badges@3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))
       '@repobuddy/typescript':
         specifier: ^2.1.0
         version: 2.1.0
@@ -293,8 +293,8 @@ importers:
         specifier: ^9.1.10
         version: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       storybook-addon-tag-badges:
-        specifier: ^2.0.2
-        version: 2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
+        specifier: ^3.0.0
+        version: 3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       tailwindcss:
         specifier: ^4.1.14
         version: 4.1.14
@@ -4308,11 +4308,11 @@ packages:
   std-env@3.9.0:
     resolution: {integrity: sha512-UGvjygr6F6tpH7o2qyqR6QYpwraIjKSdtzyBdyytFOHmPZY917kwdwLG0RbOjWOnKmnm3PeHjaoLLMie7kPLQw==}
 
-  storybook-addon-tag-badges@2.0.2:
-    resolution: {integrity: sha512-vttxTOAg6p6jdcPQ/6egJMPEwG40j4AY6eyMjpID1UaDLl2o99k8wHR2UJT6E6DWeEvVx8x5nMIlcr1mBXvT2w==}
-    engines: {node: '>=22'}
+  storybook-addon-tag-badges@3.0.0:
+    resolution: {integrity: sha512-taYI7xi0wuEhcQT2jQHjzHqc+GE6wL18TsFBg9JjsBztuvFaFiZr0QSsDxe5wG2nG6f3DjvyX86suJ+Xy6buAQ==}
+    engines: {node: '>=20'}
     peerDependencies:
-      storybook: ^9.0.0
+      storybook: ^10.0.0
 
   storybook-dark-mode2@5.4.0:
     resolution: {integrity: sha512-wZnUB8FQDrYGlwWPHuOAhVFgHIIjecKdN0UlrT+Ir/NZQOaUGsiRQQFWMdTyULcz2M2oCybpg1nKIg/2fRjjhA==}
@@ -5919,13 +5919,13 @@ snapshots:
     dependencies:
       '@biomejs/biome': 2.3.0
 
-  '@repobuddy/storybook@1.0.1(storybook-addon-tag-badges@2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))':
+  '@repobuddy/storybook@1.0.1(storybook-addon-tag-badges@3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))(storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))))':
     dependencies:
       '@just-web/css': 0.5.0
       '@repobuddy/test': 1.0.0
       htmlfy: 0.7.5
     optionalDependencies:
-      storybook-addon-tag-badges: 2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
+      storybook-addon-tag-badges: 3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       storybook-dark-mode2: 5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
 
   '@repobuddy/test@1.0.0': {}
@@ -8821,13 +8821,9 @@ snapshots:
 
   std-env@3.9.0: {}
 
-  storybook-addon-tag-badges@2.0.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))):
+  storybook-addon-tag-badges@3.0.0(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))):
     dependencies:
-      '@storybook/icons': 1.6.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       storybook: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
-    transitivePeerDependencies:
-      - react
-      - react-dom
 
   storybook-dark-mode2@5.4.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@22.15.29)(typescript@5.8.3))(prettier@3.5.3)(vite@7.1.12(@types/node@22.15.29)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))):
     dependencies:
