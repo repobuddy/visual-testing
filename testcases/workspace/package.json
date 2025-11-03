@@ -37,7 +37,7 @@
 		"storybook": "^9.1.10",
 		"storybook-addon-vis": "workspace:*",
 		"tailwindcss": "^3",
-		"typescript": "^5.7.2",
+		"typescript": "^5.9.3",
 		"vitest": "catalog:"
 	}
 }
