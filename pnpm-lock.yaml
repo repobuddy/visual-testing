@@ -115,8 +115,8 @@ importers:
         specifier: ^9.1.10
         version: 9.1.10(@types/react@19.2.2)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       '@storybook/addon-vitest':
-        specifier: 9.1.16
-        version: 9.1.16(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
+        specifier: 10.0.2
+        version: 10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
       '@storybook/react-vite':
         specifier: ^9.1.15
         version: 9.1.15(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
@@ -245,8 +245,8 @@ importers:
         specifier: ^9.1.10
         version: 9.1.10(@types/react@19.2.2)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       '@storybook/addon-vitest':
-        specifier: ^9.1.13
-        version: 9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
+        specifier: ^10.0.2
+        version: 10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
       '@storybook/react-vite':
         specifier: ^9.1.15
         version: 9.1.15(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
@@ -324,8 +324,8 @@ importers:
         specifier: ^1.2.2
         version: 1.2.2
       '@storybook/addon-vitest':
-        specifier: ^9.1.13
-        version: 9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
+        specifier: ^10.0.2
+        version: 10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
       '@storybook/react-vite':
         specifier: ^9.1.15
         version: 9.1.15(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0)))(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0))
@@ -382,8 +382,8 @@ importers:
         specifier: ^9.1.10
         version: 9.1.10(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       '@storybook/addon-vitest':
-        specifier: ^9.1.13
-        version: 9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
+        specifier: ^10.0.2
+        version: 10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
       '@storybook/react-vite':
         specifier: ^9.1.15
         version: 9.1.15(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
@@ -474,8 +474,8 @@ importers:
         specifier: ^9.1.10
         version: 9.1.10(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
       '@storybook/addon-vitest':
-        specifier: ^9.1.13
-        version: 9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
+        specifier: ^10.0.2
+        version: 10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
       '@storybook/react-vite':
         specifier: ^9.1.15
         version: 9.1.15(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.52.5)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(typescript@5.9.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
@@ -1775,28 +1775,13 @@ packages:
     peerDependencies:
       storybook: ^9.1.10
 
-  '@storybook/addon-vitest@9.1.13':
-    resolution: {integrity: sha512-g/wkQ8i1GGlsoHEe6bjWic+ESokWhuMBxAa9FDLW9KDf0L1DMyQqFFJFnGoo99zCNRVJcSXgzZTFp6SCt3FKog==}
-    peerDependencies:
-      '@vitest/browser': ^3.0.0
-      '@vitest/runner': ^3.0.0
-      storybook: ^9.1.13
-      vitest: ^3.0.0
-    peerDependenciesMeta:
-      '@vitest/browser':
-        optional: true
-      '@vitest/runner':
-        optional: true
-      vitest:
-        optional: true
-
-  '@storybook/addon-vitest@9.1.16':
-    resolution: {integrity: sha512-X0rOOUMb5UHbfekcjnTeiDTarZdsg5irXXPxxL//8QQCFyCLF6Bdm1YNlCdF560PtwaaQPXzlxByD0FfGbtdWA==}
+  '@storybook/addon-vitest@10.0.2':
+    resolution: {integrity: sha512-ilpjflHJPa0au4YX48QsOmrkWFFqBjzfOGwKEDY2jBYJRyCqsdYju2Jl9Uku2CIXnJJJHI+iGLngPL225yV4Lg==}
     peerDependencies:
       '@vitest/browser': ^3.0.0 || ^4.0.0
       '@vitest/browser-playwright': ^4.0.0
       '@vitest/runner': ^3.0.0 || ^4.0.0
-      storybook: ^9.1.16
+      storybook: ^10.0.2
       vitest: ^3.0.0 || ^4.0.0
     peerDependenciesMeta:
       '@vitest/browser':
@@ -6123,7 +6108,7 @@ snapshots:
       storybook: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
       ts-dedent: 2.2.0
 
-  '@storybook/addon-vitest@9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)':
+  '@storybook/addon-vitest@10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.6.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -6138,22 +6123,7 @@ snapshots:
       - react
       - react-dom
 
-  '@storybook/addon-vitest@9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)':
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@storybook/icons': 1.6.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      prompts: 2.4.2
-      storybook: 9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))
-      ts-dedent: 2.2.0
-    optionalDependencies:
-      '@vitest/browser': 3.2.4(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(playwright@1.56.1)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0))(vitest@3.2.4)(webdriverio@9.20.0)
-      '@vitest/runner': 3.2.4
-      vitest: 3.2.4(@types/node@24.9.2)(@vitest/browser@3.2.4)(jiti@2.6.1)(lightningcss@1.30.1)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(yaml@2.6.0)
-    transitivePeerDependencies:
-      - react
-      - react-dom
-
-  '@storybook/addon-vitest@9.1.16(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)':
+  '@storybook/addon-vitest@10.0.2(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)':
     dependencies:
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.6.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
