@@ -118,7 +118,7 @@
 		"storybook-addon-tag-badges": "^3.0.0",
 		"tailwindcss": "^4.1.14",
 		"tsup": "^8.3.5",
-		"typescript": "^5.7.2",
+		"typescript": "^5.9.3",
 		"vite": "catalog:",
 		"vitest": "catalog:",
 		"vitest-browser-react": "^1.0.0",
