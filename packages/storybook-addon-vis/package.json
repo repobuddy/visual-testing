@@ -84,7 +84,7 @@
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
-		"@storybook/icons": "^1.6.0",
+		"@storybook/icons": "^2.0.0",
 		"glob": "^11.0.3",
 		"is-ci": "^4.1.0",
 		"memoize": "^10.1.0",
