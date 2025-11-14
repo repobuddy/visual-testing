@@ -45,7 +45,7 @@
 			"require": "./dist/vitest-setup.cjs"
 		},
 		"./vitest-plugin": {
-			"types": "./vitest-plugin.d.ts",
+			"types": "./dist/vitest-plugin.d.ts",
 			"import": "./dist/vitest-plugin.js"
 		},
 		"./package.json": "./package.json"
