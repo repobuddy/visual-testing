@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 2.1.4
+
+### Patch Changes
+
+- [#455](https://github.com/repobuddy/visual-testing/pull/455) [`b075e8e`](https://github.com/repobuddy/visual-testing/commit/b075e8e46ed6098f456c2c2ffab482d43f583cba) Thanks [@unional](https://github.com/unional)! - Fix types export for `storybook-addon-vis/vitest-plugin`.
+
 ## 2.1.3
 
 ### Patch Changes
