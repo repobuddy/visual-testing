@@ -106,7 +106,7 @@
 	"devDependencies": {
 		"@repobuddy/storybook": "^1.0.1",
 		"@repobuddy/typescript": "^2.1.0",
-		"@storybook-community/storybook-dark-mode": "^6.0.8",
+		"@storybook-community/storybook-dark-mode": "^7.0.0",
 		"@storybook/addon-docs": "^10.0.6",
 		"@storybook/addon-vitest": "^9.1.13",
 		"@storybook/react-vite": "^9.1.15",
