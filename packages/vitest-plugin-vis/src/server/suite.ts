@@ -1,12 +1,11 @@
 import { join, relative } from 'pathe'
-import type { BrowserCommandContext } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { getVisOption } from './vis_options.ts'
 import { deps } from './vis_server_context.deps.ts'
-import type { VisSuite, VisSuites } from './vis_server_context.types.ts'
+import type { ExtendedBrowserCommandContext, VisSuite, VisSuites } from './vis_server_context.types.ts'
 
 const suites: VisSuites = {}
 
@@ -15,7 +14,7 @@ const suites: VisSuites = {}
  * Test files include vitest test files and storybook story files.
  * It needs to make sure there is no race condition between the test files.
  */
-export async function setupSuite(browserContext: BrowserCommandContext) {
+export async function setupSuite(browserContext: ExtendedBrowserCommandContext) {
 	const suiteId = getSuiteId(browserContext)
 	const visOptions = getVisOption(browserContext)
 
@@ -48,12 +47,12 @@ export async function setupSuite(browserContext: BrowserCommandContext) {
  * Suite ID also contains the project name to make it unique
  * across different projects.
  */
-export function getSuiteId(context: BrowserCommandContext) {
+export function getSuiteId(context: ExtendedBrowserCommandContext) {
 	return `${getProjectName(context)}/${context.project.config.name}`
 }
 
 async function createSuite(
-	browserContext: BrowserCommandContext,
+	browserContext: ExtendedBrowserCommandContext,
 	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subject'>,
 ) {
 	// console.log('visOptions', visOptions)
@@ -91,6 +90,6 @@ export function getTaskSubpath(state: VisSuite, testPath: string, options: Pick<
 	return getSnapshotSubpath(relative(state.projectRoot, testPath), options)
 }
 
-export function getSuite(context: BrowserCommandContext) {
+export function getSuite(context: ExtendedBrowserCommandContext) {
 	return suites[getSuiteId(context)]!
 }

@@ -1,3 +1,6 @@
+import type { Merge } from 'type-plus'
+import type { BrowserCommandContext } from 'vitest/node'
+
 export type VisSuites = {
 	[projectPath: string]: Promise<VisSuite>
 }
@@ -24,6 +27,31 @@ export type VisSuite = {
 					count: number
 				}
 			>
+		}
+	>
+}
+
+export type ExtendedBrowserCommandContext = {
+	testPath: string
+	provider: BrowserCommandContext['provider']
+	project: Merge<
+		BrowserCommandContext['project'],
+		{
+			browser: {
+				config: {
+					browser: {
+						name: string
+						screenshotFailures: boolean
+						screenshotDirectory: string
+					}
+				}
+			}
+			config: BrowserCommandContext['project']['config']
+			runner: {
+				config: {
+					name: string
+				}
+			}
 		}
 	>
 }
