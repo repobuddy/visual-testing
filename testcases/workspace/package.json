@@ -24,7 +24,7 @@
 		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
-		"@repobuddy/vitest": "^1.2.2",
+		"@repobuddy/vitest": "^2.0.0",
 		"@storybook/addon-themes": "^9.1.10",
 		"@storybook/addon-vitest": "^9.1.13",
 		"@storybook/react-vite": "^9.1.15",
