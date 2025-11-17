@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import dedent from 'dedent'
 import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'

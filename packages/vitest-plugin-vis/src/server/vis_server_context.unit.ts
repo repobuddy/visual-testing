@@ -13,7 +13,13 @@ describe(`${createVisServerContext.name}`, () => {
 	const userConfig = stubUserConfig({
 		test: {
 			name: 'subject',
-			browser: { name: 'chrome', provider: 'playwright' },
+			browser: {
+				instances: [
+					{
+						browser: 'chrome',
+					},
+				],
+			},
 		},
 	})
 	const stubCommandContext = createStubPartialBrowserCommandContext({
@@ -48,14 +54,21 @@ describe(`${createVisServerContext.name}`, () => {
 		it('honors the provided snapshotSubpath', async ({ expect }) => {
 			const visContext = createVisServerContext()
 			const browserContext = stubCommandContext()
-			const suiteId = relative(browserContext.project.config.root, browserContext.testPath)
+			const suiteId = relative(browserContext.project.config.root, browserContext.testPath!)
 
 			const snapshotSubpath = ({ subpath }: { subpath: string }) => subpath
 			const userConfig = stubUserConfig({
 				root: resolve(import.meta.dirname, '../..'),
 				test: {
 					name: 'subject',
-					browser: { name: 'chrome', provider: 'playwright' },
+					browser: {
+						instances: [
+							{
+								name: 'chrome',
+								browser: 'chrome',
+							},
+						],
+					},
 				},
 			})
 			setVisOption(userConfig, { snapshotSubpath })

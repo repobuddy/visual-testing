@@ -1,6 +1,6 @@
 import { stub } from 'type-plus'
-import type { UserConfig } from 'vite'
+import type { ViteUserConfig } from 'vitest/config'
 
-export const stubUserConfig = stub.build<UserConfig & { configFile: string }>((stub) => ({
+export const stubUserConfig = stub.build<ViteUserConfig>((stub) => ({
 	...stub,
 }))

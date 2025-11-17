@@ -1,4 +1,4 @@
-import { commands, page } from '@vitest/browser/context'
+import { commands, page } from 'vitest/browser'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from '../auto_snapshot_options.ts'

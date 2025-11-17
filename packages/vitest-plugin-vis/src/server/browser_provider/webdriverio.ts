@@ -2,7 +2,7 @@ import type { BrowserCommandContext } from 'vitest/node'
 import type { BrowserApi } from './types.ts'
 
 export function webdriverio(context: BrowserCommandContext): BrowserApi {
-	const browser = context.browser
+	const { browser } = context
 	return {
 		async takeScreenshot(_projectRoot, relativeFilePath, selector) {
 			const element = await browser.$(`${selector}`)

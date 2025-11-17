@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { it } from 'vitest'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { Button } from './Button.tsx'

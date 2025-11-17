@@ -5,7 +5,7 @@ import type { PrepareImageSnapshotComparisonCommand } from './prepare_image_snap
 import type { PreparePageImageSnapshotComparisonCommand } from './prepare_page_image_snapshot_comparison.ts'
 import type { SetupVisSuiteCommand } from './setup_vis_suite.ts'
 
-declare module '@vitest/browser/context' {
+declare module 'vitest/browser' {
 	interface BrowserCommands
 		extends SetupVisSuiteCommand,
 			ImageSnapshotNextIndexCommand,

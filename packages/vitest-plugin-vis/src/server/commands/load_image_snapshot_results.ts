@@ -27,6 +27,5 @@ export const loadImageSnapshotResults: BrowserCommand<[taskId: string]> = async 
 	taskId,
 ): Promise<ImageSnapshotResult[]> => {
 	assertTestPathDefined(context, 'loadImageSnapshotResults')
-
 	return visServerContext.getSnapshotResults(context, taskId)
 }

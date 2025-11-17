@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { afterEach, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { ctx } from '../ctx.ts'

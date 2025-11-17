@@ -6,17 +6,16 @@ describe(`${setVisOption.name}`, () => {
 		const name = 'test-project'
 
 		setVisOption(
-			{
-				test: { name },
-			},
+			{ test: { name } },
+
 			{},
 		)
 
 		const project = getVisOption({
 			project: {
-				vite: {
+				vitest: {
 					config: {
-						test: { name },
+						name,
 					},
 				},
 			},

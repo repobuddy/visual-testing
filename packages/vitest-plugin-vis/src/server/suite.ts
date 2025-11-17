@@ -1,12 +1,12 @@
 import { join, relative } from 'pathe'
-import type { UserConfig } from 'vitest/node'
+import type { BrowserCommandContext } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { getVisOption } from './vis_options.ts'
 import { deps } from './vis_server_context.deps.ts'
-import type { PartialBrowserCommandContext, VisSuite, VisSuites } from './vis_server_context.types.ts'
+import type { VisSuite, VisSuites } from './vis_server_context.types.ts'
 
 const suites: VisSuites = {}
 
@@ -15,7 +15,7 @@ const suites: VisSuites = {}
  * Test files include vitest test files and storybook story files.
  * It needs to make sure there is no race condition between the test files.
  */
-export async function setupSuite(browserContext: PartialBrowserCommandContext) {
+export async function setupSuite(browserContext: BrowserCommandContext) {
 	const suiteId = getSuiteId(browserContext)
 	const visOptions = getVisOption(browserContext)
 
@@ -27,7 +27,7 @@ export async function setupSuite(browserContext: PartialBrowserCommandContext) {
 
 	const { taskSubpath, baselineDir, diffDir, resultDir, tasks } = createModule(
 		suite,
-		browserContext.testPath,
+		browserContext.testPath!,
 		visOptions,
 	)
 	suite.modules[taskSubpath] = { baselineDir, diffDir, resultDir, tasks }
@@ -48,19 +48,15 @@ export async function setupSuite(browserContext: PartialBrowserCommandContext) {
  * Suite ID also contains the project name to make it unique
  * across different projects.
  */
-export function getSuiteId(context: {
-	project: {
-		config: { root: string; name: string }
-		vite: { config: { test?: { name?: UserConfig['name'] | undefined } } }
-	}
-}) {
+export function getSuiteId(context: BrowserCommandContext) {
 	return `${getProjectName(context)}/${context.project.config.name}`
 }
 
 async function createSuite(
-	browserContext: PartialBrowserCommandContext,
+	browserContext: BrowserCommandContext,
 	visOptions: Pick<VisOptions, 'snapshotRootDir' | 'subject'>,
 ) {
+	// console.log('visOptions', visOptions)
 	const snapshotRootDir = resolveSnapshotRootDir(browserContext, visOptions)
 	const projectRoot = getProjectRoot(browserContext)
 
@@ -95,6 +91,6 @@ export function getTaskSubpath(state: VisSuite, testPath: string, options: Pick<
 	return getSnapshotSubpath(relative(state.projectRoot, testPath), options)
 }
 
-export function getSuite(context: PartialBrowserCommandContext) {
+export function getSuite(context: BrowserCommandContext) {
 	return suites[getSuiteId(context)]!
 }

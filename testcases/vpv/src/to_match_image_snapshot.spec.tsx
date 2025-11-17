@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'

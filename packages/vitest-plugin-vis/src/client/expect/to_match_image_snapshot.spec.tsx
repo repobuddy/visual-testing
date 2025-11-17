@@ -1,6 +1,6 @@
-import { page, server } from '@vitest/browser/context'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
+import { page, server } from 'vitest/browser'
 import { getCurrentTest } from 'vitest/suite'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { setAutoSnapshotOptions } from '../auto_snapshot_options.ts'
@@ -31,7 +31,7 @@ it('accepts a Locator', async ({ expect }) => {
 	await expect(subject).toMatchImageSnapshot()
 })
 
-it('accepts an element', async ({ expect }) => {
+it.only('accepts an element', async ({ expect }) => {
 	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject.element()).toMatchImageSnapshot()

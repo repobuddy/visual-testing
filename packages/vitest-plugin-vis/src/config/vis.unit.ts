@@ -9,7 +9,7 @@ it('set plugin name to vis', () => {
 
 describe('vis().config()', () => {
 	it('should not specify browser name', () => {
-		const config = vis().config({})
+		const config = vis().config({} as any)
 		expect(config.test?.browser.name).toBeUndefined()
 	})
 
@@ -17,7 +17,7 @@ describe('vis().config()', () => {
 		const plugin = vis()
 
 		const { userConfig, browserCommandContext } = stubSuite({
-			test: {},
+			test: { name: undefined as any },
 		})
 
 		plugin.config(userConfig)
@@ -34,9 +34,9 @@ describe('vis().config()', () => {
 			},
 			{
 				project: {
-					vite: {
+					vitest: {
 						config: {
-							test: { name: 'my-project' },
+							name: 'my-project',
 						},
 					},
 				},

@@ -5,11 +5,9 @@ describe('getProjectName', () => {
 	it('should return the project name if it exists', () => {
 		const context = {
 			project: {
-				vite: {
+				vitest: {
 					config: {
-						test: {
-							name: 'my-project',
-						},
+						name: 'my-project',
 					},
 				},
 			},
@@ -21,9 +19,9 @@ describe('getProjectName', () => {
 	it('should return undefined if the project name does not exist', () => {
 		const context = {
 			project: {
-				vite: {
+				vitest: {
 					config: {
-						test: {},
+						name: undefined,
 					},
 				},
 			},
@@ -35,7 +33,7 @@ describe('getProjectName', () => {
 	it('should return undefined if the test config is not defined', () => {
 		const context = {
 			project: {
-				vite: {
+				vitest: {
 					config: {},
 				},
 			},
@@ -47,12 +45,10 @@ describe('getProjectName', () => {
 	it('should return the project name if the test config is an object with a label', () => {
 		const context = {
 			project: {
-				vite: {
+				vitest: {
 					config: {
-						test: {
-							name: {
-								label: 'my-project',
-							},
+						name: {
+							label: 'my-project',
 						},
 					},
 				},
