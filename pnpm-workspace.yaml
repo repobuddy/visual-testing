@@ -11,6 +11,8 @@ catalog:
   '@vitest/expect': ^4.0.9
   vite: ^7.1.12
   vitest: ^4.0.9
+  vitest-browser-react: ^2.0.2
+
 
 ignoredBuiltDependencies:
   - edgedriver
