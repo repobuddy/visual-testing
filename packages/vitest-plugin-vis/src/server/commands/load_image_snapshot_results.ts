@@ -1,5 +1,5 @@
-import type { BrowserCommand } from 'vitest/node'
 import { visServerContext } from '../vis_server_context.ts'
+import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface ImageSnapshotResult {
@@ -22,7 +22,7 @@ export interface LoadImageSnapshotResultsCommand {
 	loadImageSnapshotResults(taskId: string): Promise<ImageSnapshotResult[]>
 }
 
-export const loadImageSnapshotResults: BrowserCommand<[taskId: string]> = async (
+export const loadImageSnapshotResults: ExtendedBrowserCommand<[taskId: string]> = async (
 	context,
 	taskId,
 ): Promise<ImageSnapshotResult[]> => {

@@ -1,5 +1,6 @@
 import type { Merge } from 'type-plus'
 import type { BrowserCommandContext } from 'vitest/node'
+import type { Awaitable } from '../shared/types.ts'
 
 export type VisSuites = {
 	[projectPath: string]: Promise<VisSuite>
@@ -31,9 +32,18 @@ export type VisSuite = {
 	>
 }
 
+export type ExtendedBrowserCommand<Payload extends unknown[] = [], ReturnValue = any> = (
+	context: ExtendedBrowserCommandContext,
+	...payload: Payload
+) => Awaitable<ReturnValue>
+
 export type ExtendedBrowserCommandContext = {
-	testPath: string
+	page: BrowserCommandContext['page']
+	browser: BrowserCommandContext['browser']
+	iframe: BrowserCommandContext['iframe']
+	testPath: NonNullable<BrowserCommandContext['testPath']>
 	provider: BrowserCommandContext['provider']
+	// project: BrowserCommandContext['project']
 	project: Merge<
 		BrowserCommandContext['project'],
 		{

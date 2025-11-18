@@ -1,8 +1,8 @@
 import { resolve } from 'pathe'
-import type { BrowserCommandContext } from 'vitest/node'
+import type { ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 import type { BrowserApi } from './types.ts'
 
-export function playwright(context: BrowserCommandContext): BrowserApi {
+export function playwright(context: ExtendedBrowserCommandContext): BrowserApi {
 	const { page, iframe } = context
 
 	return {

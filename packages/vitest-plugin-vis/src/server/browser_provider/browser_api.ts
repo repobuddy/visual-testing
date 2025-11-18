@@ -1,8 +1,8 @@
-import type { BrowserCommandContext } from 'vitest/node'
+import type { ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 import { playwright } from './playwright.ts'
 import { webdriverio } from './webdriverio.ts'
 
-export function browserApi(context: BrowserCommandContext) {
+export function browserApi(context: ExtendedBrowserCommandContext) {
 	if (context.provider.name === 'playwright') {
 		return playwright(context)
 	}

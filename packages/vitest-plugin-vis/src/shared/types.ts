@@ -3,6 +3,8 @@ import type { Options as SsimDiffOptions } from 'ssim.js'
 import type { SnapshotMeta } from '../client/snapshot_meta.ts'
 import type { NAME } from './constants.ts'
 
+export type Awaitable<T> = T | PromiseLike<T>
+
 export interface ImageSnapshotTimeoutOptions {
 	/**
 	 * Timeout for taking the snapshot.
