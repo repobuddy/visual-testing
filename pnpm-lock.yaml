@@ -87,8 +87,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       glob:
-        specifier: ^11.0.3
-        version: 11.0.3
+        specifier: ^12.0.0
+        version: 12.0.0
       is-ci:
         specifier: ^4.1.0
         version: 4.1.0
@@ -205,8 +205,8 @@ importers:
         specifier: ^1.5.1
         version: 1.6.0
       glob:
-        specifier: ^11.0.3
-        version: 11.0.3
+        specifier: ^12.0.0
+        version: 12.0.0
       is-ci:
         specifier: ^4.0.0
         version: 4.1.0
@@ -3115,6 +3115,11 @@ packages:
     engines: {node: 20 || >=22}
     hasBin: true
 
+  glob@12.0.0:
+    resolution: {integrity: sha512-5Qcll1z7IKgHr5g485ePDdHcNQY0k2dtv/bjYy0iuyGxQw2qSOiiXUXJ+AYQpg3HNoUMHqAruX478Jeev7UULw==}
+    engines: {node: 20 || >=22}
+    hasBin: true
+
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     deprecated: Glob versions prior to v9 are no longer supported
@@ -3631,6 +3636,10 @@ packages:
 
   minimatch@10.0.3:
     resolution: {integrity: sha512-IPZ167aShDZZUMdRk66cyQAW3qr0WzbHkPdMYa8bzZhlHhO3jALbKdxcaak7W9FfT2rZNpQuUu4Od7ILEpXSaw==}
+    engines: {node: 20 || >=22}
+
+  minimatch@10.1.1:
+    resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
     engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
@@ -7736,6 +7745,15 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 2.0.0
 
+  glob@12.0.0:
+    dependencies:
+      foreground-child: 3.3.1
+      jackspeak: 4.1.1
+      minimatch: 10.1.1
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.1
+      path-scurry: 2.0.0
+
   glob@7.2.3:
     dependencies:
       fs.realpath: 1.0.0
@@ -8177,6 +8195,10 @@ snapshots:
   min-indent@1.0.1: {}
 
   minimatch@10.0.3:
+    dependencies:
+      '@isaacs/brace-expansion': 5.0.0
+
+  minimatch@10.1.1:
     dependencies:
       '@isaacs/brace-expansion': 5.0.0
 
