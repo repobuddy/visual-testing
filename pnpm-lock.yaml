@@ -321,8 +321,8 @@ importers:
         version: 19.2.0(react@19.2.0)
     devDependencies:
       '@repobuddy/vitest':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^2.0.0
+        version: 2.0.0(vitest@3.2.4)
       '@storybook/addon-vitest':
         specifier: ^9.1.13
         version: 9.1.13(@vitest/browser@3.2.4)(@vitest/runner@3.2.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@1.21.7)(lightningcss@1.30.1)(yaml@2.6.0)))(vitest@3.2.4)
@@ -376,8 +376,8 @@ importers:
         version: 19.2.0(react@19.2.0)
     devDependencies:
       '@repobuddy/vitest':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^2.0.0
+        version: 2.0.0(vitest@3.2.4)
       '@storybook/addon-themes':
         specifier: ^9.1.10
         version: 9.1.10(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
@@ -468,8 +468,8 @@ importers:
         version: 19.2.0(react@19.2.0)
     devDependencies:
       '@repobuddy/vitest':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^2.0.0
+        version: 2.0.0(vitest@3.2.4)
       '@storybook/addon-themes':
         specifier: ^9.1.10
         version: 9.1.10(storybook@9.1.10(@testing-library/dom@10.4.0)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(prettier@3.5.3)(vite@7.1.12(@types/node@24.9.2)(jiti@2.6.1)(lightningcss@1.30.1)(yaml@2.6.0)))
@@ -1511,8 +1511,14 @@ packages:
   '@repobuddy/typescript@2.1.0':
     resolution: {integrity: sha512-b9owazWwMPs357qqti4CrIt7+isqcPbsUOZmW+Yc0L7OVz2YmrHhCgg2ggFGQgSFhhMWc/mQQ18K8VVR5KxPBQ==}
 
-  '@repobuddy/vitest@1.2.2':
-    resolution: {integrity: sha512-w44Fckhke+8ciSg+mPqQC95xT/lPlHn4wXDCkYEShBpOH5oxCcUASkgsNbzUlcQXaKgnkVKtmqLyP7TfdHOAVQ==}
+  '@repobuddy/vitest@2.0.0':
+    resolution: {integrity: sha512-bNxQu+z3VDKQa65pqGI0KrDJ2y4cqrI5Or4s5etWEGB/IxvdmpgyYNY9xtRspt1JWfNYtb0gNcVGV29y6G5xjA==}
+    peerDependencies:
+      '@vitest/browser-playwright': '>= 4'
+      vitest: '>= 4'
+    peerDependenciesMeta:
+      '@vitest/browser-playwright':
+        optional: true
 
   '@rolldown/pluginutils@1.0.0-beta.38':
     resolution: {integrity: sha512-N/ICGKleNhA5nc9XXQG/kkKHJ7S55u0x0XUJbbkmdCnFuoRkM1Il12q9q0eX19+M7KKUEPw/daUPIRnxhcxAIw==}
@@ -5979,9 +5985,10 @@ snapshots:
       dirname-filename-esm: 1.1.2
       execa: 9.5.2
 
-  '@repobuddy/vitest@1.2.2':
+  '@repobuddy/vitest@2.0.0(vitest@3.2.4)':
     dependencies:
       '@repobuddy/test': 1.0.0
+      vitest: 3.2.4(@types/node@24.9.2)(@vitest/browser@3.2.4)(jiti@1.21.7)(lightningcss@1.30.1)(msw@2.7.3(@types/node@24.9.2)(typescript@5.9.3))(yaml@2.6.0)
 
   '@rolldown/pluginutils@1.0.0-beta.38': {}
 
