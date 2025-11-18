@@ -13,7 +13,7 @@ it('returns empty array when no image snapshots', async () => {
 
 it('returns image snapshots', async () => {
 	setAutoSnapshotOptions(false)
-	render(<div>Test</div>)
+	await render(<div>Test</div>)
 
 	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey: 'manual' })
 
