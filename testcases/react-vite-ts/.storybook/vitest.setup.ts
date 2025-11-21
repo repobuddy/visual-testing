@@ -6,4 +6,4 @@ import * as projectAnnotations from './preview.js'
 // More info at: https://storybook.js.org/docs/api/portable-stories/portable-stories-vitest#setprojectannotations
 setProjectAnnotations([visAnnotations, projectAnnotations])
 
-vis.presets.auto()
+vis.setup({ auto: true })

@@ -20,7 +20,7 @@ export default defineProject({
 		browser: {
 			enabled: true,
 			headless: true,
-			provider: playwright(),
+			provider: playwright({ contextOptions: { viewport: { width: 1280, height: 720 } } }),
 			instances: [
 				{
 					browser: 'chromium',

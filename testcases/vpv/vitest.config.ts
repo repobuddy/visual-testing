@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
 import { vis } from 'vitest-plugin-vis/config'
 import { defineConfig } from 'vitest/config'
 
@@ -20,7 +21,7 @@ export default defineConfig({
 		browser: {
 			enabled: true,
 			headless: true,
-			provider: 'playwright',
+			provider: playwright(),
 			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},
 		include: [
