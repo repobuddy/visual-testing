@@ -123,7 +123,7 @@
 		"vitest": "catalog:",
 		"vitest-browser-react": "^1.0.0",
 		"webdriverio": "latest",
-		"zx": "^8.0.0"
+		"zx": "^8.8.5"
 	},
 	"peerDependencies": {
 		"@storybook/addon-vitest": "^9.1.10",
