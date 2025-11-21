@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { stubBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
+import { stubBrowserCommandContext } from './testing/stubBrowserCommandContext.ts'
 import { getVisOption, setVisOption } from './vis_options.ts'
 
 describe(`${setVisOption.name}`, () => {

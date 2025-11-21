@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { stubBrowserCommandContext } from '../../testing.ts'
+import { stubBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
 import { hasImageSnapshot } from './has_image_snapshot.ts'
 
 it('throws error without testPath', async () => {

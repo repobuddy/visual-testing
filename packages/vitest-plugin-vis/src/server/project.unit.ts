@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { stubBrowserCommandContext } from '../testing.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
+import { stubBrowserCommandContext } from './testing/stubBrowserCommandContext.ts'
 
 describe('getProjectName', () => {
 	it('should return the project name if it exists', () => {

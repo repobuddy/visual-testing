@@ -1,7 +1,7 @@
 import { resolve } from 'pathe'
 import { requiredDeep, type RecursivePartial } from 'type-plus'
 import type { TestUserConfig } from 'vitest/node'
-import type { ExtendedBrowserCommandContext } from '../server/vis_server_context.types.ts'
+import type { ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 import { stubBrowserCommandContext } from './stubBrowserCommandContext.ts'
 import { stubUserConfig } from './stubUserConfig.ts'
 

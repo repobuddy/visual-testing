@@ -4,9 +4,9 @@ import { afterEach, beforeEach } from 'node:test'
 import { resolve } from 'pathe'
 import { describe, expect, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
-import { createStubPartialBrowserCommandContext } from '../testing/stubBrowserCommandContext.ts'
-import { stubSuite } from '../testing/stubSuite.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
+import { createStubPartialBrowserCommandContext } from './testing/stubBrowserCommandContext.ts'
+import { stubSuite } from './testing/stubSuite.ts'
 
 const stubContext = createStubPartialBrowserCommandContext({
 	root: resolve(import.meta.dirname, '../..'),

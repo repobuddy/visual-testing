@@ -1,7 +1,7 @@
 import { vis, type PixelComparisonOptions, type SsimComparisonOptions } from '#vitest-plugin-vis/config'
 import { expect, it } from 'vitest'
+import { stubSuite } from '../server/testing/stubSuite.ts'
 import { getVisOption } from '../server/vis_options.ts'
-import { stubSuite } from '../testing/stubSuite.ts'
 
 it('can be used with zero config', () => {
 	expect(vis()).toBeDefined()
