@@ -46,4 +46,14 @@ describe(`${trimCommonFolder.name}()`, () => {
 		const result = trimCommonFolder('index.ts')
 		expect(result).toBe('index.ts')
 	})
+
+	it('replace starting ".." with "__"', ({ expect }) => {
+		const result = trimCommonFolder('../components/button')
+		expect(result).toBe('__/components/button')
+	})
+
+	it('replace multiple ".." with "__"', ({ expect }) => {
+		const result = trimCommonFolder('../../components/button')
+		expect(result).toBe('__/__/components/button')
+	})
 })
