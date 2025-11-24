@@ -1,5 +1,5 @@
 import { type ExpectStatic, it } from 'vitest'
-import { UNI_PNG_BASE64 } from '../testing.ts'
+import { UNI_PNG_BASE64 } from '../testing/constants.ts'
 import { toImageData } from './image_data.ts'
 import { createImageResizer, createImageResizer2 } from './image_resizer.ts'
 
