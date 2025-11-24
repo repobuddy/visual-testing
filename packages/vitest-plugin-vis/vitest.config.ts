@@ -13,7 +13,7 @@ export default defineConfig({
 				'src/server/browser_provider',
 			],
 		},
-		workspace: [
+		projects: [
 			'vitest.config.node.ts',
 			'vitest.config.playwright.ts',
 			// 'vitest.config.webdriverio.ts',
