@@ -231,7 +231,7 @@ You can also customize the subject per test using the `setAutoSnapshotOptions` f
 
 ```ts
 // some.test.ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
@@ -386,7 +386,7 @@ You can take snapshots manually:
 ```ts
 // some.test.ts
 import { render } from 'vitest-browser-react'
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { it } from 'vitest'
 
 it('manual snapshot', async ({ expect }) => {
@@ -403,7 +403,7 @@ You can customize the snapshot comparison options per assertion:
 ```ts
 // some.test.ts
 import { render } from 'vitest-browser-react'
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { it } from 'vitest'
 
 it('manual snapshot with options', async ({ expect }) => {
@@ -426,7 +426,7 @@ it('manual snapshot with options', async ({ expect }) => {
 You can also take a full page snapshot:
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { it } from 'vitest'
 
 it('full page snapshot', async () => {
@@ -439,7 +439,7 @@ it('full page snapshot', async () => {
 While less common, you can also check if a snapshot exists:
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { it } from 'vitest'
 
 it('Has Snapshot', async ({ expect }) => {

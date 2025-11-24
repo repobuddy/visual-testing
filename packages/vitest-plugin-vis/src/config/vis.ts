@@ -1,4 +1,4 @@
-import type { PluginOption } from 'vite'
+import type { Plugin } from 'vitest/config'
 import { commands } from '../server/commands/commands.ts'
 import { setVisOption } from '../server/vis_options.ts'
 import { NAME } from '../shared/constants.ts'
@@ -27,5 +27,5 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 				},
 			}
 		},
-	} satisfies PluginOption
+	} satisfies Plugin
 }

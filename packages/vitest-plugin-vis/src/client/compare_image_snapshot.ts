@@ -1,4 +1,4 @@
-import type { BrowserCommands } from '@vitest/browser/context'
+import type { BrowserCommands } from 'vitest/browser'
 import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { ImageSnapshotNextIndexCommand } from '../commands.ts'

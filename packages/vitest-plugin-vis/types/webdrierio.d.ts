@@ -1,1 +1,1 @@
-/// <reference types="@vitest/browser/providers/webdriverio"/>
+/// <reference types="@vitest/browser-webdriverio"/>

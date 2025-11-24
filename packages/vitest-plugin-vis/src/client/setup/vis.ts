@@ -1,4 +1,4 @@
-import { commands } from '@vitest/browser/context'
+import { commands } from 'vitest/browser'
 import { createVis } from './create_vis.ts'
 
 /**
