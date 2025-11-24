@@ -75,3 +75,9 @@ function badExample() {
 6. Default rule type to `Agent Requested` and add the rule purpose to the `description`.
 
 7. Update [master.mdc](mdc:.cursor/rules/master.mdc) to reference the new rule and describe its purpose
+
+8. When writing code snippets in markdown, follow the same code formatting as in real code:
+   - Use proper indentation (spaces or tabs, consistent with project style)
+   - Maintain consistent spacing and line breaks
+   - Follow the same style guide as the actual codebase
+   - Code examples should be formatted exactly as they would appear in source files
