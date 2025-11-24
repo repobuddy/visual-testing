@@ -1,0 +1,176 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks"
+
+<Meta title="node/defineStorybookVisOptions"/>
+
+# defineStorybookVisOptions
+
+A helper function to configure options for Storybook Visual Testing addon.
+
+```ts
+// .storybook/main.ts
+import { defineMain } from '@storybook/your-framework'
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+export default defineMain({
+	addons: [
+		{
+			name: 'storybook-addon-vis',
+			options: defineStorybookVisOptions({
+				visProjects: [
+					{
+						snapshotRootDir: '__vis__/linux',
+					},
+					{
+						snapshotRootDir: '__vis__/local',
+					},
+				],
+			}),
+		},
+	],
+})
+```
+
+## Function Signature
+
+```ts
+function defineStorybookVisOptions(options: StorybookVisOptions): StorybookVisOptions
+```
+
+```ts
+defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/linux',
+		},
+		{
+			snapshotRootDir: '__vis__/local',
+		},
+	],
+})
+```
+## Configuration Options
+
+### visProjects
+
+An array of visual testing project configurations. Each project can have its own snapshot storage configuration.
+
+### snapshotRootDir
+
+The root directory for storing snapshots. This can be:
+
+- **String**: A static path to the snapshot root directory
+- **Function**: A function that returns a path based on CI and platform context
+  - Receives `{ ci: boolean; platform: string }` as context
+  - `ci`: Whether the code is running in a CI environment
+  - `platform`: The platform string (e.g., 'linux', 'darwin', 'win32')
+- **undefined**: Uses the default snapshot root directory
+
+### snapshotSubpath
+
+Optional function to customize the snapshot subdirectory path. This allows you to transform the default subpath (typically based on the story file path) into a custom structure.
+
+- Receives `{ subpath: string }` as options
+- Returns a transformed subpath string
+
+## Usage Examples
+
+### Basic Configuration
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/snapshots',
+		},
+	],
+})
+```
+
+### Dynamic Root Directory Based on Environment
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: ({ ci, platform }) => {
+				if (ci) {
+					return `__vis__/ci/${platform}`
+				}
+				return '__vis__/local'
+			},
+		},
+	],
+})
+```
+
+### Custom Snapshot Subpath
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__',
+			snapshotSubpath: ({ subpath }) => {
+				// Remove 'src/' prefix if present
+				return subpath.replace(/^src\//, '')
+			},
+		},
+	],
+})
+```
+
+### Multiple Projects with Different Configurations
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/components',
+			snapshotSubpath: ({ subpath }) => `components/${subpath}`,
+		},
+		{
+			snapshotRootDir: '__vis__/pages',
+			snapshotSubpath: ({ subpath }) => `pages/${subpath}`,
+		},
+	],
+})
+```
+
+### Using Default Configuration
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+// Uses default snapshot root directory and subpath
+const options = defineStorybookVisOptions({
+	visProjects: [{}],
+})
+```
+
+## Snapshot Path Structure
+
+The final snapshot path is constructed as:
+
+```
+<snapshotRootDir>/<baseline|diff|results>/<snapshotSubpath>/<task-id>-<variant>.png
+```
+
+Where:
+- `snapshotRootDir` is determined by the `snapshotRootDir` option
+- `snapshotSubpath` is the result of the `snapshotSubpath` function (or default)
+- `task-id` is derived from the story name
+- `variant` identifies the specific snapshot variant
+
+## Related
+
+- [createStorybookVisServer](/docs/storybook-addon-vis-server-create-storybook-vis-server--docs) - Server implementation that uses these options
+- [Storybook Visual Testing Overview](/docs/storybook-addon-vis-overview--docs) - General overview of the addon
+

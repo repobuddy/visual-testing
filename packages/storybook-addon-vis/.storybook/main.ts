@@ -1,4 +1,5 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
+import { defineStorybookVisOptions } from '#storybook-addon-vis/node'
 import type { StorybookConfig } from '@storybook/react-vite'
 import { dirname } from 'node:path'
 
@@ -11,7 +12,7 @@ const config: StorybookConfig = {
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
 		{
 			name: getAbsolutePath('storybook-addon-vis'),
-			options: {
+			options: defineStorybookVisOptions({
 				visProjects: [
 					{
 						snapshotRootDir: '__vis__/linux',
@@ -20,7 +21,7 @@ const config: StorybookConfig = {
 						snapshotRootDir: '__vis__/local',
 					},
 				],
-			},
+			}),
 		},
 	],
 	tags: {

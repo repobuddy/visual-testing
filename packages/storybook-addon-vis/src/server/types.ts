@@ -11,10 +11,3 @@ export type StorybookVisOptions = {
 		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
 	}>
 }
-
-/**
- * Define options for Storybook Visual Testing addon.
- */
-export function defineStorybookVisOptions(options: StorybookVisOptions) {
-	return options
-}
