@@ -1,5 +1,5 @@
-import type { BrowserCommand } from 'vitest/node'
 import { visServerContext } from '../vis_server_context.ts'
+import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface ImageSnapshotNextIndexCommand {
@@ -9,7 +9,7 @@ export interface ImageSnapshotNextIndexCommand {
 	imageSnapshotNextIndex(taskId: string): Promise<number>
 }
 
-export const imageSnapshotNextIndex: BrowserCommand<
+export const imageSnapshotNextIndex: ExtendedBrowserCommand<
 	Parameters<ImageSnapshotNextIndexCommand['imageSnapshotNextIndex']>
 > = async (context, taskId) => {
 	assertTestPathDefined(context, 'imageSnapshotNextIndex')

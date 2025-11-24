@@ -106,7 +106,7 @@
 	"devDependencies": {
 		"@repobuddy/storybook": "^2.0.0",
 		"@repobuddy/typescript": "^2.1.0",
-		"@storybook-community/storybook-dark-mode": "^7.0.0",
+		"@storybook-community/storybook-dark-mode": "^7.0.2",
 		"@storybook/addon-docs": "^10.0.6",
 		"@storybook/addon-vitest": "^9.1.13",
 		"@storybook/react-vite": "^9.1.15",
@@ -135,8 +135,18 @@
 		"vitest-browser-react": "^1.0.0"
 	},
 	"peerDependencies": {
-		"@vitest/browser": "^2 || ^3",
-		"vitest": "^2 || ^3"
+		"@vitest/browser": "^4",
+		"@vitest/browser-playwright": "^4",
+		"@vitest/browser-webdriverio": "^4",
+		"vitest": "^4"
+	},
+	"peerDependenciesMeta": {
+		"@vitest/browser-playwright": {
+			"optional": true
+		},
+		"@vitest/browser-webdriverio": {
+			"optional": true
+		}
 	},
 	"publishConfig": {
 		"access": "public"

@@ -1,7 +1,7 @@
-import type { BrowserCommandContext } from 'vitest/node'
+import type { ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 import type { BrowserApi } from './types.ts'
 
-export function webdriverio(context: BrowserCommandContext): BrowserApi {
+export function webdriverio(context: ExtendedBrowserCommandContext): BrowserApi {
 	const { browser } = context
 	return {
 		async takeScreenshot(_projectRoot, relativeFilePath, selector) {

@@ -1,7 +1,7 @@
 import type { Pick } from 'type-plus'
-import type { BrowserCommand } from 'vitest/node'
 import type { VisOptions } from '../../config/types.ts'
 import { setupSuite } from '../suite.ts'
+import type { ExtendedBrowserCommand, ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 
 export interface SetupVisSuiteCommand {
@@ -26,7 +26,7 @@ export interface SetupVisSuiteCommand {
 	>
 }
 
-export const setupVisSuite: BrowserCommand<[]> = async (context): Promise<{ subject: string | undefined }> => {
+export const setupVisSuite: ExtendedBrowserCommand<[]> = async (context): Promise<{ subject: string | undefined }> => {
 	assertTestPathDefined(context, 'setupVisSuite')
-	return setupSuite(context)
+	return setupSuite(context as unknown as ExtendedBrowserCommandContext)
 }
