@@ -93,7 +93,7 @@
 	},
 	"devDependencies": {
 		"@repobuddy/storybook": "^2.1.2",
-		"@storybook-community/storybook-dark-mode": "^7.0.3",
+		"@storybook-community/storybook-dark-mode": "catalog:",
 		"@storybook/addon-docs": "^10.0.8",
 		"@storybook/addon-vitest": "catalog:",
 		"@storybook/react-vite": "catalog:",
