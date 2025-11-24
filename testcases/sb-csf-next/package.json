@@ -18,7 +18,7 @@
 		"dev": "vite",
 		"preview": "vite preview",
 		"sb": "storybook dev -p 6108",
-		"t": "vitest run",
+		"test": "vitest run",
 		"w": "vitest"
 	},
 	"dependencies": {
@@ -38,6 +38,7 @@
 		"@vitest/coverage-v8": "catalog:",
 		"globals": "^16.5.0",
 		"storybook": "catalog:",
+		"storybook-addon-vis": "workspace:*",
 		"typescript": "catalog:",
 		"vite": "catalog:"
 	}
