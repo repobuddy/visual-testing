@@ -22,7 +22,8 @@ export default defineConfig(async (options) => {
 		packageJson
 
 	const commonConfig = {
-		minify: !options.watch,
+		minify: false,
+		// minify: !options.watch,
 		format: ['esm'],
 		treeshake: true,
 		sourcemap: true,
@@ -31,7 +32,15 @@ export default defineConfig(async (options) => {
 			The following packages are provided by Storybook and should always be externalized
 			Meaning they shouldn't be bundled with the addon, and they shouldn't be regular dependencies either
 		*/
-		external: [/^vitest-plugin-vis/, 'react', 'react-dom', '@storybook/icons'],
+		external: [
+			/^@storybook-community\/.*$/,
+			/^@storybook\/.*$/,
+			'react',
+			/^react\/.*$/,
+			'storybook',
+			/^storybook\/.*$/,
+			/^vitest-plugin-vis/,
+		],
 	} satisfies UserConfig
 
 	const configs: UserConfig[] = []
