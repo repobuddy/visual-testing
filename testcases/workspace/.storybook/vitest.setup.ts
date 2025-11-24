@@ -6,11 +6,13 @@ import * as projectAnnotations from './preview.ts'
 // More info at: https://storybook.js.org/docs/api/portable-stories/portable-stories-vitest#setprojectannotations
 setProjectAnnotations([visAnnotations, projectAnnotations])
 
-vis.presets.theme({
-	light() {
-		document.documentElement.classList.remove('dark')
-	},
-	dark() {
-		document.documentElement.classList.add('dark')
+vis.setup({
+	auto: {
+		light() {
+			document.documentElement.classList.remove('dark')
+		},
+		dark() {
+			document.documentElement.classList.add('dark')
+		},
 	},
 })
