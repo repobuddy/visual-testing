@@ -17,7 +17,9 @@
 			"!**/esm",
 			"!**/*.code-workspace",
 			"!**/tailwind.css",
-			"!packages/storybook-addon-vis/preset.mjs"
+			"!packages/storybook-addon-vis/.storybook/local-preset.cjs",
+			"!packages/storybook-addon-vis/manager.js",
+			"!packages/storybook-addon-vis/preset.js"
 		]
 	},
 	"formatter": {
