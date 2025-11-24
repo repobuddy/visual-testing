@@ -7,8 +7,9 @@ export const visAnnotations = {
 	beforeEach(ctx: StoryContext) {
 		// console.debug('storbook-addon-vis.preview.beforeEach starts...')
 		const test = getCurrentTest()
+		const snapshotEnabled = isSnapshotEnabled(ctx.tags)
 		setAutoSnapshotOptions({
-			enable: isSnapshotEnabled(ctx.tags),
+			...(snapshotEnabled === undefined ? {} : { enable: snapshotEnabled }),
 			...ctx.parameters?.snapshot,
 			tags: ctx.tags,
 			...test?.meta.vis,
