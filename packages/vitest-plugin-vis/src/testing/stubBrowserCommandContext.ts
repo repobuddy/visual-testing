@@ -1,14 +1,15 @@
+import '@vitest/browser-playwright'
 import { stub } from 'type-plus'
-import type { BrowserCommandContext } from 'vitest/node'
+import type { ExtendedBrowserCommandContext } from '../server/vis_server_context.types.ts'
 
-export const stubBrowserCommandContext = stub.build<BrowserCommandContext>({})
+export const stubBrowserCommandContext = stub.build<ExtendedBrowserCommandContext>({})
 
 export function createStubPartialBrowserCommandContext({ root, testPath }: { root: string; testPath: string }) {
-	return stub.build<BrowserCommandContext>({
+	return stub.build<ExtendedBrowserCommandContext>({
 		project: {
 			config: { root },
-			vitest: { config: { name: 'subject' } },
-		},
+			runner: { config: { name: 'subject' } },
+		} as any,
 		provider: {},
 		testPath,
 	})

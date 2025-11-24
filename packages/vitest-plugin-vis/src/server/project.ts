@@ -1,6 +1,7 @@
-import type { BrowserCommandContext } from 'vitest/node'
-export function getProjectName(context: BrowserCommandContext) {
-	const { runner } = context.project as any
+import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
+
+export function getProjectName(context: ExtendedBrowserCommandContext) {
+	const { runner } = context.project
 	const name = runner.config.name
 	if (typeof name === 'string') {
 		return name

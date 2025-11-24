@@ -34,7 +34,7 @@ describe('vis().config()', () => {
 			},
 			{
 				project: {
-					vitest: {
+					runner: {
 						config: {
 							name: 'my-project',
 						},

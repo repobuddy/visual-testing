@@ -1,12 +1,13 @@
 import { resolve } from 'pathe'
 import { requiredDeep, type RecursivePartial } from 'type-plus'
-import type { BrowserCommandContext, TestUserConfig } from 'vitest/node'
+import type { TestUserConfig } from 'vitest/node'
+import type { ExtendedBrowserCommandContext } from '../server/vis_server_context.types.ts'
 import { stubBrowserCommandContext } from './stubBrowserCommandContext.ts'
 import { stubUserConfig } from './stubUserConfig.ts'
 
 export function stubSuite(
 	partialUserConfig: RecursivePartial<{ test?: { name?: TestUserConfig['name'] } }> = {},
-	partialBrowserCommandContext: RecursivePartial<BrowserCommandContext> = {},
+	partialBrowserCommandContext: RecursivePartial<ExtendedBrowserCommandContext> = {},
 ) {
 	const root = resolve(import.meta.dirname, '../..')
 	const userConfig = stubUserConfig({
@@ -14,11 +15,11 @@ export function stubSuite(
 		...partialUserConfig,
 	})
 	const browserCommandContext = stubBrowserCommandContext(
-		requiredDeep<RecursivePartial<BrowserCommandContext>>(
+		requiredDeep<RecursivePartial<ExtendedBrowserCommandContext>>(
 			{
 				project: {
 					config: { root },
-					vitest: {
+					runner: {
 						config: {
 							name: partialUserConfig.test?.name as string | undefined,
 						},
