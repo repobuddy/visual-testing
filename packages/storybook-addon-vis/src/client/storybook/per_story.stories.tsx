@@ -2,6 +2,7 @@
  * Cannot validate the following stories as they are chicken-egg problem.
  */
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import React from 'react'
 
 export default {
 	title: 'tags/per story',

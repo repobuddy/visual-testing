@@ -1,4 +1,5 @@
 import type { StoryObj } from '@storybook/react-vite'
+import React from 'react'
 import { page } from '../../index.ts'
 
 export default {

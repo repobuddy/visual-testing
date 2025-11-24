@@ -1,6 +1,7 @@
 import { composeStories } from '@storybook/react-vite'
 import { screen } from '@testing-library/react'
 import { page } from '@vitest/browser/context'
+import React from 'react'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { hasImageSnapshot } from '../../index.ts'

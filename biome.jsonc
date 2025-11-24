@@ -36,5 +36,8 @@
 				"noArrayIndexKey": "off"
 			}
 		}
+	},
+	"javascript": {
+		"jsxRuntime": "reactClassic"
 	}
 }

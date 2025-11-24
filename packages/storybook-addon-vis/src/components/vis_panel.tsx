@@ -1,5 +1,5 @@
 import { RefreshIcon } from '@storybook/icons'
-import { memo } from 'react'
+import React, { memo } from 'react'
 import { AddonPanel, IconButton, Placeholder, ScrollArea } from 'storybook/internal/components'
 import { styled } from 'storybook/internal/theming'
 import { SNAPSHOT_ROOT_DIR } from 'vitest-plugin-vis/client-api'

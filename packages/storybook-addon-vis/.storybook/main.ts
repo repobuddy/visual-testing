@@ -9,7 +9,7 @@ const config: StorybookConfig = {
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
 		{
-			name: './local-preset.cjs',
+			name: getAbsolutePath('storybook-addon-vis'),
 			options: {
 				visProjects: [
 					{

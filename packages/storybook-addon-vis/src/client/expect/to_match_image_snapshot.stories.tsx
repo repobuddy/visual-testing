@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react-vite'
-
+import React from 'react'
 import { expect } from 'storybook/test'
 import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing.ts'
