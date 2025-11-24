@@ -3,6 +3,7 @@ packages:
   - testcases/*
 
 catalog:
+  '@storybook-community/storybook-dark-mode': ^7.0.3
   '@repobuddy/storybook': ^2.1.2
   '@repobuddy/vitest': ^2.0.0
   '@storybook/addon-a11y': ^10.0.8
