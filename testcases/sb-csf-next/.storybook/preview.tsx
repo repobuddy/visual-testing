@@ -32,6 +32,5 @@ export default definePreview({
 			test: 'error',
 		},
 	},
-
 	addons: [addonDocs(), addonA11y(), addonDarkMode()],
 })

@@ -1,3 +1,8 @@
 export function isSnapshotEnabled(tags: string[]) {
-	return tags.lastIndexOf('!snapshot') < tags.lastIndexOf('snapshot')
+	const noSnapshotIndex = tags.lastIndexOf('!snapshot')
+	const snapshotIndex = tags.lastIndexOf('snapshot')
+
+	if (noSnapshotIndex < 0 && snapshotIndex < 0) return undefined
+
+	return noSnapshotIndex < snapshotIndex
 }
