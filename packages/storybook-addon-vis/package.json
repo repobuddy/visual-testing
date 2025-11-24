@@ -30,28 +30,25 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": "./dist/index.js"
 		},
 		"./manager": "./dist/manager.js",
 		"./matcher": {
 			"types": "./dist/matcher.d.ts",
-			"import": "./dist/matcher.js",
-			"require": "./dist/matcher.cjs"
+			"import": "./dist/matcher.js"
 		},
 		"./node": {
-			"types": "./dist/node.d.ts",
-			"import": "./dist/node.js"
+			"types": "./dist/node.d.mts",
+			"import": "./dist/node.mjs"
 		},
-		"./preset": "./dist/preset.cjs",
+		"./preset": "./dist/preset.mjs",
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
-			"import": "./dist/vitest-setup.js",
-			"require": "./dist/vitest-setup.cjs"
+			"import": "./dist/vitest-setup.js"
 		},
 		"./vitest-plugin": {
-			"types": "./dist/vitest-plugin.d.ts",
-			"import": "./dist/vitest-plugin.js"
+			"types": "./dist/vitest-plugin.d.mts",
+			"import": "./dist/vitest-plugin.mjs"
 		},
 		"./package.json": "./package.json"
 	},
@@ -64,7 +61,7 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
 	],
 	"scripts": {
-		"build": "tsup --tsconfig tsconfig.tsup.json",
+		"build": "tsdown --tsconfig tsconfig.build.json",
 		"build:sb": "cross-env NODE_ENV=production storybook build",
 		"clean": "rimraf coverage dist esm --glob *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
@@ -123,7 +120,7 @@
 		"storybook": "catalog:",
 		"storybook-addon-tag-badges": "^3.0.2",
 		"tailwindcss": "^4.1.14",
-		"tsup": "^8.3.5",
+		"tsdown": "^0.16.6",
 		"typescript": "catalog:",
 		"vite": "catalog:",
 		"vitest": "catalog:",
@@ -151,7 +148,8 @@
 		],
 		"nodeEntries": [
 			"./src/node.ts",
-			"./src/preset.ts"
+			"./src/preset.ts",
+			"./src/vitest-plugin.ts"
 		]
 	},
 	"storybook": {
