@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"imports": {
+		"#storybook-addon-vis/node": "./src/node.ts",
 		"#storybook-addon-vis/vitest-plugin": "./src/vitest-plugin.ts"
 	},
 	"exports": {
@@ -37,6 +38,10 @@
 			"types": "./dist/matcher.d.ts",
 			"import": "./dist/matcher.js",
 			"require": "./dist/matcher.cjs"
+		},
+		"./node": {
+			"types": "./dist/node.d.ts",
+			"import": "./dist/node.js"
 		},
 		"./preset": "./dist/preset.cjs",
 		"./vitest-setup": {
@@ -145,6 +150,7 @@
 			"src/manager.tsx"
 		],
 		"nodeEntries": [
+			"./src/node.ts",
 			"./src/preset.ts"
 		]
 	},

@@ -11,7 +11,7 @@ import {
 	SNAPSHOT_ROOT_DIR,
 	trimCommonFolder,
 } from 'vitest-plugin-vis/server-utils'
-import type { StorybookVisOptions } from './vis_options.ts'
+import type { StorybookVisOptions } from './types.ts'
 
 export function createStorybookVisServer(options: StorybookVisOptions) {
 	const visSuites = options.visProjects ?? [{}]

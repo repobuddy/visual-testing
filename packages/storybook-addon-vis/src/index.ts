@@ -8,6 +8,5 @@ export * from 'vitest-plugin-vis'
 export * from './client/has_image_snapshot.ts'
 export * from './client/storybook/param.ts'
 export * from './client/storybook/tags.ts'
-export * from './server/vis_options.ts'
 
 export { page }

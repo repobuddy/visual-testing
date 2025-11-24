@@ -16,6 +16,7 @@ const preview: Preview = {
 			},
 		},
 		docs: {
+			codePanel: true,
 			container: createDarkModeDocsContainer(),
 		},
 		options: {
