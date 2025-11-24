@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
-import { convert, ThemeProvider, themes } from 'storybook/internal/theming'
 import { fn } from 'storybook/test'
+import { convert, ThemeProvider, themes } from 'storybook/theming'
 import type { ImageSnapshotResults } from '../shared/events.ts'
 import { VisPanel } from './vis_panel.tsx'
 

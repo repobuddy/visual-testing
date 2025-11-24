@@ -1,7 +1,7 @@
-import { page } from 'vitest/browser'
 import { it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+import { page } from 'vitest/browser'
 import { Button } from './Button.tsx'
 
 it('container snapshot', async ({ expect }) => {
@@ -29,7 +29,7 @@ it('take snapshot of the whole body', async ({ expect }) => {
 it('uses options set in vis()', async ({ expect }) => {
 	setAutoSnapshotOptions(false)
 	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey: '1' })
-	const screen = page.render(<div data-testid="subject">hello</div>)
+	const screen = await page.render(<div data-testid="subject">hello</div>)
 	const subject = screen.getByTestId('subject')
 	if (!hasSnapshot) {
 		await expect(subject).toMatchImageSnapshot({ snapshotKey: '1' })
