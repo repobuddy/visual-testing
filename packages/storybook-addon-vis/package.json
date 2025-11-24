@@ -93,7 +93,7 @@
 		"vitest-plugin-vis": "workspace:^"
 	},
 	"devDependencies": {
-		"@repobuddy/storybook": "^1.0.1",
+		"@repobuddy/storybook": "^2.0.0",
 		"@storybook-community/storybook-dark-mode": "^6.0.8",
 		"@storybook/addon-docs": "^9.1.16",
 		"@storybook/addon-vitest": "9.1.16",
