@@ -104,7 +104,7 @@
 		"type-plus": "8.0.0-beta.7"
 	},
 	"devDependencies": {
-		"@repobuddy/storybook": "^1.0.1",
+		"@repobuddy/storybook": "^2.0.0",
 		"@repobuddy/typescript": "^2.1.0",
 		"@storybook-community/storybook-dark-mode": "^7.0.0",
 		"@storybook/addon-docs": "^10.0.6",
