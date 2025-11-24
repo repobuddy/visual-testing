@@ -1,11 +1,11 @@
 import { readFile } from 'node:fs/promises'
 import { globalPackages as globalManagerPackages } from 'storybook/internal/manager/globals'
 import { globalPackages as globalPreviewPackages } from 'storybook/internal/preview/globals'
-import { type Options, defineConfig } from 'tsup'
+import { type UserConfig, defineConfig } from 'tsdown'
 
 // The current browsers supported by Storybook v7
-const BROWSER_TARGET: Options['target'] = ['chrome100', 'safari15', 'firefox91']
-const NODE_TARGET: Options['target'] = ['node18']
+const BROWSER_TARGET: UserConfig['target'] = ['chrome100', 'safari15', 'firefox91']
+const NODE_TARGET: UserConfig['target'] = ['node18']
 
 type BundlerConfig = {
 	bundler?: {
@@ -17,45 +17,41 @@ type BundlerConfig = {
 }
 
 export default defineConfig(async (options) => {
-	// reading the three types of entries from package.json, which has the following structure:
-	// {
-	//  ...
-	//   "bundler": {
-	//     "exportEntries": ["./src/index.ts"],
-	//     "managerEntries": ["./src/manager.ts"],
-	//     "previewEntries": ["./src/preview.ts"]
-	//     "nodeEntries": ["./src/preset.ts"]
-	//   }
-	// }
 	const packageJson = (await readFile('./package.json', 'utf8').then(JSON.parse)) as BundlerConfig
 	const { bundler: { exportEntries = [], managerEntries = [], previewEntries = [], nodeEntries = [] } = {} } =
 		packageJson
 
-	const commonConfig: Options = {
-		splitting: false,
+	const commonConfig = {
 		minify: !options.watch,
+		format: ['esm'],
 		treeshake: true,
 		sourcemap: true,
 		clean: !options.watch,
-	}
+		/**
+			The following packages are provided by Storybook and should always be externalized
+			Meaning they shouldn't be bundled with the addon, and they shouldn't be regular dependencies either
+		*/
+		external: [/^vitest-plugin-vis/, 'react', 'react-dom', '@storybook/icons'],
+	} satisfies UserConfig
 
-	const configs: Options[] = []
-	configs.push({
-		...commonConfig,
-		entry: ['src/vitest-plugin.ts'],
-		// TODO: enable dts resolve?
-		// not working due to:
-		// - https://github.com/storybookjs/storybook/issues/29443
-		// - https://github.com/egoist/tsup/issues/1239
-		dts: {
-			resolve: false,
-		},
-		clean: false,
-		minify: false,
-		format: ['esm'],
-		target: NODE_TARGET,
-		platform: 'node',
-	})
+	const configs: UserConfig[] = []
+
+	// configs.push({
+	// 	...commonConfig,
+	// 	entry: ['src/vitest-plugin.ts'],
+	// 	// TODO: enable dts resolve?
+	// 	// not working due to:
+	// 	// - https://github.com/storybookjs/storybook/issues/29443
+	// 	// - https://github.com/egoist/tsdown/issues/1239
+	// 	dts: {
+	// 		resolve: false,
+	// 	},
+	// 	clean: false,
+	// 	minify: false,
+	// 	format: ['esm'],
+	// 	target: NODE_TARGET,
+	// 	platform: 'node',
+	// })
 
 	// export entries are entries meant to be manually imported by the user
 	// they are not meant to be loaded by the manager or preview
@@ -64,16 +60,23 @@ export default defineConfig(async (options) => {
 		configs.push({
 			...commonConfig,
 			entry: exportEntries,
-			splitting: true,
 			dts: {
 				resolve: true,
 			},
 			clean: false,
 			minify: false,
-			format: ['esm', 'cjs'],
+			format: ['esm'],
 			target: [...BROWSER_TARGET, ...NODE_TARGET],
 			platform: 'neutral',
-			external: [...globalManagerPackages, ...globalPreviewPackages, 'vitest', '@vitest/expect', '@vitest/browser'],
+			external: [
+				...globalManagerPackages,
+				...globalPreviewPackages,
+				...commonConfig.external,
+				'vitest',
+				'vitest-plugin-vis',
+				'@vitest/expect',
+				'@vitest/browser',
+			],
 		})
 	}
 
@@ -84,10 +87,9 @@ export default defineConfig(async (options) => {
 		configs.push({
 			...commonConfig,
 			entry: managerEntries,
-			format: ['esm'],
-			target: BROWSER_TARGET,
+			target: 'esnext',
 			platform: 'browser',
-			external: [...globalManagerPackages, /^react\/*/],
+			external: [...globalManagerPackages, ...commonConfig.external],
 		})
 	}
 
@@ -98,15 +100,12 @@ export default defineConfig(async (options) => {
 		configs.push({
 			...commonConfig,
 			entry: previewEntries,
-			splitting: true,
 			dts: {
 				resolve: true,
 			},
-			clean: false,
-			format: ['esm'],
-			target: BROWSER_TARGET,
+			target: 'esnext',
 			platform: 'browser',
-			external: globalPreviewPackages,
+			external: [...globalPreviewPackages, ...commonConfig.external],
 		})
 	}
 
@@ -117,7 +116,6 @@ export default defineConfig(async (options) => {
 		configs.push({
 			...commonConfig,
 			entry: nodeEntries,
-			format: ['cjs'],
 			target: NODE_TARGET,
 			platform: 'node',
 		})
