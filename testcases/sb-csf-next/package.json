@@ -16,7 +16,6 @@
 		"build": "tsc -b && vite build",
 		"build-storybook": "storybook build",
 		"dev": "vite",
-		"lint": "eslint .",
 		"preview": "vite preview",
 		"sb": "storybook dev -p 6108",
 		"t": "vitest run",
@@ -27,6 +26,7 @@
 		"react-dom": "^19.2.0"
 	},
 	"devDependencies": {
+		"@storybook-community/storybook-dark-mode": "catalog:",
 		"@storybook/addon-a11y": "catalog:",
 		"@storybook/addon-docs": "catalog:",
 		"@storybook/addon-vitest": "catalog:",
