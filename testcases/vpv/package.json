@@ -7,6 +7,7 @@
 		"clean": "rimraf dist",
 		"clean:vis:local": "rimraf __vis__/local",
 		"nuke": "rimraf node_modules",
+		"t:t": "tsc --noEmit",
 		"test": "vitest run",
 		"testcase": "vitest run",
 		"testcase:u": "vitest run -u",

@@ -12,13 +12,12 @@
 		"outDir": "esm",
 		"rewriteRelativeImportExtensions": true,
 		// "noImplicitAny": true,
-		"rootDir": "src",
 		"skipLibCheck": true,
 		"strict": true,
 		"target": "ES2020",
 		"types": ["@vitest/browser-playwright"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["src"],
-	"references": [{ "path": "../vitest-plugin-vis/tsconfig.esm.json" }]
+	"include": ["src", ".storybook/*", "*.ts"],
+	"references": [{ "path": "../vitest-plugin-vis" }]
 }

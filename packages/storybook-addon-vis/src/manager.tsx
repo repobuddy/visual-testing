@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { addons, types } from 'storybook/internal/manager-api'
+import { addons, types } from 'storybook/manager-api'
 import { VisPanel } from './components/vis_panel.tsx'
 import { NAME, VIS_PANEL_ID } from './shared/contants.ts'
 import {
