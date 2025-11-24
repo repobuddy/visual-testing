@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@repobuddy/storybook/storybook-addon-tag-badges'
+import React from 'react'
 
 export default {
 	title: '.storybook/main/defineStorybookVisOptions',
