@@ -20,8 +20,8 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 			return {
 				test: {
 					browser: {
-						name: undefined as unknown as string,
-						commands,
+						name: undefined,
+						commands: commands as any,
 					},
 					setupFiles: preset && preset !== 'none' && preset !== 'custom' ? [`vitest-plugin-vis/presets/${preset}`] : [],
 				},

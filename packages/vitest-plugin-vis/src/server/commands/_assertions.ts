@@ -1,11 +1,11 @@
 import { isAbsolute } from 'pathe'
 import type { RequiredPick } from 'type-plus'
-import type { BrowserCommandContext } from 'vitest/node'
+import type { ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 
 export function assertTestPathDefined(
-	context: BrowserCommandContext,
+	context: ExtendedBrowserCommandContext,
 	commandName: string,
-): asserts context is RequiredPick<BrowserCommandContext, 'testPath'> {
+): asserts context is RequiredPick<ExtendedBrowserCommandContext, 'testPath'> {
 	if (!context.testPath) {
 		throw new Error(`'commands.${commandName}' requires testPath to be defined`)
 	}

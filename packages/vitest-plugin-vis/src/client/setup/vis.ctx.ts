@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, vi, type SuiteAPI } from 'vitest'
 import { commands } from 'vitest/browser'
+import type { Awaitable } from '../../shared/types.ts'
 
-type Awaitable<T> = T | PromiseLike<T>
 export const ctx = {
 	beforeAll,
 	beforeEach,
