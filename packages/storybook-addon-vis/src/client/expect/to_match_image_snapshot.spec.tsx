@@ -11,25 +11,25 @@ import * as stories from './to_match_image_snapshot.stories.tsx'
 const { MatchingElement } = composeStories(stories)
 
 it('accepts Locator', async () => {
-	const screen = render(<div data-testid="subject">unit</div>)
+	const screen = await render(<div data-testid="subject">unit</div>)
 	const locator = screen.getByTestId('subject')
 	await expect(locator).toMatchImageSnapshot()
 })
 
 it('accepts Element', async () => {
-	const screen = render(<div data-testid="subject">unit</div>)
+	const screen = await render(<div data-testid="subject">unit</div>)
 	const locator = screen.getByTestId('subject')
 	await expect(locator.element()).toMatchImageSnapshot()
 })
 
 it('accepts `baseElement` (same as body)', async () => {
 	// the png file created is not valid
-	const screen = render(<div data-testid="subject">unit</div>)
+	const screen = await render(<div data-testid="subject">unit</div>)
 	await expect(screen.baseElement).toMatchImageSnapshot()
 })
 
 it('accepts document.body', async () => {
-	render(<div data-testid="subject">unit</div>)
+	await render(<div data-testid="subject">unit</div>)
 	await expect(document.body).toMatchImageSnapshot()
 })
 
