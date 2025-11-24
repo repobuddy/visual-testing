@@ -33,7 +33,15 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 			stubContext({
 				provider: {
 					name: 'webdriverio',
-					browserName: 'chrome',
+				},
+				project: {
+					browser: {
+						config: {
+							browser: {
+								name: 'chrome',
+							},
+						},
+					},
 				},
 			}),
 			{

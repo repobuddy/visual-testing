@@ -1,15 +1,15 @@
 import ci from 'is-ci'
 import { platform } from 'node:process'
-import type { BrowserCommandContext } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { trimCommonFolder } from '../shared/trim_common_folder.ts'
+import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
 
-export function resolveSnapshotRootDir(browserCommandContext: BrowserCommandContext, options: VisOptions) {
+export function resolveSnapshotRootDir(browserCommandContext: ExtendedBrowserCommandContext, options: VisOptions) {
 	if (!options.snapshotRootDir) return getSnapshotRootDir(SNAPSHOT_ROOT_DIR)
 	const snapshotRootDir = options.snapshotRootDir
 	if (typeof snapshotRootDir === 'string') return getSnapshotRootDir(snapshotRootDir)
-	const { config } = browserCommandContext.project.browser as any
+	const { config } = browserCommandContext.project.browser
 	return snapshotRootDir({
 		ci,
 		browserName: config.browser.name,

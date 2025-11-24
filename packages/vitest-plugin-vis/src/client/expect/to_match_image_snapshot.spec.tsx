@@ -31,7 +31,7 @@ it('accepts a Locator', async ({ expect }) => {
 	await expect(subject).toMatchImageSnapshot()
 })
 
-it.only('accepts an element', async ({ expect }) => {
+it('accepts an element', async ({ expect }) => {
 	render(<div data-testid="subject">hello</div>)
 	const subject = page.getByTestId('subject')
 	await expect(subject.element()).toMatchImageSnapshot()

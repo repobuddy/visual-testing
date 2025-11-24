@@ -1,7 +1,8 @@
-import type { BrowserCommandContext, TestUserConfig } from 'vitest/node'
+import type { TestUserConfig } from 'vitest/node'
 import type { VisOptions } from '../config/types.ts'
 import { assertSnapshotKeyWithoutDash } from '../shared/asserts.ts'
 import { getProjectName } from './project.ts'
+import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
 
 const DEFAULT_PROJECT_NAME = '__default'
 
@@ -18,7 +19,7 @@ export function setVisOption(
 	visOptions[id] = options
 }
 
-export function getVisOption(context: BrowserCommandContext) {
+export function getVisOption(context: ExtendedBrowserCommandContext) {
 	const id = getProjectName(context) ?? DEFAULT_PROJECT_NAME
 	return visOptions[id] ?? {}
 }
