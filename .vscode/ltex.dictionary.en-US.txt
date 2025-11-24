@@ -5,3 +5,4 @@ pathe
 Vis
 async
 addon-docs
+Addon
