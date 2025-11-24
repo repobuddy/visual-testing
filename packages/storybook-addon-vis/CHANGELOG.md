@@ -1,5 +1,14 @@
 # CHANGE LOG
 
+## 2.1.5
+
+### Patch Changes
+
+- [#476](https://github.com/repobuddy/visual-testing/pull/476) [`e14b67d`](https://github.com/repobuddy/visual-testing/commit/e14b67d8b209678cff57c1a4375160807908b46b) Thanks [@unional](https://github.com/unional)! - Use `jsx: react` instead of `jsx: react-jsx` to fix the `recentlyCreatedOwnerStacks` error when loading the addon panel.
+
+- Updated dependencies [[`0ebfe75`](https://github.com/repobuddy/visual-testing/commit/0ebfe7578794d3f538392c5a20a65a814878f3bc)]:
+  - vitest-plugin-vis@3.5.1
+
 ## 2.1.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # vitest-plugin-vis
 
+## 3.5.1
+
+### Patch Changes
+
+- [#472](https://github.com/repobuddy/visual-testing/pull/472) [`0ebfe75`](https://github.com/repobuddy/visual-testing/commit/0ebfe7578794d3f538392c5a20a65a814878f3bc) Thanks [@unional](https://github.com/unional)! - Replace starting ".." with "\_\_" in `trimCommonFolder` function.
+
+  This allows test project to reference tests in other projects within a monorepo.
+
 ## 3.5.0
 
 ### Minor Changes
