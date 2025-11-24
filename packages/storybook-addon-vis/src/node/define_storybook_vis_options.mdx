@@ -18,15 +18,15 @@ export default defineMain({
 			options: defineStorybookVisOptions({
 				visProjects: [
 					{
-						snapshotRootDir: '__vis__/linux',
+						snapshotRootDir: '__vis__/linux'
 					},
 					{
-						snapshotRootDir: '__vis__/local',
-					},
-				],
-			}),
-		},
-	],
+						snapshotRootDir: '__vis__/local'
+					}
+				]
+			})
+		}
+	]
 })
 ```
 
@@ -52,29 +52,31 @@ defineStorybookVisOptions({
 
 ### visProjects
 
-An array of visual testing project configurations. Each project can have its own snapshot storage configuration.
+Configure one or more visual testing projects. Each project can have its own snapshot storage settings, allowing you to organize snapshots across different parts of your application.
 
 ### snapshotRootDir
 
-The root directory for storing snapshots. This can be:
+Specify where snapshots should be stored. You can provide:
 
-- **String**: A static path to the snapshot root directory
-- **Function**: A function that returns a path based on CI and platform context
-  - Receives `{ ci: boolean; platform: string }` as context
+- **A static path string**: Use the same directory for all snapshots
+- **A function**: Dynamically determine the directory based on environment
+  - The function receives `{ ci: boolean; platform: string }` as context
   - `ci`: Whether the code is running in a CI environment
   - `platform`: The platform string (e.g., 'linux', 'darwin', 'win32')
-- **undefined**: Uses the default snapshot root directory
+- **undefined**: Use the default snapshot root directory
 
 ### snapshotSubpath
 
-Optional function to customize the snapshot subdirectory path. This allows you to transform the default subpath (typically based on the story file path) into a custom structure.
+Transform the default snapshot subdirectory path to match your project structure. This is useful when you want to customize how story file paths are organized in your snapshot directory.
 
 - Receives `{ subpath: string }` as options
 - Returns a transformed subpath string
 
 ## Usage Examples
 
-### Basic Configuration
+### Store Snapshots in a Custom Directory
+
+To store all snapshots in a specific directory, specify a static path:
 
 ```ts
 import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
@@ -88,7 +90,9 @@ const options = defineStorybookVisOptions({
 })
 ```
 
-### Dynamic Root Directory Based on Environment
+### Use Different Directories for CI and Local Development
+
+If you want snapshots stored in different locations depending on whether you're running in CI or locally, use a function that checks the environment:
 
 ```ts
 import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
@@ -107,7 +111,9 @@ const options = defineStorybookVisOptions({
 })
 ```
 
-### Custom Snapshot Subpath
+### Customize Snapshot Subdirectory Structure
+
+To transform the default snapshot subpath (for example, to remove a `src/` prefix from your file paths), provide a `snapshotSubpath` function:
 
 ```ts
 import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
@@ -125,7 +131,9 @@ const options = defineStorybookVisOptions({
 })
 ```
 
-### Multiple Projects with Different Configurations
+### Organize Snapshots Across Multiple Projects
+
+When you have multiple visual testing projects (for example, separate projects for components and pages), configure each with its own snapshot directory and path structure:
 
 ```ts
 import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
@@ -144,20 +152,21 @@ const options = defineStorybookVisOptions({
 })
 ```
 
-### Using Default Configuration
+### Use Default Configuration
+
+To use the default snapshot root directory and subpath, provide an empty project configuration:
 
 ```ts
 import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
 
-// Uses default snapshot root directory and subpath
 const options = defineStorybookVisOptions({
 	visProjects: [{}],
 })
 ```
 
-## Snapshot Path Structure
+## Understanding Snapshot Path Structure
 
-The final snapshot path is constructed as:
+To understand where your snapshots will be stored, the final snapshot path is constructed as:
 
 ```
 <snapshotRootDir>/<baseline|diff|results>/<snapshotSubpath>/<task-id>-<variant>.png
