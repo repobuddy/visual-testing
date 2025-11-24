@@ -13,9 +13,11 @@
 			"**",
 			"!**/node_modules/",
 			"!**/.vscode/**/*.txt",
+			"!**/.dist",
 			"!**/esm",
 			"!**/*.code-workspace",
-			"!**/tailwind.css"
+			"!**/tailwind.css",
+			"!packages/storybook-addon-vis/preset.mjs"
 		]
 	},
 	"formatter": {
