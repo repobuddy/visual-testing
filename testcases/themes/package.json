@@ -34,7 +34,7 @@
 		"@vitest/browser": "catalog:",
 		"autoprefixer": "^10.4.20",
 		"globals": "^16.0.0",
-		"storybook": "^9.1.10",
+		"storybook": "^10.0.8",
 		"storybook-addon-vis": "workspace:*",
 		"tailwindcss": "^3",
 		"typescript": "^5.9.3",
