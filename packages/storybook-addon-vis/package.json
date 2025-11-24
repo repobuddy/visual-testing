@@ -115,7 +115,7 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"storybook": "^9.1.16",
-		"storybook-addon-tag-badges": "^2.0.4",
+		"storybook-addon-tag-badges": "^3.0.0",
 		"tailwindcss": "^4.1.14",
 		"tsup": "^8.3.5",
 		"typescript": "^5.9.3",
