@@ -11,7 +11,7 @@ describe('matchPerTheme', () => {
 	beforeEach(() => setAutoSnapshotOptions(true))
 
 	it('should take a snapshot for each theme', async () => {
-		render(<div data-testid="subject">hello</div>)
+		await render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		await vis.afterEach.matchPerTheme({
 			theme1: async () => {
@@ -24,7 +24,7 @@ describe('matchPerTheme', () => {
 	})
 
 	it('should take all snapshots even if one fails', async ({ expect }) => {
-		render(<div data-testid="subject">hello</div>)
+		await render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		if (
 			!page.hasImageSnapshot({
@@ -50,7 +50,7 @@ describe('matchPerTheme', () => {
 	})
 
 	it('should aggregate all errors', async ({ expect }) => {
-		render(<div data-testid="subject">hello</div>)
+		await render(<div data-testid="subject">hello</div>)
 		await expect(() =>
 			vis.afterEach.matchPerTheme({
 				theme1: async () => {
@@ -79,7 +79,7 @@ describe('matchPerTheme', () => {
 				},
 			}),
 		)
-		render(<div data-testid="subject">hello</div>)
+		await render(<div data-testid="subject">hello</div>)
 		const subject = page.getByTestId('subject')
 		expect(subject).toBeInTheDocument()
 		expect(subject).toHaveTextContent('world')
@@ -87,7 +87,7 @@ describe('matchPerTheme', () => {
 
 	it('pass meta to theme handler', async ({ expect }) => {
 		setAutoSnapshotOptions(true)
-		render(<div data-testid="subject">hello</div>)
+		await render(<div data-testid="subject">hello</div>)
 		await vis.afterEach.matchPerTheme({
 			theme1(meta) {
 				expect(meta).toMatchObject({ enable: true })
@@ -110,6 +110,6 @@ describe('presets.enable()', () => {
 	beforeEach(() => vis.presets.enable())
 
 	it('can enable auto snapshot', async () => {
-		render(<div data-testid="subject">hello</div>)
+		await render(<div data-testid="subject">hello</div>)
 	})
 })
