@@ -4,15 +4,107 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Storybook Visual Testing addon
 
-[storybook-addon-vis][storybook-addon-vis] enables self contained Visual Testing for [Storybook][storybook].
+[storybook-addon-vis][storybook-addon-vis] allows you to perform self contained Visual Testing for [Storybook][storybook].
 
-It offers a new unique features:
+The image snapshots are stored locally and are used to detect visual regressions.
+
+## Features
 
 - You can capture and compare image snapshot both automatically and manually.
 - You can take a snapshot of the whole page or a specific component.
 - You can take snapshots in different environments, platform, browser, screen size and themes.
-- The snapshots are stored locally in the `__vis__` directory.
+- The snapshots are stored locally.
 - You can enable, disable, and customize how the snapshots are taken and compared.
 
-[storybook-addon-vis]: https://github.com/repobuddy/storybook-addon-vis
+## Installation
+
+You can install [storybook-addon-vis][storybook-addon-vis] with your package manager of choice:
+
+```sh
+npm install --save-dev storybook-addon-vis
+
+pnpm add --save-dev storybook-addon-vis
+
+yarn add --save-dev storybook-addon-vis
+```
+
+This addon requires [Storybook Test addon][storybook-test-addon] to work.
+Please refer to its documentation for installation instructions.
+
+## Setup
+
+This addon provides features on both [Vitest] and [Storybook],
+thus you need to add it to both [Vitest] and [Storybook].
+Also, if you are using TypeScript, you need to add the `storybook-addon-vis/matcher` type to your `tsconfig.json`.
+
+### Basic Setup
+
+[storybook-addon-vis][storybook-addon-vis] provides sensible default setup for both [Storybook] and [Vitest].
+So setting it up is pretty straightforward.
+
+The basic setup will:
+
+- Use `pixelmatch` as the diffing algorithm.
+- Set config to compare image snapshot with a failure threshold of `0 pixels`.
+- Timeout for image comparison is set to `30000 ms`.
+- Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
+- CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
+- Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
+- Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
+- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
+
+For [Vitest], you need to do two things:
+
+- Add the `storybookVis` plugin in `vitest.config.ts`.
+- Enable visual testing in `vitest.setup.ts`.
+
+```ts
+// vitest.config.ts
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookTest(),
+		storybookVis() // ADD THIS
+	],
+	test: {
+		browser: { ... }, // your Vitest Browser Mode configuration
+		setupFiles: ['./vitest.setup.ts'], // ADD THIS
+	}
+})
+```
+
+```ts
+// vitest.setup.ts
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+import { beforeAll } from 'vitest'
+import * as projectAnnotations from './preview.ts'
+
+const project = setProjectAnnotations([
+	projectAnnotations,
+	visAnnotations as any // ADD THIS
+])
+
+beforeAll(project.beforeAll)
+
+// ADD THIS to setup visual testing
+vis.setup({ auto: true })
+```
+
+For [Storybook], you need to add the addon to your `.storybook/main.ts`:
+```ts
+// .storybook/main.ts
+
+const config: StorybookConfig = {
+	addons: [
+		'storybook-addon-vis' // ADD THIS
+	]
+}
+```
+
+[storybook-addon-vis]: https://www.npmjs.com/package/storybook-addon-vis
+[storybook-test-addon]: https://storybook.js.org/docs/writing-tests/test-addon
 [storybook]: https://storybook.js.org
+[vitest]: https://vitest.dev/
