@@ -3,6 +3,15 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
+	"imports": {
+		"#*": [
+			"./*",
+			"./*.ts",
+			"./*.tsx",
+			"./*.js",
+			"./*.jsx"
+		]
+	},
 	"scripts": {
 		"build": "tsc -b && vite build",
 		"build-storybook": "storybook build",
@@ -22,7 +31,6 @@
 		"@storybook/addon-docs": "catalog:",
 		"@storybook/addon-vitest": "catalog:",
 		"@storybook/react-vite": "catalog:",
-		"@types/node": "^24.10.1",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
