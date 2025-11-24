@@ -1,12 +1,12 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 
 /**
  * This function is used to resolve the absolute path of a package.
  * It is needed in projects that use Yarn PnP or are set up within a monorepo.
  */
 function getAbsolutePath(value) {
-	return import.meta.resolve(join(value, 'package.json'))
+	return dirname(import.meta.resolve(join(value, 'package.json')))
 }
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
