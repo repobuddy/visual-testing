@@ -20,7 +20,8 @@
 	},
 	"type": "module",
 	"imports": {
-		"#vitest-plugin-vis/config": "./src/config.ts"
+		"#vitest-plugin-vis/config": "./src/config.ts",
+		"#vitest-plugin-vis/setup": "./src/setup.ts"
 	},
 	"exports": {
 		".": {
@@ -80,6 +81,7 @@
 		"sb": "storybook dev -p 6007",
 		"t:node": "vitest --project=vpv:node",
 		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
+		"t:t": "tsc --noEmit",
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
 		"test": "vitest run",
 		"test:u": "vitest run -u",

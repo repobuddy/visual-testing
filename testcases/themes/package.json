@@ -8,6 +8,7 @@
 		"clean:vis:local": "rimraf __vis__/local",
 		"nuke": "rimraf node_modules",
 		"sb": "storybook dev -p 6107",
+		"t:t": "tsc --noEmit",
 		"test": "vitest run",
 		"testcase": "vitest run",
 		"testcase:u": "vitest run -u",

@@ -18,6 +18,7 @@
 		"dev": "vite",
 		"preview": "vite preview",
 		"sb": "storybook dev -p 6108",
+		"t:t": "tsc --noEmit",
 		"test": "vitest run",
 		"w": "vitest"
 	},
