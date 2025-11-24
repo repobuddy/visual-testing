@@ -1,13 +1,14 @@
-import { commands } from '@vitest/browser/context'
-import { afterEach, beforeAll, beforeEach, vi, type Awaitable, type Suite } from 'vitest'
+import { afterEach, beforeAll, beforeEach, vi, type SuiteAPI } from 'vitest'
+import { commands } from 'vitest/browser'
 
+type Awaitable<T> = T | PromiseLike<T>
 export const ctx = {
 	beforeAll,
 	beforeEach,
 	afterEach,
 	commands,
 	mock() {
-		const beforeAllListeners: Array<(suite: Readonly<Suite | File>) => Awaitable<unknown>> = []
+		const beforeAllListeners: Array<(suite: Readonly<SuiteAPI | File>) => Awaitable<unknown>> = []
 		beforeEach(() => {
 			ctx.beforeAll = vi.fn((fn) => {
 				beforeAllListeners.push(fn)

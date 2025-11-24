@@ -1,12 +1,12 @@
-import type { BrowserCommands, BrowserPage } from '@vitest/browser/context'
 import type { SnapshotTestMeta } from 'vitest-plugin-vis/client-api'
+import type { BrowserCommands, BrowserPage } from 'vitest/browser'
 import { toMatchImageSnapshot } from './page/to_match_image_snapshot.ts'
 
-let browserContext: Awaited<typeof import('@vitest/browser/context')>
+let browserContext: Awaited<typeof import('vitest/browser')>
 let vitestSuite: Awaited<typeof import('vitest/suite')>
 
 if ((globalThis as any).__vitest_browser__) {
-	import('@vitest/browser/context').then((m) => {
+	import('vitest/browser').then((m) => {
 		m.page.extend({ toMatchImageSnapshot })
 		browserContext = m
 	})

@@ -1,11 +1,14 @@
 import { vis } from '#vitest-plugin-vis/config'
+import { playwright } from '@vitest/browser-playwright'
 import { defineProject } from 'vitest/config'
 
 // https://vitejs.dev/config/
 export default defineProject({
 	plugins: [
 		vis({
-			preset: 'none',
+			snapshotRootDir({ ci, browserName, providerName, platform }) {
+				return `__vis__/${ci ? platform : 'local'}/${providerName}/${browserName}`
+			},
 			subject: '[data-testid="subject"]',
 		}),
 	],
@@ -17,13 +20,13 @@ export default defineProject({
 		browser: {
 			enabled: true,
 			headless: true,
-			provider: 'playwright',
+			provider: playwright(),
 			instances: [
 				{
 					browser: 'chromium',
 					screenshotFailures: false,
 					viewport: { width: 1280, height: 720 },
-					// screenshotDirectory: '__screenshots__/playwright/chromium',
+					screenshotDirectory: '__screenshots__/playwright/chromium',
 				},
 				// {
 				// 	browser: 'firefox',

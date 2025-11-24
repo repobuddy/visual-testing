@@ -11,7 +11,7 @@ This method allows you to conditionally execute code based on whether a snapshot
 ## Basic Usage
 
 ```ts
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 
 it('should check if snapshot exists', async ({ expect }) => {
 	const hasSnapshot = await page.hasImageSnapshot()

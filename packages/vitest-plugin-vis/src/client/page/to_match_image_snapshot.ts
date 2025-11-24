@@ -1,4 +1,4 @@
-import { commands } from '@vitest/browser/context'
+import { commands } from 'vitest/browser'
 import type { ComparisonMethod, ToMatchPageImageSnapshotOptions } from '../../shared/types.ts'
 import { matchPageImageSnapshotAction } from '../actions/match_page_image_snapshot_action.ts'
 import { ctx } from '../ctx.ts'

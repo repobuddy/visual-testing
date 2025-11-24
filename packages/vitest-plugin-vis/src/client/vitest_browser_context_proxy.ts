@@ -1,10 +1,10 @@
-import type { BrowserCommands, Platform } from '@vitest/browser/context'
 import type { SerializedConfig } from 'vitest'
+import type { BrowserCommands, Platform } from 'vitest/browser'
 
-let ctx: Awaited<typeof import('@vitest/browser/context')>
+let ctx: Awaited<typeof import('vitest/browser')>
 
 if ((globalThis as any).__vitest_browser__) {
-	import('@vitest/browser/context').then((m) => {
+	import('vitest/browser').then((m) => {
 		ctx = m
 	})
 }

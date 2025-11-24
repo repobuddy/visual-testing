@@ -105,6 +105,8 @@
 		"@types/react-dom": "^19.2.1",
 		"@vitejs/plugin-react": "^5.0.0",
 		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/browser-webdriverio": "catalog:",
 		"@vitest/coverage-istanbul": "catalog:",
 		"@vitest/expect": "catalog:",
 		"boxen": "^8.0.1",
