@@ -132,8 +132,8 @@
 		"vitest-browser-react": "^1.0.0"
 	},
 	"peerDependencies": {
-		"@vitest/browser": "^2 || ^3",
-		"vitest": "^2 || ^3"
+		"@vitest/browser": "^4.0.0",
+		"vitest": "^4.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
