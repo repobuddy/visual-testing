@@ -1,0 +1,46 @@
+{
+	"name": "testcase-sb-csf-mix",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"imports": {
+		"#*": [
+			"./*",
+			"./*.ts",
+			"./*.tsx",
+			"./*.js",
+			"./*.jsx"
+		]
+	},
+	"scripts": {
+		"build": "tsc -b && vite build",
+		"build-storybook": "storybook build",
+		"dev": "vite",
+		"preview": "vite preview",
+		"sb": "storybook dev -p 6108",
+		"t:t": "tsc --noEmit",
+		"test": "vitest run",
+		"w": "vitest"
+	},
+	"dependencies": {
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
+	},
+	"devDependencies": {
+		"@storybook-community/storybook-dark-mode": "catalog:",
+		"@storybook/addon-a11y": "catalog:",
+		"@storybook/addon-docs": "catalog:",
+		"@storybook/addon-vitest": "catalog:",
+		"@storybook/react-vite": "catalog:",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"globals": "^16.5.0",
+		"storybook": "catalog:",
+		"storybook-addon-vis": "workspace:*",
+		"typescript": "catalog:",
+		"vite": "catalog:"
+	}
+}
