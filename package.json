@@ -16,6 +16,7 @@
 		"release": "pnpm build && changeset publish",
 		"sav": "pnpm --filter=./packages/storybook-addon-vis",
 		"scn": "pnpm --filter=testcase-sb-csf-next",
+		"scm": "pnpm --filter=testcase-sb-csf-mix",
 		"t:t": "turbo t:t",
 		"test": "turbo test",
 		"test:trv": "vitest run --project=testcase-react-vite-ts",

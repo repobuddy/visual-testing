@@ -9,13 +9,13 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis()],
 	test: {
-		name: 'sb-csf-next',
+		name: 'sb-csf-mix',
 		browser: {
 			enabled: true,
 			headless: true,
 			provider: playwright(),
 			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},
-		// setupFiles: ['./.storybook/vitest.setup.tsx'],
+		setupFiles: ['./.storybook/vitest.setup.tsx'],
 	},
 })
