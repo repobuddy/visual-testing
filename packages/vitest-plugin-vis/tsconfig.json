@@ -1,20 +1,22 @@
 {
 	"compilerOptions": {
 		"composite": true,
+		// "declaration": true,
+		// "declarationMap": true,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
 		"module": "NodeNext",
 		"moduleDetection": "force",
-		"outDir": ".nowhere",
 		"noUncheckedIndexedAccess": true,
+		"outDir": ".nowhere",
+		"resolveJsonModule": true,
 		"rewriteRelativeImportExtensions": true,
 		"skipLibCheck": true,
-		"resolveJsonModule": true,
 		"strict": true,
 		"target": "ES2020",
-		"verbatimModuleSyntax": true,
-		"types": ["vitest"]
+		"types": ["vitest"],
+		"verbatimModuleSyntax": true
 	},
 	"include": ["*.ts", "src", ".storybook/*"]
 }
