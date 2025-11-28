@@ -3,9 +3,9 @@ packages:
   - testcases/*
 
 catalog:
-  '@storybook-community/storybook-dark-mode': ^7.0.3
   '@repobuddy/storybook': ^2.1.2
   '@repobuddy/vitest': ^2.0.0
+  '@storybook-community/storybook-dark-mode': ^7.0.3
   '@storybook/addon-a11y': ^10.0.8
   '@storybook/addon-docs': ^10.0.8
   '@storybook/addon-themes': ^10.0.8
@@ -35,3 +35,8 @@ onlyBuiltDependencies:
   - '@biomejs/biome'
   - '@tailwindcss/oxide'
   - esbuild
+
+patchedDependencies:
+  '@storybook/addon-a11y': patches/@storybook__addon-a11y.patch
+  '@storybook/react-vite': patches/@storybook__react-vite.patch
+  storybook: patches/storybook.patch
