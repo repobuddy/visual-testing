@@ -8,6 +8,21 @@ import { shouldTakeSnapshot } from '../should_take_snapshot.ts'
 import type { SnapshotMeta } from '../snapshot_meta.ts'
 import { toTaskId } from '../task_id.ts'
 
+export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
+	auto?:
+		| boolean
+		| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
+				options: SnapshotMeta<C> & M & GM,
+		  ) => Promise<boolean> | Promise<void> | boolean | void)
+		| Record<
+				string,
+				| boolean
+				| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
+						options: SnapshotMeta<C> & M & GM,
+				  ) => Promise<boolean> | Promise<void> | boolean | void)
+		  >
+}
+
 /**
  * Visual test configuration on the client side.
  */
@@ -40,20 +55,7 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 	 * })
 	 * ```
 	 */
-	setup(options?: {
-		auto?:
-			| boolean
-			| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
-					options: SnapshotMeta<C> & M & GM,
-			  ) => Promise<boolean> | Promise<void> | boolean | void)
-			| Record<
-					string,
-					| boolean
-					| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
-							options: SnapshotMeta<C> & M & GM,
-					  ) => Promise<boolean> | Promise<void> | boolean | void)
-			  >
-	}): void
+	setup(options?: SetupVisOptions<GM>): void
 	/**
 	 * @deprecated Use `vis.setup()` instead.
 	 */
