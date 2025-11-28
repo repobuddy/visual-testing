@@ -27,6 +27,7 @@ export default defineConfig(async (options) => {
 		format: ['esm'],
 		treeshake: true,
 		sourcemap: true,
+		tsconfig: 'tsconfig.build.json',
 		clean: !options.watch,
 		/**
 			The following packages are provided by Storybook and should always be externalized
@@ -69,9 +70,7 @@ export default defineConfig(async (options) => {
 		configs.push({
 			...commonConfig,
 			entry: exportEntries,
-			dts: {
-				resolve: true,
-			},
+			dts: true,
 			clean: false,
 			minify: false,
 			format: ['esm'],
