@@ -2,6 +2,7 @@ import addonDarkMode from '@storybook-community/storybook-dark-mode'
 import addonA11y from '@storybook/addon-a11y'
 import addonDocs from '@storybook/addon-docs'
 import { definePreview } from '@storybook/react-vite'
+import addonVis from 'storybook-addon-vis'
 
 export default definePreview({
 	// decorators: [
@@ -32,5 +33,5 @@ export default definePreview({
 			test: 'error',
 		},
 	},
-	addons: [addonDocs(), addonA11y(), addonDarkMode()],
+	addons: [addonDocs(), addonA11y(), addonDarkMode(), addonVis({ auto: true })],
 })
