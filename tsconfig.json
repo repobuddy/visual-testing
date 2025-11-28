@@ -14,6 +14,9 @@
 			"path": "./testcases/sb-csf-next"
 		},
 		{
+			"path": "./testcases/sb-csf-mix"
+		},
+		{
 			"path": "./testcases/themes"
 		},
 		{
