@@ -1,8 +1,9 @@
 {
 	"compilerOptions": {
 		"allowImportingTsExtensions": true,
-		// "esModuleInterop": true,
-		// "experimentalDecorators": true,
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
 		"isolatedModules": false,
 		"jsx": "react",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],
@@ -10,7 +11,6 @@
 		"moduleResolution": "Bundler",
 		"outDir": "esm",
 		"rewriteRelativeImportExtensions": true,
-		// "noImplicitAny": true,
 		"rootDir": "src",
 		"skipLibCheck": true,
 		"strict": true,
