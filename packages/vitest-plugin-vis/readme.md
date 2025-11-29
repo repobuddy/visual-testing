@@ -166,7 +166,50 @@ By default, the plugin will trim the common folder such as `src` or `test` from 
 If you place your test files in multiple folders,
 such as in both `tests` and `src` folders,
 and they might have files with the same name and create conflicting snapshots,
-you can customize it.
+you can use `snapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
+
+```ts
+// vitest.config.ts
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookVis({
+			// keep the folder structure
+			snapshotSubpath: (subpath) => subpath
+		})
+	],
+	// ...
+})
+```
+
+With the above configuration, the snapshot folder structure will look like this:
+
+```ini
+v __vis__
+	> # ...
+	v local # snapshot generated on local machine
+		> __baselines__
+			v examples
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+			v src
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+			v tests
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+v examples
+	button.stories.tsx
+v src
+	button.stories.tsx
+v tests
+	button.stories.tsx
+```
 
 > `MyComponent/className/can-customize-className`: `snapshotId`
 
