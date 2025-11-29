@@ -1,0 +1,3 @@
+import{R as s}from"./iframe-fTt469q7.js";import"./preload-helper-PPVm8Dsz.js";const o={title:"tags/per meta",render:()=>s.createElement(s.Fragment,null,"unit test"),tags:["snapshot"],parameters:{layout:"centered"}},e={},a={tags:["!snapshot"]};e.parameters={...e.parameters,docs:{...e.parameters?.docs,source:{originalSource:"{}",...e.parameters?.docs?.source}}};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{
+  tags: ['!snapshot']
+}`,...a.parameters?.docs?.source}}};const p=["TakeSnapshot","SkipSnapshot"];export{a as SkipSnapshot,e as TakeSnapshot,p as __namedExportsOrder,o as default};
