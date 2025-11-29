@@ -13,8 +13,8 @@ The image snapshots are stored locally and are used to detect visual regressions
 - You can capture and compare image snapshot both automatically and manually.
 - You can take a snapshot of the whole page or a specific component.
 - You can take snapshots in different environments, platform, browser, screen size and themes.
-- The snapshots are stored locally.
 - You can enable, disable, and customize how the snapshots are taken and compared.
+- The snapshots are stored locally.
 
 ## Installation
 
@@ -28,13 +28,18 @@ pnpm add --save-dev storybook-addon-vis
 yarn add --save-dev storybook-addon-vis
 ```
 
-This addon requires [Storybook Test addon][storybook-test-addon] to work.
-Please refer to its documentation for installation instructions.
+This addon requires [Storybook Vitest addon][storybook-vitest-addon] to work.
+Please refer to its documentation for installation and setup instructions.
 
 ## Setup
 
-This addon provides features on both [Vitest] and [Storybook],
-thus you need to add it to both [Vitest] and [Storybook].
+To setup [storybook-addon-vis][storybook-addon-vis], you need to do the following:
+
+- Add the `storybookVis` plugin in [Vitest] along with the `storybookTest` plugin.
+- Configure visual testing in `.storybook/preview.ts` or `vitest.setup.ts`, depending on whether you are writing your stories in CSF 3 or CSF Next.
+- Add [storybook-addon-vis][storybook-addon-vis] addon to your [Storybook] configuration in `.storybook/main.ts`.
+- Ignore snapshot folders in your `.gitignore` file.
+
 Also, if you are using TypeScript, you need to add the `storybook-addon-vis/matcher` type to your `tsconfig.json`.
 
 ### Basic Setup
@@ -47,12 +52,15 @@ The basic setup will:
 - Use `pixelmatch` as the diffing algorithm.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
 - Timeout for image comparison is set to `30000 ms`.
--
 - Local (non-CI) image snapshots are saved in the `<root>/__vis__/local` directory.
 - CI image snapshots are saved in the `<root>/__vis__/<process.platform>` directory.
+- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
 - Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
 - Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
-- Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
+- You can review the baseline and diff images in addon `Vis` panel.
+
+This setup assumes that you are writing your stories in CSF 3.
+If you are writing your stories in CSF Next, check out [Basic Setup for CSF Next](#basic-setup-for-csf-next).
 
 For [Vitest], you need to do two things:
 
@@ -83,14 +91,14 @@ import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
 import { beforeAll } from 'vitest'
 import * as projectAnnotations from './preview.ts'
 
-const project = setProjectAnnotations([
+const annotations = setProjectAnnotations([
 	projectAnnotations,
-	visAnnotations as any // ADD THIS
+	visAnnotations
 ])
 
-beforeAll(project.beforeAll)
+beforeAll(annotations.beforeAll)
 
-// ADD THIS to setup visual testing
+// ADD THIS to setup automatic visual testing
 vis.setup({ auto: true })
 ```
 
@@ -105,7 +113,488 @@ const config: StorybookConfig = {
 }
 ```
 
+In monorepo, you need to use the `getAbsolutePath` helper function to resolve the absolute path of the addon.
+
+```ts
+// .storybook/main.ts
+import { defineStorybookVis } from '#storybook-addon-vis/node'
+import type { StorybookConfig } from '@storybook/<your-framework>'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+/**
+ * This function is used to resolve the absolute path of a package.
+ * It is needed in projects that use Yarn PnP or are set up within a monorepo.
+ */
+function getAbsolutePath(value: string): any {
+	return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)))
+}
+
+const config: StorybookConfig = {
+	addons: [
+		getAbsolutePath('storybook-addon-vis') // ADD THIS
+	]
+}
+
+export default config
+```
+
+The `getAbsolutePath` function is a helper function typically added by [Storybook] automatically.
+
+### Ignore snapshot folders
+
+Since [storybook-addon-vis][storybook-addon-vis] will save snapshot on your file system,
+you need to tell your version control system to ignore the snapshot directory.
+
+With the basic setup, add this to your `.gitignore` (or your version control system's ignore file):
+
+```ini
+# .gitignore
+**/__vis__/**/__diffs__
+**/__vis__/**/__results__
+**/__vis__/local
+```
+
+Note that the `__vis__/*/__baselines__` should not be ignored,
+as it is used to store the baseline images.
+They should be committed to your repository.
+
+### TypeScript Configuration
+
+If you want to do manual snapshot testing, you need to tell TypeScript about the matcher.
+
+You can add the following to your `tsconfig.json`:
+
+```json
+{
+	"compilerOptions": {
+		"types": ["storybook-addon-vis/matcher"]
+	}
+}
+```
+
+Or use the triple-slash reference:
+
+```json
+{
+	"includes": [..., "types"]
+}
+
+
+```ts
+// types/storybook-addon-vis.d.ts
+/// <reference types="storybook-addon-vis/matcher" />
+```
+
+### Disable Vitest global API
+
+We recommend to set `globals` to `false` (which is the default).
+Setting `globals` to `true` actually works ok during test.
+But they don't exist in the story files:
+
+```tsx
+// some.stories.tsx
+export const Story = {
+	async play() {
+		// does not work
+		expect(true).toBeTruthy()
+	}
+}
+```
+
+This is obvious because the story files are executed on the browser.
+In fact, you need to import the functions from `@storybook/test` instead:
+
+```ts
+// some.test.ts
+import { expect } from 'vitest'
+
+// some.stories.ts
+import { expect } from '@storybook/test'
+```
+
+Setting `globals: true` (and adding `types: ["vitest/globals"]` in your `tsconfig.json`)
+causes inconsistency and confuses both the editor and you.
+
+### Basic Setup for CSF Next
+
+If you are writing your stories in CSF Next,
+you don't need to setup the `vitest.setup.ts` file.
+Instead, you need to setup the visual testing in `.storybook/preview.ts`.
+
+
+```ts
+// vitest.config.ts
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookTest(),
+		storybookVis() // ADD THIS
+	],
+	test: {
+		browser: { ... }, // your Vitest Browser Mode configuration
+		// setupFiles: ['./vitest.setup.ts'], // Do not need to setup this file anymore
+	}
+})
+```
+
+```ts
+// .storybook/preview.ts
+import addonVis from 'storybook-addon-vis'
+import { definePreview } from '@storybook/your-framework/node'
+
+export default definePreview({
+	addons: [
+		addonVis({ auto: true }) // ADD THIS
+	]
+})
+```
+
+### Advanced Setup
+
+If you need more control over the visual testing, you can customize the addon configuration.
+
+In `vitest.config.ts`, you can customize where the snapshots are saved and how they are compared.
+
+```ts
+// vitest.config.ts
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookVis({
+			snapshotRootDir: ({
+				ci, // true if running on CI
+				platform, // process.platform
+				providerName, // 'playwright' or 'webdriverio'
+				browserName,
+				screenshotFailures, // from `browser` config
+				screenshotDirectory, // from `browser` config
+			}) => `__vis__/${ci ? platform : 'local'}`,
+			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+			// Alphanumeric characters, and underscore are allowed. Dash is not allowed.
+			snapshotKey: 'auto',
+			// set a default subject selector (e.g. `[data-testid="subject"]`) to capture image snapshot
+			subject: undefined,
+			comparisonMethod: 'pixel', // or 'ssim'
+			// pixelmatch or ssim.js options, depending on `comparisonMethod`.
+			diffOptions: undefined,
+			timeout: 30000,
+			failureThresholdType: 'pixel',
+			failureThreshold: 0,
+		})
+	]
+})
+```
+
+The options are the same as the options in [`vitest-plugin-vis`][vitest-plugin-vis] minus the `preset`.
+
+For more details, please refer to the [vitest-plugin-vis documentation](https://github.com/repobuddy/visual-testing/tree/main/packages/vitest-plugin-vis).
+
+In `.storybook/preview.ts` or `vitest.setup.ts`, you can customize how the automatic snapshots are taken.
+
+The `addonVis()` used in `.storybook/preview.ts` and `vis.setup()` used in `vitest.setup.ts` have the same options.
+Here, we will use the `addonVis()` options as an example.
+
+```ts
+// .storybook/preview.ts
+import addonVis from 'storybook-addon-vis'
+import { definePreview } from '@storybook/your-framework/node'
+
+export default definePreview({
+	addons: [
+		// Enable visual testing without automatic snapshot taking
+		// You can use this if you want to only take manual snapshots.
+		addonVis(),
+		// or
+		addonVis({ auto: false }),
+
+		// With automatic snapshot taking at the end of each test
+		addonVis({ auto: true }),
+
+		// Control when automatic snapshot taking occurs
+		addonVis({ auto: async ({ tags }) => tags.includes('presentation') }),
+
+
+		// Capture image snapshot at the end of each test for multiple themes (light and dark in this example).
+		//
+		// Note that this changes the theme in the `afterEach` hook.
+		// If you want to capture manual snapshots in different themes,
+		// configure Vitest to run the tests in different themes.
+		addonVis({
+			auto: {
+				async dark() { document.body.classList.add('dark') },
+				async light() { document.body.classList.remove('dark') },
+			}
+		})
+	]
+})
+```
+
+All setup above will enable snapshot testing in storybook when the story has the `snapshot` tag.
+
+#### Multiple vitest projects or custom snapshot paths
+
+If your setup uses multiple vitest projects or custom paths,
+you need to tell the addon where to load the snapshot so it can show them in the `Vis` panel.
+
+For example,
+
+```ts
+// vitest.config.ts
+
+export default defineConfig({
+	test: {
+		projects: [{
+			plugins: [
+				storybookVis({
+					snapshotRootDir: '__vis__/chromium',
+					snapshotSubpath: '...'
+				}),
+			],
+		}, {
+			plugins: [
+				storybookVis({
+					snapshotRootDir: '__vis__/firefox',
+					snapshotSubpath: '...'
+				}),
+			],
+		}],
+	}
+})
+```
+
+Update your `.storybook/main.ts` to specify the correct paths:
+
+```ts
+// .storybook/main.ts
+
+export default {
+  addons: [
+		{
+			name: 'storybook-addon-vis',
+			options: {
+				visProjects: [{
+					snapshotRootDir: '__vis__/chromium',
+					snapshotSubpath: '...'
+				},{
+					snapshotRootDir: '__vis__/firefox',
+					snapshotSubpath: '...'
+				}]
+			}
+		}
+	]
+}
+```
+
+You can also use the `defineStorybookVis` helper function to configure the addon:
+
+```ts
+// .storybook/main.ts
+import { defineStorybookVis } from 'storybook-addon-vis/node'
+
+export default {
+	addons: [
+		defineStorybookVis({
+			visProjects: [{
+				snapshotRootDir: '__vis__/chromium',
+			}]
+		})
+	]
+}
+```
+
+## Usage - automatic snapshot
+
+With visual testing enabled, [storybook-addon-vis][storybook-addon-vis] automatically captures image snapshot for stories with `snapshot` tag.
+
+As how tags work in [Storybook], you can add the tag globally, per story file, or per story.
+
+```tsx
+// .storybook/preview.tsx
+export default {
+	// Enable image snapshot for all stories
+	// For CSF Next, this is added automatically by the addon.
+	tags: ['snapshot']
+}
+```
+
+```tsx
+// some.stories.tsx
+export default {
+	// Enable image snapshot for all stories in this file
+	tags: ['snapshot']
+}
+```
+
+```tsx
+export const MyStory = {
+	// Enable image snapshot for this story
+	tags: ['snapshot'],
+	// ...
+}
+```
+
+You can disable snapshot with the `!snapshot` tag, much like `!test`.
+
+```tsx
+export const MyStory = {
+	// Disable image snapshot for this story
+	tags: ['!snapshot'],
+	// ...
+}
+```
+
+Note that since they are captured during test,
+if you set `tags: ['!test']` to disable testing,
+no snapshot will be taken either.
+
+You can also provide additional tags, which you will receive when you use the theme preset:
+
+```tsx
+export const MyStory = {
+	tags: ['snapshot', 'skip-dark'],
+	// ...
+}
+
+// in vitest.setup.ts
+vis.setup({
+	auto: {
+		async dark({ tags }) {
+			if (tags.includes('skip-dark')) return false
+			document.body.classList.add('dark')
+		}
+	}
+})
+```
+
+If you want to customize the snapshot options for the automatic snapshot,
+you can provide options using Storybook parameters.
+`defineAutoSnapshotParam()` is a helper function to provide autocompletion:
+
+```tsx
+import { defineAutoSnapshotParam } from 'storybook-addon-vis'
+
+export const MyStory = {
+	parameters: defineAutoSnapshotParam({
+		failureThreshold: 70,
+	})
+	// ...
+}
+```
+
+## Usage - manual snapshot
+
+Besides automatic snapshot, you can capture image snapshot manually.
+
+```tsx
+import { expect } from '@storybook/test'
+
+// `page` and the like are proxies of `@vitest/browser/context` to work within storybook
+import { page } from 'storybook-addon-vis'
+
+export const PageSnapshot = {
+	// typically you want to disable automatic snapshot when using manual snapshot
+	// but you can use both at the same time.
+	tags: ['!snapshot'],
+	async play({ canvasElement }) {
+		await expect(canvasElement).toMatchImageSnapshot(/* options */)
+	}
+}
+
+export const ElementSnapshot = {
+	// typically you want to disable automatic snapshot when using manual snapshot
+	// but you can use both at the same time.
+	tags: ['!snapshot'],
+	async play({ canvas }) {
+		const element = await canvas.getByTestid('subject')
+		await expect(element).toMatchImageSnapshot(/* options */)
+	}
+}
+```
+
+## Usage - has image snapshot
+
+While less common, you can also check if a snapshot exists:
+
+```tsx
+import { hasImageSnapshot } from 'storybook-addon-vis'
+
+export const HasImageSnapshot = {
+	tags: ['!snapshot'],
+	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot(/* options */) })],
+	render(_, { loaded: { hasImageSnapshot } }) {
+		return <div data-testid="subject">Has snapshot: {String(hasImageSnapshot)}</div>
+	},
+	async play({ canvas, loaded: { hasImageSnapshot } }) {
+		const subject = canvas.getByTestId('subject')
+		if (!hasImageSnapshot) {
+			await expect(subject).toMatchImageSnapshot()
+			return
+		}
+
+		// This will only execute in Vitest
+		await expect(subject)
+			.toMatchImageSnapshot()
+			.then(
+				() => {
+					throw new Error('Should not reach')
+				},
+				(error) => {
+					expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./)
+				},
+			)
+	},
+}
+```
+
+This is useful when you are performing some negative test.
+
+
+## Troubleshooting
+
+> Internal server error: Failed to resolve import "pathe"
+
+This is likely [a compatibility issue with `pnpm` and `vite` in monorepo](https://discord.com/channels/917386801235247114/1305110710229008435/1305325581839368202).
+
+To work around this, you can add [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) to your `.npmrc`:
+
+```sh
+# .npmrc
+
+shamefully-hoist=true
+```
+
+or hoist the `pathe` package:
+
+```sh
+# .npmrc
+
+hoist-pattern[] = pathe
+```
+
+> It takes empty snapshots on Vitest tests
+
+If you are using Storybook 8.5 and using the workaround to run both stories and tests [as described here](https://github.com/storybookjs/storybook/issues/30307),
+Storybook are also transforming the tests as if they are stories.
+That causes it to inject elements into the DOM and this addon detect that as some rendering by your tests,
+thus taking an image snapshot.
+
+Since it is a bug to be addressed soon,
+please disable the snapshots for your tests by adding a `beforeAll` hook:
+
+```ts
+import { setAutoSnapshotOptions } from 'storybook-addon-vis'
+import { beforeAll } from 'vitest'
+
+beforeAll(() => setAutoSnapshotOptions(false))
+```
+
 [storybook-addon-vis]: https://www.npmjs.com/package/storybook-addon-vis
-[storybook-test-addon]: https://storybook.js.org/docs/writing-tests/test-addon
+[storybook-vitest-addon]: https://storybook.js.org/docs/writing-tests/integrations/vitest-addon
 [storybook]: https://storybook.js.org
 [vitest]: https://vitest.dev/
