@@ -54,6 +54,7 @@
 		"commitlint",
 		"Configurator",
 		"divs",
+		"dorny",
 		"EISDIR",
 		"esbuild",
 		"estree",
