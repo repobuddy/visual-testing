@@ -29,19 +29,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: Cache Playwright Browsers
-        uses: actions/cache@v4
-        id: cache-playwright
-        with:
-          path: ${{ env.PLAYWRIGHT_PATH }}
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      - name: Install playwright browsers
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: pnpx playwright install --with-deps chromium firefox
-
       - name: Install Dependencies
         run: pnpm install
+
+      - name: Install playwright browsers
+        uses: repobuddy/.github/.github/actions/setup-playwright@main
 
       - name: Verify
         uses: nick-fields/retry@v3
