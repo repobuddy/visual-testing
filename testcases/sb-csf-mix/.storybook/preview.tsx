@@ -33,5 +33,6 @@ export default definePreview({
 			test: 'error',
 		},
 	},
-	addons: [addonDocs(), addonA11y(), addonDarkMode(), addonVis({ auto: true })],
+	// tags: ['snapshot'],
+	addons: [addonDocs(), addonA11y(), addonDarkMode(), addonVis()],
 })

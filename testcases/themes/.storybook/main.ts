@@ -19,7 +19,7 @@ const config = {
 		getAbsolutePath('@storybook/addon-themes'),
 	],
 	framework: {
-		name: '@storybook/react-vite',
+		name: getAbsolutePath('@storybook/react-vite'),
 		options: {},
 	},
 }

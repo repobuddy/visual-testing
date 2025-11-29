@@ -34,10 +34,6 @@ const config: StorybookConfig = {
 			excludeFromSidebar: process.env.NODE_ENV === 'production',
 		},
 	},
-	framework: {
-		name: '@storybook/react-vite',
-		options: {},
-	},
-	docs: {},
+	framework: getAbsolutePath('@storybook/react-vite'),
 }
 export default config
