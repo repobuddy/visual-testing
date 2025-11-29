@@ -5,11 +5,11 @@ import type { ImageSnapshotResult } from './commands/load_image_snapshot_results
 import { file } from './externals/file.ts'
 import { getSuite, getTaskSubpath } from './suite.ts'
 import { getVisOption } from './vis_options.ts'
-import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
+import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
 
 export function createVisServerContext() {
 	const context = {
-		async getSnapshotResults(browserContext: PartialBrowserCommandContext, taskId: string) {
+		async getSnapshotResults(browserContext: ExtendedBrowserCommandContext, taskId: string) {
 			const suiteInfo = await context.getSuiteInfo(browserContext, taskId)
 			const baselines = await file.glob(join(suiteInfo.projectRoot, suiteInfo.baselineDir, `${suiteInfo.taskId}-*.png`))
 			const results = await file.glob(join(suiteInfo.projectRoot, suiteInfo.resultDir, `${suiteInfo.taskId}-*.png`))
@@ -36,7 +36,7 @@ export function createVisServerContext() {
 			return r
 		},
 		async getSnapshotInfo(
-			browserContext: PartialBrowserCommandContext,
+			browserContext: ExtendedBrowserCommandContext,
 			taskId: string,
 			options?: ImageSnapshotKeyOptions,
 		) {
@@ -65,11 +65,11 @@ export function createVisServerContext() {
 			}
 		},
 
-		async getTaskCount(browserContext: PartialBrowserCommandContext, taskId: string) {
+		async getTaskCount(browserContext: ExtendedBrowserCommandContext, taskId: string) {
 			return (await context.getSuiteInfo(browserContext, taskId)).task.count
 		},
 		async hasImageSnapshot(
-			browserContext: PartialBrowserCommandContext,
+			browserContext: ExtendedBrowserCommandContext,
 			taskId: string,
 			snapshotKey: string | undefined,
 		) {
@@ -80,7 +80,7 @@ export function createVisServerContext() {
 			)
 		},
 		getSnapshotFilename(
-			browserContext: PartialBrowserCommandContext,
+			browserContext: ExtendedBrowserCommandContext,
 			info: { taskId: string; task: { count: number } },
 			snapshotKey: string | undefined,
 		) {
@@ -91,7 +91,7 @@ export function createVisServerContext() {
 			}
 			return `${info.taskId}-${info.task.count}.png`
 		},
-		async getSuiteInfo(browserContext: PartialBrowserCommandContext, taskId: string) {
+		async getSuiteInfo(browserContext: ExtendedBrowserCommandContext, taskId: string) {
 			const projectState = await getSuite(browserContext)
 			const visOptions = getVisOption(browserContext)
 			const moduleId = getTaskSubpath(projectState, browserContext.testPath, visOptions)

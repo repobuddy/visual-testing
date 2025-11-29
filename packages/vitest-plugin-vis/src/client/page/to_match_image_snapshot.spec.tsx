@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context'
+import { page } from 'vitest/browser'
 import { afterEach, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { ctx } from '../ctx.ts'
@@ -25,7 +25,7 @@ it('rejects snapshot key with dash', async ({ expect }) => {
 })
 
 it('takes an image snapshot', async () => {
-	render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
 		snapshotKey: 'test_snapshot',
 	})
@@ -38,7 +38,7 @@ it('takes an image snapshot', async () => {
 })
 
 it('supports full page image snapshot', async () => {
-	render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
 		fullPage: true,
 		snapshotKey: 'test_snapshot',

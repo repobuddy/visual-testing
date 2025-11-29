@@ -1,4 +1,6 @@
-import type { UserConfig } from 'vitest/node'
+import type { Merge } from 'type-plus'
+import type { BrowserCommandContext } from 'vitest/node'
+import type { Awaitable } from '../shared/types.ts'
 
 export type VisSuites = {
 	[projectPath: string]: Promise<VisSuite>
@@ -30,33 +32,36 @@ export type VisSuite = {
 	>
 }
 
-export type PartialBrowserCommandContext = {
-	project: {
-		config: {
-			name: string
-			root: string
-			snapshotOptions: {
-				updateSnapshot: 'all' | 'new' | 'none'
+export type ExtendedBrowserCommand<Payload extends unknown[] = [], ReturnValue = any> = (
+	context: ExtendedBrowserCommandContext,
+	...payload: Payload
+) => Awaitable<ReturnValue>
+
+export type ExtendedBrowserCommandContext = {
+	page: BrowserCommandContext['page']
+	browser: BrowserCommandContext['browser']
+	iframe: BrowserCommandContext['iframe']
+	testPath: NonNullable<BrowserCommandContext['testPath']>
+	provider: BrowserCommandContext['provider']
+	// project: BrowserCommandContext['project']
+	project: Merge<
+		BrowserCommandContext['project'],
+		{
+			browser: {
+				config: {
+					browser: {
+						name: string
+						screenshotFailures: boolean
+						screenshotDirectory: string
+					}
+				}
 			}
-			testTimeout: number
-			hookTimeout: number
-		}
-		vite: {
-			config: {
-				test?: {
-					name?: UserConfig['name'] | undefined
+			config: BrowserCommandContext['project']['config']
+			runner: {
+				config: {
+					name: string
 				}
 			}
 		}
-	}
-	provider: {
-		name: string
-		browserName?: string | undefined
-		options?: {
-			headless?: boolean | undefined
-			screenshotFailures?: boolean | undefined
-			screenshotDirectory?: string | undefined
-		}
-	}
-	testPath: string
+	>
 }

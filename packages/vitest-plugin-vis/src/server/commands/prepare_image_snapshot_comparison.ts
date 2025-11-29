@@ -1,5 +1,4 @@
 import { resolve } from 'pathe'
-import type { BrowserCommand } from 'vitest/node'
 import { isBase64String } from '../../shared/base64.ts'
 import type {
 	FailureThresholdOptions,
@@ -12,6 +11,7 @@ import { getProjectRoot } from '../project.ts'
 import { takeSnapshot, takeSnapshotByBrowser } from '../snapshot.ts'
 import { snapshotWriter } from '../snapshot_writer.ts'
 import { visServerContext } from '../vis_server_context.ts'
+import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
 import type { MatchImageSnapshotOptions } from './types.ts'
 
@@ -56,7 +56,7 @@ export interface PrepareImageSnapshotComparisonCommand {
 	) => Promise<ImageSnapshotComparisonInfo | undefined>
 }
 
-export const prepareImageSnapshotComparison: BrowserCommand<
+export const prepareImageSnapshotComparison: ExtendedBrowserCommand<
 	Parameters<PrepareImageSnapshotComparisonCommand['prepareImageSnapshotComparison']>
 > = async (context, taskId, subject, options): Promise<ImageSnapshotComparisonInfo | undefined> => {
 	assertTestPathDefined(context, 'prepareImageSnapshotComparison')

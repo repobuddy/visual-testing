@@ -24,29 +24,31 @@
 	},
 	"type": "module",
 	"imports": {
+		"#storybook-addon-vis/node": "./src/node.ts",
 		"#storybook-addon-vis/vitest-plugin": "./src/vitest-plugin.ts"
 	},
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": "./dist/index.js"
 		},
 		"./manager": "./dist/manager.js",
 		"./matcher": {
 			"types": "./dist/matcher.d.ts",
-			"import": "./dist/matcher.js",
-			"require": "./dist/matcher.cjs"
+			"import": "./dist/matcher.js"
 		},
-		"./preset": "./dist/preset.cjs",
+		"./node": {
+			"types": "./dist/node.d.mts",
+			"import": "./dist/node.mjs"
+		},
+		"./preset": "./dist/preset.mjs",
 		"./vitest-setup": {
 			"types": "./dist/vitest-setup.d.ts",
-			"import": "./dist/vitest-setup.js",
-			"require": "./dist/vitest-setup.cjs"
+			"import": "./dist/vitest-setup.js"
 		},
 		"./vitest-plugin": {
-			"types": "./dist/vitest-plugin.d.ts",
-			"import": "./dist/vitest-plugin.js"
+			"types": "./dist/vitest-plugin.d.mts",
+			"import": "./dist/vitest-plugin.mjs"
 		},
 		"./package.json": "./package.json"
 	},
@@ -59,7 +61,7 @@
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
 	],
 	"scripts": {
-		"build": "tsup --tsconfig tsconfig.tsup.json",
+		"build": "tsdown --tsconfig tsconfig.build.json",
 		"build:sb": "cross-env NODE_ENV=production storybook build",
 		"clean": "rimraf coverage dist esm --glob *.tsbuildinfo vitest.*.timestamp*",
 		"clean:vis:local": "rimraf __vis__/local",
@@ -72,11 +74,10 @@
 		"sb": "storybook dev -p 6006",
 		"sb:build": "cross-env NODE_ENV=production storybook build",
 		"t:n": "vitest run -c vitest.config.node.ts",
-		"t:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
+		"t:pw": "vitest run -c vitest.config.playwright.ts",
+		"t:t": "tsc --noEmit",
+		"t:wd": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest run",
 		"test": "vitest run",
-		"test:node": "vitest run -c vitest.config.node.ts",
-		"test:pw": "vitest run -c vitest.config.playwright.ts",
-		"test:type": "tsc --noEmit",
 		"test:u": "vitest run -u",
 		"v": "run-p build cov",
 		"w": "vitest",
@@ -93,18 +94,20 @@
 		"vitest-plugin-vis": "workspace:^"
 	},
 	"devDependencies": {
-		"@repobuddy/storybook": "^2.0.0",
-		"@storybook-community/storybook-dark-mode": "^6.0.8",
-		"@storybook/addon-docs": "^9.1.16",
-		"@storybook/addon-vitest": "9.1.16",
-		"@storybook/react-vite": "^9.1.16",
+		"@repobuddy/storybook": "^2.1.2",
+		"@storybook-community/storybook-dark-mode": "catalog:",
+		"@storybook/addon-docs": "^10.1.2",
+		"@storybook/addon-vitest": "^10.1.2",
+		"@storybook/react-vite": "^10.1.2",
 		"@tailwindcss/cli": "^4.1.7",
 		"@tailwindcss/vite": "^4.1.14",
 		"@testing-library/react": "^16.0.1",
-		"@types/react": "^19.2.2",
-		"@types/react-dom": "^19.2.1",
-		"@vitejs/plugin-react": "^5.0.0",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
 		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"@vitest/browser-webdriverio": "catalog:",
 		"@vitest/coverage-istanbul": "catalog:",
 		"@vitest/expect": "catalog:",
 		"boxen": "^8.0.1",
@@ -114,22 +117,22 @@
 		"playwright": "latest",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"storybook": "^9.1.16",
-		"storybook-addon-tag-badges": "^3.0.0",
+		"storybook": "^10.1.2",
+		"storybook-addon-tag-badges": "^3.0.2",
 		"tailwindcss": "^4.1.14",
-		"tsup": "^8.3.5",
-		"typescript": "^5.9.3",
+		"tsdown": "^0.16.6",
+		"typescript": "catalog:",
 		"vite": "catalog:",
 		"vitest": "catalog:",
-		"vitest-browser-react": "^1.0.0",
+		"vitest-browser-react": "catalog:",
 		"webdriverio": "latest",
 		"zx": "^8.0.0"
 	},
 	"peerDependencies": {
-		"@storybook/addon-vitest": "^9.1.10",
-		"@vitest/browser": "^2 || ^3",
-		"storybook": "^9.1.10",
-		"vitest": "^2 || ^3"
+		"@storybook/addon-vitest": "^10.1.2",
+		"@vitest/browser": "^4",
+		"storybook": "^10.1.2",
+		"vitest": "^4"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -144,7 +147,9 @@
 			"src/manager.tsx"
 		],
 		"nodeEntries": [
-			"./src/preset.ts"
+			"./src/node.ts",
+			"./src/preset.ts",
+			"./src/vitest-plugin.ts"
 		]
 	},
 	"storybook": {

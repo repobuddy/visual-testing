@@ -1,0 +1,185 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks"
+
+<Meta title="node/defineStorybookVisOptions"/>
+
+# defineStorybookVisOptions
+
+A helper function to configure options for Storybook Visual Testing addon.
+
+```ts
+// .storybook/main.ts
+import { defineMain } from '@storybook/your-framework'
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+export default defineMain({
+	addons: [
+		{
+			name: 'storybook-addon-vis',
+			options: defineStorybookVisOptions({
+				visProjects: [
+					{
+						snapshotRootDir: '__vis__/linux'
+					},
+					{
+						snapshotRootDir: '__vis__/local'
+					}
+				]
+			})
+		}
+	]
+})
+```
+
+## Function Signature
+
+```ts
+function defineStorybookVisOptions(options: StorybookVisOptions): StorybookVisOptions
+```
+
+```ts
+defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/linux',
+		},
+		{
+			snapshotRootDir: '__vis__/local',
+		},
+	],
+})
+```
+## Configuration Options
+
+### visProjects
+
+Configure one or more visual testing projects. Each project can have its own snapshot storage settings, allowing you to organize snapshots across different parts of your application.
+
+### snapshotRootDir
+
+Specify where snapshots should be stored. You can provide:
+
+- **A static path string**: Use the same directory for all snapshots
+- **A function**: Dynamically determine the directory based on environment
+  - The function receives `{ ci: boolean; platform: string }` as context
+  - `ci`: Whether the code is running in a CI environment
+  - `platform`: The platform string (e.g., 'linux', 'darwin', 'win32')
+- **undefined**: Use the default snapshot root directory
+
+### snapshotSubpath
+
+Transform the default snapshot subdirectory path to match your project structure. This is useful when you want to customize how story file paths are organized in your snapshot directory.
+
+- Receives `{ subpath: string }` as options
+- Returns a transformed subpath string
+
+## Usage Examples
+
+### Store Snapshots in a Custom Directory
+
+To store all snapshots in a specific directory, specify a static path:
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/snapshots',
+		},
+	],
+})
+```
+
+### Use Different Directories for CI and Local Development
+
+If you want snapshots stored in different locations depending on whether you're running in CI or locally, use a function that checks the environment:
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: ({ ci, platform }) => {
+				if (ci) {
+					return `__vis__/ci/${platform}`
+				}
+				return '__vis__/local'
+			},
+		},
+	],
+})
+```
+
+### Customize Snapshot Subdirectory Structure
+
+To transform the default snapshot subpath (for example, to remove a `src/` prefix from your file paths), provide a `snapshotSubpath` function:
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__',
+			snapshotSubpath: ({ subpath }) => {
+				// Remove 'src/' prefix if present
+				return subpath.replace(/^src\//, '')
+			},
+		},
+	],
+})
+```
+
+### Organize Snapshots Across Multiple Projects
+
+When you have multiple visual testing projects (for example, separate projects for components and pages), configure each with its own snapshot directory and path structure:
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/components',
+			snapshotSubpath: ({ subpath }) => `components/${subpath}`,
+		},
+		{
+			snapshotRootDir: '__vis__/pages',
+			snapshotSubpath: ({ subpath }) => `pages/${subpath}`,
+		},
+	],
+})
+```
+
+### Use Default Configuration
+
+To use the default snapshot root directory and subpath, provide an empty project configuration:
+
+```ts
+import { defineStorybookVisOptions } from '@repobuddy/storybook-addon-vis/server/vis_options'
+
+const options = defineStorybookVisOptions({
+	visProjects: [{}],
+})
+```
+
+## Understanding Snapshot Path Structure
+
+To understand where your snapshots will be stored, the final snapshot path is constructed as:
+
+```
+<snapshotRootDir>/<baseline|diff|results>/<snapshotSubpath>/<task-id>-<variant>.png
+```
+
+Where:
+- `snapshotRootDir` is determined by the `snapshotRootDir` option
+- `snapshotSubpath` is the result of the `snapshotSubpath` function (or default)
+- `task-id` is derived from the story name
+- `variant` identifies the specific snapshot variant
+
+## Related
+
+- [createStorybookVisServer](/docs/storybook-addon-vis-server-create-storybook-vis-server--docs) - Server implementation that uses these options
+- [Storybook Visual Testing Overview](/docs/storybook-addon-vis-overview--docs) - General overview of the addon
+

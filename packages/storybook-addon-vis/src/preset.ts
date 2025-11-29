@@ -1,6 +1,6 @@
 import type { Channel } from 'storybook/internal/channels'
 import { createStorybookVisServer } from './server/create_storybook_vis_server.ts'
-import type { StorybookVisOptions } from './server/vis_options.ts'
+import type { StorybookVisOptions } from './server/types.ts'
 import { NAME } from './shared/contants.ts'
 import { IMAGE_SNAPSHOT_RESULTS_REQUEST, IMAGE_SNAPSHOT_RESULTS_RESPONSE, type VisEvent } from './shared/events.ts'
 

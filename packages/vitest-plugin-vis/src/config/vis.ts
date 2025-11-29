@@ -1,4 +1,4 @@
-import type { PluginOption } from 'vite'
+import type { Plugin } from 'vitest/config'
 import { commands } from '../server/commands/commands.ts'
 import { setVisOption } from '../server/vis_options.ts'
 import { NAME } from '../shared/constants.ts'
@@ -20,12 +20,12 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 			return {
 				test: {
 					browser: {
-						name: undefined as unknown as string,
-						commands,
+						name: undefined,
+						commands: commands as any,
 					},
 					setupFiles: preset && preset !== 'none' && preset !== 'custom' ? [`vitest-plugin-vis/presets/${preset}`] : [],
 				},
 			}
 		},
-	} satisfies PluginOption
+	} satisfies Plugin
 }

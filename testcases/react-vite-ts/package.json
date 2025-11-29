@@ -8,6 +8,7 @@
 		"clean:vis:local": "rimraf __vis__/local",
 		"nuke": "rimraf node_modules",
 		"sb": "storybook dev -p 6106",
+		"t:t": "tsc --noEmit",
 		"test": "vitest run",
 		"testcase": "vitest run",
 		"testcase:u": "vitest run -u",
@@ -23,19 +24,20 @@
 		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
-		"@repobuddy/vitest": "^1.2.2",
-		"@storybook/addon-vitest": "^9.1.13",
-		"@storybook/react-vite": "^9.1.15",
-		"@types/react": "^19.2.2",
-		"@types/react-dom": "^19.2.1",
-		"@vitejs/plugin-react": "^5.0.0",
+		"@repobuddy/vitest": "catalog:",
+		"@storybook/addon-vitest": "^10.1.2",
+		"@storybook/react-vite": "^10.1.2",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
 		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
 		"globals": "^16.0.0",
-		"storybook": "^9.1.10",
+		"storybook": "^10.1.2",
 		"storybook-addon-vis": "workspace:*",
 		"tailwindcss": "^3",
-		"typescript": "^5.9.3",
+		"typescript": "catalog:",
 		"vitest": "catalog:",
-		"vitest-browser-react": "^1.0.0"
+		"vitest-browser-react": "catalog:"
 	}
 }

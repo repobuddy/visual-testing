@@ -1,6 +1,7 @@
 import { storybookVis } from '#storybook-addon-vis/vitest-plugin'
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
 import { join } from 'node:path'
 import { defineProject } from 'vitest/config'
 
@@ -30,7 +31,7 @@ export default defineProject({
 		browser: {
 			enabled: true,
 			headless: true,
-			provider: 'playwright',
+			provider: playwright(),
 			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},
 		setupFiles: ['.storybook/vitest.setup.ts'],

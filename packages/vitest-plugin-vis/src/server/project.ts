@@ -1,13 +1,14 @@
-export function getProjectName(context: {
-	project: { vite: { config: { test?: { name?: { label: string } | string | undefined } } } }
-}) {
-	const name = context.project.vite.config.test?.name
+import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
+
+export function getProjectName(context: ExtendedBrowserCommandContext) {
+	const { runner } = context.project
+	const name = runner.config.name
 	if (typeof name === 'string') {
 		return name
 	}
-	if (typeof name === 'object' && 'label' in name) {
-		return name.label
-	}
+	// if (typeof name === 'object' && 'label' in name) {
+	// 	return (name as { label: string }).label
+	// }
 	return undefined
 }
 

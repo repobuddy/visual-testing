@@ -10,11 +10,11 @@ it('return falsy when no element in body', async ({ expect }) => {
 })
 
 it('returns falsy when meta is undefined', async ({ expect }) => {
-	render(<div>test</div>)
+	await render(<div>test</div>)
 	expect(shouldTakeSnapshot(undefined)).toBeFalsy()
 })
 
 it('returns true when it is a rendering test with meta.enable=true', async ({ expect }) => {
-	render(<div>test</div>)
+	await render(<div>test</div>)
 	expect(shouldTakeSnapshot({ enable: true })).toBe(true)
 })

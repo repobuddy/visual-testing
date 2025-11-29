@@ -11,7 +11,19 @@
 			"path": "./testcases/react-vite-ts"
 		},
 		{
+			"path": "./testcases/sb-csf-next"
+		},
+		{
+			"path": "./testcases/sb-csf-mix"
+		},
+		{
 			"path": "./testcases/themes"
+		},
+		{
+			"path": "./testcases/vpv"
+		},
+		{
+			"path": "./testcases/workspace"
 		}
 	]
 }

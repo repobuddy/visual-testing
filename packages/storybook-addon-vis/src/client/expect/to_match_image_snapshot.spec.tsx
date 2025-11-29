@@ -1,9 +1,9 @@
 import { composeStories } from '@storybook/react-vite'
 import { screen } from '@testing-library/react'
-import { page } from '@vitest/browser/context'
 import React from 'react'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
+import { page } from 'vitest/browser'
 import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64 } from '../../testing.ts'
 import * as stories from './to_match_image_snapshot.stories.tsx'
@@ -11,25 +11,25 @@ import * as stories from './to_match_image_snapshot.stories.tsx'
 const { MatchingElement } = composeStories(stories)
 
 it('accepts Locator', async () => {
-	const screen = render(<div data-testid="subject">unit</div>)
+	const screen = await render(<div data-testid="subject">unit</div>)
 	const locator = screen.getByTestId('subject')
 	await expect(locator).toMatchImageSnapshot()
 })
 
 it('accepts Element', async () => {
-	const screen = render(<div data-testid="subject">unit</div>)
+	const screen = await render(<div data-testid="subject">unit</div>)
 	const locator = screen.getByTestId('subject')
 	await expect(locator.element()).toMatchImageSnapshot()
 })
 
 it('accepts `baseElement` (same as body)', async () => {
 	// the png file created is not valid
-	const screen = render(<div data-testid="subject">unit</div>)
+	const screen = await render(<div data-testid="subject">unit</div>)
 	await expect(screen.baseElement).toMatchImageSnapshot()
 })
 
 it('accepts document.body', async () => {
-	render(<div data-testid="subject">unit</div>)
+	await render(<div data-testid="subject">unit</div>)
 	await expect(document.body).toMatchImageSnapshot()
 })
 

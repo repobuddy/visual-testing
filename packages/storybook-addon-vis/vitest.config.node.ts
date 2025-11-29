@@ -4,6 +4,9 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
 	test: {
 		name: 'sav:node',
-		include: ['src/vitest-plugin/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts'],
+		include: [
+			'src/vitest-plugin/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
+			'src/node/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
+		],
 	},
 })

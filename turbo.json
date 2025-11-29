@@ -1,5 +1,5 @@
 {
-	"$schema": "https://turbo.build/schema.json",
+	"$schema": "./node_modules/turbo/schema.json",
 	"ui": "tui",
 	"tasks": {
 		"build": {
@@ -56,7 +56,7 @@
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"]
 		},
-		"test:type": {
+		"t:t": {
 			"dependsOn": ["^build"]
 		},
 		"test:u": {

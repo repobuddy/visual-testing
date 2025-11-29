@@ -1,4 +1,4 @@
-import { commands, page } from '@vitest/browser/context'
+import { commands, page } from 'vitest/browser'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from '../auto_snapshot_options.ts'
@@ -13,7 +13,7 @@ it('returns empty array when no image snapshots', async () => {
 
 it('returns image snapshots', async () => {
 	setAutoSnapshotOptions(false)
-	render(<div>Test</div>)
+	await render(<div>Test</div>)
 
 	const hasSnapshot = await page.hasImageSnapshot({ snapshotKey: 'manual' })
 

@@ -1,5 +1,6 @@
-import { commands } from '@vitest/browser/context'
-import { afterEach, beforeAll, beforeEach, vi, type Awaitable, type Suite } from 'vitest'
+import { afterEach, beforeAll, beforeEach, vi, type SuiteAPI } from 'vitest'
+import { commands } from 'vitest/browser'
+import type { Awaitable } from '../../shared/types.ts'
 
 export const ctx = {
 	beforeAll,
@@ -7,7 +8,7 @@ export const ctx = {
 	afterEach,
 	commands,
 	mock() {
-		const beforeAllListeners: Array<(suite: Readonly<Suite | File>) => Awaitable<unknown>> = []
+		const beforeAllListeners: Array<(suite: Readonly<SuiteAPI | File>) => Awaitable<unknown>> = []
 		beforeEach(() => {
 			ctx.beforeAll = vi.fn((fn) => {
 				beforeAllListeners.push(fn)

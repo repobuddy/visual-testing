@@ -1,6 +1,11 @@
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { playwright } from '@vitest/browser-playwright'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitest/config'
+const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url))
 
-// https://vitejs.dev/config/
+// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
 	test: {
 		coverage: {
@@ -11,7 +16,7 @@ export default defineConfig({
 				'**/*.stories.{js,mjs,jsx,tsx}',
 			],
 		},
-		workspace: [
+		projects: [
 			'./packages/storybook-addon-vis/vitest.config.node.ts',
 			'./packages/storybook-addon-vis/vitest.config.playwright.ts',
 			'./packages/vitest-plugin-vis/vitest.config.node.ts',
@@ -19,6 +24,54 @@ export default defineConfig({
 			// './packages/vitest-plugin-vis/vitest.config.webdriverio.ts',
 			// './testcases/react-vite-ts/vite.config.ts',
 			'./testcases/*',
+			{
+				extends: true,
+				plugins: [
+					// The plugin will run tests for the stories defined in your Storybook config
+					// See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+					storybookTest({
+						configDir: path.join(dirname, '.storybook'),
+					}),
+				],
+				test: {
+					name: 'storybook',
+					browser: {
+						enabled: true,
+						headless: true,
+						provider: playwright(),
+						instances: [
+							{
+								browser: 'chromium',
+							},
+						],
+					},
+					setupFiles: ['testcases/sb-csf-next/.storybook/vitest.setup.ts'],
+				},
+			},
+			{
+				extends: true,
+				plugins: [
+					// The plugin will run tests for the stories defined in your Storybook config
+					// See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+					storybookTest({
+						configDir: path.join(dirname, '.storybook'),
+					}),
+				],
+				test: {
+					name: 'storybook',
+					browser: {
+						enabled: true,
+						headless: true,
+						provider: playwright({}),
+						instances: [
+							{
+								browser: 'chromium',
+							},
+						],
+					},
+					setupFiles: ['testcases/sb-csf-3/.storybook/vitest.setup.ts'],
+				},
+			},
 		],
 	},
 })

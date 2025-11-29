@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { vis } from '../config.ts'
+import { stubSuite } from '../server/testing/stubSuite.ts'
 import { getVisOption } from '../server/vis_options.ts'
-import { stubSuite } from '../testing/stubSuite.ts'
 
 it('set plugin name to vis', () => {
 	expect(vis().name).toBe('vis')
@@ -9,7 +9,7 @@ it('set plugin name to vis', () => {
 
 describe('vis().config()', () => {
 	it('should not specify browser name', () => {
-		const config = vis().config({})
+		const config = vis().config({} as any)
 		expect(config.test?.browser.name).toBeUndefined()
 	})
 
@@ -17,7 +17,7 @@ describe('vis().config()', () => {
 		const plugin = vis()
 
 		const { userConfig, browserCommandContext } = stubSuite({
-			test: {},
+			test: { name: undefined as any },
 		})
 
 		plugin.config(userConfig)
@@ -34,9 +34,9 @@ describe('vis().config()', () => {
 			},
 			{
 				project: {
-					vite: {
+					runner: {
 						config: {
-							test: { name: 'my-project' },
+							name: 'my-project',
 						},
 					},
 				},

@@ -1,0 +1,57 @@
+diff --git a/dist/csf/index.d.ts b/dist/csf/index.d.ts
+index 544a2e7010c768fa2724f2f133128adedfc7c0af..c91a1201d863c435427cbac6a888250a2bfdb3a7 100644
+--- a/dist/csf/index.d.ts
++++ b/dist/csf/index.d.ts
+@@ -1,5 +1,5 @@
+-import { StorybookTypes, Renderer as Renderer$1, ProjectAnnotations as ProjectAnnotations$1, NormalizedProjectAnnotations, Args as Args$1, ComponentAnnotations as ComponentAnnotations$1, StoryAnnotations as StoryAnnotations$1, ComposedStoryFn, TestFunction as TestFunction$1 } from 'storybook/internal/types';
+-import { AddonTypes as AddonTypes$1, StoryContext as StoryContext$1 } from 'storybook/internal/csf';
++import { AddonTypes as AddonTypes$1, StoryContext as StoryContext$1 } from 'storybook/internal/csf'
++import { Args as Args$1, ComponentAnnotations as ComponentAnnotations$1, ComposedStoryFn, NormalizedProjectAnnotations, ProjectAnnotations as ProjectAnnotations$1, Renderer as Renderer$1, StoryAnnotations as StoryAnnotations$1, StorybookTypes, TestFunction as TestFunction$1 } from 'storybook/internal/types'
+ 
+ declare global {
+ 	interface SymbolConstructor {
+@@ -365,7 +365,7 @@ interface BackgroundsParameters {
+         options?: BackgroundMap;
+     };
+ }
+-interface BackgroundsGlobals {
++export interface BackgroundsGlobals {
+     /**
+      * Backgrounds configuration
+      *
+@@ -524,7 +524,7 @@ interface ViewportParameters {
+         options: Record<string, Viewport>;
+     };
+ }
+-interface ViewportGlobals {
++export interface ViewportGlobals {
+     /**
+      * Viewport configuration
+      *
+@@ -1033,4 +1033,5 @@ declare const parseKind: (kind: string, { rootSeparator, groupSeparator }: Separ
+ /** Combine a set of project / meta / story tags, removing duplicates and handling negations. */
+ declare const combineTags: (...tags: string[]) => string[];
+ 
+-export { type AddonTypes, type AfterEach, type AnnotatedStoryFn, type AnyFramework, type ArgTypes, type ArgTypesEnhancer, type Args, type ArgsEnhancer, type ArgsFromMeta, type ArgsStoryFn, type BaseAnnotations, type BeforeAll, type BeforeEach, type Canvas, type CleanupCallback, type ComponentAnnotations, type ComponentId, type ComponentTitle, type Conditional, type CoreTypes, type DecoratorApplicator, type DecoratorFunction, type GlobalTypes, type Globals, type IncludeExcludeOptions, type InferTypes, type InputType, type LegacyAnnotatedStoryFn, type LegacyStoryAnnotationsOrFn, type LegacyStoryFn, type LoaderFunction, type Meta, type Parameters, type PartialStoryFn, type PlayFunction, type PlayFunctionContext, type Preview, type PreviewAddon, type ProjectAnnotations, type Renderer, type SBArrayType, type SBEnumType, type SBIntersectionType, type SBObjectType, type SBOtherType, type SBScalarType, type SBType, type SBUnionType, type SeparatorOptions, type StepFunction, type StepLabel, type StepRunner, type Story, type StoryAnnotations, type StoryAnnotationsOrFn, type StoryContext, type StoryContextForEnhancers, type StoryContextForLoaders, type StoryContextUpdate, type StoryFn, type StoryId, type StoryIdentifier, type StoryKind, type StoryName, type StrictArgTypes, type StrictArgs, type StrictGlobalTypes, type StrictInputType, type StrictParameters, type Tag, type TestFunction, type ViewMode, combineTags, definePreview, definePreviewAddon, getCoreAnnotations, getStoryChildren, includeConditionalArg, isExportStory, isMeta, isPreview, isStory, parseKind, sanitize, storyNameFromExport, toId, toTestId };
++export { combineTags, definePreview, definePreviewAddon, getCoreAnnotations, getStoryChildren, includeConditionalArg, isExportStory, isMeta, isPreview, isStory, parseKind, sanitize, storyNameFromExport, toId, toTestId, type AddonTypes, type AfterEach, type AnnotatedStoryFn, type AnyFramework, type Args, type ArgsEnhancer, type ArgsFromMeta, type ArgsStoryFn, type ArgTypes, type ArgTypesEnhancer, type BaseAnnotations, type BeforeAll, type BeforeEach, type Canvas, type CleanupCallback, type ComponentAnnotations, type ComponentId, type ComponentTitle, type Conditional, type CoreTypes, type DecoratorApplicator, type DecoratorFunction, type Globals, type GlobalTypes, type IncludeExcludeOptions, type InferTypes, type InputType, type LegacyAnnotatedStoryFn, type LegacyStoryAnnotationsOrFn, type LegacyStoryFn, type LoaderFunction, type Meta, type Parameters, type PartialStoryFn, type PlayFunction, type PlayFunctionContext, type Preview, type PreviewAddon, type ProjectAnnotations, type Renderer, type SBArrayType, type SBEnumType, type SBIntersectionType, type SBObjectType, type SBOtherType, type SBScalarType, type SBType, type SBUnionType, type SeparatorOptions, type StepFunction, type StepLabel, type StepRunner, type Story, type StoryAnnotations, type StoryAnnotationsOrFn, type StoryContext, type StoryContextForEnhancers, type StoryContextForLoaders, type StoryContextUpdate, type StoryFn, type StoryId, type StoryIdentifier, type StoryKind, type StoryName, type StrictArgs, type StrictArgTypes, type StrictGlobalTypes, type StrictInputType, type StrictParameters, type Tag, type TestFunction, type ViewMode }
++
+diff --git a/dist/viewport/index.d.ts b/dist/viewport/index.d.ts
+index 46de68a54f8e59c90abe1d9feecea108b24d4a28..1a8a46917ffb9b0e63b425a3ca0a4629f354f47f 100644
+--- a/dist/viewport/index.d.ts
++++ b/dist/viewport/index.d.ts
+@@ -47,7 +47,7 @@ interface ViewportParameters {
+         options: Record<string, Viewport>;
+     };
+ }
+-interface ViewportGlobals {
++export interface ViewportGlobals {
+     /**
+      * Viewport configuration
+      *
+@@ -325,4 +325,5 @@ declare const MINIMAL_VIEWPORTS: {
+ 
+ declare const responsiveViewport: Viewport;
+ 
+-export { ADDON_ID, DEFAULT_VIEWPORT, type GlobalState, type GlobalStateUpdate, INITIAL_VIEWPORTS, type InitialViewportKeys, MINIMAL_VIEWPORTS, PANEL_ID, PARAM_KEY, TOOL_ID, type Viewport, type ViewportGlobals, type ViewportMap, type ViewportParameters, type ViewportStyles, type ViewportTypes, responsiveViewport };
++export { ADDON_ID, DEFAULT_VIEWPORT, INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS, PANEL_ID, PARAM_KEY, responsiveViewport, TOOL_ID, type GlobalState, type GlobalStateUpdate, type InitialViewportKeys, type Viewport, type ViewportGlobals, type ViewportMap, type ViewportParameters, type ViewportStyles, type ViewportTypes }
++

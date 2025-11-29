@@ -3,19 +3,20 @@ import { platform } from 'node:process'
 import type { VisOptions } from '../config/types.ts'
 import { SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { trimCommonFolder } from '../shared/trim_common_folder.ts'
-import type { PartialBrowserCommandContext } from './vis_server_context.types.ts'
+import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
 
-export function resolveSnapshotRootDir(browserCommandContext: PartialBrowserCommandContext, options: VisOptions) {
+export function resolveSnapshotRootDir(browserCommandContext: ExtendedBrowserCommandContext, options: VisOptions) {
 	if (!options.snapshotRootDir) return getSnapshotRootDir(SNAPSHOT_ROOT_DIR)
 	const snapshotRootDir = options.snapshotRootDir
 	if (typeof snapshotRootDir === 'string') return getSnapshotRootDir(snapshotRootDir)
+	const { config } = browserCommandContext.project.browser
 	return snapshotRootDir({
 		ci,
-		browserName: browserCommandContext.provider.browserName,
+		browserName: config.browser.name,
 		providerName: browserCommandContext.provider.name,
 		platform,
-		screenshotFailures: browserCommandContext.provider.options?.screenshotFailures,
-		screenshotDirectory: browserCommandContext.provider.options?.screenshotDirectory,
+		screenshotFailures: config.browser.screenshotFailures,
+		screenshotDirectory: config.browser.screenshotDirectory,
 	})
 }
 

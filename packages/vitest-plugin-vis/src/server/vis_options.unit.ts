@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { stubBrowserCommandContext } from './testing/stubBrowserCommandContext.ts'
 import { getVisOption, setVisOption } from './vis_options.ts'
 
 describe(`${setVisOption.name}`, () => {
@@ -6,21 +7,22 @@ describe(`${setVisOption.name}`, () => {
 		const name = 'test-project'
 
 		setVisOption(
-			{
-				test: { name },
-			},
+			{ test: { name } },
+
 			{},
 		)
 
-		const project = getVisOption({
-			project: {
-				vite: {
-					config: {
-						test: { name },
+		const project = getVisOption(
+			stubBrowserCommandContext({
+				project: {
+					runner: {
+						config: {
+							name,
+						},
 					},
 				},
-			},
-		})
+			}),
+		)
 		expect(project).toEqual({})
 	})
 })

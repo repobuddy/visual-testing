@@ -1,0 +1,28 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 9d3fc68d70cd56415395a5b73e34c5b9354402ef..2e030c89a849010da57b3a7e3c2aa2510b8ea412 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,5 +1,5 @@
+-import * as storybook_internal_csf from 'storybook/internal/csf';
+-import { Selector, SelectorList, RunOptions, Spec } from 'axe-core';
++import { RunOptions, Selector, SelectorList, Spec } from 'axe-core'
++import * as storybook_internal_csf from 'storybook/internal/csf'
+ 
+ type SelectorWithoutNode = Omit<Selector, 'Node'> | Omit<SelectorList, 'NodeList'>;
+ type ContextObjectWithoutNode = {
+@@ -45,7 +45,7 @@ interface A11yParameters {
+      */
+     a11y?: A11yParameters$1;
+ }
+-interface A11yGlobals {
++export interface A11yGlobals {
+     /**
+      * Accessibility configuration
+      *
+@@ -70,4 +70,5 @@ declare const PARAM_KEY = "a11y";
+ 
+ declare const _default: () => storybook_internal_csf.PreviewAddon<A11yTypes>;
+ 
+-export { type A11yParameters$1 as A11yParameters, type A11yTypes, type ContextObjectWithoutNode, type ContextSpecWithoutNode, PARAM_KEY, type SelectorWithoutNode, _default as default };
++export { _default as default, PARAM_KEY, type A11yParameters$1 as A11yParameters, type A11yTypes, type ContextObjectWithoutNode, type ContextSpecWithoutNode, type SelectorWithoutNode }
++
