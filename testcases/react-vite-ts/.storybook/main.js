@@ -14,7 +14,7 @@ const config = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 	addons: [getAbsolutePath('@storybook/addon-vitest'), getAbsolutePath('storybook-addon-vis')],
 	framework: {
-		name: '@storybook/react-vite',
+		name: getAbsolutePath('@storybook/react-vite'),
 		options: {},
 	},
 }

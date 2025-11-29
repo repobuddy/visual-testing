@@ -17,9 +17,7 @@ export default defineMain({
 		getAbsolutePath('@storybook/addon-a11y'),
 		getAbsolutePath('@storybook/addon-vitest'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
+		getAbsolutePath('storybook-addon-vis'),
 	],
-	framework: {
-		name: getAbsolutePath('@storybook/react-vite'),
-		options: {},
-	},
+	framework: getAbsolutePath('@storybook/react-vite'),
 })

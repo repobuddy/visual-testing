@@ -2,13 +2,13 @@ import { describe, it } from 'vitest'
 import { isSnapshotEnabled } from './tags.ts'
 
 describe('isSnapshotEnabled', () => {
-	it('returns undefined when tags array is empty', ({ expect }) => {
-		expect(isSnapshotEnabled([])).toBeUndefined()
+	it('returns false when tags array is empty', ({ expect }) => {
+		expect(isSnapshotEnabled([])).toBe(false)
 	})
 
-	it('returns undefined when neither snapshot nor !snapshot tags exist', ({ expect }) => {
-		expect(isSnapshotEnabled(['other', 'tags'])).toBeUndefined()
-		expect(isSnapshotEnabled(['test', 'story'])).toBeUndefined()
+	it('returns false when neither snapshot nor !snapshot tags exist', ({ expect }) => {
+		expect(isSnapshotEnabled(['other', 'tags'])).toBe(false)
+		expect(isSnapshotEnabled(['test', 'story'])).toBe(false)
 	})
 
 	it('returns true when only snapshot tag exists', ({ expect }) => {

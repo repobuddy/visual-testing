@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
 		"composite": true,
-		// "declaration": true,
-		// "declarationMap": true,
+		"declaration": true,
+		"declarationMap": true,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"lib": ["ESNext", "DOM.Iterable", "DOM"],

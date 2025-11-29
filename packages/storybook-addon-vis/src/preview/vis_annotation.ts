@@ -1,18 +1,17 @@
-import type { ProjectAnnotations, Renderer, StoryContext } from 'storybook/internal/types'
+import type { NamedOrDefaultProjectAnnotations } from 'storybook/internal/types'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { isSnapshotEnabled } from '../client/storybook/tags.ts'
 import { getCurrentTest } from '../client/vitest_proxy.ts'
 
 export const visAnnotations = {
-	beforeEach(ctx: StoryContext) {
-		// console.debug('storbook-addon-vis.preview.beforeEach starts...')
+	beforeEach(ctx) {
 		const test = getCurrentTest()
-		const snapshotEnabled = isSnapshotEnabled(ctx.tags)
+
 		setAutoSnapshotOptions({
-			...(snapshotEnabled === undefined ? {} : { enable: snapshotEnabled }),
+			enable: isSnapshotEnabled(ctx.tags),
 			...ctx.parameters?.snapshot,
 			tags: ctx.tags,
 			...test?.meta.vis,
 		})
 	},
-} satisfies ProjectAnnotations<Renderer>
+} satisfies NamedOrDefaultProjectAnnotations<any>
