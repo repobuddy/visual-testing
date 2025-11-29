@@ -26,6 +26,7 @@ The [`vitest-plugin-vis`][vitest-plugin-vis] plugin can be used without customiz
 
 ```ts
 // vitest.config.ts
+import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vitest/config'
 import { vis } from 'vitest-plugin-vis/config'
 
@@ -42,6 +43,14 @@ export default defineConfig({
 		browser: {
 			enabled: true,
 			provider: 'playwright',
+			instances: [
+				{ browser: 'chromium' }
+			]
+		},
+		// vitest v4
+		browser: {
+			enabled: true,
+			provider: playwright(),
 			instances: [
 				{ browser: 'chromium' }
 			]
