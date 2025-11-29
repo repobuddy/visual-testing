@@ -1,5 +1,20 @@
 # CHANGE LOG
 
+## 3.0.0
+
+### Major Changes
+
+- [#467](https://github.com/repobuddy/visual-testing/pull/467) [`155fe43`](https://github.com/repobuddy/visual-testing/commit/155fe43b2ca233ab9267099b5f9e7b544827531f) Thanks [@unional](https://github.com/unional)! - Update to Storybook 10
+
+### Minor Changes
+
+- [#467](https://github.com/repobuddy/visual-testing/pull/467) [`6e9ed69`](https://github.com/repobuddy/visual-testing/commit/6e9ed6903e073858c18d4614d598599ce5096f51) Thanks [@unional](https://github.com/unional)! - Add `defineStorybookVis()`
+
+### Patch Changes
+
+- Updated dependencies [[`dcf08aa`](https://github.com/repobuddy/visual-testing/commit/dcf08aa537dd400dab80b642a74e61cfe1366b3b), [`660c153`](https://github.com/repobuddy/visual-testing/commit/660c153c38086773d45b81d529910474a07a6d30)]:
+  - vitest-plugin-vis@4.0.0
+
 ## 2.1.5
 
 ### Patch Changes

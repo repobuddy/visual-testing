@@ -1,5 +1,15 @@
 # vitest-plugin-vis
 
+## 4.0.0
+
+### Major Changes
+
+- [#467](https://github.com/repobuddy/visual-testing/pull/467) [`dcf08aa`](https://github.com/repobuddy/visual-testing/commit/dcf08aa537dd400dab80b642a74e61cfe1366b3b) Thanks [@unional](https://github.com/unional)! - Update to Vitest v4
+
+### Patch Changes
+
+- [#467](https://github.com/repobuddy/visual-testing/pull/467) [`660c153`](https://github.com/repobuddy/visual-testing/commit/660c153c38086773d45b81d529910474a07a6d30) Thanks [@unional](https://github.com/unional)! - Build with `tsdown`
+
 ## 3.5.1
 
 ### Patch Changes
