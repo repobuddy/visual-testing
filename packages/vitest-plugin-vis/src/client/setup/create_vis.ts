@@ -1,27 +1,12 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
 import type { SetupVisSuiteCommand } from '../../server/commands/setup_vis_suite.ts'
-import type { ComparisonMethod } from '../../shared/types.ts'
+import type { ComparisonMethod, SetupVisOptions } from '../../shared/types.ts'
 import { extractAutoSnapshotOptions, setAutoSnapshotOptions } from '../auto_snapshot_options.ts'
 import { ctx } from '../ctx.ts'
 import { shouldTakeSnapshot } from '../should_take_snapshot.ts'
 import type { SnapshotMeta } from '../snapshot_meta.ts'
 import { toTaskId } from '../task_id.ts'
-
-export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
-	auto?:
-		| boolean
-		| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
-				options: SnapshotMeta<C> & M & GM,
-		  ) => Promise<boolean> | Promise<void> | boolean | void)
-		| Record<
-				string,
-				| boolean
-				| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
-						options: SnapshotMeta<C> & M & GM,
-				  ) => Promise<boolean> | Promise<void> | boolean | void)
-		  >
-}
 
 /**
  * Visual test configuration on the client side.

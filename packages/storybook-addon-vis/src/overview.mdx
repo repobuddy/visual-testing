@@ -36,7 +36,7 @@ Please refer to its documentation for installation and setup instructions.
 To setup [storybook-addon-vis][storybook-addon-vis], you need to do the following:
 
 - Add the `storybookVis` plugin in [Vitest] along with the `storybookTest` plugin.
-- Configure visual testing in `.storybook/preview.ts` or `vitest.setup.ts`, depending on whether you are writing your stories in CSF 3 or CSF Next.
+- Configure visual testing in `vitest.setup.ts` (and `.storybook/preview.ts` if you are writing your stories in CSF Next).
 - Add [storybook-addon-vis][storybook-addon-vis] addon to your [Storybook] configuration in `.storybook/main.ts`.
 - Ignore snapshot folders in your `.gitignore` file.
 
@@ -219,27 +219,8 @@ causes inconsistency and confuses both the editor and you.
 ### Basic Setup for CSF Next
 
 If you are writing your stories in CSF Next,
-you don't need to setup the `vitest.setup.ts` file.
-Instead, you need to setup the visual testing in `.storybook/preview.ts`.
+You need to setup the visual testing also in `.storybook/preview.ts`.
 
-
-```ts
-// vitest.config.ts
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
-import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-	plugins: [
-		storybookTest(),
-		storybookVis() // ADD THIS
-	],
-	test: {
-		browser: { ... }, // your Vitest Browser Mode configuration
-		// setupFiles: ['./vitest.setup.ts'], // Do not need to setup this file anymore
-	}
-})
-```
 
 ```ts
 // .storybook/preview.ts
@@ -248,7 +229,8 @@ import { definePreview } from '@storybook/your-framework/node'
 
 export default definePreview({
 	addons: [
-		addonVis({ auto: true }) // ADD THIS
+		// Enable automatic snapshot taking at the end of each test
+		addonVis({ auto: true })
 	]
 })
 ```
@@ -295,47 +277,31 @@ The options are the same as the options in [`vitest-plugin-vis`][vitest-plugin-v
 
 For more details, please refer to the [vitest-plugin-vis documentation](https://github.com/repobuddy/visual-testing/tree/main/packages/vitest-plugin-vis).
 
-In `.storybook/preview.ts` or `vitest.setup.ts`, you can customize how the automatic snapshots are taken.
-
-The `addonVis()` used in `.storybook/preview.ts` and `vis.setup()` used in `vitest.setup.ts` have the same options.
-Here, we will use the `addonVis()` options as an example.
+In `vitest.setup.ts`, you can customize how the automatic snapshots are taken.
 
 ```ts
-// .storybook/preview.ts
-import addonVis from 'storybook-addon-vis'
-import { definePreview } from '@storybook/your-framework/node'
+// vitest.setup.ts
+import { vis } from 'storybook-addon-vis/setup'
 
-export default definePreview({
-	addons: [
-		// Enable visual testing without automatic snapshot taking
-		// You can use this if you want to only take manual snapshots.
-		addonVis(),
-		// or
-		addonVis({ auto: false }),
+vis.setup({
+	// With automatic snapshot taking at the end of each test
+	auto: true,
 
-		// With automatic snapshot taking at the end of each test
-		addonVis({ auto: true }),
-
-		// Control when automatic snapshot taking occurs
-		addonVis({ auto: async ({ tags }) => tags.includes('presentation') }),
+	// Control when automatic snapshot taking occurs
+	auto: async ({ tags }) => tags.includes('presentation'),
 
 
-		// Capture image snapshot at the end of each test for multiple themes (light and dark in this example).
-		//
-		// Note that this changes the theme in the `afterEach` hook.
-		// If you want to capture manual snapshots in different themes,
-		// configure Vitest to run the tests in different themes.
-		addonVis({
-			auto: {
-				async dark() { document.body.classList.add('dark') },
-				async light() { document.body.classList.remove('dark') },
-			}
-		})
-	]
+	// Capture image snapshot at the end of each test for multiple themes (light and dark in this example).
+	//
+	// Note that this changes the theme in the `afterEach` hook.
+	// If you want to capture manual snapshots in different themes,
+	// configure Vitest to run the tests in different themes.
+	auto: {
+		async dark() { document.body.classList.add('dark') },
+		async light() { document.body.classList.remove('dark') },
+	}
 })
 ```
-
-All setup above will enable snapshot testing in storybook when the story has the `snapshot` tag.
 
 #### Multiple vitest projects or custom snapshot paths
 
