@@ -9,7 +9,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis()],
 	test: {
-		name: 'sb-csf-2',
+		name: 'sb-csf-3',
 		browser: {
 			enabled: true,
 			headless: true,
