@@ -1,4 +1,4 @@
-import{R as s}from"./iframe-fTt469q7.js";import"./preload-helper-PPVm8Dsz.js";const t={title:".storybook/main/defineStorybookVisOptions"},o={render:()=>s.createElement("pre",null,`defineStorybookVisOptions({
+import{R as s}from"./iframe-DUflMRLr.js";import"./preload-helper-PPVm8Dsz.js";const t={title:".storybook/main/defineStorybookVisOptions"},o={render:()=>s.createElement("pre",null,`defineStorybookVisOptions({
     visProjects: [
         {
             snapshotRootDir: '__vis__/linux',

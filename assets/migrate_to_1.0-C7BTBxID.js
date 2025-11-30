@@ -1,4 +1,4 @@
-import{j as o,M as i}from"./iframe-fTt469q7.js";import{useMDXComponents as t}from"./index-CZprrVMJ.js";import"./preload-helper-PPVm8Dsz.js";function n(s){const e={a:"a",code:"code",h1:"h1",p:"p",pre:"pre",...t(),...s.components};return o.jsxs(o.Fragment,{children:[o.jsx(i,{title:"Releases/Migrating to 1.0"}),`
+import{j as o,M as i}from"./iframe-DUflMRLr.js";import{useMDXComponents as t}from"./index-BbkR72zv.js";import"./preload-helper-PPVm8Dsz.js";function n(s){const e={a:"a",code:"code",h1:"h1",p:"p",pre:"pre",...t(),...s.components};return o.jsxs(o.Fragment,{children:[o.jsx(i,{title:"Releases/Migrating to 1.0"}),`
 `,o.jsx(e.h1,{id:"migrating-to-10",children:"Migrating to 1.0"}),`
 `,o.jsxs(e.p,{children:[o.jsx(e.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," 1.0 has made some major improvements over the previous version. Along with the new features, there are some breaking changes."]}),`
 `,o.jsxs(e.p,{children:["🗒️ ",o.jsx(e.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"}),` 1.0 supports Storybook 8.

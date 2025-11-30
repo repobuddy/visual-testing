@@ -1,4 +1,10 @@
-import{j as t,M as i,n as a}from"./iframe-fTt469q7.js";import{useMDXComponents as s}from"./index-CZprrVMJ.js";import"./preload-helper-PPVm8Dsz.js";const d=`# CHANGE LOG
+import{j as t,M as i,n as a}from"./iframe-DUflMRLr.js";import{useMDXComponents as s}from"./index-BbkR72zv.js";import"./preload-helper-PPVm8Dsz.js";const d=`# CHANGE LOG
+
+## 3.0.1
+
+### Patch Changes
+
+- [#488](https://github.com/repobuddy/visual-testing/pull/488) [\`479e214\`](https://github.com/repobuddy/visual-testing/commit/479e21422882109efdb52d0867058ca6ad1855c7) Thanks [@unional](https://github.com/unional)! - Fix crash when running within Storybook.
 
 ## 3.0.0
 

@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-fTt469q7.js";import{useMDXComponents as o}from"./index-CZprrVMJ.js";import"./preload-helper-PPVm8Dsz.js";function s(n){const e={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...o(),...n.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Overview"}),`
+import{j as t,M as i}from"./iframe-DUflMRLr.js";import{useMDXComponents as o}from"./index-BbkR72zv.js";import"./preload-helper-PPVm8Dsz.js";function s(n){const e={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...o(),...n.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Overview"}),`
 `,t.jsx(e.h1,{id:"storybook-visual-testing-addon",children:"Storybook Visual Testing addon"}),`
 `,t.jsxs(e.p,{children:[t.jsx(e.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," allows you to perform self contained Visual Testing for ",t.jsx(e.a,{href:"https://storybook.js.org",rel:"nofollow",children:"Storybook"}),"."]}),`
 `,t.jsx(e.p,{children:"The image snapshots are stored locally and are used to detect visual regressions."}),`
@@ -24,7 +24,7 @@ Please refer to its documentation for installation and setup instructions.`]}),`
 `,t.jsxs(e.p,{children:["To setup ",t.jsx(e.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"}),", you need to do the following:"]}),`
 `,t.jsxs(e.ul,{children:[`
 `,t.jsxs(e.li,{children:["Add the ",t.jsx(e.code,{children:"storybookVis"})," plugin in ",t.jsx(e.a,{href:"https://vitest.dev/",rel:"nofollow",children:"Vitest"})," along with the ",t.jsx(e.code,{children:"storybookTest"})," plugin."]}),`
-`,t.jsxs(e.li,{children:["Configure visual testing in ",t.jsx(e.code,{children:".storybook/preview.ts"})," or ",t.jsx(e.code,{children:"vitest.setup.ts"}),", depending on whether you are writing your stories in CSF 3 or CSF Next."]}),`
+`,t.jsxs(e.li,{children:["Configure visual testing in ",t.jsx(e.code,{children:"vitest.setup.ts"})," (and ",t.jsx(e.code,{children:".storybook/preview.ts"})," if you are writing your stories in CSF Next)."]}),`
 `,t.jsxs(e.li,{children:["Add ",t.jsx(e.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," addon to your ",t.jsx(e.a,{href:"https://storybook.js.org",rel:"nofollow",children:"Storybook"})," configuration in ",t.jsx(e.code,{children:".storybook/main.ts"}),"."]}),`
 `,t.jsxs(e.li,{children:["Ignore snapshot folders in your ",t.jsx(e.code,{children:".gitignore"})," file."]}),`
 `]}),`
@@ -170,31 +170,15 @@ import { expect } from '@storybook/test'
 causes inconsistency and confuses both the editor and you.`]}),`
 `,t.jsx(e.h3,{id:"basic-setup-for-csf-next",children:"Basic Setup for CSF Next"}),`
 `,t.jsxs(e.p,{children:[`If you are writing your stories in CSF Next,
-you don't need to setup the `,t.jsx(e.code,{children:"vitest.setup.ts"}),` file.
-Instead, you need to setup the visual testing in `,t.jsx(e.code,{children:".storybook/preview.ts"}),"."]}),`
-`,t.jsx(e.pre,{children:t.jsx(e.code,{className:"language-ts",children:`// vitest.config.ts
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
-import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-	plugins: [
-		storybookTest(),
-		storybookVis() // ADD THIS
-	],
-	test: {
-		browser: { ... }, // your Vitest Browser Mode configuration
-		// setupFiles: ['./vitest.setup.ts'], // Do not need to setup this file anymore
-	}
-})
-`})}),`
+You need to setup the visual testing also in `,t.jsx(e.code,{children:".storybook/preview.ts"}),"."]}),`
 `,t.jsx(e.pre,{children:t.jsx(e.code,{className:"language-ts",children:`// .storybook/preview.ts
 import addonVis from 'storybook-addon-vis'
 import { definePreview } from '@storybook/your-framework/node'
 
 export default definePreview({
 	addons: [
-		addonVis({ auto: true }) // ADD THIS
+		// Enable automatic snapshot taking at the end of each test
+		addonVis({ auto: true })
 	]
 })
 `})}),`
@@ -233,43 +217,29 @@ export default defineConfig({
 `})}),`
 `,t.jsxs(e.p,{children:["The options are the same as the options in [",t.jsx(e.code,{children:"vitest-plugin-vis"}),"][vitest-plugin-vis] minus the ",t.jsx(e.code,{children:"preset"}),"."]}),`
 `,t.jsxs(e.p,{children:["For more details, please refer to the ",t.jsx(e.a,{href:"https://github.com/repobuddy/visual-testing/tree/main/packages/vitest-plugin-vis",rel:"nofollow",children:"vitest-plugin-vis documentation"}),"."]}),`
-`,t.jsxs(e.p,{children:["In ",t.jsx(e.code,{children:".storybook/preview.ts"})," or ",t.jsx(e.code,{children:"vitest.setup.ts"}),", you can customize how the automatic snapshots are taken."]}),`
-`,t.jsxs(e.p,{children:["The ",t.jsx(e.code,{children:"addonVis()"})," used in ",t.jsx(e.code,{children:".storybook/preview.ts"})," and ",t.jsx(e.code,{children:"vis.setup()"})," used in ",t.jsx(e.code,{children:"vitest.setup.ts"}),` have the same options.
-Here, we will use the `,t.jsx(e.code,{children:"addonVis()"})," options as an example."]}),`
-`,t.jsx(e.pre,{children:t.jsx(e.code,{className:"language-ts",children:`// .storybook/preview.ts
-import addonVis from 'storybook-addon-vis'
-import { definePreview } from '@storybook/your-framework/node'
+`,t.jsxs(e.p,{children:["In ",t.jsx(e.code,{children:"vitest.setup.ts"}),", you can customize how the automatic snapshots are taken."]}),`
+`,t.jsx(e.pre,{children:t.jsx(e.code,{className:"language-ts",children:`// vitest.setup.ts
+import { vis } from 'storybook-addon-vis/setup'
 
-export default definePreview({
-	addons: [
-		// Enable visual testing without automatic snapshot taking
-		// You can use this if you want to only take manual snapshots.
-		addonVis(),
-		// or
-		addonVis({ auto: false }),
+vis.setup({
+	// With automatic snapshot taking at the end of each test
+	auto: true,
 
-		// With automatic snapshot taking at the end of each test
-		addonVis({ auto: true }),
-
-		// Control when automatic snapshot taking occurs
-		addonVis({ auto: async ({ tags }) => tags.includes('presentation') }),
+	// Control when automatic snapshot taking occurs
+	auto: async ({ tags }) => tags.includes('presentation'),
 
 
-		// Capture image snapshot at the end of each test for multiple themes (light and dark in this example).
-		//
-		// Note that this changes the theme in the \`afterEach\` hook.
-		// If you want to capture manual snapshots in different themes,
-		// configure Vitest to run the tests in different themes.
-		addonVis({
-			auto: {
-				async dark() { document.body.classList.add('dark') },
-				async light() { document.body.classList.remove('dark') },
-			}
-		})
-	]
+	// Capture image snapshot at the end of each test for multiple themes (light and dark in this example).
+	//
+	// Note that this changes the theme in the \`afterEach\` hook.
+	// If you want to capture manual snapshots in different themes,
+	// configure Vitest to run the tests in different themes.
+	auto: {
+		async dark() { document.body.classList.add('dark') },
+		async light() { document.body.classList.remove('dark') },
+	}
 })
 `})}),`
-`,t.jsxs(e.p,{children:["All setup above will enable snapshot testing in storybook when the story has the ",t.jsx(e.code,{children:"snapshot"})," tag."]}),`
 `,t.jsx(e.h4,{id:"multiple-vitest-projects-or-custom-snapshot-paths",children:"Multiple vitest projects or custom snapshot paths"}),`
 `,t.jsxs(e.p,{children:[`If your setup uses multiple vitest projects or custom paths,
 you need to tell the addon where to load the snapshot so it can show them in the `,t.jsx(e.code,{children:"Vis"})," panel."]}),`
