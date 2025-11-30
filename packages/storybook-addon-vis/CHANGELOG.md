@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 3.0.1
+
+### Patch Changes
+
+- [#488](https://github.com/repobuddy/visual-testing/pull/488) [`479e214`](https://github.com/repobuddy/visual-testing/commit/479e21422882109efdb52d0867058ca6ad1855c7) Thanks [@unional](https://github.com/unional)! - Fix crash when running within Storybook.
+
 ## 3.0.0
 
 ### Major Changes
