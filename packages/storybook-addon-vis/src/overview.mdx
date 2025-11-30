@@ -98,8 +98,8 @@ const annotations = setProjectAnnotations([
 
 beforeAll(annotations.beforeAll)
 
-// ADD THIS to setup automatic visual testing
-vis.setup({ auto: true })
+// ADD THIS to enable visual testing
+vis.setup()
 ```
 
 For [Storybook], you need to add the addon to your `.storybook/main.ts`:
@@ -140,6 +140,16 @@ export default config
 ```
 
 The `getAbsolutePath` function is a helper function typically added by [Storybook] automatically.
+
+In `.storybook/preview.ts`, you can enable automatic snapshot by adding the `addonVis` addon and setting `auto` to `true`.
+This will enable automatic snapshot taking at the end of each test.
+
+```ts
+// .storybook/preview.ts
+export default {
+	tags: ['snapshot'],
+}
+```
 
 ### Ignore snapshot folders
 
