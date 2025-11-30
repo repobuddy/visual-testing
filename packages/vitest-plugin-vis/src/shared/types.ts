@@ -108,3 +108,18 @@ export type SnapshotTestMeta = {
 		[NAME]?: SnapshotMeta<ComparisonMethod>
 	}
 }
+
+export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
+	auto?:
+		| boolean
+		| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
+				options: SnapshotMeta<C> & M & GM,
+		  ) => Promise<boolean> | Promise<void> | boolean | void)
+		| Record<
+				string,
+				| boolean
+				| (<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
+						options: SnapshotMeta<C> & M & GM,
+				  ) => Promise<boolean> | Promise<void> | boolean | void)
+		  >
+}
