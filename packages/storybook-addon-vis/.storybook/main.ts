@@ -1,4 +1,3 @@
-import { defineStorybookVis } from '#storybook-addon-vis/node'
 import type { StorybookConfig } from '@storybook/react-vite'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -18,16 +17,16 @@ const config: StorybookConfig = {
 		getAbsolutePath('@storybook/addon-vitest'),
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
-		defineStorybookVis({
-			visProjects: [
-				{
-					snapshotRootDir: '__vis__/linux',
-				},
-				{
-					snapshotRootDir: '__vis__/local',
-				},
-			],
-		}),
+		// defineStorybookVis({
+		// 	visProjects: [
+		// 		{
+		// 			snapshotRootDir: '__vis__/linux',
+		// 		},
+		// 		{
+		// 			snapshotRootDir: '__vis__/local',
+		// 		},
+		// 	],
+		// }),
 	],
 	tags: {
 		internal: {
