@@ -1,6 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { defineStorybookVis } from 'storybook-addon-vis/node'
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -16,7 +17,7 @@ const config: StorybookConfig = {
 		getAbsolutePath('@storybook/addon-a11y'),
 		getAbsolutePath('@storybook/addon-vitest'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
-		getAbsolutePath('storybook-addon-vis'),
+		defineStorybookVis(),
 	],
 	framework: getAbsolutePath('@storybook/react-vite'),
 }
