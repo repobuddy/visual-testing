@@ -1,11 +1,11 @@
-import { page } from 'vitest/browser'
 import dedent from 'dedent'
 import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
 import { beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { setAutoSnapshotOptions } from '../../index.ts'
-import { vis } from '../../setup.ts'
+import { page } from 'vitest/browser'
+import { setAutoSnapshotOptions } from '../index.ts'
+import { vis } from '../setup.ts'
 
 describe('matchPerTheme', () => {
 	beforeEach(() => setAutoSnapshotOptions(true))
