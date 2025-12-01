@@ -1,6 +1,6 @@
 import { it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing/constants.ts'
+import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../../testing/constants.ts'
 import { toDataURL, toImageData } from './image_data.ts'
 
 it('complete roundtrip conversion', async () => {
