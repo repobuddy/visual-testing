@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 4.1.0
+
+### Minor Changes
+
+- [#496](https://github.com/repobuddy/visual-testing/pull/496) [`ea6b3b2`](https://github.com/repobuddy/visual-testing/commit/ea6b3b2d9b343975849fb21b5b39a4f4c97b9b98) Thanks [@unional](https://github.com/unional)! - Provide the `autoSnapshotMatcher` function to create a matcher for auto snapshot in Storybook.
+
 ## 4.0.0
 
 ### Major Changes
