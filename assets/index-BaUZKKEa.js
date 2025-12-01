@@ -1,0 +1,1 @@
+import{s as e,a,t as c}from"./auto_snapshot_matcher-C0y6mAeS-C5TWWM2Q.js";import{g as n,c as r}from"./vitest_proxy-Bun20mPO.js";function _(s,o){const t=n();return t?a(r,c(t),s,o).then(()=>e):Promise.resolve(e)}const{expect:m}=__STORYBOOK_MODULE_TEST__;m.extend({toMatchImageSnapshot:_});const{expect:p}=__STORYBOOK_MODULE_TEST__;

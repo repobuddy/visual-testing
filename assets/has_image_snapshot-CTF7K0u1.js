@@ -1,0 +1,1 @@
+import{h as a,t as n}from"./auto_snapshot_matcher-C0y6mAeS-C5TWWM2Q.js";import{g as s,c as o}from"./vitest_proxy-Bun20mPO.js";const e={getCurrentTest:s,__test__reset(){e.getCurrentTest=s}};function g(r){const t=e.getCurrentTest();return t?a(o,n(t),r):!1}export{g as h};

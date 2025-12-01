@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-DUflMRLr.js";import{useMDXComponents as e}from"./index-BbkR72zv.js";import"./preload-helper-PPVm8Dsz.js";function o(s){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...e(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVisOptions"}),`
+import{j as t,M as i}from"./iframe-u6-CEdIB.js";import{useMDXComponents as e}from"./index-CaT9hlEr.js";import"./preload-helper-PPVm8Dsz.js";function o(s){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...e(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVisOptions"}),`
 `,t.jsx(n.h1,{id:"definestorybookvisoptions",children:"defineStorybookVisOptions"}),`
 `,t.jsx(n.p,{children:"A helper function to configure options for Storybook Visual Testing addon."}),`
 `,t.jsx(n.pre,{children:t.jsx(n.code,{className:"language-ts",children:`// .storybook/main.ts

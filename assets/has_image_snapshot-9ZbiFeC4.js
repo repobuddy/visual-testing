@@ -1,1 +1,0 @@
-import{h as a,t as n}from"./task_id-DnS9_4Ub-B23vr0IK.js";import{g as s,c as o}from"./vitest_proxy-CVKu5iLG.js";const e={getCurrentTest:s,__test__reset(){e.getCurrentTest=s}};function g(r){const t=e.getCurrentTest();return t?a(o,n(t),r):!1}export{g as h};

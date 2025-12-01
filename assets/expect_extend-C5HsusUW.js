@@ -1,1 +1,0 @@
-import{s,m as a,t as n}from"./task_id-DnS9_4Ub-B23vr0IK.js";import{g as r,c}from"./vitest_proxy-CVKu5iLG.js";function m(e,o){const t=r();return t?a(c,n(t),e,o).then(()=>s):Promise.resolve(s)}const{expect:i}=__STORYBOOK_MODULE_TEST__;i.extend({toMatchImageSnapshot:m});

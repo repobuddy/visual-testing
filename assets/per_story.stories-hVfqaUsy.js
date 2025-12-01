@@ -1,4 +1,4 @@
-import{R as e}from"./iframe-DUflMRLr.js";import"./preload-helper-PPVm8Dsz.js";const n={title:"tags/per story",render:()=>e.createElement("div",{"data-testid":"subject"},"unit test")},s={tags:["snapshot"]},a={tags:["!snapshot"]},t={tags:["!snapshot","snapshot"]};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
+import{R as e}from"./iframe-u6-CEdIB.js";import"./preload-helper-PPVm8Dsz.js";const n={title:"tags/per story",render:()=>e.createElement("div",{"data-testid":"subject"},"unit test")},s={tags:["snapshot"]},a={tags:["!snapshot"]},t={tags:["!snapshot","snapshot"]};s.parameters={...s.parameters,docs:{...s.parameters?.docs,source:{originalSource:`{
   tags: ['snapshot']
 }`,...s.parameters?.docs?.source}}};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{
   tags: ['!snapshot']
