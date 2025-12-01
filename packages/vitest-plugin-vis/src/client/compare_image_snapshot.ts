@@ -11,7 +11,7 @@ import type { ToMatchImageSnapshotOptions } from '../shared/types.ts'
 import { alignImagesToSameSize } from './align_images.ts'
 import { toDataURL, toImageData } from './browser/image_data.ts'
 import { prettifyOptions } from './compare_image_snapshot.logic.ts'
-import { server } from './vitest_browser_context_proxy.ts'
+import { server } from './vitest/vitest_browser_context_proxy.ts'
 
 export async function compareImageSnapshot(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
