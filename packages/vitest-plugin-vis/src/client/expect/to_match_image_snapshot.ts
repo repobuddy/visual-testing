@@ -2,8 +2,8 @@ import type { AsyncExpectationResult } from '@vitest/expect'
 import { commands } from 'vitest/browser'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { matchImageSnapshotAction } from '../actions/match_image_snapshot_action.ts'
-import { ctx } from '../snapshot/ctx.ts'
 import { toTaskId } from '../task/task_id.ts'
+import { ctx } from './_ctx.ts'
 import { success } from './expectation_result.ts'
 
 export function toMatchImageSnapshot(
