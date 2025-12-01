@@ -1,4 +1,4 @@
-import { isSameSize } from '../../shared/is_same_size.ts'
+import { isSameSize } from '../../../shared/is_same_size.ts'
 
 export const createImageResizer =
 	({ width, height }: { width: number; height: number }) =>

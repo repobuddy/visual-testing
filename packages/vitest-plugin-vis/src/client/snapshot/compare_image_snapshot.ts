@@ -8,7 +8,7 @@ import type {
 } from '../../server/commands/prepare_image_snapshot_comparison.ts'
 import { compareImage } from '../../shared/compare_image.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
-import { toDataURL, toImageData } from '../browser/image_data.ts'
+import { toDataURL, toImageData } from '../external/browser/image_data.ts'
 import { server } from '../external/vitest/vitest_browser_context_proxy.ts'
 import { alignImagesToSameSize } from '../image/align_images.ts'
 import { prettifyOptions } from './compare_image_snapshot.logic.ts'
