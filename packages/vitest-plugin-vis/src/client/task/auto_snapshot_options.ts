@@ -1,7 +1,7 @@
-import { assertSnapshotKeyWithoutDash } from '../shared/asserts.ts'
-import { NAME } from '../shared/constants.ts'
-import type { ComparisonMethod } from '../shared/types.ts'
-import { ctx } from './ctx.ts'
+import { assertSnapshotKeyWithoutDash } from '../../shared/asserts.ts'
+import { NAME } from '../../shared/constants.ts'
+import type { ComparisonMethod } from '../../shared/types.ts'
+import { ctx } from '../ctx.ts'
 import type { SnapshotMeta } from './snapshot_meta.ts'
 
 type Suite = { meta: Record<string, any>; suite?: Suite | undefined }
