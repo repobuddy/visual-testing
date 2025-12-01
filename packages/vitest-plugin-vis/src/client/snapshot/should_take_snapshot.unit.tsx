@@ -1,9 +1,6 @@
-import { afterEach, it } from 'vitest'
+import { it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { ctx } from './ctx.ts'
 import { shouldTakeSnapshot } from './should_take_snapshot.ts'
-
-afterEach(() => ctx.__test__reset())
 
 it('return falsy when no element in body', async ({ expect }) => {
 	expect(shouldTakeSnapshot({ enable: true })).toBeFalsy()
