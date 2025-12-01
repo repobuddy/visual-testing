@@ -16,6 +16,6 @@ export default defineConfig({
 			provider: playwright(),
 			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},
-		setupFiles: ['./.storybook/vitest.setup.ts'],
+		// setupFiles: ['./.storybook/vitest.setup.ts'],
 	},
 })

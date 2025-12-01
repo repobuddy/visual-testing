@@ -3,9 +3,7 @@ packages:
   - testcases/*
 
 catalog:
-  '@repobuddy/storybook': ^2.1.2
   '@repobuddy/vitest': ^2.0.0
-  '@storybook-community/storybook-dark-mode': ^7.0.3
   '@types/react': ^19.2.2
   '@types/react-dom': ^19.2.1
   '@vitejs/plugin-react': ^5.1.1
@@ -24,11 +22,6 @@ ignoredBuiltDependencies:
   - edgedriver
   - geckodriver
   - msw
-
-onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - '@tailwindcss/oxide'
-  - esbuild
 
 patchedDependencies:
   '@storybook/addon-a11y': patches/@storybook__addon-a11y.patch
