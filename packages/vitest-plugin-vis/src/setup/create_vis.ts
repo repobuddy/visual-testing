@@ -1,4 +1,4 @@
-import { afterEach, beforeAll } from 'vitest'
+import { afterEach, beforeAll, expect } from 'vitest'
 import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
 import { setAutoSnapshotOptions } from '../client/task/auto_snapshot_options.ts'
 import type { SnapshotMeta } from '../client/task/snapshot_meta.ts'
@@ -106,7 +106,7 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 }
 
 export function createVis<GM extends Record<string, any> | unknown = unknown>(commands: SetupVisSuiteCommand) {
-	const matcher = autoSnapshotMatcher(commands)
+	const matcher = autoSnapshotMatcher(commands, expect)
 
 	const vis: VisClientConfigurator<GM> = {
 		setup(options) {
