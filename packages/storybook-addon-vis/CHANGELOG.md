@@ -1,5 +1,19 @@
 # CHANGE LOG
 
+## 3.1.0
+
+### Minor Changes
+
+- [#496](https://github.com/repobuddy/visual-testing/pull/496) [`bf7fcec`](https://github.com/repobuddy/visual-testing/commit/bf7fcecddbcef502fe71eb2c76217df7c8d037fa) Thanks [@unional](https://github.com/unional)! - Improve support for Storybook CSF Next.
+  The setup is now done in `.storybook/preview.ts` instead of `vitest.setup.ts`.
+
+### Patch Changes
+
+- [#496](https://github.com/repobuddy/visual-testing/pull/496) [`557b809`](https://github.com/repobuddy/visual-testing/commit/557b80995320e40a33cf5ca15e6a5705d775b02e) Thanks [@unional](https://github.com/unional)! - Handle case when `storyData` is `undefined`.
+
+- Updated dependencies [[`ea6b3b2`](https://github.com/repobuddy/visual-testing/commit/ea6b3b2d9b343975849fb21b5b39a4f4c97b9b98)]:
+  - vitest-plugin-vis@4.1.0
+
 ## 3.0.1
 
 ### Patch Changes
