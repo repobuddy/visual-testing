@@ -1,4 +1,4 @@
-import type { ComparisonMethod, ImageSnapshotSubjectOptions, ToMatchImageSnapshotOptions } from '../shared/types.ts'
+import type { ComparisonMethod, ImageSnapshotSubjectOptions, ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 
 export type SnapshotMeta<M extends ComparisonMethod> = ToMatchImageSnapshotOptions<M> &
 	ImageSnapshotSubjectOptions & {
