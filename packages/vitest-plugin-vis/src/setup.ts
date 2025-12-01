@@ -2,5 +2,5 @@
 import './client/expect/extend.ts'
 import './client/page/extend.ts'
 
-export * from './client/setup/create_vis.ts'
-export * from './client/setup/vis.ts'
+export * from './setup/create_vis.ts'
+export * from './setup/vis.ts'
