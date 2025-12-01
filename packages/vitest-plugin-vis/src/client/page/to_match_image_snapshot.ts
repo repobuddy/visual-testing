@@ -1,4 +1,3 @@
-import { commands } from 'vitest/browser'
 import type { ComparisonMethod, ToMatchPageImageSnapshotOptions } from '../../shared/types.ts'
 import { matchPageImageSnapshotAction } from '../actions/match_page_image_snapshot_action.ts'
 import { toTaskId } from '../task/task_id.ts'
@@ -25,5 +24,5 @@ export function toMatchImageSnapshot<M extends ComparisonMethod = 'pixel'>(
 		)
 	}
 
-	return matchPageImageSnapshotAction(commands, toTaskId(test), options)
+	return matchPageImageSnapshotAction(ctx.commands, toTaskId(test), options)
 }
