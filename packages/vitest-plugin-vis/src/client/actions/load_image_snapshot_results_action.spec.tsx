@@ -2,7 +2,7 @@ import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { commands, page } from 'vitest/browser'
 import { setAutoSnapshotOptions } from '../auto_snapshot_options.ts'
-import { toTaskId } from '../task_id.ts'
+import { toTaskId } from '../vitest/task_id.ts'
 import { getCurrentTest } from '../vitest/vitest_suite_proxy.ts'
 import { loadImageSnapshotResultsAction } from './load_image_snapshot_results_action.ts'
 
