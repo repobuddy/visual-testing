@@ -1,6 +1,6 @@
-import { getMaxSize } from '../shared/get_max_size.ts'
-import { isSameSize } from '../shared/is_same_size.ts'
-import { createImageResizer } from './browser/image_resizer.ts'
+import { getMaxSize } from '../../shared/get_max_size.ts'
+import { isSameSize } from '../../shared/is_same_size.ts'
+import { createImageResizer } from '../browser/image_resizer.ts'
 
 export function alignImagesToSameSize(image1: ImageData, image2: ImageData): [image1: ImageData, image2: ImageData] {
 	if (isSameSize(image1, image2)) return [image1, image2] as const
