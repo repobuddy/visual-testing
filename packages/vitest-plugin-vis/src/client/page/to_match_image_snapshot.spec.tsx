@@ -1,7 +1,7 @@
-import { page } from 'vitest/browser'
 import { afterEach, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { ctx } from '../ctx.ts'
+import { page } from 'vitest/browser'
+import { ctx } from '../snapshot/ctx.ts'
 
 afterEach(() => ctx.__test__reset())
 

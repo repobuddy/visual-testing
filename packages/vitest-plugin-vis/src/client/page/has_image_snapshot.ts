@@ -1,7 +1,7 @@
 import { type BrowserPage, commands } from 'vitest/browser'
 import type { ImageSnapshotKeyOptions } from '../../shared/types.ts'
 import { hasImageSnapshotAction } from '../actions/has_image_snapshot_action.ts'
-import { ctx } from '../ctx.ts'
+import { ctx } from '../snapshot/ctx.ts'
 import { toTaskId } from '../task/task_id.ts'
 
 export interface HasImageSnapshotAction {

@@ -1,6 +1,6 @@
 import { afterEach, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { ctx } from '../ctx.ts'
+import { ctx } from './ctx.ts'
 import { shouldTakeSnapshot } from './should_take_snapshot.ts'
 
 afterEach(() => ctx.__test__reset())

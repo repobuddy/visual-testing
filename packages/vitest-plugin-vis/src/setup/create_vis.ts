@@ -1,6 +1,6 @@
 import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { ctx } from '../client/ctx.ts'
+import { ctx } from '../client/snapshot/ctx.ts'
 import { shouldTakeSnapshot } from '../client/snapshot/should_take_snapshot.ts'
 import { extractAutoSnapshotOptions, setAutoSnapshotOptions } from '../client/task/auto_snapshot_options.ts'
 import type { SnapshotMeta } from '../client/task/snapshot_meta.ts'
