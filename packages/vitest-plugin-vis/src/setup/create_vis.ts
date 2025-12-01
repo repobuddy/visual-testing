@@ -5,7 +5,7 @@ import { shouldTakeSnapshot } from '../client/snapshot/should_take_snapshot.ts'
 import { extractAutoSnapshotOptions, setAutoSnapshotOptions } from '../client/task/auto_snapshot_options.ts'
 import type { SnapshotMeta } from '../client/task/snapshot_meta.ts'
 import { toTaskId } from '../client/task/task_id.ts'
-import type { SetupVisSuiteCommand } from '../server/commands/setup_vis_suite.ts'
+import type { SetupVisSuiteCommand } from '../shared/commands.types.ts'
 import type { ComparisonMethod, SetupVisOptions } from '../shared/types.ts'
 
 /**

@@ -1,4 +1,4 @@
-import type { HasImageSnapshotCommand, ImageSnapshotNextIndexCommand } from '../../commands.ts'
+import type { HasImageSnapshotCommand, ImageSnapshotNextIndexCommand } from '../../shared/commands.types.ts'
 import type { ImageSnapshotKeyOptions } from '../../shared/types.ts'
 
 export function hasImageSnapshotAction(

@@ -1,53 +1,11 @@
 import { resolve } from 'pathe'
-import type {
-	FailureThresholdOptions,
-	ImageSnapshotTimeoutOptions,
-	PixelComparisonOptions,
-	SsimComparisonOptions,
-} from '../../shared/types.ts'
+import type { PreparePageImageSnapshotComparisonCommand } from '../../shared/commands.types.ts'
 import { file } from '../externals/file.ts'
 import { getProjectRoot } from '../project.ts'
 import { takePageSnapshot } from '../snapshot.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
-import type { MatchImageSnapshotOptions } from './types.ts'
-
-type ImageSnapshotComparisonInfo = {
-	/**
-	 * Path to the project root.
-	 */
-	projectRoot: string
-	/**
-	 * Path to the baseline image relative to the project root.
-	 */
-	baselinePath: string
-	/**
-	 * Path to the result image relative to the project root.
-	 */
-	resultPath: string
-	/**
-	 * Path to the diff image relative to the project root.
-	 */
-	diffPath: string
-	/**
-	 * Base64 encoded baseline image.
-	 */
-	baseline: string
-	/**
-	 * Base64 encoded result image.
-	 */
-	result: string
-} & ImageSnapshotTimeoutOptions &
-	FailureThresholdOptions &
-	(SsimComparisonOptions | PixelComparisonOptions)
-
-export interface PreparePageImageSnapshotComparisonCommand {
-	preparePageImageSnapshotComparison: (
-		taskId: string,
-		options?: MatchImageSnapshotOptions | undefined,
-	) => Promise<ImageSnapshotComparisonInfo | undefined>
-}
 
 export const preparePageImageSnapshotComparison: ExtendedBrowserCommand<
 	Parameters<PreparePageImageSnapshotComparisonCommand['preparePageImageSnapshotComparison']>

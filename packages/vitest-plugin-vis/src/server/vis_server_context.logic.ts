@@ -1,7 +1,7 @@
 import { basename, join, resolve } from 'pathe'
 import { pick } from 'type-plus'
 import type { ImageSnapshotKeyOptions } from '../client-api.ts'
-import type { ImageSnapshotResult } from './commands/load_image_snapshot_results.ts'
+import type { ImageSnapshotResult } from '../shared/commands.types.ts'
 import { file } from './externals/file.ts'
 import { getSuite, getTaskSubpath } from './suite.ts'
 import { getVisOption } from './vis_options.ts'

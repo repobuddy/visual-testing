@@ -18,5 +18,5 @@
 		"types": ["vitest"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["*.ts", "src", ".storybook/*"]
+	"include": ["*.ts", "src/**/*.ts", "src/**/*.tsx", ".storybook/*.ts"]
 }
