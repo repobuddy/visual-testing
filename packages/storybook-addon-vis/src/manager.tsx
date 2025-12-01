@@ -36,7 +36,7 @@ addons.register(NAME, (api) => {
 						// 	console.log('storybook/test', event)
 						// }),
 					]
-					api.emit(NAME, requestImageSnapshotResults(storyData))
+					if (storyData) api.emit(NAME, requestImageSnapshotResults(storyData))
 					return () =>
 						disposes.forEach((dispose) => {
 							dispose()
@@ -50,7 +50,7 @@ addons.register(NAME, (api) => {
 						active={active}
 						snapshotResults={snapshotResults}
 						onRefresh={() => {
-							api.emit(NAME, requestImageSnapshotResults(storyData))
+							if (storyData) api.emit(NAME, requestImageSnapshotResults(storyData))
 						}}
 					/>
 				)
