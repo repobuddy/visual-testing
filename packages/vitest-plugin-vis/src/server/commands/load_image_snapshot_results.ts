@@ -1,26 +1,7 @@
+import type { ImageSnapshotResult } from '../../shared/commands.types.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
-
-export interface ImageSnapshotResult {
-	filename: string
-	/**
-	 * The base64 encoded image of the baseline snapshot.
-	 */
-	baseline?: string | undefined
-	/**
-	 * The base64 encoded image of the result snapshot.
-	 */
-	result?: string | undefined
-	/**
-	 * The base64 encoded image of the diff snapshot.
-	 */
-	diff?: string | undefined
-}
-
-export interface LoadImageSnapshotResultsCommand {
-	loadImageSnapshotResults(taskId: string): Promise<ImageSnapshotResult[]>
-}
 
 export const loadImageSnapshotResults: ExtendedBrowserCommand<[taskId: string]> = async (
 	context,

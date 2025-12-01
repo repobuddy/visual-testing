@@ -1,7 +1,9 @@
 import type { BrowserCommands } from 'vitest/browser'
-import type { ImageSnapshotNextIndexCommand } from '../../commands.ts'
-import type { PrepareImageSnapshotComparisonCommand } from '../../server/commands/prepare_image_snapshot_comparison.ts'
 import { assertSnapshotKeyWithoutDash } from '../../shared/asserts.ts'
+import type {
+	ImageSnapshotNextIndexCommand,
+	PrepareImageSnapshotComparisonCommand,
+} from '../../shared/commands.types.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 

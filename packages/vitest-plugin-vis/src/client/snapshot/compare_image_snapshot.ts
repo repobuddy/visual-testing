@@ -1,13 +1,12 @@
 import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { BrowserCommands } from 'vitest/browser'
-import type { ImageSnapshotNextIndexCommand } from '../../commands.ts'
 import type {
-	ImageSnapshotComparisonInfo,
+	ImageSnapshotNextIndexCommand,
 	PrepareImageSnapshotComparisonCommand,
-} from '../../server/commands/prepare_image_snapshot_comparison.ts'
+} from '../../shared/commands.types.ts'
 import { compareImage } from '../../shared/compare_image.ts'
-import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import type { ImageSnapshotComparisonInfo, ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { toDataURL, toImageData } from '../external/browser/image_data.ts'
 import { server } from '../external/vitest/vitest_browser_context_proxy.ts'
 import { alignImagesToSameSize } from '../image/align_images.ts'

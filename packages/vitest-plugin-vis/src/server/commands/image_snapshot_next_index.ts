@@ -1,13 +1,7 @@
+import type { ImageSnapshotNextIndexCommand } from '../../shared/commands.types.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
 import { assertTestPathDefined } from './_assertions.ts'
-
-export interface ImageSnapshotNextIndexCommand {
-	/**
-	 * Get the index of the snapshot image to be created.
-	 */
-	imageSnapshotNextIndex(taskId: string): Promise<number>
-}
 
 export const imageSnapshotNextIndex: ExtendedBrowserCommand<
 	Parameters<ImageSnapshotNextIndexCommand['imageSnapshotNextIndex']>

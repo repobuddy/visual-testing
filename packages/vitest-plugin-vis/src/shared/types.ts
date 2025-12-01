@@ -109,6 +109,43 @@ export type SnapshotTestMeta = {
 	}
 }
 
+export type ImageSnapshotComparisonInfo = {
+	/**
+	 * Path to the project root.
+	 */
+	projectRoot: string
+	/**
+	 * Path to the baseline image relative to the project root.
+	 */
+	baselinePath: string
+	/**
+	 * Path to the result image relative to the project root.
+	 */
+	resultPath: string
+	/**
+	 * Path to the diff image relative to the project root.
+	 */
+	diffPath: string
+	/**
+	 * Base64 encoded baseline image.
+	 */
+	baseline: string
+	/**
+	 * Base64 encoded result image.
+	 */
+	result: string
+	/**
+	 * Base64 encoded diff image.
+	 */
+	diff?: string | undefined
+} & ImageSnapshotTimeoutOptions &
+	FailureThresholdOptions &
+	(SsimComparisonOptions | PixelComparisonOptions)
+
+export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
+	ImageSnapshotCompareOptions<any> &
+	ImageSnapshotKeyOptions
+
 export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
 	auto?:
 		| boolean
