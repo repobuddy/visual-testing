@@ -1,10 +1,7 @@
-import dedent from 'dedent'
 import { afterEach, beforeAll } from 'vitest'
-import { ctx } from '../client/expect/_ctx.ts'
-import { shouldTakeSnapshot } from '../client/snapshot/should_take_snapshot.ts'
-import { extractAutoSnapshotOptions, setAutoSnapshotOptions } from '../client/task/auto_snapshot_options.ts'
+import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
+import { setAutoSnapshotOptions } from '../client/task/auto_snapshot_options.ts'
 import type { SnapshotMeta } from '../client/task/snapshot_meta.ts'
-import { toTaskId } from '../client/task/task_id.ts'
 import type { SetupVisSuiteCommand } from '../shared/commands.types.ts'
 import type { ComparisonMethod, SetupVisOptions } from '../shared/types.ts'
 
@@ -109,106 +106,67 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 }
 
 export function createVis<GM extends Record<string, any> | unknown = unknown>(commands: SetupVisSuiteCommand) {
-	let subject: string | undefined
+	const matcher = autoSnapshotMatcher(commands)
 
 	const vis: VisClientConfigurator<GM> = {
 		setup(options) {
 			if (!options || options.auto === false) {
-				beforeAll(vis.beforeAll.setup)
+				beforeAll(matcher.setup)
 			} else {
 				beforeAll(async () => {
-					await vis.beforeAll.setup()
+					await matcher.setup()
 					setAutoSnapshotOptions(true)
 				})
 			}
 
 			if (typeof options?.auto === 'function') {
 				afterEach(
-					vis.afterEach.matchPerTheme({
+					matcher.createMatcher({
 						auto: options.auto,
 					}),
 				)
 			} else if (typeof options?.auto === 'object') {
-				afterEach(vis.afterEach.matchPerTheme(options.auto))
+				afterEach(matcher.createMatcher(options.auto))
 			} else {
-				afterEach(vis.afterEach.matchImageSnapshot)
+				afterEach(matcher.createMatcher({ async auto() {} }))
 			}
 		},
 		presets: {
 			enable() {
-				beforeAll(vis.beforeAll.setup)
-				afterEach(vis.afterEach.matchImageSnapshot)
+				beforeAll(matcher.setup)
+				afterEach(matcher.createMatcher({ async auto() {} }))
 			},
 			manual() {
-				beforeAll(vis.beforeAll.setup)
+				beforeAll(matcher.setup)
 			},
 			auto() {
 				beforeAll(async () => {
-					await vis.beforeAll.setup()
+					await matcher.setup()
 					setAutoSnapshotOptions(true)
 				})
-				afterEach(vis.afterEach.matchImageSnapshot)
+				afterEach(matcher.createMatcher({ async auto() {} }))
 			},
 			theme(themes) {
 				beforeAll(async () => {
-					await vis.beforeAll.setup()
+					await matcher.setup()
 					setAutoSnapshotOptions(true)
 				})
-				afterEach(vis.afterEach.matchPerTheme(themes))
+				afterEach(matcher.createMatcher(themes))
 			},
 		},
 		beforeAll: {
 			async setup() {
-				subject = (await commands.setupVisSuite()).subject
+				await matcher.setup()
 			},
 		},
 		afterEach: {
 			async matchImageSnapshot() {
-				return vis.afterEach.matchPerTheme({ async auto() {} })()
+				return matcher.createMatcher({ async auto() {} })()
 			},
 			matchPerTheme(themes) {
-				return async function matchImageSnapshot() {
-					const test = ctx.getCurrentTest()
-					if ((test?.result?.errors?.length ?? 0) > 0) return
-
-					const meta = extractAutoSnapshotOptions(test)
-					if (!shouldTakeSnapshot(meta)) return
-					const errors: Array<[string, Error]> = []
-					for (const themeId in themes) {
-						try {
-							await new Promise((a) => setTimeout(a, 10))
-							const theme = themes[themeId]
-							const r = typeof theme === 'function' ? await theme(meta! as any) : theme
-							if (r === false) continue
-							await test!.context.expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
-								...meta,
-								snapshotKey: meta?.snapshotKey ?? themeId,
-							})
-						} catch (error) {
-							errors.push([themeId, error as Error])
-						}
-					}
-					if (errors.length > 0) {
-						if (errors.length === 1) throw errors[0]![1]
-						const taskId = toTaskId(test!)
-						throw new AggregateError(
-							errors,
-							dedent`Snapshot \`${taskId}\` mismatched
-
-						${errors
-							.map(([themeId, error]) => {
-								return `Theme \`${themeId}\` failed: ${error.message}`
-							})
-							.join('\n\n')}`,
-						)
-					}
-				}
+				return matcher.createMatcher(themes)
 			},
 		},
 	}
 	return vis
-}
-
-function getSubject(selectors: string | undefined) {
-	return selectors ? (document.querySelector(selectors) ?? document.body) : document.body
 }
