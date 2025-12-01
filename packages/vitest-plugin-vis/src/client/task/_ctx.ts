@@ -1,4 +1,4 @@
-import { getCurrentSuite, getCurrentTest } from '../vitest/vitest_suite_proxy.ts'
+import { getCurrentSuite, getCurrentTest } from '../external/vitest/vitest_suite_proxy.ts'
 
 export const ctx = {
 	getCurrentTest,

@@ -1,4 +1,4 @@
-import type { SnapshotTestMeta } from '../../shared/types.ts'
+import type { SnapshotTestMeta } from '../../../shared/types.ts'
 
 let vitestSuite: Awaited<typeof import('vitest/suite')>
 
