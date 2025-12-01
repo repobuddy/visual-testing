@@ -4,8 +4,8 @@ import type { PrepareImageSnapshotComparisonCommand } from '../../server/command
 import { assertSnapshotKeyWithoutDash } from '../../shared/asserts.ts'
 import { isBase64String } from '../../shared/base64.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import { convertElementToCssSelector } from '../browser/selector.ts'
 import { compareImageSnapshot } from '../compare_image_snapshot.ts'
-import { convertElementToCssSelector } from '../selector.ts'
 
 export async function matchImageSnapshotAction(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
