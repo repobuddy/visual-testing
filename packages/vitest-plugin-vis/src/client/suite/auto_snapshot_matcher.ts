@@ -9,6 +9,7 @@ import { ctx } from './_ctx.ts'
 
 export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = unknown>(
 	commands: SetupVisSuiteCommand,
+	expect: any,
 ) {
 	let subject: string | undefined
 
@@ -35,7 +36,7 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 						const theme = themes[themeId]
 						const r = typeof theme === 'function' ? await theme(meta! as any) : theme
 						if (r === false) continue
-						await test!.context.expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
+						await expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
 							...meta,
 							snapshotKey: meta?.snapshotKey ?? themeId,
 						})
