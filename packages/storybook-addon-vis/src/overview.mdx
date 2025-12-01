@@ -229,10 +229,27 @@ causes inconsistency and confuses both the editor and you.
 ### Basic Setup for CSF Next
 
 If you are writing your stories in CSF Next,
-You need to setup the visual testing also in `.storybook/preview.ts`.
-
+You don't need to setup the visual testing in `vitest.setup.ts`.
+Instead, you should setup the visual testing in `.storybook/preview.ts`.
 
 ```ts
+// vitest.config.ts
+// vitest.config.ts
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookTest(),
+		storybookVis() // ADD THIS
+	],
+	test: {
+		browser: { ... }, // your Vitest Browser Mode configuration
+		// setupFiles: ['./vitest.setup.ts'], // REMOVE THIS
+	}
+})
+
 // .storybook/preview.ts
 import addonVis from 'storybook-addon-vis'
 import { definePreview } from '@storybook/your-framework/node'
