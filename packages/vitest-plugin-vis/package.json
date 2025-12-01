@@ -112,7 +112,7 @@
 		"@storybook/addon-docs": "^10.1.2",
 		"@storybook/addon-vitest": "^10.1.2",
 		"@storybook/react-vite": "^10.1.2",
-		"@tailwindcss/vite": "^4.1.14",
+		"@tailwindcss/vite": "^4.1.17",
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",
 		"@types/react": "catalog:",
