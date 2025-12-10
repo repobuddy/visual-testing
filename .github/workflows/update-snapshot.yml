@@ -49,7 +49,7 @@ jobs:
             */*/__vis__/**/__results__
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "test: update snapshot"
           token: ${{ secrets.CI_GITHUB_TOKEN }}
