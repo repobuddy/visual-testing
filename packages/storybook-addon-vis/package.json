@@ -120,7 +120,7 @@
 		"storybook": "^10.2.0-alpha.1",
 		"storybook-addon-tag-badges": "^3.0.2",
 		"tailwindcss": "^4.1.14",
-		"tsdown": "^0.17.0",
+		"tsdown": "^0.18.0",
 		"typescript": "catalog:",
 		"vite": "catalog:",
 		"vitest": "catalog:",
