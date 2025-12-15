@@ -219,8 +219,8 @@ importers:
         specifier: ^4.1.14
         version: 4.1.14
       tsdown:
-        specifier: ^0.17.0
-        version: 0.17.0(oxc-resolver@11.13.1)(typescript@5.9.3)
+        specifier: ^0.18.0
+        version: 0.18.0(oxc-resolver@11.13.1)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -349,8 +349,8 @@ importers:
         specifier: ^4.1.14
         version: 4.1.14
       tsdown:
-        specifier: ^0.17.0
-        version: 0.17.0(oxc-resolver@11.13.1)(typescript@5.9.3)
+        specifier: ^0.18.0
+        version: 0.18.0(oxc-resolver@11.13.1)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1351,10 +1351,6 @@ packages:
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
 
-  '@oxc-project/runtime@0.101.0':
-    resolution: {integrity: sha512-t3qpfVZIqSiLQ5Kqt/MC4Ge/WCOGrrcagAdzTcDaggupjiGxUx4nJF2v6wUCXWSzWHn5Ns7XLv13fCJEwCOERQ==}
-    engines: {node: ^20.19.0 || >=22.12.0}
-
   '@oxc-project/types@0.101.0':
     resolution: {integrity: sha512-nuFhqlUzJX+gVIPPfuE6xurd4lST3mdcWOhyK/rZO0B9XWMKm79SuszIQEnSMmmDhq1DC8WWVYGVd+6F93o1gQ==}
 
@@ -1550,8 +1546,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@quansync/fs@0.1.5':
-    resolution: {integrity: sha512-lNS9hL2aS2NZgNW7BBj+6EBl4rOf8l+tQ0eRY6JWCI8jI2kc53gSoqbjojU0OnAWhzoXiOjFyGsHcDGePB3lhA==}
+  '@quansync/fs@1.0.0':
+    resolution: {integrity: sha512-4TJ3DFtlf1L5LDMaM6CanJ/0lckGNtJcMjQ1NAV6zDmA0tEHKZtxNKin8EgPaVX1YzljbxckyT2tJrpQKAtngQ==}
 
   '@repobuddy/biome@2.0.1':
     resolution: {integrity: sha512-9IfrOWqSVxNGELrq+LxYK1sBA3/ZQzbP1csruaGyaYmA5MPABj25/TiIvU8BnbdmDJQ+DTgWYoelIXSATXZpyg==}
@@ -2853,6 +2849,9 @@ packages:
     resolution: {integrity: sha512-HOJkrhaYsweh+W+e74Yn7YStZOilkoPb6fycpwNLKzSPtruFs48nYis0zy5yJz1+ktUhHxoRDJ27RQAWLIJVJw==}
     engines: {node: '>=16.0.0'}
 
+  defu@6.1.4:
+    resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
+
   degenerator@5.0.1:
     resolution: {integrity: sha512-TllpMR/t0M5sqCXfj85i4XaAzxmS5tVA16dqvdkMwGmzI+dXLXnw3J+3Vdv7VKw+ThlTMboK6i9rnZ6Nntj5CQ==}
     engines: {node: '>= 14'}
@@ -3311,8 +3310,8 @@ packages:
   import-meta-resolve@4.2.0:
     resolution: {integrity: sha512-Iqv2fzaTQN28s/FwZAoFq0ZSs/7hMAHJVX+w8PZl3cY19Pxk6jFFalxQoIfW2826i/fDLXv8IiEZRIT0lDuWcg==}
 
-  import-without-cache@0.2.2:
-    resolution: {integrity: sha512-4TTuRrZ0jBULXzac3EoX9ZviOs8Wn9iAbNhJEyLhTpAGF9eNmYSruaMMN/Tec/yqaO7H6yS2kALfQDJ5FxfatA==}
+  import-without-cache@0.2.3:
+    resolution: {integrity: sha512-roCvX171VqJ7+7pQt1kSRfwaJvFAC2zhThJWXal1rN8EqzPS3iapkAoNpHh4lM8Na1BDen+n9rVfo73RN+Y87g==}
     engines: {node: '>=20.19.0'}
 
   indent-string@4.0.0:
@@ -4186,6 +4185,9 @@ packages:
   quansync@0.2.11:
     resolution: {integrity: sha512-AifT7QEbW9Nri4tAwR5M/uzpBuqfZf+zwaEM/QkzEjj7NBuFD2rBuy0K3dE+8wltbezDV7JMA0WfnCPYRSYbXA==}
 
+  quansync@1.0.0:
+    resolution: {integrity: sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA==}
+
   query-selector-shadow-dom@1.0.1:
     resolution: {integrity: sha512-lT5yCqEBgfoMYpf3F2xQRK7zEr1rhIIZuceDK6+xRkJQ4NMbHTwXqk4NkwDwQMNqXgG9r9fyHnzwNVs6zV5KRw==}
 
@@ -4308,8 +4310,8 @@ packages:
     engines: {node: 20 || >=22}
     hasBin: true
 
-  rolldown-plugin-dts@0.18.2:
-    resolution: {integrity: sha512-jRz3SHwr69F/IGEDMHtWjwVjgZwo3PZEadmMt4uA/e3rbIytoLJhvktSKlIAy/4QeWhVL9XeuCJBC66wvBQRwg==}
+  rolldown-plugin-dts@0.18.3:
+    resolution: {integrity: sha512-rd1LZ0Awwfyn89UndUF/HoFF4oH9a5j+2ZeuKSJYM80vmeN/p0gslYMnHTQHBEXPhUlvAlqGA3tVgXB/1qFNDg==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       '@ts-macro/tsc': ^0.3.6
@@ -4672,13 +4674,13 @@ packages:
     resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
     engines: {node: '>=6'}
 
-  tsdown@0.17.0:
-    resolution: {integrity: sha512-NPZRrlC51X9Bb55ZTDwrWges8Dm1niCvNA5AYw7aix6pfnDnB4WR0neG5RPq75xIodg3hqlQUzzyrX7n4dmnJg==}
+  tsdown@0.18.0:
+    resolution: {integrity: sha512-Yotdh3NzizysnqR96xfpHFYtEntk1cZvSRHz8A+Pn3ZHNdTQa4fBQxh6HHzWZwfjdQv47xb7GCv6vEWMtxBirw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
       '@arethetypeswrong/core': ^0.18.1
-      '@vitejs/devtools': ^0.0.0-alpha.18
+      '@vitejs/devtools': ^0.0.0-alpha.19
       publint: ^0.3.0
       typescript: ^5.0.0
       unplugin-lightningcss: ^0.4.0
@@ -4756,8 +4758,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  unconfig-core@7.4.1:
-    resolution: {integrity: sha512-Bp/bPZjV2Vl/fofoA2OYLSnw1Z0MOhCX7zHnVCYrazpfZvseBbGhwcNQMxsg185Mqh7VZQqK3C8hFG/Dyng+yA==}
+  unconfig-core@7.4.2:
+    resolution: {integrity: sha512-VgPCvLWugINbXvMQDf8Jh0mlbvNjNC6eSUziHsBCMpxR05OPrNrvDnyatdMjRgcHaaNsCqz+wjNXxNw1kRLHUg==}
 
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
@@ -4793,8 +4795,8 @@ packages:
     resolution: {integrity: sha512-6NCPkv1ClwH+/BGE9QeoTIl09nuiAt0gS28nn1PvYXsGKRwM2TCbFA2QiilmehPDTXIe684k4rZI1yl3A1PCUw==}
     engines: {node: '>=18.12.0'}
 
-  unrun@0.2.16:
-    resolution: {integrity: sha512-DBkjUpQv9AQs1464XWnWQ97RuxPCu+CImvQMPmqFeHoL2Bi6C1BGPacMuXVw4VMIfQewNJZWUxPt5envG90oUA==}
+  unrun@0.2.19:
+    resolution: {integrity: sha512-DbwbJ9BvPEb3BeZnIpP9S5tGLO/JIgPQ3JrpMRFIfZMZfMG19f26OlLbC2ml8RRdrI2ZA7z2t+at5tsIHbh6Qw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -5799,8 +5801,6 @@ snapshots:
   '@open-draft/until@2.1.0':
     optional: true
 
-  '@oxc-project/runtime@0.101.0': {}
-
   '@oxc-project/types@0.101.0': {}
 
   '@oxc-resolver/binding-android-arm-eabi@11.13.1':
@@ -5944,9 +5944,9 @@ snapshots:
       - bare-buffer
       - supports-color
 
-  '@quansync/fs@0.1.5':
+  '@quansync/fs@1.0.0':
     dependencies:
-      quansync: 0.2.11
+      quansync: 1.0.0
 
   '@repobuddy/biome@2.0.1(@biomejs/biome@2.3.6)':
     dependencies:
@@ -7358,6 +7358,8 @@ snapshots:
 
   deepmerge-ts@7.1.5: {}
 
+  defu@6.1.4: {}
+
   degenerator@5.0.1:
     dependencies:
       ast-types: 0.13.4
@@ -7846,7 +7848,7 @@ snapshots:
 
   import-meta-resolve@4.2.0: {}
 
-  import-without-cache@0.2.2: {}
+  import-without-cache@0.2.3: {}
 
   indent-string@4.0.0: {}
 
@@ -8612,6 +8614,8 @@ snapshots:
 
   quansync@0.2.11: {}
 
+  quansync@1.0.0: {}
+
   query-selector-shadow-dom@1.0.1: {}
 
   querystringify@2.2.0:
@@ -8744,7 +8748,7 @@ snapshots:
       glob: 11.0.3
       package-json-from-dist: 1.0.1
 
-  rolldown-plugin-dts@0.18.2(oxc-resolver@11.13.1)(rolldown@1.0.0-beta.53)(typescript@5.9.3):
+  rolldown-plugin-dts@0.18.3(oxc-resolver@11.13.1)(rolldown@1.0.0-beta.53)(typescript@5.9.3):
     dependencies:
       '@babel/generator': 7.28.5
       '@babel/parser': 7.28.5
@@ -9157,22 +9161,23 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tsdown@0.17.0(oxc-resolver@11.13.1)(typescript@5.9.3):
+  tsdown@0.18.0(oxc-resolver@11.13.1)(typescript@5.9.3):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
+      defu: 6.1.4
       empathic: 2.0.0
       hookable: 5.5.3
-      import-without-cache: 0.2.2
+      import-without-cache: 0.2.3
       obug: 2.1.1
       rolldown: 1.0.0-beta.53
-      rolldown-plugin-dts: 0.18.2(oxc-resolver@11.13.1)(rolldown@1.0.0-beta.53)(typescript@5.9.3)
+      rolldown-plugin-dts: 0.18.3(oxc-resolver@11.13.1)(rolldown@1.0.0-beta.53)(typescript@5.9.3)
       semver: 7.7.3
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tree-kill: 1.2.2
-      unconfig-core: 7.4.1
-      unrun: 0.2.16
+      unconfig-core: 7.4.2
+      unrun: 0.2.19
     optionalDependencies:
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -9232,10 +9237,10 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  unconfig-core@7.4.1:
+  unconfig-core@7.4.2:
     dependencies:
-      '@quansync/fs': 0.1.5
-      quansync: 0.2.11
+      '@quansync/fs': 1.0.0
+      quansync: 1.0.0
 
   undici-types@6.19.8: {}
 
@@ -9261,9 +9266,8 @@ snapshots:
       picomatch: 4.0.3
       webpack-virtual-modules: 0.6.2
 
-  unrun@0.2.16:
+  unrun@0.2.19:
     dependencies:
-      '@oxc-project/runtime': 0.101.0
       rolldown: 1.0.0-beta.53
 
   update-browserslist-db@1.1.3(browserslist@4.24.5):
