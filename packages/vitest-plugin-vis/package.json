@@ -111,7 +111,7 @@
 		"@storybook-community/storybook-dark-mode": "^7.0.3",
 		"@storybook/addon-docs": "^10.2.0-alpha.1",
 		"@storybook/addon-vitest": "^10.2.0-alpha.1",
-		"@storybook/react-vite": "^10.2.0-alpha.1",
+		"@storybook/react-vite": "^10.2.0-alpha.6",
 		"@tailwindcss/vite": "^4.1.14",
 		"@types/is-ci": "^3.0.4",
 		"@types/pngjs": "^6.0.5",

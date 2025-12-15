@@ -31,7 +31,7 @@
 		"@storybook/addon-a11y": "^10.2.0-alpha.1",
 		"@storybook/addon-docs": "^10.2.0-alpha.1",
 		"@storybook/addon-vitest": "^10.2.0-alpha.1",
-		"@storybook/react-vite": "^10.2.0-alpha.1",
+		"@storybook/react-vite": "^10.2.0-alpha.6",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
