@@ -20,6 +20,7 @@ const meta: Meta<typeof VisPanel> = {
 	parameters: {
 		layout: 'fullscreen',
 	},
+
 	decorators: [
 		(Story) => (
 			<ThemeProvider theme={convert(themes.dark)}>
