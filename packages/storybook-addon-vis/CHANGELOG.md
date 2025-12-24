@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## 3.1.1
+
+### Patch Changes
+
+- [#530](https://github.com/repobuddy/visual-testing/pull/530) [`70b24a5`](https://github.com/repobuddy/visual-testing/commit/70b24a5f3dcec62bd22318a0e0404993e6e8c9ca) Thanks [@unional](https://github.com/unional)! - Downgrade Storybook from 10.2.0 alpha to 10.1.10.
+  10.2.0 seems to still take a while to be released.
+
 ## 3.1.0
 
 ### Minor Changes
