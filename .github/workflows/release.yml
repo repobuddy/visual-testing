@@ -4,6 +4,8 @@ on:
     branches:
       - main
       - releases/*
+permissions:
+  id-token: write
 
 jobs:
   verify:
