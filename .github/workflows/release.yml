@@ -4,8 +4,9 @@ on:
     branches:
       - main
       - releases/*
-# permissions:
-#   id-token: write
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   verify:
