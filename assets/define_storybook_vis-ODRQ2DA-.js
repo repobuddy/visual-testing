@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-u6-CEdIB.js";import{useMDXComponents as s}from"./index-CaT9hlEr.js";import"./preload-helper-PPVm8Dsz.js";function e(o){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVis"}),`
+import{j as t,M as i}from"./iframe-rW3u-Ggr.js";import{useMDXComponents as s}from"./index-BkP_xPAB.js";import"./preload-helper-PPVm8Dsz.js";function e(o){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVis"}),`
 `,t.jsx(n.h1,{id:"definestorybookvis",children:"defineStorybookVis"}),`
 `,t.jsxs(n.p,{children:["A helper function to configure the Storybook Visual Testing addon in ",t.jsx(n.code,{children:".storybook/main.ts"}),"."]}),`
 `,t.jsx(n.pre,{children:t.jsx(n.code,{className:"language-ts",children:`// .storybook/main.ts

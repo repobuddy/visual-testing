@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-u6-CEdIB.js";import{useMDXComponents as o}from"./index-CaT9hlEr.js";import"./preload-helper-PPVm8Dsz.js";function s(n){const e={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...o(),...n.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Overview"}),`
+import{j as t,M as i}from"./iframe-rW3u-Ggr.js";import{useMDXComponents as o}from"./index-BkP_xPAB.js";import"./preload-helper-PPVm8Dsz.js";function s(n){const e={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...o(),...n.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Overview"}),`
 `,t.jsx(e.h1,{id:"storybook-visual-testing-addon",children:"Storybook Visual Testing addon"}),`
 `,t.jsxs(e.p,{children:[t.jsx(e.a,{href:"https://www.npmjs.com/package/storybook-addon-vis",rel:"nofollow",children:"storybook-addon-vis"})," allows you to perform self contained Visual Testing for ",t.jsx(e.a,{href:"https://storybook.js.org",rel:"nofollow",children:"Storybook"}),"."]}),`
 `,t.jsx(e.p,{children:"The image snapshots are stored locally and are used to detect visual regressions."}),`
@@ -148,9 +148,8 @@ They should be committed to your repository.`]}),`
 	"includes": [..., "types"]
 }
 
-
-\`\`\`ts
-// types/storybook-addon-vis.d.ts
+`})}),`
+`,t.jsx(e.pre,{children:t.jsx(e.code,{className:"language-ts",children:`// types/storybook-addon-vis.d.ts
 /// <reference types="storybook-addon-vis/matcher" />
 `})}),`
 `,t.jsx(e.h3,{id:"disable-vitest-global-api",children:"Disable Vitest global API"}),`

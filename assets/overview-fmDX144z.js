@@ -1,4 +1,4 @@
-import{j as o,M as d}from"./iframe-u6-CEdIB.js";import{useMDXComponents as s}from"./index-CaT9hlEr.js";import"./preload-helper-PPVm8Dsz.js";function t(n){const e={code:"code",h1:"h1",p:"p",...s(),...n.components};return o.jsxs(o.Fragment,{children:[o.jsx(d,{title:"node"}),`
+import{j as o,M as d}from"./iframe-rW3u-Ggr.js";import{useMDXComponents as s}from"./index-BkP_xPAB.js";import"./preload-helper-PPVm8Dsz.js";function t(n){const e={code:"code",h1:"h1",p:"p",...s(),...n.components};return o.jsxs(o.Fragment,{children:[o.jsx(d,{title:"node"}),`
 `,o.jsx(e.h1,{id:"storybook-addon-visnode",children:o.jsx(e.code,{children:"storybook-addon-vis/node"})}),`
 `,o.jsxs(e.p,{children:[o.jsx(e.code,{children:"storybook-addon-vis/node"})," provides functionality to configure the Storybook Visual Testing addon in the ",o.jsx(e.code,{children:".storybook/main.ts"})," file."]}),`
 `,o.jsxs(e.p,{children:[o.jsx(e.code,{children:".storybook/main.ts"}),` is run on the server side,
