@@ -16,7 +16,7 @@
 	"include": ["src", "*.ts"],
 	"references": [
 		{
-			"path": "../../packages/vitest-plugin-vis"
+			"path": "../../packages/vitest-plugin-vis/tsconfig.json"
 		}
 	]
 }

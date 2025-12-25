@@ -17,7 +17,7 @@
 	"include": ["src", ".storybook/*", "*.ts"],
 	"references": [
 		{
-			"path": "../../packages/storybook-addon-vis"
+			"path": "../../packages/storybook-addon-vis/tsconfig.json"
 		}
 	]
 }

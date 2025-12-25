@@ -18,5 +18,5 @@
 		"verbatimModuleSyntax": true
 	},
 	"include": ["src/**/*.ts", ".storybook/**/*.ts", "*.ts"],
-	"references": [{ "path": "../vitest-plugin-vis" }]
+	"references": [{ "path": "../vitest-plugin-vis/tsconfig.json" }]
 }
