@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## 3.1.2
+
+### Patch Changes
+
+- [#533](https://github.com/repobuddy/visual-testing/pull/533) [`015f203`](https://github.com/repobuddy/visual-testing/commit/015f203377ef62b8a5299ba52c7bd755fcc13ced) Thanks [@unional](https://github.com/unional)! - Move React logic to the panel component.
+  This avoids the `invalid hook call` error when using the panel with `@storybook/addon-docs` loaded in the same Storybook instance.
+
 ## 3.1.1
 
 ### Patch Changes
