@@ -1,5 +1,5 @@
 import { RefreshIcon } from '@storybook/icons'
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { AddonPanel, IconButton, Placeholder, ScrollArea } from 'storybook/internal/components'
 import { styled } from 'storybook/theming'
 import { SNAPSHOT_ROOT_DIR } from 'vitest-plugin-vis/client-api'
@@ -7,11 +7,17 @@ import type { ImageSnapshotResults } from '../shared/events.ts'
 
 interface PanelProps {
 	active: boolean
-	snapshotResults: ImageSnapshotResults[]
+	getSnapshotResults: () => Promise<ImageSnapshotResults[]>
 	onRefresh: () => void
 }
 
-export const VisPanel = memo(function VisPanel({ active, snapshotResults = [], onRefresh }: PanelProps) {
+export const VisPanel = memo(function VisPanel({ active, getSnapshotResults, onRefresh }: PanelProps) {
+	const [snapshotResults, setSnapshotResults] = useState<ImageSnapshotResults[]>([])
+
+	useEffect(() => {
+		getSnapshotResults().then(setSnapshotResults)
+	}, [getSnapshotResults])
+
 	const groupedResults = snapshotResults.reduce(
 		(acc, result) => {
 			const suiteName = result.snapshotRootDir.slice(SNAPSHOT_ROOT_DIR.length + 1)

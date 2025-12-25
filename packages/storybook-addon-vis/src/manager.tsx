@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { addons, types } from 'storybook/manager-api'
 import { VisPanel } from './components/vis_panel.tsx'
 import { NAME, VIS_PANEL_ID } from './shared/contants.ts'
@@ -18,37 +18,25 @@ addons.register(NAME, (api) => {
 			title: 'Vis',
 			match: ({ tabId, viewMode }) => !tabId && viewMode === 'story',
 			render({ active }) {
-				const [snapshotResults, setSnapshotResults] = useState<ImageSnapshotResults[]>([])
-
+				if (!active) return null
 				const storyData = api.getCurrentStoryData()
-
-				useEffect(() => {
-					const disposes = [
+				if (!storyData) return null
+				api.emit(NAME, requestImageSnapshotResults(storyData))
+				async function getSnapshotResults() {
+					return new Promise<ImageSnapshotResults[]>((resolve) => {
 						api.on(NAME, (event: VisEvent) => {
 							if (event.name !== storyData.name) return
 							if (event.importPath !== storyData.importPath) return
-
 							if (event.type === IMAGE_SNAPSHOT_RESULTS_RESPONSE) {
-								setSnapshotResults(event.results)
+								resolve(event.results)
 							}
-						}),
-						// api.on('UNIVERSAL_STORE:storybook/test', (event) => {
-						// 	console.log('storybook/test', event)
-						// }),
-					]
-					if (storyData) api.emit(NAME, requestImageSnapshotResults(storyData))
-					return () =>
-						disposes.forEach((dispose) => {
-							dispose()
 						})
-				}, [storyData])
-
-				if (!active) return null
-
+					})
+				}
 				return (
 					<VisPanel
 						active={active}
-						snapshotResults={snapshotResults}
+						getSnapshotResults={getSnapshotResults}
 						onRefresh={() => {
 							if (storyData) api.emit(NAME, requestImageSnapshotResults(storyData))
 						}}
