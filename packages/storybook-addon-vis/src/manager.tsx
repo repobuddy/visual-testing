@@ -24,7 +24,7 @@ addons.register(NAME, (api) => {
 				api.emit(NAME, requestImageSnapshotResults(storyData))
 				async function getSnapshotResults() {
 					return new Promise<ImageSnapshotResults[]>((resolve) => {
-						api.on(NAME, (event: VisEvent) => {
+						api.once(NAME, (event: VisEvent) => {
 							if (event.name !== storyData.name) return
 							if (event.importPath !== storyData.importPath) return
 							if (event.type === IMAGE_SNAPSHOT_RESULTS_RESPONSE) {

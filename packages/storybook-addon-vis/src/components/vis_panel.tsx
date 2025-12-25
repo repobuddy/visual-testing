@@ -44,7 +44,12 @@ export const VisPanel = memo(function VisPanel({ active, getSnapshotResults, onR
 								<>
 									<SnapshotRow>
 										<span>{key}</span>
-										<IconButton onClick={() => onRefresh()}>
+										<IconButton
+											onClick={() => {
+												onRefresh()
+												getSnapshotResults().then(setSnapshotResults)
+											}}
+										>
 											<RefreshIcon />
 										</IconButton>
 									</SnapshotRow>
