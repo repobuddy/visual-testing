@@ -12,7 +12,7 @@ function getAbsolutePath(value: string): any {
 }
 
 export default defineMain({
-	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+	stories: ['../src/**/*.{mdx,stories.@(js|jsx|mjs|ts|tsx)}'],
 	addons: [
 		getAbsolutePath('@storybook/addon-docs'),
 		getAbsolutePath('@storybook/addon-a11y'),
