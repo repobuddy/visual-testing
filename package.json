@@ -47,12 +47,12 @@
 		"cross-env": "^10.0.0",
 		"husky": "^9.1.7",
 		"knip": "^5.68.0",
-		"playwright": "latest",
+		"playwright": "1.57.0",
 		"rimraf": "^6.0.1",
 		"turbo": "^2.6.0",
 		"typescript": "catalog:",
 		"vitest": "catalog:",
-		"webdriverio": "^9.12.2"
+		"webdriverio": "^9.22.0"
 	},
 	"packageManager": "pnpm@10.26.2"
 }
