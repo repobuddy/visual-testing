@@ -1,6 +1,6 @@
 name: pull-request
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 on:
   pull_request:
