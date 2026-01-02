@@ -56,7 +56,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          # token: ${{ secrets.CI_GITHUB_TOKEN }}
           title: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
           body: This PR updates the snapshot for ${{matrix.os}} node ${{matrix.node-version}}"
           branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.os }}-${{ matrix.node-version }}
