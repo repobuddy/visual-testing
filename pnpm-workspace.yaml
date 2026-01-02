@@ -6,16 +6,17 @@ catalog:
   '@repobuddy/vitest': ^2.1.1
   '@types/react': ^19.2.2
   '@types/react-dom': ^19.2.1
-  '@vitejs/plugin-react': ^5.1.1
-  '@vitest/browser': ^4.0.9
-  '@vitest/browser-playwright': ^4.0.9
-  '@vitest/browser-webdriverio': ^4.0.9
-  '@vitest/coverage-istanbul': ^4.0.9
-  '@vitest/coverage-v8': ^4.0.9
-  '@vitest/expect': ^4.0.9
+  '@vitejs/plugin-react': ^5.1.2
+  '@vitest/browser': ^4.0.16
+  '@vitest/browser-playwright': ^4.0.16
+  '@vitest/browser-webdriverio': ^4.0.16
+  '@vitest/coverage-istanbul': ^4.0.16
+  '@vitest/coverage-v8': ^4.0.16
+  '@vitest/expect': ^4.0.16
+  '@vitest/ui': ^4.0.16
   typescript: ^5.9.3
-  vite: ^7.1.12
-  vitest: ^4.0.9
+  vite: ^7.3.0
+  vitest: ^4.0.16
   vitest-browser-react: ^2.0.2
 
 ignoredBuiltDependencies:
