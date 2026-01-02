@@ -101,7 +101,7 @@
 		"pathe": "^2.0.0",
 		"pixelmatch": "^7.1.0",
 		"pngjs": "^7.0.0",
-		"rimraf": "^6.0.1",
+		"rimraf": "^6.1.2",
 		"ssim.js": "^3.5.0",
 		"type-plus": "8.0.0-beta.7"
 	},
