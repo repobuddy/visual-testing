@@ -4,7 +4,7 @@ import type { PrepareImageSnapshotComparisonCommand } from '../../shared/command
 import type { ImageSnapshotComparisonInfo } from '../../shared/types.ts'
 import { file } from '../externals/file.ts'
 import { getProjectRoot } from '../project.ts'
-import { takeSnapshot, takeSnapshotByBrowser } from '../snapshot.ts'
+import { takeSnapshot } from '../snapshot.ts'
 import { snapshotWriter } from '../snapshot_writer.ts'
 import { visServerContext } from '../vis_server_context.ts'
 import type { ExtendedBrowserCommand } from '../vis_server_context.types.ts'
@@ -22,20 +22,20 @@ export const prepareImageSnapshotComparison: ExtendedBrowserCommand<
 	const info = await visServerContext.getSnapshotInfo(context, taskId, options)
 
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
-	if (!baselineBuffer) {
-		if (isBase64String(subject)) {
-			await snapshotWriter.writeBase64(resolve(projectRoot, info.baselinePath), subject)
-		} else {
-			await takeSnapshotByBrowser(context, projectRoot, info.baselinePath, subject, options)
+	if (!baselineBuffer && isBase64String(subject)) {
+		await snapshotWriter.writeBase64(resolve(projectRoot, info.resultPath), subject)
+		return {
+			...info,
+			projectRoot,
+			result: subject,
 		}
-		return
 	}
 
 	const resultBuffer = await takeSnapshot(context, projectRoot, info.resultPath, subject, options)
 	return {
 		...info,
 		projectRoot,
-		baseline: baselineBuffer.toString('base64'),
+		baseline: baselineBuffer?.toString('base64'),
 		result: resultBuffer.toString('base64'),
 	}
 }

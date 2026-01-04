@@ -18,16 +18,11 @@ export const preparePageImageSnapshotComparison: ExtendedBrowserCommand<
 	const projectRoot = getProjectRoot(context)
 	const info = await visServerContext.getSnapshotInfo(context, taskId, options)
 	const baselineBuffer = await file.tryReadFile(resolve(projectRoot, info.baselinePath))
-	if (!baselineBuffer) {
-		await takePageSnapshot(context, projectRoot, info.baselinePath, options)
-		return
-	}
-
 	const resultBuffer = await takePageSnapshot(context, projectRoot, info.resultPath, options)
 	return {
 		...info,
 		projectRoot,
-		baseline: baselineBuffer.toString('base64'),
+		baseline: baselineBuffer?.toString('base64'),
 		result: resultBuffer.toString('base64'),
 	}
 }

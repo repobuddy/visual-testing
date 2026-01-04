@@ -20,8 +20,22 @@ export async function compareImageSnapshot(
 ) {
 	options = { ...info, ...options } as any
 
-	const baselineImage = await toImageData(info.baseline)
 	const resultImage = await toImageData(info.result)
+
+	if (!info.baseline) {
+		if (server.config.snapshotOptions.updateSnapshot === 'all') {
+			await writeSnapshot(commands, resolve(info.projectRoot, info.baselinePath), resultImage)
+			return
+		}
+		throw new Error(
+			dedent`Snapshot \`${taskId}\` has no baseline image. Please review the new snapshot and update the baseline image.
+
+				Options:    ${prettifyOptions(options)}
+				Actual:     ${resolve(info.projectRoot, info.resultPath)}`,
+		)
+	}
+
+	const baselineImage = await toImageData(info.baseline)
 	const [baselineAlignedImage, resultAlignedImage] = alignImagesToSameSize(baselineImage, resultImage)
 	const { width, height } = baselineAlignedImage
 	const diffImage = new ImageData(width, height)

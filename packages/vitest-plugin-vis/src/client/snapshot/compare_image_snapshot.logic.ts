@@ -10,5 +10,5 @@ export function prettifyOptions(options: ToMatchImageSnapshotOptions<any> | unde
 		options.diffOptions ? `diffOptions: ${JSON.stringify(options.diffOptions)}` : '',
 	]
 		.filter(Boolean)
-		.join('\n                 ')
+		.join('\n                ')
 }
