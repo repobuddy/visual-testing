@@ -128,8 +128,9 @@ export type ImageSnapshotComparisonInfo = {
 	diffPath: string
 	/**
 	 * Base64 encoded baseline image.
+	 * Undefined if the baseline image does not exist.
 	 */
-	baseline: string
+	baseline?: string | undefined
 	/**
 	 * Base64 encoded result image.
 	 */

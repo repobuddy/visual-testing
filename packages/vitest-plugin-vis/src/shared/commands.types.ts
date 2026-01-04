@@ -7,14 +7,14 @@ export interface PrepareImageSnapshotComparisonCommand {
 		taskId: string,
 		subject: string,
 		options?: MatchImageSnapshotOptions | undefined,
-	) => Promise<ImageSnapshotComparisonInfo | undefined>
+	) => Promise<ImageSnapshotComparisonInfo>
 }
 
 export interface PreparePageImageSnapshotComparisonCommand {
 	preparePageImageSnapshotComparison: (
 		taskId: string,
 		options?: MatchImageSnapshotOptions | undefined,
-	) => Promise<ImageSnapshotComparisonInfo | undefined>
+	) => Promise<ImageSnapshotComparisonInfo>
 }
 
 export interface SetupVisSuiteCommand {

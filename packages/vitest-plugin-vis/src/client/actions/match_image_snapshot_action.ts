@@ -19,8 +19,6 @@ export async function matchImageSnapshotAction(
 
 	const info = await commands.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
 
-	if (!info) return
-
 	return compareImageSnapshot(commands, taskId, info, options)
 }
 
