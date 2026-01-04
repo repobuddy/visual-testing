@@ -20,6 +20,13 @@ Or you can install [pnpm] directly:
 npm install -g pnpm
 ```
 
+## Setting up baselines
+
+The repository is configured to create your local copy of the baseline snapshots.
+
+You should first run `pnpm test:u` to update the baseline snapshots.
+The same applies when your are switching to a different branch.
+
 ## Useful Commands
 
 ```sh
