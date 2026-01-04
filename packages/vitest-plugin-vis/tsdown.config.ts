@@ -15,11 +15,9 @@ export default defineConfig([
 			'src/setup.ts',
 			'src/testing.ts',
 		],
+		unbundle: true,
 		tsconfig: 'tsconfig.esm.json',
-		format: ['esm'],
-		clean: false,
-		minify: false,
+		format: 'esm',
 		sourcemap: true,
-		// external: Object.keys(packageJson.dependencies),
 	},
 ])
