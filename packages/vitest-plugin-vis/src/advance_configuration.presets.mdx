@@ -1,0 +1,317 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+
+<Meta title="Advance Configuration/presets" />
+
+# Presets
+
+When you need more control over the visual testing process,
+there are a lot of customization you can do.
+
+
+
+
+## Comparison Methods
+
+Starting from the basic, you can customize the comparison method and the diff options.
+
+### Pixel Comparison (Default)
+
+Pixel comparison is the default method and uses `pixelmatch` to compare images pixel by pixel.
+This works great for most cases and gives you precise control over what counts as a difference.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		comparisonMethod: 'pixelmatch',
+		diffOptions: {
+			threshold: 0.1,        // Matching threshold (0-1), default: 0.1
+			includeAA: false,      // Include anti-aliased pixels in comparison
+			alpha: 0.1,            // Blending factor of unchanged pixels
+			aaColor: [255, 255, 0], // Color of anti-aliased pixels in diff
+			diffColor: [255, 0, 255] // Color of different pixels in diff
+		}
+	})],
+})
+```
+
+### SSIM Comparison
+
+Sometimes pixel-perfect isn't what you need. If you're working with images that have gradients, shadows, or anti-aliasing, SSIM (Structural Similarity Index) might be a better fit. It's designed to match how humans actually perceive image differences, which means fewer false positives when minor rendering differences don't actually matter.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		comparisonMethod: 'ssim',
+		diffOptions: {
+			ssim: 'bezkrovny',  // 'bezkrovny' (fast, default) | 'fast' (accurate) | 'weber' | 'original'
+			windowSize: 11,     // Window size for SSIM calculation (default: 11)
+			k1: 0.01,          // First stability constant (default: 0.01)
+			k2: 0.03,          // Second stability constant (default: 0.03)
+			bitDepth: 8,       // Bits per channel (default: 8)
+			downsample: 'original' // 'original' | 'fast' | false
+		}
+	})],
+})
+```
+
+## Failure Thresholds
+
+Sometimes you want a bit of flexibility in your tests. That's where failure thresholds come in! They let you decide how much difference is acceptable before a test fails.
+
+### Pixel-Based Threshold
+
+If you know roughly how many pixels might differ (maybe due to font rendering differences across platforms), you can set a specific pixel count. This is great when you have a good sense of what "acceptable difference" means in pixels.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		failureThreshold: 100,        // Allow 100 pixels to differ
+		failureThresholdType: 'pixel' // Default: 'pixel'
+	})],
+})
+```
+
+### Percentage-Based Threshold
+
+Percentage-based thresholds are often more intuitive, especially when you're working with different image sizes. Instead of thinking "100 pixels," you can think "2% of the image," which scales better across different screen sizes and resolutions.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		failureThreshold: 0.05,        // Allow 5% of pixels to differ
+		failureThresholdType: 'percent'
+	})],
+})
+```
+
+### Pixel-Perfect Comparison
+
+When you need absolute precision—maybe you're testing critical UI components or want to catch the tiniest visual regressions—pixel-perfect comparison is your go-to. This is the default behavior and ensures that any pixel difference will be caught.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		failureThreshold: 0,
+		failureThresholdType: 'pixel'
+	})],
+})
+```
+
+## Timeout Configuration
+
+Sometimes your tests need a bit more time to render, especially if you're working with complex components or slower environments. You can adjust the timeout to give your tests the breathing room they need.
+
+### Custom Timeout
+
+If you find your tests are timing out, or if you're working with particularly complex components that take longer to render, you can increase the timeout. The default is 30 seconds, but feel free to adjust it based on your needs.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		timeout: 60000 // 60 seconds (default: 30000ms)
+	})],
+})
+```
+
+### Quick Timeout for Fast Tests
+
+On the flip side, if you know your tests are quick and you want faster feedback, you can reduce the timeout. This helps catch issues faster and keeps your test suite snappy!
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		timeout: 5000 // 5 seconds
+	})],
+})
+```
+
+## Snapshot Directory Configuration
+
+By default, snapshots are stored in a sensible location, but sometimes you want to organize them differently. Maybe you want them in a specific folder, or you need different locations for different environments. We've got you covered!
+
+### Custom Snapshot Root Directory
+
+Want to keep your snapshots in a specific location? No problem! Just tell us where you'd like them stored.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		snapshotRootDir: './custom-snapshots'
+	})],
+})
+```
+
+### Dynamic Snapshot Root Directory
+
+Sometimes you need different snapshot locations for different environments or browsers. With a function, you can dynamically choose where snapshots go based on the context—perfect for organizing snapshots by platform, browser, or CI environment.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		snapshotRootDir: (context) => {
+			// Customize based on environment
+			if (context.ci) {
+				return `./snapshots/${context.platform}/${context.browserName}`
+			}
+			return './snapshots/local'
+		}
+	})],
+})
+```
+
+### Custom Snapshot Subpath
+
+If you have test files with the same name in different directories (which can happen when you organize tests in multiple folders), you might run into snapshot conflicts. Customizing the subpath lets you keep everything organized and avoid those conflicts.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		snapshotSubpath: ({ subpath }) => {
+			// Retain full path to avoid conflicts
+			return subpath
+		}
+	})],
+})
+```
+
+## Complete Configuration Examples
+
+Ready to see how it all comes together? Here are some real-world configuration examples that you can use as starting points for your own setup.
+
+### High-Precision SSIM Configuration
+
+This configuration is perfect when you're working with applications that have gradients, shadows, or anti-aliasing. SSIM handles these visual elements more gracefully than pixel comparison, reducing false positives while still catching real issues.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		preset: 'auto',
+		comparisonMethod: 'ssim',
+		failureThreshold: 0.01,
+		failureThresholdType: 'percent',
+		diffOptions: {
+			ssim: 'bezkrovny' // Fast and accurate
+		},
+		timeout: 30000
+	})],
+})
+```
+
+### Pixel-Perfect Configuration
+
+When you absolutely need to catch every single pixel difference—perhaps for critical UI components or when you're maintaining a design system—this configuration ensures nothing slips through. It's strict, but sometimes that's exactly what you need.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		preset: 'auto',
+		comparisonMethod: 'pixel',
+		failureThreshold: 0,
+		failureThresholdType: 'pixel',
+		diffOptions: {
+			threshold: 0,
+			includeAA: true
+		},
+		timeout: 30000
+	})],
+})
+```
+
+### Tolerant Configuration
+
+Cross-browser testing can be tricky—different browsers sometimes render things slightly differently, and that's okay! This configuration gives you a bit of tolerance for those minor rendering differences while still catching the important visual changes. It's a great balance between catching real issues and avoiding false positives.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		preset: 'auto',
+		comparisonMethod: 'pixel',
+		failureThreshold: 0.02, // 2% tolerance
+		failureThresholdType: 'percent',
+		diffOptions: {
+			threshold: 0.2,
+			includeAA: false
+		},
+		timeout: 45000
+	})],
+})
+```
+
+### Custom Preset with Advanced Options
+
+When you need complete control over your visual testing strategy, the `custom` preset is your playground. You can set up your own testing logic in `vitest.setup.ts` and combine it with all these configuration options. It's perfect for advanced use cases where the standard presets don't quite fit your workflow.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		preset: 'custom',
+		comparisonMethod: 'ssim',
+		failureThreshold: 0.05,
+		failureThresholdType: 'percent',
+		snapshotRootDir: './visual-snapshots',
+		timeout: 60000
+	})],
+	test: {
+		setupFiles: ['./vitest.setup.ts']
+	}
+})
+```
+
+## Configuration Options Summary
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `preset` | `'auto' \| 'manual' \| 'custom'` | `'auto'` | Visual testing strategy preset |
+| `comparisonMethod` | `'pixel' \| 'ssim'` | `'pixel'` | Image comparison algorithm |
+| `failureThreshold` | `number` | `0` | Tolerance threshold for differences |
+| `failureThresholdType` | `'pixel' \| 'percent'` | `'pixel'` | How threshold is measured |
+| `timeout` | `number` | `30000` | Timeout in milliseconds |
+| `snapshotRootDir` | `string \| function` | `'__vis__/{platform}'` | Snapshot directory location |
+| `snapshotSubpath` | `function` | Auto-determined | Custom snapshot subpath |
+| `diffOptions` | `object` | `{}` | Algorithm-specific options |
+
+We hope this guide helps you configure `vitest-plugin-vis` to work perfectly for your needs! If you want to dive deeper into any specific option, check out the [config documentation](/docs/vitest-plugin-vis-config-vis--docs) for more details.
+
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis

@@ -20,7 +20,7 @@ const preview: Preview = {
 		},
 		options: {
 			storySort: {
-				order: ['Overview', 'Changelog'],
+				order: ['Overview', 'config', 'setup', '*'],
 			},
 		},
 		...defineDarkModeParam({

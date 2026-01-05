@@ -288,6 +288,21 @@ it('should fail with additional info when it does not fail with expectToFail', a
 		)
 })
 
+it('supports mask option', async ({ expect }) => {
+	await render(
+		<div data-testid="subject">
+			<div>
+				hello
+				<div data-testid="to-be-masked">dynamic content to be masked</div>
+			</div>
+		</div>,
+	)
+	const subject = page.getByTestId('subject')
+	await expect(subject).toMatchImageSnapshot({
+		mask: [page.getByTestId('to-be-masked')],
+	})
+})
+
 describe(`${setAutoSnapshotOptions.name}()`, () => {
 	beforeEach(() => setAutoSnapshotOptions({ enable: true }))
 

@@ -32,6 +32,7 @@ export async function takeSnapshotByBrowser(
 	const browser = browserApi(context)
 	return browser.takeScreenshot(projectRoot, relativeFilePath, subject ?? 'body', {
 		timeout: options?.timeout,
+		mask: options?.mask,
 	})
 }
 

@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="config/Subject" />
+
+# Customizing Subject
+
+[vitest-plugin-vis] allows you to customize the subject of the snapshot through the `subject` option.
+
+For example, if you enforce a `data-testid` attribute on the element you want to snapshot,
+you can use the `subject` option to specify the selector:
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [vis({ subject: '[data-testid="subject"]' })],
+})
+```
+
+## Options
+
+### `subject` (string)
+
+Specifies the CSS selector for the element to snapshot. If not provided or element not found, defaults to `document.body`.
+
+```ts
+// Snapshot a specific element

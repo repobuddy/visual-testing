@@ -1,0 +1,24 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="config/Overview" />
+
+# Configuration
+
+Configuration refers to configuring [vitest-plugin-vis] in your `vitest.config.ts` file.
+
+The API is provided under `vitest-plugin-vis/config`.
+
+As seen in the [Overview](../overview.mdx#basic-configuration),
+the main API is the `vis` plugin:
+
+```ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+})
+```
+
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+[playwright]: https://playwright.dev/
+[webdriverio]: https://webdriver.io/

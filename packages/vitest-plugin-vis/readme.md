@@ -179,12 +179,12 @@ you can use `snapshotSubpath` to customize the snapshot sub-path to avoid confli
 
 ```ts
 // vitest.config.ts
-import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { vis } from 'vitest-plugin-vis/config'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
 	plugins: [
-		storybookVis({
+		vis({
 			// keep the folder structure
 			snapshotSubpath: (subpath) => subpath
 		})

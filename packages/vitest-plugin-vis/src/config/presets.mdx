@@ -1,0 +1,77 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="config/Presets" />
+
+# Presets
+
+The `preset` option set up typical visual testing scenarios.
+
+## `auto`
+
+The `auto` preset is the default preset.
+It will take a snapshot of the page at the end of each rendering test.
+
+```ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		// same as `vis({ preset: 'auto' })`
+		vis()
+	],
+})
+```
+
+## `manual`
+
+The `manual` preset is for manual testing.
+It will not take any snapshot automatically.
+You need to take a snapshot manually in your test code.
+
+```ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({ preset: 'manual' })
+	],
+})
+```
+
+```ts
+import { it, expect } from 'vitest'
+
+it('manual snapshot', async ({ expect }) => {
+	render(<div data-testid="subject">hello world</div>)
+	await expect(document.body).toMatchImageSnapshot()
+	// or
+	await page.toMatchImageSnapshot()
+})
+```
+
+## `none`
+
+The `none` preset is for advanced usage.
+It will not take any snapshot automatically.
+You need to set up your own visual testing strategy in `vitest.setup.ts`.
+
+```ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'none' })],
+})
+```
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: async ({ meta }) => meta['darkOnly'],
+})
+```
+
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+[playwright]: https://playwright.dev/
+[webdriverio]: https://webdriver.io/

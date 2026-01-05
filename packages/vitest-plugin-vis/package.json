@@ -110,6 +110,7 @@
 		"@repobuddy/typescript": "^2.1.0",
 		"@storybook-community/storybook-dark-mode": "^7.1.0",
 		"@storybook/addon-docs": "^10.1.10",
+		"@storybook/addon-mdx-gfm": "^8.6.14",
 		"@storybook/addon-vitest": "^10.1.10",
 		"@storybook/react-vite": "^10.1.10",
 		"@tailwindcss/vite": "^4.1.14",

@@ -47,6 +47,10 @@
 		"editor.defaultFormatter": "biomejs.biome",
 		"editor.formatOnSave": true
 	},
+	"[mdx]": {
+		"editor.defaultFormatter": "yzhang.markdown-all-in-one",
+		"editor.formatOnSave": true
+	},
 	"cSpell.words": [
 		"bezkrovny",
 		"biomejs",

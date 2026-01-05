@@ -17,6 +17,15 @@ export async function matchImageSnapshotAction(
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 
+	if (options?.mask) {
+		options.mask = options.mask.map((mask) => {
+			if (mask instanceof Element) return convertElementToCssSelector(mask)
+			if (typeof mask === 'string') return mask
+			if ('selector' in mask) return mask.selector
+			throw new Error(`The mask option expects an element, locator, or selector string, but got: ${mask}`)
+		})
+	}
+
 	const info = await commands.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
 
 	return compareImageSnapshot(commands, taskId, info, options)
