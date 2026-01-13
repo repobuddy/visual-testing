@@ -1,5 +1,25 @@
 # vitest-plugin-vis
 
+## 4.2.0
+
+### Minor Changes
+
+- [#551](https://github.com/repobuddy/visual-testing/pull/551) [`1c54a56`](https://github.com/repobuddy/visual-testing/commit/1c54a56baa1136c49eccefe8d7cf0de0332441cf) Thanks [@unional](https://github.com/unional)! - Fail test when no baseline image is found.
+  This behavior is closer to the Visual Regression Test from Vitest.
+
+  The difference is that the baseline image is not created automatically.
+  You need to create it manually by running the test with the `updateSnapshot` option set to `all`.
+
+  This prevents you from accidentally committing a new snapshot or passing the tests when you running the tests for the second time.
+
+  Closes [#516](https://github.com/repobuddy/visual-testing/issues/516)
+
+  Since this change can break existing tests (even though correctly), we will release it as a minor version.
+
+### Patch Changes
+
+- [#551](https://github.com/repobuddy/visual-testing/pull/551) [`495d10c`](https://github.com/repobuddy/visual-testing/commit/495d10cfa4c454b351a7c4f8ef33104829a0f560) Thanks [@unional](https://github.com/unional)! - Publish as unbundle to improve debuggability.
+
 ## 4.1.0
 
 ### Minor Changes
