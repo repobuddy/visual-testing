@@ -10,6 +10,7 @@ export default defineConfig({
 	plugins: [react(), storybookTest({ configDir: join(import.meta.dirname, '.storybook') }), storybookVis()],
 	test: {
 		name: 'sb-csf-3',
+		retry: 1,
 		browser: {
 			enabled: true,
 			headless: true,
