@@ -1,6 +1,6 @@
 name: pull-request
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 on:
   pull_request:
@@ -21,6 +21,12 @@ jobs:
     env:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
+      - uses: actions/create-github-app-token@v2
+        id: generate-token
+        with:
+          app-id: ${{ secrets.VIS_TEST_APP_ID }}
+          private-key: ${{ secrets.VIS_TEST_APP_KEY }}
+
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
       - name: Setup Node.js ${{ matrix.node-version }}
@@ -56,7 +62,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           title: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
           body: This PR updates the snapshot for ${{matrix.os}} node ${{matrix.node-version}}"
           branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.os }}-${{ matrix.node-version }}
