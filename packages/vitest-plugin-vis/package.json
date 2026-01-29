@@ -56,6 +56,10 @@
 			"types": "./dist/setup.d.mts",
 			"default": "./dist/setup.mjs"
 		},
+		"./setup-api": {
+			"types": "./dist/setup-api.d.mts",
+			"default": "./dist/setup-api.mjs"
+		},
 		"./testing": {
 			"types": "./dist/testing.d.mts",
 			"default": "./dist/testing.mjs"

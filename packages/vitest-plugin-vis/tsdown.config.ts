@@ -13,6 +13,7 @@ export default defineConfig([
 			'src/presets/enable.ts',
 			'src/server-utils.ts',
 			'src/setup.ts',
+			'src/setup-api.ts',
 			'src/testing.ts',
 		],
 		unbundle: true,
