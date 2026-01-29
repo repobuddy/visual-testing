@@ -1,7 +1,7 @@
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { beforeAll, beforeEach, describe, it } from 'vitest'
-import { setAutoSnapshotOptions } from '../../client-api.ts'
-import { NAME } from '../../shared/constants.ts'
-import { extractAutoSnapshotOptions } from './auto_snapshot_options.ts'
+import { NAME } from '../shared/constants.ts'
+import { extractAutoSnapshotOptions } from './_extract_auto_snapshot_options.ts'
 
 beforeAll(() => {
 	// this set the `file` meta

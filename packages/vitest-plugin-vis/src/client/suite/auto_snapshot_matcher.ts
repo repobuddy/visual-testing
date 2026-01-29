@@ -1,9 +1,9 @@
 import dedent from 'dedent'
+import { extractAutoSnapshotOptions } from '../../auto_snapshots/_extract_auto_snapshot_options.ts'
+import type { SnapshotMeta } from '../../auto_snapshots/snapshot_meta.ts'
 import type { SetupVisSuiteCommand } from '../../shared/commands.types.ts'
 import type { ComparisonMethod } from '../../shared/types.ts'
 import { shouldTakeSnapshot } from '../snapshot/should_take_snapshot.ts'
-import { extractAutoSnapshotOptions } from '../task/auto_snapshot_options.ts'
-import type { SnapshotMeta } from '../task/snapshot_meta.ts'
 import { toTaskId } from '../task/task_id.ts'
 import { ctx } from './_ctx.ts'
 

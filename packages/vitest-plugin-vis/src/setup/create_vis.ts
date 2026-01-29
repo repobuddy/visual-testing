@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, expect } from 'vitest'
+import { setAutoSnapshotOptions } from '../auto_snapshots/auto_snapshot_options.ts'
+import type { SnapshotMeta } from '../auto_snapshots/snapshot_meta.ts'
 import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
-import { setAutoSnapshotOptions } from '../client/task/auto_snapshot_options.ts'
-import type { SnapshotMeta } from '../client/task/snapshot_meta.ts'
 import type { SetupVisSuiteCommand } from '../shared/commands.types.ts'
 import type { ComparisonMethod, SetupVisOptions } from '../shared/types.ts'
 

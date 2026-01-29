@@ -1,6 +1,6 @@
 import type pixelMatch from 'pixelmatch'
 import type { Options as SsimDiffOptions } from 'ssim.js'
-import type { SnapshotMeta } from '../client/task/snapshot_meta.ts'
+import type { SnapshotMeta } from '../auto_snapshots/snapshot_meta.ts'
 import type { NAME } from './constants.ts'
 
 export type Awaitable<T> = T | PromiseLike<T>
