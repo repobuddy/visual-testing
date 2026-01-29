@@ -1,12 +1,21 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="config/overview" />
+<Meta title="config" />
 
 # Overview
 
-[vitest-plugin-vis/config] provides the API to configure the plugin.
+Configuration refers to configuring the plugin in your `vitest.config.ts` file.
 
-It provides the API you needed in `vitest.config.ts`.
+You can configure the plugin by passing options to the `vis` function from `vitest-plugin-vis/config`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+})
+```
 
 ## Customizing snapshot path
 
