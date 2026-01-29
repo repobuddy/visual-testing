@@ -1,0 +1,249 @@
+import { Meta, Source } from "@storybook/addon-docs/blocks";
+
+<Meta title="config/vis" />
+
+# `vis()`
+
+`vis` from `vitest-plugin-vis/config` is the Vitest plugin of `vitest-plugin-vis`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+})
+```
+
+It provides a lot of options to customize the behavior of the plugin.
+(You can learn more about the default configuration [here](/docs/overview--docs#basic-configuration).)
+
+## `preset`
+
+The `preset` option set up typical visual testing strategies.
+w
+### `auto`
+
+The `auto` preset is the default preset.
+It will take a snapshot of the page at the end of each rendering test.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'auto' })],
+})
+```
+
+### `manual`
+
+The `manual` preset is for manual testing.
+It will not take any snapshot automatically.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'manual' })],
+})
+```
+
+See [Manual Snapshot](/docs/expect-tomatchimagesnapshot--docs) section on how to take an image snapshot manually.
+
+### `custom`
+
+The `custom` preset is for advanced users.
+It will not take any snapshot automatically.
+You need to set up your own visual testing strategy in `vitest.setup.ts`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'custom' })],
+	test: {
+		// Set up your own visual testing strategy in `vitest.setup.ts`.
+		setupFiles: ['./vitest.setup.ts'],
+	}
+})
+```
+
+When using the `custom` preset,
+you need to set up your own visual testing strategy in `vitest.setup.ts` using the [vis](?path=/docs/setup-vis--docs) function from `vitest-plugin-vis/setup`.
+
+## `subject`
+
+By default, the snapshot is taken from the `document.body` element.
+
+If you establish a common pattern in your tests,
+you can customize the subject to snapshot by setting the `subject` option.
+
+
+For example, if you enforce a `data-testid` attribute on the element you want to snapshot,
+you can use the `subject` option to specify the selector:
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ subject: '[data-testid="subject"]' })]
+})
+```
+
+## `snapshotRootDir`
+
+By default, the snapshot is saved in the `__vis__` folder relative to the project root.
+
+If you want to save the snapshot in a different folder,
+you can set the `snapshotRootDir` option.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			// save the snapshot in the `<projectRoot>/custom` folder
+			snapshotRootDir: 'custom'
+		})
+	]
+})
+```
+
+Beside providing a static path,
+you can also provide a function to dynamically determine the snapshot root directory based on the context.
+
+The function receives the following context:
+
+- `ci`: Whether the code is running in a CI environment
+- `platform`: The platform string (e.g., 'linux', 'darwin', 'win32')
+- `browserName`: The name of the browser (e.g., 'chromium', 'firefox', etc.)
+- `providerName`: The name of the provider (e.g., 'playwright', 'webdriverio', etc.)
+- `screenshotFailures`: Whether the screenshot failures are enabled
+- `screenshotDirectory`: The directory to save the screenshot
+
+By default, we provide this function: `({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`
+
+## `snapshotSubpath`
+
+Customize the snapshot subpath.
+
+By default, we provide this function: `({ subpath }) => trimCommonFolder(subpath)`
+
+The `trimCommonFolder` function is also provided if you want to use it in your own custom function.
+
+## `snapshotKey`
+
+`snapshotKey` specifies the key of the snapshot.
+In the context of `vis()`, `snapshotKey` is used to specify the key of the auto snapshot.
+
+By default, the `snapshotKey` is `auto`.
+
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+
+## `comparisonMethod`
+
+`comparisonMethod` specifies the method of the comparison.
+By default, the `comparisonMethod` is `pixel`.
+
+If you want to use the `ssim` method,
+you can set the `comparisonMethod` option.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ comparisonMethod: 'ssim' })]
+})
+```
+
+## `diffOptions`
+
+`diffOptions` specifies the options of the comparison.
+It accepts different options based on the `comparisonMethod`.
+
+For `pixel` comparison, it accepts the options of `pixelmatch`:
+
+```ts
+{
+  aaColor: [number, number, number] | undefined;
+  alpha?: number | undefined;
+  diffColor?: [number, number, number] | undefined;
+  diffColorAlt?: [number, number, number] | undefined;
+  diffMask?: boolean | undefined;
+  includeAA?: boolean | undefined;
+  threshold?: number | undefined;
+}
+```
+
+For `ssim` comparison, it accepts the options of `ssim`:
+
+```ts
+{
+  bitDepth: number;
+  downsample: 'original' | 'fast' | false;
+  k1: number;
+  k2: number;
+  maxSize?: number;
+  rgb2grayVersion: 'original' | 'integer';
+  ssim: 'fast' | 'original' | 'bezkrovny' | 'weber';
+  windowSize: number;
+}
+```
+
+## `failureThresholdType`
+
+`failureThresholdType` specifies the type of the failure threshold.
+By default, the `failureThresholdType` is `pixel`.
+
+If you want to use the `percent` type,
+you can set the `failureThresholdType` option.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ failureThresholdType: 'percent' })]
+})
+```
+
+## `failureThreshold`
+
+`failureThreshold` specifies the threshold of the failure.
+By default, the `failureThreshold` is `0`.
+
+If you want to use the `percent` type,
+you can set the `failureThreshold` option.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ failureThreshold: 0.05 })]
+})
+```
+
+## `timeout`
+
+`timeout` specifies the timeout of the snapshot.
+By default, the `timeout` is `30000`.
+
+If you want to customize the timeout,
+you can set the `timeout` option.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ timeout: 30000 })]
+})
+```
