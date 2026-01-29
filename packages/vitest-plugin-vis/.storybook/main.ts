@@ -20,6 +20,9 @@ const config = {
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
 	],
+	docs: {
+		defaultName: 'Overview',
+	},
 	framework: {
 		name: getAbsolutePath('@storybook/react-vite'),
 		options: {},
