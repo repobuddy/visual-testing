@@ -1,0 +1,136 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="config/overview" />
+
+# Overview
+
+[vitest-plugin-vis/config] provides the API to configure the plugin.
+
+It provides the API you needed in `vitest.config.ts`.
+
+## Customizing snapshot path
+
+Let's say you have this test:
+
+```ts
+// src/components/MyComponent.spec.tsx
+
+describe('MyComponent', () => {
+	describe('className', () => {
+		it('can customize className', () => {
+			// ...
+		})
+	})
+})
+```
+
+By default, when you run the test locally,the image snapshot will be saved in the following path:
+
+```sh
+__vis__/local/__baselines__/components/MyComponent.spec.tsx/MyComponent/className/can-customize-className-auto.png
+```
+
+This path can be broken down into a few parts:
+
+> `__vis__/local`: `snapshotRootDir`
+
+This is the `snapshotRootDir` where the image snapshots folders are placed.
+When running on CI, the `snapshotRootDir` is default to `__vis__/<process.platform>`.
+
+> `__baselines__`: baseline folder
+
+This is the folder where the baseline images are saved and used for comparison.
+There is also a `__results__` folder where the current test run images are saved,
+and a `__diffs__` folder where the diff images are saved if the comparison fails.
+
+> `components/MyComponent.spec.tsx`: `snapshotSubpath`
+
+This is part of the path based on the path of the test file relative to the project root.
+By default, the plugin will trim the common folder such as `src` or `test` from the path to reduce the path length.
+
+If you place your test files in multiple folders,
+such as in both `tests` and `src` folders,
+and they might have files with the same name and create conflicting snapshots,
+you can use `snapshotSubpath` to customize the snapshot sub-path to avoid conflicts.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			// keep the folder structure
+			snapshotSubpath: (subpath) => subpath
+		})
+	],
+	// ...
+})
+```
+
+With the above configuration, the snapshot folder structure will look like this:
+
+```ini
+v __vis__
+	> # ...
+	v local # snapshot generated on local machine
+		> __baselines__
+			v examples
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+			v src
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+			v tests
+				v button.stories.tsx
+					snapshot-1.png
+					snapshot-2.png
+v examples
+	button.stories.tsx
+v src
+	button.stories.tsx
+v tests
+	button.stories.tsx
+```
+
+> `MyComponent/className/can-customize-className`: `snapshotId`
+
+This is the ID of the snapshot based on the test name and scope.
+This is not customizable.
+
+> `auto`: `snapshotKey`
+
+This is the key of the snapshot.
+In this case, it is `auto` because the snapshot is taken automatically at the end of the test.
+If you take a manual snapshot, the key will be `0`, `1`, etc.
+If you customize it when taking the snapshot,
+the global customization will not be used.
+
+You can customize the `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey` with corresponding options:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis, trimCommonFolder } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			snapshotRootDir: ({
+				ci, // true if running on CI
+				platform, // process.platform
+				providerName, // 'playwright' or 'webdriverio'
+				browserName, // 'chromium', 'firefox', etc.
+				screenshotFailures, // from `browser` config
+				screenshotDirectory, // from `browser` config
+			}) => `__vis__/${ci ? platform : 'local'}`,
+			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+			// Alphanumeric characters, and underscore are allowed. Dash is not allowed.
+			snapshotKey: 'auto',
+		})
+	]
+})
+```
