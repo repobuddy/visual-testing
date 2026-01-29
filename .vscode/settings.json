@@ -47,6 +47,7 @@
 		"editor.defaultFormatter": "biomejs.biome",
 		"editor.formatOnSave": true
 	},
+	"cSpell.ignoreRegExpList": ["@[A-Za-z0-9.]+$"],
 	"cSpell.words": [
 		"bezkrovny",
 		"biomejs",
