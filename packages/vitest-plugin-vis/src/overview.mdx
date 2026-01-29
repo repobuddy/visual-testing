@@ -4,7 +4,7 @@ import { Meta, Markdown } from "@storybook/addon-docs/blocks";
 
 # Vitest Visual Testing Plugin
 
-[vitest-plugin-vis] provides visual testing for [Vitest] when running in [Browser Mode][vitest-browser-mode].
+[vitest-plugin-vis] provides visual testing for tests running in [Vitest Browser Mode][vitest-browser-mode].
 
 Vitest 4 adds [Visual Regression Test][visual-regression-test] support natively.
 You can choose which method to use based on your needs.
@@ -37,7 +37,15 @@ yarn add --save-dev vitest-plugin-vis
 
 ## Basic Configuration
 
-To use [vitest-plugin-vis], you need to add it to your Vitest configuration.
+To use [vitest-plugin-vis], you need to:
+
+- Add the `vis` plugin to your Vitest configuration.
+- Update `.gitignore` for the snapshot directories.
+- Update your TypeScript configuration to include the `vitest-plugin-vis` type.
+
+### Vitest Configuration
+
+The [vitest-plugin-vis] plugin can be used without customization.
 
 ```ts
 // vitest.config.ts
@@ -54,13 +62,13 @@ export default defineConfig({
 
 This default configuration will:
 
-- Use the `auto` preset, taking image snapshot at the end on each rendering test.
+- Use the [auto preset](?path=/docs/configuration--docs#auto-preset), taking image snapshot at the end on each rendering test.
 - Use `pixelmatch` as the image comparison method.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
 - Timeout for image comparison is set to `30000 ms`.
 - Save image snapshots in the `<project-root>/__vis__` directory.
 
-## Update .gitignore
+### Update .gitignore
 
 By default, [vitest-plugin-vis] will save image snapshots in the `<project-root>/__vis__` directory.
 
@@ -83,26 +91,36 @@ Because of that, you should add the following lines to your `.gitignore` file:
 **/__vis__/**/__results__
 ```
 
-## Configuration and Setup
+### TypeScript Configuration
 
-When running [Vitest] in [Browser Mode][vitest-browser-mode],
-it runs in Node.js environment and starts a browser instance using provider such as [Playwright][playwright] or [WebDriverIO][webdriverio].
+If you want to do manual snapshot testing, you need to tell TypeScript about the matcher.
+
+Add the following to your `tsconfig.json`:
+
+```jsonc
+{
+	"compilerOptions": {
+		"types": ["vitest-plugin-vis"]
+	}
+}
+```
+
+## Advanced Configuration
+
+[Vitest Browser Mode][vitest-browser-mode] is a mode that allows you to run tests in a browser environment.
+It has two parts: the Node.js side and the browser side.
+
+It runs a worker in Node.js environment and starts a browser instance using provider such as [Playwright][playwright] or [WebDriverIO][webdriverio].
 It then runs the tests in the browser environment and controls the browser instance remotely through the provider.
 
-[vitest-plugin-vis] also needs to do the same.
-On the Node.js side, there are code to load and save the image snapshots,
-and ask the provider to take screenshots.
+For [vitest-plugin-vis], we run code on the Node.js side to load and save the image snapshots,
+ask the provider to take screenshots,
+and on the browser side we provides API to take snapshots.
 
-On the browser side, we need to provide the API for your tests to control how the snapshots are taken,
-and fail the test if the screenshots do not match.
+The Node.js side is configured in your `vitest.config.ts` file,
+while the browser side is configured in your `vitest.setup.ts` file.
 
-That's why [vitest-plugin-vis] needs to be configured in both the Node.js and browser sides.
-
-On the Node.js side, you can configure [vitest-plugin-vis] in your `vitest.config.ts` file.
-The API is provided under `vitest-plugin-vis/config`.
-
-On the browser side, you can configure [vitest-plugin-vis] in your `vitest.setup.ts` file.
-The API is provided under `vitest-plugin-vis/setup`.
+Please check out the documentation for [Config](?path=/docs/config-vis--docs) and [Setup](?path=/docs/setup-vis--docs) for more details.
 
 [vitest]: https://vitest.dev
 [vitest-browser-mode]: https://vitest.dev/guide/browser
