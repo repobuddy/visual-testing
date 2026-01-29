@@ -34,18 +34,15 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
 		/**
 		 * Loads the `test.setupFiles` of the specified preset.
 		 *
-		 * Note:
-		 * - 'enable` is deprecated. Use `manual` for the same effect.
-		 * - 'none` is deprecated. Use `custom` for the same effect.
-		 *
 		 * @default 'auto'
-		 *
+		 * @deprecated 'enable' is deprecated. Use `manual` for the same effect.
+		 * @deprecated 'none' is deprecated. Use `custom` for the same effect.
 		 */
 		preset?: 'enable' | 'manual' | 'auto' | 'custom' | 'none' | undefined
 		/**
 		 * The snapshot folder relative to the root of the project.
 		 *
-		 * Default: `{projectRoot}/__vis__/{platform}`
+		 * @default "({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`"
 		 */
 		snapshotRootDir?:
 			| string
