@@ -20,6 +20,7 @@
 	},
 	"type": "module",
 	"imports": {
+		"#vitest-plugin-vis": "./src/index.ts",
 		"#vitest-plugin-vis/config": "./src/config.ts",
 		"#vitest-plugin-vis/setup": "./src/setup.ts"
 	},
