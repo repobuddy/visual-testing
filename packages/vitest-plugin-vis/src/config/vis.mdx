@@ -2,7 +2,7 @@ import { Meta, Source } from "@storybook/addon-docs/blocks";
 
 <Meta title="config/vis" />
 
-# `vis()`
+# `vis`
 
 `vis` from `vitest-plugin-vis/config` is the Vitest plugin of `vitest-plugin-vis`.
 
@@ -21,7 +21,7 @@ It provides a lot of options to customize the behavior of the plugin.
 ## `preset`
 
 The `preset` option set up typical visual testing strategies.
-w
+
 ### `auto`
 
 The `auto` preset is the default preset.
@@ -127,7 +127,11 @@ The function receives the following context:
 - `screenshotFailures`: Whether the screenshot failures are enabled
 - `screenshotDirectory`: The directory to save the screenshot
 
-By default, we provide this function: `({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`
+By default, we provide this function:
+
+```ts
+({ ci, platform }) => `__vis__/${ci ? platform : 'local'}
+```
 
 ## `snapshotSubpath`
 
@@ -168,82 +172,142 @@ export default defineConfig({
 `diffOptions` specifies the options of the comparison.
 It accepts different options based on the `comparisonMethod`.
 
+### Pixel Comparison
+
 For `pixel` comparison, it accepts the options of `pixelmatch`:
 
 ```ts
-{
-  aaColor: [number, number, number] | undefined;
-  alpha?: number | undefined;
-  diffColor?: [number, number, number] | undefined;
-  diffColorAlt?: [number, number, number] | undefined;
-  diffMask?: boolean | undefined;
-  includeAA?: boolean | undefined;
-  threshold?: number | undefined;
-}
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		comparisonMethod: 'pixelmatch',
+		diffOptions: {
+			threshold: 0.1,        // Matching threshold (0-1), default: 0.1
+			includeAA: false,      // Include anti-aliased pixels in comparison
+			alpha: 0.1,            // Blending factor of unchanged pixels
+			aaColor: [255, 255, 0], // Color of anti-aliased pixels in diff
+			diffColor: [255, 0, 255] // Color of different pixels in diff
+		}
+	})],
+})
 ```
 
+For option details, please refer to the [pixelmatch documentation](https://github.com/mapbox/pixelmatch?tab=readme-ov-file#pixelmatchimg1-img2-output-width-height-options).
+
+### SSIM Comparison
+
+Sometimes pixel-perfect isn't what you need. If you're working with images that have gradients, shadows, or anti-aliasing, SSIM (Structural Similarity Index) might be a better fit.
+It's designed to match how humans actually perceive image differences, which means fewer false positives when minor rendering differences don't actually matter.
 For `ssim` comparison, it accepts the options of `ssim`:
 
 ```ts
-{
-  bitDepth: number;
-  downsample: 'original' | 'fast' | false;
-  k1: number;
-  k2: number;
-  maxSize?: number;
-  rgb2grayVersion: 'original' | 'integer';
-  ssim: 'fast' | 'original' | 'bezkrovny' | 'weber';
-  windowSize: number;
-}
-```
-
-## `failureThresholdType`
-
-`failureThresholdType` specifies the type of the failure threshold.
-By default, the `failureThresholdType` is `pixel`.
-
-If you want to use the `percent` type,
-you can set the `failureThresholdType` option.
-
-```ts
 // vitest.config.ts
 import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
-	plugins: [vis({ failureThresholdType: 'percent' })]
+	plugins: [vis({
+		comparisonMethod: 'ssim',
+		diffOptions: {
+			ssim: 'bezkrovny',  // 'bezkrovny' (fast, default) | 'fast' (accurate) | 'weber' | 'original'
+			windowSize: 11,     // Window size for SSIM calculation (default: 11)
+			k1: 0.01,          // First stability constant (default: 0.01)
+			k2: 0.03,          // Second stability constant (default: 0.03)
+			bitDepth: 8,       // Bits per channel (default: 8)
+			downsample: 'original' // 'original' | 'fast' | false
+		}
+	})],
 })
 ```
 
-## `failureThreshold`
+For option details, please refer to the [ssim documentation](https://github.com/obartra/ssim).
+Note that `ssim.js` repository indicates it is archived.
+If there is any issue with `ssim` comparison,
+it may not be fixed.
 
-`failureThreshold` specifies the threshold of the failure.
-By default, the `failureThreshold` is `0`.
+## Failure Thresholds
 
-If you want to use the `percent` type,
-you can set the `failureThreshold` option.
+Sometimes you want a bit of flexibility in your tests. That's where failure thresholds come in! They let you decide how much difference is acceptable before a test fails.
+
+### Pixel-Based Threshold
+
+If you know roughly how many pixels might differ (maybe due to font rendering differences across platforms), you can set a specific pixel count. This is great when you have a good sense of what "acceptable difference" means in pixels.
 
 ```ts
 // vitest.config.ts
 import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
-	plugins: [vis({ failureThreshold: 0.05 })]
+	plugins: [vis({
+		failureThreshold: 100,        // Allow 100 pixels to differ
+		failureThresholdType: 'pixel' // Default: 'pixel'
+	})],
 })
 ```
 
-## `timeout`
+### Percentage-Based Threshold
 
-`timeout` specifies the timeout of the snapshot.
-By default, the `timeout` is `30000`.
-
-If you want to customize the timeout,
-you can set the `timeout` option.
+Percentage-based thresholds are often more intuitive, especially when you're working with different image sizes. Instead of thinking "100 pixels," you can think "2% of the image," which scales better across different screen sizes and resolutions.
 
 ```ts
 // vitest.config.ts
 import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
-	plugins: [vis({ timeout: 30000 })]
+	plugins: [vis({
+		failureThreshold: 0.05,        // Allow 5% of pixels to differ
+		failureThresholdType: 'percent'
+	})],
+})
+```
+
+### Pixel-Perfect Comparison
+
+When you need absolute precision—maybe you're testing critical UI components or want to catch the tiniest visual regressions—pixel-perfect comparison is your go-to. This is the default behavior and ensures that any pixel difference will be caught.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		failureThreshold: 0,
+		failureThresholdType: 'pixel'
+	})],
+})
+```
+
+## Timeout Configuration
+
+Sometimes your tests need a bit more time to render, especially if you're working with complex components or slower environments. You can adjust the timeout to give your tests the breathing room they need.
+
+### Custom Timeout
+
+If you find your tests are timing out, or if you're working with particularly complex components that take longer to render, you can increase the timeout. The default is 30 seconds, but feel free to adjust it based on your needs.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		timeout: 60000 // 60 seconds (default: 30000ms)
+	})],
+})
+```
+
+### Quick Timeout for Fast Tests
+
+On the flip side, if you know your tests are quick and you want faster feedback, you can reduce the timeout. This helps catch issues faster and keeps your test suite snappy!
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		timeout: 5000 // 5 seconds
+	})],
 })
 ```
