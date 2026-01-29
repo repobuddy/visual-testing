@@ -4,19 +4,28 @@ import { Meta, Markdown } from "@storybook/addon-docs/blocks";
 
 # Vitest Visual Testing Plugin
 
-[vitest-plugin-vis] provides visual testing for [Vitest] when running in [Browser Mode][browser-mode].
+[vitest-plugin-vis] provides visual testing for [Vitest] when running in [Browser Mode][vitest-browser-mode].
 
-It offers a new unique features:
+Vitest 4 adds [Visual Regression Test][visual-regression-test] support natively.
+You can choose which method to use based on your needs.
 
-- You can capture and compare image snapshot both automatically and manually.
-- You can take a snapshot of the whole page or a specific component.
-- You can take snapshots in different environments, platform, browser, screen size and themes.
-- The snapshots are stored locally in the `__vis__` directory.
-- You can enable, disable, and customize how the snapshots are taken and compared.
+Here is a comparison of the features between [Vitest Visual Regression Test][visual-regression-test] and [vitest-plugin-vis].
+
+| Feature | [Vitest Visual Regression Test][visual-regression-test] | [vitest-plugin-vis] |
+| ------- | -------------------------------------------------- | ------------------- |
+| Manual snapshot creation | ✅ | ✅ |
+| Automatic snapshot creation | ❌ | ✅ |
+| Multi-theme snapshots | ❌ | ✅ |
+| Comparison methods | `pixel`, `ssim`, custom | `pixel`, `ssim` |
+| Threshold customization | ✅ | ✅ |
+| Fine-grained snapshot variations | ❌ | ✅ |
+| Masking elements | ✅ | 🚧 |
 
 ## Install
 
-[vitest-plugin-vis] works with Vitest 2.0.0 or later.
+[vitest-plugin-vis] works with Vitest 2 or later.
+
+For Vitest 2 or 3, please use [vitest-plugin-vis] v3.
 
 ```sh
 npm install --save-dev vitest-plugin-vis
@@ -38,20 +47,7 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
 	plugins: [vis()],
 	test: {
-		// vitest v2
-		browser: {
-			enabled: true,
-			provider: 'playwright',
-			name: 'chromium',
-		},
-		// vitest v3
-		browser: {
-			enabled: true,
-			provider: 'playwright',
-			instances: [
-				{ browser: 'chromium' }
-			]
-		}
+		// ... your Vitest Browser Mode configuration ...
 	}
 })
 ```
@@ -71,7 +67,7 @@ By default, [vitest-plugin-vis] will save image snapshots in the `<project-root>
 Under this directory, you will find different set of snapshots for different environments:
 
 - `local`: For snapshots taken locally.
-- `<platform: ubuntu | darwin | win32>`: Fom snapshots taken in respective CI.
+- `<platform: ubuntu | darwin | win32>`: For snapshots taken in respective CI.
 
 In each platform directory, there are 3 directories:
 
@@ -87,6 +83,30 @@ Because of that, you should add the following lines to your `.gitignore` file:
 **/__vis__/**/__results__
 ```
 
-[browser-mode]: https://vitest.dev/guide/browser
+## Configuration and Setup
+
+When running [Vitest] in [Browser Mode][vitest-browser-mode],
+it runs in Node.js environment and starts a browser instance using provider such as [Playwright][playwright] or [WebDriverIO][webdriverio].
+It then runs the tests in the browser environment and controls the browser instance remotely through the provider.
+
+[vitest-plugin-vis] also needs to do the same.
+On the Node.js side, there are code to load and save the image snapshots,
+and ask the provider to take screenshots.
+
+On the browser side, we need to provide the API for your tests to control how the snapshots are taken,
+and fail the test if the screenshots do not match.
+
+That's why [vitest-plugin-vis] needs to be configured in both the Node.js and browser sides.
+
+On the Node.js side, you can configure [vitest-plugin-vis] in your `vitest.config.ts` file.
+The API is provided under `vitest-plugin-vis/config`.
+
+On the browser side, you can configure [vitest-plugin-vis] in your `vitest.setup.ts` file.
+The API is provided under `vitest-plugin-vis/setup`.
+
 [vitest]: https://vitest.dev
+[vitest-browser-mode]: https://vitest.dev/guide/browser
 [vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+[playwright]: https://playwright.dev/
+[webdriverio]: https://webdriver.io/
+[visual-regression-test]: https://vitest.dev/guide/browser/visual-regression-testing.html
