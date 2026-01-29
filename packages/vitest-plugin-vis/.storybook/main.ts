@@ -16,6 +16,7 @@ const config = {
 	addons: [
 		getAbsolutePath('@storybook/addon-docs'),
 		getAbsolutePath('@storybook/addon-vitest'),
+		getAbsolutePath('@storybook/addon-mdx-gfm'),
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
 	],
