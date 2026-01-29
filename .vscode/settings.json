@@ -6,10 +6,6 @@
 		"editor.defaultFormatter": "biomejs.biome",
 		"editor.formatOnSave": true
 	},
-	"[tailwindcss]": {
-		"editor.defaultFormatter": "MishaLestev.tailwind-css-language-mode-formatter",
-		"editor.formatOnSave": true
-	},
 	"[javascriptreact]": {
 		"editor.codeActionsOnSave": {
 			"source.organizeImports": "explicit"
@@ -32,6 +28,10 @@
 			"strings": true
 		},
 		"editor.suggest.insertMode": "replace"
+	},
+	"[mdx]": {
+		"editor.defaultFormatter": "yzhang.markdown-all-in-one",
+		"editor.formatOnSave": true
 	},
 	"[typescript]": {
 		"editor.codeActionsOnSave": {
@@ -95,15 +95,15 @@
 		"vitest.config.node.ts": "vitest",
 		"vitest.config.playwright.ts": "vitest",
 		"vitest.config.webdriverio.ts": "vitest",
-		"vitest.setup.ts": "vitest",
 		"vitest.setup.playwright.ts": "vitest",
+		"vitest.setup.ts": "vitest",
 		"vitest.setup.webdriverio.ts": "vitest"
 	},
-	"typescript.updateImportsOnFileMove.enabled": "always",
-	"typescript.updateImportsOnPaste.enabled": true,
 	"typescript.preferences.importModuleSpecifierEnding": "js",
 	"typescript.preferences.includePackageJsonAutoImports": "on",
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.tsserver.web.projectWideIntellisense.enabled": true,
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"typescript.updateImportsOnPaste.enabled": true,
 	"yaml.format.singleQuote": true
 }
