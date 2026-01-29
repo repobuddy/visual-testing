@@ -1,9 +1,9 @@
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page, server } from 'vitest/browser'
 import { getCurrentTest } from 'vitest/suite'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
-import { setAutoSnapshotOptions } from '../task/auto_snapshot_options.ts'
 import { ctx } from './_ctx.ts'
 
 beforeEach(() => setAutoSnapshotOptions({ enable: false }))

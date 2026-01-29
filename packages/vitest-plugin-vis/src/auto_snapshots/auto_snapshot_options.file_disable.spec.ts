@@ -1,6 +1,6 @@
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { beforeAll, it } from 'vitest'
-import { setAutoSnapshotOptions } from '../../client-api.ts'
-import { extractAutoSnapshotOptions } from './auto_snapshot_options.ts'
+import { extractAutoSnapshotOptions } from './_extract_auto_snapshot_options.ts'
 
 beforeAll(() => setAutoSnapshotOptions(false))
 
