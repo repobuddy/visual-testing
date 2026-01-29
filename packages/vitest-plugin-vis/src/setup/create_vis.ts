@@ -92,10 +92,19 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 		): void
 	}
 	beforeAll: {
+		/**
+		 * @deprecated No known use case.
+		 */
 		setup(): Promise<void>
 	}
 	afterEach: {
+		/**
+		 * @deprecated No known use case.
+		 */
 		matchImageSnapshot(): Promise<void>
+		/**
+		 * @deprecated No known use case.
+		 */
 		matchPerTheme<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
 			themes: Record<
 				string,
@@ -120,11 +129,7 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 			}
 
 			if (typeof options?.auto === 'function') {
-				afterEach(
-					matcher.createMatcher({
-						auto: options.auto,
-					}),
-				)
+				afterEach(matcher.createMatcher({ auto: options.auto }))
 			} else if (typeof options?.auto === 'object') {
 				afterEach(matcher.createMatcher(options.auto))
 			} else {
