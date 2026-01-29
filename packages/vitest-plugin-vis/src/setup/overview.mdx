@@ -1,0 +1,17 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="setup" />
+
+# Overview
+
+`vitest-plugin-vis/setup` provides the API to setup the plugin on the client side.
+
+It provides the API you needed in `vitest.setup.ts`.
+
+## Augmentation
+
+When you import `vitest-plugin-vis/setup`, it will augment `expect` and `page` to provide methods for visual testing.
+
+- `expect().toMatchImageSnapshot()`: Match the image snapshot.
+- `page.toMatchImageSnapshot()`: Match the image snapshot.
+- `page.hasImageSnapshot()`: Check if the image snapshot exists.
