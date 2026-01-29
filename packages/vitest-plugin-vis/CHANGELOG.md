@@ -426,7 +426,7 @@
 
 ### Minor Changes
 
-- [`0360253`](https://github.com/repobuddy/storybook-addon-vis/commit/03602536b5ebf67b7d898f95d6511e5b05da96a9) Thanks [@unional](https://github.com/unional)! - Depreacate `toTaskId`.
+- [`0360253`](https://github.com/repobuddy/storybook-addon-vis/commit/03602536b5ebf67b7d898f95d6511e5b05da96a9) Thanks [@unional](https://github.com/unional)! - Deprecate `toTaskId`.
 
 - [#133](https://github.com/repobuddy/storybook-addon-vis/pull/133) [`badf227`](https://github.com/repobuddy/storybook-addon-vis/commit/badf2273828ad883763e1e328b4e180c07b4960a) Thanks [@unional](https://github.com/unional)! - Perform image comparison on the client side.
   This is similar to `storybook-addon-vis@0.13.0`, but the image taking is still done on the server side.
