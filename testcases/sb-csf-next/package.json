@@ -29,7 +29,7 @@
 	"devDependencies": {
 		"@storybook-community/storybook-dark-mode": "^7.1.0",
 		"@storybook/addon-a11y": "^10.1.10",
-		"@storybook/addon-docs": "^10.1.10",
+		"@storybook/addon-docs": "^10.2.3",
 		"@storybook/addon-vitest": "^10.1.10",
 		"@storybook/react-vite": "^10.1.10",
 		"@types/react": "catalog:",
