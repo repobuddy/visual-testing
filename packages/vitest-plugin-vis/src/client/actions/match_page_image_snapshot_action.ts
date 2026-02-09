@@ -7,8 +7,12 @@ import type {
 import type { ToMatchPageImageSnapshotOptions } from '../../shared/types.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 
+export type MatchPageImageSnapshotActionCommands = BrowserCommands &
+	PreparePageImageSnapshotComparisonCommand &
+	ImageSnapshotNextIndexCommand
+
 export async function matchPageImageSnapshotAction(
-	commands: BrowserCommands & PreparePageImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
+	commands: MatchPageImageSnapshotActionCommands,
 	taskId: string,
 	options?: ToMatchPageImageSnapshotOptions<any>,
 ) {
