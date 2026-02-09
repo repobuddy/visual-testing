@@ -147,6 +147,8 @@ export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
 	ImageSnapshotKeyOptions
 
+export type MatchPageImageSnapshotOptions = MatchImageSnapshotOptions & PageImageSnapshotOptions
+
 export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
 	auto?:
 		| boolean

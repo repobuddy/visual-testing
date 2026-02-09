@@ -2,15 +2,15 @@ import type { BrowserCommands } from 'vitest/browser'
 import { assertSnapshotKeyWithoutDash } from '../../shared/asserts.ts'
 import type {
 	ImageSnapshotNextIndexCommand,
-	PrepareImageSnapshotComparisonCommand,
+	PreparePageImageSnapshotComparisonCommand,
 } from '../../shared/commands.types.ts'
-import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import type { ToMatchPageImageSnapshotOptions } from '../../shared/types.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 
 export async function matchPageImageSnapshotAction(
-	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
+	commands: BrowserCommands & PreparePageImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
 	taskId: string,
-	options?: ToMatchImageSnapshotOptions<any>,
+	options?: ToMatchPageImageSnapshotOptions<any>,
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 

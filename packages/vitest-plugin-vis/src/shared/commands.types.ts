@@ -1,6 +1,10 @@
 import type { Pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
-import type { ImageSnapshotComparisonInfo, MatchImageSnapshotOptions } from './types.ts'
+import type {
+	ImageSnapshotComparisonInfo,
+	MatchImageSnapshotOptions,
+	MatchPageImageSnapshotOptions,
+} from './types.ts'
 
 export interface PrepareImageSnapshotComparisonCommand {
 	prepareImageSnapshotComparison: (
@@ -13,7 +17,7 @@ export interface PrepareImageSnapshotComparisonCommand {
 export interface PreparePageImageSnapshotComparisonCommand {
 	preparePageImageSnapshotComparison: (
 		taskId: string,
-		options?: MatchImageSnapshotOptions | undefined,
+		options?: MatchPageImageSnapshotOptions | undefined,
 	) => Promise<ImageSnapshotComparisonInfo>
 }
 

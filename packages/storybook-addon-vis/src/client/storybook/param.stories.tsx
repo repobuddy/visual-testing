@@ -64,3 +64,14 @@ export const SetSubject: StoryObj = {
 		<div data-testid="alt">{hasImageSnapshot ? 'unit text' : 'unit test'}</div>
 	),
 }
+
+export const FullPageViaParam: StoryObj = {
+	parameters: defineAutoSnapshotParam({
+		fullPage: true,
+	}),
+	render: () => (
+		<div style={{ height: '800px', backgroundColor: 'lavender' }}>
+			<div data-testid="subject">Full page capture via parameters</div>
+		</div>
+	),
+}
