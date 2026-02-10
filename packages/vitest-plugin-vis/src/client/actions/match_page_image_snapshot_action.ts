@@ -5,6 +5,7 @@ import type {
 	PreparePageImageSnapshotComparisonCommand,
 } from '../../shared/commands.types.ts'
 import type { ToMatchPageImageSnapshotOptions } from '../../shared/types.ts'
+import { prepareFrameForFullPageScreenshot } from '../page/prepare_frame_for_full_page_screenshot.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 
 export type MatchPageImageSnapshotActionCommands = BrowserCommands &
@@ -18,6 +19,9 @@ export async function matchPageImageSnapshotAction(
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 
+	if (options?.fullPage) {
+		await prepareFrameForFullPageScreenshot()
+	}
 	const info = await commands.preparePageImageSnapshotComparison(taskId, options)
 
 	if (!info) return
