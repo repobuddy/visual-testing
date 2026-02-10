@@ -138,7 +138,7 @@ export const FullPageScrollableContent: StoryObj = {
 		fullPage: true,
 	}),
 	globals: {
-		viewport: {value: 'iphone6p', isRotated: false},
+		viewport: {value: 'mobile2', isRotated: false},
 	  },
 	render: () => (
 		<ScrollableLongContent />
