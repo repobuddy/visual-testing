@@ -1,23 +1,21 @@
 import type { BrowserCommands } from 'vitest/browser'
 import { assertSnapshotKeyWithoutDash } from '../../shared/asserts.ts'
 import { isBase64String } from '../../shared/base64.ts'
-import type {
-	ImageSnapshotNextIndexCommand,
-	PrepareImageSnapshotComparisonCommand,
-} from '../../shared/commands.types.ts'
+import type { PrepareImageSnapshotComparisonCommand } from '../../shared/commands.types.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { convertElementToCssSelector } from '../external/browser/selector.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 
 export async function matchImageSnapshotAction(
-	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
+	commands: BrowserCommands,
 	taskId: string,
 	subject: any,
 	options?: ToMatchImageSnapshotOptions<any>,
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 
-	const info = await commands.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
+	const withPrepare = commands as BrowserCommands & PrepareImageSnapshotComparisonCommand
+	const info = await withPrepare.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
 
 	return compareImageSnapshot(commands, taskId, info, options)
 }

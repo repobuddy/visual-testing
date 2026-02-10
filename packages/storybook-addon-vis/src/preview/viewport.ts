@@ -1,4 +1,4 @@
-import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from 'storybook/viewport';
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from 'storybook/viewport'
 
 /** Pixel dimensions for browser viewport (matches vitest-plugin-vis ViewportSize). */
 export type ViewportSize = { width: number; height: number }
@@ -12,7 +12,7 @@ type StorybookViewport = {
 }
 
 function parsePx(value: string): number {
-	const n = parseInt(value, 10)
+	const n = Number.parseInt(value, 10)
 	return Number.isNaN(n) ? 0 : n
 }
 
@@ -40,9 +40,7 @@ const VIEWPORT_SIZES: Record<string, ViewportSize> = {
  * Resolves Storybook globals.viewport to pixel dimensions using Storybook's viewport definitions
  * (MINIMAL_VIEWPORTS + INITIAL_VIEWPORTS). When isRotated is true, width and height are swapped.
  */
-export function resolveViewportToSize(
-	viewport: StorybookViewport | undefined,
-): ViewportSize | undefined {
+export function resolveViewportToSize(viewport: StorybookViewport | undefined): ViewportSize | undefined {
 	if (!viewport?.value || typeof viewport.value !== 'string') return undefined
 	const size = VIEWPORT_SIZES[viewport.value]
 	if (!size) return undefined

@@ -2,7 +2,6 @@ import type {
 	HasImageSnapshotCommand,
 	ImageSnapshotNextIndexCommand,
 	LoadImageSnapshotResultsCommand,
-	PrepareImageSnapshotComparisonCommand,
 	PreparePageImageSnapshotComparisonCommand,
 	SetViewportSizeCommand,
 	SetupVisSuiteCommand,

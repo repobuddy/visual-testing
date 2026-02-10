@@ -6,7 +6,11 @@ function setPageViewportSize(
 	page: ExtendedBrowserCommandContext['page'],
 	size: { width: number; height: number },
 ): Promise<void> | undefined {
-	if (!page || typeof (page as { setViewportSize?: (size: { width: number; height: number }) => Promise<void> }).setViewportSize !== 'function') {
+	if (
+		!page ||
+		typeof (page as { setViewportSize?: (size: { width: number; height: number }) => Promise<void> })
+			.setViewportSize !== 'function'
+	) {
 		return undefined
 	}
 	return (page as { setViewportSize: (size: { width: number; height: number }) => Promise<void> }).setViewportSize(size)

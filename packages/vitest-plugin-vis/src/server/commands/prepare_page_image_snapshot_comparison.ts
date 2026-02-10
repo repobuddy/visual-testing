@@ -16,7 +16,9 @@ const FALLBACK_VIEWPORT_SIZES: Record<string, { width: number; height: number }>
 	desktop: { width: 1280, height: 1024 },
 }
 
-function resolveViewportFallback(viewport: StorybookViewport | undefined): { width: number; height: number } | undefined {
+function resolveViewportFallback(
+	viewport: StorybookViewport | undefined,
+): { width: number; height: number } | undefined {
 	if (!viewport?.value || typeof viewport.value !== 'string') return undefined
 	const size = FALLBACK_VIEWPORT_SIZES[viewport.value]
 	if (!size) return undefined
@@ -27,7 +29,11 @@ function setPageViewportSize(
 	page: ExtendedBrowserCommandContext['page'],
 	size: { width: number; height: number },
 ): Promise<void> | undefined {
-	if (!page || typeof (page as { setViewportSize?: (size: { width: number; height: number }) => Promise<void> }).setViewportSize !== 'function') {
+	if (
+		!page ||
+		typeof (page as { setViewportSize?: (size: { width: number; height: number }) => Promise<void> })
+			.setViewportSize !== 'function'
+	) {
 		return undefined
 	}
 	return (page as { setViewportSize: (size: { width: number; height: number }) => Promise<void> }).setViewportSize(size)
