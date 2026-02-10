@@ -65,17 +65,6 @@ export const SetSubject: StoryObj = {
 	),
 }
 
-export const FullPageViaParam: StoryObj = {
-	parameters: defineAutoSnapshotParam({
-		fullPage: true,
-	}),
-	render: () => (
-		<div style={{ height: '800px', backgroundColor: 'lavender' }}>
-			<div data-testid="subject">Full page capture via parameters</div>
-		</div>
-	),
-}
-
 function ScrollableLongContent() {
 	return (
 		<div style={{ padding: 16, maxWidth: 720, fontFamily: 'sans-serif' }}>
