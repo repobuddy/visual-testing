@@ -41,14 +41,12 @@ export const preparePageImageSnapshotComparison: ExtendedBrowserCommand<
 	if (!options) options = {}
 	options.timeout = options.timeout ?? 30000
 
+	// Fallback: set viewport here when not set earlier (e.g. non-Storybook or missing beforeEach).
+	// Storybook addon sets viewport in beforeEach so the story and .play() run at the correct size.
 	const viewportSize = options.viewportSize ?? resolveViewportFallback(options.viewport)
 	if (viewportSize) {
 		const setViewport = setPageViewportSize(context.page, viewportSize)
-		if (setViewport) {
-			await setViewport
-			// Allow layout/iframe to settle after resize before taking screenshot
-			await new Promise((r) => setTimeout(r, 200))
-		}
+		if (setViewport) await setViewport
 	}
 
 	const projectRoot = getProjectRoot(context)

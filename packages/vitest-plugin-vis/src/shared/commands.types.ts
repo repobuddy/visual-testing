@@ -69,3 +69,11 @@ export interface ImageSnapshotNextIndexCommand {
 	 */
 	imageSnapshotNextIndex(taskId: string): Promise<number>
 }
+
+export interface SetViewportSizeCommand {
+	/**
+	 * Set the browser page viewport size. Call from Storybook beforeEach so the viewport
+	 * is correct before the story renders and before any `.play()` runs.
+	 */
+	setViewportSize(viewportSize: { width: number; height: number } | undefined): Promise<void>
+}
