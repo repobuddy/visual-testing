@@ -86,7 +86,7 @@
 	},
 	"dependencies": {
 		"@storybook/icons": "^2.0.0",
-		"glob": "^13.0.0",
+		"glob": "^13.0.1",
 		"is-ci": "^4.1.0",
 		"memoize": "^10.1.0",
 		"pathe": "^2.0.3",
