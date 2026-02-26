@@ -1,5 +1,33 @@
 # vitest-plugin-vis
 
+## 4.2.0
+
+### Minor Changes
+
+- [#577](https://github.com/repobuddy/visual-testing/pull/577) [`d0c04d0`](https://github.com/repobuddy/visual-testing/commit/d0c04d0aca1ec6c1deebc0a26d86f1986b1c07d1) Thanks [@unional](https://github.com/unional)! - Deprecate `vis.beforeAll.setup()`, `vis.afterEach.matchImageSnapshot()`, `vis.afterEach.matchPerTheme()` in `vitest-plugin-vis/setup`.
+
+  There is no known use case for these methods.
+  Reducing the API surface.
+
+- [#577](https://github.com/repobuddy/visual-testing/pull/577) [`7ceb998`](https://github.com/repobuddy/visual-testing/commit/7ceb99899830a48ef99c2c3ea0b6d4b760be9df9) Thanks [@unional](https://github.com/unional)! - Deprecate `createVis` in `vitest-plugin-vis/setup`.
+  Added `vitest-plugin-vis/setup-api`.
+
+- [#551](https://github.com/repobuddy/visual-testing/pull/551) [`1c54a56`](https://github.com/repobuddy/visual-testing/commit/1c54a56baa1136c49eccefe8d7cf0de0332441cf) Thanks [@unional](https://github.com/unional)! - Fail test when no baseline image is found.
+  This behavior is closer to the Visual Regression Test from Vitest.
+
+  The difference is that the baseline image is not created automatically.
+  You need to create it manually by running the test with the `updateSnapshot` option set to `all`.
+
+  This prevents you from accidentally committing a new snapshot or passing the tests when you running the tests for the second time.
+
+  Closes [#516](https://github.com/repobuddy/visual-testing/issues/516)
+
+  Since this change can break existing tests (even though correctly), we will release it as a minor version.
+
+### Patch Changes
+
+- [#551](https://github.com/repobuddy/visual-testing/pull/551) [`495d10c`](https://github.com/repobuddy/visual-testing/commit/495d10cfa4c454b351a7c4f8ef33104829a0f560) Thanks [@unional](https://github.com/unional)! - Publish as unbundle to improve debuggability.
+
 ## 4.1.0
 
 ### Minor Changes
