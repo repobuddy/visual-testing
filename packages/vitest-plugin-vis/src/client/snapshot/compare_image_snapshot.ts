@@ -1,10 +1,6 @@
 import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { BrowserCommands } from 'vitest/browser'
-import type {
-	ImageSnapshotNextIndexCommand,
-	PrepareImageSnapshotComparisonCommand,
-} from '../../shared/commands.types.ts'
 import { compareImage } from '../../shared/compare_image.ts'
 import type { ImageSnapshotComparisonInfo, ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { toDataURL, toImageData } from '../external/browser/image_data.ts'
@@ -13,7 +9,7 @@ import { alignImagesToSameSize } from '../image/align_images.ts'
 import { prettifyOptions } from './compare_image_snapshot.logic.ts'
 
 export async function compareImageSnapshot(
-	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
+	commands: BrowserCommands,
 	taskId: string,
 	info: ImageSnapshotComparisonInfo,
 	options?: ToMatchImageSnapshotOptions<any>,

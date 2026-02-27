@@ -1,6 +1,6 @@
 import type { Pick } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
-import type { ImageSnapshotComparisonInfo, MatchImageSnapshotOptions } from './types.ts'
+import type { ImageSnapshotComparisonInfo, MatchImageSnapshotOptions, MatchPageImageSnapshotOptions } from './types.ts'
 
 export interface PrepareImageSnapshotComparisonCommand {
 	prepareImageSnapshotComparison: (
@@ -13,7 +13,7 @@ export interface PrepareImageSnapshotComparisonCommand {
 export interface PreparePageImageSnapshotComparisonCommand {
 	preparePageImageSnapshotComparison: (
 		taskId: string,
-		options?: MatchImageSnapshotOptions | undefined,
+		options?: MatchPageImageSnapshotOptions | undefined,
 	) => Promise<ImageSnapshotComparisonInfo>
 }
 
@@ -68,4 +68,12 @@ export interface ImageSnapshotNextIndexCommand {
 	 * Get the index of the snapshot image to be created.
 	 */
 	imageSnapshotNextIndex(taskId: string): Promise<number>
+}
+
+export interface SetViewportSizeCommand {
+	/**
+	 * Set the browser page viewport size. Call from Storybook beforeEach so the viewport
+	 * is correct before the story renders and before any `.play()` runs.
+	 */
+	setViewportSize(viewportSize: { width: number; height: number } | undefined): Promise<void>
 }
