@@ -481,6 +481,21 @@ export const MyStory = {
 }
 ```
 
+You can set `fullPage: true` to capture the entire page instead of the subject element. This is useful for stories with tall or scrollable layouts where you want the full content in one snapshot:
+
+```tsx
+export const TallLayout = {
+	parameters: defineAutoSnapshotParam({
+		fullPage: true,
+	}),
+	render: () => (
+		<div style={{ height: '2000px' }}>
+			{/* long content */}
+		</div>
+	),
+}
+```
+
 ## Usage - manual snapshot
 
 Besides automatic snapshot, you can capture image snapshot manually.

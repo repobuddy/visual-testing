@@ -392,7 +392,7 @@ describe('nested scope', () => {
 })
 ```
 
-It supports options of `expect(...).toMatchImageSnapshot(options)`:
+It supports options of `expect(...).toMatchImageSnapshot(options)` (and for full-page capture, options of `page.toMatchImageSnapshot(options)`):
 
 ```ts
 setAutoSnapshotOptions({
@@ -402,7 +402,8 @@ setAutoSnapshotOptions({
 	diffOptions: { threshold: 0.01 },
 	failureThreshold: 0.01,
 	failureThresholdType: 'percent',
-	timeout: 60000
+	timeout: 60000,
+	fullPage: true  // capture entire page instead of subject element
 })
 ```
 

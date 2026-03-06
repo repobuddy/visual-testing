@@ -3,6 +3,8 @@ import { extractAutoSnapshotOptions } from '../../auto_snapshots/_extract_auto_s
 import type { SnapshotMeta } from '../../auto_snapshots/snapshot_meta.ts'
 import type { SetupVisSuiteCommand } from '../../shared/commands.types.ts'
 import type { ComparisonMethod } from '../../shared/types.ts'
+import type { MatchPageImageSnapshotActionCommands } from '../actions/match_page_image_snapshot_action.ts'
+import { matchPageImageSnapshotAction } from '../actions/match_page_image_snapshot_action.ts'
 import { shouldTakeSnapshot } from '../snapshot/should_take_snapshot.ts'
 import { toTaskId } from '../task/task_id.ts'
 import { ctx } from './_ctx.ts'
@@ -36,10 +38,17 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 						const theme = themes[themeId]
 						const r = typeof theme === 'function' ? await theme(meta! as any) : theme
 						if (r === false) continue
-						await expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
-							...meta,
-							snapshotKey: meta?.snapshotKey ?? themeId,
-						})
+						const snapshotKey = meta?.snapshotKey ?? themeId
+						const options = { ...meta, snapshotKey }
+						if (meta?.fullPage) {
+							await matchPageImageSnapshotAction(
+								commands as MatchPageImageSnapshotActionCommands,
+								toTaskId(test!),
+								options,
+							)
+						} else {
+							await expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot(options)
+						}
 					} catch (error) {
 						errors.push([themeId, error as Error])
 					}

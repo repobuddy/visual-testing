@@ -2,8 +2,8 @@ import type {
 	HasImageSnapshotCommand,
 	ImageSnapshotNextIndexCommand,
 	LoadImageSnapshotResultsCommand,
-	PrepareImageSnapshotComparisonCommand,
 	PreparePageImageSnapshotComparisonCommand,
+	SetViewportSizeCommand,
 	SetupVisSuiteCommand,
 } from '../../shared/commands.types.ts'
 
@@ -13,6 +13,7 @@ declare module 'vitest/browser' {
 			ImageSnapshotNextIndexCommand,
 			HasImageSnapshotCommand,
 			PreparePageImageSnapshotComparisonCommand,
-			PrepareImageSnapshotComparisonCommand,
-			LoadImageSnapshotResultsCommand {}
+			PreparePageImageSnapshotComparisonCommand,
+			LoadImageSnapshotResultsCommand,
+			SetViewportSizeCommand {}
 }
