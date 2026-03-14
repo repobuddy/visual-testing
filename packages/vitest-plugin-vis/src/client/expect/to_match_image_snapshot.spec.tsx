@@ -1,5 +1,5 @@
 import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
-import { afterEach, beforeEach, describe, it } from 'vitest'
+import { afterEach, beforeAll, beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page, server } from 'vitest/browser'
 import { getCurrentTest } from 'vitest/suite'
@@ -26,7 +26,11 @@ it('throws an error when running in a concurrent test', ({ expect }) => {
 })
 
 it('accepts a Locator', async ({ expect }) => {
-	await render(<div data-testid="subject">hello</div>)
+	await render(
+		<div data-testid="subject" style={{ width: 100 }}>
+			hello
+		</div>,
+	)
 	const subject = page.getByTestId('subject')
 	await expect(subject).toMatchImageSnapshot()
 })
@@ -369,5 +373,21 @@ describe('ssim', () => {
 					expect(error.message).toMatch(/Expected image to match within 20 pixels but was differ by \d+ pixels./)
 				},
 			)
+	})
+})
+
+describe('retry', () => {
+	let retrying = false
+	beforeAll(() => {
+		retrying = false
+	})
+	it('should support retrying', { retry: 1 }, async ({ expect }) => {
+		if (retrying) return
+		retrying = true
+		await render(<div data-testid="subject">hello</div>)
+		await expect(page.getByTestId('subject')).toMatchImageSnapshot()
+
+		await render(<div data-testid="subject">world</div>)
+		await expect(page.getByTestId('subject')).toMatchImageSnapshot()
 	})
 })
