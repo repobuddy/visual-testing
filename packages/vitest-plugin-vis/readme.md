@@ -245,12 +245,14 @@ export default defineConfig({
 		vis({
 			snapshotRootDir: ({
 				ci, // true if running on CI
+				rootDir, // base directory for snapshots (default: '__vis__')
 				platform, // process.platform
 				providerName, // 'playwright' or 'webdriverio'
 				browserName, // 'chromium', 'firefox', etc.
+				projectName, // instance name when using multiple browser instances
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
-			}) => `__vis__/${ci ? platform : 'local'}`,
+			}) => `${rootDir}/${ci ? platform : 'local'}`,
 			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
 			// Alphanumeric characters, and underscore are allowed. Dash is not allowed.
 			snapshotKey: 'auto',
@@ -258,6 +260,49 @@ export default defineConfig({
 	]
 })
 ```
+
+#### Multiple browser instances
+
+When using multiple browser instances (e.g., different viewports or browsers),
+each instance runs the same tests and would overwrite snapshots if they shared the same directory.
+Use `projectName` in `snapshotRootDir` to separate snapshots per instance:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { playwright } from '@vitest/browser-playwright'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			snapshotRootDir({ ci, rootDir, projectName, platform }) {
+				return `${rootDir}/${ci ? platform : 'local'}/${projectName}`
+			},
+		}),
+	],
+	test: {
+		browser: {
+			enabled: true,
+			provider: playwright(),
+			instances: [
+				{ browser: 'chromium', name: 'HD', viewport: { width: 1280, height: 720 } },
+				{ browser: 'chromium', name: 'SVGA', viewport: { width: 800, height: 600 } },
+			],
+		},
+	},
+})
+```
+
+With this configuration, snapshots are stored in separate directories per instance:
+
+```sh
+__vis__/local/HD/__baselines__/...
+__vis__/local/SVGA/__baselines__/...
+```
+
+On CI, the `projectName` corresponds to the `name` of each instance.
+See [vitest.config.playwright.ts](vitest.config.playwright.ts) for a full example.
 
 ### Customizing auto snapshot subject
 
