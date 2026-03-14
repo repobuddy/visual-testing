@@ -25,7 +25,6 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 		) {
 			return async function matchImageSnapshot() {
 				const test = ctx.getCurrentTest()
-				if ((test?.result?.errors?.length ?? 0) > 0) return
 
 				const meta = extractAutoSnapshotOptions(test)
 				if (!shouldTakeSnapshot(meta)) return
