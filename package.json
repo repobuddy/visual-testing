@@ -34,7 +34,8 @@
 		"vis": "pnpm --filter=./packages/storybook-addon-vis",
 		"vpv": "pnpm --filter=./packages/vitest-plugin-vis",
 		"w": "turbo w",
-		"w:trv": "vitest --project=testcase-react-vite-ts"
+		"w:trv": "vitest --project=testcase-react-vite-ts",
+		"w:sc3": "vitest --project=sb-csf-3"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.7",
