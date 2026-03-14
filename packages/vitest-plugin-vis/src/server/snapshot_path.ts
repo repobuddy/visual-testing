@@ -6,12 +6,14 @@ import { trimCommonFolder } from '../shared/trim_common_folder.ts'
 import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
 
 export function resolveSnapshotRootDir(browserCommandContext: ExtendedBrowserCommandContext, options: VisOptions) {
-	if (!options.snapshotRootDir) return getSnapshotRootDir(SNAPSHOT_ROOT_DIR)
+	if (!options.snapshotRootDir) return getSnapshotRootDir()
 	const snapshotRootDir = options.snapshotRootDir
 	if (typeof snapshotRootDir === 'string') return getSnapshotRootDir(snapshotRootDir)
 	const { config } = browserCommandContext.project.browser
 	return snapshotRootDir({
 		ci,
+		rootDir: SNAPSHOT_ROOT_DIR,
+		projectName: browserCommandContext.project.name,
 		browserName: config.browser.name,
 		providerName: browserCommandContext.provider.name,
 		platform,

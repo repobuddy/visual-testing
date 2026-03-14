@@ -1,0 +1,44 @@
+{
+	"name": "testcase-multi-instances",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"clean": "rimraf dist",
+		"clean:vis:local": "rimraf __vis__/local",
+		"nuke": "rimraf node_modules",
+		"sb": "storybook dev -p 6107",
+		"test": "vitest run",
+		"testcase": "vitest run",
+		"testcase:u": "vitest run -u",
+		"w": "vitest"
+	},
+	"eslintConfig": {
+		"extends": [
+			"plugin:storybook/recommended"
+		]
+	},
+	"dependencies": {
+		"clsx": "^2.1.1",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@repobuddy/vitest": "catalog:",
+		"@storybook/addon-themes": "^10.1.10",
+		"@storybook/addon-vitest": "^10.1.10",
+		"@storybook/react-vite": "^10.1.10",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"autoprefixer": "^10.4.20",
+		"globals": "^17.0.0",
+		"storybook": "^10.1.10",
+		"storybook-addon-vis": "workspace:*",
+		"tailwindcss": "^3",
+		"typescript": "catalog:",
+		"vitest": "catalog:"
+	}
+}

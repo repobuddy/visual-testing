@@ -48,6 +48,8 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
 			| string
 			| ((context: {
 					ci: boolean
+					rootDir: string
+					projectName?: string | undefined
 					browserName?: string | undefined
 					providerName: string
 					platform: string
