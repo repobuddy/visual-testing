@@ -43,7 +43,7 @@ jobs:
           command: pnpm verify:ci
       - run: git add .
       - name: Detect snapshot changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         id: snapshot-changes
         with:
           base: HEAD
