@@ -1,4 +1,11 @@
-import{j as t,M as i,n as a}from"./iframe-rW3u-Ggr.js";import{useMDXComponents as s}from"./index-BkP_xPAB.js";import"./preload-helper-PPVm8Dsz.js";const d=`# CHANGE LOG
+import{j as t,M as i,n as a}from"./iframe-CL3NB2Xi.js";import{useMDXComponents as s}from"./index-D7HD_9UK.js";import"./preload-helper-PPVm8Dsz.js";const d=`# CHANGE LOG
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies [[\`ad87b83\`](https://github.com/repobuddy/visual-testing/commit/ad87b8399a5a5d881aa030e47f4684760b1733a0), [\`d0c04d0\`](https://github.com/repobuddy/visual-testing/commit/d0c04d0aca1ec6c1deebc0a26d86f1986b1c07d1), [\`495d10c\`](https://github.com/repobuddy/visual-testing/commit/495d10cfa4c454b351a7c4f8ef33104829a0f560), [\`ab4ca8a\`](https://github.com/repobuddy/visual-testing/commit/ab4ca8ac669b5d50d1e4d892fa6c5927b77e7f9d), [\`7ceb998\`](https://github.com/repobuddy/visual-testing/commit/7ceb99899830a48ef99c2c3ea0b6d4b760be9df9), [\`1c54a56\`](https://github.com/repobuddy/visual-testing/commit/1c54a56baa1136c49eccefe8d7cf0de0332441cf)]:
+  - vitest-plugin-vis@4.2.0
 
 ## 3.1.2
 
