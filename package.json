@@ -22,6 +22,7 @@
 		"test": "turbo test",
 		"test:sc3": "vitest run --project=sb-csf-3",
 		"test:trv": "vitest run --project=testcase-react-vite-ts",
+		"test:mi": "vitest run --project=testcase-multi-instances",
 		"test:u": "turbo test -- -u",
 		"trv": "pnpm --filter=testcase-react-vite-ts",
 		"tt": "pnpm --filter=testcase-themes",

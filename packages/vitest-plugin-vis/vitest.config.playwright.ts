@@ -6,8 +6,8 @@ import { defineProject } from 'vitest/config'
 export default defineProject({
 	plugins: [
 		vis({
-			snapshotRootDir({ ci, browserName, providerName, platform }) {
-				return `__vis__/${ci ? platform : 'local'}/${providerName}/${browserName}`
+			snapshotRootDir({ ci, projectName, platform }) {
+				return `__vis__/${ci ? platform : 'local'}/${projectName}`
 			},
 			subject: '[data-testid="subject"]',
 		}),
@@ -24,8 +24,16 @@ export default defineProject({
 			instances: [
 				{
 					browser: 'chromium',
+					name: 'HD',
 					screenshotFailures: false,
 					viewport: { width: 1280, height: 720 },
+					screenshotDirectory: '__screenshots__/playwright/chromium',
+				},
+				{
+					browser: 'chromium',
+					name: 'SVGA',
+					screenshotFailures: false,
+					viewport: { width: 800, height: 600 },
 					screenshotDirectory: '__screenshots__/playwright/chromium',
 				},
 				// {

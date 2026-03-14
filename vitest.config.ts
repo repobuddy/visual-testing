@@ -17,6 +17,7 @@ export default defineConfig({
 			'./packages/vitest-plugin-vis/vitest.config.node.ts',
 			'./packages/vitest-plugin-vis/vitest.config.playwright.ts',
 			// './packages/vitest-plugin-vis/vitest.config.webdriverio.ts',
+			'./testcases/multi-instances/vitest.config.ts',
 			'./testcases/react-vite-ts/vite.config.ts',
 			'./testcases/sb-csf-3/vitest.config.ts',
 			'./testcases/sb-csf-mix/vitest.config.ts',
