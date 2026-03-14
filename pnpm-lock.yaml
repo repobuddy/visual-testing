@@ -68,8 +68,8 @@ importers:
   .:
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.4.5
-        version: 2.4.5
+        specifier: 2.4.7
+        version: 2.4.7
       '@changesets/changelog-github':
         specifier: ^0.6.0
         version: 0.6.0
@@ -84,7 +84,7 @@ importers:
         version: 20.2.0
       '@repobuddy/biome':
         specifier: ^2.0.1
-        version: 2.0.1(@biomejs/biome@2.4.5)
+        version: 2.0.1(@biomejs/biome@2.4.7)
       '@types/node':
         specifier: ^24.0.0
         version: 24.10.1
@@ -184,7 +184,7 @@ importers:
         version: 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(playwright@1.58.2)(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)
       '@vitest/browser-webdriverio':
         specifier: 'catalog:'
-        version: 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.24.0)
+        version: 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.25.0)
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 4.0.16(vitest@4.0.16)
@@ -238,7 +238,7 @@ importers:
         version: 2.0.2(@types/react-dom@19.2.3(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vitest@4.0.16)
       webdriverio:
         specifier: latest
-        version: 9.24.0
+        version: 9.25.0
       zx:
         specifier: ^8.0.0
         version: 8.8.5
@@ -317,7 +317,7 @@ importers:
         version: 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(playwright@1.58.2)(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)
       '@vitest/browser-webdriverio':
         specifier: 'catalog:'
-        version: 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.24.0)
+        version: 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.25.0)
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 4.0.16(vitest@4.0.16)
@@ -853,59 +853,59 @@ packages:
     resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
     engines: {node: '>=18'}
 
-  '@biomejs/biome@2.4.5':
-    resolution: {integrity: sha512-OWNCyMS0Q011R6YifXNOg6qsOg64IVc7XX6SqGsrGszPbkVCoaO7Sr/lISFnXZ9hjQhDewwZ40789QmrG0GYgQ==}
+  '@biomejs/biome@2.4.7':
+    resolution: {integrity: sha512-vXrgcmNGZ4lpdwZSpMf1hWw1aWS6B+SyeSYKTLrNsiUsAdSRN0J4d/7mF3ogJFbIwFFSOL3wT92Zzxia/d5/ng==}
     engines: {node: '>=14.21.3'}
     hasBin: true
 
-  '@biomejs/cli-darwin-arm64@2.4.5':
-    resolution: {integrity: sha512-lGS4Nd5O3KQJ6TeWv10mElnx1phERhBxqGP/IKq0SvZl78kcWDFMaTtVK+w3v3lusRFxJY78n07PbKplirsU5g==}
+  '@biomejs/cli-darwin-arm64@2.4.7':
+    resolution: {integrity: sha512-Oo0cF5mHzmvDmTXw8XSjhCia8K6YrZnk7aCS54+/HxyMdZMruMO3nfpDsrlar/EQWe41r1qrwKiCa2QDYHDzWA==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
 
-  '@biomejs/cli-darwin-x64@2.4.5':
-    resolution: {integrity: sha512-6MoH4tyISIBNkZ2Q5T1R7dLd5BsITb2yhhhrU9jHZxnNSNMWl+s2Mxu7NBF8Y3a7JJcqq9nsk8i637z4gqkJxQ==}
+  '@biomejs/cli-darwin-x64@2.4.7':
+    resolution: {integrity: sha512-I+cOG3sd/7HdFtvDSnF9QQPrWguUH7zrkIMMykM3PtfWU9soTcS2yRb9Myq6MHmzbeCT08D1UmY+BaiMl5CcoQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
 
-  '@biomejs/cli-linux-arm64-musl@2.4.5':
-    resolution: {integrity: sha512-iqLDgpzobG7gpBF0fwEVS/LT8kmN7+S0E2YKFDtqliJfzNLnAiV2Nnyb+ehCDCJgAZBASkYHR2o60VQWikpqIg==}
+  '@biomejs/cli-linux-arm64-musl@2.4.7':
+    resolution: {integrity: sha512-I2NvM9KPb09jWml93O2/5WMfNR7Lee5Latag1JThDRMURVhPX74p9UDnyTw3Ae6cE1DgXfw7sqQgX7rkvpc0vw==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-arm64@2.4.5':
-    resolution: {integrity: sha512-U1GAG6FTjhAO04MyH4xn23wRNBkT6H7NentHh+8UxD6ShXKBm5SY4RedKJzkUThANxb9rUKIPc7B8ew9Xo/cWg==}
+  '@biomejs/cli-linux-arm64@2.4.7':
+    resolution: {integrity: sha512-om6FugwmibzfP/6ALj5WRDVSND4H2G9X0nkI1HZpp2ySf9lW2j0X68oQSaHEnls6666oy4KDsc5RFjT4m0kV0w==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-linux-x64-musl@2.4.5':
-    resolution: {integrity: sha512-NlKa7GpbQmNhZf9kakQeddqZyT7itN7jjWdakELeXyTU3pg/83fTysRRDPJD0akTfKDl6vZYNT9Zqn4MYZVBOA==}
+  '@biomejs/cli-linux-x64-musl@2.4.7':
+    resolution: {integrity: sha512-00kx4YrBMU8374zd2wHuRV5wseh0rom5HqRND+vDldJPrWwQw+mzd/d8byI9hPx926CG+vWzq6AeiT7Yi5y59g==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-x64@2.4.5':
-    resolution: {integrity: sha512-NdODlSugMzTlENPTa4z0xB82dTUlCpsrOxc43///aNkTLblIYH4XpYflBbf5ySlQuP8AA4AZd1qXhV07IdrHdQ==}
+  '@biomejs/cli-linux-x64@2.4.7':
+    resolution: {integrity: sha512-bV8/uo2Tj+gumnk4sUdkerWyCPRabaZdv88IpbmDWARQQoA/Q0YaqPz1a+LSEDIL7OfrnPi9Hq1Llz4ZIGyIQQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-win32-arm64@2.4.5':
-    resolution: {integrity: sha512-EBfrTqRIWOFSd7CQb/0ttjHMR88zm3hGravnDwUA9wHAaCAYsULKDebWcN5RmrEo1KBtl/gDVJMrFjNR0pdGUw==}
+  '@biomejs/cli-win32-arm64@2.4.7':
+    resolution: {integrity: sha512-hOUHBMlFCvDhu3WCq6vaBoG0dp0LkWxSEnEEsxxXvOa9TfT6ZBnbh72A/xBM7CBYB7WgwqboetzFEVDnMxelyw==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
 
-  '@biomejs/cli-win32-x64@2.4.5':
-    resolution: {integrity: sha512-Pmhv9zT95YzECfjEHNl3mN9Vhusw9VA5KHY0ZvlGsxsjwS5cb7vpRnHzJIv0vG7jB0JI7xEaMH9ddfZm/RozBw==}
+  '@biomejs/cli-win32-x64@2.4.7':
+    resolution: {integrity: sha512-qEpGjSkPC3qX4ycbMUthXvi9CkRq7kZpkqMY1OyhmYlYLnANnooDQ7hDerM8+0NJ+DZKVnsIc07h30XOpt7LtQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -2431,8 +2431,8 @@ packages:
     resolution: {integrity: sha512-SQsTSZowEI+whPlwPLsX9ICr6BiG39NLmzED7OWfaowribQ0XylRhoWodcRu6cB/ZCzminZajBUG5XgarNWnRw==}
     engines: {node: '>=18.20.0'}
 
-  '@wdio/config@9.24.0':
-    resolution: {integrity: sha512-rcHu0eG16rSEmHL0sEKDcr/vYFmGhQ5GOlmlx54r+1sgh6sf136q+kth4169s16XqviWGW3LjZbUfpTK29pGtw==}
+  '@wdio/config@9.25.0':
+    resolution: {integrity: sha512-EWa7l1rrbSNthCRDpdBw7ESAa1/jAjSsWCGkaVAO0HMOGlQjzvYI6gNi4KUeymnurDZ2IPr0jr+f9We6AWi6QA==}
     engines: {node: '>=18.20.0'}
 
   '@wdio/logger@9.18.0':
@@ -2442,8 +2442,8 @@ packages:
   '@wdio/protocols@9.16.2':
     resolution: {integrity: sha512-h3k97/lzmyw5MowqceAuY3HX/wGJojXHkiPXA3WlhGPCaa2h4+GovV2nJtRvknCKsE7UHA1xB5SWeI8MzloBew==}
 
-  '@wdio/protocols@9.24.0':
-    resolution: {integrity: sha512-ozQKYddBLT4TRvU9J+fGrhVUtx3iDAe+KNCJcTDMFMxNSdDMR2xFQdNp8HLHypspk58oXTYCvz6ZYjySthhqsw==}
+  '@wdio/protocols@9.25.0':
+    resolution: {integrity: sha512-PErbZqdpFmE69bRuku3OR34Ro2xuZNNLXYFOcJnjXJVzf5+ApDyGHYrMlvhtrrSy9/55LUybk851ppjS+3RoDA==}
 
   '@wdio/repl@9.16.2':
     resolution: {integrity: sha512-FLTF0VL6+o5BSTCO7yLSXocm3kUnu31zYwzdsz4n9s5YWt83sCtzGZlZpt7TaTzb3jVUfxuHNQDTb8UMkCu0lQ==}
@@ -2453,16 +2453,16 @@ packages:
     resolution: {integrity: sha512-zMmAtse2UMCSOW76mvK3OejauAdcFGuKopNRH7crI0gwKTZtvV89yXWRziz9cVXpFgfmJCjf9edxKFWdhuF5yw==}
     engines: {node: '>=18.20.0'}
 
-  '@wdio/types@9.24.0':
-    resolution: {integrity: sha512-PYYunNl8Uq1r8YMJAK6ReRy/V/XIrCSyj5cpCtR5EqCL6heETOORFj7gt4uPnzidfgbtMBcCru0LgjjlMiH1UQ==}
+  '@wdio/types@9.25.0':
+    resolution: {integrity: sha512-ovSEcUBLz6gVDIsBZYKQXz8EGU37jS8sqbmlOe5+jB4XbsTBCyTLjQK/rO7LWQAKJcs0vBq+Pd+VrlsFtA7tTQ==}
     engines: {node: '>=18.20.0'}
 
   '@wdio/utils@9.22.0':
     resolution: {integrity: sha512-5j2nn2bBjj41wxXsVT43sUMOKR0qiKNDRG1UcKQ6NkfsWFObSehMAS0a9ZZu//+ooTxRkwHjvLdQrXIrPnTLzg==}
     engines: {node: '>=18.20.0'}
 
-  '@wdio/utils@9.24.0':
-    resolution: {integrity: sha512-6WhtzC5SNCGRBTkaObX6A07Ofnnyyf+TQH/d/fuhZRqvBknrP4AMMZF+PFxGl1fwdySWdBn+gV2QLE+52Byowg==}
+  '@wdio/utils@9.25.0':
+    resolution: {integrity: sha512-w/ej8gZkc2tZr8L91ATyA1AWrbPDYDOvblQ7r+zt1uPRobuA4H98GME7Zm7i3FIP695BvV4G35Gcs5NssZW1pw==}
     engines: {node: '>=18.20.0'}
 
   '@zip.js/zip.js@2.8.11':
@@ -5236,8 +5236,8 @@ packages:
     resolution: {integrity: sha512-jf4irPhIJAssrF3mqUrBZGZnzjRfM86Q24ePUOgFKWI04LtdvRsnc9SsWU05mrN/a6pTJzGps6GsvLpNhvcalg==}
     engines: {node: '>=18.20.0'}
 
-  webdriver@9.24.0:
-    resolution: {integrity: sha512-2R31Ey83NzMsafkl4hdFq6GlIBvOODQMkueLjeRqYAITu3QCYiq9oqBdnWA6CdePuV4dbKlYsKRX0mwMiPclDA==}
+  webdriver@9.25.0:
+    resolution: {integrity: sha512-XnABKdrp83zX3xVltmX0OcFzn8zOzWGtZQxIUKY0+INB0g9Nnnfu7G75W0G+0y4nyb3zH8mavGzDBiXctdEd3Q==}
     engines: {node: '>=18.20.0'}
 
   webdriverio@9.22.0:
@@ -5249,8 +5249,8 @@ packages:
       puppeteer-core:
         optional: true
 
-  webdriverio@9.24.0:
-    resolution: {integrity: sha512-LTJt6Z/iDM0ne/4ytd3BykoPv9CuJ+CAILOzlwFeMGn4Mj02i4Bk2Rg9o/jeJ89f52hnv4OPmNjD0e8nzWAy5g==}
+  webdriverio@9.25.0:
+    resolution: {integrity: sha512-ualC/LtWGjL5rwGAbUUzURKqKoHJG2/qecEppcS9k4n1IX3MlbzGXuL/qpXiRbs/h4981HpRbZAKBxRYqwUe3g==}
     engines: {node: '>=18.20.0'}
     peerDependencies:
       puppeteer-core: '>=22.x || <=24.x'
@@ -5517,39 +5517,39 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@biomejs/biome@2.4.5':
+  '@biomejs/biome@2.4.7':
     optionalDependencies:
-      '@biomejs/cli-darwin-arm64': 2.4.5
-      '@biomejs/cli-darwin-x64': 2.4.5
-      '@biomejs/cli-linux-arm64': 2.4.5
-      '@biomejs/cli-linux-arm64-musl': 2.4.5
-      '@biomejs/cli-linux-x64': 2.4.5
-      '@biomejs/cli-linux-x64-musl': 2.4.5
-      '@biomejs/cli-win32-arm64': 2.4.5
-      '@biomejs/cli-win32-x64': 2.4.5
+      '@biomejs/cli-darwin-arm64': 2.4.7
+      '@biomejs/cli-darwin-x64': 2.4.7
+      '@biomejs/cli-linux-arm64': 2.4.7
+      '@biomejs/cli-linux-arm64-musl': 2.4.7
+      '@biomejs/cli-linux-x64': 2.4.7
+      '@biomejs/cli-linux-x64-musl': 2.4.7
+      '@biomejs/cli-win32-arm64': 2.4.7
+      '@biomejs/cli-win32-x64': 2.4.7
 
-  '@biomejs/cli-darwin-arm64@2.4.5':
+  '@biomejs/cli-darwin-arm64@2.4.7':
     optional: true
 
-  '@biomejs/cli-darwin-x64@2.4.5':
+  '@biomejs/cli-darwin-x64@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-arm64-musl@2.4.5':
+  '@biomejs/cli-linux-arm64-musl@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-arm64@2.4.5':
+  '@biomejs/cli-linux-arm64@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-x64-musl@2.4.5':
+  '@biomejs/cli-linux-x64-musl@2.4.7':
     optional: true
 
-  '@biomejs/cli-linux-x64@2.4.5':
+  '@biomejs/cli-linux-x64@2.4.7':
     optional: true
 
-  '@biomejs/cli-win32-arm64@2.4.5':
+  '@biomejs/cli-win32-arm64@2.4.7':
     optional: true
 
-  '@biomejs/cli-win32-x64@2.4.5':
+  '@biomejs/cli-win32-x64@2.4.7':
     optional: true
 
   '@bundled-es-modules/cookie@2.0.1':
@@ -6257,9 +6257,9 @@ snapshots:
     dependencies:
       quansync: 1.0.0
 
-  '@repobuddy/biome@2.0.1(@biomejs/biome@2.4.5)':
+  '@repobuddy/biome@2.0.1(@biomejs/biome@2.4.7)':
     dependencies:
-      '@biomejs/biome': 2.4.5
+      '@biomejs/biome': 2.4.7
 
   '@repobuddy/storybook@2.1.2(d5e92b449a5068562aacb60e9b05bd8b)':
     dependencies:
@@ -6984,11 +6984,11 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/browser-webdriverio@4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@1.21.7)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.24.0)':
+  '@vitest/browser-webdriverio@4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@1.21.7)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.25.0)':
     dependencies:
       '@vitest/browser': 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@1.21.7)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)
       vitest: 4.0.16(@types/node@24.10.1)(@vitest/browser-playwright@4.0.16)(@vitest/browser-webdriverio@4.0.16)(@vitest/ui@4.0.16)(jiti@1.21.7)(lightningcss@1.30.2)(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(yaml@2.6.0)
-      webdriverio: 9.24.0
+      webdriverio: 9.25.0
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -7008,11 +7008,11 @@ snapshots:
       - vite
     optional: true
 
-  '@vitest/browser-webdriverio@4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.24.0)':
+  '@vitest/browser-webdriverio@4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.25.0)':
     dependencies:
       '@vitest/browser': 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)
       vitest: 4.0.16(@types/node@24.10.1)(@vitest/browser-playwright@4.0.16)(@vitest/browser-webdriverio@4.0.16)(@vitest/ui@4.0.16)(jiti@2.6.1)(lightningcss@1.30.2)(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(yaml@2.6.0)
-      webdriverio: 9.24.0
+      webdriverio: 9.25.0
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -7201,11 +7201,11 @@ snapshots:
       - bare-buffer
       - supports-color
 
-  '@wdio/config@9.24.0':
+  '@wdio/config@9.25.0':
     dependencies:
       '@wdio/logger': 9.18.0
-      '@wdio/types': 9.24.0
-      '@wdio/utils': 9.24.0
+      '@wdio/types': 9.25.0
+      '@wdio/utils': 9.25.0
       deepmerge-ts: 7.1.5
       glob: 10.4.5
       import-meta-resolve: 4.2.0
@@ -7224,7 +7224,7 @@ snapshots:
 
   '@wdio/protocols@9.16.2': {}
 
-  '@wdio/protocols@9.24.0': {}
+  '@wdio/protocols@9.25.0': {}
 
   '@wdio/repl@9.16.2':
     dependencies:
@@ -7234,7 +7234,7 @@ snapshots:
     dependencies:
       '@types/node': 20.17.50
 
-  '@wdio/types@9.24.0':
+  '@wdio/types@9.25.0':
     dependencies:
       '@types/node': 20.17.50
 
@@ -7258,11 +7258,11 @@ snapshots:
       - bare-buffer
       - supports-color
 
-  '@wdio/utils@9.24.0':
+  '@wdio/utils@9.25.0':
     dependencies:
       '@puppeteer/browsers': 2.10.10
       '@wdio/logger': 9.18.0
-      '@wdio/types': 9.24.0
+      '@wdio/types': 9.25.0
       decamelize: 6.0.1
       deepmerge-ts: 7.1.5
       edgedriver: 6.1.2
@@ -10146,7 +10146,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.10.1
       '@vitest/browser-playwright': 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(playwright@1.58.2)(vite@7.3.0(@types/node@24.10.1)(jiti@1.21.7)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)
-      '@vitest/browser-webdriverio': 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@1.21.7)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.24.0)
+      '@vitest/browser-webdriverio': 4.0.16(msw@2.7.3(@types/node@24.10.1)(typescript@5.9.3))(vite@7.3.0(@types/node@24.10.1)(jiti@1.21.7)(lightningcss@1.30.2)(yaml@2.6.0))(vitest@4.0.16)(webdriverio@9.25.0)
       '@vitest/ui': 4.0.16(vitest@4.0.16)
     transitivePeerDependencies:
       - jiti
@@ -10232,15 +10232,15 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriver@9.24.0:
+  webdriver@9.25.0:
     dependencies:
       '@types/node': 20.17.50
       '@types/ws': 8.18.1
-      '@wdio/config': 9.24.0
+      '@wdio/config': 9.25.0
       '@wdio/logger': 9.18.0
-      '@wdio/protocols': 9.24.0
-      '@wdio/types': 9.24.0
-      '@wdio/utils': 9.24.0
+      '@wdio/protocols': 9.25.0
+      '@wdio/types': 9.25.0
+      '@wdio/utils': 9.25.0
       deepmerge-ts: 7.1.5
       https-proxy-agent: 7.0.6
       undici: 6.22.0
@@ -10284,16 +10284,16 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriverio@9.24.0:
+  webdriverio@9.25.0:
     dependencies:
       '@types/node': 20.17.50
       '@types/sinonjs__fake-timers': 8.1.5
-      '@wdio/config': 9.24.0
+      '@wdio/config': 9.25.0
       '@wdio/logger': 9.18.0
-      '@wdio/protocols': 9.24.0
+      '@wdio/protocols': 9.25.0
       '@wdio/repl': 9.16.2
-      '@wdio/types': 9.24.0
-      '@wdio/utils': 9.24.0
+      '@wdio/types': 9.25.0
+      '@wdio/utils': 9.25.0
       archiver: 7.0.1
       aria-query: 5.3.2
       cheerio: 1.0.0
@@ -10310,7 +10310,7 @@ snapshots:
       rgb2hex: 0.2.5
       serialize-error: 12.0.0
       urlpattern-polyfill: 10.0.0
-      webdriver: 9.24.0
+      webdriver: 9.25.0
     transitivePeerDependencies:
       - bare-buffer
       - bufferutil
