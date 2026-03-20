@@ -72,6 +72,23 @@ setAutoSnapshotOptions({
 })
 ```
 
+### Full page capture
+
+#### `fullPage` (boolean)
+When `true`, captures the entire scrollable page instead of the subject element. Useful for tall layouts or when you need the full page in one snapshot. Default is `false` (capture the subject element only).
+
+```ts
+// Capture full page (e.g. for long forms or scrollable layouts)
+setAutoSnapshotOptions({
+  fullPage: true
+})
+
+// Default: capture subject element only
+setAutoSnapshotOptions({
+  fullPage: false
+})
+```
+
 ### Snapshot Identification
 
 #### `snapshotKey` (string)
