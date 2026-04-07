@@ -1,6 +1,6 @@
-import { page } from 'vitest/browser'
 import { it } from 'vitest'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+import { page } from 'vitest/browser'
 import { Button } from './Button.tsx'
 
 it('can disable snapshot', async ({ expect }) => {

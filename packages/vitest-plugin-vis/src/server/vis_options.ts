@@ -16,10 +16,11 @@ export function setVisOption(
 
 	const name = userConfig.test?.name
 	const id = typeof name === 'string' ? name : typeof name === 'object' ? name?.label : DEFAULT_PROJECT_NAME
+
 	visOptions[id] = options
 }
 
 export function getVisOption(context: ExtendedBrowserCommandContext) {
-	const id = getProjectName(context) ?? DEFAULT_PROJECT_NAME
+	const id = getProjectName(context) || DEFAULT_PROJECT_NAME
 	return visOptions[id] ?? {}
 }
