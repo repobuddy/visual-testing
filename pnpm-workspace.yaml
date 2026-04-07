@@ -15,7 +15,7 @@ catalog:
   '@vitest/expect': ^4.0.16
   '@vitest/ui': ^4.0.16
   typescript: ^5.9.3
-  vite: ^7.3.0
+  vite: ^8.0.0
   vitest: ^4.0.16
   vitest-browser-react: ^2.0.2
 
