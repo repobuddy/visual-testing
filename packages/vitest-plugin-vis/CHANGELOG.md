@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 4.2.1
+
+### Patch Changes
+
+- [`76faffe`](https://github.com/repobuddy/visual-testing/commit/76faffefe67cd17bee0f5627f51d71e1fa1322ad) Thanks [@unional](https://github.com/unional)! - fix support for multiple browser instances when `test.name` is not set.
+
 ## 4.2.0
 
 ### Minor Changes
