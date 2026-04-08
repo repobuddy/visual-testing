@@ -2,6 +2,7 @@ import type pixelMatch from 'pixelmatch'
 import type { Options as SsimDiffOptions } from 'ssim.js'
 import type { SnapshotMeta } from '../auto_snapshots/snapshot_meta.ts'
 import type { NAME } from './constants.ts'
+import type { StorybookViewport, ViewportSize } from './viewport.ts'
 
 export type Awaitable<T> = T | PromiseLike<T>
 
@@ -98,6 +99,17 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 
 export interface PageImageSnapshotOptions {
 	fullPage?: boolean | undefined
+	/**
+	 * Viewport from story context (e.g. `globals.viewport`).
+	 * When using Storybook, prefer setting `viewportSize` (e.g. resolved from Storybook viewports) so the
+	 * page viewport is set before taking a full-page screenshot.
+	 */
+	viewport?: StorybookViewport | undefined
+	/**
+	 * Resolved viewport dimensions. When set, the browser page viewport is set to this size
+	 * before taking a full-page screenshot. Set by storybook-addon-vis from `globals.viewport`.
+	 */
+	viewportSize?: ViewportSize | undefined
 }
 
 export type ToMatchPageImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ToMatchImageSnapshotOptions<M> &
@@ -146,6 +158,8 @@ export type ImageSnapshotComparisonInfo = {
 export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
 	ImageSnapshotKeyOptions
+
+export type MatchPageImageSnapshotOptions = MatchImageSnapshotOptions & PageImageSnapshotOptions
 
 export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
 	auto?:

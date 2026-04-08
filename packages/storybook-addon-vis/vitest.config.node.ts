@@ -5,6 +5,7 @@ export default defineProject({
 	test: {
 		name: 'sav:node',
 		include: [
+			'src/preview/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
 			'src/vitest-plugin/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
 			'src/node/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
 		],
