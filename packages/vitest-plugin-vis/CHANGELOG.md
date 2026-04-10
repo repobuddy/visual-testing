@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 4.2.2
+
+### Patch Changes
+
+- [`494a8c7`](https://github.com/repobuddy/visual-testing/commit/494a8c70d032c76851d8f6a476480ebaab5a4a76) Thanks [@unional](https://github.com/unional)! - Drop an unnecessary Biome suppression from the Jest matcher module augmentation. Update Storybook-related dev dependencies for local development and remove `@storybook/addon-mdx-gfm` from the package Storybook config.
+
 ## 4.2.1
 
 ### Patch Changes
