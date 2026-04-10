@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-FumrxN9m.js";import{useMDXComponents as e}from"./index-DQZtEuCX.js";import"./preload-helper-PPVm8Dsz.js";function o(s){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...e(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVisOptions"}),`
+import{u as e,j as t,M as i}from"./iframe-C2IKxbra.js";import"./preload-helper-PPVm8Dsz.js";function o(s){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...e(),...s.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVisOptions"}),`
 `,t.jsx(n.h1,{id:"definestorybookvisoptions",children:"defineStorybookVisOptions"}),`
 `,t.jsx(n.p,{children:"A helper function to configure options for Storybook Visual Testing addon."}),`
 `,t.jsx(n.pre,{children:t.jsx(n.code,{className:"language-ts",children:`// .storybook/main.ts
@@ -145,4 +145,4 @@ const options = defineStorybookVisOptions({
 `,t.jsxs(n.ul,{children:[`
 `,t.jsxs(n.li,{children:[t.jsx(n.a,{href:"/docs/storybook-addon-vis-server-create-storybook-vis-server--docs",children:"createStorybookVisServer"})," - Server implementation that uses these options"]}),`
 `,t.jsxs(n.li,{children:[t.jsx(n.a,{href:"/docs/storybook-addon-vis-overview--docs",children:"Storybook Visual Testing Overview"})," - General overview of the addon"]}),`
-`]})]})}function c(s={}){const{wrapper:n}={...e(),...s.components};return n?t.jsx(n,{...s,children:t.jsx(o,{...s})}):o(s)}export{c as default};
+`]})]})}function d(s={}){const{wrapper:n}={...e(),...s.components};return n?t.jsx(n,{...s,children:t.jsx(o,{...s})}):o(s)}export{d as default};

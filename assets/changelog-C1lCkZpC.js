@@ -1,4 +1,11 @@
-import{j as t,M as i,n as a}from"./iframe-FumrxN9m.js";import{useMDXComponents as s}from"./index-DQZtEuCX.js";import"./preload-helper-PPVm8Dsz.js";const d=`# CHANGE LOG
+import{u as a,j as t,M as i,n as s}from"./iframe-C2IKxbra.js";import"./preload-helper-PPVm8Dsz.js";const d=`# CHANGE LOG
+
+## 3.1.5
+
+### Patch Changes
+
+- Updated dependencies [[\`494a8c7\`](https://github.com/repobuddy/visual-testing/commit/494a8c70d032c76851d8f6a476480ebaab5a4a76)]:
+  - vitest-plugin-vis@4.2.2
 
 ## 3.1.4
 
@@ -1131,4 +1138,4 @@ import{j as t,M as i,n as a}from"./iframe-FumrxN9m.js";import{useMDXComponents a
 
 - Homa Wong ([@unional](https://github.com/unional))
 `;function e(n){return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"Changelog"}),`
-`,t.jsx(a,{children:d})]})}function h(n={}){const{wrapper:o}={...s(),...n.components};return o?t.jsx(o,{...n,children:t.jsx(e,{...n})}):e()}export{h as default};
+`,t.jsx(s,{children:d})]})}function u(n={}){const{wrapper:o}={...a(),...n.components};return o?t.jsx(o,{...n,children:t.jsx(e,{...n})}):e()}export{u as default};

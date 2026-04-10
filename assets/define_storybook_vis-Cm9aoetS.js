@@ -1,4 +1,4 @@
-import{j as t,M as i}from"./iframe-FumrxN9m.js";import{useMDXComponents as s}from"./index-DQZtEuCX.js";import"./preload-helper-PPVm8Dsz.js";function e(o){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVis"}),`
+import{u as s,j as t,M as i}from"./iframe-C2IKxbra.js";import"./preload-helper-PPVm8Dsz.js";function e(o){const n={a:"a",code:"code",h1:"h1",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...s(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(i,{title:"node/defineStorybookVis"}),`
 `,t.jsx(n.h1,{id:"definestorybookvis",children:"defineStorybookVis"}),`
 `,t.jsxs(n.p,{children:["A helper function to configure the Storybook Visual Testing addon in ",t.jsx(n.code,{children:".storybook/main.ts"}),"."]}),`
 `,t.jsx(n.pre,{children:t.jsx(n.code,{className:"language-ts",children:`// .storybook/main.ts
@@ -167,4 +167,4 @@ export default {
 `,t.jsxs(n.ul,{children:[`
 `,t.jsxs(n.li,{children:[t.jsx(n.a,{href:"/docs/node-define-storybook-vis-options--docs",children:"defineStorybookVisOptions"})," - Alternative helper function for configuring options"]}),`
 `,t.jsxs(n.li,{children:[t.jsx(n.a,{href:"/docs/storybook-addon-vis-overview--docs",children:"Storybook Visual Testing Overview"})," - General overview of the addon"]}),`
-`]})]})}function c(o={}){const{wrapper:n}={...s(),...o.components};return n?t.jsx(n,{...o,children:t.jsx(e,{...o})}):e(o)}export{c as default};
+`]})]})}function d(o={}){const{wrapper:n}={...s(),...o.components};return n?t.jsx(n,{...o,children:t.jsx(e,{...o})}):e(o)}export{d as default};
