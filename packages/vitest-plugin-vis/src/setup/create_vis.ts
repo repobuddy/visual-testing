@@ -1,9 +1,8 @@
 import { afterEach, beforeAll, expect } from 'vitest'
 import { setAutoSnapshotOptions } from '../auto_snapshots/auto_snapshot_options.ts'
-import type { SnapshotMeta } from '../auto_snapshots/snapshot_meta.ts'
 import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
 import type { SetupVisSuiteCommand } from '../shared/commands.types.ts'
-import type { ComparisonMethod, SetupVisOptions } from '../shared/types.ts'
+import type { SetupVisOptions } from '../shared/types.ts'
 
 /**
  * Visual test configuration on the client side.
@@ -38,27 +37,6 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 	 * ```
 	 */
 	setup(options?: SetupVisOptions<GM>): void
-	beforeAll: {
-		/**
-		 * @deprecated No known use case.
-		 */
-		setup(): Promise<void>
-	}
-	afterEach: {
-		/**
-		 * @deprecated No known use case.
-		 */
-		matchImageSnapshot(): Promise<void>
-		/**
-		 * @deprecated No known use case.
-		 */
-		matchPerTheme<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
-			themes: Record<
-				string,
-				boolean | ((options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void)
-			>,
-		): () => Promise<void>
-	}
 }
 
 export function createVis<GM extends Record<string, any> | unknown = unknown>(commands: SetupVisSuiteCommand) {
@@ -82,19 +60,6 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 			} else {
 				afterEach(matcher.createMatcher({ async auto() {} }))
 			}
-		},
-		beforeAll: {
-			async setup() {
-				await matcher.setup()
-			},
-		},
-		afterEach: {
-			async matchImageSnapshot() {
-				return matcher.createMatcher({ async auto() {} })()
-			},
-			matchPerTheme(themes) {
-				return matcher.createMatcher(themes)
-			},
 		},
 	}
 	return vis
