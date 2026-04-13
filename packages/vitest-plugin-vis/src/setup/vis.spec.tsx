@@ -1,7 +1,7 @@
 import dedent from 'dedent'
 import type { Options } from 'ssim.js'
 import { testType } from 'type-plus'
-import { beforeEach, describe, it } from 'vitest'
+import { beforeAll, beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
 import { setAutoSnapshotOptions } from '../index.ts'
@@ -105,9 +105,10 @@ describe('matchPerTheme', () => {
 	})
 })
 
-// too complicated to validate
-describe('presets.enable()', () => {
-	beforeEach(() => vis.presets.enable())
+describe('vis.setup({ auto: false })', () => {
+	beforeAll(() => {
+		vis.setup({ auto: false })
+	})
 
 	it('can enable auto snapshot', async () => {
 		await render(<div data-testid="subject">hello</div>)

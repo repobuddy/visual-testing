@@ -38,59 +38,6 @@ export type VisClientConfigurator<GM extends Record<string, any> | unknown = unk
 	 * ```
 	 */
 	setup(options?: SetupVisOptions<GM>): void
-	/**
-	 * @deprecated Use `vis.setup()` instead.
-	 */
-	presets: {
-		/**
-		 * @deprecated Use `vis.setup()` instead.
-		 *
-		 * Enable visual testing.
-		 *
-		 * auto snapshot is turned off by default.
-		 * You can specify the test to take a snapshot during `afterEach()` hook with `setAutoSnapshotOptions()`.
-		 */
-		enable(): void
-		/**
-		 * @deprecated Use `vis.setup()` instead.
-		 *
-		 * Enable visual testing.
-		 *
-		 * `setAutoSnapshotOptions` will have no effect in this preset.
-		 */
-		manual(): void
-		/**
-		 * @deprecated Use `vis.setup()` instead.
-		 *
-		 * Enable automatic visual testing.
-		 *
-		 * This will take a snapshot after each test.
-		 */
-		auto(): void
-		/**
-		 * @deprecated Use `vis.setup()` instead.
-		 *
-		 * Enable automatic visual testing with multiple themes.
-		 *
-		 * This will take a snapshot after each test for each theme.
-		 *
-		 * @param themes A record of theme names and their setup functions.
-		 *
-		 * @example
-		 * ```ts
-		 * vis().presets.theme({
-		 *  light() { document.body.classList.add('light') },
-		 *  dark() { document.body.classList.add('dark') },
-		 * })
-		 * ```
-		 */
-		theme<C extends ComparisonMethod, M extends Record<string, any> | unknown = unknown>(
-			themes: Record<
-				string,
-				boolean | ((options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void)
-			>,
-		): void
-	}
 	beforeAll: {
 		/**
 		 * @deprecated No known use case.
@@ -135,29 +82,6 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 			} else {
 				afterEach(matcher.createMatcher({ async auto() {} }))
 			}
-		},
-		presets: {
-			enable() {
-				beforeAll(matcher.setup)
-				afterEach(matcher.createMatcher({ async auto() {} }))
-			},
-			manual() {
-				beforeAll(matcher.setup)
-			},
-			auto() {
-				beforeAll(async () => {
-					await matcher.setup()
-					setAutoSnapshotOptions(true)
-				})
-				afterEach(matcher.createMatcher({ async auto() {} }))
-			},
-			theme(themes) {
-				beforeAll(async () => {
-					await matcher.setup()
-					setAutoSnapshotOptions(true)
-				})
-				afterEach(matcher.createMatcher(themes))
-			},
 		},
 		beforeAll: {
 			async setup() {

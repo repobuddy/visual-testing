@@ -1,26 +1,33 @@
+import type { SetupVisOptions } from 'vitest-plugin-vis'
+import type { ToMatchImageSnapshotOptions } from 'vitest-plugin-vis/client-api'
 import { testType } from 'type-plus'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { setAutoSnapshotOptions, vis } from './vitest-setup.ts'
 
 beforeAll(() => setAutoSnapshotOptions(false))
 
-describe('vis.presets.theme()', () => {
+describe('vis.setup theme auto', () => {
 	it('provides tags in options', () => {
-		vis.presets.theme({
-			x(options) {
-				testType.equal<typeof options.tags, string[]>(true)
-				expect(options.tags).toEqual([])
+		vis.setup({
+			auto: {
+				x(options) {
+					testType.equal<typeof options.tags, string[]>(true)
+					expect(options.tags).toEqual([])
+				},
 			},
 		})
 	})
 	it('can customize the option type', () => {
-		vis.presets.theme<'ssim'>({
-			x(_options) {
+		const auto = {
+			x(_options: ToMatchImageSnapshotOptions<'ssim'> & { tags: string[] }) {
 				testType.canAssign<
 					typeof _options.diffOptions,
 					{ ssim?: 'fast' | 'original' | 'bezkrovny' | 'weber' | undefined }
 				>(true)
 			},
+		} satisfies Record<string, unknown>
+		vis.setup({
+			auto: auto as NonNullable<SetupVisOptions<{ tags: string[] }>['auto']>,
 		})
 	})
 })
