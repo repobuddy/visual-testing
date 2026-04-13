@@ -79,7 +79,7 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
 	plugins: [
 		vis({
-			preset: 'auto' // or 'manual' or 'none'
+			preset: 'auto' // or 'manual' or 'custom'
 		})
 	],
 })
@@ -87,14 +87,14 @@ export default defineConfig({
 
 - `auto` (default): Automatically take a snapshot at the end of each rendering test.
 - `manual`: You control which test(s) should take a snapshot automatically with the `setAutoSnapshotOptions()` function.
-- `none`: Without preset. Set up your visual testing strategy in `vitest.setup.ts`.
+- `custom`: No preset setup file from the plugin. Set up your visual testing strategy in `vitest.setup.ts`.
 
 When using the `auto` or `manual` preset,
 manual snapshots are enabled. You can take manual snapshot using the `expect().toMatchImageSnapshot()` matcher,
 or the `page.toMatchImageSnapshot()` for full page snapshot.
 
 If you want to customize the snapshot behavior,
-you can set the `preset` to `none` and configure your own snapshot strategy in `vitest.setup.ts`:
+you can set the `preset` to `custom` and configure your own snapshot strategy in `vitest.setup.ts`:
 
 ```ts
 // vitest.config.ts
@@ -103,7 +103,7 @@ import { vis } from 'vitest-plugin-vis/config'
 
 export default defineConfig({
 	plugins: [
-		vis({ preset: 'none' })
+		vis({ preset: 'custom' })
 	],
 	test: {
 		browser: {/* ... */},
