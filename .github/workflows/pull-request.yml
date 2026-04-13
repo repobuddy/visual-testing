@@ -35,31 +35,36 @@ jobs:
       - name: Install playwright browsers
         uses: repobuddy/.github/.github/actions/setup-playwright@main
 
-      - name: Verify
-        uses: nick-fields/retry@v4
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: pnpm verify:ci
-      - run: git add .
-      - name: Detect snapshot changes
-        uses: dorny/paths-filter@v4
-        id: snapshot-changes
-        with:
-          base: HEAD
-          filters: |
-            snapshots:
-              - '*/*/__vis__/**/__baselines__/**'
+      # - name: Verify
+      #   uses: nick-fields/retry@v4
+      #   with:
+      #     timeout_minutes: 10
+      #     max_attempts: 3
+      #     command: pnpm verify:ci
 
-      - name: Create Pull Request
-        if: matrix.node-version == '24' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(github.head_ref, 'vis-bot')
-        uses: peter-evans/create-pull-request@v8
+      - name: Visual Snapshot PR bot
+        uses: repobuddy/vis-bot@v0.0.1
         with:
-          commit-message: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
-          title: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
-          body: This PR updates the snapshot for ${{matrix.os}} node ${{matrix.node-version}}"
-          branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.os }}-${{ matrix.node-version }}
-          base: ${{ github.head_ref }}
-          labels: "snapshot"
-          draft: false
+          update-command: pnpm verify:ci
+      # - run: git add .
+      # - name: Detect snapshot changes
+      #   uses: dorny/paths-filter@v4
+      #   id: snapshot-changes
+      #   with:
+      #     base: HEAD
+      #     filters: |
+      #       snapshots:
+      #         - '*/*/__vis__/**/__baselines__/**'
+
+      # - name: Create Pull Request
+      #   if: matrix.node-version == '24' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(github.head_ref, 'vis-bot')
+      #   uses: peter-evans/create-pull-request@v8
+      #   with:
+      #     commit-message: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
+      #     token: ${{ secrets.CI_GITHUB_TOKEN }}
+      #     title: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
+      #     body: This PR updates the snapshot for ${{matrix.os}} node ${{matrix.node-version}}"
+      #     branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.os }}-${{ matrix.node-version }}
+      #     base: ${{ github.head_ref }}
+      #     labels: "snapshot"
+      #     draft: false
