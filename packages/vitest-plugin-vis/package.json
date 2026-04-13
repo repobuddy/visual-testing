@@ -42,10 +42,6 @@
 			"types": "./dist/presets/auto.d.mts",
 			"default": "./dist/presets/auto.mjs"
 		},
-		"./presets/enable": {
-			"types": "./dist/presets/enable.d.mts",
-			"default": "./dist/presets/enable.mjs"
-		},
 		"./presets/manual": {
 			"types": "./dist/presets/manual.d.mts",
 			"default": "./dist/presets/manual.mjs"

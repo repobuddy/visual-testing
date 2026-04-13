@@ -124,16 +124,6 @@ it('can set preset to manual', () => {
 	})
 })
 
-it('can set preset to enable', () => {
-	const plugin = vis({ preset: 'enable' })
-
-	expect(plugin.config({})).toMatchObject({
-		test: {
-			setupFiles: ['vitest-plugin-vis/presets/enable'],
-		},
-	})
-})
-
 it('default to no preset when options is set', () => {
 	const plugin = vis({})
 

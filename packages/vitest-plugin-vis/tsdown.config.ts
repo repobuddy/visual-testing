@@ -10,7 +10,6 @@ export default defineConfig([
 			'src/client-api.ts',
 			'src/presets/auto.ts',
 			'src/presets/manual.ts',
-			'src/presets/enable.ts',
 			'src/server-utils.ts',
 			'src/setup.ts',
 			'src/setup-api.ts',
