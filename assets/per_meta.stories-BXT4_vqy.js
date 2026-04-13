@@ -1,0 +1,3 @@
+import{a as e,n as t}from"./chunk-BneVvdWh.js";import{t as n}from"./react-BeWxJaLi.js";var r,i,a,o,s;t((()=>{r=e(n(),1),i={title:`tags/per meta`,render:()=>r.createElement(r.Fragment,null,`unit test`),tags:[`snapshot`],parameters:{layout:`centered`}},a={},o={tags:[`!snapshot`]},a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{}`,...a.parameters?.docs?.source}}},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  tags: ['!snapshot']
+}`,...o.parameters?.docs?.source}}},s=[`TakeSnapshot`,`SkipSnapshot`]}))();export{o as SkipSnapshot,a as TakeSnapshot,s as __namedExportsOrder,i as default};

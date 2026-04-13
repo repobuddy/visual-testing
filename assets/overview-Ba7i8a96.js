@@ -1,0 +1,5 @@
+import{n as e}from"./chunk-BneVvdWh.js";import{c as t,s as n}from"./blocks-pk6s6g-r.js";import{a as r}from"./chunk-RD3KTAHR-C3fY6nk_.js";import{r as i}from"./react-D3_z09Pp.js";import{t as a}from"./mdx-react-shim-DMzzWKkY.js";function o(e){let t={code:`code`,h1:`h1`,p:`p`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`node`}),`
+`,(0,c.jsx)(t.h1,{id:`storybook-addon-visnode`,children:(0,c.jsx)(t.code,{children:`storybook-addon-vis/node`})}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`storybook-addon-vis/node`}),` provides functionality to configure the Storybook Visual Testing addon in the `,(0,c.jsx)(t.code,{children:`.storybook/main.ts`}),` file.`]}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`.storybook/main.ts`}),` is run on the server side,
+so the code it uses are separated from the client side code.`]})]})}function s(e={}){let{wrapper:t}={...i(),...e.components};return t?(0,c.jsx)(t,{...e,children:(0,c.jsx)(o,{...e})}):o(e)}var c;e((()=>{c=r(),a(),t()}))();export{s as default};

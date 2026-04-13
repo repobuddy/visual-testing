@@ -19,3 +19,12 @@ Bundled license information:
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
+
+@vitest/snapshot/dist/index.js:
+  /*
+   * @version    1.4.0
+   * @date       2015-10-26
+   * @stability  3 - Stable
+   * @author     Lauri Rooden (https://github.com/litejs/natural-compare-lite)
+   * @license    MIT License
+   */

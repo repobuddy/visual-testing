@@ -1,1 +1,0 @@
-import"./dedent-BAkmgC2z.js";import{g as n,t as r,c as o}from"./vitest_proxy-TpkuxO9w.js";function h(s,t,e){if(e?.snapshotKey?.includes("-"))throw new Error("Snapshot key cannot contain dash");return s.hasImageSnapshot(t,e?.snapshotKey)}const a={getCurrentTest:n,__test__reset(){a.getCurrentTest=n}};function i(s){const t=a.getCurrentTest();return t?h(o,r(t),s):!1}export{i as h};
