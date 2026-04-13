@@ -1,14 +1,14 @@
 import type { SnapshotTestMeta } from '../../../shared/types.ts'
 
-let vitestSuite: Awaited<typeof import('vitest/suite')>
+let vitest: Awaited<typeof import('vitest')>
 
 if ((globalThis as any).__vitest_browser__) {
-	import('vitest/suite').then((m) => {
-		vitestSuite = m
+	import('vitest').then((m) => {
+		vitest = m
 	})
 }
 
-export type CurrentTest = ReturnType<typeof vitestSuite.getCurrentTest> & SnapshotTestMeta
+export type CurrentTest = ReturnType<typeof vitest.TestRunner.getCurrentTest> & SnapshotTestMeta
 
-export const getCurrentTest = () => vitestSuite?.getCurrentTest() as CurrentTest
-export const getCurrentSuite = () => vitestSuite?.getCurrentSuite()
+export const getCurrentTest = () => vitest?.TestRunner.getCurrentTest() as CurrentTest
+export const getCurrentSuite = () => vitest?.TestRunner.getCurrentSuite()

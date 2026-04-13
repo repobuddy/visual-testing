@@ -9,7 +9,7 @@ export function storybookVis<M extends ComparisonMethod>(options?: Omit<VisOptio
 	return {
 		...vis({
 			...options,
-			preset: 'none',
+			preset: 'custom',
 		}),
 		name: NAME,
 	}

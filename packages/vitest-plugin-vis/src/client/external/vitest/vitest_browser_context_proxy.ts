@@ -1,5 +1,5 @@
 import type { SerializedConfig } from 'vitest'
-import type { BrowserCommands, Platform } from 'vitest/browser'
+import type { BrowserCommands } from 'vitest/browser'
 
 let ctx: Awaited<typeof import('vitest/browser')>
 
@@ -14,7 +14,7 @@ export const server = new Proxy<{
 	 * Platform the Vitest server is running on.
 	 * The same as calling `process.platform` on the server.
 	 */
-	platform: Platform
+	platform: string
 	/**
 	 * Runtime version of the Vitest server.
 	 * The same as calling `process.version` on the server.

@@ -15,11 +15,13 @@
 		"nuke": "turbo nuke && rimraf node_modules",
 		"release": "pnpm build && changeset publish",
 		"sav": "pnpm --filter=./packages/storybook-addon-vis",
+		"sast": "pnpm --filter=testcase-sb-auto-no-snapshot-tag",
 		"sc3": "pnpm --filter=testcase-sb-csf-3",
 		"scm": "pnpm --filter=testcase-sb-csf-mix",
 		"scn": "pnpm --filter=testcase-sb-csf-next",
 		"t:t": "turbo t:t",
 		"test": "turbo test",
+		"test:sast": "vitest run --project=sb-auto-no-snapshot-tag",
 		"test:sc3": "vitest run --project=sb-csf-3",
 		"test:trv": "vitest run --project=testcase-react-vite-ts",
 		"test:mi": "vitest run --project=testcase-multi-instances",
@@ -36,6 +38,7 @@
 		"vpv": "pnpm --filter=./packages/vitest-plugin-vis",
 		"w": "turbo w",
 		"w:trv": "vitest --project=testcase-react-vite-ts",
+		"w:sast": "vitest --project=sb-auto-no-snapshot-tag",
 		"w:sc3": "vitest --project=sb-csf-3"
 	},
 	"devDependencies": {

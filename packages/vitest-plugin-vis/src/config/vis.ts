@@ -23,7 +23,7 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 						name: undefined,
 						commands: commands as any,
 					},
-					setupFiles: preset && preset !== 'none' && preset !== 'custom' ? [`vitest-plugin-vis/presets/${preset}`] : [],
+					setupFiles: preset && preset !== 'custom' ? [`vitest-plugin-vis/presets/${preset}`] : [],
 				},
 			}
 		},
