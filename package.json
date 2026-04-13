@@ -9,6 +9,7 @@
 		"check:fix": "biome check --write",
 		"clean": "turbo clean",
 		"clean:vis:local": "turbo clean:vis:local",
+		"cleanup:cspell": "node --experimental-strip-types ./.cursor/skills/cleanup-cspell-words/cleanup-cspell-words.mts",
 		"coverage": "turbo coverage",
 		"cs": "changeset",
 		"knip": "knip --config .knip.jsonc",
@@ -55,5 +56,8 @@
 		"vitest": "catalog:",
 		"webdriverio": "^9.22.0"
 	},
-	"packageManager": "pnpm@10.33.0"
+	"packageManager": "pnpm@10.33.0",
+	"engines": {
+		"node": ">=22.6.0"
+	}
 }
