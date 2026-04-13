@@ -3,15 +3,15 @@ import type { BrowserCommands, BrowserPage } from 'vitest/browser'
 import { toMatchImageSnapshot } from './page/to_match_image_snapshot.ts'
 
 let browserContext: Awaited<typeof import('vitest/browser')>
-let vitestSuite: Awaited<typeof import('vitest/suite')>
+let vitest: Awaited<typeof import('vitest')>
 
 if ((globalThis as any).__vitest_browser__) {
 	import('vitest/browser').then((m) => {
 		m.page.extend({ toMatchImageSnapshot })
 		browserContext = m
 	})
-	import('vitest/suite').then((m) => {
-		vitestSuite = m
+	import('vitest').then((m) => {
+		vitest = m
 	})
 }
 
@@ -32,4 +32,6 @@ export const commands = new Proxy<BrowserCommands>({} as any, {
 })
 
 export const getCurrentTest = () =>
-	vitestSuite?.getCurrentTest() as (ReturnType<typeof vitestSuite.getCurrentTest> & SnapshotTestMeta) | undefined
+	vitest?.TestRunner.getCurrentTest() as
+		| (ReturnType<typeof vitest.TestRunner.getCurrentTest> & SnapshotTestMeta)
+		| undefined

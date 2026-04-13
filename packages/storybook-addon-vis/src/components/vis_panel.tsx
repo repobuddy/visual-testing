@@ -1,6 +1,6 @@
 import { RefreshIcon } from '@storybook/icons'
 import React, { memo, useEffect, useState } from 'react'
-import { AddonPanel, IconButton, Placeholder, ScrollArea } from 'storybook/internal/components'
+import { AddonPanel, Button, Placeholder, ScrollArea } from 'storybook/internal/components'
 import { styled } from 'storybook/theming'
 import { SNAPSHOT_ROOT_DIR } from 'vitest-plugin-vis/client-api'
 import type { ImageSnapshotResults } from '../shared/events.ts'
@@ -44,14 +44,15 @@ export const VisPanel = memo(function VisPanel({ active, getSnapshotResults, onR
 								<>
 									<SnapshotRow>
 										<span>{key}</span>
-										<IconButton
+										<Button
+											aria-label="Reload snapshot"
 											onClick={() => {
 												onRefresh()
 												getSnapshotResults().then(setSnapshotResults)
 											}}
 										>
 											<RefreshIcon />
-										</IconButton>
+										</Button>
 									</SnapshotRow>
 									<img
 										key={results[0].filePath}
@@ -70,12 +71,14 @@ export const VisPanel = memo(function VisPanel({ active, getSnapshotResults, onR
 	)
 })
 
-const SnapshotRow = styled.div<{ failed?: boolean }>(({ theme, failed }) => ({
-	display: 'flex',
-	alignItems: 'center',
-	gap: '0.5rem',
-	paddingBlock: '0.5rem',
-	paddingInline: '0.2rem',
-	backgroundColor: failed ? theme.background.negative : theme.background.positive,
-	color: theme.barTextColor,
-}))
+const SnapshotRow = styled.div<{ failed?: boolean }>(
+	({ theme, failed }: { theme: any; failed?: boolean | undefined }) => ({
+		display: 'flex',
+		alignItems: 'center',
+		gap: '0.5rem',
+		paddingBlock: '0.5rem',
+		paddingInline: '0.2rem',
+		backgroundColor: failed ? theme.background.negative : theme.background.positive,
+		color: theme.barTextColor,
+	}),
+)

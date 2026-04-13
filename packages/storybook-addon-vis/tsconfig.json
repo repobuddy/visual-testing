@@ -17,6 +17,6 @@
 		"types": ["@vitest/browser-playwright"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["src/**/*.ts", ".storybook/**/*.ts", "*.ts"],
+	"include": ["src", "types", ".storybook/*.ts"],
 	"references": [{ "path": "../vitest-plugin-vis/tsconfig.json" }]
 }

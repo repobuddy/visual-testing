@@ -56,6 +56,9 @@ node_modules
 # vite
 vite*.timestamp*
 
+# vitest
+.vitest-attachments
+
 # project
 .nowhere
 **/__screenshots__

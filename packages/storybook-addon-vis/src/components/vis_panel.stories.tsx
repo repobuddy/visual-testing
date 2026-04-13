@@ -33,10 +33,6 @@ const meta: Meta<typeof VisPanel> = {
 			control: 'boolean',
 			description: 'Whether the panel is active',
 		},
-		snapshotResults: {
-			control: 'object',
-			description: 'Array of image snapshot results',
-		},
 		onRefresh: {
 			description: 'Callback function when refresh button is clicked',
 		},
@@ -105,7 +101,7 @@ const mixedSnapshots: ImageSnapshotResults[] = [
 export const EmptyState: Story = {
 	args: {
 		active: true,
-		snapshotResults: [],
+		getSnapshotResults: async () => [],
 		onRefresh: fn(),
 	},
 }
@@ -113,7 +109,7 @@ export const EmptyState: Story = {
 export const SuccessfulSnapshots: Story = {
 	args: {
 		active: true,
-		snapshotResults: successfulSnapshots,
+		getSnapshotResults: async () => successfulSnapshots,
 		onRefresh: fn(),
 	},
 }
@@ -121,7 +117,7 @@ export const SuccessfulSnapshots: Story = {
 export const FailedSnapshots: Story = {
 	args: {
 		active: true,
-		snapshotResults: failedSnapshots,
+		getSnapshotResults: async () => failedSnapshots,
 		onRefresh: fn(),
 	},
 }
@@ -129,7 +125,7 @@ export const FailedSnapshots: Story = {
 export const MixedResults: Story = {
 	args: {
 		active: true,
-		snapshotResults: mixedSnapshots,
+		getSnapshotResults: async () => mixedSnapshots,
 		onRefresh: fn(),
 	},
 }
@@ -137,7 +133,7 @@ export const MixedResults: Story = {
 export const InactivePanel: Story = {
 	args: {
 		active: false,
-		snapshotResults: successfulSnapshots,
+		getSnapshotResults: async () => successfulSnapshots,
 		onRefresh: fn(),
 	},
 }
@@ -145,13 +141,14 @@ export const InactivePanel: Story = {
 export const LargeDataset: Story = {
 	args: {
 		active: true,
-		snapshotResults: Array.from({ length: 20 }, (_, i) => ({
-			filePath: `/path/to/snapshots/component-${i}-baseline.png`,
-			fileName: `component-${i}-baseline.png`,
-			snapshotRootDir: `/path/to/snapshots/suite-${Math.floor(i / 5)}`,
-			type: 'baseline' as const,
-			base64: mockBase64Image,
-		})),
+		getSnapshotResults: async () =>
+			Array.from({ length: 20 }, (_, i) => ({
+				filePath: `/path/to/snapshots/component-${i}-baseline.png`,
+				fileName: `component-${i}-baseline.png`,
+				snapshotRootDir: `/path/to/snapshots/suite-${Math.floor(i / 5)}`,
+				type: 'baseline' as const,
+				base64: mockBase64Image,
+			})),
 		onRefresh: fn(),
 	},
 }

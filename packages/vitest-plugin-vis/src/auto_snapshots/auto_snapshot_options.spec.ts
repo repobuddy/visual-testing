@@ -51,7 +51,7 @@ it('can set subject', ({ expect, task }) => {
 })
 
 describe('without beforeAll', () => {
-	beforeAll((ctx) => {
+	beforeAll((_, ctx) => {
 		delete (ctx.file.meta as any)[NAME]
 	})
 
@@ -72,7 +72,7 @@ describe('without beforeAll', () => {
 })
 
 describe('with no beforeAll and beforeEach', () => {
-	beforeAll((ctx) => {
+	beforeAll((ctx: { file: { meta: Record<string, unknown> } }) => {
 		delete (ctx.file.meta as any)[NAME]
 	})
 
@@ -97,7 +97,7 @@ describe('with no beforeAll and beforeEach', () => {
 })
 
 describe('disable snapshot during beforeAll', () => {
-	beforeAll((ctx) => {
+	beforeAll((ctx: { file: { meta: Record<string, unknown> } }) => {
 		delete (ctx.file.meta as any)[NAME]
 		// this set the `suite` meta
 		setAutoSnapshotOptions(false)
