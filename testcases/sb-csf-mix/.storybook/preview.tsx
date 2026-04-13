@@ -5,19 +5,6 @@ import { definePreview } from '@storybook/react-vite'
 import addonVis from 'storybook-addon-vis'
 
 export default definePreview({
-	// decorators: [
-	// 	(Story) => {
-	// 		const isDark = useDarkMode()
-	// 		useEffect(() => {
-	// 			if (isDark) {
-	// 				document.documentElement.classList.add('dark')
-	// 			} else {
-	// 				document.documentElement.classList.remove('dark')
-	// 			}
-	// 		}, [isDark])
-	// 		return <Story />
-	// 	},
-	// ],
 	parameters: {
 		controls: {
 			matchers: {
