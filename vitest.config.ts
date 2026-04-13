@@ -19,6 +19,7 @@ export default defineConfig({
 			// './packages/vitest-plugin-vis/vitest.config.webdriverio.ts',
 			'./testcases/multi-instances/vitest.config.ts',
 			'./testcases/react-vite-ts/vite.config.ts',
+			'./testcases/sb-auto-no-snapshot-tag/vitest.config.ts',
 			'./testcases/sb-csf-3/vitest.config.ts',
 			'./testcases/sb-csf-mix/vitest.config.ts',
 			'./testcases/sb-csf-next/vitest.config.ts',
