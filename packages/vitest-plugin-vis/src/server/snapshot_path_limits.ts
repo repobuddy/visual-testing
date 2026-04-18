@@ -13,7 +13,7 @@ export const WIN_SNAPSHOT_PATH_BUDGET = 250
 export const NTFS_MAX_FILENAME = 255
 
 /** Max length of the readable prefix taken from the original basename (tersify-style). */
-const SNAPSHOT_SUBPATH_PREFIX_MAX_LEN = 8
+const SNAPSHOT_SUBPATH_PREFIX_MAX_LEN = 24
 
 /**
  * Minimal probe file under the snapshot folder — detects when the directory prefix alone is too long.
