@@ -451,6 +451,8 @@ setAutoSnapshotOptions({
 })
 ```
 
+`createMissingBaseline` (on the matcher or on `vis.setup`) writes a missing baseline on the first run without `-u`. For auto snapshots, `vis.setup({ createMissingBaseline: true, auto: true })` applies a default; a test can override with `setAutoSnapshotOptions({ createMissingBaseline: false })` or equivalent meta.
+
 You can also enable/disable auto snapshot by passing boolean:
 
 ```ts

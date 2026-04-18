@@ -94,6 +94,15 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 		 * If it passes, it will throw an error with details.
 		 */
 		expectToFail?: boolean | undefined
+		/**
+		 * Create a baseline image when none exists on disk.
+		 *
+		 * If `true`, the captured image is written to the baseline path and the assertion succeeds,
+		 * without Vitest `-u` / `updateSnapshot: 'all'`.
+		 *
+		 * @default false
+		 */
+		createMissingBaseline?: boolean | undefined
 	}
 
 export interface PageImageSnapshotOptions {
@@ -145,7 +154,12 @@ export type ImageSnapshotComparisonInfo = {
 
 export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
-	ImageSnapshotKeyOptions
+	ImageSnapshotKeyOptions & {
+		/**
+		 * When `true`, write a missing baseline on first run (see {@link ToMatchImageSnapshotOptions} `createMissingBaseline`).
+		 */
+		createMissingBaseline?: boolean | undefined
+	}
 
 export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> = {
 	auto?:
@@ -160,4 +174,10 @@ export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> 
 						options: SnapshotMeta<C> & M & GM,
 				  ) => Promise<boolean> | Promise<void> | boolean | void)
 		  >
+	/**
+	 * Default {@link ToMatchImageSnapshotOptions#createMissingBaseline} for auto snapshots.
+	 *
+	 * @default false
+	 */
+	createMissingBaseline?: boolean | undefined
 }

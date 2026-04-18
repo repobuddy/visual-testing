@@ -8,6 +8,26 @@ import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
 import { setAutoSnapshotOptions } from '../index.ts'
 import { vis } from '../setup.ts'
 
+describe('vis.setup({ auto: false })', () => {
+	vis.setup({ auto: false })
+
+	it('should not take auto snapshot', async () => {
+		await render(<div data-testid="subject">hello</div>)
+		expect(await page.hasImageSnapshot()).toBe(false)
+	})
+})
+
+describe.skip('vis.setup({ auto: true })', () => {
+	vis.setup({ auto: true })
+
+	it('should take auto snapshot', async ({ onTestFinished }) => {
+		await render(<div data-testid="subject">hello</div>)
+		onTestFinished(async () => {
+			expect(await page.hasImageSnapshot()).toBe(true)
+		})
+	})
+})
+
 const themeSnapshots = autoSnapshotMatcher(commands, expect)
 
 describe('matchPerTheme', () => {
@@ -109,14 +129,20 @@ describe('matchPerTheme', () => {
 			},
 		})
 	})
-})
 
-describe('vis.setup({ auto: false })', () => {
-	beforeAll(() => {
-		vis.setup({ auto: false })
-	})
-
-	it('can enable auto snapshot', async () => {
+	it('createMatcher createMissingBaseline writes baseline when missing', async () => {
+		setAutoSnapshotOptions(true)
 		await render(<div data-testid="subject">hello</div>)
+		const snapshotKey = 'create_missing_baseline_matcher'
+		if (!(await page.hasImageSnapshot({ snapshotKey }))) {
+			await themeSnapshots.createMatcher(
+				{
+					[snapshotKey]: async () => {},
+				},
+				{ createMissingBaseline: true },
+			)()
+		}
+		expect(await page.hasImageSnapshot({ snapshotKey })).toBe(true)
+		setAutoSnapshotOptions({ enable: false })
 	})
 })

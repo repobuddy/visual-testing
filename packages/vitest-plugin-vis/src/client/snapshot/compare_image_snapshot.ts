@@ -23,7 +23,7 @@ export async function compareImageSnapshot(
 	const resultImage = await toImageData(info.result)
 
 	if (!info.baseline) {
-		if (server.config.snapshotOptions.updateSnapshot === 'all') {
+		if (server.config.snapshotOptions.updateSnapshot === 'all' || options?.createMissingBaseline === true) {
 			await writeSnapshot(commands, resolve(info.projectRoot, info.baselinePath), resultImage)
 			return
 		}
@@ -45,7 +45,7 @@ export async function compareImageSnapshot(
 		diffImage.data,
 		width,
 		height,
-		options,
+		options as ToMatchImageSnapshotOptions<any>,
 	)
 	if (pass) {
 		if (options?.expectToFail) {

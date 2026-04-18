@@ -169,6 +169,12 @@ Note that the `__vis__/*/__baselines__` should not be ignored,
 as it is used to store the baseline images.
 They should be committed to your repository.
 
+### First-run baselines (`createMissingBaseline` vs `updateSnapshot`)
+
+In **vitest-plugin-vis** (and when using the same client APIs outside Storybook’s Vitest bridge), `createMissingBaseline: true` on `toMatchImageSnapshot` / `page.toMatchImageSnapshot`, or `vis.setup({ createMissingBaseline: true, ... })`, can create a missing baseline without passing `-u`.
+
+When running **Storybook + Vitest browser mode** through this addon, matcher options are serialized over RPC; custom fields such as `createMissingBaseline` may not reach the server. In that setup, use Vitest’s snapshot update mode instead (for example temporarily set `server.config.snapshotOptions.updateSnapshot = 'all'` around the first run, or run with `-u`) to write new baselines—the same mechanism as a normal snapshot update.
+
 ### TypeScript Configuration
 
 If you want to do manual snapshot testing, you need to tell TypeScript about the matcher.

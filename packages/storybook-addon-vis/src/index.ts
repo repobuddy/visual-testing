@@ -23,13 +23,20 @@ export default (options: SetupVisOptions = { auto: false }) => {
 		tags: options.auto ? ['snapshot'] : [],
 		async beforeAll() {
 			matcher = autoSnapshotMatcher(commands, expect)
+			const suiteDefaults =
+				options?.createMissingBaseline !== undefined
+					? { createMissingBaseline: options.createMissingBaseline }
+					: undefined
 			if (typeof options?.auto === 'function') {
-				matcherFn = matcher.createMatcher({
-					auto: options.auto,
-				})
+				matcherFn = matcher.createMatcher(
+					{
+						auto: options.auto,
+					},
+					suiteDefaults,
+				)
 			} else if (typeof options?.auto === 'object') {
-				matcherFn = matcher.createMatcher(options.auto)
-			} else matcherFn = matcher.createMatcher({ async auto() {} })
+				matcherFn = matcher.createMatcher(options.auto, suiteDefaults)
+			} else matcherFn = matcher.createMatcher({ async auto() {} }, suiteDefaults)
 
 			await matcher.setup()
 			await setAutoSnapshotOptions(true)

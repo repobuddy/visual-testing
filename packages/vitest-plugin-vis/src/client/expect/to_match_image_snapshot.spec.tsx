@@ -155,6 +155,17 @@ it('rejects snapshot key with dash', async ({ expect }) => {
 	)
 })
 
+it('createMissingBaseline writes baseline when missing', async ({ expect }) => {
+	await render(<div data-testid="subject">save new content</div>)
+	const subject = page.getByTestId('subject')
+	const snapshotKey = 'create_missing_baseline_expect'
+	if (!(await page.hasImageSnapshot({ snapshotKey }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey, createMissingBaseline: true })
+	}
+	expect(await page.hasImageSnapshot({ snapshotKey })).toBe(true)
+	await expect(subject).toMatchImageSnapshot({ snapshotKey })
+})
+
 it('passes when the image is different but within failure threshold in pixels', async ({ expect }) => {
 	await render(<div data-testid="subject">unit test</div>)
 	const subject = page.getByTestId('subject')

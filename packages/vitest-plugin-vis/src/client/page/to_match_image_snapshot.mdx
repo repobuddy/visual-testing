@@ -68,6 +68,25 @@ it('should use custom snapshot key', async () => {
 })
 ```
 
+#### `createMissingBaseline`
+
+When `true`, if there is **no baseline image yet**,
+the matcher writes the captured image to the baseline path and the assertion succeeds—without using Vitest's `-u` / `updateSnapshot` mode.
+If a baseline already exists, `createMissingBaseline` does not change comparison behavior.
+
+Defaults for **auto** snapshots can come from `vis.setup({ createMissingBaseline: true, auto: ... })`; per-test meta can override with an explicit `createMissingBaseline` value.
+
+```ts
+it('creates page baseline on first run with createMissingBaseline', async () => {
+	render(<MyApp />)
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'page_first_run',
+		createMissingBaseline: true
+	})
+})
+```
+
 ### Failure Threshold
 
 #### `failureThreshold` and `failureThresholdType`
@@ -256,7 +275,10 @@ it('should demonstrate all page snapshot options', async () => {
 		timeout: 45000,
 
 		// Testing utility
-		expectToFail: false
+		expectToFail: false,
+
+		// First-run baseline (optional)
+		createMissingBaseline: false
 	})
 })
 ```

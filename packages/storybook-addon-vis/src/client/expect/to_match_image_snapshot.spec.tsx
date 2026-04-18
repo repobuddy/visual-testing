@@ -3,9 +3,10 @@ import { screen } from '@testing-library/react'
 import React from 'react'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
-import { page } from 'vitest/browser'
+import { page, server } from 'vitest/browser'
 import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64 } from '../../testing.ts'
+import { setAutoSnapshotOptions } from '../../vitest-setup.ts'
 import * as stories from './to_match_image_snapshot.stories.tsx'
 
 const { MatchingElement } = composeStories(stories)
@@ -60,6 +61,26 @@ it('can customize snapshot key', async () => {
 			snapshotKey: 'custom',
 		}),
 	).toBeTruthy()
+})
+
+// Storybook Vitest browser RPC may drop `createMissingBaseline`; use updateSnapshot 'all' for missing-baseline bootstrap (see overview.mdx).
+it('writes missing baseline when updateSnapshot is all', async () => {
+	setAutoSnapshotOptions({ enable: false })
+	await render(<div data-testid="save-new-storybook-expect">save new storybook</div>)
+	const subject = page.getByTestId('save-new-storybook-expect')
+	const snapshotKey = 'create_missing_baseline_storybook_expect'
+	const snap = server.config.snapshotOptions
+	const prevUpdate = snap.updateSnapshot
+	snap.updateSnapshot = 'all'
+	try {
+		if (!(await hasImageSnapshot({ snapshotKey }))) {
+			await expect(subject).toMatchImageSnapshot({ snapshotKey })
+		}
+		expect(await hasImageSnapshot({ snapshotKey })).toBe(true)
+		await expect(subject).toMatchImageSnapshot({ snapshotKey })
+	} finally {
+		snap.updateSnapshot = prevUpdate
+	}
 })
 
 it('can use screen from @testing-library/react to get element', async () => {

@@ -17,7 +17,11 @@ export async function matchImageSnapshotAction(
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 
-	const info = await commands.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
+	const info = await commands.prepareImageSnapshotComparison(
+		taskId,
+		parseImageSnapshotSubject(subject),
+		options,
+	)
 
 	return compareImageSnapshot(commands, taskId, info, options)
 }
