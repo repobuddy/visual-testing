@@ -261,6 +261,10 @@ export default defineConfig({
 })
 ```
 
+#### `shortenLongSnapshotPaths` (long absolute paths)
+
+Defaults to `false`. When `true`, the plugin keeps legacy snapshot files as `taskId-key.png` and only adjusts the **`snapshotSubpath` segment** when needed: it builds **absolute** paths under `__baselines__` (after `snapshotRootDir` and your `snapshotSubpath`) plus representative snapshot filenames; if those would exceed typical Windows limits (length at least **250**, below classic `MAX_PATH` **260** with margin, or a path component longer than **255**), **directory segments stay as-is** and only the **final path component** (the file name derived from your test/story path) is shortened to `{firstToken}-{hash12}{ext}` — the first token is the substring before the first `.` in the basename (similar in spirit to [tersify](https://github.com/unional/tersify) terse labels). The same resolved subpath is used for **baselines**, **results**, and **diffs**. Your `snapshotRootDir` is not rewritten.
+
 #### Multiple browser instances
 
 When using multiple browser instances (e.g., different viewports or browsers),

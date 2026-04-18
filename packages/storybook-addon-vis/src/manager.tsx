@@ -1,7 +1,7 @@
 import React from 'react'
 import { addons, types } from 'storybook/manager-api'
 import { VisPanel } from './components/vis_panel.tsx'
-import { NAME, VIS_PANEL_ID } from './shared/contants.ts'
+import { NAME, VIS_PANEL_ID } from './shared/constants.ts'
 import {
 	IMAGE_SNAPSHOT_RESULTS_RESPONSE,
 	requestImageSnapshotResults,

@@ -28,7 +28,7 @@ export const prepareImageSnapshotComparison: ExtendedBrowserCommand<
 			...info,
 			projectRoot,
 			result: subject,
-		}
+		} as ImageSnapshotComparisonInfo
 	}
 
 	const resultBuffer = await takeSnapshot(context, projectRoot, info.resultPath, subject, options)
@@ -37,5 +37,5 @@ export const prepareImageSnapshotComparison: ExtendedBrowserCommand<
 		projectRoot,
 		baseline: baselineBuffer?.toString('base64'),
 		result: resultBuffer.toString('base64'),
-	}
+	} as ImageSnapshotComparisonInfo
 }

@@ -1,5 +1,6 @@
 import { resolve } from 'pathe'
 import type { PreparePageImageSnapshotComparisonCommand } from '../../shared/commands.types.ts'
+import type { ImageSnapshotComparisonInfo } from '../../shared/types.ts'
 import { file } from '../externals/file.ts'
 import { getProjectRoot } from '../project.ts'
 import { takePageSnapshot } from '../snapshot.ts'
@@ -24,5 +25,5 @@ export const preparePageImageSnapshotComparison: ExtendedBrowserCommand<
 		projectRoot,
 		baseline: baselineBuffer?.toString('base64'),
 		result: resultBuffer.toString('base64'),
-	}
+	} as ImageSnapshotComparisonInfo
 }

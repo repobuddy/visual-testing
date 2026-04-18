@@ -188,3 +188,15 @@ it('can set the subject selector to data test id', () => {
 		subject: '[data-testid="test"]',
 	})
 })
+
+it('can enable shortenLongSnapshotPaths', () => {
+	const plugin = vis({ shortenLongSnapshotPaths: true })
+
+	const { userConfig, browserCommandContext } = stubSuite()
+
+	plugin.config(userConfig)
+
+	expect(getVisOption(browserCommandContext)).toMatchObject({
+		shortenLongSnapshotPaths: true,
+	})
+})

@@ -14,6 +14,7 @@ export default defineConfig([
 			'src/setup.ts',
 			'src/setup-api.ts',
 			'src/testing.ts',
+			'src/testing-node.ts',
 		],
 		unbundle: true,
 		tsconfig: 'tsconfig.esm.json',

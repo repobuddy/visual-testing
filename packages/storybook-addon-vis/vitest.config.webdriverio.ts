@@ -10,10 +10,11 @@ export default defineProject({
 		react(),
 		storybookTest({ configDir: join(import.meta.dirname, '.storybook') }),
 		storybookVis({
+			subject: '[data-testid="subject"]',
 			snapshotSubpath({ subpath }) {
 				return `wb/${trimCommonFolder(subpath)}`
 			},
-			subject: '[data-testid="subject"]',
+			shortenLongSnapshotPaths: true,
 		}),
 		{
 			name: 'override',

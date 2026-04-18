@@ -8,6 +8,7 @@ import {
 	BASELINE_DIR,
 	DIFF_DIR,
 	getSnapshotRootDir,
+	resolveSnapshotSubpathWithinLimits,
 	SNAPSHOT_ROOT_DIR,
 	trimCommonFolder,
 } from 'vitest-plugin-vis/server-utils'
@@ -36,7 +37,13 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 							: memoize(({ subpath }: { subpath: string }) =>
 									trimCommonFolder(subpath.startsWith('./') ? subpath.slice(2) : subpath),
 								)
-					const snapshotSubpath = snapshotSubpathFn({ subpath: importPath })
+					const snapshotSubpathRaw = snapshotSubpathFn({ subpath: importPath })
+					const snapshotBaselineRootAbs = resolve(snapshotRootDir, BASELINE_DIR)
+					const snapshotSubpath = resolveSnapshotSubpathWithinLimits({
+						snapshotBaselineRootAbs,
+						rawSnapshotSubpath: snapshotSubpathRaw,
+						shortenLongSnapshotPaths: suite.shortenLongSnapshotPaths === true,
+					})
 					return {
 						snapshotRootDir,
 						snapshotSubpath,

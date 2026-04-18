@@ -11,6 +11,7 @@ export default defineProject({
 		storybookTest({ configDir: join(import.meta.dirname, '.storybook') }),
 		storybookVis({
 			subject: '[data-testid="subject"]',
+			shortenLongSnapshotPaths: true,
 		}),
 		{
 			name: 'override',

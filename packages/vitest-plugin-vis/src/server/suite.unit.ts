@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
-import { DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
+import { BASELINE_DIR, DIFF_DIR, RESULT_DIR, SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { createModule, getSuiteId, getTaskSubpath } from './suite.ts'
 import { stubSuite } from './testing/stubSuite.ts'
 import type { VisSuite } from './vis_server_context.types.ts'
@@ -8,6 +8,7 @@ import type { VisSuite } from './vis_server_context.types.ts'
 describe(`${getTaskSubpath.name}`, () => {
 	const mockState = {
 		projectRoot: '/root/project',
+		snapshotBaselineDir: `${SNAPSHOT_ROOT_DIR}/local/${BASELINE_DIR}`,
 	} as VisSuite
 
 	it('returns `testPath` as the suite id for a file in the project root', ({ expect }) => {
@@ -32,13 +33,32 @@ describe(`${getTaskSubpath.name}`, () => {
 			expect(result).toBe('code.spec.ts')
 		})
 	})
+
+	it('condenses subpath when shortenLongSnapshotPaths and path would exceed limit', ({ expect }) => {
+		const longRoot = `/r/${'x'.repeat(280)}`
+		const state = {
+			projectRoot: longRoot,
+			snapshotBaselineDir: `${SNAPSHOT_ROOT_DIR}/local/${BASELINE_DIR}`,
+		} as VisSuite
+		const options: VisOptions = {
+			shortenLongSnapshotPaths: true,
+			snapshotSubpath: () => `${'d'.repeat(120)}/file.spec.tsx`,
+		}
+		const out = getTaskSubpath(state, `${longRoot}/src/t.spec.ts`, options)
+		const dirPrefix = `${'d'.repeat(120)}/`
+		expect(out.startsWith(dirPrefix)).toBe(true)
+		expect(out).toMatch(new RegExp(`^${'d'.repeat(120)}/file-[a-f0-9]{12}\\.tsx$`))
+	})
 })
 
 describe(`${createModule.name}`, () => {
+	const relBaseline = `${SNAPSHOT_ROOT_DIR}/local/${BASELINE_DIR}`
+
 	it('creates suiteId', ({ expect }) => {
 		const r = createModule(
 			{
 				projectRoot: '/root/project',
+				snapshotBaselineDir: relBaseline,
 			} as VisSuite,
 			'/root/project/src/code.spec.ts',
 			{},
@@ -55,16 +75,16 @@ describe(`${createModule.name}`, () => {
 		} = createModule(
 			{
 				projectRoot: '/root/project',
-				snapshotBaselineDir: `/root/project/${SNAPSHOT_ROOT_DIR}/local`,
-				snapshotResultDir: `/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}`,
-				snapshotDiffDir: `/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}`,
+				snapshotBaselineDir: relBaseline,
+				snapshotResultDir: `${SNAPSHOT_ROOT_DIR}/local/${RESULT_DIR}`,
+				snapshotDiffDir: `${SNAPSHOT_ROOT_DIR}/local/${DIFF_DIR}`,
 			} as VisSuite,
 			'/root/project/src/code.spec.ts',
 			{},
 		)
-		expect(baselineDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/local/${suiteId}`)
-		expect(resultDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${RESULT_DIR}/${suiteId}`)
-		expect(diffDir).toBe(`/root/project/${SNAPSHOT_ROOT_DIR}/${DIFF_DIR}/${suiteId}`)
+		expect(baselineDir).toBe(`${relBaseline}/${suiteId}`)
+		expect(resultDir).toBe(`${SNAPSHOT_ROOT_DIR}/local/${RESULT_DIR}/${suiteId}`)
+		expect(diffDir).toBe(`${SNAPSHOT_ROOT_DIR}/local/${DIFF_DIR}/${suiteId}`)
 	})
 })
 
