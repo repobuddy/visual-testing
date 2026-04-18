@@ -34,7 +34,7 @@ describe(`${formatCondensedSnapshotSubpath.name}`, () => {
 
 	it('shortens multi-dot basenames with a capped prefix so .spec.* names shrink on Windows', () => {
 		const out = formatCondensedSnapshotSubpath('client/vis_auto_snapshot_create_missing_baseline.spec.tsx')
-		expect(out).toMatch(/^client\/vis_auto-[a-f0-9]{12}\.tsx$/)
+		expect(out).toMatch(/^client\/vis_auto_snapshot_create-[a-f0-9]{12}\.tsx$/)
 		expect(out.length).toBeLessThan('client/vis_auto_snapshot_create_missing_baseline.spec.tsx'.length)
 	})
 
@@ -105,7 +105,7 @@ describe(`${resolveSnapshotSubpathWithinLimits.name}`, () => {
 		})
 		expect(out).not.toBe(legacy)
 		expect(out.startsWith('auto-snapshot-with-createmissingbaseline/')).toBe(true)
-		expect(out).toMatch(/^auto-snapshot-with-createmissingbaseline\/writes-b-[a-f0-9]{12}\.png$/)
+		expect(out).toMatch(/^auto-snapshot-with-createmissingbaseline\/writes-baseline-when-mis-[a-f0-9]{12}\.png$/)
 		expect(legacySnapshotPathExceedsLimit(resolve(projectRoot, baselineDir, out))).toBe(false)
 	})
 })
