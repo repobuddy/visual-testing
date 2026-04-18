@@ -65,6 +65,12 @@
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
 			"outputs": ["__vis__/**"]
 		},
+		"testcase-sb-auto-no-snapshot-tag#test": {
+			"outputs": []
+		},
+		"testcase-sb-csf-mix#test": {
+			"outputs": []
+		},
 		"testcase": {
 			"dependsOn": ["^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
