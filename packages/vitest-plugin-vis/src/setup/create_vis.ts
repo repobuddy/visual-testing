@@ -44,21 +44,22 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 
 	const vis: VisClientConfigurator<GM> = {
 		setup(options) {
-			if (!options || options.auto === false) {
-				beforeAll(matcher.setup)
-			} else {
-				beforeAll(async () => {
-					await matcher.setup()
-					setAutoSnapshotOptions(true)
-				})
-			}
+			const suiteDefaults =
+				options?.createMissingBaseline !== undefined
+					? { createMissingBaseline: options.createMissingBaseline }
+					: undefined
+
+			beforeAll(async () => {
+				await matcher.setup()
+				setAutoSnapshotOptions(!!options?.auto)
+			})
 
 			if (typeof options?.auto === 'function') {
-				afterEach(matcher.createMatcher({ auto: options.auto }))
+				afterEach(matcher.createMatcher({ auto: options.auto }, suiteDefaults))
 			} else if (typeof options?.auto === 'object') {
-				afterEach(matcher.createMatcher(options.auto))
+				afterEach(matcher.createMatcher(options.auto, suiteDefaults))
 			} else {
-				afterEach(matcher.createMatcher({ async auto() {} }))
+				afterEach(matcher.createMatcher({ async auto() {} }, suiteDefaults))
 			}
 		},
 	}

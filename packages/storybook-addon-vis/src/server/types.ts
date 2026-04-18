@@ -9,5 +9,12 @@ export type StorybookVisOptions = {
 	visProjects: Array<{
 		snapshotRootDir: string | ((context: { ci: boolean; platform: string }) => string) | undefined
 		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
+		/**
+		 * Match Vitest `vis({ shortenLongSnapshotPaths })`. When true, uses the same path rules as
+		 * the `vitest-plugin-vis`: paths are shortened when their absolute path would exceed safe limits).
+		 *
+		 * @default false
+		 */
+		shortenLongSnapshotPaths?: boolean | undefined
 	}>
 }

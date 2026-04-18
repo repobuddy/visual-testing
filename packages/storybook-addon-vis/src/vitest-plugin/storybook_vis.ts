@@ -3,7 +3,7 @@
  */
 import type { Omit } from 'type-plus'
 import { type ComparisonMethod, type VisOptions, vis } from 'vitest-plugin-vis/config'
-import { NAME } from '../shared/contants.ts'
+import { NAME } from '../shared/constants.ts'
 
 export function storybookVis<M extends ComparisonMethod>(options?: Omit<VisOptions<M>, 'preset'> | undefined): any {
 	return {

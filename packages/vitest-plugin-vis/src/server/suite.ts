@@ -1,8 +1,9 @@
-import { join, relative } from 'pathe'
+import { join, relative, resolve } from 'pathe'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
+import { resolveSnapshotSubpathWithinLimits } from './snapshot_path_limits.ts'
 import { getVisOption } from './vis_options.ts'
 import { deps } from './vis_server_context.deps.ts'
 import type { ExtendedBrowserCommandContext, VisSuite, VisSuites } from './vis_server_context.types.ts'
@@ -75,7 +76,11 @@ async function createSuite(
 	return state
 }
 
-export function createModule(state: VisSuite, testPath: string, options: Pick<VisOptions, 'snapshotSubpath'>) {
+export function createModule(
+	state: VisSuite,
+	testPath: string,
+	options: Pick<VisOptions, 'snapshotSubpath' | 'shortenLongSnapshotPaths'>,
+) {
 	const taskSubpath = getTaskSubpath(state, testPath, options)
 	return {
 		taskSubpath,
@@ -86,8 +91,18 @@ export function createModule(state: VisSuite, testPath: string, options: Pick<Vi
 	}
 }
 
-export function getTaskSubpath(state: VisSuite, testPath: string, options: Pick<VisOptions, 'snapshotSubpath'>) {
-	return getSnapshotSubpath(relative(state.projectRoot, testPath), options)
+export function getTaskSubpath(
+	state: VisSuite,
+	testPath: string,
+	options: Pick<VisOptions, 'snapshotSubpath' | 'shortenLongSnapshotPaths'>,
+) {
+	const raw = getSnapshotSubpath(relative(state.projectRoot, testPath), options)
+	const snapshotBaselineRootAbs = resolve(state.projectRoot, state.snapshotBaselineDir)
+	return resolveSnapshotSubpathWithinLimits({
+		snapshotBaselineRootAbs,
+		rawSnapshotSubpath: raw,
+		shortenLongSnapshotPaths: options.shortenLongSnapshotPaths === true,
+	})
 }
 
 export function getSuite(context: ExtendedBrowserCommandContext) {

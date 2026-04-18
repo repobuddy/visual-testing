@@ -1,4 +1,5 @@
-import { afterEach, expect, it } from 'vitest'
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
 import { ctx } from './_ctx.ts'
@@ -28,6 +29,7 @@ it('takes an image snapshot', async () => {
 	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
 	await page.toMatchImageSnapshot({
 		snapshotKey: 'test_snapshot',
+		createMissingBaseline: true,
 	})
 
 	await expect(
@@ -48,4 +50,21 @@ it('supports full page image snapshot', async () => {
 			snapshotKey: 'test_snapshot',
 		}),
 	).resolves.toBe(true)
+})
+
+describe('createMissingBaseline option', () => {
+	beforeEach(() => setAutoSnapshotOptions({ enable: false }))
+
+	it('createMissingBaseline writes baseline when missing', async () => {
+		await render(<div data-testid="subject">page save new</div>)
+		const snapshotKey = 'create_missing_baseline_page'
+		if (!(await page.hasImageSnapshot({ snapshotKey }))) {
+			await page.toMatchImageSnapshot({ snapshotKey, createMissingBaseline: true })
+		}
+		await expect(
+			page.hasImageSnapshot({
+				snapshotKey,
+			}),
+		).resolves.toBe(true)
+	})
 })

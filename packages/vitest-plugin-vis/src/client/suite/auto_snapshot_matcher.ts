@@ -2,7 +2,7 @@ import dedent from 'dedent'
 import { extractAutoSnapshotOptions } from '../../auto_snapshots/_extract_auto_snapshot_options.ts'
 import type { SnapshotMeta } from '../../auto_snapshots/snapshot_meta.ts'
 import type { SetupVisSuiteCommand } from '../../shared/commands.types.ts'
-import type { ComparisonMethod } from '../../shared/types.ts'
+import type { ComparisonMethod, SetupVisOptions } from '../../shared/types.ts'
 import { shouldTakeSnapshot } from '../snapshot/should_take_snapshot.ts'
 import { toTaskId } from '../task/task_id.ts'
 import { ctx } from './_ctx.ts'
@@ -22,6 +22,7 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 				string,
 				boolean | ((options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void)
 			>,
+			suiteDefaults?: Pick<SetupVisOptions<GM>, 'createMissingBaseline'> | undefined,
 		) {
 			return async function matchImageSnapshot() {
 				const test = ctx.getCurrentTest()
@@ -35,9 +36,16 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 						const theme = themes[themeId]
 						const r = typeof theme === 'function' ? await theme(meta! as any) : theme
 						if (r === false) continue
+						const effectiveCreateMissingBaseline =
+							meta != null && Object.hasOwn(meta as object, 'createMissingBaseline')
+								? (meta as { createMissingBaseline?: boolean }).createMissingBaseline
+								: suiteDefaults?.createMissingBaseline
 						await expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
 							...meta,
 							snapshotKey: meta?.snapshotKey ?? themeId,
+							...(effectiveCreateMissingBaseline !== undefined
+								? { createMissingBaseline: effectiveCreateMissingBaseline }
+								: {}),
 						})
 					} catch (error) {
 						errors.push([themeId, error as Error])

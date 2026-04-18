@@ -62,6 +62,10 @@
 			"types": "./dist/testing.d.mts",
 			"default": "./dist/testing.mjs"
 		},
+		"./testing/node": {
+			"types": "./dist/testing-node.d.mts",
+			"default": "./dist/testing-node.mjs"
+		},
 		"./package.json": "./package.json"
 	},
 	"types": "./dist/index.d.mts",

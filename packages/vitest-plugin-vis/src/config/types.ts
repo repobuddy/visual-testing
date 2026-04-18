@@ -72,4 +72,18 @@ export type VisOptions<M extends ComparisonMethod = 'pixel'> = (M extends 'ssim'
 		 * @returns The customized snapshot subpath.
 		 */
 		snapshotSubpath?: ((options: { subpath: string }) => string) | undefined
+		/**
+		 * When `true`, shortenspaths that would exceed Windows-safe limits (full path length at
+		 * least 250, below classic `MAX_PATH` 260, or a final path component longer than 255):
+		 * - After `snapshotRootDir` and `snapshotSubpath`, if the path
+		 *   would exceed that budget, the **final** subpath segment is shortened to
+		 *   `{firstToken}-{hash12}{ext}` (tersify-style).
+		 * - When writing a baseline, if the **actual** absolute path for the legacy `taskId-key.png` file would
+		 *   exceed the budget, only the final segment of that relative path is shortened the same way (nested
+		 *   `describe` directories from `taskId` stay as-is so `taskId-*.png` globs still work).
+		 * `snapshotRootDir` itself is not rewritten.
+		 *
+		 * @default false
+		 */
+		shortenLongSnapshotPaths?: boolean | undefined
 	}

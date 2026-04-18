@@ -8,6 +8,13 @@ const DEFAULT_PROJECT_NAME = '__default'
 
 const visOptions: Record<string, VisOptions<any> | undefined> = {}
 
+/** Clears stored options (for tests that share this module). */
+export function clearVisOptionsRegistryForTesting() {
+	for (const key of Object.keys(visOptions)) {
+		delete visOptions[key]
+	}
+}
+
 export function setVisOption(
 	userConfig: { test?: { name?: TestUserConfig['name'] | undefined } },
 	options: VisOptions<any> | undefined,
@@ -22,5 +29,7 @@ export function setVisOption(
 
 export function getVisOption(context: ExtendedBrowserCommandContext) {
 	const id = getProjectName(context) || DEFAULT_PROJECT_NAME
-	return visOptions[id] ?? {}
+	const base = visOptions[DEFAULT_PROJECT_NAME] ?? {}
+	const override = visOptions[id] ?? {}
+	return { ...base, ...override }
 }

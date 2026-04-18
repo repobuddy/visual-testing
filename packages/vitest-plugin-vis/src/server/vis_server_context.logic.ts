@@ -3,6 +3,11 @@ import { pick } from 'type-plus'
 import type { ImageSnapshotKeyOptions } from '../client-api.ts'
 import type { ImageSnapshotResult } from '../shared/commands.types.ts'
 import { file } from './externals/file.ts'
+import {
+	absoluteSnapshotFilePath,
+	getLegacySnapshotFilename,
+	resolveLegacySnapshotFileRelativePath,
+} from './snapshot_path_limits.ts'
 import { getSuite, getTaskSubpath } from './suite.ts'
 import { getVisOption } from './vis_options.ts'
 import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
@@ -11,16 +16,23 @@ export function createVisServerContext() {
 	const context = {
 		async getSnapshotResults(browserContext: ExtendedBrowserCommandContext, taskId: string) {
 			const suiteInfo = await context.getSuiteInfo(browserContext, taskId)
-			const baselines = await file.glob(join(suiteInfo.projectRoot, suiteInfo.baselineDir, `${suiteInfo.taskId}-*.png`))
-			const results = await file.glob(join(suiteInfo.projectRoot, suiteInfo.resultDir, `${suiteInfo.taskId}-*.png`))
-			const diffs = await file.glob(join(suiteInfo.projectRoot, suiteInfo.diffDir, `${suiteInfo.taskId}-*.png`))
+			const base = resolve(suiteInfo.projectRoot, suiteInfo.baselineDir)
+
+			const legacyPattern = join(base, `${suiteInfo.taskId}-*.png`)
+			const baselines = await file.glob(legacyPattern)
+
+			const resultPattern = join(resolve(suiteInfo.projectRoot, suiteInfo.resultDir), `${suiteInfo.taskId}-*.png`)
+			const results = await file.glob(resultPattern)
+
+			const diffPattern = join(resolve(suiteInfo.projectRoot, suiteInfo.diffDir), `${suiteInfo.taskId}-*.png`)
+			const diffs = await file.glob(diffPattern)
 
 			const r: ImageSnapshotResult[] = []
 			await Promise.all(
 				baselines.map(async (baselinePath) => {
 					const filename = basename(baselinePath)
-					const resultPath = results.find((r) => r.endsWith(filename))
-					const diffPath = diffs.find((d) => d.endsWith(filename))
+					const resultPath = results.find((p) => p.endsWith(filename))
+					const diffPath = diffs.find((p) => p.endsWith(filename))
 
 					const baselineBuffer = await file.tryReadFile(baselinePath)
 					const resultBuffer = await file.tryReadFile(resultPath)
@@ -45,7 +57,7 @@ export function createVisServerContext() {
 
 			const { baselineDir, resultDir, diffDir, task } = suiteInfo
 
-			task.count = task.count + 1
+			task.count += 1
 			const baselinePath = join(baselineDir, snapshotFilename)
 			const resultPath = join(resultDir, snapshotFilename)
 			const diffPath = join(diffDir, snapshotFilename)
@@ -74,22 +86,40 @@ export function createVisServerContext() {
 			snapshotKey: string | undefined,
 		) {
 			const info = await context.getSuiteInfo(browserContext, taskId)
-
-			return file.existFile(
-				resolve(info.projectRoot, info.baselineDir, context.getSnapshotFilename(browserContext, info, snapshotKey)),
-			)
+			const visOptions = getVisOption(browserContext)
+			const legacyFilename = getLegacySnapshotFilename({
+				taskId: info.taskId,
+				explicitSnapshotKey: snapshotKey,
+				defaultSnapshotKey: typeof visOptions.snapshotKey === 'string' ? visOptions.snapshotKey : undefined,
+				taskCount: info.task.count,
+			})
+			const filename = resolveLegacySnapshotFileRelativePath({
+				projectRoot: info.projectRoot,
+				baselineDir: info.baselineDir,
+				legacySnapshotFilename: legacyFilename,
+				shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths === true,
+			})
+			const legacyAbs = absoluteSnapshotFilePath(info.projectRoot, info.baselineDir, filename)
+			return file.existFile(legacyAbs)
 		},
 		getSnapshotFilename(
 			browserContext: ExtendedBrowserCommandContext,
-			info: { taskId: string; task: { count: number } },
+			info: { taskId: string; task: { count: number }; suiteId: string; baselineDir: string; projectRoot: string },
 			snapshotKey: string | undefined,
 		) {
-			if (snapshotKey) return `${info.taskId}-${snapshotKey}.png`
 			const visOptions = getVisOption(browserContext)
-			if (typeof visOptions.snapshotKey === 'string') {
-				return `${info.taskId}-${visOptions.snapshotKey}.png`
-			}
-			return `${info.taskId}-${info.task.count}.png`
+			const legacyFilename = getLegacySnapshotFilename({
+				taskId: info.taskId,
+				explicitSnapshotKey: snapshotKey,
+				defaultSnapshotKey: typeof visOptions.snapshotKey === 'string' ? visOptions.snapshotKey : undefined,
+				taskCount: info.task.count,
+			})
+			return resolveLegacySnapshotFileRelativePath({
+				projectRoot: info.projectRoot,
+				baselineDir: info.baselineDir,
+				legacySnapshotFilename: legacyFilename,
+				shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths === true,
+			})
 		},
 		async getSuiteInfo(browserContext: ExtendedBrowserCommandContext, taskId: string) {
 			const projectState = await getSuite(browserContext)

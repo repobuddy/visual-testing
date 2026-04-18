@@ -2,7 +2,6 @@ import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { afterEach, beforeAll, beforeEach, describe, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page, server } from 'vitest/browser'
-import { getCurrentTest } from 'vitest/suite'
 import { UNI_PNG_BASE64 } from '../../testing/constants.ts'
 import { ctx } from './_ctx.ts'
 
@@ -63,7 +62,7 @@ it('should fail immediately if the subject is a string but not base64 encoded', 
 })
 
 it.each([undefined, null, true, false, 1])('should fails immediately if the subject is %s', async (value) => {
-	const test = getCurrentTest()!
+	const test = ctx.getCurrentTest()!
 	await test.context
 		.expect(() => test.context.expect(value).toMatchImageSnapshot())
 		.rejects.toThrowError(
@@ -153,6 +152,17 @@ it('rejects snapshot key with dash', async ({ expect }) => {
 	await expect(() => expect(document.body).toMatchImageSnapshot({ snapshotKey: 'invalid-key' })).rejects.toThrowError(
 		'Snapshot key cannot contain dash',
 	)
+})
+
+it('createMissingBaseline writes baseline when missing', async ({ expect }) => {
+	await render(<div data-testid="subject">save new content</div>)
+	const subject = page.getByTestId('subject')
+	const snapshotKey = 'create_missing_baseline_expect'
+	if (!(await page.hasImageSnapshot({ snapshotKey }))) {
+		await expect(subject).toMatchImageSnapshot({ snapshotKey, createMissingBaseline: true })
+	}
+	expect(await page.hasImageSnapshot({ snapshotKey })).toBe(true)
+	await expect(subject).toMatchImageSnapshot({ snapshotKey })
 })
 
 it('passes when the image is different but within failure threshold in pixels', async ({ expect }) => {

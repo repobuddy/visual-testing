@@ -8,6 +8,7 @@ export function prettifyOptions(options: ToMatchImageSnapshotOptions<any> | unde
 		options.timeout ? `timeout: ${options.timeout} ms` : '',
 		`comparisonMethod: ${options.comparisonMethod ?? 'pixel'}`,
 		options.diffOptions ? `diffOptions: ${JSON.stringify(options.diffOptions)}` : '',
+		options.createMissingBaseline ? 'createMissingBaseline: true' : '',
 	]
 		.filter(Boolean)
 		.join('\n                ')
