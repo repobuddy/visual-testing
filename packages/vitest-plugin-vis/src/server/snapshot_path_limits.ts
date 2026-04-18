@@ -13,18 +13,12 @@ export const WIN_SNAPSHOT_PATH_BUDGET = 250
 export const NTFS_MAX_FILENAME = 255
 
 /** Max length of the readable prefix taken from the original basename (tersify-style). */
-const SNAPSHOT_SUBPATH_PREFIX_MAX_LEN = 32
+const SNAPSHOT_SUBPATH_PREFIX_MAX_LEN = 8
 
 /**
  * Minimal probe file under the snapshot folder — detects when the directory prefix alone is too long.
  */
 const SNAPSHOT_SUBPATH_PROBE_MIN_BASENAME = '0.png'
-
-/**
- * Typical long `taskId-key.png` slug (well under NTFS 255). A 160+ char probe caused false positives:
- * normal `projectRoot + __vis__ + subpath + probe` exceeded the 250 budget even for short real names like `small-auto.png`.
- */
-const SNAPSHOT_SUBPATH_PROBE_TYPICAL_LONG_BASENAME = `${'w'.repeat(80)}.png`
 
 export function absoluteSnapshotFilePath(projectRoot: string, baselineDir: string, snapshotFilename: string): string {
 	return resolve(projectRoot, join(baselineDir, snapshotFilename))
@@ -70,13 +64,13 @@ export function formatCondensedSnapshotSubpath(rawSnapshotSubpath: string): stri
 
 /**
  * `snapshotBaselineRootAbs` is the absolute `__baselines__` root; with `rawSnapshotSubpath` this yields the
- * absolute directory where `taskId-key.png` files live. Probes are full **absolute** file paths under that dir.
+ * test-module snapshot directory. Only checks whether that layout can host a tiny baseline file; long
+ * `taskId-key.png` paths are handled with {@link resolveLegacySnapshotFileRelativePath} using real names.
  */
 function rawSnapshotSubpathExceedsSafePathBudget(snapshotBaselineRootAbs: string, rawSnapshotSubpath: string): boolean {
 	const dirAbs = resolve(snapshotBaselineRootAbs, rawSnapshotSubpath)
 
 	if (legacySnapshotPathExceedsLimit(resolve(dirAbs, SNAPSHOT_SUBPATH_PROBE_MIN_BASENAME))) return true
-	if (legacySnapshotPathExceedsLimit(resolve(dirAbs, SNAPSHOT_SUBPATH_PROBE_TYPICAL_LONG_BASENAME))) return true
 
 	for (const segment of rawSnapshotSubpath.split(/[/\\]/)) {
 		if (segment.length > NTFS_MAX_FILENAME) return true
@@ -86,10 +80,11 @@ function rawSnapshotSubpathExceedsSafePathBudget(snapshotBaselineRootAbs: string
 }
 
 /**
- * Returns {@link rawSnapshotSubpath} or a tersified final filename segment when `shortenLongSnapshotPaths` is on
- * and representative **absolute** snapshot file paths (baseline root + subpath + probe basenames) would exceed
- * {@link legacySnapshotPathExceedsLimit}, or a subpath segment exceeds NTFS length. Baseline, result, and diff
- * trees share the same resolved subpath via {@link getTaskSubpath}.
+ * Returns {@link rawSnapshotSubpath} or a tersified final segment when `shortenLongSnapshotPaths` is on and
+ * `snapshotBaselineRootAbs` + subpath + a minimal `0.png` would exceed {@link legacySnapshotPathExceedsLimit},
+ * or a subpath segment exceeds NTFS length. Long snapshot **filenames** (`taskId-key.png`) are shortened
+ * separately via {@link resolveLegacySnapshotFileRelativePath}. Baseline, result, and diff trees share the
+ * same resolved subpath via {@link getTaskSubpath}.
  */
 export function resolveSnapshotSubpathWithinLimits(params: {
 	snapshotBaselineRootAbs: string
@@ -104,6 +99,27 @@ export function resolveSnapshotSubpathWithinLimits(params: {
 	}
 
 	return formatCondensedSnapshotSubpath(rawSnapshotSubpath)
+}
+
+/**
+ * When `shortenLongSnapshotPaths` is on and the legacy `{@link getLegacySnapshotFilename}` path exceeds
+ * {@link legacySnapshotPathExceedsLimit}, rewrites only the final path segment (after the last `/`) like
+ * {@link formatCondensedSnapshotSubpath}, so nested `taskId` directories stay intact and `…-*.png` globs keep working.
+ */
+export function resolveLegacySnapshotFileRelativePath(params: {
+	projectRoot: string
+	baselineDir: string
+	legacySnapshotFilename: string
+	shortenLongSnapshotPaths: boolean
+}): string {
+	const { projectRoot, baselineDir, legacySnapshotFilename, shortenLongSnapshotPaths } = params
+	if (!shortenLongSnapshotPaths) return legacySnapshotFilename
+
+	const norm = legacySnapshotFilename.replace(/\\/g, '/')
+	const abs = absoluteSnapshotFilePath(projectRoot, baselineDir, norm)
+	if (!legacySnapshotPathExceedsLimit(abs)) return legacySnapshotFilename
+
+	return formatCondensedSnapshotSubpath(norm)
 }
 
 export function getLegacySnapshotFilename(params: {

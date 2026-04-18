@@ -3,7 +3,11 @@ import { pick } from 'type-plus'
 import type { ImageSnapshotKeyOptions } from '../client-api.ts'
 import type { ImageSnapshotResult } from '../shared/commands.types.ts'
 import { file } from './externals/file.ts'
-import { absoluteSnapshotFilePath, getLegacySnapshotFilename } from './snapshot_path_limits.ts'
+import {
+	absoluteSnapshotFilePath,
+	getLegacySnapshotFilename,
+	resolveLegacySnapshotFileRelativePath,
+} from './snapshot_path_limits.ts'
 import { getSuite, getTaskSubpath } from './suite.ts'
 import { getVisOption } from './vis_options.ts'
 import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
@@ -89,7 +93,13 @@ export function createVisServerContext() {
 				defaultSnapshotKey: typeof visOptions.snapshotKey === 'string' ? visOptions.snapshotKey : undefined,
 				taskCount: info.task.count,
 			})
-			const legacyAbs = absoluteSnapshotFilePath(info.projectRoot, info.baselineDir, legacyFilename)
+			const filename = resolveLegacySnapshotFileRelativePath({
+				projectRoot: info.projectRoot,
+				baselineDir: info.baselineDir,
+				legacySnapshotFilename: legacyFilename,
+				shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths === true,
+			})
+			const legacyAbs = absoluteSnapshotFilePath(info.projectRoot, info.baselineDir, filename)
 			return file.existFile(legacyAbs)
 		},
 		getSnapshotFilename(
@@ -98,11 +108,17 @@ export function createVisServerContext() {
 			snapshotKey: string | undefined,
 		) {
 			const visOptions = getVisOption(browserContext)
-			return getLegacySnapshotFilename({
+			const legacyFilename = getLegacySnapshotFilename({
 				taskId: info.taskId,
 				explicitSnapshotKey: snapshotKey,
 				defaultSnapshotKey: typeof visOptions.snapshotKey === 'string' ? visOptions.snapshotKey : undefined,
 				taskCount: info.task.count,
+			})
+			return resolveLegacySnapshotFileRelativePath({
+				projectRoot: info.projectRoot,
+				baselineDir: info.baselineDir,
+				legacySnapshotFilename: legacyFilename,
+				shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths === true,
 			})
 		},
 		async getSuiteInfo(browserContext: ExtendedBrowserCommandContext, taskId: string) {
