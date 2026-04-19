@@ -31,6 +31,8 @@ and controls how the auto image snapshot(s) are taken.
 > [storybook-addon-vis] 2.0.0 supports Storybook 9.
 >
 > For Storybook 8, please use 1.x.
+>
+> With **Storybook 10.3+**, `@storybook/addon-vitest` often applies project annotations for you. If you are **not** on CSF Next, you may need to **remove** `visAnnotations` from `setProjectAnnotations([...])` in `vitest.setup.ts` and register the same hooks from **`.storybook/preview.ts`** instead (for example via `definePreview({ addons: [addonVis(...)] })` or `export default { ...visAnnotations, ... }`). See the [Overview docs](https://repobuddy.github.io/visual-testing/?path=/docs/overview--docs#storybook-103-and-vitest-project-annotations) section **Storybook 10.3+ and Vitest project annotations**.
 
 ## Install
 

@@ -36,7 +36,7 @@ Please refer to its documentation for installation and setup instructions.
 To setup [storybook-addon-vis][storybook-addon-vis], you need to do the following:
 
 - Add the `storybookVis` plugin in [Vitest] along with the `storybookTest` plugin.
-- Configure visual testing in `vitest.setup.ts` (and `.storybook/preview.ts` if you are writing your stories in CSF Next).
+- Configure visual testing in `vitest.setup.ts` and/or `.storybook/preview.ts` (see [Storybook 10.3+ and Vitest project annotations](#storybook-103-and-vitest-project-annotations); with CSF Next, prefer preview-only setup as in [Basic Setup for CSF Next](#basic-setup-for-csf-next)).
 - Add [storybook-addon-vis][storybook-addon-vis] addon to your [Storybook] configuration in `.storybook/main.ts`.
 - Ignore snapshot folders in your `.gitignore` file.
 
@@ -101,6 +101,21 @@ beforeAll(annotations.beforeAll)
 // ADD THIS to enable visual testing
 vis.setup()
 ```
+
+<a id="storybook-103-and-vitest-project-annotations" />
+
+### Storybook 10.3+ and Vitest project annotations
+
+From **Storybook 10.3** onward, [`@storybook/addon-vitest`][storybook-vitest-addon] often injects project annotations for you (for example via `setProjectAnnotations(getProjectAnnotations())`), so you may not need a hand-maintained `vitest.setup.ts` in every project. See the [Storybook Vitest integration docs][storybook-vitest-addon] for the current recommendation.
+
+**If you are not using CSF Next** (or have not moved your preview config to `definePreview`), you may still need to adjust your setup: **do not** rely only on merging `visAnnotations` inside `setProjectAnnotations([...])` in `vitest.setup.ts`. Put the same lifecycle hooks in **`.storybook/preview.ts`** instead, so `getProjectAnnotations()` includes them when the Vitest addon builds annotations from your preview stack.
+
+You can do that in either of these ways:
+
+1. **Recommended:** use `definePreview({ addons: [addonVis({ auto: true })] })` in `preview.ts` even while your stories stay CSF 3—the pattern is the same as in [Basic Setup for CSF Next](#basic-setup-for-csf-next).
+2. **Minimal migration:** import `visAnnotations` from `storybook-addon-vis/vitest-setup` and spread them into a classic preview export, for example `export default { ...visAnnotations, tags: ['snapshot'] }`, if you are not ready for `definePreview`.
+
+You may still need `vis.setup()` and the `storybookVis()` Vitest plugin depending on your project; this note is only about **where** `visAnnotations` is merged (preview vs Vitest setup).
 
 For [Storybook], you need to add the addon to your `.storybook/main.ts`:
 ```ts
