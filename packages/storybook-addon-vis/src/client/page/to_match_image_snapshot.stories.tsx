@@ -1,6 +1,6 @@
+import { page } from '#storybook-addon-vis'
 import type { StoryObj } from '@storybook/react-vite'
 import React from 'react'
-import { page } from '../../index.ts'
 
 export default {
 	title: 'page/toMatchImageSnapshot',

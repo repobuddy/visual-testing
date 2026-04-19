@@ -1,9 +1,9 @@
+import { setAutoSnapshotOptions } from '#storybook-addon-vis/vitest-setup'
 import React from 'react'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { autoSnapshotMatcher } from 'vitest-plugin-vis/client-api'
 import { commands, page, server } from 'vitest/browser'
-import { setAutoSnapshotOptions } from '../exports/vitest-setup.ts'
 
 const themeSnapshots = autoSnapshotMatcher(commands, expect)
 

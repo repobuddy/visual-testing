@@ -1,8 +1,8 @@
+import { setAutoSnapshotOptions, vis } from '#storybook-addon-vis/vitest-setup'
 import { testType } from 'type-plus'
 import { beforeAll, describe, expect, it } from 'vitest'
 import type { SetupVisOptions } from 'vitest-plugin-vis'
 import type { ToMatchImageSnapshotOptions } from 'vitest-plugin-vis/client-api'
-import { setAutoSnapshotOptions, vis } from './exports/vitest-setup.ts'
 
 beforeAll(() => setAutoSnapshotOptions(false))
 

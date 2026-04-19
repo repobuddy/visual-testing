@@ -1,5 +1,5 @@
+import { hasImageSnapshot } from '#storybook-addon-vis'
 import { afterEach, it } from 'vitest'
-import { hasImageSnapshot } from '../index.ts'
 import { ctx } from './ctx.ts'
 
 afterEach(() => ctx.__test__reset())

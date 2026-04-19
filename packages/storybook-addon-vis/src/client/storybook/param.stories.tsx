@@ -1,7 +1,7 @@
+import { defineAutoSnapshotParam, hasImageSnapshot } from '#storybook-addon-vis'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
 import { expect } from 'storybook/test'
-import { defineAutoSnapshotParam, hasImageSnapshot } from '../../index.ts'
 
 export default {
 	title: 'utils/defineAutoSnapshotParam',
