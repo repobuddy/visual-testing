@@ -24,35 +24,23 @@
 	},
 	"type": "module",
 	"imports": {
-		"#storybook-addon-vis/node": "./src/node.ts",
-		"#storybook-addon-vis/vitest-plugin": "./src/vitest-plugin.ts"
+		"#storybook-addon-vis/node": "./src/exports/node.ts",
+		"#storybook-addon-vis/vitest-plugin": "./src/exports/vitest-plugin.ts"
 	},
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js"
+			"source": "./src/index.ts",
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
 		},
-		"./manager": "./dist/manager.js",
-		"./matcher": {
-			"types": "./dist/matcher.d.ts",
-			"import": "./dist/matcher.js"
-		},
-		"./node": {
-			"types": "./dist/node.d.mts",
-			"import": "./dist/node.mjs"
-		},
-		"./preset": "./dist/preset.mjs",
-		"./vitest-setup": {
-			"types": "./dist/vitest-setup.d.ts",
-			"import": "./dist/vitest-setup.js"
-		},
-		"./vitest-plugin": {
-			"types": "./dist/vitest-plugin.d.mts",
-			"import": "./dist/vitest-plugin.mjs"
+		"./*": {
+			"source": "./src/exports/*.ts",
+			"types": "./dist/exports/*.d.mts",
+			"default": "./dist/exports/*.mjs"
 		},
 		"./package.json": "./package.json"
 	},
-	"types": "./dist/index.d.ts",
+	"types": "./dist/index.d.mts",
 	"files": [
 		"dist",
 		"src",
@@ -139,17 +127,17 @@
 	},
 	"bundler": {
 		"exportEntries": [
-			"src/index.ts",
-			"src/matcher.ts",
-			"src/vitest-setup.ts"
+			"./src/index.ts",
+			"./src/exports/matcher.ts",
+			"./src/exports/vitest-setup.ts"
 		],
 		"managerEntries": [
-			"src/manager.tsx"
+			"./src/exports/manager.tsx"
 		],
 		"nodeEntries": [
-			"./src/node.ts",
-			"./src/preset.ts",
-			"./src/vitest-plugin.ts"
+			"./src/exports/node.ts",
+			"./src/exports/preset.ts",
+			"./src/exports/vitest-plugin.ts"
 		]
 	},
 	"storybook": {

@@ -2,8 +2,8 @@ import React from 'react'
 import { beforeEach, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page, server } from 'vitest/browser'
+import { setAutoSnapshotOptions } from '../../exports/vitest-setup.ts'
 import { hasImageSnapshot } from '../../index.ts'
-import { setAutoSnapshotOptions } from '../../vitest-setup.ts'
 
 beforeEach(() => setAutoSnapshotOptions({ enable: false }))
 

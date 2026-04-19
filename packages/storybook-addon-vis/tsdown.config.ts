@@ -9,10 +9,10 @@ const NODE_TARGET: UserConfig['target'] = ['node18']
 
 type BundlerConfig = {
 	bundler?: {
-		exportEntries?: string[]
-		nodeEntries?: string[]
-		managerEntries?: string[]
-		previewEntries?: string[]
+		exportEntries?: string[] | undefined
+		nodeEntries?: string[] | undefined
+		managerEntries?: string[] | undefined
+		previewEntries?: string[] | undefined
 	}
 }
 
@@ -74,6 +74,8 @@ export default defineConfig(async (options) => {
 			clean: false,
 			minify: false,
 			format: ['esm'],
+			/** Align with `exports["./*"]` (`*.mjs` / `*.d.mts`) like vitest-plugin-vis. */
+			fixedExtension: true,
 			target: [...BROWSER_TARGET, ...NODE_TARGET],
 			platform: 'neutral',
 			external: [
@@ -124,6 +126,8 @@ export default defineConfig(async (options) => {
 		configs.push({
 			...commonConfig,
 			entry: nodeEntries,
+			/** Bundle outputs for `exports/*.ts` live next to `dist/exports/matcher` & `vitest-setup`. */
+			outDir: 'dist/exports',
 			target: NODE_TARGET,
 			platform: 'node',
 		})

@@ -1,13 +1,13 @@
 import React from 'react'
 import { addons, types } from 'storybook/manager-api'
-import { VisPanel } from './components/vis_panel.tsx'
-import { NAME, VIS_PANEL_ID } from './shared/constants.ts'
+import { VisPanel } from '../components/vis_panel.tsx'
+import { NAME, VIS_PANEL_ID } from '../shared/constants.ts'
 import {
 	IMAGE_SNAPSHOT_RESULTS_RESPONSE,
 	requestImageSnapshotResults,
 	type ImageSnapshotResults,
 	type VisEvent,
-} from './shared/events.ts'
+} from '../shared/events.ts'
 
 // Register the addon
 addons.register(NAME, (api) => {

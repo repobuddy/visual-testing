@@ -1,7 +1,7 @@
+import { storybookVis } from '#storybook-addon-vis/vitest-plugin'
 import { describe, it } from 'vitest'
 import { getVisOption, stubSuite } from 'vitest-plugin-vis/testing/node'
 import { NAME } from '../shared/constants.ts'
-import { storybookVis } from '../vitest-plugin.ts'
 
 describe(`${storybookVis.name}()`, () => {
 	it('should return the default configuration when called without options', ({ expect }) => {

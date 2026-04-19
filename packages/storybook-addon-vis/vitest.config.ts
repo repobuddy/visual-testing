@@ -10,7 +10,7 @@ export default defineConfig({
 				'**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}',
 				'**/*.stories.{js,mjs,jsx,tsx}',
 				'src/manager.tsx',
-				'src/preset.ts',
+				'src/exports/preset.ts',
 			],
 		},
 		projects: ['vitest.config.playwright.ts', 'vitest.config.node.ts'],

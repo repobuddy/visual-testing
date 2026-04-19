@@ -4,9 +4,9 @@ import React from 'react'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { page, server } from 'vitest/browser'
+import { setAutoSnapshotOptions } from '../../exports/vitest-setup.ts'
 import { hasImageSnapshot } from '../../index.ts'
 import { UNI_PNG_BASE64 } from '../../testing.ts'
-import { setAutoSnapshotOptions } from '../../vitest-setup.ts'
 import * as stories from './to_match_image_snapshot.stories.tsx'
 
 const { MatchingElement } = composeStories(stories)

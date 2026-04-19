@@ -3,7 +3,7 @@ import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { autoSnapshotMatcher } from 'vitest-plugin-vis/client-api'
 import { commands, page, server } from 'vitest/browser'
-import { setAutoSnapshotOptions } from '../vitest-setup.ts'
+import { setAutoSnapshotOptions } from '../exports/vitest-setup.ts'
 
 const themeSnapshots = autoSnapshotMatcher(commands, expect)
 
