@@ -23,8 +23,3 @@ ignoredBuiltDependencies:
   - edgedriver
   - geckodriver
   - msw
-
-patchedDependencies:
-  '@storybook/addon-a11y': patches/@storybook__addon-a11y.patch
-  '@storybook/react-vite': patches/@storybook__react-vite.patch
-  storybook: patches/storybook.patch
