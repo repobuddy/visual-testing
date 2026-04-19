@@ -1,4 +1,4 @@
-import { NAME } from '../client-api.ts'
+import { NAME } from '../exports/client-api.ts'
 import type { MetaTask } from './auto_snapshot_options.ts'
 import type { SnapshotMeta } from './snapshot_meta.ts'
 

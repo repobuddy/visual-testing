@@ -21,50 +21,23 @@
 	"type": "module",
 	"imports": {
 		"#vitest-plugin-vis": "./src/index.ts",
-		"#vitest-plugin-vis/client-api": "./src/client-api.ts",
-		"#vitest-plugin-vis/config": "./src/config.ts",
-		"#vitest-plugin-vis/setup": "./src/setup.ts"
+		"#vitest-plugin-vis/client-api": "./src/exports/client-api.ts",
+		"#vitest-plugin-vis/config": "./src/exports/config.ts",
+		"#vitest-plugin-vis/setup": "./src/exports/setup.ts",
+		"#vitest-plugin-vis/setup-api": "./src/exports/setup-api.ts",
+		"#vitest-plugin-vis/testing": "./src/exports/testing.ts",
+		"#vitest-plugin-vis/testing/node": "./src/exports/testing/node.ts"
 	},
 	"exports": {
 		".": {
+			"source": "./src/index.ts",
 			"types": "./dist/index.d.mts",
 			"default": "./dist/index.mjs"
 		},
-		"./config": {
-			"types": "./dist/config.d.mts",
-			"default": "./dist/config.mjs"
-		},
-		"./client-api": {
-			"types": "./dist/client-api.d.mts",
-			"default": "./dist/client-api.mjs"
-		},
-		"./presets/auto": {
-			"types": "./dist/presets/auto.d.mts",
-			"default": "./dist/presets/auto.mjs"
-		},
-		"./presets/manual": {
-			"types": "./dist/presets/manual.d.mts",
-			"default": "./dist/presets/manual.mjs"
-		},
-		"./server-utils": {
-			"types": "./dist/server-utils.d.mts",
-			"default": "./dist/server-utils.mjs"
-		},
-		"./setup": {
-			"types": "./dist/setup.d.mts",
-			"default": "./dist/setup.mjs"
-		},
-		"./setup-api": {
-			"types": "./dist/setup-api.d.mts",
-			"default": "./dist/setup-api.mjs"
-		},
-		"./testing": {
-			"types": "./dist/testing.d.mts",
-			"default": "./dist/testing.mjs"
-		},
-		"./testing/node": {
-			"types": "./dist/testing-node.d.mts",
-			"default": "./dist/testing-node.mjs"
+		"./*": {
+			"source": "./src/exports/*.ts",
+			"types": "./dist/exports/*.d.mts",
+			"default": "./dist/exports/*.mjs"
 		},
 		"./package.json": "./package.json"
 	},

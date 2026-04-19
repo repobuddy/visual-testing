@@ -5,8 +5,8 @@ import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { commands, page } from 'vitest/browser'
 import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
+import { vis } from '../exports/setup.ts'
 import { setAutoSnapshotOptions } from '../index.ts'
-import { vis } from '../setup.ts'
 
 describe('vis.setup({ auto: false })', () => {
 	vis.setup({ auto: false })

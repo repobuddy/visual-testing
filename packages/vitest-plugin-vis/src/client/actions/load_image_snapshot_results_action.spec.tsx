@@ -1,8 +1,8 @@
 import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
-import { loadImageSnapshotResultsAction, toTaskId } from '#vitest-plugin-vis/client-api'
 import { expect, it } from 'vitest'
 import { render } from 'vitest-browser-react'
 import { commands, page } from 'vitest/browser'
+import { loadImageSnapshotResultsAction, toTaskId } from '../../exports/client-api.ts'
 import { getCurrentTest } from '../external/vitest/vitest_suite_proxy.ts'
 
 it('returns empty array when no image snapshots', async () => {

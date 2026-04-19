@@ -1,6 +1,6 @@
 import { basename, join, resolve } from 'pathe'
 import { pick } from 'type-plus'
-import type { ImageSnapshotKeyOptions } from '../client-api.ts'
+import type { ImageSnapshotKeyOptions } from '../exports/client-api.ts'
 import type { ImageSnapshotResult } from '../shared/commands.types.ts'
 import { file } from './externals/file.ts'
 import {
