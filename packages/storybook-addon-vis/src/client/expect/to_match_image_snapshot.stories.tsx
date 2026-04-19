@@ -1,8 +1,8 @@
 import type { StoryObj } from '@storybook/react-vite'
 import React from 'react'
 import { expect } from 'storybook/test'
+import { UNI_PNG_BASE64, UNI_PNG_URL } from 'vitest-plugin-vis/testing'
 import { hasImageSnapshot } from '../../client/has_image_snapshot.ts'
-import { UNI_PNG_BASE64, UNI_PNG_URL } from '../../testing.ts'
 
 export default {
 	title: 'expect matchers/toMatchImageSnapshot',

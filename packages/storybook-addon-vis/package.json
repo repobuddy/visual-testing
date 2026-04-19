@@ -24,8 +24,10 @@
 	},
 	"type": "module",
 	"imports": {
+		"#storybook-addon-vis": "./src/index.ts",
 		"#storybook-addon-vis/node": "./src/exports/node.ts",
-		"#storybook-addon-vis/vitest-plugin": "./src/exports/vitest-plugin.ts"
+		"#storybook-addon-vis/vitest-plugin": "./src/exports/vitest-plugin.ts",
+		"#storybook-addon-vis/vitest-setup": "./src/exports/vitest-setup.ts"
 	},
 	"exports": {
 		".": {
