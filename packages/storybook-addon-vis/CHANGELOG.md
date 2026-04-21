@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## 4.2.0
+
+### Minor Changes
+
+- [`4bead0a`](https://github.com/repobuddy/visual-testing/commit/4bead0ac9119f3704a44b3355b4ddc2cd6828dcb) Thanks [@unional](https://github.com/unional)! - Export `visAnnotations` from the main package index and move `expect.extend({ toMatchImageSnapshot })` from a module-level side effect to lazy initialization inside `visAnnotations.beforeEach()`.
+
+  Previously, importing `storybook-addon-vis` or `storybook-addon-vis/vitest-setup` would immediately call `expect.extend` as a side effect. Now the extension is deferred until `visAnnotations.beforeEach()` runs, ensuring it only executes when `storybook/test` is initialized.
+
 ## 4.1.0
 
 ### Minor Changes
