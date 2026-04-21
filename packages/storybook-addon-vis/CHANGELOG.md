@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 4.2.1
+
+### Patch Changes
+
+- [`2370652`](https://github.com/repobuddy/visual-testing/commit/2370652c41be4ddf9dec78a32437e5bf359dceaa) Thanks [@unional](https://github.com/unional)! - Fix manager reference
+
 ## 4.2.0
 
 ### Minor Changes
