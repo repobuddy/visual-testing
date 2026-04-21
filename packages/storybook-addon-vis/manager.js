@@ -1,2 +1,2 @@
-import './dist/exports/manager.js';
+import './dist/manager.js';
 
