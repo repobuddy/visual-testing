@@ -1,5 +1,32 @@
 import{n as e}from"./chunk-BneVvdWh.js";import{c as t,o as n,s as r}from"./blocks-pk6s6g-r.js";import{a as i}from"./chunk-RD3KTAHR-C3fY6nk_.js";import{r as a}from"./react-D3_z09Pp.js";import{t as o}from"./mdx-react-shim-DMzzWKkY.js";var s,c=e((()=>{s=`# CHANGE LOG
 
+## 4.2.1
+
+### Patch Changes
+
+- [\`2370652\`](https://github.com/repobuddy/visual-testing/commit/2370652c41be4ddf9dec78a32437e5bf359dceaa) Thanks [@unional](https://github.com/unional)! - Fix manager reference
+
+## 4.2.0
+
+### Minor Changes
+
+- [\`4bead0a\`](https://github.com/repobuddy/visual-testing/commit/4bead0ac9119f3704a44b3355b4ddc2cd6828dcb) Thanks [@unional](https://github.com/unional)! - Export \`visAnnotations\` from the main package index and move \`expect.extend({ toMatchImageSnapshot })\` from a module-level side effect to lazy initialization inside \`visAnnotations.beforeEach()\`.
+
+  Previously, importing \`storybook-addon-vis\` or \`storybook-addon-vis/vitest-setup\` would immediately call \`expect.extend\` as a side effect. Now the extension is deferred until \`visAnnotations.beforeEach()\` runs, ensuring it only executes when \`storybook/test\` is initialized.
+
+## 4.1.0
+
+### Minor Changes
+
+- [#723](https://github.com/repobuddy/visual-testing/pull/723) [\`69cde31\`](https://github.com/repobuddy/visual-testing/commit/69cde31906e8f4c4ae9a8f7c331ca434e1b7d758) Thanks [@unional](https://github.com/unional)! - Add \`createMissingBaseline\` for image matchers so a missing baseline can be written without \`-u\` / \`updateSnapshot: 'all'\`, and support \`vis.setup({ createMissingBaseline: true })\` defaults for auto snapshots (overridable per test). Document Storybook Vitest browser limitations for \`createMissingBaseline\` and the \`updateSnapshot\` workaround.
+
+- [#723](https://github.com/repobuddy/visual-testing/pull/723) [\`fc139fd\`](https://github.com/repobuddy/visual-testing/commit/fc139fdca660e203b4126e0d3d791e7ed1eca867) Thanks [@unional](https://github.com/unional)! - Add opt-in \`shortenLongSnapshotPaths\` to \`vis()\`: when enabled, if representative **absolute** snapshot paths under \`__baselines__\` (after \`snapshotRootDir\` and \`snapshotSubpath\`) would exceed Windows-safe limits (250 characters or a path segment over 255), keep subpath directories and shorten only the final component to \`{firstToken}-{hash12}{ext}\` (tersify-style prefix); legacy \`taskId-key.png\` names are unchanged. Fix \`getVisOption\` to merge \`__default\` plugin options with the active Vitest project. Storybook \`visProjects\` may set \`shortenLongSnapshotPaths\` for the Vis panel (same semantics as Vitest \`vis()\`). Export \`resolveSnapshotSubpathWithinLimits\` from \`vitest-plugin-vis/server-utils\`. \`vitest-plugin-vis/testing\` is browser-safe (fixtures only). \`getVisOption\` and \`stubSuite\` are available from \`vitest-plugin-vis/testing/node\` for Node/Vitest project tests.
+
+### Patch Changes
+
+- Updated dependencies [[\`69cde31\`](https://github.com/repobuddy/visual-testing/commit/69cde31906e8f4c4ae9a8f7c331ca434e1b7d758), [\`fc139fd\`](https://github.com/repobuddy/visual-testing/commit/fc139fdca660e203b4126e0d3d791e7ed1eca867)]:
+  - vitest-plugin-vis@5.1.0
+
 ## 4.0.0
 
 ### Major Changes
