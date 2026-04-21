@@ -1,5 +1,4 @@
 // `storybook-addon-vis/vitest-setup` provides code needed in `vitest.setup.ts`.
-import '../client/storybook/expect_extend.ts'
 import '../shared/global_matcher_augment.ts'
 
 import { createVis } from 'vitest-plugin-vis/setup-api'
