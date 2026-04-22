@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## 4.2.2
+
+### Patch Changes
+
+- [#739](https://github.com/repobuddy/visual-testing/pull/739) [`66599bc`](https://github.com/repobuddy/visual-testing/commit/66599bc2a3dd3752fe0cb317d9771359cdd8d547) Thanks [@unional](https://github.com/unional)! - Make sure the `visAnnotation.beforeEach` do anything only when it is running in test.
+
 ## 4.2.1
 
 ### Patch Changes
