@@ -80,6 +80,7 @@
 		"w:wb": "cross-env BROWSER=firefox BROWSERPROVIDER=webdriverio vitest"
 	},
 	"dependencies": {
+		"@repobuddy/test": "^1.0.1",
 		"@storybook/icons": "^2.0.0",
 		"glob": "^13.0.0",
 		"is-ci": "^4.1.0",
