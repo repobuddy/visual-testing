@@ -1,6 +1,6 @@
 {
 	"name": "storybook-addon-vis",
-	"version": "4.2.1",
+	"version": "4.2.2",
 	"description": "Storybook Vitest visual testing addon",
 	"keywords": [
 		"image-snapshot",
