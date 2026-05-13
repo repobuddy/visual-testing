@@ -55,7 +55,7 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 					if (errors.length === 1) throw errors[0]![1]
 					const taskId = toTaskId(test!)
 					throw new AggregateError(
-						errors,
+						errors.map(([, e]) => e),
 						dedent`Snapshot \`${taskId}\` mismatched
 
 					${errors
