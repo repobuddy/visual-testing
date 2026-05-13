@@ -52,7 +52,7 @@
 		"knip": "^6.0.0",
 		"playwright": "1.60.0",
 		"rimraf": "^6.0.1",
-		"turbo": "^2.6.0",
+		"turbo": "^2.9.12",
 		"typescript": "catalog:",
 		"vitest": "catalog:",
 		"webdriverio": "^9.22.0"
