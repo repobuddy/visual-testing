@@ -19,7 +19,7 @@ export default (options: SetupVisOptions = { auto: false }) => {
 	let matcher: ReturnType<typeof autoSnapshotMatcher>
 	let matcherFn: () => Promise<void>
 	return definePreviewAddon({
-		tags: options.auto ? ['snapshot'] : [],
+		tags: options.auto === true ? ['snapshot'] : [],
 		async beforeAll() {
 			matcher = autoSnapshotMatcher(commands, expect)
 			const suiteDefaults =
