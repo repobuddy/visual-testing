@@ -29,6 +29,7 @@
 		"tt": "pnpm --filter=testcase-themes",
 		"tv": "pnpm --filter=testcase-vpv",
 		"tw": "pnpm --filter=testcase-workspace",
+		"up:pw": "pnpm exec playwright install --with-deps",
 		"v": "turbo check coverage",
 		"verify": "turbo check t:t coverage testcase",
 		"verify:ci": "turbo check t:t coverage:u testcase:u --concurrency=1",
