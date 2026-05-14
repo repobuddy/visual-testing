@@ -6,8 +6,13 @@ import { definePreviewAddon } from 'storybook/internal/csf'
 import { expect } from 'storybook/test'
 import type { SetupVisOptions } from 'vitest-plugin-vis'
 import { autoSnapshotMatcher, setAutoSnapshotOptions } from 'vitest-plugin-vis/client-api'
+import { toMatchImageSnapshot } from './client/expect/to_match_image_snapshot.ts'
 import { commands, page } from './client/vitest_proxy.ts'
 import { visAnnotations } from './preview/vis_annotation.ts'
+
+// Register at module load time so it's available in Storybook dev mode.
+// (visAnnotations.beforeEach is only wired via vitest's setProjectAnnotations, not in dev mode)
+expect.extend({ toMatchImageSnapshot })
 
 export * from 'vitest-plugin-vis'
 export * from './client/has_image_snapshot.ts'
