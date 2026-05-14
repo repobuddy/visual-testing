@@ -1,6 +1,7 @@
 // `storybook-addon-vis` provides code that can be used in test files.
 import './shared/global_matcher_augment.ts'
 
+import { isRunningInTest } from '@repobuddy/test'
 import { definePreviewAddon } from 'storybook/internal/csf'
 import { expect } from 'storybook/test'
 import type { SetupVisOptions } from 'vitest-plugin-vis'
@@ -21,6 +22,7 @@ export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) 
 	return definePreviewAddon({
 		tags: options.auto === true ? ['snapshot'] : [],
 		async beforeAll() {
+			if (!isRunningInTest()) return
 			matcher = autoSnapshotMatcher(commands, expect)
 			const suiteDefaults =
 				options?.createMissingBaseline !== undefined
