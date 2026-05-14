@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 5.1.1
+
+### Patch Changes
+
+- [`581c416`](https://github.com/repobuddy/visual-testing/commit/581c41605e12c06ad0ec4395c3a4f33dc411dc8f) Thanks [@unional](https://github.com/unional)! - Fix aggregate errors when multiple themes are used.
+
 ## 5.1.0
 
 ### Minor Changes
