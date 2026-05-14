@@ -18,16 +18,6 @@ const config: StorybookConfig = {
 		getAbsolutePath('storybook-addon-tag-badges'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
 		getAbsolutePath('storybook-addon-vis'),
-		// defineStorybookVis({
-		// 	visProjects: [
-		// 		{
-		// 			snapshotRootDir: '__vis__/linux',
-		// 		},
-		// 		{
-		// 			snapshotRootDir: '__vis__/local',
-		// 		},
-		// 	],
-		// }),
 	],
 	tags: {
 		internal: {
