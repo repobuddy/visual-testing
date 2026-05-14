@@ -20,5 +20,17 @@ export default definePreview({
 			test: 'error',
 		},
 	},
-	addons: [addonDocs(), addonA11y(), addonDarkMode(), addonVis({ auto: true })],
+	addons: [
+		addonDocs(),
+		addonA11y(),
+		addonDarkMode(),
+		addonVis({
+			auto: {
+				x() {
+					return
+				},
+			},
+			createMissingBaseline: true,
+		}),
+	],
 })

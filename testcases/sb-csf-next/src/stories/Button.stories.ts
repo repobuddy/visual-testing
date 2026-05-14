@@ -35,6 +35,7 @@ export const Primary = meta.story({
 })
 
 export const Secondary = meta.story({
+	tags: ['snapshot'],
 	args: {
 		label: 'Button',
 	},
