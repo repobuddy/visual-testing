@@ -12,8 +12,8 @@ describe('defineStorybookVis', () => {
 		try {
 			const result = defineStorybookVis()
 			expect(typeof result).toBe('string')
-			// The result should be a valid file:// URL (directory name from import.meta.resolve)
-			expect(result).toMatch(/^file:\/\//)
+			// The result should be a filesystem path (not a file:// URL)
+			expect(result).toMatch(/^\/|^[A-Za-z]:\\/)
 		} catch (error: any) {
 			// import.meta.resolve may fail in vitest test environment
 			// This is a known limitation - the function works correctly in runtime
@@ -42,7 +42,7 @@ describe('defineStorybookVis', () => {
 			})
 			expect(typeof (result as { name: string; options: StorybookVisOptions }).name).toBe('string')
 			expect((result as { name: string; options: StorybookVisOptions }).name.length).toBeGreaterThan(0)
-			expect((result as { name: string; options: StorybookVisOptions }).name).toMatch(/^file:\/\//)
+			expect((result as { name: string; options: StorybookVisOptions }).name).toMatch(/^\/|^[A-Za-z]:\\/)
 			expect((result as { name: string; options: StorybookVisOptions }).options).toEqual(options)
 		} catch (error: any) {
 			if (error?.message?.includes('Invalid URL') || error?.message?.includes('resolve')) {

@@ -1,4 +1,5 @@
 import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { StorybookVisOptions } from '../server/types.ts'
 
 /**
@@ -7,13 +8,13 @@ import type { StorybookVisOptions } from '../server/types.ts'
  * When called without options, returns the package directory name as a string.
  * When called with options, returns an object containing both the package name and the provided options.
  *
- * @returns When called without options, returns the package directory path as a string.
+ * @returns When called without options, returns the package directory path as a filesystem path string (e.g., `/path/to/storybook-addon-vis`).
  *
  * @example
  * ```ts
- * // Without options - returns just the package name
+ * // Without options - returns just the package directory path
  * const addonName = defineStorybookVis()
- * // Returns: string (package directory path)
+ * // Returns: string (absolute filesystem path to package directory)
  * ```
  *
  * @example
@@ -63,6 +64,6 @@ export function defineStorybookVis(): string
  */
 export function defineStorybookVis(options: StorybookVisOptions): { name: string; options: StorybookVisOptions }
 export function defineStorybookVis(options?: StorybookVisOptions | undefined) {
-	const name = dirname(import.meta.resolve('storybook-addon-vis', 'package.json'))
+	const name = dirname(fileURLToPath(import.meta.resolve('storybook-addon-vis/package.json')))
 	return !options ? name : { name, options }
 }
