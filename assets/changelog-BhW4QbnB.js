@@ -1,5 +1,24 @@
 import{n as e}from"./chunk-BneVvdWh.js";import{c as t,o as n,s as r}from"./blocks-pk6s6g-r.js";import{a as i}from"./chunk-RD3KTAHR-C3fY6nk_.js";import{r as a}from"./react-D3_z09Pp.js";import{t as o}from"./mdx-react-shim-DMzzWKkY.js";var s,c=e((()=>{s=`# CHANGE LOG
 
+## 4.2.3
+
+### Patch Changes
+
+- [\`ebdbc5b\`](https://github.com/repobuddy/visual-testing/commit/ebdbc5b54b6cf3ba9943230fb074a6415cec3b26) Thanks [@unional](https://github.com/unional)! - Fix \`addonVis(options)\` type to includes \`tags: string[]\`.
+
+- [\`50d0be7\`](https://github.com/repobuddy/visual-testing/commit/50d0be76dbf8e812746bc55abfa7d0cb83840ff2) Thanks [@unional](https://github.com/unional)! - Skip vis suite setup when not running in test
+
+- [\`c5d1353\`](https://github.com/repobuddy/visual-testing/commit/c5d13531cdc467595688005980ec4e9c4cdf0663) Thanks [@unional](https://github.com/unional)! - Should not add \`snapshot\` tag if \`auto\` is not \`true\`.
+
+- [\`f67866f\`](https://github.com/repobuddy/visual-testing/commit/f67866f0b43caeeda492d916c8650d6365e273de) Thanks [@unional](https://github.com/unional)! - Fix \`defineStorybookVis\` returning a \`file://\` URL instead of a filesystem path.
+
+  \`import.meta.resolve\` returns a \`file://\` URL, which \`path.join\` corrupts when appending \`preset\` — collapsing \`file:///\` to \`file:/\`. Storybook's resolver then silently fails to find \`preset.js\`, so the addon's \`experimental_serverChannel\` was never registered and snapshot images never loaded. Wrapping the result with \`fileURLToPath\` produces a plain filesystem path that resolves correctly.
+
+- [\`e4bf5b0\`](https://github.com/repobuddy/visual-testing/commit/e4bf5b076f41aea2277aa17d219352cad116aca1) Thanks [@unional](https://github.com/unional)! - Register \`toMatchImageSnapshot\` at module load time so it is available in Storybook dev mode.
+
+- Updated dependencies [[\`581c416\`](https://github.com/repobuddy/visual-testing/commit/581c41605e12c06ad0ec4395c3a4f33dc411dc8f)]:
+  - vitest-plugin-vis@5.1.1
+
 ## 4.2.2
 
 ### Patch Changes
