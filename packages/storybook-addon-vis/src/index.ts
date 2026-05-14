@@ -15,7 +15,7 @@ export * from './client/storybook/tags.ts'
 
 export { page, visAnnotations }
 
-export default (options: SetupVisOptions = { auto: false }) => {
+export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) => {
 	let matcher: ReturnType<typeof autoSnapshotMatcher>
 	let matcherFn: () => Promise<void>
 	return definePreviewAddon({
