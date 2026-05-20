@@ -1,7 +1,7 @@
 import { composeStories } from '@storybook/react-vite'
 import { screen } from 'storybook/test'
-import { page } from 'vitest/browser'
 import { test } from 'vitest'
+import { page } from 'vitest/browser'
 import * as stories from './expect/to_match_image_snapshot.stories.tsx'
 
 const { MatchingElement } = composeStories(stories)

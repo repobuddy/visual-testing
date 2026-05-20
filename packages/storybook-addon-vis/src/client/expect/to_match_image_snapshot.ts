@@ -1,9 +1,9 @@
 import type { AsyncExpectationResult } from '@vitest/expect'
 import {
 	type ComparisonMethod,
-	type ToMatchImageSnapshotOptions,
 	matchImageSnapshotAction,
 	success,
+	type ToMatchImageSnapshotOptions,
 	toTaskId,
 } from 'vitest-plugin-vis/client-api'
 import { commands, getCurrentTest } from '../vitest_proxy.ts'

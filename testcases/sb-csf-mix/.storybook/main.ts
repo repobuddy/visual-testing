@@ -1,6 +1,6 @@
-import { defineMain } from '@storybook/react-vite/node'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { defineMain } from '@storybook/react-vite/node'
 
 /**
  * This function is used to resolve the absolute path of a package.

@@ -1,6 +1,6 @@
-import { defineMain } from '@storybook/react-vite/node'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { defineMain } from '@storybook/react-vite/node'
 import { defineStorybookVis } from 'storybook-addon-vis/node'
 
 /**

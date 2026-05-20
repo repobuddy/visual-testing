@@ -1,7 +1,7 @@
 import {
 	type ComparisonMethod,
-	type ToMatchPageImageSnapshotOptions,
 	matchPageImageSnapshotAction,
+	type ToMatchPageImageSnapshotOptions,
 	toTaskId,
 } from 'vitest-plugin-vis/client-api'
 import { commands, getCurrentTest } from '../vitest_proxy.ts'

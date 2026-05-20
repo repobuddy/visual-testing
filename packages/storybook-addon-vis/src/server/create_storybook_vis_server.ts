@@ -1,8 +1,8 @@
+import { readFileSync } from 'node:fs'
+import { platform } from 'node:process'
 import { globSync } from 'glob'
 import ci from 'is-ci'
 import memoize from 'memoize'
-import { readFileSync } from 'node:fs'
-import { platform } from 'node:process'
 import { basename, resolve } from 'pathe'
 import {
 	BASELINE_DIR,

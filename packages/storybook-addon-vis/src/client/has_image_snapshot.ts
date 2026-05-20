@@ -1,4 +1,4 @@
-import { hasImageSnapshotAction, toTaskId, type ImageSnapshotKeyOptions } from 'vitest-plugin-vis/client-api'
+import { hasImageSnapshotAction, type ImageSnapshotKeyOptions, toTaskId } from 'vitest-plugin-vis/client-api'
 import { ctx } from './ctx.ts'
 import { commands } from './vitest_proxy.ts'
 

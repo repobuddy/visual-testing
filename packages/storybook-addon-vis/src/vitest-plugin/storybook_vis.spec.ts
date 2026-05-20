@@ -1,6 +1,6 @@
-import { storybookVis } from '#storybook-addon-vis/vitest-plugin'
 import { describe, it } from 'vitest'
 import { getVisOption, stubSuite } from 'vitest-plugin-vis/testing/node'
+import { storybookVis } from '#storybook-addon-vis/vitest-plugin'
 import { NAME } from '../shared/constants.ts'
 
 describe(`${storybookVis.name}()`, () => {
