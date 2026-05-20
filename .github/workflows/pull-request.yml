@@ -15,8 +15,8 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node-version:
-          - 22
-          - 24
+          - lts/-1
+          - lts/*
     runs-on: ${{ matrix.os }}
     env:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
@@ -63,3 +63,14 @@ jobs:
           base: ${{ github.head_ref }}
           labels: "snapshot"
           draft: false
+
+  all-checks:
+    needs: [verify]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: All checks passed
+        run: |
+          if [[ "${{ needs.verify.result }}" != "success" ]]; then
+            exit 1
+          fi
