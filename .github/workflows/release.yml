@@ -16,15 +16,15 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node-version:
-          - 22
-          - 24
+          - lts/-1
+          - lts/*
     runs-on: ${{ matrix.os }}
     env:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
