@@ -20,5 +20,6 @@ export default defineConfig([
 		tsconfig: 'tsconfig.esm.json',
 		format: 'esm',
 		sourcemap: true,
+		deps: { neverBundle: ['postcss', 'esbuild', 'lightningcss', 'vite'] },
 	},
 ])
