@@ -2,6 +2,12 @@ packages:
   - packages/*
   - testcases/*
 
+allowBuilds:
+  '@parcel/watcher': true
+  edgedriver: true
+  esbuild: true
+  geckodriver: true
+
 catalog:
   '@repobuddy/vitest': ^2.1.1
   '@types/react': ^19.2.2
