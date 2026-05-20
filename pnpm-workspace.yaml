@@ -6,6 +6,7 @@ allowBuilds:
   '@parcel/watcher': true
   edgedriver: true
   esbuild: true
+  fsevents: true
   geckodriver: true
 
 catalog:
