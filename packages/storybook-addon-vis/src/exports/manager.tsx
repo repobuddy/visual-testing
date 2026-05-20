@@ -4,8 +4,8 @@ import { VisPanel } from '../components/vis_panel.tsx'
 import { NAME, VIS_PANEL_ID } from '../shared/constants.ts'
 import {
 	IMAGE_SNAPSHOT_RESULTS_RESPONSE,
-	requestImageSnapshotResults,
 	type ImageSnapshotResults,
+	requestImageSnapshotResults,
 	type VisEvent,
 } from '../shared/events.ts'
 

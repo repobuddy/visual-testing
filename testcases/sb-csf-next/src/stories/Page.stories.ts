@@ -1,6 +1,5 @@
-import preview from '#.storybook/preview'
-
 import { expect, userEvent, within } from 'storybook/test'
+import preview from '#.storybook/preview'
 
 import { Page } from './Page.tsx'
 

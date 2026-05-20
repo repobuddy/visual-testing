@@ -10,7 +10,6 @@
 	"files": {
 		"ignoreUnknown": false,
 		"includes": [
-			"**",
 			"!**/node_modules/",
 			"!**/.vscode/**/*.txt",
 			"!**/.dist",

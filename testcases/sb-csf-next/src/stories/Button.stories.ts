@@ -2,9 +2,8 @@
  * Keep this file in CSF Next format to test the Storybook CSF Next support.
  */
 
-import preview from '#.storybook/preview'
-
 import { fn } from 'storybook/test'
+import preview from '#.storybook/preview'
 
 import { Button } from './Button.tsx'
 

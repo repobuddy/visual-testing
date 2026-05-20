@@ -1,7 +1,7 @@
-import { hasImageSnapshot } from '#storybook-addon-vis'
 import type { StoryObj } from '@storybook/react-vite'
 import React from 'react'
 import { expect } from 'storybook/test'
+import { hasImageSnapshot } from '#storybook-addon-vis'
 
 export default {
 	title: 'utils/hasImageSnapshot',

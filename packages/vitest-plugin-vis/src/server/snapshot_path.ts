@@ -1,5 +1,5 @@
-import ci from 'is-ci'
 import { platform } from 'node:process'
+import ci from 'is-ci'
 import type { VisOptions } from '../config/types.ts'
 import { SNAPSHOT_ROOT_DIR } from '../shared/constants.ts'
 import { trimCommonFolder } from '../shared/trim_common_folder.ts'

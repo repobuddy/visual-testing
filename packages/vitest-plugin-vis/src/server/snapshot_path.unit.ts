@@ -1,6 +1,6 @@
-import ci from 'is-ci'
 import { platform } from 'node:process'
 import { afterEach, beforeEach } from 'node:test'
+import ci from 'is-ci'
 import { resolve } from 'pathe'
 import { describe, expect, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'

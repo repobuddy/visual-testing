@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { globalPackages as globalManagerPackages } from 'storybook/internal/manager/globals'
 import { globalPackages as globalPreviewPackages } from 'storybook/internal/preview/globals'
-import { type UserConfig, defineConfig } from 'tsdown'
+import { defineConfig, type UserConfig } from 'tsdown'
 
 // The current browsers supported by Storybook v7
 const BROWSER_TARGET: UserConfig['target'] = ['chrome100', 'safari15', 'firefox91']

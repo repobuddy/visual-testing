@@ -1,7 +1,7 @@
-import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
+import { render } from 'vitest-browser-react'
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { ctx } from './_ctx.ts'
 
 afterEach(() => ctx.__test__reset())

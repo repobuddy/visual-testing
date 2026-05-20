@@ -1,5 +1,5 @@
-import type { SnapshotTestMeta } from 'vitest-plugin-vis/client-api'
 import type { BrowserCommands, BrowserPage } from 'vitest/browser'
+import type { SnapshotTestMeta } from 'vitest-plugin-vis/client-api'
 import { toMatchImageSnapshot } from './page/to_match_image_snapshot.ts'
 
 let browserContext: Awaited<typeof import('vitest/browser')>

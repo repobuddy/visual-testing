@@ -1,6 +1,6 @@
 import { afterEach, it } from 'vitest'
-import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
+import { render } from 'vitest-browser-react'
 import { ctx } from './_ctx.ts'
 
 afterEach(() => ctx.__test__reset())
