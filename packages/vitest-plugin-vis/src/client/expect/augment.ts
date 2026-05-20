@@ -5,3 +5,5 @@ declare global {
 		interface Matchers<R, T> extends ImageSnapshotMatcher {}
 	}
 }
+
+export type { ImageSnapshotMatcher }
