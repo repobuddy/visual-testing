@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
@@ -52,7 +52,7 @@ jobs:
               - '*/*/__vis__/**/__baselines__/**'
 
       - name: Create Pull Request
-        if: matrix.node-version == '24' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(github.head_ref, 'vis-bot')
+        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(github.head_ref, 'vis-bot')
         uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "test(${{matrix.os}}/${{matrix.node-version}}): update snapshot"
