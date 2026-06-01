@@ -42,7 +42,7 @@
 		"@biomejs/biome": "2.4.16",
 		"@changesets/changelog-github": "^0.7.0",
 		"@changesets/cli": "^2.29.8",
-		"@commitlint/cli": "^21.0.0",
+		"@commitlint/cli": "^21.0.2",
 		"@commitlint/config-conventional": "^21.0.0",
 		"@repobuddy/biome": "^2.0.1",
 		"@types/node": "^24.0.0",
