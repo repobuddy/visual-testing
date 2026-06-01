@@ -28,7 +28,7 @@
 		"@repobuddy/vitest": "catalog:",
 		"@storybook/addon-themes": "^10.4.1",
 		"@storybook/addon-vitest": "^10.4.1",
-		"@storybook/react-vite": "^10.3.5",
+		"@storybook/react-vite": "^10.4.1",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
