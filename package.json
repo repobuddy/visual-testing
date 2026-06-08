@@ -45,7 +45,7 @@
 		"@commitlint/cli": "^21.0.2",
 		"@commitlint/config-conventional": "^21.0.2",
 		"@repobuddy/biome": "^2.0.1",
-		"@types/node": "^25.9.1",
+		"@types/node": "^25.9.2",
 		"@vitest/coverage-v8": "catalog:",
 		"cross-env": "^10.0.0",
 		"husky": "^9.1.7",
