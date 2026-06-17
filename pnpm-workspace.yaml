@@ -23,7 +23,7 @@ catalog:
   '@vitest/ui': ^4.1.4
   typescript: ^6.0.0
   vite: ^8.0.0
-  vitest: ^4.1.4
+  vitest: ^4.1.9
   vitest-browser-react: ^2.0.2
 
 ignoredBuiltDependencies:
