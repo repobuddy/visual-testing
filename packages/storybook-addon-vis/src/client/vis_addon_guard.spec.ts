@@ -24,6 +24,7 @@ describe('outside a vitest browser run', () => {
 
 	it('beforeAll no-ops instead of reaching for vitest commands', async ({ expect }) => {
 		const addon = addonVis({ auto: true, createMissingBaseline: true }) as any
+		expect(typeof addon.beforeAll).toBe('function')
 
 		await withoutVitestBrowser(async () => {
 			await expect(addon.beforeAll()).resolves.toBeUndefined()
