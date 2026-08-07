@@ -110,9 +110,6 @@ importers:
 
   packages/storybook-addon-vis:
     dependencies:
-      '@repobuddy/test':
-        specifier: ^1.0.1
-        version: 1.0.1
       '@storybook/icons':
         specifier: ^2.0.0
         version: 2.0.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)

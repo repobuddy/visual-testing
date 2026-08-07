@@ -7,6 +7,12 @@ on:
     types: [opened, synchronize]
     paths-ignore:
       - '**/__vis__/**/__baselines__/**'
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number to run against'
+        required: true
+        type: number
 jobs:
   verify:
     strategy:
@@ -22,6 +28,14 @@ jobs:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', inputs.pr_number) || github.ref }}
+      - name: Get PR head ref
+        id: pr-info
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: echo "head_ref=$(gh pr view ${{ inputs.pr_number }} --json headRefName -q .headRefName)" >> $GITHUB_OUTPUT
       - uses: pnpm/action-setup@v6
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -52,15 +66,17 @@ jobs:
               - '*/*/__vis__/**/__baselines__/**'
 
       - name: Create Pull Request
-        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(github.head_ref, 'vis-bot') && !startsWith(github.head_ref, 'dependabot') && !startsWith(github.head_ref, 'renovate')
+        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'vis-bot') && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'dependabot') && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'renovate')
         uses: peter-evans/create-pull-request@v8
+        env:
+          HEAD_REF: ${{ steps.pr-info.outputs.head_ref || github.head_ref }}
         with:
           commit-message: "test(${{matrix.os}}/lts-latest): update snapshot"
           token: ${{ secrets.CI_GITHUB_TOKEN }}
           title: "test(${{matrix.os}}/lts-latest): update snapshot"
           body: This PR updates the snapshot for ${{matrix.os}} node lts-latest"
-          branch: vis-bot/update-snapshot/${{ github.head_ref }}-${{ matrix.os }}-lts-latest
-          base: ${{ github.head_ref }}
+          branch: vis-bot/update-snapshot/${{ env.HEAD_REF }}-${{ matrix.os }}-lts-latest
+          base: ${{ env.HEAD_REF }}
           labels: "snapshot"
           draft: false
 
