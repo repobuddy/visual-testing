@@ -21,7 +21,7 @@ catalog:
   '@vitest/coverage-v8': ^4.1.4
   '@vitest/expect': ^4.1.4
   '@vitest/ui': ^4.1.4
-  typescript: ^6.0.0
+  typescript: ^7.0.0
   vite: ^8.0.0
   vitest: ^4.1.4
   vitest-browser-react: ^2.0.2
