@@ -5,6 +5,6 @@ jobs:
   docgen:
     permissions:
       contents: write
-    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@main
+    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@v1
     with:
       publish-dir: ./packages/storybook-addon-vis/storybook-static

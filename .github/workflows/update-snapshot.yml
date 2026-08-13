@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Install playwright browsers
-        uses: repobuddy/.github/.github/actions/setup-playwright@main
+        uses: repobuddy/.github/.github/actions/setup-playwright@v1
 
       - run: ${{ inputs.build-command }}
       - run: ${{ inputs.update-snapshot-command }}
