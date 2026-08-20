@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Install playwright browsers
-        uses: repobuddy/.github/.github/actions/setup-playwright@main
+        uses: repobuddy/.github/.github/actions/setup-playwright@v2
 
       - name: Verify
         uses: nick-fields/retry@v4
@@ -53,14 +53,14 @@ jobs:
             */*/__vis__/**/__results__
 
   release:
-    uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@main
+    uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@v2
     needs: verify
     secrets: inherit
 
   docgen:
     permissions:
       contents: write
-    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@main
+    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@v2
     needs: release
     if: github.ref == 'refs/heads/main' && needs.release.outputs.published == 'true'
     with:
