@@ -47,7 +47,7 @@ jobs:
         run: pnpm install
 
       - name: Install playwright browsers
-        uses: repobuddy/.github/.github/actions/setup-playwright@main
+        uses: repobuddy/.github/.github/actions/setup-playwright@v2
 
       - name: Verify
         uses: nick-fields/retry@v4
