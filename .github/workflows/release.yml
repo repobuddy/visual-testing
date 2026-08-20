@@ -53,6 +53,13 @@ jobs:
             */*/__vis__/**/__results__
 
   release:
+    # Declaring permissions replaces the default set, so every scope the called
+    # workflow declares must be listed here — unlisted ones drop to none, and a
+    # callee asking for more than the caller holds fails the run at startup.
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
     uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@v2
     needs: verify
     secrets: inherit
