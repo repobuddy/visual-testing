@@ -1,0 +1,5 @@
+import{i as e}from"./preload-helper-xPQekRTU.js";import{d as t,k as n,o as r,s as i}from"./iframe-CeUp86I-.js";import{t as a}from"./mdx-react-shim-CmBBfeFi.js";function o(e){let n={code:`code`,h1:`h1`,p:`p`,...t(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(r,{title:`node`}),`
+`,(0,c.jsx)(n.h1,{id:`storybook-addon-visnode`,children:(0,c.jsx)(n.code,{children:`storybook-addon-vis/node`})}),`
+`,(0,c.jsxs)(n.p,{children:[(0,c.jsx)(n.code,{children:`storybook-addon-vis/node`}),` provides functionality to configure the Storybook Visual Testing addon in the `,(0,c.jsx)(n.code,{children:`.storybook/main.ts`}),` file.`]}),`
+`,(0,c.jsxs)(n.p,{children:[(0,c.jsx)(n.code,{children:`.storybook/main.ts`}),` is run on the server side,
+so the code it uses are separated from the client side code.`]})]})}function s(e={}){let{wrapper:n}={...t(),...e.components};return n?(0,c.jsx)(n,{...e,children:(0,c.jsx)(o,{...e})}):o(e)}var c;e((()=>{c=n(),a(),i()}))();export{s as default};
