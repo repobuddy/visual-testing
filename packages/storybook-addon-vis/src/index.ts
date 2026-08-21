@@ -7,7 +7,7 @@ import type { SetupVisOptions } from 'vitest-plugin-vis'
 import { autoSnapshotMatcher, setAutoSnapshotOptions } from 'vitest-plugin-vis/client-api'
 import { toMatchImageSnapshot } from './client/expect/to_match_image_snapshot.ts'
 import { isVitestBrowser } from './client/is_vitest_browser.ts'
-import { commands, page } from './client/vitest_proxy.ts'
+import { commands, page, whenVitestProxyReady } from './client/vitest_proxy.ts'
 import { visAnnotations } from './preview/vis_annotation.ts'
 
 // Register at module load time so it's available in Storybook dev mode.
@@ -28,6 +28,9 @@ export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) 
 		tags: options.auto === true ? ['snapshot'] : [],
 		async beforeAll() {
 			if (!isVitestBrowser()) return
+			// `page` and `getCurrentTest` come from a dynamic import; the hooks that
+			// follow read them synchronously, so wait for it here (#835).
+			await whenVitestProxyReady()
 			matcher = autoSnapshotMatcher(commands, expect)
 			const suiteDefaults =
 				options?.createMissingBaseline !== undefined
