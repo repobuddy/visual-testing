@@ -10,7 +10,7 @@ import type { ImageSnapshotComparisonInfo, ToMatchImageSnapshotOptions } from '.
 import { toDataURL, toImageData } from '../external/browser/image_data.ts'
 import { server } from '../external/vitest/vitest_browser_context_proxy.ts'
 import { alignImagesToSameSize } from '../image/align_images.ts'
-import { prettifyOptions } from './compare_image_snapshot.logic.ts'
+import { formatSnapshotPath, prettifyOptions } from './compare_image_snapshot.logic.ts'
 
 export async function compareImageSnapshot(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
@@ -31,7 +31,7 @@ export async function compareImageSnapshot(
 			dedent`Snapshot \`${taskId}\` has no baseline image. Please review the new snapshot and update the baseline image.
 
 				Options:    ${prettifyOptions(options)}
-				Actual:     ${resolve(info.projectRoot, info.resultPath)}`,
+				Actual:     ${formatSnapshotPath(info.projectRoot, info.resultPath)}`,
 		)
 	}
 
@@ -55,8 +55,8 @@ export async function compareImageSnapshot(
 							Options:    ${prettifyOptions(options)}
 							Diff:       ${options.failureThresholdType === 'percent' ? `${diffAmount}%` : `${diffAmount} pixels`}
 
-							Expected:   ${resolve(info.projectRoot, info.baselinePath)}
-							Actual:     ${resolve(info.projectRoot, info.resultPath)}`,
+							Expected:   ${formatSnapshotPath(info.projectRoot, info.baselinePath)}
+							Actual:     ${formatSnapshotPath(info.projectRoot, info.resultPath)}`,
 			)
 		}
 		return
@@ -85,9 +85,9 @@ export async function compareImageSnapshot(
 
 					Options:    ${prettifyOptions(options)}
 
-					Expected:   ${resolve(info.projectRoot, info.baselinePath)}
-					Actual:     ${resolve(info.projectRoot, info.resultPath)}
-					Difference: ${resolve(info.projectRoot, info.diffPath)}`,
+					Expected:   ${formatSnapshotPath(info.projectRoot, info.baselinePath)}
+					Actual:     ${formatSnapshotPath(info.projectRoot, info.resultPath)}
+					Difference: ${formatSnapshotPath(info.projectRoot, info.diffPath)}`,
 	)
 }
 
