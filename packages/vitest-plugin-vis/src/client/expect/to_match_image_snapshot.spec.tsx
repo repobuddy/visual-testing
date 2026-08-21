@@ -88,6 +88,9 @@ it('fails when the image is different', async ({ expect }) => {
 			},
 			(error) => {
 				expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./)
+				expect(error.message).toMatch(/Expected:\s+\.\/__vis__\/.*\.png/)
+				expect(error.message).toMatch(/Actual:\s+\.\/__vis__\/.*\.png/)
+				expect(error.message).toMatch(/Difference:\s+\.\/__vis__\/.*\.png/)
 			},
 		)
 })
@@ -298,6 +301,8 @@ it('should fail with additional info when it does not fail with expectToFail', a
 				expect(error.message).toMatch(/Snapshot .* matched but expected to fail/)
 				expect(error.message).toMatch(/Options:\s+failureThreshold: \d+ pixels/)
 				expect(error.message).toMatch(/Diff:\s+\d+ pixels/)
+				expect(error.message).toMatch(/Expected:\s+\.\/__vis__\/.*\.png/)
+				expect(error.message).toMatch(/Actual:\s+\.\/__vis__\/.*\.png/)
 			},
 		)
 })
