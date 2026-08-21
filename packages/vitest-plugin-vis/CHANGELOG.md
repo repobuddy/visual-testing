@@ -1,5 +1,13 @@
 # vitest-plugin-vis
 
+## 5.1.2
+
+### Patch Changes
+
+- [#851](https://github.com/repobuddy/visual-testing/pull/851) [`5364614`](https://github.com/repobuddy/visual-testing/commit/5364614b07e8301250922c190b621300e86ba4fd) Thanks [@unional](https://github.com/unional)! - Show snapshot paths in failure messages relative to the project root (`./__vis__/...`) instead of absolute.
+  
+  Editors and terminals resolve the relative path just as well, and the output no longer leaks the local absolute path when a failure is pasted into a bug report. Paths outside the project root stay absolute. Filesystem operations are unaffected and still resolve to absolute paths.
+
 ## 5.1.1
 
 ### Patch Changes
