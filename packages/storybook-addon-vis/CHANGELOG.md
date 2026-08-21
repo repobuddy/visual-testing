@@ -1,5 +1,20 @@
 # CHANGE LOG
 
+## 4.2.5
+
+### Patch Changes
+
+- [#849](https://github.com/repobuddy/visual-testing/pull/849) [`f450ead`](https://github.com/repobuddy/visual-testing/commit/f450eadb54ea9daf9ce62a227c782b39bf834573) Thanks [@unional](https://github.com/unional)! - Wait for the vitest browser modules before using them.
+  
+  `commands` and `page` are backed by a dynamic import that nothing awaited, so a
+  hook reading `commands.setupVisSuite` before it settled got `undefined` and
+  failed with `commands.setupVisSuite is not a function` — inside a genuine vitest
+  browser run. Command reads now return a function that waits for the import, and
+  the addon's `beforeAll` awaits the module load before touching `page` or the
+  current test.
+- Updated dependencies [[`5364614`](https://github.com/repobuddy/visual-testing/commit/5364614b07e8301250922c190b621300e86ba4fd)]:
+  - vitest-plugin-vis@5.1.2
+
 ## 4.2.4
 
 ### Patch Changes
