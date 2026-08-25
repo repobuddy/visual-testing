@@ -21,8 +21,8 @@
 	},
 	"dependencies": {
 		"clsx": "^2.1.1",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8"
 	},
 	"devDependencies": {
 		"@repobuddy/vitest": "catalog:",
@@ -34,11 +34,11 @@
 		"@vitejs/plugin-react": "catalog:",
 		"@vitest/browser": "catalog:",
 		"@vitest/browser-playwright": "catalog:",
-		"autoprefixer": "^10.4.20",
-		"globals": "^17.0.0",
+		"autoprefixer": "^10.5.4",
+		"globals": "^17.11.0",
 		"storybook": "^10.5.10",
 		"storybook-addon-vis": "workspace:*",
-		"tailwindcss": "^3",
+		"tailwindcss": "^3.4.19",
 		"typescript": "catalog:",
 		"vitest": "catalog:"
 	}

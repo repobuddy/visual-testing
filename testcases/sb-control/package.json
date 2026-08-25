@@ -23,11 +23,11 @@
 		"w": "vitest"
 	},
 	"dependencies": {
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0"
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8"
 	},
 	"devDependencies": {
-		"@storybook-community/storybook-dark-mode": "^7.1.1",
+		"@storybook-community/storybook-dark-mode": "^7.1.3",
 		"@storybook/addon-a11y": "^10.5.10",
 		"@storybook/addon-docs": "^10.5.10",
 		"@storybook/addon-vitest": "^10.5.10",
@@ -37,7 +37,7 @@
 		"@vitejs/plugin-react": "catalog:",
 		"@vitest/browser-playwright": "catalog:",
 		"@vitest/coverage-v8": "catalog:",
-		"globals": "^17.0.0",
+		"globals": "^17.11.0",
 		"storybook": "^10.5.10",
 		"typescript": "catalog:",
 		"vite": "catalog:"
