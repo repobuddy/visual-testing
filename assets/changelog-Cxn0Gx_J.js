@@ -1,5 +1,12 @@
 import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,o as n,s as r}from"./blocks-d0ZvSups.js";import{a as i}from"./chunk-W22LQPXL-Dvwv7Jvr.js";import{i as a,r as o}from"./react-Bl2r1tuC.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
 
+## 4.2.6
+
+### Patch Changes
+
+- Updated dependencies [[\`62026f5\`](https://github.com/repobuddy/visual-testing/commit/62026f5bca4718b34d53495e2934f62645a20d66)]:
+  - vitest-plugin-vis@5.1.3
+
 ## 4.2.5
 
 ### Patch Changes
