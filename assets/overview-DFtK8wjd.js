@@ -1,0 +1,5 @@
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,s as n}from"./blocks-d0ZvSups.js";import{a as r}from"./chunk-W22LQPXL-Dvwv7Jvr.js";import{i,r as a}from"./react-Bl2r1tuC.js";function o(e){let t={code:`code`,h1:`h1`,p:`p`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`node`}),`
+`,(0,c.jsx)(t.h1,{id:`storybook-addon-visnode`,children:(0,c.jsx)(t.code,{children:`storybook-addon-vis/node`})}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`storybook-addon-vis/node`}),` provides functionality to configure the Storybook Visual Testing addon in the `,(0,c.jsx)(t.code,{children:`.storybook/main.ts`}),` file.`]}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`.storybook/main.ts`}),` is run on the server side,
+so the code it uses are separated from the client side code.`]})]})}function s(e={}){let{wrapper:t}={...i(),...e.components};return t?(0,c.jsx)(t,{...e,children:(0,c.jsx)(o,{...e})}):o(e)}var c;function l(){return(l=e((()=>{c=r(),a(),t()})))()}l();export{s as default};

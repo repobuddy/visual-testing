@@ -1,0 +1,3 @@
+import{a as e,n as t}from"./rolldown-runtime-DkW27tQK.js";import{t as n}from"./react-BZJXY1be.js";var r,i,a,o,s;function c(){return(c=t((()=>{r=e(n(),1),i={title:`tags/per meta`,render:()=>r.createElement(r.Fragment,null,`unit test`),tags:[`snapshot`],parameters:{layout:`centered`}},a={},o={tags:[`!snapshot`]},a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{}`,...a.parameters?.docs?.source}}},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  tags: ['!snapshot']
+}`,...o.parameters?.docs?.source}}},s=[`TakeSnapshot`,`SkipSnapshot`]})))()}c();export{o as SkipSnapshot,a as TakeSnapshot,s as __namedExportsOrder,i as default};

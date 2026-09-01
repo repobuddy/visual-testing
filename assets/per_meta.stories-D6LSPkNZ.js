@@ -1,3 +1,0 @@
-import{i as e,s as t}from"./preload-helper-xPQekRTU.js";import{t as n}from"./react-H9AhGIcj.js";var r,i,a,o,s;e((()=>{r=t(n(),1),i={title:`tags/per meta`,render:()=>r.createElement(r.Fragment,null,`unit test`),tags:[`snapshot`],parameters:{layout:`centered`}},a={},o={tags:[`!snapshot`]},a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`{}`,...a.parameters?.docs?.source}}},o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
-  tags: ['!snapshot']
-}`,...o.parameters?.docs?.source}}},s=[`TakeSnapshot`,`SkipSnapshot`]}))();export{o as SkipSnapshot,a as TakeSnapshot,s as __namedExportsOrder,i as default};

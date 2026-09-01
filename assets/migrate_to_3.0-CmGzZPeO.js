@@ -1,5 +1,0 @@
-import{i as e}from"./preload-helper-xPQekRTU.js";import{d as t,k as n,o as r,s as i}from"./iframe-CeUp86I-.js";import{t as a}from"./mdx-react-shim-CmBBfeFi.js";function o(e){let n={a:`a`,h1:`h1`,p:`p`,...t(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(r,{title:`Releases/Migrating to 3.0`}),`
-`,(0,c.jsx)(n.h1,{id:`migrating-to-30`,children:`Migrating to 3.0`}),`
-`,(0,c.jsxs)(n.p,{children:[(0,c.jsx)(n.a,{href:`https://www.npmjs.com/package/storybook-addon-vis`,rel:`nofollow`,children:`storybook-addon-vis`}),` 3.0.0 supports Storybook 10.`]}),`
-`,(0,c.jsx)(n.p,{children:`The API remains the same as v2.0.0.`}),`
-`,(0,c.jsxs)(n.p,{children:[`If you are migrating to use CSF Next, follow the `,(0,c.jsx)(n.a,{href:`?path=/docs/overview--docs#basic-setup-for-csf-next`,children:`Basic Setup for CSF Next`}),` guide.`]})]})}function s(e={}){let{wrapper:n}={...t(),...e.components};return n?(0,c.jsx)(n,{...e,children:(0,c.jsx)(o,{...e})}):o(e)}var c;e((()=>{c=n(),a(),i()}))();export{s as default};
