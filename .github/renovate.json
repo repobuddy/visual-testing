@@ -1,3 +1,52 @@
 {
-	"extends": ["github>unional/renovate-preset"]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["github>unional/renovate-preset", ":semanticCommits", ":dependencyDashboard"],
+	"platformAutomerge": true,
+	"automergeType": "pr",
+	"rangeStrategy": "replace",
+	"ignoreUnstable": true,
+	"respectLatest": true,
+	"lockFileMaintenance": {
+		"enabled": true,
+		"automerge": true
+	},
+	"packageRules": [
+		{
+			"description": "devDependencies and repo tooling merge themselves once CI is green.",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["patch", "minor", "digest", "pin"],
+			"automerge": true
+		},
+		{
+			"description": "pnpm catalog entries are dev/test tooling here; same rule.",
+			"matchDepTypes": ["dependencies"],
+			"matchFileNames": ["pnpm-workspace.yaml"],
+			"matchUpdateTypes": ["patch", "minor"],
+			"automerge": true
+		},
+		{
+			"description": "GitHub Actions and the toolchain (node/pnpm) merge themselves.",
+			"matchManagers": ["github-actions", "nvm", "npm"],
+			"matchDepTypes": ["action", "engines", "packageManager"],
+			"matchUpdateTypes": ["patch", "minor", "digest", "pin"],
+			"automerge": true
+		},
+		{
+			"description": "Runtime dependencies and peerDependencies ship to consumers and need a changeset, so they stay manual.",
+			"matchDepTypes": ["dependencies", "peerDependencies"],
+			"matchFileNames": ["packages/**/package.json"],
+			"automerge": false,
+			"addLabels": ["needs-changeset"]
+		},
+		{
+			"description": "Majors are always a human decision.",
+			"matchUpdateTypes": ["major"],
+			"automerge": false
+		},
+		{
+			"description": "type-plus 8.x is an unfinished major parked in changesets prerelease mode; type-plus@latest is deliberately 7.x. ignoreUnstable only blocks stable->unstable, so an already-unstable pin makes every new beta look like a patch. This bound is what stops that.",
+			"matchPackageNames": ["type-plus"],
+			"allowedVersions": "<8.0.0-0"
+		}
+	]
 }

@@ -1,0 +1,7 @@
+# This repo consolidates on Renovate + `platformAutomerge` as the single
+# updater and the single merge mechanism. Without this file Mergify falls back
+# to the org default in `repobuddy/.github`, whose rules merge *any* Dependabot
+# or Renovate PR with `method: rebase` and no check conditions of their own —
+# including runtime `dependencies` bumps, which ship to consumers and must not
+# land without a changeset.
+pull_request_rules: []

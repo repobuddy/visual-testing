@@ -2,6 +2,13 @@ packages:
   - packages/*
   - testcases/*
 
+# Supply-chain soak. Set here (not in .npmrc) because pnpm only enables strict
+# enforcement when the setting comes from pnpm-workspace.yaml / config.yaml /
+# CLI / env; from .npmrc it runs loose and silently waives too-young packages
+# into minimumReleaseAgeExclude instead of failing.
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+
 allowBuilds:
   '@parcel/watcher': true
   edgedriver: true
