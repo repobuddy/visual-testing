@@ -1,4 +1,3 @@
-import type { Merge } from 'type-plus'
 import type { BrowserCommandContext } from 'vitest/node'
 import type { Awaitable } from '../shared/types.ts'
 
@@ -36,6 +35,17 @@ export type ExtendedBrowserCommand<Payload extends unknown[] = [], ReturnValue =
 	context: ExtendedBrowserCommandContext,
 	...payload: Payload
 ) => Awaitable<ReturnValue>
+
+/**
+ * Left-join `A` with `B`: keys only in `A` are kept as-is, keys in both are
+ * intersected, keys only in `B` are added.
+ *
+ * Defined locally instead of imported so this package does not depend on which
+ * major of `type-plus` exposes a `Merge` alias.
+ */
+type Merge<A, B> = Omit<A, keyof B> & {
+	[K in keyof B]: K extends keyof A ? A[K] & B[K] : B[K]
+}
 
 export type ExtendedBrowserCommandContext = {
 	page: BrowserCommandContext['page']

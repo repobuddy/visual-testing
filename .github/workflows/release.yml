@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Install playwright browsers
-        uses: repobuddy/.github/.github/actions/setup-playwright@main
+        uses: repobuddy/.github/.github/actions/setup-playwright@v2
 
       - name: Verify
         uses: nick-fields/retry@v4
@@ -53,14 +53,23 @@ jobs:
             */*/__vis__/**/__results__
 
   release:
-    uses: repobuddy/.github/.github/workflows/pnpm-release-changeset.yml@main
+    # Declaring permissions replaces the default set, so every scope the called
+    # workflow declares must be listed here — unlisted ones drop to none, and a
+    # callee asking for more than the caller holds fails the run at startup.
+    permissions:
+      # Mints the OIDC token npm exchanges for short-lived publish credentials.
+      id-token: write
+      # Lets changesets/action push the version branch and tags.
+      contents: write
+      # Lets changesets/action open the "version packages" PR.
+      pull-requests: write
+    uses: repobuddy/.github/.github/workflows/pnpm-release-changeset-oidc.yml@v2
     needs: verify
-    secrets: inherit
 
   docgen:
     permissions:
       contents: write
-    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@main
+    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@v2
     needs: release
     if: github.ref == 'refs/heads/main' && needs.release.outputs.published == 'true'
     with:

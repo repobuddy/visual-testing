@@ -11,6 +11,9 @@ export default {
 } as Meta
 
 export const Primary: StoryObj = {
+	globals: {
+		theme: 'light',
+	},
 	args: {
 		primary: true,
 		label: 'Button',
