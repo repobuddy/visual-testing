@@ -1,5 +1,41 @@
 # CHANGE LOG
 
+## 4.2.5
+
+### Patch Changes
+
+- [#849](https://github.com/repobuddy/visual-testing/pull/849) [`f450ead`](https://github.com/repobuddy/visual-testing/commit/f450eadb54ea9daf9ce62a227c782b39bf834573) Thanks [@unional](https://github.com/unional)! - Wait for the vitest browser modules before using them.
+  
+  `commands` and `page` are backed by a dynamic import that nothing awaited, so a
+  hook reading `commands.setupVisSuite` before it settled got `undefined` and
+  failed with `commands.setupVisSuite is not a function` — inside a genuine vitest
+  browser run. Command reads now return a function that waits for the import, and
+  the addon's `beforeAll` awaits the module load before touching `page` or the
+  current test.
+
+- [`6697a67`](https://github.com/repobuddy/visual-testing/commit/6697a67b874c3943098af77539285f0b92a159ec) Thanks [@unional](https://github.com/unional)! - Raise dependency floors to pull in security fixes.
+  
+  `glob`, `rimraf`, `pathe`, `dedent`, `is-ci`, and `pixelmatch` move up within
+  their existing major, which resolves the advisories reaching the runtime
+  dependency tree through `brace-expansion` and `tmp`. No API change.
+
+- [#858](https://github.com/repobuddy/visual-testing/pull/858) [`6f65e20`](https://github.com/repobuddy/visual-testing/commit/6f65e206ab222bbf24f7acdf5e9f4df560d5d442) Thanks [@unional](https://github.com/unional)! - Depend on the stable `type-plus` line instead of an 8.x prerelease.
+  
+  Both packages carried `"type-plus": "8.0.0-beta.8"` as an exact pin in their
+  runtime `dependencies`. `type-plus@latest` is deliberately `7.6.2`; the 8.x line
+  is an unfinished major parked in prerelease. The exact pin forced every consumer
+  to install that prerelease, and consumers that also depend on something else
+  pinning a different 8.x beta resolved two copies of `type-plus`. The pin now
+  reads `^7.6.2`.
+  
+  The only type this needed that 7.x does not export from its root is `Merge`, so
+  `Merge` is now declared locally in `vis_server_context.types.ts`. Emitted output
+  is otherwise byte-for-byte identical to the build under `8.0.0-beta.8`: the sole
+  difference in `dist` is that one alias moving from an import into the file. No
+  API change.
+- Updated dependencies [[`5364614`](https://github.com/repobuddy/visual-testing/commit/5364614b07e8301250922c190b621300e86ba4fd), [`6697a67`](https://github.com/repobuddy/visual-testing/commit/6697a67b874c3943098af77539285f0b92a159ec), [`6f65e20`](https://github.com/repobuddy/visual-testing/commit/6f65e206ab222bbf24f7acdf5e9f4df560d5d442)]:
+  - vitest-plugin-vis@5.1.2
+
 ## 4.2.4
 
 ### Patch Changes

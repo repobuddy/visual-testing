@@ -1,5 +1,34 @@
 # vitest-plugin-vis
 
+## 5.1.2
+
+### Patch Changes
+
+- [#851](https://github.com/repobuddy/visual-testing/pull/851) [`5364614`](https://github.com/repobuddy/visual-testing/commit/5364614b07e8301250922c190b621300e86ba4fd) Thanks [@unional](https://github.com/unional)! - Show snapshot paths in failure messages relative to the project root (`./__vis__/...`) instead of absolute.
+  
+  Editors and terminals resolve the relative path just as well, and the output no longer leaks the local absolute path when a failure is pasted into a bug report. Paths outside the project root stay absolute. Filesystem operations are unaffected and still resolve to absolute paths.
+
+- [`6697a67`](https://github.com/repobuddy/visual-testing/commit/6697a67b874c3943098af77539285f0b92a159ec) Thanks [@unional](https://github.com/unional)! - Raise dependency floors to pull in security fixes.
+  
+  `glob`, `rimraf`, `pathe`, `dedent`, `is-ci`, and `pixelmatch` move up within
+  their existing major, which resolves the advisories reaching the runtime
+  dependency tree through `brace-expansion` and `tmp`. No API change.
+
+- [#858](https://github.com/repobuddy/visual-testing/pull/858) [`6f65e20`](https://github.com/repobuddy/visual-testing/commit/6f65e206ab222bbf24f7acdf5e9f4df560d5d442) Thanks [@unional](https://github.com/unional)! - Depend on the stable `type-plus` line instead of an 8.x prerelease.
+  
+  Both packages carried `"type-plus": "8.0.0-beta.8"` as an exact pin in their
+  runtime `dependencies`. `type-plus@latest` is deliberately `7.6.2`; the 8.x line
+  is an unfinished major parked in prerelease. The exact pin forced every consumer
+  to install that prerelease, and consumers that also depend on something else
+  pinning a different 8.x beta resolved two copies of `type-plus`. The pin now
+  reads `^7.6.2`.
+  
+  The only type this needed that 7.x does not export from its root is `Merge`, so
+  `Merge` is now declared locally in `vis_server_context.types.ts`. Emitted output
+  is otherwise byte-for-byte identical to the build under `8.0.0-beta.8`: the sole
+  difference in `dist` is that one alias moving from an import into the file. No
+  API change.
+
 ## 5.1.1
 
 ### Patch Changes
