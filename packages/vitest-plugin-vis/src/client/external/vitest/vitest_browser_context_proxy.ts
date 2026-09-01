@@ -39,6 +39,6 @@ export const server = new Proxy<{
 	config: SerializedConfig
 }>({} as any, {
 	get(target, prop) {
-		return (target as any)[prop] ?? (ctx?.server as any)[prop]
+		return (target as any)[prop] ?? (ctx?.server as any)?.[prop]
 	},
 })
