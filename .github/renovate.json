@@ -42,11 +42,6 @@
 			"description": "Majors are always a human decision.",
 			"matchUpdateTypes": ["major"],
 			"automerge": false
-		},
-		{
-			"description": "type-plus 8.x is an unfinished major parked in changesets prerelease mode; type-plus@latest is deliberately 7.x. ignoreUnstable only blocks stable->unstable, so an already-unstable pin makes every new beta look like a patch. This bound is what stops that.",
-			"matchPackageNames": ["type-plus"],
-			"allowedVersions": "<8.0.0-0"
 		}
 	]
 }
