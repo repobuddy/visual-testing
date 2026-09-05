@@ -9,18 +9,6 @@ packages:
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
 
-minimumReleaseAgeExclude:
-  # type-plus@8.0.0-beta.10 fixes the CJS packaging defect in beta.8 that broke
-  # require() of these packages. Taken before the 24h soak elapses; it is a
-  # first-party dependency published via npm trusted publishing with SLSA
-  # provenance (verified).
-  - 'type-plus@8.0.0-beta.10'
-  # Required by type-plus@8.0.0-beta.10 (tersify ^4.0.6, unpartial ^1.0.7); no
-  # older version satisfies those ranges. Both are first-party and published
-  # with SLSA provenance (verified).
-  - 'tersify@4.0.6'
-  - 'unpartial@1.0.7'
-
 allowBuilds:
   '@parcel/watcher': true
   edgedriver: true
