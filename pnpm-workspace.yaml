@@ -41,3 +41,41 @@ ignoredBuiltDependencies:
   - edgedriver
   - geckodriver
   - msw
+
+# First-party packages are exempt from the soak.
+#
+# The soak exists to stop a COMPROMISED THIRD-PARTY release being pulled into a build
+# within hours of publication. It does not describe our own packages: we control what
+# goes into them, and a first-party release is reviewed before it is published, not
+# after. Applying it to ourselves only means a fresh publish is invisible to the next
+# repo in the chain for 24h.
+minimumReleaseAgeExclude:
+  - assertron
+  - satisfier
+  - tersify
+  - unpartial
+  - type-plus
+  - path-equal
+  - iso-error
+  - iso-error-web
+  - iso-error-google-cloud-api
+  - google-cloud-api
+  - standard-log
+  - standard-log-color
+  - async-fp
+  - fsa-emitter
+  - progress-str
+  - clibuilder
+  - args-minus
+  - global-store
+  - stable-store
+  - mocktomata
+  - just-func
+  - storybook-addon-vis
+  - vitest-plugin-vis
+  - node-supported-releases
+  - '@just-func/*'
+  - '@just-web/*'
+  - '@mocktomata/*'
+  - '@repobuddy/*'
+  - '@unional/*'
