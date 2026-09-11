@@ -119,7 +119,7 @@
 	"peerDependencies": {
 		"@vitest/browser": "^4",
 		"@vitest/browser-playwright": "^4",
-		"@vitest/browser-webdriverio": "^4",
+		"@vitest/browser-webdriverio": "^5.0.0",
 		"vitest": "^4"
 	},
 	"peerDependenciesMeta": {
