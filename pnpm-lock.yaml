@@ -230,8 +230,8 @@ importers:
         specifier: ^2.0.3
         version: 2.0.3
       type-plus:
-        specifier: 8.0.0-beta.10
-        version: 8.0.0-beta.10(typescript@6.0.3)
+        specifier: 8.0.0-beta.11
+        version: 8.0.0-beta.11(typescript@6.0.3)
       vitest-plugin-vis:
         specifier: workspace:^
         version: link:../vitest-plugin-vis
@@ -366,8 +366,8 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
       type-plus:
-        specifier: 8.0.0-beta.10
-        version: 8.0.0-beta.10(typescript@6.0.3)
+        specifier: 8.0.0-beta.11
+        version: 8.0.0-beta.11(typescript@6.0.3)
     devDependencies:
       '@repobuddy/storybook':
         specifier: ^2.32.0
@@ -407,7 +407,7 @@ importers:
         version: 4.1.11(playwright@1.63.0)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))(vitest@4.1.11)
       '@vitest/browser-webdriverio':
         specifier: 'catalog:'
-        version: 4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.5(supports-color@8.1.1))
+        version: 4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.7(supports-color@8.1.1))
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 4.1.11(supports-color@8.1.1)(vitest@4.1.11)
@@ -5087,10 +5087,10 @@ packages:
   type-plus@7.6.2:
     resolution: {integrity: sha512-qUlXv9Y0/W56pg38m275IMD3WA03QbVoqNY16S3kmwtuA4gOT2iheyUdOp8NWrmXWpf7om98hzr7AZD/eW2jLA==}
 
-  type-plus@8.0.0-beta.10:
-    resolution: {integrity: sha512-ZdhzmQg7f8oxt5Cbivslk8o3zef8L3ibpKIeGH1ESf73y8ZEY1z9fe4Z3fTxcjmFOb8ESE1TbW/MCgEvpeLC4w==}
+  type-plus@8.0.0-beta.11:
+    resolution: {integrity: sha512-8/QsyrWhzvUpq7HREOUR4T4sVMiVMBYvMLH9brYvfwc0Nr71a2mPAafrWwg6W5EWsgIr0TUBHBNtwO8neKZUUg==}
     peerDependencies:
-      typescript: '>= 5.6.0'
+      typescript: '>= 5.4.0'
 
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
@@ -6004,7 +6004,7 @@ snapshots:
   '@just-web/css@0.8.5(typescript@6.0.3)':
     dependencies:
       csstype: 3.2.3
-      type-plus: 8.0.0-beta.10(typescript@6.0.3)
+      type-plus: 8.0.0-beta.11(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
 
@@ -6424,7 +6424,7 @@ snapshots:
       htmlfy: 1.0.2
       tailwind-merge: 3.6.0
       tailwindcss: 4.3.3
-      type-plus: 8.0.0-beta.10(typescript@6.0.3)
+      type-plus: 8.0.0-beta.11(typescript@6.0.3)
     optionalDependencies:
       '@storybook-community/storybook-dark-mode': 7.1.4(@storybook/addon-docs@10.6.0(@types/react-dom@19.2.7(@types/react@19.2.18))(@types/react@19.2.18)(storybook@10.6.0(@types/react@19.2.18)(react@19.2.8)))(react@19.2.8)(storybook@10.6.0(@types/react@19.2.18)(react@19.2.8))
       '@storybook/addon-docs': 10.6.0(@types/react-dom@19.2.7(@types/react@19.2.18))(@types/react@19.2.18)(storybook@10.6.0(@types/react@19.2.18)(react@19.2.8))
@@ -6998,11 +6998,11 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/browser-webdriverio@4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.5(supports-color@8.1.1))':
+  '@vitest/browser-webdriverio@4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.7(supports-color@8.1.1))':
     dependencies:
       '@vitest/browser': 4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))(vitest@4.1.11)
       vitest: 4.1.11(@types/node@25.9.5)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))
-      webdriverio: 9.31.5(supports-color@8.1.1)
+      webdriverio: 9.31.7(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -7020,6 +7020,7 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
+    optional: true
 
   '@vitest/browser-webdriverio@4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.7(supports-color@8.1.1))':
     dependencies:
@@ -9427,7 +9428,7 @@ snapshots:
       tersify: 3.12.1
       unpartial: 1.0.7
 
-  type-plus@8.0.0-beta.10(typescript@6.0.3):
+  type-plus@8.0.0-beta.11(typescript@6.0.3):
     dependencies:
       tersify: 4.0.6
       typescript: 6.0.3
@@ -9547,7 +9548,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.9.5
       '@vitest/browser-playwright': 4.1.11(playwright@1.63.0)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))(vitest@4.1.11)
-      '@vitest/browser-webdriverio': 4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.5(supports-color@8.1.1))
+      '@vitest/browser-webdriverio': 4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@1.21.7)(yaml@2.9.0))(vitest@4.1.11)(webdriverio@9.31.7(supports-color@8.1.1))
       '@vitest/coverage-istanbul': 4.1.11(supports-color@8.1.1)(vitest@4.1.11)
       '@vitest/coverage-v8': 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
       '@vitest/ui': 4.1.11(vitest@4.1.11)
