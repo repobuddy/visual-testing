@@ -125,9 +125,9 @@
 	},
 	"peerDependencies": {
 		"@storybook/addon-vitest": "^10.1.10",
-		"@vitest/browser": "^4",
+		"@vitest/browser": "^5.0.0",
 		"storybook": "^10.1.10",
-		"vitest": "^4"
+		"vitest": "^5.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
