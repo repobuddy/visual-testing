@@ -25,16 +25,16 @@ catalog:
   '@types/react': ^19.2.18
   '@types/react-dom': ^19.2.5
   '@vitejs/plugin-react': ^6.1.0
-  '@vitest/browser': ^4.1.11
-  '@vitest/browser-playwright': ^4.1.11
+  '@vitest/browser': ^5.0.0
+  '@vitest/browser-playwright': ^5.0.0
   '@vitest/browser-webdriverio': ^4.1.11
-  '@vitest/coverage-istanbul': ^4.1.11
-  '@vitest/coverage-v8': ^4.1.11
-  '@vitest/expect': ^4.1.11
-  '@vitest/ui': ^4.1.11
+  '@vitest/coverage-istanbul': ^5.0.0
+  '@vitest/coverage-v8': ^5.0.0
+  '@vitest/expect': ^5.0.0
+  '@vitest/ui': ^5.0.0
   typescript: ^6.0.3
   vite: ^8.2.2
-  vitest: ^4.1.11
+  vitest: ^5.0.0
   vitest-browser-react: ^2.2.0
 
 ignoredBuiltDependencies:
