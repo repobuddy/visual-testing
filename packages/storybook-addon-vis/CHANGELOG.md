@@ -1,5 +1,16 @@
 # CHANGE LOG
 
+## 4.2.9
+
+### Patch Changes
+
+- [#885](https://github.com/repobuddy/visual-testing/pull/885) [`b674dfe`](https://github.com/repobuddy/visual-testing/commit/b674dfe38412b252f0b6a5a79cbcce4183b17a8f) Thanks [@unional](https://github.com/unional)! - Update `type-plus` to `8.0.0-beta.12`.
+  
+  `type-plus` 8.0.0-beta.12 no longer exports the distributive `Pick` and `Omit` from its root.
+  The public types now use `ObjectPlus.Pick` and `ObjectPlus.Omit`, which behave the same.
+- Updated dependencies [[`b674dfe`](https://github.com/repobuddy/visual-testing/commit/b674dfe38412b252f0b6a5a79cbcce4183b17a8f)]:
+  - vitest-plugin-vis@5.1.6
+
 ## 4.2.8
 
 ### Patch Changes
