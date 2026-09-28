@@ -230,8 +230,8 @@ importers:
         specifier: ^2.0.3
         version: 2.0.3
       type-plus:
-        specifier: 8.0.0-beta.10
-        version: 8.0.0-beta.10(typescript@6.0.3)
+        specifier: 8.0.0-beta.11
+        version: 8.0.0-beta.11(typescript@6.0.3)
       vitest-plugin-vis:
         specifier: workspace:^
         version: link:../vitest-plugin-vis
@@ -366,8 +366,8 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
       type-plus:
-        specifier: 8.0.0-beta.10
-        version: 8.0.0-beta.10(typescript@6.0.3)
+        specifier: 8.0.0-beta.11
+        version: 8.0.0-beta.11(typescript@6.0.3)
     devDependencies:
       '@repobuddy/storybook':
         specifier: ^2.32.0
@@ -5047,6 +5047,11 @@ packages:
     peerDependencies:
       typescript: '>= 5.6.0'
 
+  type-plus@8.0.0-beta.11:
+    resolution: {integrity: sha512-8/QsyrWhzvUpq7HREOUR4T4sVMiVMBYvMLH9brYvfwc0Nr71a2mPAafrWwg6W5EWsgIr0TUBHBNtwO8neKZUUg==}
+    peerDependencies:
+      typescript: '>= 5.4.0'
+
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
@@ -9287,6 +9292,12 @@ snapshots:
   type-fest@4.41.0: {}
 
   type-plus@8.0.0-beta.10(typescript@6.0.3):
+    dependencies:
+      tersify: 4.0.7
+      typescript: 6.0.3
+      unpartial: 1.0.8
+
+  type-plus@8.0.0-beta.11(typescript@6.0.3):
     dependencies:
       tersify: 4.0.7
       typescript: 6.0.3
