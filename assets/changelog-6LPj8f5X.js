@@ -1,5 +1,15 @@
 import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,o as n,s as r}from"./blocks-DTrhZL-3.js";import{a as i}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i as a,r as o}from"./react-BXJ34t_g.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
 
+## 4.3.0
+
+### Minor Changes
+
+- [#887](https://github.com/repobuddy/visual-testing/pull/887) [\`7bc7aee\`](https://github.com/repobuddy/visual-testing/commit/7bc7aee0dc9ffc610f7b818898cd00f8031ece37) Thanks [@unional](https://github.com/unional)! - Export \`cdp\`, a proxy of \`cdp()\` from \`vitest/browser\` that is safe to import from stories.
+  
+  Importing \`vitest/browser\` directly in a story throws in a plain Storybook preview and blanks the story. \`cdp\` loads it only during a Vitest browser run, like the existing \`page\` and \`commands\` proxies, and session calls made before the import settles wait for it. Calling \`cdp()\` outside a Vitest browser run throws.
+  
+  CDP is available only with the Playwright provider on Chromium.
+
 ## 4.2.9
 
 ### Patch Changes

@@ -455,6 +455,24 @@ export const HasImageSnapshot = {
 }
 `})}),`
 `,(0,c.jsx)(t.p,{children:`This is useful when you are performing some negative test.`}),`
+`,(0,c.jsx)(t.h2,{id:`usage---chrome-devtools-protocol`,children:`Usage - Chrome DevTools Protocol`}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`cdp`}),` is a proxy of `,(0,c.jsx)(t.code,{children:`cdp()`}),` from `,(0,c.jsx)(t.code,{children:`vitest/browser`}),`.
+Importing `,(0,c.jsx)(t.code,{children:`vitest/browser`}),` directly in a story breaks the story in a plain Storybook preview,
+where the module throws on import; the proxy loads it only during a Vitest browser run.`]}),`
+`,(0,c.jsx)(t.p,{children:`Use it to read what the browser computes, such as the accessible name and description Chromium exposes to screen readers:`}),`
+`,(0,c.jsx)(t.pre,{children:(0,c.jsx)(t.code,{className:`language-tsx`,children:`import { cdp } from 'storybook-addon-vis'
+
+export const AccessibleName = {
+	async play() {
+		const session = cdp()
+		await session.send('Accessibility.enable')
+		const { nodes } = await session.send('Accessibility.getFullAXTree')
+		// assert on nodes
+	}
+}
+`})}),`
+`,(0,c.jsxs)(t.p,{children:[`CDP is available only with the Playwright provider on Chromium.
+Calling `,(0,c.jsx)(t.code,{children:`cdp()`}),` outside a Vitest browser run throws, so keep such tests in Vitest.`]}),`
 `,(0,c.jsx)(t.h2,{id:`troubleshooting`,children:`Troubleshooting`}),`
 `,(0,c.jsxs)(t.blockquote,{children:[`
 `,(0,c.jsx)(t.p,{children:`Internal server error: Failed to resolve import "pathe"`}),`
