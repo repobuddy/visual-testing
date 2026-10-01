@@ -1,5 +1,23 @@
 import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,o as n,s as r}from"./blocks-DTrhZL-3.js";import{a as i}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i as a,r as o}from"./react-BXJ34t_g.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
 
+## 4.3.1
+
+### Patch Changes
+
+- [#889](https://github.com/repobuddy/visual-testing/pull/889) [\`b770cfe\`](https://github.com/repobuddy/visual-testing/commit/b770cfe37da3161c393d6414cea202fe33114b34) Thanks [@unional](https://github.com/unional)! - Fix auto snapshots hanging until the test timeout when \`subject\` matches a hidden element.
+  
+  The \`subject\` selector was resolved with \`document.querySelector()\`, which returns the first match even when it is hidden. In Storybook, a selector such as \`button\` matched hidden buttons that Storybook adds to the document, so the screenshot waited for that element to become visible until the timeout. Auto snapshots now use the first visible match.
+  
+  If the selector matches only hidden elements, the snapshot now fails right away with a "not visible" error instead of waiting until the timeout. If it matches nothing, \`document.body\` is still used.
+
+- [#890](https://github.com/repobuddy/visual-testing/pull/890) [\`affac03\`](https://github.com/repobuddy/visual-testing/commit/affac0311460f56d3d1c951b6d178445a73fd790) Thanks [@unional](https://github.com/unional)! - Trim leading and trailing whitespace from test and suite names when building the snapshot path ([#847](https://github.com/repobuddy/visual-testing/issues/847)).
+  
+  Storybook appends two spaces to the \`describe\` title it generates for a CSF Next story that uses \`story.test()\`. Those spaces became two dashes in the snapshot folder name, so the snapshots landed under \`<story>--/\`.
+  
+  Snapshots of \`story.test()\` stories now land under \`<story>/\`. Move or regenerate the existing baselines from \`<story>--/\` to \`<story>/\`. Snapshot paths of plain stories and regular tests do not change.
+- Updated dependencies [[\`b770cfe\`](https://github.com/repobuddy/visual-testing/commit/b770cfe37da3161c393d6414cea202fe33114b34), [\`affac03\`](https://github.com/repobuddy/visual-testing/commit/affac0311460f56d3d1c951b6d178445a73fd790)]:
+  - vitest-plugin-vis@5.1.7
+
 ## 4.3.0
 
 ### Minor Changes
