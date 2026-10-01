@@ -81,8 +81,10 @@ export type ImageSnapshotSubjectOptions = {
 	/**
 	 * Specify the query of the subject element.
 	 *
+	 * If the query matches multiple elements, the first visible one is used.
 	 * If the test does not have an element with the specified query,
 	 * the `body` element will be used.
+	 * If the query only matches hidden elements, the snapshot fails right away.
 	 */
 	subject?: string | undefined
 }

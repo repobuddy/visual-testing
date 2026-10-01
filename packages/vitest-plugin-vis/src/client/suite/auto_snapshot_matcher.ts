@@ -6,6 +6,7 @@ import type { ComparisonMethod, SetupVisOptions } from '../../shared/types.ts'
 import { shouldTakeSnapshot } from '../snapshot/should_take_snapshot.ts'
 import { toTaskId } from '../task/task_id.ts'
 import { ctx } from './_ctx.ts'
+import { resolveSubject } from './resolve_subject.ts'
 
 export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = unknown>(
 	commands: SetupVisSuiteCommand,
@@ -40,7 +41,7 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 							meta != null && Object.hasOwn(meta as object, 'createMissingBaseline')
 								? (meta as { createMissingBaseline?: boolean }).createMissingBaseline
 								: suiteDefaults?.createMissingBaseline
-						await expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
+						await expect(resolveSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
 							...meta,
 							snapshotKey: meta?.snapshotKey ?? themeId,
 							...(effectiveCreateMissingBaseline !== undefined
@@ -68,8 +69,4 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 			}
 		},
 	}
-}
-
-function getSubject(selectors: string | undefined) {
-	return selectors ? (document.querySelector(selectors) ?? document.body) : document.body
 }
