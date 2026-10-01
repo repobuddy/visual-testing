@@ -40,12 +40,12 @@
 		"w": "turbo w"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.5.12",
+		"@biomejs/biome": "2.5.14",
 		"@changesets/changelog-github": "^1.0.0",
 		"@changesets/cli": "^3.0.1",
 		"@commitlint/cli": "^21.2.2",
 		"@commitlint/config-conventional": "^21.2.2",
-		"@repobuddy/biome": "^2.3.1",
+		"@repobuddy/biome": "^2.4.0",
 		"@types/node": "^25.9.5",
 		"@vitest/coverage-v8": "catalog:",
 		"cross-env": "^10.1.0",
@@ -58,7 +58,7 @@
 		"vitest": "catalog:",
 		"webdriverio": "^9.31.2"
 	},
-	"packageManager": "pnpm@12.3.4",
+	"packageManager": "pnpm@12.8.1",
 	"engines": {
 		"node": "^22.11 || ^24 || >=26"
 	}

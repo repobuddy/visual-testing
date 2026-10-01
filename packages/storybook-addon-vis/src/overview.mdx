@@ -570,6 +570,30 @@ export const HasImageSnapshot = {
 This is useful when you are performing some negative test.
 
 
+
+## Usage - Chrome DevTools Protocol
+
+`cdp` is a proxy of `cdp()` from `vitest/browser`.
+Importing `vitest/browser` directly in a story breaks the story in a plain Storybook preview,
+where the module throws on import; the proxy loads it only during a Vitest browser run.
+
+Use it to read what the browser computes, such as the accessible name and description Chromium exposes to screen readers:
+
+```tsx
+import { cdp } from 'storybook-addon-vis'
+
+export const AccessibleName = {
+	async play() {
+		const session = cdp()
+		await session.send('Accessibility.enable')
+		const { nodes } = await session.send('Accessibility.getFullAXTree')
+		// assert on nodes
+	}
+}
+```
+
+CDP is available only with the Playwright provider on Chromium.
+Calling `cdp()` outside a Vitest browser run throws, so keep such tests in Vitest.
 ## Troubleshooting
 
 > Internal server error: Failed to resolve import "pathe"

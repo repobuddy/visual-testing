@@ -53,3 +53,15 @@ export const Small: Story = {
 		label: 'Button',
 	},
 }
+
+/**
+ * `button` also matches hidden buttons Storybook adds to the document,
+ * so the snapshot must capture the visible one.
+ * @see https://github.com/repobuddy/visual-testing/issues/848
+ */
+export const SnapshotSubject: Story = {
+	parameters: { snapshot: { subject: 'button', timeout: 2000 } },
+	args: {
+		label: 'P',
+	},
+}

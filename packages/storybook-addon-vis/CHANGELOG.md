@@ -1,5 +1,26 @@
 # CHANGE LOG
 
+## 4.3.0
+
+### Minor Changes
+
+- [#887](https://github.com/repobuddy/visual-testing/pull/887) [`7bc7aee`](https://github.com/repobuddy/visual-testing/commit/7bc7aee0dc9ffc610f7b818898cd00f8031ece37) Thanks [@unional](https://github.com/unional)! - Export `cdp`, a proxy of `cdp()` from `vitest/browser` that is safe to import from stories.
+  
+  Importing `vitest/browser` directly in a story throws in a plain Storybook preview and blanks the story. `cdp` loads it only during a Vitest browser run, like the existing `page` and `commands` proxies, and session calls made before the import settles wait for it. Calling `cdp()` outside a Vitest browser run throws.
+  
+  CDP is available only with the Playwright provider on Chromium.
+
+## 4.2.9
+
+### Patch Changes
+
+- [#885](https://github.com/repobuddy/visual-testing/pull/885) [`b674dfe`](https://github.com/repobuddy/visual-testing/commit/b674dfe38412b252f0b6a5a79cbcce4183b17a8f) Thanks [@unional](https://github.com/unional)! - Update `type-plus` to `8.0.0-beta.12`.
+  
+  `type-plus` 8.0.0-beta.12 no longer exports the distributive `Pick` and `Omit` from its root.
+  The public types now use `ObjectPlus.Pick` and `ObjectPlus.Omit`, which behave the same.
+- Updated dependencies [[`b674dfe`](https://github.com/repobuddy/visual-testing/commit/b674dfe38412b252f0b6a5a79cbcce4183b17a8f)]:
+  - vitest-plugin-vis@5.1.6
+
 ## 4.2.8
 
 ### Patch Changes

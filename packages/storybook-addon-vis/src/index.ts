@@ -7,7 +7,7 @@ import type { SetupVisOptions } from 'vitest-plugin-vis'
 import { autoSnapshotMatcher, setAutoSnapshotOptions } from 'vitest-plugin-vis/client-api'
 import { toMatchImageSnapshot } from './client/expect/to_match_image_snapshot.ts'
 import { isVitestBrowser } from './client/is_vitest_browser.ts'
-import { commands, page, whenVitestProxyReady } from './client/vitest_proxy.ts'
+import { cdp, commands, page, whenVitestProxyReady } from './client/vitest_proxy.ts'
 import { visAnnotations } from './preview/vis_annotation.ts'
 
 // Register at module load time so it's available in Storybook dev mode.
@@ -19,7 +19,7 @@ export * from './client/has_image_snapshot.ts'
 export * from './client/storybook/param.ts'
 export * from './client/storybook/tags.ts'
 
-export { page, visAnnotations }
+export { cdp, page, visAnnotations }
 
 export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) => {
 	let matcher: ReturnType<typeof autoSnapshotMatcher>

@@ -21,4 +21,8 @@ export default defineMain({
 		defineStorybookVis(),
 	],
 	framework: getAbsolutePath('@storybook/react-vite'),
+	features: {
+		// Enables `story.test()` (see StoryTest.stories.ts)
+		experimentalTestSyntax: true,
+	},
 })
