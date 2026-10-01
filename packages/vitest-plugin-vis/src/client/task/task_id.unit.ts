@@ -41,3 +41,19 @@ describe('nested level 1', () => {
 		})
 	})
 })
+
+it('should ignore leading and trailing whitespace in the task name', ({ expect }) => {
+	expect(toTaskId({ name: '  Task Name  ' })).toBe('task-name')
+})
+
+it('should ignore trailing whitespace in suite names (CSF Next story.test())', ({ expect }) => {
+	expect(toTaskId({ name: 'variant one', suite: { name: 'Snap  ' } })).toBe('snap/variant-one')
+	expect(toTaskId({ name: 'base story', suite: { name: 'Snap  ', suite: { name: 'Probe.stories.ts' } } })).toBe(
+		'probe-stories-ts/snap/base-story',
+	)
+})
+
+it('should keep separators that come from non-whitespace characters', ({ expect }) => {
+	expect(toTaskId({ name: 'Snap..' })).toBe('snap--')
+	expect(toTaskId({ name: 'Task  Name' })).toBe('task--name')
+})
