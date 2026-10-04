@@ -12,6 +12,16 @@
 	},
 	"packageRules": [
 		{
+			"description": "This repo publishes storybook-addon-vis and vitest-plugin-vis with vitest ^4 peer ranges and Storybook addon-vitest; keep vitest and @vitest/* on v4 until the libraries and Storybook support v5.",
+			"matchPackageNames": ["vitest", "@vitest/*"],
+			"allowedVersions": "<5"
+		},
+		{
+			"description": "tsdown/rolldown-plugin-dts crashes under TypeScript 7 (useCaseSensitiveFileNames) so the d.ts build fails; hold typescript below 7 until tsdown supports it.",
+			"matchPackageNames": ["typescript"],
+			"allowedVersions": "<7"
+		},
+		{
 			"description": "The toolchain pins (mise, nvm) move with packageManager, so they merge themselves too.",
 			"matchManagers": ["mise", "nvm"],
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
