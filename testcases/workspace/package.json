@@ -28,16 +28,16 @@
 		"@storybook/addon-themes": "^10.5.10",
 		"@storybook/addon-vitest": "^10.5.10",
 		"@storybook/react-vite": "^10.5.10",
+		"@tailwindcss/postcss": "^4.3.3",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
 		"@vitest/browser": "catalog:",
 		"@vitest/browser-playwright": "catalog:",
-		"autoprefixer": "^10.5.4",
 		"globals": "^17.11.0",
 		"storybook": "^10.5.10",
 		"storybook-addon-vis": "workspace:*",
-		"tailwindcss": "^3.4.19",
+		"tailwindcss": "^4.0.0",
 		"typescript": "catalog:",
 		"vitest": "catalog:"
 	}
