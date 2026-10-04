@@ -12,6 +12,12 @@
 	},
 	"packageRules": [
 		{
+			"description": "The toolchain pins (mise, nvm) move with packageManager, so they merge themselves too.",
+			"matchManagers": ["mise", "nvm"],
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		},
+		{
 			"description": "devDependencies and repo tooling merge themselves once CI is green.",
 			"matchDepTypes": ["devDependencies"],
 			"matchUpdateTypes": ["patch", "minor", "digest", "pin"],
