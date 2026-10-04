@@ -105,7 +105,7 @@
 		"@vitest/browser-webdriverio": "catalog:",
 		"@vitest/coverage-istanbul": "catalog:",
 		"@vitest/expect": "catalog:",
-		"boxen": "^8.0.1",
+		"boxen": "^9.0.0",
 		"cross-env": "^10.1.0",
 		"dedent": "^1.7.2",
 		"npm-run-all2": "^9.0.3",
