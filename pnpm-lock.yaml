@@ -251,8 +251,8 @@ importers:
         specifier: ^6.32.2
         version: 6.39.0
       playwright:
-        specifier: 1.63.0
-        version: 1.63.0
+        specifier: 1.64.0
+        version: 1.64.0
       rimraf:
         specifier: ^6.1.3
         version: 6.1.3
@@ -331,10 +331,10 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-webdriverio':
         specifier: 'catalog:'
-        version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@9.32.0(supports-color@8.1.1))
+        version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@10.0.1(supports-color@8.1.1)(yauzl@2.10.0))
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 4.1.11(supports-color@8.1.1)(vitest@4.1.11)
@@ -355,7 +355,7 @@ importers:
         version: 9.0.3
       playwright:
         specifier: latest
-        version: 1.63.0
+        version: 1.64.0
       react:
         specifier: ^19.2.8
         version: 19.3.0
@@ -388,7 +388,7 @@ importers:
         version: 2.3.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vitest@4.1.11)
       webdriverio:
         specifier: latest
-        version: 9.32.0(supports-color@8.1.1)
+        version: 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
       zx:
         specifier: ^8.8.5
         version: 8.8.5
@@ -461,7 +461,7 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-webdriverio':
         specifier: 'catalog:'
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@9.32.0(supports-color@8.1.1))
@@ -558,7 +558,7 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       globals:
         specifier: ^17.11.0
         version: 17.13.0
@@ -610,7 +610,7 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       globals:
         specifier: ^17.11.0
         version: 17.13.0
@@ -668,7 +668,7 @@ importers:
         version: 6.1.1(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -723,7 +723,7 @@ importers:
         version: 6.1.1(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -775,7 +775,7 @@ importers:
         version: 6.1.1(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -830,7 +830,7 @@ importers:
         version: 6.1.1(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -885,7 +885,7 @@ importers:
         version: 6.1.1(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -946,7 +946,7 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       globals:
         specifier: ^17.11.0
         version: 17.13.0
@@ -989,7 +989,7 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -1044,7 +1044,7 @@ importers:
         version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-playwright':
         specifier: 'catalog:'
-        version: 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+        version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       globals:
         specifier: ^17.11.0
         version: 17.13.0
@@ -2197,6 +2197,19 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  '@puppeteer/browsers@3.2.3':
+    resolution: {integrity: sha512-2Bt3m6dDAJqmZehn0wiXSYyQmuhyiHHZ7FjvrVaS1W2RoFGV6eCK71UvKYkNJjkwC1Q9nobjhvTMhLQztFVINA==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+    peerDependencies:
+      proxy-agent: '>=8.0.1'
+      yauzl: ^2.10.0 || ^3.4.0
+    peerDependenciesMeta:
+      proxy-agent:
+        optional: true
+      yauzl:
+        optional: true
+
   '@quansync/fs@1.1.0':
     resolution: {integrity: sha512-qAPG/t3HqML1TlN7sY/pTbEjzFVAKsMjNNMGheyDosro+kT4iw2KCUoHcVdmliwWjorm4elZbgNQyU2eD97eDg==}
 
@@ -2860,6 +2873,9 @@ packages:
   '@types/node@20.19.43':
     resolution: {integrity: sha512-6oYBAi5ikg4Pl+kGsoYtawUMBT2zZMCvPNF7pVLnHZfd1zf38DRiWn/gT01RYCdUqkv7Fhr+C9ot4/tb+2sVvA==}
 
+  '@types/node@22.20.5':
+    resolution: {integrity: sha512-U2+DNr+wSjpsTS/wZGYHq7GcwfuSmKiKvoPvK22zwTlRhU91yOniN4qRR5KhIjvif7ysw/dz/hKmfDH0Ris4aA==}
+
   '@types/node@25.9.9':
     resolution: {integrity: sha512-b4e2xxj/yMeT2hNlD6x7zNFiQK2Dlmkb9CQ6v3/1G2RezKN4YS2lcEv8lzGm1mhs4f2lM4yNAMI/zUDBZBBt7w==}
 
@@ -2879,6 +2895,9 @@ packages:
 
   '@types/sinonjs__fake-timers@8.1.5':
     resolution: {integrity: sha512-mQkU2jY8jJEF7YHjHvsQO8+3ughTL1mcnn96igfhONmR+fUPSKIkefQYpSe8bsly2Ep7oQbn/6VG5/9/0qcArQ==}
+
+  '@types/split2@4.2.3':
+    resolution: {integrity: sha512-59OXIlfUsi2k++H6CHgUQKEb2HKRokUA39HY1i1dS8/AIcqVjtAAFdf8u+HxTWK/4FUHMJQlKSZ4I6irCBJ1Zw==}
 
   '@types/which@2.0.2':
     resolution: {integrity: sha512-113D3mDkZDjo+EeUEHCFy0qniNc1ZpecGiAU7WSo7YDoSzolZIQKpYFHrPpjkB2nuyahcKfrmLXeQlh7gqJYdw==}
@@ -2982,24 +3001,48 @@ packages:
   '@vitest/utils@4.1.11':
     resolution: {integrity: sha512-zTCVGpyFsGWBhllOyKlTw/vnr6D9qxsfSDyfbyZmTyjHw5N/VuvzHpHoQjm2ZJzn4RJgx5w4r7V0er69CmLgPQ==}
 
+  '@wdio/config@10.0.1':
+    resolution: {integrity: sha512-n6elHE4ItKAtr4lwAaWIh/sAFuEFhyesLM27i5l9IWBJEK6VECdt0Pigj/4vUD2tliOoBtsWxphSW4oiNFXotg==}
+    engines: {node: '>=22.19.0'}
+
   '@wdio/config@9.32.0':
     resolution: {integrity: sha512-HjIANiNoL5ehIuot/KbZyNa26r5SaOaVRscYBxZ6fE4BxZMoHqthiuzGsmbr54Hn6pqQm4nn46GCsEfhPxYzEA==}
     engines: {node: '>=18.20.0'}
+
+  '@wdio/logger@10.0.0':
+    resolution: {integrity: sha512-kUIw0ZzMs1mvXOaLEcjrM1nqNXY1reaJKReKNcjDSnfhnfUIb0Q5pAsxiMeil2uR0WsSUPzn0r3D9v//7vTOkA==}
+    engines: {node: '>=22.19.0'}
 
   '@wdio/logger@9.29.1':
     resolution: {integrity: sha512-0ZAEIo6PNyMIJPlOGkIgyOJUjcd0pC8/QHlVAAe1c91/IcjZ1X+k0yidXHaboJdN7dq1XPUacmhRdtua0U5EZg==}
     engines: {node: '>=18.20.0'}
 
+  '@wdio/protocols@10.0.0':
+    resolution: {integrity: sha512-426ENC79fH7N4ggoGRHhZBY/exkdHAndbBiXcs9pQkzGP356H8C7VkQUx8g78m4k1TUC0RhOl8Se8VE0Mutpqw==}
+    engines: {node: '>=22.19.0'}
+
   '@wdio/protocols@9.31.5':
     resolution: {integrity: sha512-e4H5exl5xCcITF0y/3zd6pf9kX4TmV8/0nnWDGt4X0KbgDi/+tGqlquZ+YS4YBEPbv95yTqVhnazEsaBiH85Tw==}
+
+  '@wdio/repl@10.0.0':
+    resolution: {integrity: sha512-wAC9ksdWWv2E3Sj86eNKxB3IUt0gEyw9rgDGAWjk/GWgi6K3e+/n3erGNweI9JMJyC/+RNe0qHgVPQpRJMRVpg==}
+    engines: {node: '>=22.19.0'}
 
   '@wdio/repl@9.16.2':
     resolution: {integrity: sha512-FLTF0VL6+o5BSTCO7yLSXocm3kUnu31zYwzdsz4n9s5YWt83sCtzGZlZpt7TaTzb3jVUfxuHNQDTb8UMkCu0lQ==}
     engines: {node: '>=18.20.0'}
 
+  '@wdio/types@10.0.1':
+    resolution: {integrity: sha512-HGP9lAYXCsLAXzugfT4khCh7tYByWOMIxZHCG+tUvgmpwNzi6lfIsxyIlWownXK1wYJUpk6tkDBX/iXwN+q0lg==}
+    engines: {node: '>=22.19.0'}
+
   '@wdio/types@9.32.0':
     resolution: {integrity: sha512-7jMZQ4TGX45bPLgCv9du7mw/Kq7FrjEbQ5vTGg/pUgQy/wSygJ3u4FvPu8FS+DNeQUmvjSPKEUGfl4N+rZjpUg==}
     engines: {node: '>=18.20.0'}
+
+  '@wdio/utils@10.0.1':
+    resolution: {integrity: sha512-aYvTtF+7IYsvkFdXdu32Q2vexEaXYK79R1wLTnAXrT2Q7fp0oCDL0UgBx8Jgo5Tn98ZLWx4JlUeZsDRAIkV4Zw==}
+    engines: {node: '>=22.19.0'}
 
   '@wdio/utils@9.32.0':
     resolution: {integrity: sha512-LsU+PxRQVXJKISaj9v1NZQTmp4m9uugCh55qjN0cKvdqi3bI17V+3orMXNvDYufBgzzZ1eoGxYejJpdIKx98jA==}
@@ -3498,6 +3541,11 @@ packages:
     engines: {node: '>=20.0.0'}
     hasBin: true
 
+  edgedriver@7.0.0:
+    resolution: {integrity: sha512-4sJLhorcBSfzaqMN41q2VI9KVW9Qcpo7CHbUcBUDWeQ7uHiWnRWayV1KZOQr9jllSBOHD2aXzhUWrC2yCt+PRA==}
+    engines: {node: '>=20.0.0'}
+    hasBin: true
+
   electron-to-chromium@1.5.444:
     resolution: {integrity: sha512-5ss/uJfoDYDHT0lfJzT6FbcskIzROIOPf0BbbFkGcvDzoJU7i//9GDrwwIHQVmIsrAGiF3ihpADBRIsrEFt1rQ==}
 
@@ -3686,6 +3734,11 @@ packages:
 
   geckodriver@6.1.1:
     resolution: {integrity: sha512-/AcCyc9o9o6hUbudaSJM2iOtXbxSLqQPOb4GrPvEN40cjraUeaX/j5kH3mSgwiroyMn7qzx2wM61AQ2XY8j3sA==}
+    engines: {node: '>=20.0.0'}
+    hasBin: true
+
+  geckodriver@7.0.0:
+    resolution: {integrity: sha512-RypjU7cNcyjWK3ruEriCkWMRa9nroCT3y2qwkPynGzKTK1wG0UCWubb4AfVDTXzG9BhzRTwg29DoeK7PCRnK1w==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -4243,6 +4296,10 @@ packages:
     resolution: {integrity: sha512-t9VmxaqrmANnEOBhpSDI6HD192Ge48k8vmWqQQL7hSFEqHEYwZbbsu49+aKLWZeRvFs3j1pMhXOqqF4kPlvjkQ==}
     engines: {node: '>=18.0.0'}
 
+  modern-tar@0.8.5:
+    resolution: {integrity: sha512-snEhs+6G5Tjd4I7tLCDOaoln2RgE0bD19RzEKgvgK2hZ5VKy3MpLhLTZ2fWpXSTg4K2cyPwp+VHATFJhxfnOeA==}
+    engines: {node: '>=18.0.0'}
+
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -4416,13 +4473,13 @@ packages:
     resolution: {integrity: sha512-xhcb4yHu9sM/G7foGzoLtXYcC0zHEaOXXjRKhGup0fw78Nf2Tkiapv4EQyMzrbcmQPsllAI7DbFY2UT7PlI9Pg==}
     hasBin: true
 
-  playwright-core@1.63.0:
-    resolution: {integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==}
+  playwright-core@1.64.0:
+    resolution: {integrity: sha512-T9r+MZkTECl2+oUcZ26YgZzTrYidTsIhYYkJix+6iDOymOb1FB2RLLSOxRGnZGv5DStt+aduIVbt+E8WygXYpg==}
     engines: {node: '>=20'}
     hasBin: true
 
-  playwright@1.63.0:
-    resolution: {integrity: sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg==}
+  playwright@1.64.0:
+    resolution: {integrity: sha512-kVzTnYFYEyQ9RGzBjNCd2+yEqWmVbxl3AHPynv3qQ6JTjv4a+kwRcnqQwIpuP3NnrnIrE/Q6wWAIAvMfIE2/Yg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -4601,6 +4658,10 @@ packages:
 
   safaridriver@1.0.1:
     resolution: {integrity: sha512-jkg4434cYgtrIF2AeY/X0Wmd2W73cK5qIEFE3hDrrQenJH/2SDJIXGvPAigfvQTcE9+H31zkiNHbUqcihEiMRA==}
+    engines: {node: '>=18.0.0'}
+
+  safaridriver@2.0.0:
+    resolution: {integrity: sha512-LL7Ufa9p1cltLmw0WGIbM6FFXibWMoM9NjJuS5QFiAAtEnEwkwMxaXy1BRKCBZKSZ+brs9eYd3LHHiJfIgjmZg==}
     engines: {node: '>=18.0.0'}
 
   safe-buffer@5.1.2:
@@ -4964,6 +5025,10 @@ packages:
     resolution: {integrity: sha512-dkrQXeHSaoamnItlYbmzG0wFYrM0ZwDxCIg0A7aKjTyyhh9svRzCNFEzV+Vm05/yehjCzjDZ31KXfGEjYSztDQ==}
     engines: {node: '>=20.18.1'}
 
+  undici@8.11.2:
+    resolution: {integrity: sha512-u4UB2/IrKdU6lFxumHmmo1a3fCQO5tzQllRorfoRS63txhrB7xTpSn1PftwC4qEHkOaqP95fCWW4lJzwErwzhQ==}
+    engines: {node: '>=22.19.0'}
+
   unicorn-magic@0.3.0:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
     engines: {node: '>=18'}
@@ -5114,9 +5179,22 @@ packages:
     resolution: {integrity: sha512-3hu+tD8YzSLGuFYtPRb48vdhKMi0KQV5sn+uWr8+7dMEq/2G/dtLrdDinkLjqq5TIbIBjYJ4Ax/n3YiaW7QM8A==}
     engines: {node: 20 || >=22}
 
+  webdriver@10.0.1:
+    resolution: {integrity: sha512-EFggYPwYTyP2o/NsZsoHsARo4x/YNmbpIp7HsS7bUF7suQgScD7OO0px4KeZmACb+t1q2Yqthxne8Y2hLMmQfw==}
+    engines: {node: '>=22.19.0'}
+
   webdriver@9.32.0:
     resolution: {integrity: sha512-1Z7mydyw3v3UfzQ6UtrRvu3ij1eHuSoitxBMWlnKi2e3Zpvc1EBPp6FhsXBYhdFg0F4900j6sUTkoF//CkpbpQ==}
     engines: {node: '>=18.20.0'}
+
+  webdriverio@10.0.1:
+    resolution: {integrity: sha512-nITIsmcooGy50RLrol4BDhnzEn04uZ5WJWVlebIQOnErhw2A0ZwR6XClX7v1z+qHtvDZVVEQs5i3Yfz9LR5XPA==}
+    engines: {node: '>=22.19.0'}
+    peerDependencies:
+      puppeteer-core: '>=24 <26'
+    peerDependenciesMeta:
+      puppeteer-core:
+        optional: true
 
   webdriverio@9.32.0:
     resolution: {integrity: sha512-A7r7SnvZ6eEJROIWAG6GMOlV82W2Pl7FDjXLn/tJ4L8BEc3yjCrDWzY4EB9i4MtPZwlNZoHgNV9fYYKn7JWAew==}
@@ -6218,6 +6296,13 @@ snapshots:
       - react-native-b4a
       - supports-color
 
+  '@puppeteer/browsers@3.2.3(yauzl@2.10.0)':
+    dependencies:
+      modern-tar: 0.8.5
+      yargs: 18.2.0
+    optionalDependencies:
+      yauzl: 2.10.0
+
   '@quansync/fs@1.1.0':
     dependencies:
       quansync: 1.0.0
@@ -6265,7 +6350,7 @@ snapshots:
       '@repobuddy/test': 1.1.0(typescript@6.0.3)
       vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
     optionalDependencies:
-      '@vitest/browser-playwright': 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+      '@vitest/browser-playwright': 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
     transitivePeerDependencies:
       - typescript
 
@@ -6474,7 +6559,7 @@ snapshots:
       storybook: 10.6.1(@types/react@19.3.0)(react@19.3.0)
     optionalDependencies:
       '@vitest/browser': 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
-      '@vitest/browser-playwright': 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+      '@vitest/browser-playwright': 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/runner': 4.1.11
       vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
     transitivePeerDependencies:
@@ -6729,6 +6814,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/node@22.20.5':
+    dependencies:
+      undici-types: 6.21.0
+
   '@types/node@25.9.9':
     dependencies:
       undici-types: 7.24.6
@@ -6749,6 +6838,10 @@ snapshots:
 
   '@types/sinonjs__fake-timers@8.1.5': {}
 
+  '@types/split2@4.2.3':
+    dependencies:
+      '@types/node': 25.9.9
+
   '@types/which@2.0.2': {}
 
   '@types/ws@8.18.2':
@@ -6765,13 +6858,24 @@ snapshots:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)
 
-  '@vitest/browser-playwright@4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)':
+  '@vitest/browser-playwright@4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)':
     dependencies:
       '@vitest/browser': 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/mocker': 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
-      playwright: 1.63.0
+      playwright: 1.64.0
       tinyrainbow: 3.2.0
       vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+    transitivePeerDependencies:
+      - bufferutil
+      - msw
+      - utf-8-validate
+      - vite
+
+  '@vitest/browser-webdriverio@4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@10.0.1(supports-color@8.1.1)(yauzl@2.10.0))':
+    dependencies:
+      '@vitest/browser': 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+      vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+      webdriverio: 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -6912,6 +7016,20 @@ snapshots:
       convert-source-map: 2.0.0
       tinyrainbow: 3.2.0
 
+  '@wdio/config@10.0.1(supports-color@8.1.1)(yauzl@2.10.0)':
+    dependencies:
+      '@wdio/logger': 10.0.0
+      '@wdio/types': 10.0.1
+      '@wdio/utils': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      deepmerge-ts: 8.0.2
+      glob: 10.5.0
+      import-meta-resolve: 4.2.0
+      jiti: 2.7.0
+    transitivePeerDependencies:
+      - proxy-agent
+      - supports-color
+      - yauzl
+
   '@wdio/config@9.32.0(supports-color@8.1.1)':
     dependencies:
       '@wdio/logger': 9.29.1
@@ -6927,6 +7045,14 @@ snapshots:
       - react-native-b4a
       - supports-color
 
+  '@wdio/logger@10.0.0':
+    dependencies:
+      chalk: 5.6.2
+      loglevel: 1.9.2
+      loglevel-plugin-prefix: 0.8.4
+      safe-regex2: 5.1.1
+      strip-ansi: 7.2.0
+
   '@wdio/logger@9.29.1':
     dependencies:
       chalk: 5.6.2
@@ -6935,15 +7061,49 @@ snapshots:
       safe-regex2: 5.1.1
       strip-ansi: 7.2.0
 
+  '@wdio/protocols@10.0.0': {}
+
   '@wdio/protocols@9.31.5': {}
+
+  '@wdio/repl@10.0.0':
+    dependencies:
+      '@types/node': 22.20.5
 
   '@wdio/repl@9.16.2':
     dependencies:
       '@types/node': 20.19.43
 
+  '@wdio/types@10.0.1':
+    dependencies:
+      '@types/node': 22.20.5
+
   '@wdio/types@9.32.0':
     dependencies:
       '@types/node': 20.19.43
+
+  '@wdio/utils@10.0.1(supports-color@8.1.1)(yauzl@2.10.0)':
+    dependencies:
+      '@puppeteer/browsers': 3.2.3(yauzl@2.10.0)
+      '@types/split2': 4.2.3
+      '@wdio/logger': 10.0.0
+      '@wdio/types': 10.0.1
+      aria-query: 5.3.2
+      decamelize: 6.0.1
+      deepmerge-ts: 8.0.2
+      edgedriver: 7.0.0(supports-color@8.1.1)
+      electron-to-chromium: 1.5.444
+      geckodriver: 7.0.0(supports-color@8.1.1)
+      get-port: 7.2.0
+      import-meta-resolve: 4.2.0
+      locate-app: 2.5.0
+      mitt: 3.0.1
+      safaridriver: 2.0.0
+      split2: 4.2.0
+      wait-port: 1.1.0(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - proxy-agent
+      - supports-color
+      - yauzl
 
   '@wdio/utils@9.32.0(supports-color@8.1.1)':
     dependencies:
@@ -7433,6 +7593,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  edgedriver@7.0.0(supports-color@8.1.1):
+    dependencies:
+      '@wdio/logger': 9.29.1
+      '@zip.js/zip.js': 2.23.0
+      decamelize: 6.0.1
+      edge-paths: 3.0.5
+      http-proxy-agent: 7.0.2(supports-color@8.1.1)
+      https-proxy-agent: 7.0.6(supports-color@8.1.1)
+      which: 6.0.1
+    transitivePeerDependencies:
+      - supports-color
+
   electron-to-chromium@1.5.444: {}
 
   emoji-regex@10.6.0: {}
@@ -7636,6 +7808,17 @@ snapshots:
       http-proxy-agent: 7.0.2(supports-color@8.1.1)
       https-proxy-agent: 7.0.6(supports-color@8.1.1)
       modern-tar: 0.7.7
+    transitivePeerDependencies:
+      - supports-color
+
+  geckodriver@7.0.0(supports-color@8.1.1):
+    dependencies:
+      '@wdio/logger': 9.29.1
+      '@zip.js/zip.js': 2.23.0
+      decamelize: 6.0.1
+      http-proxy-agent: 7.0.2(supports-color@8.1.1)
+      https-proxy-agent: 7.0.6(supports-color@8.1.1)
+      modern-tar: 0.8.5
     transitivePeerDependencies:
       - supports-color
 
@@ -8097,6 +8280,8 @@ snapshots:
 
   modern-tar@0.7.7: {}
 
+  modern-tar@0.8.5: {}
+
   mri@1.2.0: {}
 
   mrmime@2.0.1: {}
@@ -8337,11 +8522,11 @@ snapshots:
     dependencies:
       pngjs: 7.0.0
 
-  playwright-core@1.63.0: {}
+  playwright-core@1.64.0: {}
 
-  playwright@1.63.0:
+  playwright@1.64.0:
     dependencies:
-      playwright-core: 1.63.0
+      playwright-core: 1.64.0
 
   pngjs@7.0.0: {}
 
@@ -8578,6 +8763,8 @@ snapshots:
   run-applescript@7.1.0: {}
 
   safaridriver@1.0.1: {}
+
+  safaridriver@2.0.0: {}
 
   safe-buffer@5.1.2: {}
 
@@ -8941,6 +9128,8 @@ snapshots:
 
   undici@7.30.0: {}
 
+  undici@8.11.2: {}
+
   unicorn-magic@0.3.0: {}
 
   unpartial@1.0.8: {}
@@ -9019,7 +9208,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 25.9.9
-      '@vitest/browser-playwright': 4.1.11(playwright@1.63.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
+      '@vitest/browser-playwright': 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-webdriverio': 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@9.32.0(supports-color@8.1.1))
       '@vitest/coverage-istanbul': 4.1.11(supports-color@8.1.1)(vitest@4.1.11)
       '@vitest/coverage-v8': 4.1.11(@vitest/browser@4.1.11)(vitest@4.1.11)
@@ -9036,6 +9225,26 @@ snapshots:
       - supports-color
 
   walk-up-path@4.0.0: {}
+
+  webdriver@10.0.1(supports-color@8.1.1)(yauzl@2.10.0):
+    dependencies:
+      '@types/node': 22.20.5
+      '@types/ws': 8.18.2
+      '@wdio/config': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      '@wdio/logger': 10.0.0
+      '@wdio/protocols': 10.0.0
+      '@wdio/types': 10.0.1
+      '@wdio/utils': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      deepmerge-ts: 8.0.2
+      https-proxy-agent: 7.0.6(supports-color@8.1.1)
+      undici: 8.11.2
+      ws: 8.22.0
+    transitivePeerDependencies:
+      - bufferutil
+      - proxy-agent
+      - supports-color
+      - utf-8-validate
+      - yauzl
 
   webdriver@9.32.0(supports-color@8.1.1):
     dependencies:
@@ -9057,6 +9266,41 @@ snapshots:
       - react-native-b4a
       - supports-color
       - utf-8-validate
+
+  webdriverio@10.0.1(supports-color@8.1.1)(yauzl@2.10.0):
+    dependencies:
+      '@types/node': 22.20.5
+      '@types/sinonjs__fake-timers': 8.1.5
+      '@wdio/config': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      '@wdio/logger': 10.0.0
+      '@wdio/protocols': 10.0.0
+      '@wdio/repl': 10.0.0
+      '@wdio/types': 10.0.1
+      '@wdio/utils': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      archiver: 8.0.0
+      aria-query: 5.3.2
+      cheerio: 1.2.0
+      css-shorthand-properties: 1.1.2
+      css-value: 0.0.1
+      grapheme-splitter: 1.0.4
+      htmlfy: 0.8.1
+      is-plain-obj: 4.1.0
+      jszip: 3.10.2
+      lodash.clonedeep: 4.5.0
+      query-selector-shadow-dom: 1.0.1
+      rgb2hex: 0.2.5
+      serialize-error: 12.0.0
+      urlpattern-polyfill: 10.1.0
+      webdriver: 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - bufferutil
+      - proxy-agent
+      - react-native-b4a
+      - supports-color
+      - utf-8-validate
+      - yauzl
 
   webdriverio@9.32.0(supports-color@8.1.1):
     dependencies:
