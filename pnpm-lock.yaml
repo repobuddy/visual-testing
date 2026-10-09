@@ -165,8 +165,8 @@ settings:
 catalogs:
   default:
     '@repobuddy/vitest':
-      specifier: ^2.3.0
-      version: 2.4.1
+      specifier: ^3.0.0
+      version: 3.0.0
     '@types/react':
       specifier: ^19.2.18
       version: 19.3.0
@@ -531,7 +531,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-themes':
         specifier: ^10.5.10
         version: 10.6.1(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -589,7 +589,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-vitest':
         specifier: ^10.5.10
         version: 10.6.1(@vitest/browser-playwright@4.1.11)(@vitest/browser@4.1.11)(@vitest/runner@4.1.11)(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))(vitest@4.1.11)
@@ -919,7 +919,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-themes':
         specifier: ^10.5.10
         version: 10.6.1(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -1017,7 +1017,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-themes':
         specifier: ^10.5.10
         version: 10.6.1(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -2247,14 +2247,17 @@ packages:
   '@repobuddy/test@1.1.0':
     resolution: {integrity: sha512-YW0j5QOxaNA1cSZm8lcKSFNlTey+D3Qpx4N/hb1AsD+lkbXOnhcC+2TrPIP/Om3NmBiNtXKHGg+yPekapEMbLQ==}
 
+  '@repobuddy/test@1.1.1':
+    resolution: {integrity: sha512-UmnLcSmyk3Y7QsCpFaU6KpdBXmrc7z2WozQTYbIIBAUB/AZcUvzs6KtqgWYm/XFfs/2lJJOg6OdUqaZXTPlk/A==}
+
   '@repobuddy/typescript@2.2.1':
     resolution: {integrity: sha512-r4LcxLB99GWEXZRPvceobwX8tX6Ax1pFraRV/jTdk/lAkT0Xz8+TcVckt9U+jK5/mgqLCai/1av7/onZeuQ1zw==}
 
-  '@repobuddy/vitest@2.4.1':
-    resolution: {integrity: sha512-M58zQ8xXWzn1xyf2wtH+r9pxw7oB+wtH3ydQ4b4usJLhODLZLsze3jEhqBfaIjuTzlzTaaEHC7o63HqqxCD/qQ==}
+  '@repobuddy/vitest@3.0.0':
+    resolution: {integrity: sha512-WgoEqa5pvFOkWK1E8UC4SLzR03KCSqIumTLdtEzHlh/VE3uFccPSCiIUn8Y8BmhcLg6sT1DONF/f4NeA059j+w==}
     peerDependencies:
-      '@vitest/browser-playwright': ^4.0.15
-      vitest: ^4.0.15
+      '@vitest/browser-playwright': ^5.0.0
+      vitest: ^5.0.0
     peerDependenciesMeta:
       '@vitest/browser-playwright':
         optional: true
@@ -6337,6 +6340,12 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  '@repobuddy/test@1.1.1(typescript@6.0.3)':
+    dependencies:
+      assertron: 11.7.1(typescript@6.0.3)
+    transitivePeerDependencies:
+      - typescript
+
   '@repobuddy/typescript@2.2.1(typescript@6.0.3)':
     dependencies:
       clibuilder: 11.3.2(typescript@6.0.3)
@@ -6345,9 +6354,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@repobuddy/vitest@2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)':
+  '@repobuddy/vitest@3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)':
     dependencies:
-      '@repobuddy/test': 1.1.0(typescript@6.0.3)
+      '@repobuddy/test': 1.1.1(typescript@6.0.3)
       vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
     optionalDependencies:
       '@vitest/browser-playwright': 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
