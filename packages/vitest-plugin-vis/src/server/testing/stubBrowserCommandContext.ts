@@ -1,5 +1,5 @@
 import '@vitest/browser-playwright'
-import { stub } from 'type-plus'
+import { stub } from 'type-plus/testing'
 import type { ExtendedBrowserCommandContext } from '../vis_server_context.types.ts'
 
 export const stubBrowserCommandContext = stub.build<ExtendedBrowserCommandContext>({})

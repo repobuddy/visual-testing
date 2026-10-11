@@ -16,7 +16,8 @@ export default defineProject({
 				return `__vis__/${ci ? platform : 'local'}/b`
 			},
 		}),
-		browserTestPreset({ includeGeneralTests: true }),
+		// @repobuddy/vitest 3 sets enforce: 'pre' on the preset, which drops the general tests next to storybookTest.
+		{ ...browserTestPreset({ includeGeneralTests: true }), enforce: undefined },
 	],
 	test: {
 		name: 'b',
