@@ -63,6 +63,8 @@ jobs:
       contents: write
       # Lets changesets/action open the "version packages" PR.
       pull-requests: write
+      # Approves the Version Packages PR's parked pull_request runs (CI, CodeQL).
+      actions: write
     uses: repobuddy/.github/.github/workflows/pnpm-release-changeset-oidc.yml@v2
     needs: verify
 
