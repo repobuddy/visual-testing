@@ -165,8 +165,8 @@ settings:
 catalogs:
   default:
     '@repobuddy/vitest':
-      specifier: ^2.3.0
-      version: 2.4.1
+      specifier: ^3.0.0
+      version: 3.0.0
     '@types/react':
       specifier: ^19.2.18
       version: 19.3.0
@@ -233,8 +233,8 @@ importers:
         specifier: ^21.2.2
         version: 21.2.3
       '@repobuddy/biome':
-        specifier: ^2.4.0
-        version: 2.5.0(@biomejs/biome@2.5.15)
+        specifier: ^2.5.1
+        version: 2.5.1(@biomejs/biome@2.5.15)
       '@types/node':
         specifier: ^25.9.5
         version: 25.9.9
@@ -287,14 +287,14 @@ importers:
         specifier: ^2.0.3
         version: 2.0.3
       type-plus:
-        specifier: 8.0.0-beta.12
-        version: 8.0.0-beta.12(typescript@6.0.3)
+        specifier: 8.0.0
+        version: 8.0.0(typescript@6.0.3)
       vitest-plugin-vis:
         specifier: workspace:^
         version: link:../vitest-plugin-vis
     devDependencies:
       '@repobuddy/storybook':
-        specifier: ^2.33.1
+        specifier: ^2.33.4
         version: 2.33.4(@storybook-community/storybook-dark-mode@7.1.4(@storybook/addon-docs@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(@storybook/addon-docs@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(@storybook/react-vite@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)))(@types/react@19.3.0)(react@19.3.0)(storybook-addon-tag-badges@3.1.0(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))(typescript@6.0.3)
       '@storybook-community/storybook-dark-mode':
         specifier: ^7.1.3
@@ -334,7 +334,7 @@ importers:
         version: 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       '@vitest/browser-webdriverio':
         specifier: 'catalog:'
-        version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@10.0.1(supports-color@8.1.1)(yauzl@2.10.0))
+        version: 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@10.0.2(supports-color@8.1.1)(yauzl@2.10.0))
       '@vitest/coverage-istanbul':
         specifier: 'catalog:'
         version: 4.1.11(supports-color@8.1.1)(vitest@4.1.11)
@@ -388,7 +388,7 @@ importers:
         version: 2.3.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vitest@4.1.11)
       webdriverio:
         specifier: latest
-        version: 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+        version: 10.0.2(supports-color@8.1.1)(yauzl@2.10.0)
       zx:
         specifier: ^8.8.5
         version: 8.8.5
@@ -423,15 +423,15 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
       type-plus:
-        specifier: 8.0.0-beta.12
-        version: 8.0.0-beta.12(typescript@6.0.3)
+        specifier: 8.0.0
+        version: 8.0.0(typescript@6.0.3)
     devDependencies:
       '@repobuddy/storybook':
-        specifier: ^2.33.1
+        specifier: ^2.33.4
         version: 2.33.4(@storybook-community/storybook-dark-mode@7.1.4(@storybook/addon-docs@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(@storybook/addon-docs@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(@storybook/react-vite@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)))(@types/react@19.3.0)(react@19.3.0)(storybook-addon-tag-badges@3.1.0(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))(typescript@6.0.3)
       '@repobuddy/typescript':
-        specifier: ^2.2.0
-        version: 2.2.1(typescript@6.0.3)
+        specifier: ^2.2.2
+        version: 2.2.2(typescript@6.0.3)
       '@storybook-community/storybook-dark-mode':
         specifier: ^7.1.3
         version: 7.1.4(@storybook/addon-docs@10.6.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0)))(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -531,7 +531,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-themes':
         specifier: ^10.5.10
         version: 10.6.1(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -589,7 +589,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-vitest':
         specifier: ^10.5.10
         version: 10.6.1(@vitest/browser-playwright@4.1.11)(@vitest/browser@4.1.11)(@vitest/runner@4.1.11)(react@19.3.0)(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))(vitest@4.1.11)
@@ -919,7 +919,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-themes':
         specifier: ^10.5.10
         version: 10.6.1(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -1017,7 +1017,7 @@ importers:
     devDependencies:
       '@repobuddy/vitest':
         specifier: 'catalog:'
-        version: 2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
+        version: 3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)
       '@storybook/addon-themes':
         specifier: ^10.5.10
         version: 10.6.1(storybook@10.6.1(@types/react@19.3.0)(react@19.3.0))
@@ -2213,8 +2213,8 @@ packages:
   '@quansync/fs@1.1.0':
     resolution: {integrity: sha512-qAPG/t3HqML1TlN7sY/pTbEjzFVAKsMjNNMGheyDosro+kT4iw2KCUoHcVdmliwWjorm4elZbgNQyU2eD97eDg==}
 
-  '@repobuddy/biome@2.5.0':
-    resolution: {integrity: sha512-/BGDUyepN6raSPBt+LEoLsWuCLFt5mhxNoogGnIF8voeIft/Oj/NlygGMNl8B0SF2QKw95TxH/WWcJmarW7Xnw==}
+  '@repobuddy/biome@2.5.1':
+    resolution: {integrity: sha512-sdNvV6T5PTFPD1CrpiByf92Zm4nsvoAlBObx1x74LzKPOkaZ0rB7AAEBXMUZgjLYBoc2HGDXjx7qKxiIOn37Ww==}
     peerDependencies:
       '@biomejs/biome': '>= 2'
 
@@ -2247,14 +2247,17 @@ packages:
   '@repobuddy/test@1.1.0':
     resolution: {integrity: sha512-YW0j5QOxaNA1cSZm8lcKSFNlTey+D3Qpx4N/hb1AsD+lkbXOnhcC+2TrPIP/Om3NmBiNtXKHGg+yPekapEMbLQ==}
 
-  '@repobuddy/typescript@2.2.1':
-    resolution: {integrity: sha512-r4LcxLB99GWEXZRPvceobwX8tX6Ax1pFraRV/jTdk/lAkT0Xz8+TcVckt9U+jK5/mgqLCai/1av7/onZeuQ1zw==}
+  '@repobuddy/test@1.1.1':
+    resolution: {integrity: sha512-UmnLcSmyk3Y7QsCpFaU6KpdBXmrc7z2WozQTYbIIBAUB/AZcUvzs6KtqgWYm/XFfs/2lJJOg6OdUqaZXTPlk/A==}
 
-  '@repobuddy/vitest@2.4.1':
-    resolution: {integrity: sha512-M58zQ8xXWzn1xyf2wtH+r9pxw7oB+wtH3ydQ4b4usJLhODLZLsze3jEhqBfaIjuTzlzTaaEHC7o63HqqxCD/qQ==}
+  '@repobuddy/typescript@2.2.2':
+    resolution: {integrity: sha512-ZEE1l5VpYuCjPDZgP9/nGe6zojplHTaai9Y7qgSYduOTx/8uI9IAulU3MbfMGtXLuCuQPhRrIu+vvQ86dj1yxw==}
+
+  '@repobuddy/vitest@3.0.0':
+    resolution: {integrity: sha512-WgoEqa5pvFOkWK1E8UC4SLzR03KCSqIumTLdtEzHlh/VE3uFccPSCiIUn8Y8BmhcLg6sT1DONF/f4NeA059j+w==}
     peerDependencies:
-      '@vitest/browser-playwright': ^4.0.15
-      vitest: ^4.0.15
+      '@vitest/browser-playwright': ^5.0.0
+      vitest: ^5.0.0
     peerDependenciesMeta:
       '@vitest/browser-playwright':
         optional: true
@@ -3017,8 +3020,8 @@ packages:
     resolution: {integrity: sha512-0ZAEIo6PNyMIJPlOGkIgyOJUjcd0pC8/QHlVAAe1c91/IcjZ1X+k0yidXHaboJdN7dq1XPUacmhRdtua0U5EZg==}
     engines: {node: '>=18.20.0'}
 
-  '@wdio/protocols@10.0.0':
-    resolution: {integrity: sha512-426ENC79fH7N4ggoGRHhZBY/exkdHAndbBiXcs9pQkzGP356H8C7VkQUx8g78m4k1TUC0RhOl8Se8VE0Mutpqw==}
+  '@wdio/protocols@10.0.2':
+    resolution: {integrity: sha512-ewuQuu+niq/ZpV1TLn904nDA4F9n4LLu9X1U8Juwwm1ahq09dpEP8lEytDnpaD0f21uIx//mFBKmBAjSexMdEA==}
     engines: {node: '>=22.19.0'}
 
   '@wdio/protocols@9.31.5':
@@ -4994,6 +4997,15 @@ packages:
     resolution: {integrity: sha512-NoSdpq/WEiAg5sjmBkmV/hfxv6HJH4NqPNrqjtSO5CwRmpsDfaf4begxW34KdJykH/l1yHtwBWQkCRdoXO8mPA==}
     engines: {node: '>=20'}
 
+  type-plus@8.0.0:
+    resolution: {integrity: sha512-wYKemYpT2XPgZyqZUvo6pT0ZiwWHcLJMyR68ZjY4IB96ozUpxrb6M7pj9xYzNcBHWG4r17WqXnkGRQZrHAWs7A==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      typescript: '>= 5.4.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   type-plus@8.0.0-beta.12:
     resolution: {integrity: sha512-isf19V90L8JOn9VBWWwUfH8DU6G3dfPptr3R+JtraYWHqLAsXYI2f9x1HZVTkajrkSffdEbetXUXf7FcIjSIRg==}
     peerDependencies:
@@ -5179,16 +5191,16 @@ packages:
     resolution: {integrity: sha512-3hu+tD8YzSLGuFYtPRb48vdhKMi0KQV5sn+uWr8+7dMEq/2G/dtLrdDinkLjqq5TIbIBjYJ4Ax/n3YiaW7QM8A==}
     engines: {node: 20 || >=22}
 
-  webdriver@10.0.1:
-    resolution: {integrity: sha512-EFggYPwYTyP2o/NsZsoHsARo4x/YNmbpIp7HsS7bUF7suQgScD7OO0px4KeZmACb+t1q2Yqthxne8Y2hLMmQfw==}
+  webdriver@10.0.2:
+    resolution: {integrity: sha512-q2eKiapaOyCH2QfVykBjrYznQiL4gjmGakTYVzQqq3Ycqpd2VPOMSkmbxGHFo8+CpO628QwvpxgKvAxA3hpDaA==}
     engines: {node: '>=22.19.0'}
 
   webdriver@9.32.0:
     resolution: {integrity: sha512-1Z7mydyw3v3UfzQ6UtrRvu3ij1eHuSoitxBMWlnKi2e3Zpvc1EBPp6FhsXBYhdFg0F4900j6sUTkoF//CkpbpQ==}
     engines: {node: '>=18.20.0'}
 
-  webdriverio@10.0.1:
-    resolution: {integrity: sha512-nITIsmcooGy50RLrol4BDhnzEn04uZ5WJWVlebIQOnErhw2A0ZwR6XClX7v1z+qHtvDZVVEQs5i3Yfz9LR5XPA==}
+  webdriverio@10.0.2:
+    resolution: {integrity: sha512-o+T+DXwsn2e0niAmz9PWUMDwE/8R06euZ4O85faB6fGG9X/uVOom8sloIH+SYc1tI0fjcI34sU9hptrQj9fDdQ==}
     engines: {node: '>=22.19.0'}
     peerDependencies:
       puppeteer-core: '>=24 <26'
@@ -6307,7 +6319,7 @@ snapshots:
     dependencies:
       quansync: 1.0.0
 
-  '@repobuddy/biome@2.5.0(@biomejs/biome@2.5.15)':
+  '@repobuddy/biome@2.5.1(@biomejs/biome@2.5.15)':
     dependencies:
       '@biomejs/biome': 2.5.15
 
@@ -6337,7 +6349,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@repobuddy/typescript@2.2.1(typescript@6.0.3)':
+  '@repobuddy/test@1.1.1(typescript@6.0.3)':
+    dependencies:
+      assertron: 11.7.1(typescript@6.0.3)
+    transitivePeerDependencies:
+      - typescript
+
+  '@repobuddy/typescript@2.2.2(typescript@6.0.3)':
     dependencies:
       clibuilder: 11.3.2(typescript@6.0.3)
       dirname-filename-esm: 1.1.2
@@ -6345,9 +6363,9 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@repobuddy/vitest@2.4.1(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)':
+  '@repobuddy/vitest@3.0.0(@vitest/browser-playwright@4.1.11)(typescript@6.0.3)(vitest@4.1.11)':
     dependencies:
-      '@repobuddy/test': 1.1.0(typescript@6.0.3)
+      '@repobuddy/test': 1.1.1(typescript@6.0.3)
       vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
     optionalDependencies:
       '@vitest/browser-playwright': 4.1.11(playwright@1.64.0)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
@@ -6871,11 +6889,11 @@ snapshots:
       - utf-8-validate
       - vite
 
-  '@vitest/browser-webdriverio@4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@10.0.1(supports-color@8.1.1)(yauzl@2.10.0))':
+  '@vitest/browser-webdriverio@4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)(webdriverio@10.0.2(supports-color@8.1.1)(yauzl@2.10.0))':
     dependencies:
       '@vitest/browser': 4.1.11(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))(vitest@4.1.11)
       vitest: 4.1.11(@types/node@25.9.9)(@vitest/browser-playwright@4.1.11)(@vitest/browser-webdriverio@4.1.11)(@vitest/coverage-istanbul@4.1.11)(@vitest/coverage-v8@4.1.11)(@vitest/ui@4.1.11)(vite@8.3.2(@types/node@25.9.9)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
-      webdriverio: 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      webdriverio: 10.0.2(supports-color@8.1.1)(yauzl@2.10.0)
     transitivePeerDependencies:
       - bufferutil
       - msw
@@ -7061,7 +7079,7 @@ snapshots:
       safe-regex2: 5.1.1
       strip-ansi: 7.2.0
 
-  '@wdio/protocols@10.0.0': {}
+  '@wdio/protocols@10.0.2': {}
 
   '@wdio/protocols@9.31.5': {}
 
@@ -9105,6 +9123,12 @@ snapshots:
     dependencies:
       tagged-tag: 1.0.0
 
+  type-plus@8.0.0(typescript@6.0.3):
+    dependencies:
+      unpartial: 1.0.8
+    optionalDependencies:
+      typescript: 6.0.3
+
   type-plus@8.0.0-beta.12(typescript@6.0.3):
     dependencies:
       tersify: 4.0.8
@@ -9226,13 +9250,13 @@ snapshots:
 
   walk-up-path@4.0.0: {}
 
-  webdriver@10.0.1(supports-color@8.1.1)(yauzl@2.10.0):
+  webdriver@10.0.2(supports-color@8.1.1)(yauzl@2.10.0):
     dependencies:
       '@types/node': 22.20.5
       '@types/ws': 8.18.2
       '@wdio/config': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
       '@wdio/logger': 10.0.0
-      '@wdio/protocols': 10.0.0
+      '@wdio/protocols': 10.0.2
       '@wdio/types': 10.0.1
       '@wdio/utils': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
       deepmerge-ts: 8.0.2
@@ -9267,13 +9291,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  webdriverio@10.0.1(supports-color@8.1.1)(yauzl@2.10.0):
+  webdriverio@10.0.2(supports-color@8.1.1)(yauzl@2.10.0):
     dependencies:
       '@types/node': 22.20.5
       '@types/sinonjs__fake-timers': 8.1.5
       '@wdio/config': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
       '@wdio/logger': 10.0.0
-      '@wdio/protocols': 10.0.0
+      '@wdio/protocols': 10.0.2
       '@wdio/repl': 10.0.0
       '@wdio/types': 10.0.1
       '@wdio/utils': 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
@@ -9291,7 +9315,7 @@ snapshots:
       rgb2hex: 0.2.5
       serialize-error: 12.0.0
       urlpattern-polyfill: 10.1.0
-      webdriver: 10.0.1(supports-color@8.1.1)(yauzl@2.10.0)
+      webdriver: 10.0.2(supports-color@8.1.1)(yauzl@2.10.0)
     transitivePeerDependencies:
       - bare-abort-controller
       - bare-buffer

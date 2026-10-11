@@ -1,6 +1,6 @@
 import dedent from 'dedent'
 import type { Options } from 'ssim.js'
-import { testType } from 'type-plus'
+import { testType } from 'type-plus/testing'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { commands, page } from 'vitest/browser'
 import { render } from 'vitest-browser-react'
