@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 5.1.8
+
+### Patch Changes
+
+- [#904](https://github.com/repobuddy/visual-testing/pull/904) [`fd37087`](https://github.com/repobuddy/visual-testing/commit/fd37087fea1b43eb6114d05cfda1fc9535dd00d5) Thanks [@unional](https://github.com/unional)! - Update `type-plus` to 8.0.0.
+
 ## 5.1.7
 
 ### Patch Changes
