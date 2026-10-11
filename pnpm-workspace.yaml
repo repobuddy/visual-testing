@@ -21,7 +21,7 @@ overrides:
   'deepmerge-ts@<8': '^8'
 
 catalog:
-  '@repobuddy/vitest': ^2.3.0
+  '@repobuddy/vitest': ^3.0.0
   '@types/react': ^19.2.18
   '@types/react-dom': ^19.2.5
   '@vitejs/plugin-react': ^6.1.0
