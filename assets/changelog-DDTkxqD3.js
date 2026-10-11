@@ -1,4 +1,12 @@
-import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,o as n,s as r}from"./blocks-DTrhZL-3.js";import{a as i}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i as a,r as o}from"./react-BXJ34t_g.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,o as n,s as r}from"./blocks-C-4k7vuH.js";import{a as i}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i as a,r as o}from"./react-BXJ34t_g.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
+
+## 4.3.2
+
+### Patch Changes
+
+- [#904](https://github.com/repobuddy/visual-testing/pull/904) [\`fd37087\`](https://github.com/repobuddy/visual-testing/commit/fd37087fea1b43eb6114d05cfda1fc9535dd00d5) Thanks [@unional](https://github.com/unional)! - Update \`type-plus\` to 8.0.0.
+- Updated dependencies [[\`fd37087\`](https://github.com/repobuddy/visual-testing/commit/fd37087fea1b43eb6114d05cfda1fc9535dd00d5)]:
+  - vitest-plugin-vis@5.1.8
 
 ## 4.3.1
 

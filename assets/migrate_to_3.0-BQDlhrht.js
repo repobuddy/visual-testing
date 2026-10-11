@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,s as n}from"./blocks-DTrhZL-3.js";import{a as r}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i,r as a}from"./react-BXJ34t_g.js";function o(e){let t={a:`a`,h1:`h1`,p:`p`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`Releases/Migrating to 3.0`}),`
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,s as n}from"./blocks-C-4k7vuH.js";import{a as r}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i,r as a}from"./react-BXJ34t_g.js";function o(e){let t={a:`a`,h1:`h1`,p:`p`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`Releases/Migrating to 3.0`}),`
 `,(0,c.jsx)(t.h1,{id:`migrating-to-30`,children:`Migrating to 3.0`}),`
 `,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.a,{href:`https://www.npmjs.com/package/storybook-addon-vis`,rel:`nofollow`,children:`storybook-addon-vis`}),` 3.0.0 supports Storybook 10.`]}),`
 `,(0,c.jsx)(t.p,{children:`The API remains the same as v2.0.0.`}),`

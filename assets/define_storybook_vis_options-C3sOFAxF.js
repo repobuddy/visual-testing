@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,s as n}from"./blocks-DTrhZL-3.js";import{a as r}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i,r as a}from"./react-BXJ34t_g.js";function o(e){let t={a:`a`,code:`code`,h1:`h1`,h2:`h2`,h3:`h3`,li:`li`,p:`p`,pre:`pre`,strong:`strong`,ul:`ul`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`node/defineStorybookVisOptions`}),`
+import{n as e}from"./rolldown-runtime-DkW27tQK.js";import{c as t,s as n}from"./blocks-C-4k7vuH.js";import{a as r}from"./chunk-W22LQPXL-BiXlBJGV.js";import{i,r as a}from"./react-BXJ34t_g.js";function o(e){let t={a:`a`,code:`code`,h1:`h1`,h2:`h2`,h3:`h3`,li:`li`,p:`p`,pre:`pre`,strong:`strong`,ul:`ul`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`node/defineStorybookVisOptions`}),`
 `,(0,c.jsx)(t.h1,{id:`definestorybookvisoptions`,children:`defineStorybookVisOptions`}),`
 `,(0,c.jsx)(t.p,{children:`A helper function to configure options for Storybook Visual Testing addon.`}),`
 `,(0,c.jsx)(t.pre,{children:(0,c.jsx)(t.code,{className:`language-ts`,children:`// .storybook/main.ts
