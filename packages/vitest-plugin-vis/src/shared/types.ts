@@ -21,6 +21,22 @@ export interface ImageSnapshotKeyOptions {
 	snapshotKey?: string | undefined
 }
 
+export interface ReviewImageOptions {
+	/**
+	 * When the snapshot mismatches, write a review image next to the diff.
+	 *
+	 * The review image places the baseline, result, and diff crops of each changed region side by side,
+	 * so a person or an agent can see what changed without opening the full images.
+	 * It is skipped when cropping does not help:
+	 * the image size changed, there are many regions, or the regions cover most of the image.
+	 *
+	 * The changed regions are written as JSON next to the diff either way.
+	 *
+	 * @default true
+	 */
+	reviewImage?: boolean | undefined
+}
+
 export type ComparisonMethod = 'pixel' | 'ssim'
 
 export type FailureThresholdOptions = {
@@ -90,7 +106,8 @@ export type ImageSnapshotSubjectOptions = {
 }
 export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotKeyOptions &
-	ImageSnapshotCompareOptions<M> & {
+	ImageSnapshotCompareOptions<M> &
+	ReviewImageOptions & {
 		/**
 		 * Expect the matcher to fail.
 		 * If it passes, it will throw an error with details.
@@ -152,11 +169,13 @@ export type ImageSnapshotComparisonInfo = {
 	diff?: string | undefined
 } & ImageSnapshotTimeoutOptions &
 	FailureThresholdOptions &
+	ReviewImageOptions &
 	(SsimComparisonOptions | PixelComparisonOptions)
 
 export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
-	ImageSnapshotKeyOptions & {
+	ImageSnapshotKeyOptions &
+	ReviewImageOptions & {
 		/**
 		 * When `true`, write a missing baseline on first run (see {@link ToMatchImageSnapshotOptions} `createMissingBaseline`).
 		 */

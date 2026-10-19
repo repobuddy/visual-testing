@@ -8,6 +8,7 @@ import {
 	BASELINE_DIR,
 	DIFF_DIR,
 	getSnapshotRootDir,
+	REVIEW_IMAGE_SUFFIX,
 	resolveSnapshotSubpathWithinLimits,
 	SNAPSHOT_ROOT_DIR,
 	trimCommonFolder,
@@ -56,8 +57,10 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 					const diffGlob = resolve(snapshotRootDir, DIFF_DIR, snapshotSubpath, taskGlob)
 
 					const taskIdRegex = new RegExp(`${taskId}-[^-]*.png$`)
-					const baselineFiles = globSync(baselineGlob).filter((filePath) => taskIdRegex.test(filePath))
-					const diffFiles = globSync(diffGlob).filter((filePath) => taskIdRegex.test(filePath))
+					const isSnapshotFile = (filePath: string) =>
+						taskIdRegex.test(filePath) && !filePath.endsWith(REVIEW_IMAGE_SUFFIX)
+					const baselineFiles = globSync(baselineGlob).filter(isSnapshotFile)
+					const diffFiles = globSync(diffGlob).filter(isSnapshotFile)
 					return [
 						...baselineFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'baseline')),
 						...diffFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'diff')),
