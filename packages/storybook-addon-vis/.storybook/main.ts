@@ -24,6 +24,7 @@ const config: StorybookConfig = {
 			excludeFromSidebar: process.env.NODE_ENV === 'production',
 		},
 	},
+	staticDirs: ['./public'],
 	framework: getAbsolutePath('@storybook/react-vite'),
 }
 export default config

@@ -45,6 +45,7 @@
 	"files": [
 		"dist",
 		"src",
+		"llms.txt",
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
 	],
 	"scripts": {
