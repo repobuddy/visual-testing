@@ -8,6 +8,9 @@
 			"outputs": ["dist/**", "esm/**", "*.tsbuildinfo"]
 		},
 		"//#check": {},
+		"//#docs:llms:check": {
+			"cache": false
+		},
 		"clean": {
 			"cache": false
 		},
