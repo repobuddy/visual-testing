@@ -216,7 +216,7 @@ function entryPoints(pkg) {
 		const dir = posix.join(pkg.root, prefix)
 		for (const file of listFiles(dir, (f) => f.endsWith(suffix) && !TEST_FILE.test(f))) {
 			const matched = file.slice(dir.length, file.length - suffix.length)
-			const subpath = `${pkg.name}/${key.slice(2).replace('*', matched)}`
+			const subpath = `${pkg.name}/${key.slice(2).replaceAll('*', matched)}`
 			if (!entries.some((e) => e.subpath === subpath)) entries.push({ pkg, subpath, file })
 		}
 	}
