@@ -1,11 +1,14 @@
 import dedent from 'dedent'
 import { resolve } from 'pathe'
 import type { BrowserCommands } from 'vitest/browser'
+import { findChangedRegions, formatChangedRegions } from '../../shared/changed_regions.ts'
 import type {
 	ImageSnapshotNextIndexCommand,
 	PrepareImageSnapshotComparisonCommand,
 } from '../../shared/commands.types.ts'
-import { compareImage } from '../../shared/compare_image.ts'
+import { compareImage, getChangedMask } from '../../shared/compare_image.ts'
+import { CHANGED_REGIONS_SUFFIX, REVIEW_IMAGE_SUFFIX } from '../../shared/constants.ts'
+import { createReviewImage, getReviewImageSkipReason } from '../../shared/review_image.ts'
 import type { ImageSnapshotComparisonInfo, ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { toDataURL, toImageData } from '../external/browser/image_data.ts'
 import { server } from '../external/vitest/vitest_browser_context_proxy.ts'
@@ -68,6 +71,36 @@ export async function compareImageSnapshot(
 
 	await writeSnapshot(commands, resolve(info.projectRoot, info.diffPath), diffImage)
 
+	const mask = getChangedMask(
+		baselineAlignedImage.data,
+		resultAlignedImage.data,
+		diffImage.data,
+		width,
+		height,
+		options as ToMatchImageSnapshotOptions<any>,
+	)
+	const regions = findChangedRegions(mask, width, height)
+	await commands.writeFile(
+		resolve(info.projectRoot, toSiblingPath(info.diffPath, CHANGED_REGIONS_SUFFIX)),
+		JSON.stringify({ width, height, regions }),
+	)
+	let review = ''
+	if (options?.reviewImage !== false) {
+		const skipReason = getReviewImageSkipReason({ baseline: baselineImage, result: resultImage, regions })
+		if (skipReason) {
+			review = `\nReview:     skipped, ${skipReason}; open Actual or Difference instead`
+		} else {
+			const reviewPath = toSiblingPath(info.diffPath, REVIEW_IMAGE_SUFFIX)
+			const reviewImage = createReviewImage(baselineAlignedImage, resultAlignedImage, mask, regions)
+			await writeSnapshot(
+				commands,
+				resolve(info.projectRoot, reviewPath),
+				new ImageData(reviewImage.data, reviewImage.width, reviewImage.height),
+			)
+			review = `\nReview:     ${formatSnapshotPath(info.projectRoot, reviewPath)} (baseline, result, diff of each region)`
+		}
+	}
+
 	throw new Error(
 		dedent`Snapshot \`${taskId}\` mismatched
 
@@ -87,8 +120,13 @@ export async function compareImageSnapshot(
 
 					Expected:   ${formatSnapshotPath(info.projectRoot, info.baselinePath)}
 					Actual:     ${formatSnapshotPath(info.projectRoot, info.resultPath)}
-					Difference: ${formatSnapshotPath(info.projectRoot, info.diffPath)}`,
+					Difference: ${formatSnapshotPath(info.projectRoot, info.diffPath)}
+					Changed:    ${formatChangedRegions(regions)}${review}`,
 	)
+}
+
+function toSiblingPath(diffPath: string, suffix: string) {
+	return diffPath.replace(/\.png$/, suffix)
 }
 
 async function writeSnapshot(commands: BrowserCommands, path: string, image: ImageData) {

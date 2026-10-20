@@ -7,6 +7,7 @@ export default defineProject({
 		include: [
 			'src/vitest-plugin/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
 			'src/node/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
+			'src/server/**/*.{spec,test,unit,accept,integrate,system,study,perf,stress}.ts',
 		],
 	},
 })

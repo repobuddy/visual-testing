@@ -278,6 +278,27 @@ export default defineConfig({
 })
 ```
 
+## Review Image
+
+When a snapshot mismatches, `vitest-plugin-vis` writes a review image (`<name>.review.png`) next to the diff image.
+It places the baseline, result, and diff crops of each changed region side by side,
+so you or a coding agent can see what changed without opening the full images.
+The changed regions are also written to `<name>.regions.json`.
+See [`toMatchImageSnapshot()`](?path=/docs/expect-tomatchimagesnapshot--docs) for details.
+
+To not write the review image:
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({
+		reviewImage: false
+	})],
+})
+```
+
 ## Timeout Configuration
 
 Sometimes your tests need a bit more time to render, especially if you're working with complex components or slower environments. You can adjust the timeout to give your tests the breathing room they need.
