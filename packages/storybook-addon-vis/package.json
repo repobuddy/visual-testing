@@ -52,6 +52,7 @@
 		"dist",
 		"src",
 		"*.js",
+		"llms.txt",
 		"*.d.ts",
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
 	],
