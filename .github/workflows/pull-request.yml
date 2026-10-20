@@ -16,6 +16,8 @@ on:
 jobs:
   verify:
     strategy:
+      # Every leg must finish: the lts/* legs open the snapshot PRs even after another leg fails.
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
