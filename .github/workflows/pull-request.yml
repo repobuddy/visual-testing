@@ -61,6 +61,9 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: pnpm verify:ci
+      - name: TEMP simulate baseline change
+        shell: bash
+        run: printf x >> "testcases/themes/__vis__/${{ matrix.os == 'windows-latest' && 'win32' || 'linux' }}/__baselines__/story_snapshot.stories.tsx/primary-light.png"
       - run: git add .
       - name: Classify head branch
         id: branch
