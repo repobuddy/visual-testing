@@ -1,5 +1,26 @@
 # vitest-plugin-vis
 
+## 5.2.0
+
+### Minor Changes
+
+- [#920](https://github.com/repobuddy/visual-testing/pull/920) [`6c2e58e`](https://github.com/repobuddy/visual-testing/commit/6c2e58e33effd2b74b0156677f5520c6e633ba46) Thanks [@unional](https://github.com/unional)! - When an image snapshot mismatches, find the changed regions and write a review image.
+  
+  The failure message now lists the changed regions (`Changed:`) and points to a review image (`Review:`).
+  The review image (`<name>.review.png`, next to the diff) places the baseline, result, and diff crops of each region side by side,
+  so a person or a coding agent can see what changed without opening the full images.
+  The regions are also written to `<name>.regions.json` next to the diff.
+  The review image is skipped, and the message says why, when the image size changed, there are more than 5 regions, or the regions cover more than half of the image.
+  
+  Set `reviewImage: false` in `vis()` or `toMatchImageSnapshot()` to not write the review image.
+  
+  The Storybook Vis panel does not list the review image as a diff.
+
+### Patch Changes
+
+- [#926](https://github.com/repobuddy/visual-testing/pull/926) [`013d9b6`](https://github.com/repobuddy/visual-testing/commit/013d9b619be2263bd44f0b4f10a9f9b6beaaa66b) Thanks [@unional](https://github.com/unional)! - Ship an `llms.txt` in each package so coding agents can find the entry points and documentation pages.
+  It points agents to the new "Reviewing Failures with Agents" page, which tells them to open the review image of a failed image snapshot first, and shows what each view costs in tokens.
+
 ## 5.1.8
 
 ### Patch Changes
