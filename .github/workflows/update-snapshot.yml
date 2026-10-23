@@ -49,13 +49,11 @@ jobs:
             */*/__vis__/**/__results__
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
+        uses: repobuddy/vis-bot@d5f3990399426c4468028062d440a44eeb7ee9ed
         with:
           commit-message: "test: update snapshot"
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
-          title: "test: update snapshot"
-          body: "This PR updates the snapshot"
-          branch: vis-bot/update-snapshot/${{ github.head_ref || github.ref_name }}
-          base: ${{ github.base_ref }}
-          labels: "snapshot"
-          draft: false
+          pr-title: "test: update snapshot"
+          pr-body: "This PR updates the snapshot"
+          target-branch: vis-bot/update-snapshot/${{ github.head_ref || github.ref_name }}
+          base-branch: ${{ github.head_ref || github.ref_name }}
+          paths-to-add: "*/*/__vis__/linux"
