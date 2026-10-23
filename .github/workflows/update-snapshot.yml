@@ -49,7 +49,7 @@ jobs:
             */*/__vis__/**/__results__
 
       - name: Create Pull Request
-        uses: repobuddy/vis-bot@d5f3990399426c4468028062d440a44eeb7ee9ed
+        uses: repobuddy/vis-bot@v0.1.0
         with:
           commit-message: "test: update snapshot"
           pr-title: "test: update snapshot"

@@ -87,7 +87,7 @@ jobs:
       - name: Create Pull Request
         id: snapshot-pr
         if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(steps.branch.outputs.name, 'vis-bot') && !startsWith(steps.branch.outputs.name, 'dependabot')
-        uses: repobuddy/vis-bot@d5f3990399426c4468028062d440a44eeb7ee9ed
+        uses: repobuddy/vis-bot@v0.1.0
         with:
           commit-message: "test(${{ matrix.os }}/lts-latest): update snapshot"
           pr-title: "test(${{ matrix.os }}/lts-latest): update snapshot"
