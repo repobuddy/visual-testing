@@ -94,7 +94,7 @@ jobs:
           pr-body: "This PR updates the snapshot for ${{ matrix.os }} node lts-latest"
           target-branch: vis-bot/update-snapshot/${{ steps.branch.outputs.name }}-${{ matrix.os }}-lts-latest
           base-branch: ${{ steps.branch.outputs.name }}
-          paths-to-add: "*/*/__vis__/${{ matrix.os == 'windows-latest' && 'win32' || 'linux' }}"
+          paths-to-add: "*/*/__vis__/${{ matrix.os == 'windows-latest' && 'win32' || 'linux' }}/**"
 
       - name: Collect changed baselines
         if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'

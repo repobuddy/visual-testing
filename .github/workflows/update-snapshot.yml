@@ -56,4 +56,4 @@ jobs:
           pr-body: "This PR updates the snapshot"
           target-branch: vis-bot/update-snapshot/${{ github.head_ref || github.ref_name }}
           base-branch: ${{ github.head_ref || github.ref_name }}
-          paths-to-add: "*/*/__vis__/linux"
+          paths-to-add: "*/*/__vis__/linux/**"
