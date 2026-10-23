@@ -35,6 +35,7 @@ export default defineProject({
 		browser: {
 			enabled: true,
 			headless: true,
+			api: { allowWrite: true },
 			provider: webdriverio(),
 			instances: [{ browser: 'chrome', viewport: { width: 1280, height: 720 } }],
 		},

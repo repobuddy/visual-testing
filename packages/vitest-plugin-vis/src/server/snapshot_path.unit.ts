@@ -1,5 +1,4 @@
 import { platform } from 'node:process'
-import { afterEach, beforeEach } from 'node:test'
 import ci from 'is-ci'
 import { resolve } from 'pathe'
 import { describe, expect, it, vi } from 'vitest'
@@ -7,6 +6,13 @@ import type { VisOptions } from '../config/types.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { createStubPartialBrowserCommandContext } from './testing/stubBrowserCommandContext.ts'
 import { stubSuite } from './testing/stubSuite.ts'
+
+vi.mock('is-ci', () => ({
+	default: true, // Mocking `is-ci` as true
+}))
+vi.mock('node:process', () => ({
+	platform: 'linux', // Mocking process.platform as 'linux'
+}))
 
 const stubContext = createStubPartialBrowserCommandContext({
 	root: resolve(import.meta.dirname, '../..'),
@@ -54,18 +60,6 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 	})
 
 	describe('when in CI', () => {
-		beforeEach(() => {
-			vi.mock('is-ci', () => ({
-				default: true, // Mocking `is-ci` as true
-			}))
-			vi.mock('node:process', () => ({
-				platform: 'linux', // Mocking process.platform as 'linux'
-			}))
-		})
-		afterEach(() => {
-			vi.resetAllMocks()
-		})
-
 		it('should use process.platform', () => {
 			const { browserCommandContext } = stubSuite()
 
