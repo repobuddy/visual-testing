@@ -26,6 +26,10 @@ jobs:
           - lts/-1
           - lts/*
     runs-on: ${{ matrix.os }}
+    # vis-bot pushes the snapshot branch and opens the PR with github.token.
+    permissions:
+      contents: write
+      pull-requests: write
     env:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
@@ -79,22 +83,18 @@ jobs:
             snapshots:
               - '*/*/__vis__/**/__baselines__/**'
 
-      # Dependabot PRs run without repo secrets, so they cannot open the snapshot PR.
+      # Fork and Dependabot PRs get a read-only github.token, so they cannot open the snapshot PR.
       - name: Create Pull Request
         id: snapshot-pr
         if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(steps.branch.outputs.name, 'vis-bot') && !startsWith(steps.branch.outputs.name, 'dependabot')
-        uses: peter-evans/create-pull-request@v8
-        env:
-          HEAD_REF: ${{ steps.branch.outputs.name }}
+        uses: repobuddy/vis-bot@v0.1.0
         with:
-          commit-message: "test(${{matrix.os}}/lts-latest): update snapshot"
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
-          title: "test(${{matrix.os}}/lts-latest): update snapshot"
-          body: This PR updates the snapshot for ${{matrix.os}} node lts-latest"
-          branch: vis-bot/update-snapshot/${{ env.HEAD_REF }}-${{ matrix.os }}-lts-latest
-          base: ${{ env.HEAD_REF }}
-          labels: "snapshot"
-          draft: false
+          commit-message: "test(${{ matrix.os }}/lts-latest): update snapshot"
+          pr-title: "test(${{ matrix.os }}/lts-latest): update snapshot"
+          pr-body: "This PR updates the snapshot for ${{ matrix.os }} node lts-latest"
+          target-branch: vis-bot/update-snapshot/${{ steps.branch.outputs.name }}-${{ matrix.os }}-lts-latest
+          base-branch: ${{ steps.branch.outputs.name }}
+          paths-to-add: "*/*/__vis__/${{ matrix.os == 'windows-latest' && 'win32' || 'linux' }}/**"
 
       - name: Collect changed baselines
         if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
@@ -120,11 +120,11 @@ jobs:
         shell: bash
         env:
           CHANGED: ${{ steps.snapshot-changes.outputs.snapshots_files }}
-          SNAPSHOT_PR: ${{ steps.snapshot-pr.outputs.pull-request-url }}
+          SNAPSHOT_PR_NUMBER: ${{ steps.snapshot-pr.outputs.pr-number }}
         run: |
           eval "set -- $CHANGED"
-          if [[ -n "$SNAPSHOT_PR" ]]; then
-            review="Review the new render in $SNAPSHOT_PR. Merge it into this branch if the change is intended; otherwise fix the regression."
+          if [[ -n "$SNAPSHOT_PR_NUMBER" ]]; then
+            review="Review the new render in ${{ github.server_url }}/${{ github.repository }}/pull/$SNAPSHOT_PR_NUMBER. Merge it into this branch if the change is intended; otherwise fix the regression."
           else
             review="Download the changed-baselines artifact from this run to review the new render, or see the snapshot PR from the lts/* job."
           fi

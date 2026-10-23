@@ -69,9 +69,15 @@
 			"outputs": ["__vis__/**"]
 		},
 		"testcase-sb-auto-no-snapshot-tag#test": {
+			"dependsOn": ["^build"],
+			"outputs": []
+		},
+		"testcase-sb-control#test": {
+			"dependsOn": ["^build"],
 			"outputs": []
 		},
 		"testcase-sb-csf-mix#test": {
+			"dependsOn": ["^build"],
 			"outputs": []
 		},
 		"testcase": {
