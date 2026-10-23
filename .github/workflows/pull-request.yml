@@ -16,6 +16,8 @@ on:
 jobs:
   verify:
     strategy:
+      # Every leg must finish: the lts/* legs open the snapshot PRs even after another leg fails.
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -56,20 +58,34 @@ jobs:
           max_attempts: 3
           command: pnpm verify:ci
       - run: git add .
+      - name: Classify head branch
+        id: branch
+        shell: bash
+        env:
+          HEAD_REF: ${{ steps.pr-info.outputs.head_ref || github.head_ref }}
+        run: |
+          echo "name=$HEAD_REF" >> "$GITHUB_OUTPUT"
+          # Renovate and Dependabot PRs can merge themselves, so a render change on them must fail the check.
+          if [[ "$HEAD_REF" == renovate* || "$HEAD_REF" == dependabot* ]]; then
+            echo "dependency_bot=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Detect snapshot changes
         uses: dorny/paths-filter@v4
         id: snapshot-changes
         with:
           base: HEAD
+          list-files: shell
           filters: |
             snapshots:
               - '*/*/__vis__/**/__baselines__/**'
 
+      # Dependabot PRs run without repo secrets, so they cannot open the snapshot PR.
       - name: Create Pull Request
-        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'vis-bot') && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'dependabot') && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'renovate')
+        id: snapshot-pr
+        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(steps.branch.outputs.name, 'vis-bot') && !startsWith(steps.branch.outputs.name, 'dependabot')
         uses: peter-evans/create-pull-request@v8
         env:
-          HEAD_REF: ${{ steps.pr-info.outputs.head_ref || github.head_ref }}
+          HEAD_REF: ${{ steps.branch.outputs.name }}
         with:
           commit-message: "test(${{matrix.os}}/lts-latest): update snapshot"
           token: ${{ secrets.CI_GITHUB_TOKEN }}
@@ -79,6 +95,50 @@ jobs:
           base: ${{ env.HEAD_REF }}
           labels: "snapshot"
           draft: false
+
+      - name: Collect changed baselines
+        if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
+        shell: bash
+        env:
+          CHANGED: ${{ steps.snapshot-changes.outputs.snapshots_files }}
+        run: |
+          mkdir -p .vis-changed-baselines
+          eval "set -- $CHANGED"
+          for f in "$@"; do
+            [[ -f "$f" ]] && cp --parents "$f" .vis-changed-baselines/
+          done
+      - name: Upload changed baselines
+        if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: changed-baselines-${{ matrix.os }}-${{ strategy.job-index }}
+          path: .vis-changed-baselines
+          include-hidden-files: true
+
+      - name: Fail on render change in a dependency PR
+        if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
+        shell: bash
+        env:
+          CHANGED: ${{ steps.snapshot-changes.outputs.snapshots_files }}
+          SNAPSHOT_PR: ${{ steps.snapshot-pr.outputs.pull-request-url }}
+        run: |
+          eval "set -- $CHANGED"
+          if [[ -n "$SNAPSHOT_PR" ]]; then
+            review="Review the new render in $SNAPSHOT_PR. Merge it into this branch if the change is intended; otherwise fix the regression."
+          else
+            review="Download the changed-baselines artifact from this run to review the new render, or see the snapshot PR from the lts/* job."
+          fi
+          echo "::error title=Render changed::This dependency update changes $# snapshot(s). $review"
+          {
+            echo "## Render changed"
+            echo
+            echo "This dependency update changes $# snapshot(s), so it must not merge without review."
+            echo
+            echo "$review"
+            echo
+            for f in "$@"; do echo "- \`$f\`"; done
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
 
   all-checks:
     needs: [verify]
