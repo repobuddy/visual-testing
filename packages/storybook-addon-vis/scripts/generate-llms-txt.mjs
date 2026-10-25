@@ -6,6 +6,7 @@
 //
 // Every name, count and grouping comes from the public surface: the `exports` map of each
 // `package.json`, read through the TypeScript compiler API, and the `<Meta title>` of each `.mdx` page.
+// It also copies the plugin skill (`SKILL.md` and `README.md`) authored in `vitest-plugin-vis` into `storybook-addon-vis`, so both ship the same text.
 // The only judgement in here is `DOC_PAGES` (which page documents which declaration) and `FEATURED_TITLES`.
 // `DOC_PAGES` is checked at generation time, so a stale entry fails the run.
 
@@ -18,6 +19,7 @@ import ts from 'typescript'
 const GENERATOR = 'packages/storybook-addon-vis/scripts/generate-llms-txt.mjs'
 const BRANCH = 'main'
 const SITE_URL = 'https://repobuddy.github.io/visual-testing/'
+const SKILL_FILES = ['SKILL.md', 'README.md'].map((f) => `skills/review-image-snapshot-failures/${f}`)
 const TEST_FILE = /\.(spec|test|unit|accept|integrate|system|perf|stress|stories|study)\./
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..')
@@ -416,8 +418,14 @@ function render(context, scopePackages) {
 		'',
 	)
 	if (featured.length > 0) {
+		const [page] = featured
+		// The page's package ships `src`, so an agent without network access can read it from `node_modules`.
+		// Only say so for a package this file covers: the other one may not be installed.
+		const shipped = scopePackages.includes(page.pkg)
+			? ` Without network access, read it from \`node_modules/${page.pkg.name}/${slash(page.file).slice(page.pkg.root.length + 1)}\`.`
+			: ''
 		out.push(
-			`If an image snapshot test fails, read [${featured[0].title}](${featured[0].url}) before opening any image.`,
+			`If an image snapshot test fails, read [${page.title}](${page.url}) before opening any image.${shipped}`,
 			'',
 		)
 	}
@@ -568,6 +576,8 @@ if (mode === '--gaps') {
 		[`${SITE_PACKAGE.root}/.storybook/public/llms.txt`, render(context, siteScope)],
 		[`${SITE_PACKAGE.root}/llms.txt`, render(context, addonScope)],
 		[`${PACKAGES[1].root}/llms.txt`, render(context, pluginScope)],
+		// The plugin skill is authored once in `vitest-plugin-vis`; `storybook-addon-vis` ships a copy of it.
+		...SKILL_FILES.map((file) => [`${PACKAGES[0].root}/${file}`, read(`${PACKAGES[1].root}/${file}`)]),
 	]
 	if (FEATURED_TITLES.some((t) => !PAGES.some((p) => p.title === t))) {
 		stderr(

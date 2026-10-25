@@ -46,6 +46,11 @@
 		"dist",
 		"src",
 		"llms.txt",
+		"plugin.json",
+		".claude-plugin",
+		".cursor-plugin",
+		".codex-plugin",
+		"skills",
 		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
 	],
 	"scripts": {
