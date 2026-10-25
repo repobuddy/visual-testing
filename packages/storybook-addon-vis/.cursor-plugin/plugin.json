@@ -1,0 +1,18 @@
+{
+	"name": "storybook-addon-vis",
+	"version": "4.3.2",
+	"description": "Review failed image snapshots from storybook-addon-vis cheaply: read the message, then the review image.",
+	"author": {
+		"name": "Homa Wong",
+		"email": "homawong@gmail.com",
+		"url": "https://github.com/unional"
+	},
+	"homepage": "https://github.com/repobuddy/visual-testing/tree/main/packages/storybook-addon-vis",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/repobuddy/visual-testing",
+		"directory": "packages/storybook-addon-vis"
+	},
+	"license": "MIT",
+	"keywords": ["image-snapshot", "storybook-addons", "vitest", "visual-test", "testing", "test", "browser-mode"]
+}
