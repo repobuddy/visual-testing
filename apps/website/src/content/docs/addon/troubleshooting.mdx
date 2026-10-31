@@ -1,0 +1,47 @@
+---
+title: "Troubleshooting the Storybook addon"
+description: "Fixes for common problems when using storybook-addon-vis."
+sidebar:
+  order: 5
+---
+
+:::caution[Unverified]
+These notes (the `.npmrc` workarounds for `pathe` and the `beforeAll` workaround for Storybook 8.5) are not covered by any spec and have not been re-tested.
+:::
+
+> Internal server error: Failed to resolve import "pathe"
+
+This is likely [a compatibility issue with `pnpm` and `vite` in monorepo](https://discord.com/channels/917386801235247114/1305110710229008435/1305325581839368202).
+
+To work around this, you can add [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) to your `.npmrc`:
+
+```sh
+# .npmrc
+
+shamefully-hoist=true
+```
+
+or hoist the `pathe` package:
+
+```sh
+# .npmrc
+
+hoist-pattern[] = pathe
+```
+
+> It takes empty snapshots on Vitest tests
+
+If you are using Storybook 8.5 and using the workaround to run both stories and tests [as described here](https://github.com/storybookjs/storybook/issues/30307),
+Storybook are also transforming the tests as if they are stories.
+That causes it to inject elements into the DOM and this addon detect that as some rendering by your tests,
+thus taking an image snapshot.
+
+Since it is a bug to be addressed soon,
+please disable the snapshots for your tests by adding a `beforeAll` hook:
+
+```ts
+import { setAutoSnapshotOptions } from 'storybook-addon-vis'
+import { beforeAll } from 'vitest'
+
+beforeAll(() => setAutoSnapshotOptions(false))
+```

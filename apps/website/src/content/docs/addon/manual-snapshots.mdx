@@ -1,0 +1,99 @@
+---
+title: "Manual snapshots"
+description: "Capture image snapshots from a story play function, check whether one exists, and use the Chrome DevTools Protocol."
+sidebar:
+  order: 4
+---
+
+:::caution[Unverified]
+The Chrome DevTools Protocol section (`cdp()`) has no spec in the repository and is ported as written.
+:::
+
+Besides automatic snapshot, you can capture image snapshot manually.
+
+```tsx
+import { expect } from '@storybook/test'
+
+// `page` and the like are proxies of `@vitest/browser/context` to work within storybook
+import { page } from 'storybook-addon-vis'
+
+export const PageSnapshot = {
+	// typically you want to disable automatic snapshot when using manual snapshot
+	// but you can use both at the same time.
+	tags: ['!snapshot'],
+	async play({ canvasElement }) {
+		await expect(canvasElement).toMatchImageSnapshot(/* options */)
+	}
+}
+
+export const ElementSnapshot = {
+	// typically you want to disable automatic snapshot when using manual snapshot
+	// but you can use both at the same time.
+	tags: ['!snapshot'],
+	async play({ canvas }) {
+		const element = await canvas.getByTestid('subject')
+		await expect(element).toMatchImageSnapshot(/* options */)
+	}
+}
+```
+
+## Check if a snapshot exists
+
+While less common, you can also check if a snapshot exists:
+
+```tsx
+import { hasImageSnapshot } from 'storybook-addon-vis'
+
+export const HasImageSnapshot = {
+	tags: ['!snapshot'],
+	loaders: [async () => ({ hasImageSnapshot: await hasImageSnapshot(/* options */) })],
+	render(_, { loaded: { hasImageSnapshot } }) {
+		return <div data-testid="subject">Has snapshot: {String(hasImageSnapshot)}</div>
+	},
+	async play({ canvas, loaded: { hasImageSnapshot } }) {
+		const subject = canvas.getByTestId('subject')
+		if (!hasImageSnapshot) {
+			await expect(subject).toMatchImageSnapshot()
+			return
+		}
+
+		// This will only execute in Vitest
+		await expect(subject)
+			.toMatchImageSnapshot()
+			.then(
+				() => {
+					throw new Error('Should not reach')
+				},
+				(error) => {
+					expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./)
+				},
+			)
+	},
+}
+```
+
+This is useful when you are performing some negative test.
+
+## Chrome DevTools Protocol
+
+`cdp` is a proxy of `cdp()` from `vitest/browser`.
+Importing `vitest/browser` directly in a story breaks the story in a plain Storybook preview,
+where the module throws on import; the proxy loads it only during a Vitest browser run.
+
+Use it to read what the browser computes, such as the accessible name and description Chromium exposes to screen readers:
+
+```tsx
+import { cdp } from 'storybook-addon-vis'
+
+export const AccessibleName = {
+	async play() {
+		const session = cdp()
+		await session.send('Accessibility.enable')
+		const { nodes } = await session.send('Accessibility.getFullAXTree')
+		// assert on nodes
+	}
+}
+```
+
+CDP is available only with the Playwright provider on Chromium.
+Calling `cdp()` outside a Vitest browser run throws, so keep such tests in Vitest.

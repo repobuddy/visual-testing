@@ -1,0 +1,37 @@
+---
+title: "Install the Vitest plugin"
+description: "What vitest-plugin-vis is, how it compares with Vitest visual regression testing, and how to install it."
+sidebar:
+  order: 1
+---
+
+[vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) provides visual testing for tests running in [Vitest Browser Mode](https://vitest.dev/guide/browser).
+
+Vitest 4 adds [Visual Regression Test](https://vitest.dev/guide/browser/visual-regression-testing.html) support natively.
+You can choose which method to use based on your needs.
+
+Here is a comparison of the features between [Vitest Visual Regression Test](https://vitest.dev/guide/browser/visual-regression-testing.html) and [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis).
+
+| Feature | [Vitest Visual Regression Test](https://vitest.dev/guide/browser/visual-regression-testing.html) | [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) |
+| ------- | -------------------------------------------------- | ------------------- |
+| Manual snapshot creation | ✅ | ✅ |
+| Automatic snapshot creation | ❌ | ✅ |
+| Multi-theme snapshots | ❌ | ✅ |
+| Comparison methods | `pixel`, `ssim`, custom | `pixel`, `ssim` |
+| Threshold customization | ✅ | ✅ |
+| Fine-grained snapshot variations | ❌ | ✅ |
+| Masking elements | ✅ | 🚧 |
+
+## Install
+
+[vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) works with Vitest 2 or later.
+
+For Vitest 2 or 3, please use [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) v3.
+
+```sh
+npm install --save-dev vitest-plugin-vis
+
+pnpm add --save-dev vitest-plugin-vis
+
+yarn add --save-dev vitest-plugin-vis
+```
