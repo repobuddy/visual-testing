@@ -14,7 +14,12 @@ const staticExample = process.env.STORYBOOK_STATIC_EXAMPLE === '1'
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
-	stories: ['../src/**/*.{mdx,stories.@(js|jsx|mjs|ts|tsx)}'],
+	// The published build leaves out `play_snapshot`: its play function needs the Vitest-only `toMatchImageSnapshot` matcher.
+	stories: [
+		...(staticExample
+			? ['../src/**/*.mdx', '../src/**/!(play_snapshot).stories.@(js|jsx|mjs|ts|tsx)']
+			: ['../src/**/*.{mdx,stories.@(js|jsx|mjs|ts|tsx)}']),
+	],
 
 	addons: [
 		getAbsolutePath('@storybook/addon-vitest'),
