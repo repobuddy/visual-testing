@@ -4,6 +4,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"build:sb": "STORYBOOK_STATIC_EXAMPLE=1 storybook build --output-dir storybook-static --disable-telemetry",
 		"clean": "rimraf dist",
 		"clean:vis:local": "rimraf __vis__/local",
 		"nuke": "rimraf node_modules",

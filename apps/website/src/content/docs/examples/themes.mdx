@@ -1,0 +1,16 @@
+---
+title: Themes
+description: Snapshot the same stories in a light and a dark theme.
+---
+
+import Story from '../../../components/storybook/Story.astro'
+
+This example uses `@storybook/addon-themes` to switch a `dark` class on the page. The Vitest setup registers a `light` and a `dark` hook through `vis.setup({ auto })`, so each snapshot story is captured once per theme.
+
+The stories cover the ways to ask for a snapshot: the `snapshot` tag on a component, the tag on a single story, and `toMatchImageSnapshot()` inside a `play` function.
+
+Snapshots are taken during the Vitest run, not in the browser. This Storybook only renders the stories.
+
+<Story id="example-component-snapshot--primary" storybookPath="examples/themes/storybook" />
+
+[Open the full Storybook](/visual-testing/examples/themes/storybook/)

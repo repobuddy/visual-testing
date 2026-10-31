@@ -53,6 +53,7 @@ export default defineConfig({
 				{ label: 'Storybook addon', items: [{ autogenerate: { directory: 'addon' } }] },
 				{ label: 'Vitest plugin', items: [{ autogenerate: { directory: 'plugin' } }] },
 				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
+				{ label: 'Examples', items: [{ autogenerate: { directory: 'examples' } }] },
 				{
 					label: 'Reference',
 					items: [

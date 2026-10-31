@@ -3,7 +3,13 @@
 	"extends": ["//"],
 	"tasks": {
 		"build": {
-			"dependsOn": ["^build", "storybook-addon-vis#build:sb"],
+			"dependsOn": [
+				"^build",
+				"storybook-addon-vis#build:sb",
+				"testcase-themes#build:sb",
+				"testcase-multi-instances#build:sb",
+				"testcase-sb-csf-next#build:sb"
+			],
 			"env": ["SITE_BASE"],
 			"outputs": ["dist/**"]
 		},

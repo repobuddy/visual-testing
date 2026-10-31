@@ -11,6 +11,9 @@ function getAbsolutePath(value: string): any {
 	return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)))
 }
 
+// The website publishes a static build without the Vis addon: its server channel needs Node.
+const staticExample = process.env.STORYBOOK_STATIC_EXAMPLE === '1'
+
 export default defineMain({
 	stories: ['../src/**/*.{mdx,stories.@(js|jsx|mjs|ts|tsx)}'],
 	addons: [
@@ -18,7 +21,7 @@ export default defineMain({
 		getAbsolutePath('@storybook/addon-a11y'),
 		getAbsolutePath('@storybook/addon-vitest'),
 		getAbsolutePath('@storybook-community/storybook-dark-mode'),
-		defineStorybookVis(),
+		...(staticExample ? [] : [defineStorybookVis()]),
 	],
 	framework: getAbsolutePath('@storybook/react-vite'),
 	features: {

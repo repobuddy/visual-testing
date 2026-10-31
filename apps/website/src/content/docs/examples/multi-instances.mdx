@@ -1,0 +1,16 @@
+---
+title: Multi instances
+description: Snapshot the same stories in several browser viewports.
+---
+
+import Story from '../../../components/storybook/Story.astro'
+
+The Vitest config of this example runs the stories in two Chromium instances, `HD` (1280 by 720) and `SVGA` (800 by 600). The `snapshotRootDir` option puts each instance's images in its own folder, so one story gets one baseline per viewport.
+
+The stories are the same as in the themes example: the `snapshot` tag on a component, the tag on a single story, and `toMatchImageSnapshot()` inside a `play` function.
+
+Snapshots are taken during the Vitest run, not in the browser. This Storybook only renders the stories, in your own viewport.
+
+<Story id="example-story-snapshot--primary" storybookPath="examples/multi-instances/storybook" />
+
+[Open the full Storybook](/visual-testing/examples/multi-instances/storybook/)

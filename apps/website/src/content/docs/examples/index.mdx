@@ -1,0 +1,16 @@
+---
+title: Examples
+description: Example Storybooks that show how visual testing is set up.
+---
+
+These are the Storybooks of the repository's test cases, built and published as static sites. Each page embeds one story and says what the example demonstrates.
+
+| Example | Shows |
+| --- | --- |
+| [Themes](/visual-testing/examples/themes/) | One set of snapshots per theme. |
+| [Multi instances](/visual-testing/examples/multi-instances/) | One set of snapshots per browser viewport. |
+| [CSF Next](/visual-testing/examples/sb-csf-next/) | Snapshots with CSF Next stories and `story.test()`. |
+
+## What the published Storybooks do not do
+
+Snapshots are taken while Vitest runs the stories, not in the browser. These Storybooks only show the stories. They do not take or compare snapshots, and the Vis panel is left out because it needs a Node server that a static host does not have.

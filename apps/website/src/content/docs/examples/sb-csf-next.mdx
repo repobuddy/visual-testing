@@ -1,0 +1,14 @@
+---
+title: CSF Next
+description: Snapshot stories written in the CSF Next format.
+---
+
+import Story from '../../../components/storybook/Story.astro'
+
+This example writes its stories with CSF Next (`preview.meta()` and `meta.story()`) and registers the addon in the preview with `addonVis()`. It shows opting a story in with the `snapshot` tag and out with `!snapshot`, choosing the element to capture with `parameters.snapshot.subject`, and snapshotting the stories that `story.test()` adds.
+
+Snapshots are taken during the Vitest run, not in the browser. This Storybook only renders the stories.
+
+<Story id="example-button--secondary" storybookPath="examples/sb-csf-next/storybook" />
+
+[Open the full Storybook](/visual-testing/examples/sb-csf-next/storybook/)
