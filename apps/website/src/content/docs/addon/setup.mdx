@@ -80,6 +80,10 @@ vis.setup()
 
 ## Storybook 10.3+ and Vitest project annotations
 
+:::caution[Unverified]
+This section has no spec in the repository and is ported as written.
+:::
+
 From **Storybook 10.3** onward, [`@storybook/addon-vitest`](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) often injects project annotations for you (for example via `setProjectAnnotations(getProjectAnnotations())`), so you may not need a hand-maintained `vitest.setup.ts` in every project. See the [Storybook Vitest integration docs](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) for the current recommendation.
 
 **If you are not using CSF Next** (or have not moved your preview config to `definePreview`), you may still need to adjust your setup: **do not** rely only on merging `visAnnotations` inside `setProjectAnnotations([...])` in `vitest.setup.ts`. Put the same lifecycle hooks in **`.storybook/preview.ts`** instead, so `getProjectAnnotations()` includes them when the Vitest addon builds annotations from your preview stack.
@@ -101,6 +105,10 @@ const config: StorybookConfig = {
 	]
 }
 ```
+
+:::caution[Unverified]
+The monorepo `getAbsolutePath` example has no spec in the repository and is ported as written.
+:::
 
 In monorepo, you need to use the `getAbsolutePath` helper function to resolve the absolute path of the addon.
 
@@ -263,6 +271,10 @@ export default definePreview({
 If you need more control over the visual testing, you can customize the addon configuration.
 
 In `vitest.config.ts`, you can customize where the snapshots are saved and how they are compared.
+
+:::caution[Unverified]
+The `snapshotRootDir`, `snapshotSubpath` and `snapshotKey` options below have no spec in the repository and are ported as written.
+:::
 
 ```ts
 // vitest.config.ts

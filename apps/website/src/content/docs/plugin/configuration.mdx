@@ -30,7 +30,7 @@ export default defineConfig({
 
 This default configuration will:
 
-- Use the [auto preset](/visual-testing/storybook/?path=/docs/configuration--docs#auto-preset), taking image snapshot at the end on each rendering test.
+- Use the [auto preset](/visual-testing/reference/plugin/set-auto-snapshot-options/), taking image snapshot at the end on each rendering test.
 - Use `pixelmatch` as the image comparison method.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
 - Timeout for image comparison is set to `30000 ms`.
@@ -90,7 +90,7 @@ and on the browser side we provides API to take snapshots.
 The Node.js side is configured in your `vitest.config.ts` file,
 while the browser side is configured in your `vitest.setup.ts` file.
 
-Please check out the documentation for [Config](/visual-testing/storybook/?path=/docs/config-vis--docs) and [Setup](/visual-testing/storybook/?path=/docs/setup-vis--docs) for more details.
+Please check out the documentation for [Config](/visual-testing/reference/plugin/config/vis/) and [Setup](/visual-testing/reference/plugin/setup/vis/) for more details.
 
 [vitest]: https://vitest.dev
 [vitest-browser-mode]: https://vitest.dev/guide/browser
