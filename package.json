@@ -40,7 +40,8 @@
 		"version": "changeset version",
 		"vis": "pnpm --filter=./packages/storybook-addon-vis",
 		"vpv": "pnpm --filter=./packages/vitest-plugin-vis",
-		"w": "turbo w"
+		"w": "turbo w",
+		"web": "pnpm --filter=website"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.15",
@@ -63,6 +64,6 @@
 	},
 	"packageManager": "pnpm@12.16.1",
 	"engines": {
-		"node": "^22.11 || ^24 || >=26"
+		"node": "^22.12 || ^24 || >=26"
 	}
 }

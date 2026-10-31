@@ -1,0 +1,32 @@
+{
+	"name": "website",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"astro": "astro",
+		"build": "astro build && node scripts/copy-storybook.mjs",
+		"dev": "astro dev",
+		"preview": "astro preview",
+		"test": "vitest run",
+		"typecheck": "astro check"
+	},
+	"dependencies": {
+		"@astrojs/markdown-satteri": "^0.4.6",
+		"@astrojs/starlight": "^0.42.0",
+		"@fontsource-variable/inter": "^5.2.8",
+		"astro": "^7.2.10"
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.10",
+		"@astrojs/starlight-tailwind": "^5.0.0",
+		"@tailwindcss/vite": "^4.3.3",
+		"tailwindcss": "^4.3.3",
+		"typescript": "catalog:",
+		"vite": "^7.3.2",
+		"vitest": "catalog:"
+	},
+	"engines": {
+		"node": ">=22.12.0"
+	}
+}

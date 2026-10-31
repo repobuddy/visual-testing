@@ -67,12 +67,3 @@ jobs:
       actions: write
     uses: repobuddy/.github/.github/workflows/pnpm-release-changeset-oidc.yml@v2
     needs: verify
-
-  docgen:
-    permissions:
-      contents: write
-    uses: repobuddy/.github/.github/workflows/pnpm-docs.yml@v2
-    needs: release
-    if: github.ref == 'refs/heads/main' && needs.release.outputs.published == 'true'
-    with:
-      publish-dir: ./packages/storybook-addon-vis/storybook-static

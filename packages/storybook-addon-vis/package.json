@@ -74,7 +74,6 @@
 		"nuke": "rimraf node_modules",
 		"prerelease": "zx scripts/prepublish-checks.js",
 		"sb": "storybook dev -p 6006",
-		"sb:build": "cross-env NODE_ENV=production storybook build",
 		"t:n": "vitest run -c vitest.config.node.ts",
 		"t:pw": "vitest run -c vitest.config.playwright.ts",
 		"t:t": "tsc --noEmit",

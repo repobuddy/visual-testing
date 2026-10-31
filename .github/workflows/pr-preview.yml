@@ -1,0 +1,50 @@
+name: PR preview
+
+# Builds the site for each pull request and publishes it to gh-pages under pr-preview/pr-<N>/, then comments
+# the URL on the PR. The preview is removed when the PR closes.
+# https://github.com/rossjrw/pr-preview-action/tree/v1.8.1#readme
+#
+# No paths filter on purpose: baseline-only PRs get a preview too.
+on:
+  pull_request:
+    # `closed` must be listed or the action never sees it and previews are never removed.
+    types: [opened, reopened, synchronize, closed]
+
+# Per-PR group so the preview and its comment cannot get out of sync (recommended by the action).
+concurrency: preview-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    # Same-repo PRs only: the action's token cannot push to gh-pages for fork PRs (the action does not support them),
+    # and Dependabot's pull_request token is read-only.
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      # Pushes the preview to gh-pages.
+      contents: write
+      # Posts and updates the preview comment.
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        if: github.event.action != 'closed'
+      - uses: actions/setup-node@v7
+        if: github.event.action != 'closed'
+        with:
+          node-version: lts/*
+          cache: pnpm
+      # The preview is removed on close, so skip the build then.
+      - run: pnpm install --frozen-lockfile
+        if: github.event.action != 'closed'
+      - run: pnpm exec turbo run build --filter=website
+        if: github.event.action != 'closed'
+        env:
+          SITE_BASE: /visual-testing/pr-preview/pr-${{ github.event.number }}/
+      - uses: rossjrw/pr-preview-action@v1.8.1
+        with:
+          source-dir: apps/website/dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
