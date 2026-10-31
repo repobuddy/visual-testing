@@ -1,0 +1,134 @@
+---
+title: defineStorybookVis
+description: Register the Storybook Visual Testing addon and its options in .storybook/main.ts.
+sidebar:
+  order: 2
+---
+
+A helper function to configure the Storybook Visual Testing addon in `.storybook/main.ts`.
+
+```ts
+// .storybook/main.ts
+import { defineMain } from '@storybook/your-framework'
+import { defineStorybookVis } from 'storybook-addon-vis/node'
+
+export default defineMain({
+	addons: [
+		defineStorybookVis({
+			visProjects: [
+				{
+					snapshotRootDir: '__vis__/linux',
+				},
+				{
+					snapshotRootDir: '__vis__/local',
+				},
+			],
+		}),
+	],
+})
+```
+
+## Function signature
+
+```ts
+// Without options - returns the package directory path as a string
+function defineStorybookVis(): string
+
+// With options - returns an object containing both the package name and the provided options
+function defineStorybookVis(options: StorybookVisOptions): { name: string; options: StorybookVisOptions }
+```
+
+The `name` is the same value that the no-argument form returns.
+It is a filesystem path, not a `file://` URL.
+
+## Usage
+
+### Use the default configuration
+
+Call `defineStorybookVis()` without arguments to use all default settings.
+It returns the package directory path as a string:
+
+```ts
+import { defineStorybookVis } from 'storybook-addon-vis/node'
+
+export default {
+	addons: [defineStorybookVis()],
+}
+```
+
+### Customize the addon configuration
+
+Pass an options object to configure how the addon stores snapshots and manages visual testing projects.
+It returns an object containing the package name and your options, unchanged:
+
+```ts
+import { defineStorybookVis } from 'storybook-addon-vis/node'
+
+export default {
+	addons: [
+		defineStorybookVis({
+			visProjects: [
+				{
+					snapshotRootDir: '__vis__/linux',
+				},
+				{
+					snapshotRootDir: '__vis__/local',
+				},
+			],
+		}),
+	],
+}
+```
+
+## Options
+
+The options parameter accepts a `StorybookVisOptions` object.
+The same options are described on [defineStorybookVisOptions](/visual-testing/reference/addon/define-storybook-vis-options/).
+
+### `visProjects`
+
+Configure one or more visual testing projects.
+Each project has its own snapshot storage settings.
+
+### `snapshotRootDir`
+
+Where snapshots are stored. It can be:
+
+- A static path string, used for all snapshots.
+- A function that receives `{ ci: boolean; platform: string }` and returns the directory.
+- `undefined`, which uses the default snapshot root directory.
+
+```ts
+defineStorybookVis({
+	visProjects: [
+		{
+			snapshotRootDir: ({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`,
+		},
+	],
+})
+```
+
+With the function above, `{ ci: true, platform: 'linux' }` gives `__vis__/linux`,
+and `{ ci: false, platform: 'darwin' }` gives `__vis__/local`.
+
+### `snapshotSubpath`
+
+Transform the default snapshot subdirectory path.
+It receives `{ subpath: string }` and returns the transformed subpath.
+
+```ts
+defineStorybookVis({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/test',
+			snapshotSubpath: ({ subpath }) => `custom/${subpath}`,
+		},
+	],
+})
+```
+
+With the function above, a `subpath` of `test/path` becomes `custom/test/path`.
+
+## Related
+
+- [defineStorybookVisOptions](/visual-testing/reference/addon/define-storybook-vis-options/): define the options on their own.

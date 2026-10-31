@@ -1,0 +1,119 @@
+---
+title: trimCommonFolder
+description: Remove common folder prefixes such as src and tests from a snapshot sub-path.
+sidebar:
+  order: 3
+---
+
+`trimCommonFolder` removes a common folder prefix from a file path to generate a shorter snapshot sub-path.
+
+## Purpose
+
+Test files often sit in common directories such as `src` or `tests`.
+`trimCommonFolder` removes these prefixes to create shorter, more meaningful snapshot directory structures.
+
+## Usage
+
+The default `snapshotSubpath` option of [`vis`](/visual-testing/reference/plugin/config/vis/) uses this function.
+You can also use it in your own `snapshotSubpath`:
+
+```ts
+// vitest.config.ts
+import { trimCommonFolder, vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
+		}),
+	],
+})
+```
+
+## Function signature
+
+```ts
+function trimCommonFolder(suiteName: string): string
+```
+
+## Supported common folders
+
+It removes the first path segment when it is one of these (exact, lowercase match):
+
+- `tests`
+- `test`
+- `src`
+- `source`
+- `js`
+- `ts`
+- `lib`
+
+## Examples
+
+These pairs come from the spec of the function.
+
+### Trimming common folders
+
+```ts
+trimCommonFolder('src/components/button')    // 'components/button'
+trimCommonFolder('source/components/button') // 'components/button'
+trimCommonFolder('tests/unit/button')        // 'unit/button'
+trimCommonFolder('test/unit/button')         // 'unit/button'
+trimCommonFolder('js/components/button')     // 'components/button'
+trimCommonFolder('ts/components/button')     // 'components/button'
+trimCommonFolder('lib/components/button')    // 'components/button'
+```
+
+### No trimming
+
+```ts
+// Unrecognized folder
+trimCommonFolder('app/components/button') // 'app/components/button'
+
+// No slash separator
+trimCommonFolder('index.ts') // 'index.ts'
+```
+
+### Parent folders
+
+Each `..` is replaced with `__`:
+
+```ts
+trimCommonFolder('../components/button')    // '__/components/button'
+trimCommonFolder('../../components/button') // '__/__/components/button'
+```
+
+## Custom implementation
+
+You can write your own trimming logic and use it as `snapshotSubpath`:
+
+```ts
+function customTrimFolder(suiteName: string) {
+	const customFolders = ['app', 'pages', 'components']
+	const suiteDir = suiteName.split('/', 1)[0]!
+
+	if (customFolders.includes(suiteDir)) {
+		return suiteName.slice(suiteDir.length + 1)
+	}
+
+	return suiteName
+}
+
+// vitest.config.ts
+export default defineConfig({
+	plugins: [
+		vis({
+			snapshotSubpath: ({ subpath }) => customTrimFolder(subpath),
+		}),
+	],
+})
+```
+
+:::caution[Unverified]
+The spec does not cover case sensitivity (for example `SRC/...` is not trimmed) or the custom implementation above. The case-sensitive claim follows from the implementation, which compares the first segment against a lowercase list.
+:::
+
+## Related
+
+- [vis config](/visual-testing/reference/plugin/config/vis/): main plugin configuration.
+- [Customizing the snapshot path](/visual-testing/reference/plugin/config/overview/#customizing-the-snapshot-path)

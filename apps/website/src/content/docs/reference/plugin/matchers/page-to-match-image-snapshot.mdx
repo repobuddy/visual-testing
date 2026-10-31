@@ -1,0 +1,121 @@
+---
+title: page.toMatchImageSnapshot()
+description: Capture the page or viewport and compare it to a baseline image snapshot.
+sidebar:
+  order: 2
+---
+
+`page.toMatchImageSnapshot()` captures a full page or viewport screenshot and compares it to a baseline image.
+
+Unlike [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/), which targets a specific subject, it captures the whole page or viewport.
+
+## Basic usage
+
+```ts
+import { page } from 'vitest/browser'
+
+it('should take a page snapshot', async () => {
+	await render(<MyApp />)
+
+	await page.toMatchImageSnapshot()
+})
+```
+
+## Options
+
+### `fullPage`
+
+Capture the entire scrollable page, not just the visible viewport. The default is `false`.
+
+```ts
+it('supports full page image snapshot', async () => {
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'test_snapshot',
+	})
+
+	await expect(page.hasImageSnapshot({ snapshotKey: 'test_snapshot' })).resolves.toBe(true)
+})
+```
+
+### `snapshotKey`
+
+Customize the snapshot key.
+
+```ts
+await page.toMatchImageSnapshot({ snapshotKey: 'homepage_layout' })
+```
+
+A key that contains a dash is rejected with `Snapshot key cannot contain dash`.
+
+### `createMissingBaseline`
+
+When `true` and there is no baseline image yet,
+the matcher writes the captured image as the baseline and the assertion succeeds,
+without using Vitest's `-u` (`updateSnapshot`) mode.
+If a baseline already exists, it does not change the comparison.
+
+```ts
+it('takes an image snapshot', async () => {
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'test_snapshot',
+		createMissingBaseline: true,
+	})
+
+	await expect(page.hasImageSnapshot({ snapshotKey: 'test_snapshot' })).resolves.toBe(true)
+})
+```
+
+### Comparison options
+
+`failureThreshold`, `failureThresholdType`, `comparisonMethod`, `diffOptions`, `timeout`, and `expectToFail` take the same values as on
+[`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/#options).
+
+```ts
+await page.toMatchImageSnapshot({
+	fullPage: true,
+	snapshotKey: 'full_app_layout',
+	failureThreshold: 0.01,
+	failureThresholdType: 'percent',
+	comparisonMethod: 'ssim',
+	diffOptions: { ssim: 'bezkrovny' },
+	timeout: 45000,
+})
+```
+
+:::caution[Unverified]
+The spec for `page.toMatchImageSnapshot()` covers `snapshotKey`, `fullPage`, `createMissingBaseline`, and the errors below.
+It does not assert the comparison options on `page`. That they behave as on `expect()` is stated by the original documentation.
+:::
+
+## Errors
+
+- Called outside a test: ``'`toMatchImageSnapshot()` must be called in a test.'``
+- Called in a concurrent test: ``'`toMatchImageSnapshot()` cannot be called in a concurrent test because concurrent tests run at the same time in the same iframe and affect each other's environment.'``
+- Snapshot key with a dash: `Snapshot key cannot contain dash`.
+
+Use a regular `it()` instead of `it.concurrent()`:
+
+```ts
+// Throws
+it.concurrent('concurrent test', async () => {
+	await page.toMatchImageSnapshot()
+})
+
+// Works
+it('sequential test', async () => {
+	await page.toMatchImageSnapshot()
+})
+```
+
+## WebdriverIO
+
+The original documentation says `fullPage` may not work correctly in headless mode with WebdriverIO, and recommends Playwright for more reliable visual testing.
+
+:::caution[Unverified]
+No spec covers this.
+:::

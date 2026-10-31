@@ -1,0 +1,20 @@
+---
+title: storybook-addon-vis/node
+description: Configure the Storybook Visual Testing addon from .storybook/main.ts.
+sidebar:
+  order: 1
+---
+
+:::caution[Unverified]
+No spec covers the claims on this page yet. The helper functions it links to are covered on their own pages.
+:::
+
+`storybook-addon-vis/node` provides functionality to configure the Storybook Visual Testing addon in the `.storybook/main.ts` file.
+
+`.storybook/main.ts` is run on the server side,
+so the code it uses is separated from the client side code.
+
+It exports two helpers:
+
+- [`defineStorybookVis`](/visual-testing/reference/addon/define-storybook-vis/): registers the addon and its options in one call.
+- [`defineStorybookVisOptions`](/visual-testing/reference/addon/define-storybook-vis-options/): defines the options only.

@@ -1,0 +1,153 @@
+---
+title: vis (setup)
+description: Set up automatic snapshots and per-theme snapshots in vitest.setup.ts with vis.setup().
+sidebar:
+  order: 2
+---
+
+The `vis` object from `vitest-plugin-vis/setup` provides the API to set up the plugin on the client side.
+This is not the same `vis` as the [Vitest plugin](/visual-testing/reference/plugin/config/vis/) exported from `vitest-plugin-vis/config`.
+
+## Basic setup
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Basic setup - enables visual testing without auto snapshots
+vis.setup()
+
+// Enable auto snapshots for all tests
+vis.setup({ auto: true })
+
+// Disable auto snapshots (same as `vis.setup()`)
+vis.setup({ auto: false })
+```
+
+With `vis.setup({ auto: false })`, a test that renders content takes no auto snapshot,
+and `page.hasImageSnapshot()` returns `false` for it.
+
+:::caution[Unverified]
+The spec for `vis.setup({ auto: true })` is currently skipped, so that form is not verified.
+The function form of `auto` (`auto: async ({ meta }) => ...`) and the rule that the function runs in `afterEach()` are not covered either.
+:::
+
+## Conditional auto snapshots
+
+Control when auto snapshots are taken based on test metadata:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Take snapshots only for tests with specific metadata
+vis.setup({
+	auto: async ({ meta }) => meta['visualTest'] === true,
+})
+
+// Skip snapshots for tests marked as 'skipSnapshot'
+vis.setup({
+	auto: async ({ meta }) => !meta['skipSnapshot'],
+})
+```
+
+The function is called during the `afterEach()` phase of the test.
+
+## Multi-theme setup
+
+Pass an object to `auto` to take one snapshot per theme.
+Each key is the theme name, and each value is a handler that prepares the page for that theme.
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		light: async () => {
+			document.body.classList.remove('dark')
+			document.body.classList.add('light')
+		},
+		dark: async () => {
+			document.body.classList.add('dark')
+			document.body.classList.remove('light')
+		},
+	},
+})
+```
+
+The behavior of the per-theme matcher that backs this form is covered by a spec:
+
+- Every handler runs and takes its snapshot, even if an earlier handler throws.
+- When handlers fail, the errors are aggregated into one message:
+
+  ```txt
+  Snapshot `matchpertheme/should-aggregate-all-errors` mismatched
+
+  Theme `theme1` failed: theme1 failed
+
+  Theme `theme2` failed: theme2 failed
+  ```
+
+- A handler receives the snapshot options (the `meta`) of the test, for example `{ enable: true }`.
+
+## Conditional theme snapshots
+
+A handler can skip its theme by returning `false`:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		light: async ({ meta }) => {
+			if (meta['skipLight']) return false
+			document.body.classList.remove('dark')
+		},
+		dark: async ({ meta }) => {
+			if (meta['skipDark']) return false
+			document.body.classList.add('dark')
+		},
+	},
+})
+```
+
+:::caution[Unverified]
+The spec only checks that a handler can be typed to return `false`. It does not assert that returning `false` skips the theme.
+:::
+
+## Advanced theme configuration
+
+Theme names are free-form, so you can model viewports and combinations:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		desktop: async () => {
+			document.body.style.width = '1200px'
+			document.body.classList.add('desktop')
+		},
+		tablet: async () => {
+			document.body.style.width = '768px'
+			document.body.classList.add('tablet')
+		},
+		mobile: async () => {
+			document.body.style.width = '375px'
+			document.body.classList.add('mobile')
+		},
+		'dark-desktop': async ({ meta }) => {
+			if (meta['skipDark']) return false
+			document.body.style.width = '1200px'
+			document.body.classList.add('desktop', 'dark')
+		},
+	},
+})
+```
+
+:::caution[Unverified]
+The spec does not use theme names with dashes. Snapshot keys reject dashes (see [`setAutoSnapshotOptions`](/visual-testing/reference/plugin/set-auto-snapshot-options/)), so check that `'dark-desktop'` works in your setup before relying on it.
+:::

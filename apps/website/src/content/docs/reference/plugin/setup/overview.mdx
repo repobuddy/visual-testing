@@ -1,0 +1,22 @@
+---
+title: Setup overview
+description: The vitest-plugin-vis/setup entry point and the methods it adds to expect and page.
+sidebar:
+  order: 1
+---
+
+:::caution[Unverified]
+No spec covers the claims on this page yet. The matchers it lists have their own pages, and those are covered by specs.
+:::
+
+`vitest-plugin-vis/setup` provides the API to set up the plugin on the client side.
+
+It provides the API you need in `vitest.setup.ts`.
+
+## Augmentation
+
+When you import `vitest-plugin-vis/setup`, it augments `expect` and `page` to provide methods for visual testing:
+
+- [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/): match the image snapshot.
+- [`page.toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/page-to-match-image-snapshot/): match the image snapshot of the page.
+- [`page.hasImageSnapshot()`](/visual-testing/reference/plugin/matchers/has-image-snapshot/): check if the image snapshot exists.
