@@ -1,5 +1,13 @@
 # CHANGE LOG
 
+## 4.3.4
+
+### Patch Changes
+
+- [#947](https://github.com/repobuddy/visual-testing/pull/947) [`25d682c`](https://github.com/repobuddy/visual-testing/commit/25d682c8aa740a93b0e7a38a74d162b59d479b56) Thanks [@unional](https://github.com/unional)! - Include `CHANGELOG.md` in the published package.
+- Updated dependencies [[`25d682c`](https://github.com/repobuddy/visual-testing/commit/25d682c8aa740a93b0e7a38a74d162b59d479b56)]:
+  - vitest-plugin-vis@5.2.1
+
 ## 4.3.3
 
 ### Patch Changes
