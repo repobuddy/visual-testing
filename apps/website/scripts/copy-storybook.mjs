@@ -1,9 +1,20 @@
-// Copies the addon's built Storybook into the site output so it is served at <base>/storybook/.
+// Copies the built Storybooks into the site output:
+// - the addon's Storybook at <base>/storybook/
+// - each testcase Storybook at <base>/examples/<name>/storybook/
 import { cp, rm } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 
-const source = fileURLToPath(new URL('../../../packages/storybook-addon-vis/storybook-static', import.meta.url))
-const target = fileURLToPath(new URL('../dist/storybook', import.meta.url))
+const root = (path) => fileURLToPath(new URL(path, import.meta.url))
 
-await rm(target, { recursive: true, force: true })
-await cp(source, target, { recursive: true })
+const copies = [
+	['../../../packages/storybook-addon-vis/storybook-static', '../dist/storybook'],
+	...['themes', 'multi-instances', 'sb-csf-next'].map((name) => [
+		`../../../testcases/${name}/storybook-static`,
+		`../dist/examples/${name}/storybook`,
+	]),
+]
+
+for (const [from, to] of copies) {
+	await rm(root(to), { recursive: true, force: true })
+	await cp(root(from), root(to), { recursive: true })
+}
