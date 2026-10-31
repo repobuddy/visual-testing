@@ -48,7 +48,13 @@ export default defineConfig({
 			],
 			head: [{ tag: 'script', content: forwardStorybookLinks }],
 			customCss: ['./src/styles/global.css'],
-			sidebar: [{ label: 'Getting Started', items: [{ label: 'Introduction', slug: '' }] }],
+			sidebar: [
+				{ label: 'Getting Started', items: [{ label: 'Introduction', slug: '' }] },
+				{ label: 'Storybook addon', items: [{ autogenerate: { directory: 'addon' } }] },
+				{ label: 'Vitest plugin', items: [{ autogenerate: { directory: 'plugin' } }] },
+				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
+				{ label: 'Releases', items: [{ autogenerate: { directory: 'releases' } }] },
+			],
 		}),
 	],
 })

@@ -1,10 +1,18 @@
 ---
-title: visual-testing
-description: Visual testing for Storybook and Vitest.
+title: "visual-testing"
+description: "Visual testing for Storybook and Vitest."
 ---
 
-import Story from '../../components/storybook/Story.astro'
+Capture and compare image snapshots automatically and manually, in Storybook and in Vitest Browser Mode.
 
-Documentation is coming soon. In the meantime, browse the [Storybook](/visual-testing/storybook/).
+| Package | What it is for | npm | Docs |
+| ------- | -------------- | --- | ---- |
+| `storybook-addon-vis` | Capturing and comparing image snapshots of your stories, automatically and manually, from [Storybook Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) tests. | [npm](https://www.npmjs.com/package/storybook-addon-vis) | [Storybook addon](/visual-testing/addon/) |
+| `vitest-plugin-vis` | Capturing and comparing image snapshots in tests that run in [Vitest Browser Mode](https://vitest.dev/guide/browser), without Storybook. | [npm](https://www.npmjs.com/package/vitest-plugin-vis) | [Vitest plugin](/visual-testing/plugin/install/) |
 
-<Story id="auto-snapshot--capture-subject-only" />
+## Which one do I need
+
+If you test your stories with Storybook, use `storybook-addon-vis`. It uses `vitest-plugin-vis` internally to do the heavy lifting.
+If you do not use Storybook and write tests in Vitest Browser Mode directly, use `vitest-plugin-vis`, which was extracted from the addon to be used directly in Vitest.
+
+The existing [Storybook](/visual-testing/storybook/) is still available.

@@ -1,0 +1,211 @@
+---
+title: "Reviewing failures with agents"
+description: "What each view of a failed image snapshot costs a coding agent, and the order in which an agent should look."
+sidebar:
+  order: 1
+---
+
+:::caution[Unverified]
+The token counts and cost ratios below come from a measurement script and are not backed by a spec; they were not re-run for this page. The error message format is ported as written.
+:::
+
+When an image snapshot fails, a coding agent often opens the baseline and the result and compares them.
+Images are the most expensive input an agent reads.
+This page shows what each view costs and the order in which an agent should look.
+
+In short: read the error message, then open the review image instead of the full images.
+Open the Actual or Difference image only when the message says the review image was skipped.
+
+## What a failure gives you
+
+A failed `toMatchImageSnapshot` throws a message like this:
+
+```
+Snapshot `button/primary` mismatched
+
+Expected image to match but was differ by 133 pixels.
+
+Options:    failureThreshold: 0 pixels
+            comparisonMethod: pixel
+
+Expected:   ./__vis__/linux/__baselines__/button.stories.tsx/primary.png
+Actual:     ./__vis__/linux/__results__/button.stories.tsx/primary.png
+Difference: ./__vis__/linux/__diffs__/button.stories.tsx/primary.png
+Changed:    1 region: 106x37 at (0,0)
+Review:     ./__vis__/linux/__diffs__/button.stories.tsx/primary.review.png (baseline, result, diff of each region)
+```
+
+When the two images have different sizes, the message also says
+`The image size changed from 1280x720 to 333x720.`
+
+The message is text and costs little.
+It tells the agent how much changed, whether the layout changed size, where each changed region is, and where the images are.
+
+The `Changed:` line lists each changed region as `<width>x<height> at (<x>,<y>)`.
+The plugin finds the changed pixels, grows them by 16 px, and turns each connected area into one region.
+Anti-aliasing differences are not counted.
+
+The review image places, for each region, the Expected crop, the Actual crop, and a diff crop next to each other.
+The diff crop shows the baseline in gray at full contrast with the changed pixels in red,
+so small text in the changed area stays readable.
+
+The review image is skipped when cropping does not help:
+the image size changed, there are more than 5 regions, or the regions cover more than half of the image.
+The `Review:` line then says so, and why:
+
+```
+Review:     skipped, the image size changed; open Actual or Difference instead
+```
+
+The regions are also written next to the diff, as `primary.regions.json`:
+`{ "width": 1280, "height": 720, "regions": [{ "x": 0, "y": 0, "width": 106, "height": 37 }] }`.
+Tools and UIs read this file to zoom to the changes; an agent gets the same data from the `Changed:` line.
+
+The Difference image is made by [pixelmatch](https://github.com/mapbox/pixelmatch) with its default colors:
+
+- red pixels are pixels that changed.
+- yellow pixels are anti-aliasing differences. They do not count toward the failure.
+- gray is the baseline, faded, for context.
+
+The faded baseline makes small text hard to read in the Difference image.
+It shows where the change is, not always what it is.
+
+## What each view costs
+
+Claude reads an image in 28 × 28 pixel patches, and each patch is one token:
+`⌈width / 28⌉ × ⌈height / 28⌉`, after the image is scaled down to fit the model's limit
+(2576 px on the long edge and 4784 tokens on current models).
+See [Vision](https://platform.claude.com/docs/en/build-with-claude/vision) in the Claude docs.
+Other models count image tokens differently, but most charge more for larger images.
+
+For the 1280 × 720 page above, where a 106 × 37 area changed:
+
+<table>
+	<thead>
+		<tr><th>What the agent opens</th><th>Image tokens</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>Expected and Actual</td><td>2,392</td></tr>
+		<tr><td>Difference only</td><td>1,196</td></tr>
+		<tr><td>Review image (106 × 119)</td><td>20</td></tr>
+	</tbody>
+</table>
+
+The Difference image is the same size as each snapshot, so it always costs half of the pair.
+The review image holds only the changed region, three times, so its cost follows the size of the change, not of the page.
+
+Across 109 failing comparisons from this repository (see [How this was measured](#how-this-was-measured)):
+
+<table>
+	<thead>
+		<tr>
+			<th>What the agent opens</th>
+			<th>Full pages (66)</th>
+			<th>Components (39)</th>
+			<th>Size changed (4)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>Expected and Actual</td><td>79,396</td><td>28,902</td><td>6,032</td></tr>
+		<tr><td>Difference only</td><td>39,698 (2.0× less)</td><td>14,451 (2.0× less)</td><td>4,784 (1.3× less)</td></tr>
+		<tr><td>Review image, or the fallback below when it is skipped</td><td>667 (119× less)</td><td>350 (83× less)</td><td>3,016 (2.0× less)</td></tr>
+	</tbody>
+</table>
+
+Three things stand out:
+
+- The plugin wrote a review image for 101 of the 109 comparisons: all 66 full pages and 35 of the 39 components.
+  The largest one costs 20 tokens.
+- It skipped 4 components because the change covers 84% of an 86 × 36 image.
+  The agent opens the Difference image instead, which costs 8 tokens each.
+- It skipped all 4 size changes. The Difference image is padded to the larger image and most of it shows the padding,
+  so the agent opens only the Actual image.
+
+## What the agent should do
+
+**1. Read the error message first.**
+It gives the pixel count, any size change, the changed regions, and the image paths.
+
+**2. Open the review image.**
+For each region, it shows Expected, Actual, and the changed pixels in red, side by side.
+Do not open the full Expected, Actual, or Difference images unless the review image leaves the question open.
+
+**3. If the message says the review image was skipped, read why.**
+
+- The image size changed: open only the Actual image.
+  A size change means the layout changed, and the Actual image shows the new layout.
+- Too many regions, or the regions cover most of the image: open the Difference image.
+  Note where the red pixels are, then open Expected and Actual only if the Difference image does not show what changed.
+
+**4. If there is no `Review:` line, the review image is turned off (`reviewImage: false`).**
+The `Changed:` line still gives each region.
+Crop Expected and Actual to those regions with any image tool the environment has, and open the crops,
+for example `magick primary.png -crop 106x37+0+0 +repage primary.crop.png`.
+
+**5. Decide what the change is.**
+Update the baseline (run the tests with `-u`) only when the change is what the task intended.
+If the content is the same and only the edges of text or shapes differ, it is rendering drift
+(fonts, operating system, browser). Report it instead of updating the baseline.
+Anything else is a regression to fix or report.
+
+## Add it to your agent instructions
+
+Paste this into your `AGENTS.md`, `CLAUDE.md`, or similar file:
+
+```md
+## Image snapshot failures
+
+When a `toMatchImageSnapshot` assertion fails:
+
+1. Read the error message first. It gives the pixel difference, any size change,
+   the changed regions (`Changed:`), and the image paths.
+2. Open the review image (`Review:`), not the full images.
+   For each region it shows Expected, Actual, and the changed pixels in red.
+3. If the message says the review image was skipped:
+   - the image size changed: open only the Actual image.
+   - otherwise: open the Difference image. Red pixels changed.
+     Yellow pixels are anti-aliasing and do not count.
+4. Update the baseline (`-u`) only when the change is what the task intended.
+   Report anything else.
+```
+
+## Turning the review image off
+
+The review image is on by default.
+Set `reviewImage: false` in [`vis()`](https://github.com/repobuddy/visual-testing/blob/main/packages/vitest-plugin-vis/src/config/vis.mdx)
+or in a `toMatchImageSnapshot()` call to not write it.
+The regions file and the `Changed:` line are still written.
+
+## How this was measured
+
+The image pairs come from this repository's committed baselines:
+
+- 116 tests that have both a `linux` and a `win32` baseline.
+  The Linux image is the baseline and the Windows image is the result.
+  107 of them differ, mostly in how text is rendered.
+- 2 baselines that a commit changed in place, where the image size changed.
+
+The groups in the table are: size changed, when the two images differ in size;
+full pages, 1280 px wide; and components, everything else.
+
+For each pair, the script pads both images to the same size, as this plugin does,
+and runs the plugin's own code to compare them with default options,
+find the changed regions, decide whether to skip the review image, and build it.
+It then computes the token cost of each view with the formula above.
+The 9 identical pairs are left out.
+
+To reproduce, run from the repository root:
+
+```sh
+node scripts/measure_diff_tokens.mjs . <out-dir>
+```
+
+It writes `results.json` and every image it measured, with the review images and region files, to `<out-dir>`.
+See [`scripts/measure_diff_tokens.mjs`](https://github.com/repobuddy/visual-testing/blob/main/scripts/measure_diff_tokens.mjs).
+
+Limits of this measurement:
+
+- The token counts are computed from Anthropic's published formula, not read from API usage.
+- It measures cost, not whether the agent reaches the right decision from each view.
+- Most of the changes are small text-rendering differences, and every comparison has one changed region.
+  A change that spreads across a page gives a larger review image, or skips it.

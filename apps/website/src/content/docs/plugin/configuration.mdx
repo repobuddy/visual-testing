@@ -1,0 +1,100 @@
+---
+title: "Configure the Vitest plugin"
+description: "Add vis() to your Vitest configuration, ignore the snapshot folders, and set up TypeScript."
+sidebar:
+  order: 2
+---
+
+To use [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis), you need to:
+
+- Add the `vis` plugin to your Vitest configuration.
+- Update `.gitignore` for the snapshot directories.
+- Update your TypeScript configuration to include the `vitest-plugin-vis` type.
+
+## Vitest Configuration
+
+The [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) plugin can be used without customization.
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+	test: {
+		// ... your Vitest Browser Mode configuration ...
+	}
+})
+```
+
+This default configuration will:
+
+- Use the [auto preset](/visual-testing/reference/plugin/set-auto-snapshot-options/), taking image snapshot at the end on each rendering test.
+- Use `pixelmatch` as the image comparison method.
+- Set config to compare image snapshot with a failure threshold of `0 pixels`.
+- Timeout for image comparison is set to `30000 ms`.
+- Save image snapshots in the `<project-root>/__vis__` directory.
+
+## Update .gitignore
+
+By default, [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) will save image snapshots in the `<project-root>/__vis__` directory.
+
+Under this directory, you will find different set of snapshots for different environments:
+
+- `local`: For snapshots taken locally.
+- `<platform: ubuntu | darwin | win32>`: For snapshots taken in respective CI.
+
+In each platform directory, there are 3 directories:
+
+- `__baselines__`: The directory for the baseline snapshots. This should be committed to the repository (except for `local`).
+- `__results__`: The directory for the current snapshots created when Vitest runs.
+- `__diffs__`: The directory for the diffs between the current snapshot and the baseline snapshot.
+  For each failing snapshot, it also holds the changed regions (`<name>.regions.json`)
+  and a review image of the changed regions (`<name>.review.png`).
+
+Because of that, you should add the following lines to your `.gitignore` file:
+
+```ini
+**/__vis__/local
+**/__vis__/**/__diffs__
+**/__vis__/**/__results__
+```
+
+## TypeScript Configuration
+
+If you want to do manual snapshot testing, you need to tell TypeScript about the matcher.
+
+Add the following to your `tsconfig.json`:
+
+```jsonc
+{
+	"compilerOptions": {
+		"types": ["vitest-plugin-vis"]
+	}
+}
+```
+
+## Advanced Configuration
+
+[Vitest Browser Mode](https://vitest.dev/guide/browser) is a mode that allows you to run tests in a browser environment.
+It has two parts: the Node.js side and the browser side.
+
+It runs a worker in Node.js environment and starts a browser instance using provider such as [Playwright](https://playwright.dev/) or [WebDriverIO](https://webdriver.io/).
+It then runs the tests in the browser environment and controls the browser instance remotely through the provider.
+
+For [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis), we run code on the Node.js side to load and save the image snapshots,
+ask the provider to take screenshots,
+and on the browser side we provides API to take snapshots.
+
+The Node.js side is configured in your `vitest.config.ts` file,
+while the browser side is configured in your `vitest.setup.ts` file.
+
+Please check out the documentation for [Config](/visual-testing/reference/plugin/config/vis/) and [Setup](/visual-testing/reference/plugin/setup/vis/) for more details.
+
+[vitest]: https://vitest.dev
+[vitest-browser-mode]: https://vitest.dev/guide/browser
+[vitest-plugin-vis]: https://npmjs.org/package/vitest-plugin-vis
+[playwright]: https://playwright.dev/
+[webdriverio]: https://webdriver.io/
+[visual-regression-test]: https://vitest.dev/guide/browser/visual-regression-testing.html

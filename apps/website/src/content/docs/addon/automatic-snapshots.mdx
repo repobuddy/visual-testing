@@ -1,0 +1,87 @@
+---
+title: "Automatic snapshots"
+description: "Capture image snapshots automatically at the end of each story test with the snapshot tag."
+sidebar:
+  order: 3
+---
+
+With visual testing enabled, [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) automatically captures image snapshot for stories with `snapshot` tag.
+
+As how tags work in [Storybook](https://storybook.js.org), you can add the tag globally, per story file, or per story.
+
+```tsx
+// .storybook/preview.tsx
+export default {
+	// Enable image snapshot for all stories
+	// For CSF Next, this is added automatically by the addon.
+	tags: ['snapshot']
+}
+```
+
+```tsx
+// some.stories.tsx
+export default {
+	// Enable image snapshot for all stories in this file
+	tags: ['snapshot']
+}
+```
+
+```tsx
+export const MyStory = {
+	// Enable image snapshot for this story
+	tags: ['snapshot'],
+	// ...
+}
+```
+
+You can disable snapshot with the `!snapshot` tag, much like `!test`.
+
+```tsx
+export const MyStory = {
+	// Disable image snapshot for this story
+	tags: ['!snapshot'],
+	// ...
+}
+```
+
+Note that since they are captured during test,
+if you set `tags: ['!test']` to disable testing,
+no snapshot will be taken either.
+
+You can also provide additional tags, which you will receive when you use the theme preset:
+
+```tsx
+export const MyStory = {
+	tags: ['snapshot', 'skip-dark'],
+	// ...
+}
+
+// in vitest.setup.ts
+vis.setup({
+	auto: {
+		async dark({ tags }) {
+			if (tags.includes('skip-dark')) return false
+			document.body.classList.add('dark')
+		}
+	}
+})
+```
+
+If you want to customize the snapshot options for the automatic snapshot,
+you can provide options using Storybook parameters.
+`defineAutoSnapshotParam()` is a helper function to provide autocompletion:
+
+:::caution[Unverified]
+The `defineAutoSnapshotParam()` example has no spec in the repository and is ported as written.
+:::
+
+```tsx
+import { defineAutoSnapshotParam } from 'storybook-addon-vis'
+
+export const MyStory = {
+	parameters: defineAutoSnapshotParam({
+		failureThreshold: 70,
+	})
+	// ...
+}
+```
