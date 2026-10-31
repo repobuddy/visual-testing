@@ -3,17 +3,19 @@
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs          write the files
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --check  fail if any file on disk differs
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --gaps   print the documentation gaps as markdown
+//   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --site-pages <docs dir>...   fail if a slug has no page file in the given site content dirs
 //
 // Every name, count and grouping comes from the public surface: the `exports` map of each
 // `package.json`, read through the TypeScript compiler API, and the `<Meta title>` of each `.mdx` page.
+// Pages link to the documentation site (`SITE_URL`); `SITE_PAGES` maps each source `.mdx` to the Starlight slug(s) that publish it.
+// The site-wide file is written to `apps/website/public/llms.txt`, which the website build serves at `<SITE_URL>llms.txt`.
 // It also copies the plugin skill (`SKILL.md` and `README.md`) authored in `vitest-plugin-vis` into `storybook-addon-vis`, so both ship the same text.
-// The only judgement in here is `DOC_PAGES` (which page documents which declaration) and `FEATURED_TITLES`.
+// The only judgement in here is `DOC_PAGES` (which page documents which declaration), `SITE_PAGES` and `FEATURED_FILES`.
 // `DOC_PAGES` is checked at generation time, so a stale entry fails the run.
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, posix, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { toId } from 'storybook/internal/csf'
 import ts from 'typescript'
 
 const GENERATOR = 'packages/storybook-addon-vis/scripts/generate-llms-txt.mjs'
@@ -44,20 +46,79 @@ const PACKAGES = ['storybook-addon-vis', 'vitest-plugin-vis'].map((dir) => {
 })
 const REPO_URL = PACKAGES[0].repo
 
-/**
- * Pages that are published: `build:sb` builds `.storybook/main.ts` of `storybook-addon-vis`,
- * and `github-page.yml` publishes that build.
- * The mdx pages of other packages are not in its stories glob, so they are not on the site.
- */
 const SITE_PACKAGE = PACKAGES[0]
-if (!read(`${SITE_PACKAGE.root}/.storybook/main.ts`).includes("'../src/**/*.mdx'")) {
-	throw new Error(
-		`${SITE_PACKAGE.root}/.storybook/main.ts no longer builds '../src/**/*.mdx'; update how the generator decides which pages are published.`,
-	)
+const WEBSITE_LLMS_TXT = 'apps/website/public/llms.txt'
+
+const ADDON = 'packages/storybook-addon-vis/src'
+const PLUGIN = 'packages/vitest-plugin-vis/src'
+
+/**
+ * Where each source `.mdx` page is published: the Starlight slug(s) under `SITE_DOCS_DIR`, without extension.
+ * A page that the site splits into several pages lists one entry per slug, with its own `title` and `summary`;
+ * `covers` marks the entry that carries the "Documents:" list of the declarations the source page names.
+ * A page with a single slug takes its summary from the source.
+ * Every `.mdx` page must be listed here, or the run fails. `--site-pages` checks the slugs against the site's content directory.
+ */
+const SITE_PAGES = {
+	[`${ADDON}/overview.mdx`]: [
+		{ slug: 'addon/install', title: 'Install', summary: 'Install storybook-addon-vis and its peer dependencies.' },
+		{
+			slug: 'addon/setup',
+			title: 'Setup',
+			summary: 'Configure Storybook, Vitest, TypeScript and .gitignore for storybook-addon-vis.',
+			covers: true,
+		},
+		{
+			slug: 'addon/automatic-snapshots',
+			title: 'Automatic snapshots',
+			summary: 'Take an image snapshot of every story without writing test code.',
+		},
+		{
+			slug: 'addon/manual-snapshots',
+			title: 'Manual snapshots',
+			summary: 'Take snapshots in a play function, check that one exists, and use the Chrome DevTools Protocol.',
+		},
+		{
+			slug: 'addon/troubleshooting',
+			title: 'Troubleshooting',
+			summary: 'Fix common installation and runtime problems.',
+		},
+	],
+	[`${ADDON}/reviewing_failures_with_agents.mdx`]: [{ slug: 'guides/reviewing-failures-with-agents' }],
+	[`${ADDON}/releases/migrate_to_1.0.mdx`]: [{ slug: 'releases/migrate-to-1' }],
+	[`${ADDON}/releases/migrate_to_3.0.mdx`]: [{ slug: 'releases/migrate-to-3' }],
+	[`${ADDON}/node/overview.mdx`]: [{ slug: 'reference/addon/node' }],
+	[`${ADDON}/node/define_storybook_vis.mdx`]: [{ slug: 'reference/addon/define-storybook-vis' }],
+	[`${ADDON}/node/define_storybook_vis_options.mdx`]: [{ slug: 'reference/addon/define-storybook-vis-options' }],
+	[`${ADDON}/changelog.mdx`]: [{ slug: 'releases/changelog-addon' }],
+	[`${PLUGIN}/overview.mdx`]: [
+		{ slug: 'plugin/install', title: 'Install', summary: 'Install vitest-plugin-vis and its peer dependencies.' },
+		{
+			slug: 'plugin/configuration',
+			title: 'Configuration',
+			summary: 'Configure Vitest, .gitignore and TypeScript for vitest-plugin-vis.',
+			covers: true,
+		},
+	],
+	[`${PLUGIN}/setup/overview.mdx`]: [{ slug: 'reference/plugin/setup/overview' }],
+	[`${PLUGIN}/setup/vis.mdx`]: [{ slug: 'reference/plugin/setup/vis' }],
+	[`${PLUGIN}/setup/create_vis.mdx`]: [{ slug: 'reference/plugin/setup/create-vis' }],
+	[`${PLUGIN}/config/overview.mdx`]: [{ slug: 'reference/plugin/config/overview' }],
+	[`${PLUGIN}/config/vis.mdx`]: [{ slug: 'reference/plugin/config/vis' }],
+	[`${PLUGIN}/config/trim_common_folder.mdx`]: [{ slug: 'reference/plugin/config/trim-common-folder' }],
+	[`${PLUGIN}/auto_snapshots/auto_snapshot_options.mdx`]: [{ slug: 'reference/plugin/set-auto-snapshot-options' }],
+	[`${PLUGIN}/client/expect/to_match_image_snapshot.mdx`]: [
+		{ slug: 'reference/plugin/matchers/expect-to-match-image-snapshot' },
+	],
+	[`${PLUGIN}/client/page/to_match_image_snapshot.mdx`]: [
+		{ slug: 'reference/plugin/matchers/page-to-match-image-snapshot' },
+	],
+	[`${PLUGIN}/client/page/has_image_snapshot.mdx`]: [{ slug: 'reference/plugin/matchers/has-image-snapshot' }],
+	[`${PLUGIN}/changelog.mdx`]: [{ slug: 'releases/changelog-plugin' }],
 }
 
-/** Pages an agent should read first. A title that has no page yet is skipped; once the page exists, regenerate. */
-const FEATURED_TITLES = ['Reviewing Failures with Agents']
+/** Pages an agent should read first (source `.mdx`). */
+const FEATURED_FILES = [`${ADDON}/reviewing_failures_with_agents.mdx`]
 
 /**
  * Which page documents which declaration. Key is `<declaration file, repo-relative>#<name>`
@@ -174,26 +235,38 @@ function summarize(source) {
 	return sentence.replace(/:$/, '.')
 }
 
-const PAGES = PACKAGES.flatMap((pkg) =>
-	listFiles(`${pkg.root}/src`, (f) => f.endsWith('.mdx')).map((file) => {
-		const source = read(file)
-		const title = source.match(/<Meta\s+title="([^"]+)"/)?.[1]
-		if (!title) throw new Error(`${file} has no <Meta title="..."/>`)
-		const published = pkg === SITE_PACKAGE
-		return {
-			pkg,
-			file,
-			title,
-			source,
-			published,
-			// Storybook derives a standalone mdx doc id from its title, see `toId` in `storybook/internal/csf`.
-			url: published ? `${SITE_URL}?path=/docs/${toId(title, 'Docs')}` : `${REPO_URL}/blob/${BRANCH}/${file}`,
-			summary: summarize(source),
-		}
-	}),
+const mdxFiles = PACKAGES.flatMap((pkg) =>
+	listFiles(`${pkg.root}/src`, (f) => f.endsWith('.mdx')).map((file) => ({ pkg, file })),
 )
-const pageByFile = new Map(PAGES.map((p) => [p.file, p]))
-const isChangelog = (page) => page.title === 'Changelog'
+const unlisted = mdxFiles.filter(({ file }) => !(file in SITE_PAGES)).map(({ file }) => file)
+const missing = Object.keys(SITE_PAGES).filter((file) => !mdxFiles.some((m) => m.file === file))
+if (unlisted.length > 0 || missing.length > 0) {
+	throw new Error(
+		`SITE_PAGES in ${GENERATOR} is out of step with the .mdx pages.\n  Not mapped: ${unlisted.join(', ') || 'none'}\n  No such file: ${missing.join(', ') || 'none'}`,
+	)
+}
+
+const PAGES = mdxFiles.flatMap(({ pkg, file }) => {
+	const source = read(file)
+	const title = source.match(/<Meta\s+title="([^"]+)"/)?.[1]
+	if (!title) throw new Error(`${file} has no <Meta title="..."/>`)
+	return SITE_PAGES[file].map((entry) => ({
+		pkg,
+		file,
+		title: entry.title ?? title,
+		source,
+		slug: entry.slug,
+		covers: entry.covers ?? SITE_PAGES[file].length === 1,
+		url: `${SITE_URL}${entry.slug}/`,
+		summary: entry.summary ?? summarize(source),
+	}))
+})
+const slugs = PAGES.map((p) => p.slug)
+const duplicate = slugs.filter((s, i) => slugs.indexOf(s) !== i)
+if (duplicate.length > 0) throw new Error(`SITE_PAGES lists a slug twice: ${duplicate.join(', ')}`)
+// A source page that is split into several site pages is found by its first entry.
+const pageByFile = new Map(PAGES.map((p) => [p.file, p]).reverse())
+const isChangelog = (page) => page.slug.startsWith('releases/changelog-')
 
 // ---------------------------------------------------------------------------------------------
 // Surface
@@ -365,7 +438,9 @@ function summarizeMembers(entry) {
 function renderPageList(pages, members) {
 	return pages
 		.map((page) => {
-			const names = [...new Set(members.filter((m) => m.page === page).map((m) => m.name))]
+			const names = page.covers
+				? [...new Set(members.filter((m) => m.page?.file === page.file).map((m) => m.name))]
+				: []
 			const covers = names.length > 0 ? ` Documents: ${join(names)}.` : ''
 			return `- [${page.pkg.name}: ${page.title}](${page.url}): ${page.summary}${covers}`
 		})
@@ -378,12 +453,12 @@ function render(context, scopePackages) {
 	const scoped = entries.filter((e) => scopePackages.includes(e.pkg))
 	const members = scoped.flatMap((e) => e.members)
 
-	const referenced = new Set(members.map((m) => m.page).filter(Boolean))
+	const referencedFiles = new Set(members.map((m) => m.page?.file).filter(Boolean))
 	// Featured pages go in every file: an agent reading either package needs them.
 	const pages = PAGES.filter(
-		(p) => scopePackages.includes(p.pkg) || referenced.has(p) || FEATURED_TITLES.includes(p.title),
+		(p) => scopePackages.includes(p.pkg) || referencedFiles.has(p.file) || FEATURED_FILES.includes(p.file),
 	)
-	const featured = FEATURED_TITLES.flatMap((title) => pages.filter((p) => p.title === title))
+	const featured = pages.filter((p) => FEATURED_FILES.includes(p.file))
 	const docs = pages
 		.filter((p) => !featured.includes(p) && !isChangelog(p))
 		.sort((a, b) => (a.pkg !== b.pkg ? (a.pkg.name < b.pkg.name ? -1 : 1) : byTitle(a, b)))
@@ -392,7 +467,6 @@ function render(context, scopePackages) {
 	const unique = new Map(members.map((m) => [m.key, m]))
 	const documented = [...unique.values()].filter((m) => m.page)
 	const withJsDoc = [...unique.values()].filter((m) => m.hasJsDoc)
-	const unpublished = pages.filter((p) => !p.published)
 
 	const names = scopePackages.map((p) => p.name)
 	const title = names.join(' and ')
@@ -410,7 +484,7 @@ function render(context, scopePackages) {
 	out.push(
 		`# ${title}`,
 		'',
-		`> ${summary}. Image snapshot testing for Vitest browser mode, with a Storybook integration.`,
+		`> ${summary}. Image snapshot testing for Vitest browser mode, with a Storybook integration. Documentation: ${SITE_URL}`,
 		'',
 	)
 	out.push(
@@ -466,11 +540,6 @@ function render(context, scopePackages) {
 		'',
 		`Documentation coverage: ${documented.length} of ${unique.size} distinct exported declarations are named on a documentation page; ${withJsDoc.length} carry a doc comment.`,
 	)
-	if (unpublished.length > 0) {
-		out.push(
-			`${unpublished.length} of the pages above are not published on the documentation site; they link to their source on GitHub.`,
-		)
-	}
 	return `${out.join('\n')}\n`
 }
 
@@ -506,25 +575,7 @@ function renderGaps(context) {
 			`| \`${entry.subpath}\` | ${m.length} | ${m.filter((x) => x.page).length} | ${m.filter((x) => x.hasJsDoc).length} |`,
 		)
 	}
-	out.push('', '## Pages that are not published', '')
-	const unpublished = PAGES.filter((p) => !p.published)
-	const collisions = unpublished.filter((p) =>
-		PAGES.some((q) => q.published && toId(q.title, 'Docs') === toId(p.title, 'Docs')),
-	)
-	const collisionNote =
-		collisions.length > 0
-			? `${collisions.length} of them (${join(collisions.map((p) => `\`${p.title}\``))}) have the same doc id as a published page, so adding them to the glob as they are would collide.`
-			: 'None of them has the same doc id as a published page.'
-	out.push(
-		`${unpublished.length} of ${PAGES.length} \`.mdx\` pages are not in the site's stories glob (\`${SITE_PACKAGE.root}/.storybook/main.ts\`), so \`${SITE_URL}\` does not serve them:`,
-		'',
-		...unpublished.map((p) => `- \`${p.file}\` (\`${p.title}\`)`),
-		'',
-		collisionNote,
-		'',
-		'## Undocumented declarations',
-		'',
-	)
+	out.push('', '## Undocumented declarations', '')
 	const byOwner = new Map()
 	for (const m of undocumented) byOwner.set(m.file, [...(byOwner.get(m.file) ?? []), m])
 	for (const [file, list] of [...byOwner].sort(([a], [b]) => (a < b ? -1 : 1))) {
@@ -545,7 +596,6 @@ function renderGaps(context) {
 		out.push(`${i + 1}. \`${s.subpath}\`: ${s.count} undocumented exports`)
 	})
 	out.push(
-		`${slices.length + 1}. Publish the ${unpublished.length} \`vitest-plugin-vis\` pages (needs a decision on title collisions).`,
 		'',
 		'Declarations re-exported from several entry points are counted once in the summary, and once per entry point in the slicing, so the slices overlap.',
 		'',
@@ -569,21 +619,32 @@ const [siteScope, addonScope, pluginScope] = [PACKAGES, [PACKAGES[0]], [PACKAGES
 const mode = process.argv[2]
 const context = collectSurface()
 
-if (mode === '--gaps') {
+if (mode === '--site-pages') {
+	const dirs = process.argv.slice(3)
+	if (dirs.length === 0) {
+		stderr('Usage: --site-pages <docs dir>... (each relative to the repo root, or absolute)')
+		process.exit(2)
+	}
+	const exists = (slug) =>
+		dirs.some((dir) =>
+			['.mdx', '.md', '/index.mdx', '/index.md'].some((ext) => existsSync(resolve(repoRoot, dir, `${slug}${ext}`))),
+		)
+	const absent = PAGES.filter((p) => !exists(p.slug)).map((p) => p.slug)
+	if (absent.length > 0) {
+		stderr(`Slugs with no page file in ${dirs.join(', ')}:\n  ${absent.join('\n  ')}`)
+		process.exit(1)
+	}
+	stdout(`All ${PAGES.length} slugs have a page file.`)
+} else if (mode === '--gaps') {
 	process.stdout.write(renderGaps(context))
 } else if (mode === undefined || mode === '--check') {
 	const outputs = [
-		[`${SITE_PACKAGE.root}/.storybook/public/llms.txt`, render(context, siteScope)],
+		[WEBSITE_LLMS_TXT, render(context, siteScope)],
 		[`${SITE_PACKAGE.root}/llms.txt`, render(context, addonScope)],
 		[`${PACKAGES[1].root}/llms.txt`, render(context, pluginScope)],
 		// The plugin skill is authored once in `vitest-plugin-vis`; `storybook-addon-vis` ships a copy of it.
 		...SKILL_FILES.map((file) => [`${PACKAGES[0].root}/${file}`, read(`${PACKAGES[1].root}/${file}`)]),
 	]
-	if (FEATURED_TITLES.some((t) => !PAGES.some((p) => p.title === t))) {
-		stderr(
-			`Featured page not found yet: ${FEATURED_TITLES.filter((t) => !PAGES.some((p) => p.title === t)).join(', ')}`,
-		)
-	}
 	if (mode === '--check') {
 		const differ = outputs.filter(([file, text]) => {
 			const path = resolve(repoRoot, file)
@@ -603,6 +664,6 @@ if (mode === '--gaps') {
 		}
 	}
 } else {
-	stderr(`Unknown option ${mode}. Use no option, --check or --gaps.`)
+	stderr(`Unknown option ${mode}. Use no option, --check, --gaps or --site-pages.`)
 	process.exit(2)
 }
