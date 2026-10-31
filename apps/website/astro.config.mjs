@@ -50,6 +50,7 @@ export default defineConfig({
 			customCss: ['./src/styles/global.css'],
 			sidebar: [
 				{ label: 'Getting Started', items: [{ label: 'Introduction', slug: '' }] },
+				{ slug: 'showcase' },
 				{ label: 'Storybook addon', items: [{ autogenerate: { directory: 'addon' } }] },
 				{ label: 'Vitest plugin', items: [{ autogenerate: { directory: 'plugin' } }] },
 				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },

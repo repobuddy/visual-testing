@@ -1,0 +1,186 @@
+---
+title: Showcase
+description: What visual-testing captures, shown with the baseline images committed in this repository.
+---
+
+import Story from '../../components/storybook/Story.astro'
+import Snapshot from '../../components/showcase/Snapshot.astro'
+import SnapshotGrid from '../../components/showcase/SnapshotGrid.astro'
+
+Every image on this page is a baseline committed to the visual-testing repository. They are the
+images its own test suites compare against, taken on Linux in headless Chromium. Nothing is
+mocked up. The code next to each image comes from the story or spec that produced it, trimmed to
+the lines that matter.
+
+## Automatic story snapshot
+
+A story tagged `snapshot` is captured without any test code. This repository sets the `subject`
+option to `[data-testid="subject"]`, so only that element is captured and unrelated content cannot
+break the baseline.
+
+<Story id="auto-snapshot--capture-subject-only" height={120} />
+
+The baseline holds the word "subject" and nothing else. The red "This will not be captured" line in
+the story is not part of it.
+
+<Snapshot
+	src="auto-capture-subject-only.png"
+	alt="A 960 by 20 pixel capture containing only the word subject in black text on white."
+	caption="Baseline for the Capture Subject Only story, 960 x 20."
+	width={960}
+	height={20}
+/>
+
+```tsx
+export default {
+	title: 'Auto Snapshot',
+	tags: ['snapshot'],
+} satisfies Meta
+
+export const CaptureSubjectOnly: StoryObj = {
+	render: () => (
+		<div className="flex flex-col gap-2">
+			<div data-testid="subject">subject</div>
+			<div className="text-red-500">This will not be captured</div>
+		</div>
+	),
+}
+```
+
+Every story with the tag gets a baseline, so coverage grows with your Storybook.
+See [Automatic snapshots](/visual-testing/addon/automatic-snapshots/).
+
+## Per-theme snapshots
+
+One story produces one baseline per theme. These four come from the `Primary` and `Secondary` button
+stories, captured once in light and once in dark.
+
+<SnapshotGrid>
+	<Snapshot
+		src="theme-primary-light.png"
+		alt="The Primary story in the light theme: a blue pill button labelled Button at the top left of a white 960 by 720 canvas."
+		caption="Primary, light"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-primary-dark.png"
+		alt="The Primary story in the dark theme: a dark blue pill button labelled Button at the top left of a black 960 by 720 canvas."
+		caption="Primary, dark"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-secondary-light.png"
+		alt="The Secondary story in the light theme: an outlined white pill button labelled Button2 at the top left of a white canvas."
+		caption="Secondary, light"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-secondary-dark.png"
+		alt="The Secondary story in the dark theme: a dark slate pill button labelled Button2 at the top left of a black canvas."
+		caption="Secondary, dark"
+		width={960}
+		height={720}
+	/>
+</SnapshotGrid>
+
+A theme regression, such as a button that loses contrast in dark mode, shows up as a pixel difference
+in the matching baseline. You tell the addon how to switch theme, and it runs each story in both.
+
+```ts
+vis.setup({
+	auto: {
+		light() {
+			document.documentElement.classList.remove('dark')
+		},
+		dark() {
+			document.documentElement.classList.add('dark')
+		},
+	},
+})
+```
+
+See [`vis.setup()`](/visual-testing/reference/plugin/setup/vis/).
+
+## Snapshot thresholds
+
+A small rendering difference does not have to fail a test. `failureThreshold` sets how many pixels
+may differ before the match fails. The unit is pixels by default, and a percentage is also supported.
+
+Both threshold stories share one baseline, `threshold`, which is shown below. It is a stored baseline,
+not the output of a failed run. The stories render slightly different text ("unit text") from the
+baseline ("unit test"), so the comparison finds a few differing pixels. A threshold of 70 pixels
+accepts them. A threshold of 20 pixels rejects them.
+
+<Snapshot
+	src="threshold-baseline.png"
+	alt="A 960 by 20 pixel capture containing the words unit test in black text on white."
+	caption="The shared threshold baseline, 960 x 20."
+	width={960}
+	height={20}
+/>
+
+```tsx
+// Passes: the differing pixels are within 70.
+await expect(subject).toMatchImageSnapshot({
+	snapshotKey: 'threshold',
+	failureThreshold: 70,
+})
+
+// Fails: the differing pixels exceed 20.
+await expect(subject).toMatchImageSnapshot({
+	snapshotKey: 'threshold',
+	failureThreshold: 20,
+})
+```
+
+See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
+
+## Elements, locators and images
+
+`toMatchImageSnapshot()` accepts a Vitest browser locator, a DOM element, or an image encoded as a
+base64 string. Use whichever your test already has in hand.
+
+<SnapshotGrid>
+	<Snapshot
+		src="subject-locator.png"
+		alt="A 1280 by 18 pixel capture containing the word hello in black text on white."
+		caption="A locator"
+		width={1280}
+		height={18}
+	/>
+	<Snapshot
+		src="subject-element.png"
+		alt="A 1280 by 18 pixel capture containing the word hello in black text on white."
+		caption="An element"
+		width={1280}
+		height={18}
+	/>
+	<Snapshot
+		src="subject-base64.png"
+		alt="A 128 by 128 pixel sprite of a dark purple spiky sea urchin creature with yellow eyes."
+		caption="A base64 image"
+		width={128}
+		height={128}
+	/>
+</SnapshotGrid>
+
+The locator and the element point at the same markup, so their baselines are identical. That is the
+point: the subject type changes how you write the assertion, not what is captured.
+
+```tsx
+const subject = page.getByTestId('subject')
+
+await expect(subject).toMatchImageSnapshot()
+await expect(subject.element()).toMatchImageSnapshot()
+await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
+```
+
+See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
+
+## Reviewing a failure
+
+This section is a placeholder. An image of a failed comparison, with its diff, will go here once the
+review feature that generates it is published.
