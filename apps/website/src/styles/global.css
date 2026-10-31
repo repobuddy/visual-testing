@@ -1,0 +1,136 @@
+@import "@fontsource-variable/inter";
+
+@layer base, starlight, theme, components, utilities;
+
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Reserve the scrollbar gutter on every page, scrolling or not, so the content column doesn't
+   shift width when navigating between a short page (no scrollbar) and a long one (scrollbar). */
+html {
+	scrollbar-gutter: stable;
+}
+
+/* Starlight spaces the header logo from the title with `--sl-nav-gap`, which is the content
+   padding variable — sized for the gap between nav regions, not between a mark and the words
+   next to it. At header scale that reads as two unrelated elements sitting near each other. */
+.site-title {
+	gap: 0.5rem;
+}
+
+/* Starlight sizes the header logo to the full nav height minus its padding, which suits a wordmark
+   or a tall illustration. Ours is a compact square glyph, and at that size it outweighs the title
+   beside it. Tie it to the title's own type size instead so the two scale together. */
+.site-title img {
+	height: 1em;
+}
+
+/* Linear design tokens — dark (default) */
+:root {
+	--sl-color-accent-low: #21243f;
+	--sl-color-accent: #5e6ad2;
+	--sl-color-accent-high: #b8c0ff;
+	--sl-color-white: #f7f8f8;
+	--sl-color-gray-1: #d0d6e0;
+	--sl-color-gray-2: #b3b9c4;
+	--sl-color-gray-3: #8a8f98;
+	--sl-color-gray-4: #62666d;
+	--sl-color-gray-5: #2a2c31;
+	--sl-color-gray-6: #141516;
+	--sl-color-black: #08090a;
+	--sl-color-bg-sidebar: #0f1011;
+	--sl-color-hairline: #23252a;
+	--sl-font: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--sl-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+	--linear-border: #23252a;
+	--linear-border-strong: #34343a;
+	--linear-accent-hover: #828fff;
+	--linear-shadow-glow: 0px 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Linear design tokens — light */
+:root[data-theme="light"] {
+	--sl-color-accent-low: #dfe1fb;
+	--sl-color-accent: #5058c9;
+	--sl-color-accent-high: #2b2f6b;
+	--sl-color-white: #10111a;
+	--sl-color-gray-1: #383a42;
+	--sl-color-gray-2: #53565f;
+	--sl-color-gray-3: #73767e;
+	--sl-color-gray-4: #94979e;
+	--sl-color-gray-5: #d4d6da;
+	--sl-color-gray-6: #eceef2;
+	--sl-color-black: #ffffff;
+	--sl-color-bg-sidebar: #f7f7f9;
+	--sl-color-hairline: #e2e4e9;
+
+	--linear-border: #e2e4e9;
+	--linear-border-strong: #d4d6da;
+	--linear-accent-hover: #4148ad;
+	--linear-shadow-glow: 0px 4px 20px rgba(80, 88, 201, 0.16);
+}
+
+/* Hero polish (splash template) */
+.hero h1 {
+	font-weight: 590;
+	letter-spacing: -0.022em;
+}
+
+.hero .tagline {
+	color: var(--sl-color-gray-2);
+}
+
+.hero .actions a.sl-flex {
+	border-radius: 9999px;
+	transition:
+		background-color 0.15s ease,
+		border-color 0.15s ease,
+		transform 0.1s ease;
+}
+
+.hero .actions a:active {
+	transform: scale(0.97);
+}
+
+.hero .actions a:not(.minimal) {
+	background: var(--sl-color-accent);
+	border-color: var(--sl-color-accent);
+	box-shadow: var(--linear-shadow-glow);
+}
+
+.hero .actions a:not(.minimal):hover {
+	background: var(--linear-accent-hover);
+	border-color: var(--linear-accent-hover);
+}
+
+.hero .actions a.minimal {
+	/* Starlight's minimal variant ships with padding: 0 (it is meant to read as a bare text link).
+	   We restyle it into a pill, so restore the primary button's inline padding to match. */
+	padding: 0.4375rem 1.125rem;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid var(--linear-border-strong);
+	color: var(--sl-color-white);
+}
+
+:root[data-theme="light"] .hero .actions a.minimal {
+	background: rgba(16, 17, 26, 0.03);
+}
+
+.hero .actions a.minimal:hover {
+	border-color: var(--sl-color-accent);
+	color: var(--sl-color-accent);
+}
+
+.expressive-code pre {
+	/* biome-ignore lint/complexity/noImportantStyles: expressive-code sets the code block background
+	   from its own theme in a rule we cannot outrank by specificity. */
+	background: var(--sl-color-black) !important;
+	border: 1px solid var(--linear-border);
+	border-radius: 12px;
+}
+
+code:not(pre code) {
+	border-radius: 6px;
+}

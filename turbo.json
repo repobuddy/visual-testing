@@ -17,6 +17,13 @@
 		"clean:vis:local": {
 			"cache": false
 		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"typecheck": {
+			"dependsOn": ["^build"]
+		},
 		"coverage": {
 			"dependsOn": ["^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".storybook", "*.ts"],
@@ -31,6 +38,10 @@
 		"nuke": {
 			"cache": false,
 			"dependsOn": ["clean"]
+		},
+		"storybook-addon-vis#build:sb": {
+			"dependsOn": ["build"],
+			"outputs": ["storybook-static/**"]
 		},
 		"storybook-addon-vis#coverage": {
 			"dependsOn": ["build"],

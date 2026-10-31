@@ -13,6 +13,7 @@
 			"!**/node_modules/",
 			"!**/.vscode/**/*.txt",
 			"!**/.dist",
+			"!**/.astro",
 			"!**/esm",
 			"!**/*.code-workspace",
 			"!**/tailwind.css",
