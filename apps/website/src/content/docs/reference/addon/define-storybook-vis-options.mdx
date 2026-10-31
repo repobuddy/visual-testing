@@ -1,0 +1,163 @@
+---
+title: defineStorybookVisOptions
+description: Define the options of the Storybook Visual Testing addon.
+sidebar:
+  order: 3
+---
+
+:::caution[Unverified]
+No spec covers the claims on this page yet. The options it describes are the same ones that [defineStorybookVis](/visual-testing/reference/addon/define-storybook-vis/) accepts, and that page is covered by a spec. The examples that strip `src/`, the `components`/`pages` subpaths, and the snapshot path layout at the end are not.
+:::
+
+A helper function to define options for the Storybook Visual Testing addon.
+It returns the options you pass in, which gives you type checking and completion.
+
+```ts
+// .storybook/main.ts
+import { defineMain } from '@storybook/your-framework'
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+export default defineMain({
+	addons: [
+		{
+			name: 'storybook-addon-vis',
+			options: defineStorybookVisOptions({
+				visProjects: [
+					{
+						snapshotRootDir: '__vis__/linux',
+					},
+					{
+						snapshotRootDir: '__vis__/local',
+					},
+				],
+			}),
+		},
+	],
+})
+```
+
+## Function signature
+
+```ts
+function defineStorybookVisOptions(options: StorybookVisOptions): StorybookVisOptions
+```
+
+## Options
+
+### `visProjects`
+
+Configure one or more visual testing projects.
+Each project can have its own snapshot storage settings.
+
+### `snapshotRootDir`
+
+Where snapshots are stored. It can be:
+
+- A static path string, used for all snapshots.
+- A function that receives `{ ci: boolean; platform: string }`. `ci` is whether the code runs in a CI environment, and `platform` is the platform string (for example `linux`, `darwin`, `win32`).
+- `undefined`, which uses the default snapshot root directory.
+
+### `snapshotSubpath`
+
+Transform the default snapshot subdirectory path to match your project structure.
+It receives `{ subpath: string }` and returns the transformed subpath.
+
+## Examples
+
+### Store snapshots in a custom directory
+
+```ts
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/snapshots',
+		},
+	],
+})
+```
+
+### Use different directories for CI and local development
+
+```ts
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: ({ ci, platform }) => {
+				if (ci) {
+					return `__vis__/ci/${platform}`
+				}
+				return '__vis__/local'
+			},
+		},
+	],
+})
+```
+
+### Customize the snapshot subdirectory structure
+
+For example, to remove a `src/` prefix from file paths:
+
+```ts
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__',
+			snapshotSubpath: ({ subpath }) => subpath.replace(/^src\//, ''),
+		},
+	],
+})
+```
+
+### Organize snapshots across multiple projects
+
+```ts
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+const options = defineStorybookVisOptions({
+	visProjects: [
+		{
+			snapshotRootDir: '__vis__/components',
+			snapshotSubpath: ({ subpath }) => `components/${subpath}`,
+		},
+		{
+			snapshotRootDir: '__vis__/pages',
+			snapshotSubpath: ({ subpath }) => `pages/${subpath}`,
+		},
+	],
+})
+```
+
+### Use the default configuration
+
+Provide an empty project configuration to use the default snapshot root directory and subpath:
+
+```ts
+import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
+
+const options = defineStorybookVisOptions({
+	visProjects: [{}],
+})
+```
+
+## Snapshot path structure
+
+The final snapshot path is constructed as:
+
+```txt
+<snapshotRootDir>/<baseline|diff|results>/<snapshotSubpath>/<task-id>-<variant>.png
+```
+
+- `snapshotRootDir` is determined by the `snapshotRootDir` option.
+- `snapshotSubpath` is the result of the `snapshotSubpath` function, or the default.
+- `task-id` is derived from the story name.
+- `variant` identifies the specific snapshot variant.
+
+## Related
+
+- [defineStorybookVis](/visual-testing/reference/addon/define-storybook-vis/): register the addon and its options in one call.

@@ -1,0 +1,121 @@
+---
+title: page.hasImageSnapshot()
+description: Check whether an image snapshot exists for the current test.
+sidebar:
+  order: 3
+---
+
+`page.hasImageSnapshot()` checks whether an image snapshot exists for the current test.
+
+Use it to run code conditionally on whether a snapshot was created before,
+for example for negative tests, or to handle a first run differently from later runs.
+
+## Basic usage
+
+```ts
+import { page } from 'vitest/browser'
+
+it('should check if snapshot exists', async ({ expect }) => {
+	const hasSnapshot = await page.hasImageSnapshot()
+
+	if (!hasSnapshot) {
+		// First run - create the baseline snapshot
+		await expect(page.getByTestId('component')).toMatchImageSnapshot()
+	}
+})
+```
+
+It returns a `Promise<boolean>`, so use `await` or `.then()`.
+
+## Options
+
+### `snapshotKey`
+
+The key that identifies the snapshot. If omitted, the default snapshot key of the test is used.
+
+```ts
+// A snapshot that does not exist
+expect(await page.hasImageSnapshot({ snapshotKey: 'non_existing_snapshot' })).toBe(false)
+```
+
+The `snapshotKey` cannot contain a dash, because dashes are reserved for internal path separation:
+
+```ts
+// Throws: Snapshot key cannot contain dash
+page.hasImageSnapshot({ snapshotKey: 'invalid-key' })
+
+// Use underscores or camelCase instead
+await page.hasImageSnapshot({ snapshotKey: 'valid_key' })
+await page.hasImageSnapshot({ snapshotKey: 'validKey' })
+```
+
+Unlike the async result, the dash check throws synchronously.
+
+## Examples
+
+### Check before and after taking a snapshot
+
+```ts
+it('returns true when the snapshot exists', async ({ expect }) => {
+	await render(<div data-testid="subject">hello</div>)
+	const subject = page.getByTestId('subject')
+
+	await expect(subject).toMatchImageSnapshot({ snapshotKey: 'existing_snapshot' })
+
+	expect(await page.hasImageSnapshot({ snapshotKey: 'existing_snapshot' })).toBe(true)
+})
+```
+
+### Create the baseline on the first run, compare on later runs
+
+This pattern is used by the specs of `expect().toMatchImageSnapshot()` to test failures:
+
+```ts
+it('fails when the image is different', async ({ expect }) => {
+	const hasImageSnapshot = await page.hasImageSnapshot()
+	await render(<div data-testid="subject">{hasImageSnapshot ? 'Hello' : 'World'}</div>)
+	const subject = page.getByTestId('subject')
+
+	if (!hasImageSnapshot) {
+		await expect(subject).toMatchImageSnapshot()
+		return
+	}
+
+	await expect(subject).toMatchImageSnapshot({ expectToFail: true }).then(
+		() => {
+			throw new Error('Should not reach')
+		},
+		(error) => {
+			expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./)
+		},
+	)
+})
+```
+
+### Auto snapshots
+
+With `vis.setup({ auto: false })`, a test that renders content takes no auto snapshot:
+
+```ts
+expect(await page.hasImageSnapshot()).toBe(false)
+```
+
+## Behavior and limitations
+
+### Must be called in a test
+
+Outside a test, it throws:
+
+```txt
+`hasImageSnapshot()` must be called in a test.
+```
+
+### Not supported in concurrent tests
+
+Concurrent tests share the same iframe, so `page.hasImageSnapshot()` throws in `it.concurrent()`:
+
+```txt
+`hasImageSnapshot()` cannot be called in a concurrent test because concurrent tests run at the same time in the same iframe and affect each other's environment.
+```
+
+Use a regular `it()` instead.

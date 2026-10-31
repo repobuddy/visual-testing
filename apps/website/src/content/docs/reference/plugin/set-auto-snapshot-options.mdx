@@ -1,0 +1,207 @@
+---
+title: setAutoSnapshotOptions
+description: Configure automatic image snapshots for the current test, test file, or suite.
+sidebar:
+  order: 2
+---
+
+`setAutoSnapshotOptions` configures visual snapshot testing options for the current test or test suite.
+
+## Usage
+
+Call it in `beforeAll`, `beforeEach`, or inside an individual test:
+
+```ts
+import { beforeAll, beforeEach, it } from 'vitest'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+beforeAll(() => {
+	setAutoSnapshotOptions(/* ... */)
+})
+
+beforeEach(() => {
+	setAutoSnapshotOptions(/* ... */)
+})
+
+// Set options for a specific test
+it('...', () => {
+	setAutoSnapshotOptions(/* ... */)
+})
+```
+
+It accepts either a boolean or an options object.
+
+## How options merge
+
+The options set at different levels are merged, and the more specific level wins.
+These results are asserted by the spec:
+
+```ts
+beforeAll(() => {
+	// applies to the test file
+	setAutoSnapshotOptions({ diffOptions: { threshold: 0.01 } })
+})
+
+beforeEach(() => {
+	// applies to each test
+	setAutoSnapshotOptions({ failureThreshold: 0.01 })
+})
+
+// In a test, the effective options are:
+// { enable: true, diffOptions: { threshold: 0.01 }, failureThreshold: 0.01 }
+```
+
+- Passing an options object turns snapshots on: the result contains `enable: true`.
+- `setAutoSnapshotOptions({ enable: false })` in a test turns snapshots off for that test and keeps the other merged options.
+- `setAutoSnapshotOptions(false)` in `beforeAll` disables snapshots for the file, and `setAutoSnapshotOptions({ enable: true })` in a test overrides that.
+- You can add your own keys, for example `setAutoSnapshotOptions({ foo: 'bar' })`. They are kept in the merged options.
+
+## Options
+
+### `enable`
+
+Controls whether auto snapshots are taken for the test.
+
+```ts
+// Enable auto snapshots
+setAutoSnapshotOptions({ enable: true })
+
+// Disable auto snapshots
+setAutoSnapshotOptions({ enable: false })
+
+// Shorthand for enable: true
+setAutoSnapshotOptions(true)
+
+// Shorthand for enable: false
+setAutoSnapshotOptions(false)
+```
+
+### `subject`
+
+The CSS selector of the element to snapshot.
+
+```ts
+setAutoSnapshotOptions({ subject: '[data-testid="main-content"]' })
+```
+
+If it is not provided, or the element is not found, `document.body` is used.
+If the selector matches multiple elements, the first visible one is used.
+If it matches only hidden elements, the snapshot fails right away with a "not visible" error instead of waiting for the timeout.
+
+### `snapshotKey`
+
+Customizes the snapshot key.
+
+```ts
+setAutoSnapshotOptions({ snapshotKey: 'my_custom_snapshot' })
+```
+
+A key that contains a dash throws `Snapshot key cannot contain dash`.
+
+### `timeout`
+
+The timeout for taking the snapshot, in milliseconds. The default is 30000.
+
+```ts
+setAutoSnapshotOptions({ timeout: 60000 })
+```
+
+### `comparisonMethod`
+
+The comparison algorithm: `'pixel'` (the default) or `'ssim'`.
+
+```ts
+setAutoSnapshotOptions({ comparisonMethod: 'ssim' })
+```
+
+### `failureThreshold` and `failureThresholdType`
+
+The tolerance before a test is considered failed.
+`failureThresholdType` is `'pixel'` (the default) or `'percent'`.
+
+```ts
+// Allow 5% difference
+setAutoSnapshotOptions({
+	failureThreshold: 0.05,
+	failureThresholdType: 'percent',
+})
+
+// Allow 100 different pixels
+setAutoSnapshotOptions({
+	failureThreshold: 100,
+	failureThresholdType: 'pixel',
+})
+```
+
+### `diffOptions`
+
+Options for the comparison algorithm.
+
+For pixel comparison (pixelmatch):
+
+```ts
+setAutoSnapshotOptions({
+	comparisonMethod: 'pixel',
+	diffOptions: {
+		threshold: 0.1, // Matching threshold (0-1)
+		includeAA: false, // Include anti-aliased pixels
+		alpha: 0.1, // Blending factor of unchanged pixels
+		aaColor: [255, 255, 0], // Color of anti-aliased pixels
+		diffColor: [255, 0, 255], // Color of different pixels
+	},
+})
+```
+
+For SSIM comparison:
+
+```ts
+setAutoSnapshotOptions({
+	comparisonMethod: 'ssim',
+	diffOptions: {
+		ssim: 'fast', // 'fast', 'original', or 'bezkrovny'
+		windowSize: 11, // Window size for SSIM calculation
+		k1: 0.01, // Algorithm parameter
+		k2: 0.03, // Algorithm parameter
+	},
+})
+```
+
+### `expectToFail`
+
+Expects the snapshot comparison to fail. Useful for testing that changes are detected.
+
+```ts
+setAutoSnapshotOptions({ expectToFail: true })
+```
+
+:::caution[Unverified]
+The spec for this function asserts the merge behavior above, `enable`, the boolean shorthands, `subject`, `comparisonMethod: 'ssim'` with `diffOptions: { ssim: 'fast' }`, `failureThreshold`, `diffOptions: { threshold }`, and the snapshot key dash check.
+It does not assert the `timeout` default, the hidden-subject failure, `failureThresholdType`, the pixel `diffOptions` fields other than `threshold`, or `expectToFail` for auto snapshots.
+:::
+
+## Examples
+
+### Basic
+
+```ts
+beforeEach(() => {
+	setAutoSnapshotOptions({
+		enable: true,
+		subject: '[data-testid="app"]',
+		timeout: 10000,
+	})
+})
+```
+
+### Custom subject with tolerance
+
+```ts
+it('should snapshot modal with tolerance', () => {
+	setAutoSnapshotOptions({
+		subject: '[data-testid="modal"]',
+		failureThreshold: 5,
+		failureThresholdType: 'percent',
+		snapshotKey: 'modal_open',
+	})
+})
+```
