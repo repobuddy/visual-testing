@@ -51,7 +51,8 @@
 		".cursor-plugin",
 		".codex-plugin",
 		"skills",
-		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*"
+		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress}.*",
+		"CHANGELOG.md"
 	],
 	"scripts": {
 		"build": "tsdown",

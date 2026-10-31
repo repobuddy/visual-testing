@@ -59,7 +59,8 @@
 		".codex-plugin",
 		"skills",
 		"*.d.ts",
-		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*"
+		"!**/*.{spec,test,unit,accept,integrate,system,perf,stress,stories,study}.*",
+		"CHANGELOG.md"
 	],
 	"scripts": {
 		"build": "tsdown --tsconfig tsconfig.build.json",
