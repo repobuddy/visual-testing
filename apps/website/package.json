@@ -8,6 +8,7 @@
 		"build": "astro build && node scripts/copy-storybook.mjs",
 		"dev": "astro dev",
 		"preview": "astro preview",
+		"test": "vitest run",
 		"typecheck": "astro check"
 	},
 	"dependencies": {
@@ -21,7 +22,8 @@
 		"@tailwindcss/vite": "^4.3.3",
 		"tailwindcss": "^4.3.3",
 		"typescript": "catalog:",
-		"vite": "^7.3.2"
+		"vite": "^7.3.2",
+		"vitest": "catalog:"
 	},
 	"engines": {
 		"node": ">=22.12.0"
