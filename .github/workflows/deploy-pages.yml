@@ -1,5 +1,7 @@
 name: Deploy to GitHub Pages
 
+# Publishes the site to the root of the gh-pages branch, which is the Pages source.
+# PR previews live under pr-preview/ on the same branch (see pr-preview.yml) and must survive this deploy.
 on:
   push:
     branches: [main]
@@ -7,36 +9,37 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# One deploy at a time; a newer push waits instead of cancelling a deploy half-way through a push to gh-pages.
 concurrency:
-  group: pages
+  group: pages-deploy
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      # Pushes to the gh-pages branch.
+      contents: write
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: lts/*
           cache: pnpm
-      - uses: actions/configure-pages@v5
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec turbo run build --filter=website
-      - uses: actions/upload-pages-artifact@v3
+      # https://github.com/JamesIves/github-pages-deploy-action/tree/v4.9.0#configuration
+      # - clean-exclude: "preserve certain files or folders from deletion" while cleaning the deploy target,
+      #   so pr-preview/ is kept.
+      # - force: false: rebase onto the existing branch instead of force-pushing over previews pushed meanwhile.
+      - uses: JamesIves/github-pages-deploy-action@v4.9.0
         with:
-          path: apps/website/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - id: deploy
-        uses: actions/deploy-pages@v4
+          branch: gh-pages
+          folder: apps/website/dist
+          clean: true
+          clean-exclude: |
+            pr-preview/
+          force: false
+          attempt-limit: 5

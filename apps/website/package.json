@@ -12,6 +12,7 @@
 		"typecheck": "astro check"
 	},
 	"dependencies": {
+		"@astrojs/markdown-satteri": "^0.4.6",
 		"@astrojs/starlight": "^0.42.0",
 		"@fontsource-variable/inter": "^5.2.8",
 		"astro": "^7.2.10"

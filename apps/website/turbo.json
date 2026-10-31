@@ -4,6 +4,7 @@
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build", "storybook-addon-vis#build:sb"],
+			"env": ["SITE_BASE"],
 			"outputs": ["dist/**"]
 		},
 		"typecheck": {

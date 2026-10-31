@@ -1,19 +1,31 @@
 // @ts-check
+
+import { satteri } from '@astrojs/markdown-satteri'
 import starlight from '@astrojs/starlight'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
+import { normalizeBase } from './src/components/storybook/story-url.ts'
+import { PRODUCTION_BASE, rewriteBasePlugin } from './src/plugins/rewrite-base.ts'
 
-// Old links to the Storybook root (`/visual-testing/?path=...`) predate the site. The Storybook
-// now lives at `/visual-testing/storybook/`, so forward them.
+// The site is served at PRODUCTION_BASE. PR previews are built with SITE_BASE set to their own prefix,
+// for example `/visual-testing/pr-preview/pr-12/`.
+const base = normalizeBase(process.env.SITE_BASE ?? PRODUCTION_BASE)
+
+// Old links to the Storybook root (`<base>?path=...`) predate the site. The Storybook now lives at
+// `<base>storybook/`, so forward them.
 const forwardStorybookLinks = `
-if (location.pathname === '/visual-testing/' && new URLSearchParams(location.search).has('path')) {
-	location.replace('/visual-testing/storybook/' + location.search + location.hash)
+if (location.pathname === ${JSON.stringify(base)} && new URLSearchParams(location.search).has('path')) {
+	location.replace(${JSON.stringify(`${base}storybook/`)} + location.search + location.hash)
 }
 `
 
 export default defineConfig({
 	site: 'https://repobuddy.github.io',
-	base: '/visual-testing/',
+	base,
+	markdown: {
+		// Content hard-codes PRODUCTION_BASE links because Starlight does not rewrite them; follow `base`.
+		processor: satteri({ mdastPlugins: [rewriteBasePlugin({ to: base })] }),
+	},
 	vite: {
 		plugins: [tailwindcss()],
 	},
