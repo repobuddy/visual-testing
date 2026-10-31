@@ -5,8 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"astro": "astro",
-		"build": "astro build && node scripts/copy-storybook.mjs",
-		"dev": "astro dev",
+		"build": "node scripts/copy-showcase.mjs && astro build && node scripts/copy-storybook.mjs",
+		"dev": "node scripts/copy-showcase.mjs && astro dev",
 		"preview": "astro preview",
 		"test": "vitest run",
 		"typecheck": "astro check"

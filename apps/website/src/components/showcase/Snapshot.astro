@@ -1,0 +1,42 @@
+---
+interface Props {
+	/** File name under `public/showcase/`, as published by `scripts/copy-showcase.mjs`. */
+	src: string
+	/** Alt text describing what the baseline shows. Required. */
+	alt: string
+	/** Caption shown under the image. */
+	caption?: string
+	/** Pixel size of the baseline. The width is the maximum display width, so it is never upscaled. */
+	width: number
+	height: number
+}
+
+const { src, alt, caption, width, height } = Astro.props
+const url = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/showcase/${src}`
+---
+
+<figure class="snapshot" style={`max-width:${width}px`}>
+	<img src={url} alt={alt} width={width} height={height} loading="lazy" />
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+	.snapshot {
+		margin: 1rem 0;
+	}
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+		/* Baselines are pixel captures: show them as stored instead of smoothing them. */
+		image-rendering: pixelated;
+		border: 1px solid var(--sl-color-hairline);
+		/* Keeps transparent baselines legible in both Starlight themes. */
+		background: #fff;
+	}
+	figcaption {
+		margin-top: 0.25rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+	}
+</style>
