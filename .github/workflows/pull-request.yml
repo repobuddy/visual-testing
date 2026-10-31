@@ -5,8 +5,6 @@ permissions:
 on:
   pull_request:
     types: [opened, synchronize]
-    paths-ignore:
-      - '**/__vis__/**/__baselines__/**'
   workflow_dispatch:
     inputs:
       pr_number:
