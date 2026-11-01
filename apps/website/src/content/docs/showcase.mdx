@@ -12,6 +12,86 @@ images its own test suites compare against, taken on Linux in headless Chromium.
 mocked up. The code next to each image comes from the story or spec that produced it, trimmed to
 the lines that matter.
 
+The plan cards come from `testcases/showcase`, a test project made for this page. It uses a bundled
+font and fixed colors, so its captures are the same on every run.
+
+## Automatic and manual snapshots
+
+With the `auto` preset, every test gets a snapshot without a line of snapshot code. When you want a
+particular element under a name you choose, take a manual snapshot.
+
+<SnapshotGrid>
+	<Snapshot
+		src="plugin-auto-page.png"
+		alt="Three plan cards side by side on a light gray page: Starter with a sky blue button, Team with an indigo button and a yellow Popular badge, and Enterprise with a rose button."
+		caption="Automatic: the whole page after the test, 1280 x 360."
+		width={1280}
+		height={360}
+	/>
+	<Snapshot
+		src="plugin-manual-card.png"
+		alt="The Team plan card on its own: the title Team, the price $12, three feature lines, a yellow Popular badge and an indigo Choose Team button."
+		caption="Manual: only the Team card, saved as team_plan, 396 x 280."
+		width={396}
+		height={280}
+	/>
+</SnapshotGrid>
+
+```tsx
+// Automatic: the test only renders. The `auto` preset captures the page afterwards.
+it('plan grid', async () => {
+	await render(<PlanGrid />)
+})
+
+// Manual: pick the element and name the snapshot.
+it('team plan', async ({ expect }) => {
+	setAutoSnapshotOptions(false)
+	await render(<PlanGrid />)
+	await expect(page.getByTestId('plan-team')).toMatchImageSnapshot({ snapshotKey: 'team_plan' })
+})
+```
+
+See [`vis()`](/visual-testing/reference/plugin/config/vis/) and
+[`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
+
+## Per-viewport snapshots
+
+Resize the viewport inside a test and snapshot again, so each breakpoint of a responsive layout gets
+its own baseline.
+
+<SnapshotGrid>
+	<Snapshot
+		src="viewport-480.png"
+		alt="A 480 pixel wide viewport: the plan cards stacked in one column, Starter on top, Team below it, and the top of the Enterprise card cut off at the bottom edge."
+		caption="phone: 480 x 720, one column."
+		width={480}
+		height={720}
+	/>
+	<Snapshot
+		src="viewport-1024.png"
+		alt="A 1024 pixel wide viewport: the three plan cards in one row, with empty light gray space below them."
+		caption="desktop: 1024 x 720, three columns."
+		width={1024}
+		height={720}
+	/>
+</SnapshotGrid>
+
+```tsx
+it('plan grid per viewport', async ({ expect }) => {
+	setAutoSnapshotOptions(false)
+	await render(<PlanGrid />)
+
+	await page.viewport(480, 720)
+	await expect(document.body).toMatchImageSnapshot({ snapshotKey: 'phone' })
+
+	await page.viewport(1024, 720)
+	await expect(document.body).toMatchImageSnapshot({ snapshotKey: 'desktop' })
+})
+```
+
+The body is styled to the viewport height with `overflow: hidden`, so each capture is exactly what
+that viewport shows.
+
 ## Automatic story snapshot
 
 A story tagged `snapshot` is captured without any test code. This repository sets the `subject`
@@ -104,6 +184,82 @@ vis.setup({
 
 See [`vis.setup()`](/visual-testing/reference/plugin/setup/vis/).
 
+## Reviewing a failure
+
+When a snapshot does not match, you get a diff of the whole image and a review image that crops each
+changed region, so you see what changed without comparing two screenshots by eye.
+
+These images come from a real comparison. The baseline is the Team card. The result is the same card
+with a green button and the badge moved 40 pixels left.
+
+<SnapshotGrid>
+	<Snapshot
+		src="review-before.png"
+		alt="The Team plan card with an indigo Choose Team button and the yellow Popular badge near the top right corner."
+		caption="Baseline, 360 x 280."
+		width={360}
+		height={280}
+	/>
+	<Snapshot
+		src="review-after.png"
+		alt="The same Team plan card with a green Choose Team button and the Popular badge further from the right edge."
+		caption="Result, 360 x 280."
+		width={360}
+		height={280}
+	/>
+</SnapshotGrid>
+
+The failure message lists the changed regions and where the images are:
+
+```txt
+Snapshot `review-a-change` mismatched
+
+Expected image to match but was differ by 14632 pixels.
+
+Options:    failureThreshold: 0 pixels
+           comparisonMethod: pixel
+
+Expected:   ./__vis__/linux/__baselines__/review.spec.tsx/review-a-change-before.png
+Actual:     ./__vis__/linux/__results__/review.spec.tsx/review-a-change-before.png
+Difference: ./__vis__/linux/__diffs__/review.spec.tsx/review-a-change-before.png
+Changed:    2 regions: 135x55 at (220,12), 344x76 at (8,196)
+Review:     ./__vis__/linux/__diffs__/review.spec.tsx/review-a-change-before.review.png (baseline, result, diff of each region)
+```
+
+<SnapshotGrid>
+	<Snapshot
+		src="review-image.png"
+		alt="The review image. Top: the Popular badge as baseline, as result, and as a diff with the changed pixels in red. Bottom: the Choose Team button as baseline in indigo, as result in green, and as a diff that is solid red."
+		caption="Review image: baseline, result and diff of each region, 344 x 425."
+		width={344}
+		height={425}
+	/>
+	<Snapshot
+		src="review-diff.png"
+		alt="The diff image: the Team card faded to light gray, with the badge outline and the whole button in red."
+		caption="Difference image: the whole card, changed pixels in red, 360 x 280."
+		width={360}
+		height={280}
+	/>
+</SnapshotGrid>
+
+Open the review image first: it holds only the two regions that changed.
+
+```tsx
+const screen = await render(<TeamCard />)
+const card = page.getByTestId('plan-team')
+await expect(card).toMatchImageSnapshot({ snapshotKey: 'before' })
+
+await screen.rerender(<TeamCard buttonColor="#16a34a" badgeShift={40} />)
+// Fails, and writes the Difference and Review images listed in the message.
+await expect(card).toMatchImageSnapshot({ snapshotKey: 'before', expectToFail: true })
+```
+
+The test passes `expectToFail` so the repository's CI does not fail on purpose, and then keeps the
+two images as baselines. See
+[`reviewImage`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/#reviewimage)
+and [Reviewing failures with agents](/visual-testing/guides/reviewing-failures-with-agents/).
+
 ## Snapshot thresholds
 
 A small rendering difference does not have to fail a test. `failureThreshold` sets how many pixels
@@ -179,8 +335,3 @@ await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 ```
 
 See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
-
-## Reviewing a failure
-
-This section is a placeholder. An image of a failed comparison, with its diff, will go here once the
-review feature that generates it is published.
