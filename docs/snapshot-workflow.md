@@ -1,5 +1,9 @@
 # Snapshot workflow
 
+This page is about the baselines of this repository.
+For how to configure and use the packages, see the [documentation website](https://repobuddy.github.io/visual-testing/).
+The website itself is built and previewed by separate workflows, see [Website](website.md).
+
 Baseline snapshots live in `__vis__/<platform>/**/__baselines__/` folders.
 Linux baselines are `linux/`, Windows baselines are `win32/`.
 CI renders both, so a change can need a snapshot update on each platform.

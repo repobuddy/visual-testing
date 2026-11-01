@@ -15,4 +15,4 @@ An agent loads it when a visual test fails with a `Snapshot ... mismatched` erro
 
 ## Install
 
-It ships as a plugin in both the `vitest-plugin-vis` and `storybook-addon-vis` npm packages (`plugin.json` and `skills/` in the package), identical in each. The measured token costs are on the "Reviewing Failures with Agents" page.
+It ships as a plugin in both the `vitest-plugin-vis` and `storybook-addon-vis` npm packages (`plugin.json` and `skills/` in the package), identical in each. The measured token costs are on the [Reviewing Failures with Agents](https://repobuddy.github.io/visual-testing/guides/reviewing-failures-with-agents/) page.
