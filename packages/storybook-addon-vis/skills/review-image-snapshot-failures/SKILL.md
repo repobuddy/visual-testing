@@ -27,7 +27,7 @@ Snapshots live under `__vis__/`: `__baselines__` is expected, `__results__` is t
    - Same content, only the edges of text or shapes differ: rendering drift (fonts, operating system, browser). Report it; do not update the baseline.
    - Anything else is a regression. Fix it or report it.
 
-Full explanation and measured token costs: the "Reviewing Failures with Agents" page, shipped as `src/reviewing_failures_with_agents.mdx` in `storybook-addon-vis`.
+Full explanation and measured token costs: the [Reviewing Failures with Agents](https://repobuddy.github.io/visual-testing/guides/reviewing-failures-with-agents/) page. The `llms.txt` in the package links it and names the copy in `node_modules` to read without network access.
 
 ## Validate
 
