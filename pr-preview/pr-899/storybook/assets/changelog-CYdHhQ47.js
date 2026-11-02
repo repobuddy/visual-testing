@@ -1,5 +1,15 @@
 import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,o as n,s as r}from"./blocks-B_AIvrP8.js";import{a as i}from"./chunk-W22LQPXL-BD1iLPSB.js";import{i as a,r as o}from"./react-DITjJg24.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
 
+## 4.3.5
+
+### Patch Changes
+
+- [#962](https://github.com/repobuddy/visual-testing/pull/962) [\`1847b46\`](https://github.com/repobuddy/visual-testing/commit/1847b4685a93cc9f402e2944486202b6fc1a2ea3) Thanks [@unional](https://github.com/unional)! - Point the package readmes and the \`review-image-snapshot-failures\` skill at the documentation website.
+  Each readme now has install, minimal configuration, an example, a version compatibility table, and links to the matching website pages.
+  The skill links the "Reviewing Failures with Agents" page on the website instead of a source file.
+- Updated dependencies [[\`1847b46\`](https://github.com/repobuddy/visual-testing/commit/1847b4685a93cc9f402e2944486202b6fc1a2ea3)]:
+  - vitest-plugin-vis@5.2.2
+
 ## 4.3.4
 
 ### Patch Changes
