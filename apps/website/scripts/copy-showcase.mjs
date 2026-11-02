@@ -9,6 +9,7 @@ const target = new URL('../public/showcase/', import.meta.url)
 const addon = 'packages/storybook-addon-vis/__vis__/linux/__baselines__/client'
 const plugin = 'packages/vitest-plugin-vis/__vis__/linux/__baselines__/client'
 const themes = 'testcases/themes/__vis__/linux/__baselines__/component_snapshot.stories.tsx'
+const showcase = 'testcases/showcase/__vis__/linux/__baselines__'
 
 /** Published file name -> source path relative to the repo root. */
 const showcaseImages = {
@@ -21,6 +22,14 @@ const showcaseImages = {
 	'subject-locator.png': `${plugin}/expect/to_match_image_snapshot.spec.tsx/accepts-a-locator-1.png`,
 	'subject-element.png': `${plugin}/expect/to_match_image_snapshot.spec.tsx/accepts-an-element-1.png`,
 	'subject-base64.png': `${plugin}/expect/to_match_image_snapshot.spec.tsx/accepts-a-base64-image-1.png`,
+	'plugin-auto-page.png': `${showcase}/auto_snapshot.spec.tsx/plan-grid-auto.png`,
+	'plugin-manual-card.png': `${showcase}/manual_snapshot.spec.tsx/team-plan-team_plan.png`,
+	'viewport-480.png': `${showcase}/viewport.spec.tsx/plan-grid-per-viewport-phone.png`,
+	'viewport-1024.png': `${showcase}/viewport.spec.tsx/plan-grid-per-viewport-desktop.png`,
+	'review-before.png': `${showcase}/review.spec.tsx/review-a-change-before.png`,
+	'review-after.png': `${showcase}/review.spec.tsx/review-a-change-after.png`,
+	'review-diff.png': `${showcase}/review.spec.tsx/review-a-change-diff.png`,
+	'review-image.png': `${showcase}/review.spec.tsx/review-a-change-review.png`,
 }
 
 await rm(target, { recursive: true, force: true })

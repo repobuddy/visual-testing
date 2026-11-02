@@ -30,6 +30,7 @@
 		"tsc3": "pnpm --filter=testcase-sb-csf-3",
 		"tscm": "pnpm --filter=testcase-sb-csf-mix",
 		"tscn": "pnpm --filter=testcase-sb-csf-next",
+		"tsh": "pnpm --filter=testcase-showcase",
 		"tt": "pnpm --filter=testcase-themes",
 		"tv": "pnpm --filter=testcase-vpv",
 		"tw": "pnpm --filter=testcase-workspace",

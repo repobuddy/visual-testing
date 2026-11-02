@@ -24,6 +24,7 @@ export default defineConfig({
 			'./testcases/sb-csf-3/vitest.config.ts',
 			'./testcases/sb-csf-mix/vitest.config.ts',
 			'./testcases/sb-csf-next/vitest.config.ts',
+			'./testcases/showcase/vitest.config.ts',
 			'./testcases/themes/vite.config.ts',
 			'./testcases/vpv/vitest.config.ts',
 			'./testcases/workspace/vitest.config.a.ts',
