@@ -12,9 +12,9 @@ Graphify is a Python CLI.
 The PyPI package is `graphifyy` (with two y's) and the command is `graphify`.
 
 You need [uv](https://docs.astral.sh/uv/getting-started/installation/).
-The `graph` script runs Graphify through `uvx --from graphifyy==0.9.96`, so you do not install Graphify yourself.
+The `graphify` script in `package.json` runs `uvx --from graphifyy==0.9.96 graphify`, so you do not install Graphify yourself.
 uv downloads that version on the first run and caches it.
-To move to a newer version, change the version in the `graph` script in `package.json`.
+To move to a newer version, change the version in that script. It is the only place that pins it.
 
 ## Build the graph
 
@@ -22,7 +22,7 @@ To move to a newer version, change the version in the `graph` script in `package
 pnpm graph
 ```
 
-The `graph` script runs two commands:
+The `graph` script runs two commands through the `graphify` script:
 
 - `graphify extract . --code-only` parses the code and writes `graphify-out/graph.json`. The `--code-only` flag skips docs and images, which would need an LLM.
 - `graphify cluster-only . --no-label` groups the graph into communities and writes `graphify-out/GRAPH_REPORT.md` and `graphify-out/graph.html`. The `--no-label` flag keeps the placeholder community names instead of asking an LLM to name them.
@@ -35,19 +35,13 @@ The graph records the commit it was built from in `GRAPH_REPORT.md`.
 
 ## Query the graph
 
-The query commands need `graphify` on your `PATH`.
-Install the same version as the script ([Installation](https://docs.graphify.com/open-source/installation)):
+Run the query commands through the `graphify` script.
+The `--silent` flag hides the command that pnpm prints first:
 
 ```sh
-uv tool install graphifyy==0.9.96
-```
-
-Or put `uvx --from graphifyy==0.9.96` in front of each command.
-
-```sh
-graphify query "how does the addon take a snapshot?"
-graphify explain "setAutoSnapshotOptions"
-graphify path "A" "B"
+pnpm --silent graphify query "how does the addon take a snapshot?"
+pnpm --silent graphify explain "setAutoSnapshotOptions"
+pnpm --silent graphify path "A" "B"
 ```
 
 `graphify query`, `graphify path` and `graphify explain` log each call to `~/.cache/graphify-queries.log`.
@@ -55,7 +49,9 @@ Set `GRAPHIFY_QUERY_LOG_DISABLE=1` to turn that off ([Privacy](https://github.co
 
 ## Use it from a coding agent
 
-These commands need the installed `graphify`, not `uvx`.
+The [Code graph](../AGENTS.md#code-graph) section of `AGENTS.md` tells coding agents to build the graph with `pnpm graph` and to query it before they search the files.
+It is adapted from the block that `graphify <platform> install` writes ([Make your assistant always use the graph](https://github.com/Graphify-Labs/graphify#make-your-assistant-always-use-the-graph)), because that block expects a committed graph and an installed `graphify` command.
+If a `graphify <platform> install` adds a `## graphify` section to `AGENTS.md`, do not commit it.
+
 `graphify install` registers the `/graphify` skill with your assistant, in your user profile.
-`graphify <platform> install`, for example `graphify claude install`, also makes the assistant consult the graph before it searches the files ([Make your assistant always use the graph](https://github.com/Graphify-Labs/graphify#make-your-assistant-always-use-the-graph)).
-Both are per developer, so this repository does not commit their files.
+It needs the installed command (`uv tool install graphifyy==0.9.96`, see [Installation](https://docs.graphify.com/open-source/installation)), and it is per developer, so this repository does not commit its files.
