@@ -15,6 +15,7 @@
 		"docs:llms": "node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs",
 		"docs:llms:check": "node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --check",
 		"docs:llms:gaps": "node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --gaps",
+		"graph": "graphify extract . --code-only && graphify cluster-only . --no-label",
 		"knip": "knip --config .knip.jsonc",
 		"nuke": "turbo nuke && rimraf node_modules",
 		"prepare": "husky",

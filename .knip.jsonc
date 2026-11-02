@@ -1,5 +1,7 @@
 {
 	"$schema": "./node_modules/knip/schema-jsonc.json",
+	// graphify is a Python CLI installed with uv (docs/graphify.md), not an npm package.
+	"ignoreBinaries": ["graphify"],
 	"workspaces": {
 		".": {
 			"entry": ["vitest.*.ts"],
