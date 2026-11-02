@@ -80,3 +80,5 @@ minimumReleaseAgeExclude:
   - '@mocktomata/*'
   - '@repobuddy/*'
   - '@unional/*'
+  # Renovate security update: glob@14.0.2
+  - glob@14.0.2
