@@ -109,3 +109,18 @@ describe('createReviewImage', () => {
 		expect(review.height).toBe(Math.round(((10 * 3 + 4 * 2) * REVIEW_IMAGE_MAX_EDGE) / width))
 	})
 })
+
+describe('getReviewImageSkipReason coverage limit', () => {
+	const size = { width: 100, height: 100 }
+
+	it('does not skip when the regions cover exactly half of the image', ({ expect }) => {
+		expect(
+			getReviewImageSkipReason({ baseline: size, result: size, regions: [{ x: 0, y: 0, width: 100, height: 50 }] }),
+		).toBeUndefined()
+	})
+
+	it('does not skip with exactly 5 regions', ({ expect }) => {
+		const regions = Array.from({ length: 5 }, (_, i) => ({ x: i * 10, y: 0, width: 1, height: 1 }))
+		expect(getReviewImageSkipReason({ baseline: size, result: size, regions })).toBeUndefined()
+	})
+})
