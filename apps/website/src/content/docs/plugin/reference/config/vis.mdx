@@ -6,7 +6,7 @@ sidebar:
 ---
 
 `vis` from `vitest-plugin-vis/config` is the Vitest plugin of `vitest-plugin-vis`.
-This is not the same `vis` as the [setup object](/visual-testing/reference/plugin/setup/vis/) exported from `vitest-plugin-vis/setup`.
+This is not the same `vis` as the [setup object](/visual-testing/plugin/reference/setup/vis/) exported from `vitest-plugin-vis/setup`.
 
 ```ts
 // vitest.config.ts
@@ -18,7 +18,7 @@ export default defineConfig({
 ```
 
 `vis()` works with zero config. The options below customize its behavior.
-See also the [config overview](/visual-testing/reference/plugin/config/overview/) for how the snapshot path is built.
+See also the [config overview](/visual-testing/plugin/reference/config/overview/) for how the snapshot path is built.
 
 ## `preset`
 
@@ -55,7 +55,7 @@ export default defineConfig({
 })
 ```
 
-See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/) on how to take an image snapshot manually.
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/) on how to take an image snapshot manually.
 
 ### `custom`
 
@@ -76,7 +76,7 @@ export default defineConfig({
 })
 ```
 
-Use [`vis.setup()`](/visual-testing/reference/plugin/setup/vis/) from `vitest-plugin-vis/setup` in `vitest.setup.ts`.
+Use [`vis.setup()`](/visual-testing/plugin/reference/setup/vis/) from `vitest-plugin-vis/setup` in `vitest.setup.ts`.
 
 ## `subject`
 
@@ -144,7 +144,7 @@ To keep the folder structure, return the sub-path as is:
 vis({ snapshotSubpath: ({ subpath }) => subpath })
 ```
 
-[`trimCommonFolder`](/visual-testing/reference/plugin/config/trim-common-folder/) is exported if you want to use it in your own function.
+[`trimCommonFolder`](/visual-testing/plugin/reference/config/trim-common-folder/) is exported if you want to use it in your own function.
 
 ## `snapshotKey`
 
@@ -275,7 +275,7 @@ It places the baseline, result, and diff crops of each changed region side by si
 so you or a coding agent can see what changed without opening the full images.
 The changed regions are also written to `<name>.regions.json`, even when `reviewImage` is `false`.
 The review image is skipped when the image size changed, there are many regions, or the regions cover most of the image.
-See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/#reviewimage) for details.
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#reviewimage) for details.
 
 To not write the review image:
 

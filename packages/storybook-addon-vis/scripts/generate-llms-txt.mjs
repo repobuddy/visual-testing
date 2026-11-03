@@ -61,20 +61,20 @@ const PLUGIN = 'packages/vitest-plugin-vis/src'
  */
 const SITE_PAGES = {
 	[`${ADDON}/overview.mdx`]: [
-		{ slug: 'addon/install', title: 'Install', summary: 'Install storybook-addon-vis and its peer dependencies.' },
+		{ slug: 'addon/get-started', title: 'Install', summary: 'Install storybook-addon-vis and its peer dependencies.' },
 		{
-			slug: 'addon/setup',
+			slug: 'addon/configuration',
 			title: 'Setup',
 			summary: 'Configure Storybook, Vitest, TypeScript and .gitignore for storybook-addon-vis.',
 			covers: true,
 		},
 		{
-			slug: 'addon/automatic-snapshots',
+			slug: 'addon/guides/automatic-snapshots',
 			title: 'Automatic snapshots',
 			summary: 'Take an image snapshot of every story without writing test code.',
 		},
 		{
-			slug: 'addon/manual-snapshots',
+			slug: 'addon/guides/manual-snapshots',
 			title: 'Manual snapshots',
 			summary: 'Take snapshots in a play function, check that one exists, and use the Chrome DevTools Protocol.',
 		},
@@ -84,15 +84,15 @@ const SITE_PAGES = {
 			summary: 'Fix common installation and runtime problems.',
 		},
 	],
-	[`${ADDON}/reviewing_failures_with_agents.mdx`]: [{ slug: 'guides/reviewing-failures-with-agents' }],
+	[`${ADDON}/reviewing_failures_with_agents.mdx`]: [{ slug: 'visual-testing/reviewing-failures-with-agents' }],
 	[`${ADDON}/releases/migrate_to_1.0.mdx`]: [{ slug: 'releases/migrate-to-1' }],
 	[`${ADDON}/releases/migrate_to_3.0.mdx`]: [{ slug: 'releases/migrate-to-3' }],
-	[`${ADDON}/node/overview.mdx`]: [{ slug: 'reference/addon/node' }],
-	[`${ADDON}/node/define_storybook_vis.mdx`]: [{ slug: 'reference/addon/define-storybook-vis' }],
-	[`${ADDON}/node/define_storybook_vis_options.mdx`]: [{ slug: 'reference/addon/define-storybook-vis-options' }],
+	[`${ADDON}/node/overview.mdx`]: [{ slug: 'addon/reference/node' }],
+	[`${ADDON}/node/define_storybook_vis.mdx`]: [{ slug: 'addon/reference/define-storybook-vis' }],
+	[`${ADDON}/node/define_storybook_vis_options.mdx`]: [{ slug: 'addon/reference/define-storybook-vis-options' }],
 	[`${ADDON}/changelog.mdx`]: [{ slug: 'releases/changelog-addon' }],
 	[`${PLUGIN}/overview.mdx`]: [
-		{ slug: 'plugin/install', title: 'Install', summary: 'Install vitest-plugin-vis and its peer dependencies.' },
+		{ slug: 'plugin/get-started', title: 'Install', summary: 'Install vitest-plugin-vis and its peer dependencies.' },
 		{
 			slug: 'plugin/configuration',
 			title: 'Configuration',
@@ -100,20 +100,20 @@ const SITE_PAGES = {
 			covers: true,
 		},
 	],
-	[`${PLUGIN}/setup/overview.mdx`]: [{ slug: 'reference/plugin/setup/overview' }],
-	[`${PLUGIN}/setup/vis.mdx`]: [{ slug: 'reference/plugin/setup/vis' }],
-	[`${PLUGIN}/setup/create_vis.mdx`]: [{ slug: 'reference/plugin/setup/create-vis' }],
-	[`${PLUGIN}/config/overview.mdx`]: [{ slug: 'reference/plugin/config/overview' }],
-	[`${PLUGIN}/config/vis.mdx`]: [{ slug: 'reference/plugin/config/vis' }],
-	[`${PLUGIN}/config/trim_common_folder.mdx`]: [{ slug: 'reference/plugin/config/trim-common-folder' }],
-	[`${PLUGIN}/auto_snapshots/auto_snapshot_options.mdx`]: [{ slug: 'reference/plugin/set-auto-snapshot-options' }],
+	[`${PLUGIN}/setup/overview.mdx`]: [{ slug: 'plugin/reference/setup/overview' }],
+	[`${PLUGIN}/setup/vis.mdx`]: [{ slug: 'plugin/reference/setup/vis' }],
+	[`${PLUGIN}/setup/create_vis.mdx`]: [{ slug: 'plugin/reference/setup/create-vis' }],
+	[`${PLUGIN}/config/overview.mdx`]: [{ slug: 'plugin/reference/config/overview' }],
+	[`${PLUGIN}/config/vis.mdx`]: [{ slug: 'plugin/reference/config/vis' }],
+	[`${PLUGIN}/config/trim_common_folder.mdx`]: [{ slug: 'plugin/reference/config/trim-common-folder' }],
+	[`${PLUGIN}/auto_snapshots/auto_snapshot_options.mdx`]: [{ slug: 'plugin/reference/set-auto-snapshot-options' }],
 	[`${PLUGIN}/client/expect/to_match_image_snapshot.mdx`]: [
-		{ slug: 'reference/plugin/matchers/expect-to-match-image-snapshot' },
+		{ slug: 'plugin/reference/matchers/expect-to-match-image-snapshot' },
 	],
 	[`${PLUGIN}/client/page/to_match_image_snapshot.mdx`]: [
-		{ slug: 'reference/plugin/matchers/page-to-match-image-snapshot' },
+		{ slug: 'plugin/reference/matchers/page-to-match-image-snapshot' },
 	],
-	[`${PLUGIN}/client/page/has_image_snapshot.mdx`]: [{ slug: 'reference/plugin/matchers/has-image-snapshot' }],
+	[`${PLUGIN}/client/page/has_image_snapshot.mdx`]: [{ slug: 'plugin/reference/matchers/has-image-snapshot' }],
 	[`${PLUGIN}/changelog.mdx`]: [{ slug: 'releases/changelog-plugin' }],
 }
 

@@ -6,7 +6,7 @@ sidebar:
 ---
 
 The `vis` object from `vitest-plugin-vis/setup` provides the API to set up the plugin on the client side.
-This is not the same `vis` as the [Vitest plugin](/visual-testing/reference/plugin/config/vis/) exported from `vitest-plugin-vis/config`.
+This is not the same `vis` as the [Vitest plugin](/visual-testing/plugin/reference/config/vis/) exported from `vitest-plugin-vis/config`.
 
 ## Basic setup
 
@@ -31,7 +31,7 @@ and `page.hasImageSnapshot({ snapshotKey: 'auto' })` returns `false` for it.
 
 Pass a function to `auto` to decide for each test whether to take the snapshot.
 The function receives the snapshot options of the test, including any custom fields you set with
-[`setAutoSnapshotOptions()`](/visual-testing/reference/plugin/set-auto-snapshot-options/).
+[`setAutoSnapshotOptions()`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
 It takes the snapshot unless the function returns `false`.
 
 ```ts

@@ -7,7 +7,7 @@ sidebar:
 
 `page.toMatchImageSnapshot()` captures a full page or viewport screenshot and compares it to a baseline image.
 
-Unlike [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/), which targets a specific subject, it captures the whole page or viewport.
+Unlike [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/), which targets a specific subject, it captures the whole page or viewport.
 
 ## Basic usage
 
@@ -73,7 +73,7 @@ it('takes an image snapshot', async () => {
 ### Comparison options
 
 `failureThreshold`, `failureThresholdType`, `comparisonMethod`, `diffOptions`, `timeout`, and `expectToFail` take the same values as on
-[`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/#options).
+[`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#options).
 
 ```ts
 await page.toMatchImageSnapshot({

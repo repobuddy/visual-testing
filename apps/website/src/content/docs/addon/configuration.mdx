@@ -14,7 +14,7 @@ To setup [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis
 
 Also, if you are using TypeScript, you need to add the `storybook-addon-vis/matcher` type to your `tsconfig.json`.
 
-To see working setups, open the [published Storybooks](/visual-testing/examples/) and the [testcases](https://github.com/repobuddy/visual-testing/tree/main/testcases) they are built from.
+To see working setups, open the [published Storybooks](/visual-testing/addon/examples/) and the [testcases](https://github.com/repobuddy/visual-testing/tree/main/testcases) they are built from.
 For example, the [CSF Next Storybook](/visual-testing/examples/sb-csf-next/storybook/) is built from `sb-csf-next`.
 
 ## Basic Setup
@@ -287,7 +287,7 @@ export default definePreview({
 
 `addonVis({ auto: true })` adds the `snapshot` tag to every story and carries the hooks that take the snapshots, so `vitest.setup.ts` is not needed.
 The [`sb-csf-next` testcase](https://github.com/repobuddy/visual-testing/tree/main/testcases/sb-csf-next) uses this setup: `addonVis()` in `definePreview()` and no `setupFiles`.
-You can see it in the [published Storybook](/visual-testing/examples/sb-csf-next/storybook/) and on the [CSF Next example page](/visual-testing/examples/sb-csf-next/).
+You can see it in the [published Storybook](/visual-testing/examples/sb-csf-next/storybook/) and on the [CSF Next example page](/visual-testing/addon/examples/sb-csf-next/).
 
 ## Advanced Setup
 

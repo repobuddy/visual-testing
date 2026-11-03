@@ -396,16 +396,16 @@ This is because through our own usage, we do not found a good use case for them.
 If you have a good use case for these features, please open an issue or PR.
 
 [docs]: https://repobuddy.github.io/visual-testing/
-[docs_agents]: https://repobuddy.github.io/visual-testing/guides/reviewing-failures-with-agents/
-[docs_auto]: https://repobuddy.github.io/visual-testing/reference/plugin/set-auto-snapshot-options/
-[docs_config_overview]: https://repobuddy.github.io/visual-testing/reference/plugin/config/overview/
+[docs_agents]: https://repobuddy.github.io/visual-testing/visual-testing/reviewing-failures-with-agents/
+[docs_auto]: https://repobuddy.github.io/visual-testing/plugin/reference/set-auto-snapshot-options/
+[docs_config_overview]: https://repobuddy.github.io/visual-testing/plugin/reference/config/overview/
 [docs_configuration]: https://repobuddy.github.io/visual-testing/plugin/configuration/
-[docs_expect]: https://repobuddy.github.io/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/
-[docs_has]: https://repobuddy.github.io/visual-testing/reference/plugin/matchers/has-image-snapshot/
-[docs_install]: https://repobuddy.github.io/visual-testing/plugin/install/
-[docs_page]: https://repobuddy.github.io/visual-testing/reference/plugin/matchers/page-to-match-image-snapshot/
-[docs_setup_vis]: https://repobuddy.github.io/visual-testing/reference/plugin/setup/vis/
-[docs_vis]: https://repobuddy.github.io/visual-testing/reference/plugin/config/vis/
+[docs_expect]: https://repobuddy.github.io/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/
+[docs_has]: https://repobuddy.github.io/visual-testing/plugin/reference/matchers/has-image-snapshot/
+[docs_install]: https://repobuddy.github.io/visual-testing/plugin/get-started/
+[docs_page]: https://repobuddy.github.io/visual-testing/plugin/reference/matchers/page-to-match-image-snapshot/
+[docs_setup_vis]: https://repobuddy.github.io/visual-testing/plugin/reference/setup/vis/
+[docs_vis]: https://repobuddy.github.io/visual-testing/plugin/reference/config/vis/
 [downloads_image]: https://img.shields.io/npm/dm/vitest-plugin-vis.svg?style=flat
 [firefox]: https://www.mozilla.org/en-US/firefox/
 [github_action_url]: https://github.com/repobuddy/visual-testing/actions/workflows/release.yml
