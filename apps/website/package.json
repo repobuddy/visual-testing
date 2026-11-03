@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"astro": "astro",
-		"build": "node scripts/copy-showcase.mjs && astro build && node scripts/copy-storybook.mjs",
+		"check:redirects": "node scripts/check-redirects.mjs",
+		"build": "node scripts/copy-showcase.mjs && astro build && node scripts/check-redirects.mjs && node scripts/copy-storybook.mjs",
 		"dev": "node scripts/copy-showcase.mjs && astro dev",
 		"preview": "astro preview",
 		"test": "vitest run",
