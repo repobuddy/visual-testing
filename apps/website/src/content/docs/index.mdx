@@ -15,4 +15,13 @@ Capture and compare image snapshots automatically and manually, in Storybook and
 If you test your stories with Storybook, use `storybook-addon-vis`. It uses `vitest-plugin-vis` internally to do the heavy lifting.
 If you do not use Storybook and write tests in Vitest Browser Mode directly, use `vitest-plugin-vis`, which was extracted from the addon to be used directly in Vitest.
 
-The existing [Storybook](/visual-testing/storybook/) is still available.
+## Storybooks
+
+The repository's Storybooks are published with this site:
+
+- [Addon Storybook](/visual-testing/storybook/): the Storybook of `storybook-addon-vis` itself.
+- [Themes](/visual-testing/examples/themes/storybook/): one set of snapshots per theme.
+- [Multi instances](/visual-testing/examples/multi-instances/storybook/): one set of snapshots per browser viewport.
+- [CSF Next](/visual-testing/examples/sb-csf-next/storybook/): stories written in CSF Next.
+
+They only render the stories. Snapshots are taken while Vitest runs them. See [Examples](/visual-testing/examples/).

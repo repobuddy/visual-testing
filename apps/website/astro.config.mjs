@@ -55,6 +55,16 @@ export default defineConfig({
 				{ label: 'Vitest plugin', items: [{ autogenerate: { directory: 'plugin' } }] },
 				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
 				{ label: 'Examples', items: [{ autogenerate: { directory: 'examples' } }] },
+				// Static Storybook builds copied in by scripts/copy-storybook.mjs. They are not Astro pages.
+				{
+					label: 'Storybooks',
+					items: [
+						{ label: 'Addon', link: '/storybook/' },
+						{ label: 'Themes', link: '/examples/themes/storybook/' },
+						{ label: 'Multi instances', link: '/examples/multi-instances/storybook/' },
+						{ label: 'CSF Next', link: '/examples/sb-csf-next/storybook/' },
+					],
+				},
 				{
 					label: 'Reference',
 					items: [
