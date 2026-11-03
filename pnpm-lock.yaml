@@ -308,6 +308,9 @@ importers:
 
   packages/storybook-addon-vis:
     dependencies:
+      '@just-web/react-image-compare':
+        specifier: ^0.1.1
+        version: 0.1.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@storybook/icons':
         specifier: ^2.1.0
         version: 2.2.0(react@19.3.1)
@@ -2081,6 +2084,12 @@ packages:
   '@just-web/css@0.9.0':
     resolution: {integrity: sha512-ILla8b2eKkFPGyVaVU22axKY4psyLFo90QenpbMc6f+vGmB1g3AdPxiDQlvHDNuHo6HCVrLVQeL+hi0xPzpZeg==}
     engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@just-web/react-image-compare@0.1.1':
+    resolution: {integrity: sha512-JbfTp4RWHmbZC5ruqrtt2sbFJoKyO2EnyyLwRDuv6Oq+LFTDIUVbVoMDkvExa7aSsy9PhFozKXNESjBS1P2RCA==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
 
   '@manypkg/find-root@3.1.0':
     resolution: {integrity: sha512-BcSqCyKhBVZ5YkSzOiheMCV41kqAFptW6xGqYSTjkVTl9XQpr+pqHhwgGCOHQtjDCv7Is6EFyA14Sm5GVbVABA==}
@@ -7880,6 +7889,11 @@ snapshots:
       type-plus: 8.0.0(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
+
+  '@just-web/react-image-compare@0.1.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   '@manypkg/find-root@3.1.0':
     dependencies:
