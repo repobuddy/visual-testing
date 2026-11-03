@@ -80,7 +80,7 @@ describe('comparison options', () => {
 
 	it('fails with the pixel difference', async () => {
 		await renderChanged('page_pixel_compare')
-		await expect(page.toMatchImageSnapshot({ snapshotKey: 'page_pixel_compare' })).rejects.toThrow(
+		await expect(page.toMatchImageSnapshot({ snapshotKey: 'page_pixel_compare', expectToFail: true })).rejects.toThrow(
 			/Expected image to match but was differ by \d+ pixels\./,
 		)
 	})
@@ -97,6 +97,7 @@ describe('comparison options', () => {
 				snapshotKey: 'page_percent_compare',
 				failureThreshold: 0.001,
 				failureThresholdType: 'percent',
+				expectToFail: true,
 			}),
 		).rejects.toThrow(/Expected image to match within 0\.001% but was differ by \d+\.\d+%\./)
 	})
@@ -109,6 +110,7 @@ describe('comparison options', () => {
 				comparisonMethod: 'ssim',
 				diffOptions: { ssim: 'fast' },
 				failureThreshold: 1,
+				expectToFail: true,
 			}),
 		).rejects.toThrow(/Expected image to match within 1 pixels but was differ by \d+ pixels\./)
 	})

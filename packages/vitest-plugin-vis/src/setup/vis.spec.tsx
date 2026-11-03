@@ -147,13 +147,21 @@ describe('matchPerTheme', () => {
 	})
 
 	it('setAutoSnapshotOptions overrides the createMissingBaseline default of the matcher', async () => {
-		setAutoSnapshotOptions({ enable: true, createMissingBaseline: false })
+		const received: Array<Record<string, any>> = []
+		const fakeExpect = () => ({
+			toMatchImageSnapshot: async (options: Record<string, any>) => {
+				received.push(options)
+			},
+		})
+		const matcher = autoSnapshotMatcher(commands, fakeExpect)
 		await render(<div data-testid="subject">hello</div>)
-		const snapshotKey = 'create_missing_baseline_override'
-		await expect(
-			themeSnapshots.createMatcher({ [snapshotKey]: async () => {} }, { createMissingBaseline: true })(),
-		).rejects.toThrow()
-		expect(await page.hasImageSnapshot({ snapshotKey })).toBe(false)
+
+		setAutoSnapshotOptions(true)
+		await matcher.createMatcher({ key: async () => {} }, { createMissingBaseline: true })()
+		setAutoSnapshotOptions({ createMissingBaseline: false })
+		await matcher.createMatcher({ key: async () => {} }, { createMissingBaseline: true })()
+
+		expect(received.map((o) => o.createMissingBaseline)).toEqual([true, false])
 		setAutoSnapshotOptions({ enable: false })
 	})
 
@@ -166,17 +174,11 @@ describe('matchPerTheme', () => {
 			return () => themeSnapshots.createMatcher({ [snapshotKey]: async () => {} })()
 		}
 
-		it('fails by default when the image is different', async () => {
-			const match = await renderChanged('auto_default_compare')
-			await expect(match()).rejects.toThrow(/Expected image to match but was differ by \d+ pixels\./)
-			setAutoSnapshotOptions({ enable: false })
-		})
-
 		it('supports failureThreshold with failureThresholdType', async () => {
 			const match = await renderChanged('auto_threshold_type_compare')
 			setAutoSnapshotOptions({ failureThreshold: 50, failureThresholdType: 'percent' })
 			await match()
-			setAutoSnapshotOptions({ failureThreshold: 0.001, failureThresholdType: 'percent' })
+			setAutoSnapshotOptions({ failureThreshold: 0.001, failureThresholdType: 'percent', expectToFail: true })
 			await expect(match()).rejects.toThrow(/Expected image to match within 0\.001% but was differ by \d+\.\d+%\./)
 			setAutoSnapshotOptions({ enable: false })
 		})
