@@ -39,9 +39,9 @@ Each package ships a copy as `llms.txt` in its npm package.
 [release_url]: https://github.com/repobuddy/visual-testing/actions/workflows/release.yml
 [site]: https://repobuddy.github.io/visual-testing/
 [site_addon]: https://repobuddy.github.io/visual-testing/addon/
-[site_examples]: https://repobuddy.github.io/visual-testing/examples/
+[site_examples]: https://repobuddy.github.io/visual-testing/addon/examples/
 [site_llms]: https://repobuddy.github.io/visual-testing/llms.txt
-[site_plugin]: https://repobuddy.github.io/visual-testing/plugin/install/
+[site_plugin]: https://repobuddy.github.io/visual-testing/plugin/get-started/
 [site_showcase]: https://repobuddy.github.io/visual-testing/showcase/
 [site_storybook]: https://repobuddy.github.io/visual-testing/storybook/
 [storybook-vitest-addon]: https://storybook.js.org/docs/writing-tests/integrations/vitest-addon

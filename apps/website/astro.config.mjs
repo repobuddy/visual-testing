@@ -24,7 +24,7 @@ if (location.pathname === ${JSON.stringify(base)} && new URLSearchParams(locatio
 export default defineConfig({
 	site: 'https://repobuddy.github.io',
 	base,
-	// One entry per moved page, generated from scripts/page-map.mjs. Empty until pages move.
+	// One entry per moved page, generated from scripts/page-map.mjs.
 	redirects: buildRedirects(undefined, base),
 	markdown: {
 		// Content hard-codes PRODUCTION_BASE links because Starlight does not rewrite them; follow `base`.
@@ -55,10 +55,9 @@ export default defineConfig({
 			sidebar: [
 				{ label: 'Getting Started', items: [{ label: 'Introduction', slug: '' }] },
 				{ slug: 'showcase' },
+				{ label: 'Visual testing', items: [{ autogenerate: { directory: 'visual-testing' } }] },
 				packageGroup({ label: 'Storybook addon', directory: 'addon' }),
 				packageGroup({ label: 'Vitest plugin', directory: 'plugin' }),
-				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
-				{ label: 'Examples', items: [{ autogenerate: { directory: 'examples' } }] },
 				// Static Storybook builds copied in by scripts/copy-storybook.mjs. They are not Astro pages.
 				{
 					label: 'Storybooks',
@@ -67,13 +66,6 @@ export default defineConfig({
 						{ label: 'Themes', link: '/examples/themes/storybook/' },
 						{ label: 'Multi instances', link: '/examples/multi-instances/storybook/' },
 						{ label: 'CSF Next', link: '/examples/sb-csf-next/storybook/' },
-					],
-				},
-				{
-					label: 'Reference',
-					items: [
-						{ label: 'Addon', items: [{ autogenerate: { directory: 'reference/addon' } }] },
-						{ label: 'Plugin', items: [{ autogenerate: { directory: 'reference/plugin' } }] },
 					],
 				},
 				{ label: 'Releases', items: [{ autogenerate: { directory: 'releases' } }] },

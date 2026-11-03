@@ -65,7 +65,7 @@ describe('packageGroup', () => {
 		const sub = [{ label: 'Guides', directory: 'guides' }]
 		expect(packageGroup({ label: 'Vitest plugin', directory: 'plugin' }, sub).items).toEqual([
 			{ autogenerate: { directory: 'plugin' } },
-			{ label: 'Guides', autogenerate: { directory: 'plugin/guides' } },
+			{ label: 'Guides', items: [{ autogenerate: { directory: 'plugin/guides' } }] },
 		])
 	})
 })
