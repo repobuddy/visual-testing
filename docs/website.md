@@ -9,7 +9,7 @@ It is an [Astro](https://astro.build) site with [Starlight](https://starlight.as
 pnpm exec turbo run build --filter=website
 ```
 
-The `website` build runs `node scripts/copy-showcase.mjs && astro build && node scripts/copy-storybook.mjs`.
+The `website` build runs `node scripts/copy-showcase.mjs && astro build && node scripts/check-redirects.mjs && node scripts/copy-storybook.mjs`.
 Its `turbo.json` makes it depend on the `build:sb` task of `storybook-addon-vis` and of the `themes`, `multi-instances` and `sb-csf-next` test cases, so the Storybooks are built first.
 
 - `scripts/copy-showcase.mjs` copies the committed baseline images that the Showcase page displays into `public/showcase/`. It fails the build when one is missing.
@@ -40,10 +40,25 @@ It does not cover frontmatter values.
 
 Old links of the form `<base>?path=...` predate the site. A small script in the site head forwards them to `<base>storybook/?path=...`.
 
+## Sidebar and redirects
+
+`astro.config.mjs` builds the Storybook addon and Vitest plugin sidebar groups with `packageGroup` from `src/config/sidebar.mjs`.
+`PACKAGE_SUB_GROUPS` in that file is the one definition of the sub-groups (Guides, Configuration, API reference) that both packages share, so the two sections cannot drift apart.
+It is empty until the pages move into those folders.
+
+Moved pages keep their old URLs through redirects, generated from data:
+
+- `scripts/page-map.mjs` lists the moved pages as `{ from, to }` slugs without the base, for example `{ from: 'addon/install', to: 'addon/get-started' }`. It is empty until pages move.
+- `scripts/redirects.mjs` turns the map into Astro's `redirects` option. Astro writes the destination as given, so the generator adds the site base to it. It rejects any slug with a wildcard, query or fragment, any slug that contains a `storybook` segment, a repeated `from`, and a `to` that is itself redirected. Each redirect therefore matches one page, and `/storybook/` and `/examples/<name>/storybook/` stay as the static builds.
+- `scripts/check-redirects.mjs [dist-dir] [page-map.json]` fails when an old URL in the map has no output page, when that page does not redirect to the new URL, or when the new URL has no output page. The optional JSON file replaces the map, which is how to see it fail: `[{"from":"missing-page","to":"addon/install"}]`.
+
+The `website` build runs `check-redirects.mjs` after `astro build`. `pnpm --filter website check:redirects` runs it alone.
+Do not remove entries from the map: published `llms.txt` files link the old URLs.
+
 ## Add a documentation page
 
 1. Add an `.mdx` file under `apps/website/src/content/docs/<section>/`. It needs `title` and `description` frontmatter. `sidebar.order` sets its position.
-2. The sidebar lists the `addon`, `plugin`, `guides`, `examples`, `reference` and `releases` folders automatically (see `astro.config.mjs`). A new top-level folder needs a sidebar entry.
+2. The sidebar lists the `addon`, `plugin`, `guides`, `examples`, `reference` and `releases` folders automatically (see `astro.config.mjs` and Sidebar and redirects above). A new top-level folder needs a sidebar entry.
 3. Link to other pages with the production base, for example `/visual-testing/plugin/install/`.
 4. Embed a story from the published Storybooks with the `Story` component. See `src/components/storybook/README.md`.
 5. `llms.txt` links pages through `SITE_PAGES` in `packages/storybook-addon-vis/scripts/generate-llms-txt.mjs`, which maps each source `.mdx` page under `packages/*/src` to its slug(s). A page that exists only on the site, such as Showcase, is not linked from `llms.txt`.
