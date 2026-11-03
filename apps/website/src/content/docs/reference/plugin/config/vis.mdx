@@ -20,12 +20,6 @@ export default defineConfig({
 `vis()` works with zero config. The options below customize its behavior.
 See also the [config overview](/visual-testing/reference/plugin/config/overview/) for how the snapshot path is built.
 
-:::caution[Unverified]
-The spec for this page checks that each option below is accepted and stored, and the `preset` behavior.
-It does not check default values, the fields of the `snapshotRootDir` context, how the options change the comparison, or `reviewImage`.
-Statements about those come from the original documentation.
-:::
-
 ## `preset`
 
 The `preset` option sets up a typical visual testing strategy.
@@ -102,7 +96,8 @@ export default defineConfig({
 
 ## `snapshotRootDir`
 
-By default, snapshots are saved in the `__vis__` folder relative to the project root.
+By default, snapshots are saved in `__vis__/local` relative to the project root,
+or in `__vis__/<platform>` (for example `__vis__/linux`) when running on CI.
 To save them elsewhere, set `snapshotRootDir`:
 
 ```ts
@@ -112,23 +107,28 @@ import { vis } from 'vitest-plugin-vis/config'
 export default defineConfig({
 	plugins: [
 		vis({
-			// save the snapshot in the `<projectRoot>/custom` folder
+			// save the snapshots in `<projectRoot>/custom/local`
+			// (`<projectRoot>/custom/<platform>` on CI)
 			snapshotRootDir: 'custom',
 		}),
 	],
 })
 ```
 
-Besides a static path, you can provide a function that receives this context:
+A static path gets the `local` or `<platform>` folder appended.
+Besides a static path, you can provide a function that receives this context.
+The function result is used as is:
 
 - `ci`: whether the code is running in a CI environment.
+- `rootDir`: the default root folder, `__vis__`.
+- `projectName`: the name of the Vitest project.
 - `platform`: the platform string (for example `linux`, `darwin`, `win32`).
 - `browserName`: the name of the browser (for example `chromium`, `firefox`).
 - `providerName`: the name of the provider (for example `playwright`, `webdriverio`).
-- `screenshotFailures`: whether screenshot failures are enabled.
-- `screenshotDirectory`: the directory to save the screenshot.
+- `screenshotFailures`: the `screenshotFailures` setting of the browser config.
+- `screenshotDirectory`: the `screenshotDirectory` setting of the browser config.
 
-The default function is:
+The default is the same as this function:
 
 ```ts
 ({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`
@@ -189,7 +189,7 @@ export default defineConfig({
 			comparisonMethod: 'pixel',
 			diffOptions: {
 				threshold: 0.1, // Matching threshold (0-1), default: 0.1
-				includeAA: false, // Include anti-aliased pixels in comparison
+				includeAA: false, // true: do not detect and ignore anti-aliased pixels
 				alpha: 0.1, // Blending factor of unchanged pixels
 				aaColor: [255, 255, 0], // Color of anti-aliased pixels in diff
 				diffColor: [255, 0, 255], // Color of different pixels in diff
@@ -215,7 +215,7 @@ export default defineConfig({
 		vis({
 			comparisonMethod: 'ssim',
 			diffOptions: {
-				ssim: 'bezkrovny', // 'bezkrovny' (fast, default) | 'fast' (accurate) | 'weber' | 'original'
+				ssim: 'bezkrovny', // 'bezkrovny' (default of this plugin) | 'fast' | 'weber' | 'original'
 				windowSize: 11, // Window size for SSIM calculation (default: 11)
 				k1: 0.01, // First stability constant (default: 0.01)
 				k2: 0.03, // Second stability constant (default: 0.03)
@@ -227,12 +227,14 @@ export default defineConfig({
 })
 ```
 
+The other defaults shown are those of `ssim.js`.
 For option details, see the [ssim documentation](https://github.com/obartra/ssim).
 The `ssim.js` repository is archived, so an issue with `ssim` comparison may not be fixed.
 
 ## Failure thresholds
 
 A failure threshold sets how much difference is acceptable before a test fails.
+`failureThreshold` is `0` by default.
 `failureThresholdType` is `'pixel'` (the default) or `'percent'`.
 
 ### Pixel-based threshold
@@ -250,7 +252,7 @@ Percentages scale better across image sizes.
 
 ```ts
 vis({
-	failureThreshold: 0.05, // Allow 5% of pixels to differ
+	failureThreshold: 5, // Allow 5% of pixels to differ
 	failureThresholdType: 'percent',
 })
 ```
@@ -271,7 +273,8 @@ vis({
 When a snapshot mismatches, `vitest-plugin-vis` writes a review image (`<name>.review.png`) next to the diff image.
 It places the baseline, result, and diff crops of each changed region side by side,
 so you or a coding agent can see what changed without opening the full images.
-The changed regions are also written to `<name>.regions.json`.
+The changed regions are also written to `<name>.regions.json`, even when `reviewImage` is `false`.
+The review image is skipped when the image size changed, there are many regions, or the regions cover most of the image.
 See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/#reviewimage) for details.
 
 To not write the review image:
@@ -300,5 +303,3 @@ The final path segment is replaced with `{firstToken}-{hash12}{ext}` when the fu
 ```ts
 vis({ shortenLongSnapshotPaths: true })
 ```
-
-The spec checks only that the option is accepted. The description comes from the doc comment of the option in the source.

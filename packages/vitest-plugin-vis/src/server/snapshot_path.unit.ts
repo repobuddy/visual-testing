@@ -59,6 +59,37 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 		expect(result).toBe(`custom_chrome_webdriverio_${platform}`)
 	})
 
+	it('passes the documented context fields to the snapshotRootDir function', ({ expect }) => {
+		let received: unknown
+		resolveSnapshotRootDir(
+			stubContext({
+				provider: { name: 'playwright' },
+				project: {
+					browser: {
+						config: {
+							browser: { name: 'chromium', screenshotFailures: false, screenshotDirectory: '__shots__' },
+						},
+					},
+				},
+			}),
+			{
+				snapshotRootDir(context) {
+					received = context
+					return 'x'
+				},
+			},
+		)
+		expect(received).toMatchObject({
+			ci: true,
+			platform: 'linux',
+			providerName: 'playwright',
+			browserName: 'chromium',
+			screenshotFailures: false,
+			screenshotDirectory: '__shots__',
+			rootDir: '__vis__',
+		})
+	})
+
 	describe('when in CI', () => {
 		it('should use process.platform', () => {
 			const { browserCommandContext } = stubSuite()
@@ -97,6 +128,18 @@ describe(`${getSnapshotSubpath.name}()`, () => {
 		}
 		const result = getSnapshotSubpath(suiteName, options)
 		expect(result).toBe('tests/myTestSuite')
+	})
+
+	it('can use a custom trim function as snapshotSubpath', ({ expect }) => {
+		const customFolders = ['app', 'pages', 'components']
+		const options: VisOptions = {
+			snapshotSubpath: ({ subpath }) => {
+				const dir = subpath.split('/', 1)[0]!
+				return customFolders.includes(dir) ? subpath.slice(dir.length + 1) : subpath
+			},
+		}
+		expect(getSnapshotSubpath('app/button.spec.ts', options)).toBe('button.spec.ts')
+		expect(getSnapshotSubpath('src/button.spec.ts', options)).toBe('src/button.spec.ts')
 	})
 
 	it('should handle suiteName with special directories', ({ expect }) => {
