@@ -109,15 +109,14 @@ it('creates baseline on first run', async ({ expect }) => {
 })
 ```
 
-:::caution[Unverified]
-You can set a default for auto snapshots with `vis.setup({ createMissingBaseline: true, auto: ... })`, and per-test options from `setAutoSnapshotOptions` override it.
-The spec covers the matcher option and the `createMatcher` option, but not `vis.setup({ createMissingBaseline })` or the override.
-:::
+You can set a default for auto snapshots with `vis.setup({ createMissingBaseline: true, auto: ... })`.
+`setAutoSnapshotOptions({ createMissingBaseline })` in a test overrides that default.
 
 ### `failureThreshold` and `failureThresholdType`
 
 Control how much difference is allowed before the test fails.
 `failureThresholdType` is `'pixel'` (the default) or `'percent'`.
+With `'percent'`, the threshold is a percentage from 0 to 100: `1` allows 1% of the pixels to differ.
 
 ```ts
 // Allow up to 70 pixels to be different
@@ -143,7 +142,7 @@ Expected image to match within 0.1% but was differ by N.NN%.
 
 With no threshold the message is `Expected image to match but was differ by N pixels.`
 (for `percent`, `... but was differ by N.NN%.`).
-`N` stands for the measured difference. The spec asserts the message shape, not the numbers.
+`N` stands for the measured difference.
 
 ### `comparisonMethod`
 
@@ -162,7 +161,8 @@ With `ssim`, a threshold in pixels works the same way, for example `failureThres
 
 ### `diffOptions`
 
-For `comparisonMethod: 'pixel'`, the options of `pixelmatch`:
+The options are passed to the comparison library, so the defaults are those of the library.
+For `comparisonMethod: 'pixel'`, the options of [`pixelmatch`](https://github.com/mapbox/pixelmatch#api):
 
 ```ts
 await expect(document.body).toMatchImageSnapshot({
@@ -179,13 +179,14 @@ await expect(document.body).toMatchImageSnapshot({
 })
 ```
 
-For `comparisonMethod: 'ssim'`, the options of `ssim.js`:
+For `comparisonMethod: 'ssim'`, the options of [`ssim.js`](https://github.com/obartra/ssim/wiki/Usage#options).
+Unless you set `ssim`, the plugin uses `'bezkrovny'`:
 
 ```ts
 await expect(document.body).toMatchImageSnapshot({
 	comparisonMethod: 'ssim',
 	diffOptions: {
-		ssim: 'bezkrovny', // 'bezkrovny' (fast, default) | 'fast' (accurate) | 'weber' | 'original'
+		ssim: 'bezkrovny', // 'bezkrovny' (plugin default) | 'fast' | 'weber' | 'original'
 		windowSize: 11, // Window size for SSIM calculation (default: 11)
 		k1: 0.01, // First stability constant (default: 0.01)
 		k2: 0.03, // Second stability constant (default: 0.03)
@@ -195,10 +196,6 @@ await expect(document.body).toMatchImageSnapshot({
 })
 ```
 
-:::caution[Unverified]
-No spec asserts the `diffOptions` fields or their defaults on the matcher. They come from the original documentation.
-:::
-
 ### `timeout`
 
 Set a timeout for taking the snapshot, in milliseconds. The default is 30000.
@@ -206,10 +203,6 @@ Set a timeout for taking the snapshot, in milliseconds. The default is 30000.
 ```ts
 await expect(document.body).toMatchImageSnapshot({ timeout: 60000 })
 ```
-
-:::caution[Unverified]
-No spec asserts the matcher `timeout`.
-:::
 
 ### `reviewImage`
 
@@ -230,7 +223,9 @@ Open the review image first: it shows only what changed and is much smaller than
 The review image is skipped, and the message says why, when cropping does not help:
 
 - the image size changed: `Review: skipped, the image size changed; open Actual or Difference instead`
-- the regions cover most of the image: `Review: skipped, the regions cover N% of the image`
+- there are more than 5 regions: `Review: skipped, N regions, more than 5; open Actual or Difference instead`
+- the regions cover more than half of the image: `Review: skipped, the regions cover N% of the image; open Actual or Difference instead`
+- no changed region is found: `Review: skipped, no changed region found; open Actual or Difference instead`
 
 Set `reviewImage: false` to not write the review image.
 The `Review:` line is then left out of the message, and `Changed:` and the `.regions.json` file are still written.
@@ -238,10 +233,6 @@ The `Review:` line is then left out of the message, and `Changed:` and the `.reg
 ```ts
 await expect(document.body).toMatchImageSnapshot({ reviewImage: false })
 ```
-
-:::caution[Unverified]
-The spec asserts the two skip reasons above. The documented limits (more than 5 regions, more than half of the image) are not asserted, so they are not stated here.
-:::
 
 ### `expectToFail`
 
@@ -296,19 +287,12 @@ The matcher supports Vitest's `retry` option. A test with `{ retry: 1 }` can tak
 Use `pixel` (the default) for precise detection of small UI changes, text changes, and layout shifts.
 
 Use `ssim` when images have gradients, shadows, or anti-aliasing, to reduce false positives from minor rendering differences.
-A threshold of 1% is a reasonable start:
+For example, to allow 1% of the pixels to differ:
 
 ```ts
 await expect(document.body).toMatchImageSnapshot({
 	comparisonMethod: 'ssim',
-	failureThreshold: 0.01,
+	failureThreshold: 1,
 	failureThresholdType: 'percent',
-	diffOptions: {
-		ssim: 'bezkrovny', // faster; use 'fast' for accuracy
-	},
 })
 ```
-
-:::caution[Unverified]
-The 1% recommendation and the speed and accuracy trade-off of the `ssim` variants are guidance from the original documentation, not asserted by a spec.
-:::

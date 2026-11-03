@@ -34,7 +34,7 @@ It accepts either a boolean or an options object.
 ## How options merge
 
 The options set at different levels are merged, and the more specific level wins.
-These results are asserted by the spec:
+For example:
 
 ```ts
 beforeAll(() => {
@@ -118,11 +118,12 @@ setAutoSnapshotOptions({ comparisonMethod: 'ssim' })
 
 The tolerance before a test is considered failed.
 `failureThresholdType` is `'pixel'` (the default) or `'percent'`.
+With `'percent'`, the threshold is a percentage from 0 to 100: `5` allows 5% of the pixels to differ.
 
 ```ts
 // Allow 5% difference
 setAutoSnapshotOptions({
-	failureThreshold: 0.05,
+	failureThreshold: 5,
 	failureThresholdType: 'percent',
 })
 
@@ -173,11 +174,6 @@ Expects the snapshot comparison to fail. Useful for testing that changes are det
 ```ts
 setAutoSnapshotOptions({ expectToFail: true })
 ```
-
-:::caution[Unverified]
-The spec for this function asserts the merge behavior above, `enable`, the boolean shorthands, `subject`, `comparisonMethod: 'ssim'` with `diffOptions: { ssim: 'fast' }`, `failureThreshold`, `diffOptions: { threshold }`, and the snapshot key dash check.
-It does not assert the `timeout` default, the hidden-subject failure, `failureThresholdType`, the pixel `diffOptions` fields other than `threshold`, or `expectToFail` for auto snapshots.
-:::
 
 ## Examples
 

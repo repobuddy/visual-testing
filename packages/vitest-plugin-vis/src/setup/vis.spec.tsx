@@ -145,4 +145,54 @@ describe('matchPerTheme', () => {
 		expect(await page.hasImageSnapshot({ snapshotKey })).toBe(true)
 		setAutoSnapshotOptions({ enable: false })
 	})
+
+	it('setAutoSnapshotOptions overrides the createMissingBaseline default of the matcher', async () => {
+		setAutoSnapshotOptions({ enable: true, createMissingBaseline: false })
+		await render(<div data-testid="subject">hello</div>)
+		const snapshotKey = 'create_missing_baseline_override'
+		await expect(
+			themeSnapshots.createMatcher({ [snapshotKey]: async () => {} }, { createMissingBaseline: true })(),
+		).rejects.toThrow()
+		expect(await page.hasImageSnapshot({ snapshotKey })).toBe(false)
+		setAutoSnapshotOptions({ enable: false })
+	})
+
+	describe('comparison options of setAutoSnapshotOptions', () => {
+		async function renderChanged(snapshotKey: string) {
+			setAutoSnapshotOptions({ enable: true })
+			const screen = await render(<div data-testid="subject">baseline</div>)
+			await themeSnapshots.createMatcher({ [snapshotKey]: async () => {} }, { createMissingBaseline: true })()
+			await screen.rerender(<div data-testid="subject">changed content</div>)
+			return () => themeSnapshots.createMatcher({ [snapshotKey]: async () => {} })()
+		}
+
+		it('fails by default when the image is different', async () => {
+			const match = await renderChanged('auto_default_compare')
+			await expect(match()).rejects.toThrow(/Expected image to match but was differ by \d+ pixels\./)
+			setAutoSnapshotOptions({ enable: false })
+		})
+
+		it('supports failureThreshold with failureThresholdType', async () => {
+			const match = await renderChanged('auto_threshold_type_compare')
+			setAutoSnapshotOptions({ failureThreshold: 50, failureThresholdType: 'percent' })
+			await match()
+			setAutoSnapshotOptions({ failureThreshold: 0.001, failureThresholdType: 'percent' })
+			await expect(match()).rejects.toThrow(/Expected image to match within 0\.001% but was differ by \d+\.\d+%\./)
+			setAutoSnapshotOptions({ enable: false })
+		})
+
+		it('supports the pixel diffOptions', async () => {
+			const match = await renderChanged('auto_diff_options_compare')
+			setAutoSnapshotOptions({ diffOptions: { threshold: 1 } })
+			await match()
+			setAutoSnapshotOptions({ enable: false })
+		})
+
+		it('supports expectToFail', async () => {
+			const match = await renderChanged('auto_expect_to_fail_compare')
+			setAutoSnapshotOptions({ expectToFail: true })
+			await expect(match()).rejects.toThrow(/Expected image to match but was differ by \d+ pixels\./)
+			setAutoSnapshotOptions({ enable: false })
+		})
+	})
 })
