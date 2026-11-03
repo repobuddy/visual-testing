@@ -69,3 +69,7 @@ The generator also has `--site-pages <docs dir>...`, which fails when a register
 ```sh
 node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --site-pages apps/website/src/content/docs
 ```
+
+## Planned reorganization
+
+[Website organization](proposals/website-organization.md) is the decided design for the site structure, the page map, the redirects and the staged build plan. Read it before moving or adding sections.

@@ -5,10 +5,6 @@ sidebar:
   order: 2
 ---
 
-:::caution[Unverified]
-The CSF Next setup (`definePreview` with `addonVis({ auto: true })` and no `vitest.setup.ts`) has no spec in the repository that covers it, so it is ported as written. The first-run baseline notes and the `vis.setup()` / `storybookVis()` options are checked against the repository's specs.
-:::
-
 To setup [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis), you need to do the following:
 
 - Add the `storybookVis` plugin in [Vitest](https://vitest.dev) along with the `storybookTest` plugin.
@@ -17,6 +13,9 @@ To setup [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis
 - Ignore snapshot folders in your `.gitignore` file.
 
 Also, if you are using TypeScript, you need to add the `storybook-addon-vis/matcher` type to your `tsconfig.json`.
+
+To see working setups, open the [published Storybooks](/visual-testing/examples/) and the [testcases](https://github.com/repobuddy/visual-testing/tree/main/testcases) they are built from.
+For example, the [CSF Next Storybook](/visual-testing/examples/sb-csf-next/storybook/) is built from `sb-csf-next`.
 
 ## Basic Setup
 
@@ -33,7 +32,7 @@ The basic setup will:
 - Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
 - Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
 - Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
-- You can review the baseline and diff images in addon `Vis` panel.
+- You can review snapshots in the addon `Vis` panel. For a failed snapshot, compare the baseline with the result side by side, with a swipe divider, or as an onion skin, or view the diff image.
 
 This setup assumes that you are writing your stories in CSF 3.
 If you are writing your stories in CSF Next, check out [Basic Setup for CSF Next](#basic-setup-for-csf-next).
@@ -63,9 +62,10 @@ export default defineConfig({
 
 ```ts
 // vitest.setup.ts
+import { setProjectAnnotations } from '@storybook/your-framework'
 import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
 import { beforeAll } from 'vitest'
-import * as projectAnnotations from './preview.ts'
+import * as projectAnnotations from './.storybook/preview.ts'
 
 const annotations = setProjectAnnotations([
 	projectAnnotations,
@@ -80,20 +80,40 @@ vis.setup()
 
 ## Storybook 10.3+ and Vitest project annotations
 
-:::caution[Unverified]
-This section has no spec in the repository and is ported as written.
-:::
+From **Storybook 10.3** onward, [`@storybook/addon-vitest`](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) adds a setup file to your Vitest project that calls `setProjectAnnotations(getProjectAnnotations())`. `getProjectAnnotations()` returns the annotations of your `.storybook/preview.ts`, so you do not need a hand-maintained `vitest.setup.ts` for them.
 
-From **Storybook 10.3** onward, [`@storybook/addon-vitest`](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) often injects project annotations for you (for example via `setProjectAnnotations(getProjectAnnotations())`), so you may not need a hand-maintained `vitest.setup.ts` in every project. See the [Storybook Vitest integration docs](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) for the current recommendation.
+The addon skips this step when a setup file in your Storybook config folder (`.storybook`) contains the text `setProjectAnnotations`. It prints an info message when it does.
 
-**If you are not using CSF Next** (or have not moved your preview config to `definePreview`), you may still need to adjust your setup: **do not** rely only on merging `visAnnotations` inside `setProjectAnnotations([...])` in `vitest.setup.ts`. Put the same lifecycle hooks in **`.storybook/preview.ts`** instead, so `getProjectAnnotations()` includes them when the Vitest addon builds annotations from your preview stack.
+With the `visAnnotations` from `storybook-addon-vis/vitest-setup`, you have two ways to set up visual testing:
 
-You can do that in either of these ways:
+1. **Preview:** merge `visAnnotations` into `.storybook/preview.ts`, as shown below. Keep only `vis.setup()` in `vitest.setup.ts`.
+2. **Vitest setup:** merge `visAnnotations` in `setProjectAnnotations([...])` in `vitest.setup.ts`, as in [Basic Setup](#basic-setup). Because that file calls `setProjectAnnotations`, Storybook does not provision the preview annotations for you.
 
-1. **Recommended:** use `definePreview({ addons: [addonVis({ auto: true })] })` in `preview.ts` even while your stories stay CSF 3—the pattern is the same as in [Basic Setup for CSF Next](#basic-setup-for-csf-next).
-2. **Minimal migration:** import `visAnnotations` from `storybook-addon-vis/vitest-setup` and spread them into a classic preview export, for example `export default { ...visAnnotations, tags: ['snapshot'] }`, if you are not ready for `definePreview`.
+If you use CSF Next, use `definePreview({ addons: [addonVis({ auto: true })] })` instead. It carries `visAnnotations` already. See [Basic Setup for CSF Next](#basic-setup-for-csf-next).
 
-You may still need `vis.setup()` and the `storybookVis()` Vitest plugin depending on your project; this note is only about **where** `visAnnotations` is merged (preview vs Vitest setup).
+```ts
+// .storybook/preview.ts
+import type { Preview } from '@storybook/react-vite'
+import { visAnnotations } from 'storybook-addon-vis/vitest-setup'
+
+const preview: Preview = {
+	...visAnnotations,
+	tags: ['snapshot'],
+}
+
+export default preview
+```
+
+```ts
+// .storybook/vitest.setup.ts
+import { vis } from 'storybook-addon-vis/vitest-setup'
+
+vis.setup()
+```
+
+The [testcase `sb-csf-3`](https://github.com/repobuddy/visual-testing/tree/main/testcases/sb-csf-3) uses exactly this setup. The other testcases, for example [`sb-csf-mix`](https://github.com/repobuddy/visual-testing/tree/main/testcases/sb-csf-mix), use the Vitest setup way.
+
+You still need the `storybookVis()` Vitest plugin in both ways.
 
 For [Storybook](https://storybook.js.org), you need to add the addon to your `.storybook/main.ts`:
 ```ts
@@ -106,15 +126,10 @@ const config: StorybookConfig = {
 }
 ```
 
-:::caution[Unverified]
-The monorepo `getAbsolutePath` example has no spec in the repository and is ported as written.
-:::
-
 In monorepo, you need to use the `getAbsolutePath` helper function to resolve the absolute path of the addon.
 
 ```ts
 // .storybook/main.ts
-import { defineStorybookVis } from 'storybook-addon-vis/node'
 import type { StorybookConfig } from '@storybook/<your-framework>'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -137,9 +152,10 @@ export default config
 ```
 
 The `getAbsolutePath` function is a helper function typically added by [Storybook](https://storybook.js.org) automatically.
+The [testcases](https://github.com/repobuddy/visual-testing/tree/main/testcases) in this repository, which live in a pnpm monorepo, use it in their `.storybook/main.ts`, for example [`sb-csf-3`](https://github.com/repobuddy/visual-testing/blob/main/testcases/sb-csf-3/.storybook/main.ts).
 
-In `.storybook/preview.ts`, you can enable automatic snapshot by adding the `addonVis` addon and setting `auto` to `true`.
-This will enable automatic snapshot taking at the end of each test.
+To take an automatic snapshot at the end of each story test, add the `snapshot` tag to your stories.
+You can add it to all stories in `.storybook/preview.ts`:
 
 ```ts
 // .storybook/preview.ts
@@ -147,6 +163,8 @@ export default {
 	tags: ['snapshot'],
 }
 ```
+
+With CSF Next, `addonVis({ auto: true })` adds this tag for you. See [Basic Setup for CSF Next](#basic-setup-for-csf-next).
 
 ## Ignore snapshot folders
 
@@ -238,7 +256,6 @@ Instead, you should setup the visual testing in `.storybook/preview.ts`.
 
 ```ts
 // vitest.config.ts
-// vitest.config.ts
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
 import { defineConfig } from 'vitest/config'
@@ -253,7 +270,9 @@ export default defineConfig({
 		// setupFiles: ['./vitest.setup.ts'], // REMOVE THIS
 	}
 })
+```
 
+```ts
 // .storybook/preview.ts
 import addonVis from 'storybook-addon-vis'
 import { definePreview } from '@storybook/your-framework/node'
@@ -266,15 +285,15 @@ export default definePreview({
 })
 ```
 
+`addonVis({ auto: true })` adds the `snapshot` tag to every story and carries the hooks that take the snapshots, so `vitest.setup.ts` is not needed.
+The [`sb-csf-next` testcase](https://github.com/repobuddy/visual-testing/tree/main/testcases/sb-csf-next) uses this setup: `addonVis()` in `definePreview()` and no `setupFiles`.
+You can see it in the [published Storybook](/visual-testing/examples/sb-csf-next/storybook/) and on the [CSF Next example page](/visual-testing/examples/sb-csf-next/).
+
 ## Advanced Setup
 
 If you need more control over the visual testing, you can customize the addon configuration.
 
 In `vitest.config.ts`, you can customize where the snapshots are saved and how they are compared.
-
-:::caution[Unverified]
-The `snapshotRootDir`, `snapshotSubpath` and `snapshotKey` options below have no spec in the repository and are ported as written.
-:::
 
 ```ts
 // vitest.config.ts
@@ -288,13 +307,17 @@ export default defineConfig({
 				ci, // true if running on CI
 				platform, // process.platform
 				providerName, // 'playwright' or 'webdriverio'
+				projectName, // name of the Vitest project
 				browserName,
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
 			}) => `__vis__/${ci ? platform : 'local'}`,
-			snapshotSubpath: ({ subpath }) => trimCommonFolder(subpath),
-			// Alphanumeric characters, and underscore are allowed. Dash is not allowed.
-			snapshotKey: 'auto',
+			// The default removes the common top folder (such as `src` or `tests`) from the test file path.
+			// Return `subpath` as is to keep the full path.
+			snapshotSubpath: ({ subpath }) => subpath,
+			// The default key in the file name of a snapshot that sets none, such as a manual snapshot.
+			// Automatic snapshots use the theme name (`auto` by default). Dash is not allowed.
+			snapshotKey: 'custom',
 			// set a default subject selector (e.g. `[data-testid="subject"]`) to capture image snapshot
 			subject: undefined,
 			comparisonMethod: 'pixel', // or 'ssim'
