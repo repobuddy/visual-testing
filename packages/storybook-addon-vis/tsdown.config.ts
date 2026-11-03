@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises'
-import { fileURLToPath } from 'node:url'
 import { globalPackages as globalManagerPackages } from 'storybook/internal/manager/globals'
 import { globalPackages as globalPreviewPackages } from 'storybook/internal/preview/globals'
 import { defineConfig, type UserConfig } from 'tsdown'
@@ -94,24 +93,13 @@ export default defineConfig(async (options) => {
 	// manager entries are entries meant to be loaded into the manager UI
 	// they'll have manager-specific packages externalized and they won't be usable in node
 	// they won't have types generated for them as they're usually loaded automatically by Storybook
-	// React components from dependencies are bundled in, with `react/jsx-runtime` pointed at a shim:
-	// the manager provides React 18 as a global but not its `jsx-runtime`,
-	// so Storybook would otherwise bundle the project's own runtime, which may be React 19's.
 	if (managerEntries.length) {
 		configs.push({
 			...commonConfig,
 			entry: managerEntries,
 			target: 'esnext',
 			platform: 'browser',
-			external: [
-				...globalManagerPackages,
-				...commonConfig.external.filter((e) => String(e) !== String(/^react\/.*$/)),
-				/^react\/(?!jsx-runtime$).*$/,
-			],
-			noExternal: ['@just-web/react-image-compare'],
-			alias: {
-				'react/jsx-runtime': fileURLToPath(new URL('./src/components/react_jsx_runtime.ts', import.meta.url)),
-			},
+			external: [...globalManagerPackages, ...commonConfig.external],
 		})
 	}
 

@@ -308,6 +308,9 @@ importers:
 
   packages/storybook-addon-vis:
     dependencies:
+      '@just-web/react-image-compare':
+        specifier: ^0.1.1
+        version: 0.1.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@storybook/icons':
         specifier: ^2.1.0
         version: 2.2.0(react@19.3.1)
@@ -330,9 +333,6 @@ importers:
         specifier: workspace:^
         version: link:../vitest-plugin-vis
     devDependencies:
-      '@just-web/react-image-compare':
-        specifier: ^0.1.0
-        version: 0.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@repobuddy/storybook':
         specifier: ^2.33.4
         version: 2.34.1(8dbd5c3928bc55e3186a60cc7d37065d)
@@ -2085,8 +2085,8 @@ packages:
     resolution: {integrity: sha512-ILla8b2eKkFPGyVaVU22axKY4psyLFo90QenpbMc6f+vGmB1g3AdPxiDQlvHDNuHo6HCVrLVQeL+hi0xPzpZeg==}
     engines: {node: ^20.19.0 || >=22.12.0}
 
-  '@just-web/react-image-compare@0.1.0':
-    resolution: {integrity: sha512-b3ckmmvFP3u3xtiJotpWC4+a3BHcsz30nbC6/B8VoUwa4n7EW2TT9L/q4jl0v61qHgTPiUz50+L9TCJyVIC+kA==}
+  '@just-web/react-image-compare@0.1.1':
+    resolution: {integrity: sha512-JbfTp4RWHmbZC5ruqrtt2sbFJoKyO2EnyyLwRDuv6Oq+LFTDIUVbVoMDkvExa7aSsy9PhFozKXNESjBS1P2RCA==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -7890,7 +7890,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@just-web/react-image-compare@0.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@just-web/react-image-compare@0.1.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
