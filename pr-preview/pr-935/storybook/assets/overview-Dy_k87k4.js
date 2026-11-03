@@ -42,7 +42,7 @@ So setting it up is pretty straightforward.`]}),`
 `,(0,c.jsxs)(t.li,{children:[`Baseline images are saved in the `,(0,c.jsx)(t.code,{children:`<root>/__vis__/*/__baselines__`}),` directory.`]}),`
 `,(0,c.jsxs)(t.li,{children:[`Image snapshots of the current test run are saved in the `,(0,c.jsx)(t.code,{children:`<root>/__vis__/*/__results__`}),` directory.`]}),`
 `,(0,c.jsxs)(t.li,{children:[`Diff images are saved in the `,(0,c.jsx)(t.code,{children:`<root>/__vis__/*/__diffs__`}),` directory.`]}),`
-`,(0,c.jsxs)(t.li,{children:[`You can review the baseline and diff images in addon `,(0,c.jsx)(t.code,{children:`Vis`}),` panel.`]}),`
+`,(0,c.jsxs)(t.li,{children:[`You can review snapshots in the addon `,(0,c.jsx)(t.code,{children:`Vis`}),` panel. For a failed snapshot, compare the baseline with the result side by side, with a swipe divider, or as an onion skin, or view the diff image.`]}),`
 `]}),`
 `,(0,c.jsxs)(t.p,{children:[`This setup assumes that you are writing your stories in CSF 3.
 If you are writing your stories in CSF Next, check out `,(0,c.jsx)(t.a,{href:`#basic-setup-for-csf-next`,children:`Basic Setup for CSF Next`}),`.`]}),`
