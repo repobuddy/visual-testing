@@ -1,6 +1,9 @@
 import type { Preview } from '@storybook/react-vite'
+import { visAnnotations } from 'storybook-addon-vis/vitest-setup'
 
 const preview: Preview = {
+	// Merged here so Storybook's Vitest addon picks it up: no `setProjectAnnotations()` in `vitest.setup.ts`.
+	...visAnnotations,
 	parameters: {
 		controls: {
 			matchers: {

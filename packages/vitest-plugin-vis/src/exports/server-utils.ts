@@ -7,6 +7,7 @@ export {
 	BASELINE_DIR,
 	CHANGED_REGIONS_SUFFIX,
 	DIFF_DIR,
+	RESULT_DIR,
 	REVIEW_IMAGE_SUFFIX,
 	SNAPSHOT_ROOT_DIR,
 } from '../shared/constants.ts'

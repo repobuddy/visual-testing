@@ -3,6 +3,7 @@
 These pages describe how this repository is developed, not how to use the packages.
 For package usage, see the [documentation website](https://repobuddy.github.io/visual-testing/) and the readme of each package under `packages/`.
 
+- [Graphify](graphify.md): how to build a local knowledge graph of the code for coding agents.
 - [Snapshot workflow](snapshot-workflow.md): how baseline snapshots are created, updated, and reviewed locally and in CI.
 - [Website](website.md): how the documentation website is built and deployed, and how to add a page.
 
