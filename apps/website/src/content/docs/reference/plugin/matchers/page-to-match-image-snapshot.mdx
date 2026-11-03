@@ -79,18 +79,13 @@ it('takes an image snapshot', async () => {
 await page.toMatchImageSnapshot({
 	fullPage: true,
 	snapshotKey: 'full_app_layout',
-	failureThreshold: 0.01,
+	failureThreshold: 1, // 1%
 	failureThresholdType: 'percent',
 	comparisonMethod: 'ssim',
 	diffOptions: { ssim: 'bezkrovny' },
 	timeout: 45000,
 })
 ```
-
-:::caution[Unverified]
-The spec for `page.toMatchImageSnapshot()` covers `snapshotKey`, `fullPage`, `createMissingBaseline`, and the errors below.
-It does not assert the comparison options on `page`. That they behave as on `expect()` is stated by the original documentation.
-:::
 
 ## Errors
 
@@ -114,8 +109,5 @@ it('sequential test', async () => {
 
 ## WebdriverIO
 
-The original documentation says `fullPage` may not work correctly in headless mode with WebdriverIO, and recommends Playwright for more reliable visual testing.
-
-:::caution[Unverified]
-No spec covers this.
-:::
+With WebdriverIO, the plugin passes `fullPage` and `timeout` to WebdriverIO's `browser.saveScreenshot()`.
+What a full-page screenshot captures is then up to WebdriverIO and the browser.
