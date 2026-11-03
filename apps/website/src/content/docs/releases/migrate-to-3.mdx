@@ -5,12 +5,12 @@ sidebar:
   order: 1
 ---
 
-:::caution[Unverified]
-This migration guide is not backed by a spec and was not re-tested.
-:::
-
 [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) 3.0.0 supports Storybook 10.
+It lists `storybook` and `@storybook/addon-vitest` `^10.1.2` and `vitest` `^4` as peer dependencies, and depends on `vitest-plugin-vis` 4, which moves to Vitest 4.
+For Storybook 9, use 2.x.
 
-The API remains the same as v2.0.0.
+The 2.0 setup keeps working in 3.0.
+The only API change is an addition: `defineStorybookVis()`, which you can use in `.storybook/main.ts`.
+See the [storybook-addon-vis changelog](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/CHANGELOG.md) for the full list.
 
-If you are migrating to use CSF Next, follow the [Basic Setup for CSF Next](/visual-testing/addon/setup/#basic-setup-for-csf-next) guide.
+CSF Next support was improved in 3.1.0. If you are migrating to use CSF Next, follow the [Basic Setup for CSF Next](/visual-testing/addon/setup/#basic-setup-for-csf-next) guide.
