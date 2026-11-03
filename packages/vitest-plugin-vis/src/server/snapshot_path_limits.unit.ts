@@ -117,6 +117,29 @@ describe(`${legacySnapshotPathExceedsLimit.name}`, () => {
 })
 
 describe(`${getLegacySnapshotFilename.name}`, () => {
+	it('uses the default snapshot key when there is no explicit key', () => {
+		expect(
+			getLegacySnapshotFilename({
+				taskId: 'suite/test',
+				explicitSnapshotKey: undefined,
+				defaultSnapshotKey: 'auto',
+				taskCount: 2,
+			}),
+		).toBe('suite/test-auto.png')
+	})
+
+	it('uses the snapshot count when there is no key at all', () => {
+		const filename = (taskCount: number) =>
+			getLegacySnapshotFilename({
+				taskId: 'suite/test',
+				explicitSnapshotKey: undefined,
+				defaultSnapshotKey: undefined,
+				taskCount,
+			})
+		expect(filename(0)).toBe('suite/test-0.png')
+		expect(filename(1)).toBe('suite/test-1.png')
+	})
+
 	it('uses explicit snapshot key', () => {
 		expect(
 			getLegacySnapshotFilename({

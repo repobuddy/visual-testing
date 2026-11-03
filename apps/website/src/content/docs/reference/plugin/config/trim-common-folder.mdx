@@ -38,7 +38,9 @@ function trimCommonFolder(suiteName: string): string
 
 ## Supported common folders
 
-It removes the first path segment when it is one of these (exact, lowercase match):
+It removes the first path segment when it is one of these.
+The match is exact and case-sensitive, so `SRC/components/button` is not trimmed.
+Only the first segment is checked:
 
 - `tests`
 - `test`
@@ -50,7 +52,7 @@ It removes the first path segment when it is one of these (exact, lowercase matc
 
 ## Examples
 
-These pairs come from the spec of the function.
+These pairs come from the tests of the function.
 
 ### Trimming common folders
 
@@ -74,6 +76,14 @@ trimCommonFolder('app/components/button') // 'app/components/button'
 trimCommonFolder('index.ts') // 'index.ts'
 ```
 
+### Case and nesting
+
+```ts
+trimCommonFolder('SRC/components/button') // 'SRC/components/button'
+trimCommonFolder('app/src/button')        // 'app/src/button'
+trimCommonFolder('src/src/button')        // 'src/button'
+```
+
 ### Parent folders
 
 Each `..` is replaced with `__`:
@@ -85,7 +95,8 @@ trimCommonFolder('../../components/button') // '__/__/components/button'
 
 ## Custom implementation
 
-You can write your own trimming logic and use it as `snapshotSubpath`:
+`snapshotSubpath` accepts any function that takes `{ subpath }` and returns a string.
+For example, to trim your own list of folders:
 
 ```ts
 function customTrimFolder(suiteName: string) {
@@ -108,10 +119,6 @@ export default defineConfig({
 	],
 })
 ```
-
-:::caution[Unverified]
-The spec does not cover case sensitivity (for example `SRC/...` is not trimmed) or the custom implementation above. The case-sensitive claim follows from the implementation, which compares the first segment against a lowercase list.
-:::
 
 ## Related
 

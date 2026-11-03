@@ -56,4 +56,14 @@ describe(`${trimCommonFolder.name}()`, () => {
 		const result = trimCommonFolder('../../components/button')
 		expect(result).toBe('__/__/components/button')
 	})
+
+	it('only trims the first segment', ({ expect }) => {
+		expect(trimCommonFolder('app/src/button')).toBe('app/src/button')
+		expect(trimCommonFolder('src/src/button')).toBe('src/button')
+	})
+
+	it('matches the folder name case-sensitively', ({ expect }) => {
+		expect(trimCommonFolder('SRC/components/button')).toBe('SRC/components/button')
+		expect(trimCommonFolder('Tests/unit/button')).toBe('Tests/unit/button')
+	})
 })

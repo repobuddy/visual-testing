@@ -5,10 +5,6 @@ sidebar:
   order: 1
 ---
 
-:::caution[Unverified]
-No spec covers the claims on this page yet. That includes the default snapshot path, the folder names, and the `snapshotRootDir` context fields. The options themselves are covered on the [vis](/visual-testing/reference/plugin/config/vis/) page.
-:::
-
 Configuration refers to configuring the plugin in your `vitest.config.ts` file.
 
 You configure the plugin by passing options to the `vis` function from `vitest-plugin-vis/config`.
@@ -41,7 +37,7 @@ describe('MyComponent', () => {
 By default, when you run the test locally, the image snapshot is saved in the following path:
 
 ```sh
-__vis__/local/__baselines__/components/MyComponent.spec.tsx/MyComponent/className/can-customize-className-auto.png
+__vis__/local/__baselines__/components/MyComponent.spec.tsx/mycomponent/classname/can-customize-classname-auto.png
 ```
 
 This path breaks down into a few parts.
@@ -109,9 +105,11 @@ v tests
 	button.stories.tsx
 ```
 
-### `MyComponent/className/can-customize-className`: `snapshotId`
+### `mycomponent/classname/can-customize-classname`: `snapshotId`
 
 This is the ID of the snapshot, based on the test name and scope.
+Each `describe` name becomes a folder, and the test name becomes the file name.
+The names are lowercased, and each character that is not a letter or a digit becomes a dash.
 It is not customizable.
 
 ### `auto`: `snapshotKey`
@@ -119,11 +117,12 @@ It is not customizable.
 This is the key of the snapshot.
 Here it is `auto` because the snapshot is taken automatically at the end of the test.
 If you take a manual snapshot, the key is `0`, `1`, and so on.
-If you customize the key when taking the snapshot, the global customization is not used.
+If you pass a `snapshotKey` when taking the snapshot, that key is used instead of the global one.
 
 ## Customizing with options
 
-You can customize `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey` with the corresponding options:
+You can customize `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey` with the corresponding options.
+The values below are the defaults:
 
 ```ts
 // vitest.config.ts
@@ -137,6 +136,8 @@ export default defineConfig({
 				ci, // true if running on CI
 				platform, // process.platform
 				providerName, // 'playwright' or 'webdriverio'
+				projectName, // name of the Vitest project
+				rootDir, // '__vis__'
 				browserName, // 'chromium', 'firefox', etc.
 				screenshotFailures, // from `browser` config
 				screenshotDirectory, // from `browser` config
