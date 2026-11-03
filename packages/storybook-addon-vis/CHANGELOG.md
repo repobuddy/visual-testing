@@ -1,5 +1,19 @@
 # CHANGE LOG
 
+## 4.4.0
+
+### Minor Changes
+
+- [#970](https://github.com/repobuddy/visual-testing/pull/970) [`830f5c4`](https://github.com/repobuddy/visual-testing/commit/830f5c448ade9b1d395b6840d618221c62000841) Thanks [@unional](https://github.com/unional)! - The `Vis` panel compares a failed snapshot the way GitHub compares images.
+  Pick side by side, swipe, or onion skin to compare the baseline with the result, or pick Diff to see the diff image.
+  Snapshots that passed show the baseline as before.
+  When a failed snapshot has no result image, such as one from an older run, the panel shows its images one after another as before.
+
+### Patch Changes
+
+- Updated dependencies [[`830f5c4`](https://github.com/repobuddy/visual-testing/commit/830f5c448ade9b1d395b6840d618221c62000841)]:
+  - vitest-plugin-vis@5.3.0
+
 ## 4.3.5
 
 ### Patch Changes

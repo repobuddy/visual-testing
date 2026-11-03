@@ -1,5 +1,11 @@
 # vitest-plugin-vis
 
+## 5.3.0
+
+### Minor Changes
+
+- [#970](https://github.com/repobuddy/visual-testing/pull/970) [`830f5c4`](https://github.com/repobuddy/visual-testing/commit/830f5c448ade9b1d395b6840d618221c62000841) Thanks [@unional](https://github.com/unional)! - Export `RESULT_DIR` from `vitest-plugin-vis/server-utils`, the folder name of the result images (`__results__`).
+
 ## 5.2.2
 
 ### Patch Changes
