@@ -52,4 +52,24 @@ describe(`${storybookVis.name}()`, () => {
 		result.config(userConfig)
 		expect(getVisOption(browserCommandContext)).toMatchObject({ shortenLongSnapshotPaths: false })
 	})
+
+	it('passes snapshotRootDir, snapshotSubpath and snapshotKey through', ({ expect }) => {
+		const snapshotRootDir = ({ ci, platform }: { ci: boolean; platform: string }) =>
+			`__vis__/${ci ? platform : 'local'}`
+		const snapshotSubpath = ({ subpath }: { subpath: string }) => subpath
+		const result = storybookVis({ snapshotRootDir, snapshotSubpath, snapshotKey: 'custom' })
+		const { userConfig, browserCommandContext } = stubSuite()
+		result.config(userConfig)
+		expect(getVisOption(browserCommandContext)).toMatchObject({
+			snapshotRootDir,
+			snapshotSubpath,
+			snapshotKey: 'custom',
+		})
+	})
+
+	it('rejects a snapshotKey with a dash', ({ expect }) => {
+		const result = storybookVis({ snapshotKey: 'invalid-key' })
+		const { userConfig } = stubSuite()
+		expect(() => result.config(userConfig)).toThrowError('Snapshot key cannot contain dash')
+	})
 })
