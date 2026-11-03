@@ -5,10 +5,6 @@ sidebar:
   order: 4
 ---
 
-:::caution[Unverified]
-The Chrome DevTools Protocol section (`cdp()`) has no spec in the repository and is ported as written.
-:::
-
 Besides automatic snapshot, you can capture image snapshot manually.
 
 ```tsx
@@ -38,10 +34,6 @@ export const ElementSnapshot = {
 ```
 
 ## Check if a snapshot exists
-
-:::caution[Unverified]
-The `hasImageSnapshot` example has no spec in the repository and is ported as written.
-:::
 
 While less common, you can also check if a snapshot exists:
 
@@ -77,6 +69,7 @@ export const HasImageSnapshot = {
 ```
 
 This is useful when you are performing some negative test.
+In a plain Storybook preview `hasImageSnapshot()` always returns `false`, because the preview cannot read snapshot files.
 
 ## Chrome DevTools Protocol
 

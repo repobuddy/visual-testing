@@ -5,10 +5,6 @@ sidebar:
   order: 3
 ---
 
-:::caution[Unverified]
-No spec covers the claims on this page yet. The options it describes are the same ones that [defineStorybookVis](/visual-testing/reference/addon/define-storybook-vis/) accepts, and that page is covered by a spec. The examples that strip `src/`, the `components`/`pages` subpaths, and the snapshot path layout at the end are not.
-:::
-
 A helper function to define options for the Storybook Visual Testing addon.
 It returns the options you pass in, which gives you type checking and completion.
 
@@ -53,14 +49,21 @@ Each project can have its own snapshot storage settings.
 
 Where snapshots are stored. It can be:
 
-- A static path string, used for all snapshots.
+- A static path string, used as is for all snapshots. Unlike the Vitest plugin, the addon does not add `local` or the platform to it.
 - A function that receives `{ ci: boolean; platform: string }`. `ci` is whether the code runs in a CI environment, and `platform` is the platform string (for example `linux`, `darwin`, `win32`).
-- `undefined`, which uses the default snapshot root directory.
+- `undefined`, which uses the default snapshot root directory: `__vis__/<platform>` in CI and `__vis__/local` elsewhere.
 
 ### `snapshotSubpath`
 
 Transform the default snapshot subdirectory path to match your project structure.
 It receives `{ subpath: string }` and returns the transformed subpath.
+`subpath` is the story file's import path as Storybook reports it, such as `./src/button.stories.tsx`.
+The default removes the leading `./` and a leading common folder (`src`, `source`, `test`, `tests`, `lib`, `js` or `ts`).
+
+### `shortenLongSnapshotPaths`
+
+Shortens snapshot paths that would be too long, the same way the `shortenLongSnapshotPaths` option of the [Vitest plugin](/visual-testing/reference/plugin/config/vis/#shortenlongsnapshotpaths) does.
+It defaults to `false`.
 
 ## Examples
 
@@ -99,7 +102,9 @@ const options = defineStorybookVisOptions({
 
 ### Customize the snapshot subdirectory structure
 
-For example, to remove a `src/` prefix from file paths:
+The default already drops a leading `src/`.
+To drop another folder, such as `app/`, remove it yourself.
+`subpath` starts with `./`, so match that too:
 
 ```ts
 import { defineStorybookVisOptions } from 'storybook-addon-vis/node'
@@ -108,7 +113,7 @@ const options = defineStorybookVisOptions({
 	visProjects: [
 		{
 			snapshotRootDir: '__vis__',
-			snapshotSubpath: ({ subpath }) => subpath.replace(/^src\//, ''),
+			snapshotSubpath: ({ subpath }) => subpath.replace(/^\.\/(app\/)?/, ''),
 		},
 	],
 })
@@ -123,11 +128,11 @@ const options = defineStorybookVisOptions({
 	visProjects: [
 		{
 			snapshotRootDir: '__vis__/components',
-			snapshotSubpath: ({ subpath }) => `components/${subpath}`,
+			snapshotSubpath: ({ subpath }) => `components/${subpath.replace(/^\.\//, '')}`,
 		},
 		{
 			snapshotRootDir: '__vis__/pages',
-			snapshotSubpath: ({ subpath }) => `pages/${subpath}`,
+			snapshotSubpath: ({ subpath }) => `pages/${subpath.replace(/^\.\//, '')}`,
 		},
 	],
 })
@@ -150,12 +155,12 @@ const options = defineStorybookVisOptions({
 The final snapshot path is constructed as:
 
 ```txt
-<snapshotRootDir>/<baseline|diff|results>/<snapshotSubpath>/<task-id>-<variant>.png
+<snapshotRootDir>/<__baselines__|__results__|__diffs__>/<snapshotSubpath>/<task-id>-<variant>.png
 ```
 
 - `snapshotRootDir` is determined by the `snapshotRootDir` option.
 - `snapshotSubpath` is the result of the `snapshotSubpath` function, or the default.
-- `task-id` is derived from the story name.
+- `task-id` is the story name in lowercase, with every character other than a letter or digit replaced by `-`.
 - `variant` identifies the specific snapshot variant.
 
 ## Related
