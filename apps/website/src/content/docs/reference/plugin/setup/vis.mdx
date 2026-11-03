@@ -25,16 +25,14 @@ vis.setup({ auto: false })
 ```
 
 With `vis.setup({ auto: false })`, a test that renders content takes no auto snapshot,
-and `page.hasImageSnapshot()` returns `false` for it.
-
-:::caution[Unverified]
-The spec for `vis.setup({ auto: true })` is currently skipped, so that form is not verified.
-The function form of `auto` (`auto: async ({ meta }) => ...`) and the rule that the function runs in `afterEach()` are not covered either.
-:::
+and `page.hasImageSnapshot({ snapshotKey: 'auto' })` returns `false` for it.
 
 ## Conditional auto snapshots
 
-Control when auto snapshots are taken based on test metadata:
+Pass a function to `auto` to decide for each test whether to take the snapshot.
+The function receives the snapshot options of the test, including any custom fields you set with
+[`setAutoSnapshotOptions()`](/visual-testing/reference/plugin/set-auto-snapshot-options/).
+It takes the snapshot unless the function returns `false`.
 
 ```ts
 // vitest.setup.ts
@@ -42,16 +40,26 @@ import { vis } from 'vitest-plugin-vis/setup'
 
 // Take snapshots only for tests with specific metadata
 vis.setup({
-	auto: async ({ meta }) => meta['visualTest'] === true,
+	auto: async (meta) => meta['visualTest'] === true,
 })
 
 // Skip snapshots for tests marked as 'skipSnapshot'
 vis.setup({
-	auto: async ({ meta }) => !meta['skipSnapshot'],
+	auto: async (meta) => !meta['skipSnapshot'],
 })
 ```
 
-The function is called during the `afterEach()` phase of the test.
+The function is called in `afterEach()`, after the test body has run.
+
+```ts
+// in a test
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+it('renders the card', () => {
+	setAutoSnapshotOptions({ visualTest: true })
+	// ...
+})
+```
 
 ## Multi-theme setup
 
@@ -76,7 +84,7 @@ vis.setup({
 })
 ```
 
-The behavior of the per-theme matcher that backs this form is covered by a spec:
+The per-theme matcher that backs this form behaves as follows:
 
 - Every handler runs and takes its snapshot, even if an earlier handler throws.
 - When handlers fail, the errors are aggregated into one message:
@@ -93,7 +101,8 @@ The behavior of the per-theme matcher that backs this form is covered by a spec:
 
 ## Conditional theme snapshots
 
-A handler can skip its theme by returning `false`:
+A handler can skip its theme by returning `false`.
+The handler receives the same snapshot options as the function form of `auto`:
 
 ```ts
 // vitest.setup.ts
@@ -101,11 +110,11 @@ import { vis } from 'vitest-plugin-vis/setup'
 
 vis.setup({
 	auto: {
-		light: async ({ meta }) => {
+		light: async (meta) => {
 			if (meta['skipLight']) return false
 			document.body.classList.remove('dark')
 		},
-		dark: async ({ meta }) => {
+		dark: async (meta) => {
 			if (meta['skipDark']) return false
 			document.body.classList.add('dark')
 		},
@@ -113,13 +122,11 @@ vis.setup({
 })
 ```
 
-:::caution[Unverified]
-The spec only checks that a handler can be typed to return `false`. It does not assert that returning `false` skips the theme.
-:::
-
 ## Advanced theme configuration
 
-Theme names are free-form, so you can model viewports and combinations:
+Theme names are free-form, so you can model viewports and combinations.
+A theme name is also the snapshot key, so it cannot contain a dash.
+Use alphanumeric characters and underscores, such as `darkDesktop` or `dark_desktop`:
 
 ```ts
 // vitest.setup.ts
@@ -139,7 +146,7 @@ vis.setup({
 			document.body.style.width = '375px'
 			document.body.classList.add('mobile')
 		},
-		'dark-desktop': async ({ meta }) => {
+		darkDesktop: async (meta) => {
 			if (meta['skipDark']) return false
 			document.body.style.width = '1200px'
 			document.body.classList.add('desktop', 'dark')
@@ -147,7 +154,3 @@ vis.setup({
 	},
 })
 ```
-
-:::caution[Unverified]
-The spec does not use theme names with dashes. Snapshot keys reject dashes (see [`setAutoSnapshotOptions`](/visual-testing/reference/plugin/set-auto-snapshot-options/)), so check that `'dark-desktop'` works in your setup before relying on it.
-:::
