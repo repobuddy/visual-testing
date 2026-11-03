@@ -95,6 +95,7 @@
 		"vitest-plugin-vis": "workspace:^"
 	},
 	"devDependencies": {
+		"@just-web/react-image-compare": "^0.1.0",
 		"@repobuddy/storybook": "^2.33.4",
 		"@storybook-community/storybook-dark-mode": "^7.1.3",
 		"@storybook/addon-docs": "^10.5.10",

@@ -330,6 +330,9 @@ importers:
         specifier: workspace:^
         version: link:../vitest-plugin-vis
     devDependencies:
+      '@just-web/react-image-compare':
+        specifier: ^0.1.0
+        version: 0.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@repobuddy/storybook':
         specifier: ^2.33.4
         version: 2.34.1(8dbd5c3928bc55e3186a60cc7d37065d)
@@ -2081,6 +2084,12 @@ packages:
   '@just-web/css@0.9.0':
     resolution: {integrity: sha512-ILla8b2eKkFPGyVaVU22axKY4psyLFo90QenpbMc6f+vGmB1g3AdPxiDQlvHDNuHo6HCVrLVQeL+hi0xPzpZeg==}
     engines: {node: ^20.19.0 || >=22.12.0}
+
+  '@just-web/react-image-compare@0.1.0':
+    resolution: {integrity: sha512-b3ckmmvFP3u3xtiJotpWC4+a3BHcsz30nbC6/B8VoUwa4n7EW2TT9L/q4jl0v61qHgTPiUz50+L9TCJyVIC+kA==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
 
   '@manypkg/find-root@3.1.0':
     resolution: {integrity: sha512-BcSqCyKhBVZ5YkSzOiheMCV41kqAFptW6xGqYSTjkVTl9XQpr+pqHhwgGCOHQtjDCv7Is6EFyA14Sm5GVbVABA==}
@@ -7880,6 +7889,11 @@ snapshots:
       type-plus: 8.0.0(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
+
+  '@just-web/react-image-compare@0.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   '@manypkg/find-root@3.1.0':
     dependencies:

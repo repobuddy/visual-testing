@@ -1,3 +1,4 @@
+import { ImageCompare, type ImageCompareMode } from '@just-web/react-image-compare'
 import { RefreshIcon } from '@storybook/icons'
 import React, { memo, useEffect, useState } from 'react'
 import { AddonPanel, Button, Placeholder, ScrollArea } from 'storybook/internal/components'
@@ -27,48 +28,135 @@ export const VisPanel = memo(function VisPanel({ active, getSnapshotResults, onR
 		},
 		{} as Record<string, ImageSnapshotResults[]>,
 	)
+	// A result alone (no baseline, no diff) is a snapshot that has no baseline yet, so there is nothing to review.
+	const snapshots = Object.entries(groupedResults).filter(([, results]) =>
+		results.some((result) => result.type !== 'result'),
+	)
 	return (
 		<AddonPanel active={active}>
-			{snapshotResults.length > 0 ? (
+			{snapshots.length > 0 ? (
 				<ScrollArea vertical>
-					{Object.entries(groupedResults).map(([key, results]) => (
-						<div key={key}>
-							{results.some((result) => result.type === 'diff') ? (
-								<>
-									<SnapshotRow failed>{key}</SnapshotRow>
-									{results.map((result) => (
-										<img key={result.filePath} src={`data:image/png;base64,${result.base64}`} alt={result.fileName} />
-									))}
-								</>
-							) : (
-								<>
-									<SnapshotRow>
-										<span>{key}</span>
-										<Button
-											aria-label="Reload snapshot"
-											onClick={() => {
-												onRefresh()
-												getSnapshotResults().then(setSnapshotResults)
-											}}
-										>
-											<RefreshIcon />
-										</Button>
-									</SnapshotRow>
-									<img
-										key={results[0].filePath}
-										src={`data:image/png;base64,${results[0].base64}`}
-										alt={results[0].fileName}
-									/>
-								</>
-							)}
-						</div>
-					))}
+					{snapshots.map(([key, results]) => {
+						const baseline = results.find((result) => result.type === 'baseline')
+						const result = results.find((result) => result.type === 'result')
+						const diff = results.find((result) => result.type === 'diff')
+						return (
+							<div key={key}>
+								{diff ? (
+									<>
+										<SnapshotRow failed>{key}</SnapshotRow>
+										{baseline && result ? (
+											<SnapshotCompare baseline={baseline} result={result} diff={diff} />
+										) : (
+											// No result to compare with (e.g. an old run): show each image as is.
+											results.map((result) => (
+												<img key={result.filePath} src={toDataUrl(result)} alt={result.fileName} />
+											))
+										)}
+									</>
+								) : (
+									<>
+										<SnapshotRow>
+											<span>{key}</span>
+											<Button
+												aria-label="Reload snapshot"
+												onClick={() => {
+													onRefresh()
+													getSnapshotResults().then(setSnapshotResults)
+												}}
+											>
+												<RefreshIcon />
+											</Button>
+										</SnapshotRow>
+										{baseline && <SnapshotImage image={baseline} />}
+									</>
+								)}
+							</div>
+						)
+					})}
 				</ScrollArea>
 			) : (
 				<Placeholder>There is no snapshots for this story</Placeholder>
 			)}
 		</AddonPanel>
 	)
+})
+
+function toDataUrl(image: ImageSnapshotResults) {
+	return `data:image/png;base64,${image.base64}`
+}
+
+function SnapshotImage({ image }: { image: ImageSnapshotResults }) {
+	return <img src={toDataUrl(image)} alt={image.fileName} />
+}
+
+type CompareView = ImageCompareMode | 'diff'
+
+const compareViews: Array<{ view: CompareView; label: string }> = [
+	{ view: 'side-by-side', label: 'Side by side' },
+	{ view: 'swipe', label: 'Swipe' },
+	{ view: 'onion-skin', label: 'Onion skin' },
+	{ view: 'diff', label: 'Diff' },
+]
+
+interface SnapshotCompareProps {
+	baseline: ImageSnapshotResults
+	result: ImageSnapshotResults
+	diff: ImageSnapshotResults
+}
+
+/**
+ * Compares the baseline and the result of a failed snapshot like GitHub's image diff,
+ * plus the diff image that marks the changed pixels.
+ */
+function SnapshotCompare({ baseline, result, diff }: SnapshotCompareProps) {
+	const [view, setView] = useState<CompareView>('side-by-side')
+	// The compare mode stays mounted while the diff shows, so the swipe position and the opacity are kept.
+	const [mode, setMode] = useState<ImageCompareMode>('side-by-side')
+	return (
+		<CompareContainer>
+			<ViewSwitcher role="group" aria-label="Comparison view">
+				{compareViews.map(({ view: v, label }) => (
+					<Button
+						key={v}
+						size="small"
+						variant="ghost"
+						active={v === view}
+						aria-pressed={v === view}
+						onClick={() => {
+							setView(v)
+							if (v !== 'diff') setMode(v)
+						}}
+					>
+						{label}
+					</Button>
+				))}
+			</ViewSwitcher>
+			<ImageCompare
+				base={toDataUrl(baseline)}
+				compare={toDataUrl(result)}
+				baseLabel="Baseline"
+				compareLabel="Result"
+				mode={mode}
+				showModeSwitcher={false}
+				style={view === 'diff' ? { display: 'none' } : undefined}
+			/>
+			{view === 'diff' && <SnapshotImage image={diff} />}
+		</CompareContainer>
+	)
+}
+
+const CompareContainer = styled.div({
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'flex-start',
+	gap: '0.5rem',
+	padding: '0.5rem',
+})
+
+const ViewSwitcher = styled.div({
+	display: 'flex',
+	gap: '0.25rem',
 })
 
 const SnapshotRow = styled.div<{ failed?: boolean }>(
