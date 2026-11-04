@@ -455,6 +455,14 @@ export const HasImageSnapshot = {
 }
 `})}),`
 `,(0,c.jsx)(t.p,{children:`This is useful when you are performing some negative test.`}),`
+`,(0,c.jsx)(t.h2,{id:`usage---csf-next-preview-addon`,children:`Usage - CSF Next preview addon`}),`
+`,(0,c.jsxs)(t.p,{children:[`The default export of `,(0,c.jsx)(t.code,{children:`storybook-addon-vis`}),`, `,(0,c.jsx)(t.code,{children:`addonVis()`}),`, is the preview addon for CSF Next.
+Pass it to `,(0,c.jsx)(t.code,{children:`definePreview({ addons: [addonVis({ auto: true })] })`}),`.`]}),`
+`,(0,c.jsx)(t.h2,{id:`usage---tag-helper`,children:`Usage - tag helper`}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`isSnapshotEnabled(tags)`}),` applies the tag rule: the last of `,(0,c.jsx)(t.code,{children:`snapshot`}),` and `,(0,c.jsx)(t.code,{children:`!snapshot`}),` wins, and no tag means no snapshot.`]}),`
+`,(0,c.jsx)(t.h2,{id:`usage---vis-panel-server-hook`,children:`Usage - Vis panel server hook`}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`storybook-addon-vis/preset`}),` exports `,(0,c.jsx)(t.code,{children:`experimental_serverChannel`}),`, which Storybook calls so that the Vis panel can read the snapshot images.
+You do not call it yourself.`]}),`
 `,(0,c.jsx)(t.h2,{id:`usage---chrome-devtools-protocol`,children:`Usage - Chrome DevTools Protocol`}),`
 `,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`cdp`}),` is a proxy of `,(0,c.jsx)(t.code,{children:`cdp()`}),` from `,(0,c.jsx)(t.code,{children:`vitest/browser`}),`.
 Importing `,(0,c.jsx)(t.code,{children:`vitest/browser`}),` directly in a story breaks the story in a plain Storybook preview,
