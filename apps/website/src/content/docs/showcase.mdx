@@ -243,7 +243,7 @@ Review:     ./__vis__/linux/__diffs__/review.spec.tsx/review-a-change-before.rev
 	/>
 </SnapshotGrid>
 
-Open the review image first: it holds only the two regions that changed.
+Open the review image first. [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) explains each view.
 
 ```tsx
 const screen = await render(<TeamCard />)
@@ -262,8 +262,8 @@ and [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-fa
 
 ## Snapshot thresholds
 
-A small rendering difference does not have to fail a test. `failureThreshold` sets how many pixels
-may differ before the match fails. The unit is pixels by default, and a percentage is also supported.
+A small rendering difference does not have to fail a test.
+See [Comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/) for how thresholds work.
 
 Both threshold stories share one baseline, `threshold`, which is shown below. It is a stored baseline,
 not the output of a failed run. The stories render slightly different text ("unit text") from the

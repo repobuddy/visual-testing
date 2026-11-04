@@ -1,0 +1,47 @@
+---
+title: "Updating baselines"
+description: "Create the first baselines and update them after an intended change, with createMissingBaseline, updateSnapshot and vitest -u."
+sidebar:
+  order: 5
+---
+
+A baseline changes in two cases: it does not exist yet, or the UI changed on purpose.
+
+## A baseline does not exist
+
+By default a snapshot without a baseline fails with `has no baseline image. Please review the new snapshot and update the baseline image.` and the message names the result file.
+Two things write the missing baseline:
+
+- Run Vitest with `-u`. Vitest sets its snapshot update mode to `all`.
+- Pass `createMissingBaseline: true` to the matcher, or set it with `vis.setup({ createMissingBaseline: true, auto: ... })`. It writes only the baselines that are missing and leaves existing ones alone.
+
+`createMissingBaseline` suits a first run or a bot that fills in new tests.
+`-u` suits the moment you have reviewed everything.
+The options are in [`toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#createmissingbaseline).
+
+In Storybook with `storybook-addon-vis`, the matcher options travel over RPC and a custom field such as `createMissingBaseline` may not reach the server.
+Use `-u` there.
+See [Storybook addon configuration](/visual-testing/addon/configuration/#first-run-baselines-createmissingbaseline-vs-updatesnapshot).
+
+## The UI changed on purpose
+
+A mismatch fails the test and writes the [diff and review image](/visual-testing/visual-testing/reviewing-failures/).
+With `-u`, a mismatch overwrites the baseline with the result instead of failing, unless the snapshot has `expectToFail`.
+
+1. Run the tests and open the failures. Decide that each change is intended.
+2. Run `vitest -u` (or `vitest run -u`) on the platform whose baselines you commit.
+3. Look at the changed baseline images in `git diff` or your pull request.
+4. Commit them with the code change.
+
+Run `-u` only after you reviewed the failures.
+It accepts every difference, including a regression you did not notice.
+
+## With several platforms
+
+Each platform has its own baselines, so update each one.
+[Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/) describes how to do that in CI.
+
+## Review before merge
+
+A reviewer should see the changed baselines in the pull request.
+For dependency bots that merge themselves, make the check fail when a baseline changes, so a rendering change does not pass unreviewed.

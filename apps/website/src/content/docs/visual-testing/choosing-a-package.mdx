@@ -1,0 +1,39 @@
+---
+title: "Choosing a package"
+description: "Pick storybook-addon-vis for Storybook stories or vitest-plugin-vis for Vitest Browser Mode tests, and see how they relate."
+sidebar:
+  order: 9
+---
+
+| If you | Use |
+| ------ | --- |
+| test your stories with the [Storybook Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) | [`storybook-addon-vis`](/visual-testing/addon/) |
+| write tests in [Vitest Browser Mode](https://vitest.dev/guide/browser) without Storybook | [`vitest-plugin-vis`](/visual-testing/plugin/get-started/) |
+| use both | Both. The addon runs the plugin, so they share one set of options and one folder layout. |
+
+## How they relate
+
+`vitest-plugin-vis` was extracted from the addon so that it can be used directly in Vitest.
+`storybook-addon-vis` depends on it and re-exports it (`export * from 'vitest-plugin-vis'`).
+The image comparison, the thresholds and the `__vis__` layout are the same.
+See [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/).
+
+What the addon adds:
+
+- Snapshots for stories: the `snapshot` tag makes a story take a snapshot.
+- Storybook configuration: `defineStorybookVis` and `storybookVis`, and the Vis panel in Storybook's UI.
+
+What the plugin gives you alone:
+
+- The `vis()` Vitest plugin and the `page.toMatchImageSnapshot()` and `expect().toMatchImageSnapshot()` matchers, for any test that runs in Vitest Browser Mode.
+
+## Can I use both
+
+Yes.
+The addon depends on the plugin, so installing the addon already brings the plugin.
+A repository can have several Vitest configurations, as the [`workspace`](https://github.com/repobuddy/visual-testing/tree/main/testcases/workspace) test case in this repository does (`vitest.config.a.ts` and `vitest.config.b.ts`).
+
+## Other tools
+
+Vitest 4 has its own visual regression testing.
+The plugin has a feature table against it on its [install page](/visual-testing/plugin/get-started/).
