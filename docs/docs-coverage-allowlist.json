@@ -1,0 +1,10 @@
+[
+	{
+		"export": "packages/vitest-plugin-vis/src/config/types.ts#VisOptions",
+		"reason": "Type of the options argument of vis(). The vis() reference page lists each option; no page is named for the type itself."
+	},
+	{
+		"export": "packages/vitest-plugin-vis/src/setup/create_vis.ts#VisClientConfigurator",
+		"reason": "Return type of createVis(). The vis.setup() reference page covers its only method; no page is named for the type itself."
+	}
+]

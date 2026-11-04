@@ -3,6 +3,7 @@
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs          write the files
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --check  fail if any file on disk differs
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --gaps   print the documentation gaps as markdown
+//   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --gaps-check  fail if an export has no page and is not allowlisted
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --site-pages <docs dir>...   fail if a slug has no page file in the given site content dirs
 //
 // Every name, count and grouping comes from the public surface: the `exports` map of each
@@ -743,6 +744,58 @@ function renderGaps(context) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Coverage gate
+// ---------------------------------------------------------------------------------------------
+
+const GAPS_ALLOWLIST = 'docs/docs-coverage-allowlist.json'
+
+/**
+ * Fail when an exported declaration is named on no documentation page and is not in the allowlist.
+ * Also fail when an allowlist entry is malformed or no longer needed, so the list cannot rot.
+ * Returns the exit code.
+ */
+function checkGaps(context) {
+	const unique = new Map(context.entries.flatMap((e) => e.members).map((m) => [m.key, m]))
+	let allowed
+	try {
+		allowed = JSON.parse(readFileSync(resolve(repoRoot, GAPS_ALLOWLIST), 'utf8'))
+	} catch (error) {
+		stderr(`Cannot read ${GAPS_ALLOWLIST}: ${error.message}`)
+		return 1
+	}
+	const problems = []
+	const allowedKeys = new Set()
+	for (const item of Array.isArray(allowed) ? allowed : []) {
+		if (typeof item?.export !== 'string' || typeof item?.reason !== 'string' || item.reason.trim() === '') {
+			problems.push(
+				`${GAPS_ALLOWLIST}: every entry needs a string "export" and a non-empty "reason": ${JSON.stringify(item)}`,
+			)
+			continue
+		}
+		allowedKeys.add(item.export)
+		const member = unique.get(item.export)
+		if (!member) problems.push(`${GAPS_ALLOWLIST}: ${item.export} is not an exported declaration. Remove the entry.`)
+		else if (member.page)
+			problems.push(`${GAPS_ALLOWLIST}: ${item.export} now has a documentation page. Remove the entry.`)
+	}
+	if (!Array.isArray(allowed)) problems.push(`${GAPS_ALLOWLIST} must be a JSON array.`)
+	const missing = [...unique.values()].filter((m) => !m.page && !allowedKeys.has(m.key))
+	for (const m of missing) {
+		problems.push(
+			`${m.key} (${m.kind}) is exported but named on no documentation page. Document it, or add it to ${GAPS_ALLOWLIST} with a reason.`,
+		)
+	}
+	if (problems.length > 0) {
+		stderr(`Documentation coverage check failed:\n  ${problems.join('\n  ')}`)
+		return 1
+	}
+	stdout(
+		`Every exported declaration has a documentation page or an allowlist entry (${unique.size} checked, ${allowedKeys.size} allowlisted).`,
+	)
+	return 0
+}
+
+// ---------------------------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------------------------
 
@@ -769,6 +822,8 @@ if (mode === '--site-pages') {
 	stdout(`All ${PAGES.length + CONCEPT_SLUGS.length} slugs have a page file.`)
 } else if (mode === '--gaps') {
 	process.stdout.write(renderGaps(context))
+} else if (mode === '--gaps-check') {
+	process.exit(checkGaps(context))
 } else if (mode === undefined || mode === '--check') {
 	const outputs = [
 		[WEBSITE_LLMS_TXT, render(context, siteScope)],
@@ -796,6 +851,6 @@ if (mode === '--site-pages') {
 		}
 	}
 } else {
-	stderr(`Unknown option ${mode}. Use no option, --check, --gaps or --site-pages.`)
+	stderr(`Unknown option ${mode}. Use no option, --check, --gaps, --gaps-check or --site-pages.`)
 	process.exit(2)
 }

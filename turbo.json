@@ -15,6 +15,9 @@
 		"//#docs:llms:check": {
 			"cache": false
 		},
+		"//#docs:coverage:check": {
+			"cache": false
+		},
 		"clean": {
 			"cache": false
 		},

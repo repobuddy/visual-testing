@@ -78,12 +78,23 @@ The names, counts and groupings come from the `exports` maps of the packages and
 | `pnpm docs:llms` | Writes the generated files. |
 | `pnpm docs:llms:check` | Fails when any generated file differs from what the generator would write. `verify` and `verify:ci` run it. |
 | `pnpm docs:llms:gaps` | Prints the undocumented exports as Markdown. |
+| `pnpm docs:coverage:check` | Fails when an exported declaration is named on no documentation page and is not in the allowlist. `verify` and `verify:ci` run it, so the `pull-request` workflow does too. |
 
 The generator also has `--site-pages <docs dir>...`, which fails when a registered slug has no page file in the given content directory:
 
 ```sh
 node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --site-pages apps/website/src/content/docs
 ```
+
+## Documentation coverage check
+
+`pnpm docs:coverage:check` runs the generator with `--gaps-check`. It uses the same data as `docs:llms:gaps`: every declaration exported from an entry point of `storybook-addon-vis` or `vitest-plugin-vis` must be named on a documentation page.
+
+When it fails, document the export on a page, or add it to `docs/docs-coverage-allowlist.json`.
+The allowlist is a JSON array of `{ "export", "reason" }`. `export` is the key the gap report uses, `<file>#<name>`, for example `packages/vitest-plugin-vis/src/config/types.ts#VisOptions`. `reason` is one line on why no page names it.
+The check also fails on an entry that is malformed, names something that is not exported, or names an export that now has a page. Remove such an entry.
+
+A new export that the generator's `DOC_PAGES` map does not list fails earlier, in `docs:llms:check`, with a message that says to map it to a page or to `null`.
 
 ## Planned reorganization
 
