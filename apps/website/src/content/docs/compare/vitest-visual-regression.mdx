@@ -26,6 +26,7 @@ You update them with `vitest --project vrt --update`.
 | Per-theme snapshots | Not documented | Yes |
 | Comparison methods | `pixelmatch`, custom comparators | `pixel`, `ssim` |
 | Thresholds | `threshold`, `allowedMismatchedPixelRatio`, `allowedMismatchedPixels` | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
+| Animations | `animations` defaults to `"disabled"`, with the Playwright provider | `animations: 'disabled'`, default `'allow'`, with both providers |
 | Waits for a stable page | Yes, repeats captures until two match | Not provided |
 | Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
 
