@@ -4,6 +4,8 @@ import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,o as n,s as r}f
 
 ### Patch Changes
 
+- [#992](https://github.com/repobuddy/visual-testing/pull/992) [\`b427b9e\`](https://github.com/repobuddy/visual-testing/commit/b427b9eb73f88ebaa6e6eeafdda618e971b9ad58) Thanks [@unional](https://github.com/unional)! - Document \`addonVis\`, \`isSnapshotEnabled\` and the preset entry in the overview page, and link the new addon guides from \`llms.txt\`.
+
 - [#988](https://github.com/repobuddy/visual-testing/pull/988) [\`42dc3dd\`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b) Thanks [@unional](https://github.com/unional)! - Update the readme, \`llms.txt\` and \`review-image-snapshot-failures\` skill links to the new website page locations.
   The old page URLs still redirect to the new ones.
 
