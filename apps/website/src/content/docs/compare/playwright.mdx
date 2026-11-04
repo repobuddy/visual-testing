@@ -29,7 +29,7 @@ Screenshot assertions only work with the Playwright test runner.
 | Thresholds | `threshold` (default 0.2), `maxDiffPixels`, `maxDiffPixelRatio` | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
 | Waits for a stable page | Yes, until two consecutive screenshots match | Not provided |
 | Masking | `mask` option takes locators | Not yet, see [#999](https://github.com/repobuddy/visual-testing/issues/999) |
-| Animations | Disabled by default (`animations`) | Not yet, see [#1000](https://github.com/repobuddy/visual-testing/issues/1000) |
+| Animations | Disabled by default (`animations`) | `animations: 'disabled'` finishes or cancels CSS animations, default `'allow'` |
 | Review UI | Not covered on the guide page | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
 
 Sources for this project: [comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/), [`vis()` options](/visual-testing/plugin/reference/config/vis/).
@@ -37,7 +37,7 @@ Sources for this project: [comparison and thresholds](/visual-testing/visual-tes
 ## What Playwright does better
 
 - It is a full end-to-end test runner, so you can screenshot a whole flow across pages.
-- It supports masking elements ([#999](https://github.com/repobuddy/visual-testing/issues/999) tracks it here), hiding the caret, and disabling animations ([#1000](https://github.com/repobuddy/visual-testing/issues/1000) tracks it here) out of the box.
+- It supports masking elements ([#999](https://github.com/repobuddy/visual-testing/issues/999) tracks it here), hiding the caret, and disabling animations out of the box. Here, animations are disabled with the `animations` option, which defaults to `'allow'`.
 - It waits for the page to be stable before it compares.
 - It accepts `.webp` as well as `.png` baselines.
 
