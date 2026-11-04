@@ -81,60 +81,44 @@ The tools change, so check the linked page before you decide.
 If a claim is out of date, <a href="https://github.com/repobuddy/visual-testing/issues">open an issue</a>.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="matrix">Matrix</h2><a class="sl-anchor-link" href="#matrix"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “Matrix”</span></a></div>
 <p>“This project” means <a href="/visual-testing/pr-preview/pr-990/plugin/get-started/">vitest-plugin-vis</a> and <a href="/visual-testing/pr-preview/pr-990/addon/get-started/">storybook-addon-vis</a>, which share one engine.
-A dash means the tool’s documentation does not mention the feature.</p>
+“Not documented” means the tool’s documentation page that we read does not mention the feature.
+Each tool name links to its page, where the claims are cited.</p>
 <table>
 <thead>
 <tr>
-<th>Feature</th>
-<th><a href="/visual-testing/pr-preview/pr-990/compare/vitest-visual-regression/">Vitest visual regression</a></th>
-<th>This project</th>
+<th>Tool</th>
+<th>Runs in</th>
+<th>Automatic snapshots</th>
+<th>Per-theme snapshots</th>
+<th>Comparison</th>
+<th>Thresholds</th>
+<th>Review UI</th>
+<th>Baselines</th>
+<th>Cost</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Runs in</td>
-<td>Vitest Browser Mode</td>
+<td>This project</td>
 <td>Vitest Browser Mode, Storybook</td>
-</tr>
-<tr>
-<td>Manual snapshots</td>
 <td>Yes</td>
 <td>Yes</td>
-</tr>
-<tr>
-<td>Automatic snapshots</td>
-<td>–</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Per-theme snapshots</td>
-<td>–</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Comparison methods</td>
-<td><code dir="auto">pixelmatch</code>, custom comparators</td>
 <td><code dir="auto">pixel</code>, <code dir="auto">ssim</code></td>
-</tr>
-<tr>
-<td>Thresholds</td>
 <td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Review UI</td>
-<td>A/B slider in Vitest UI mode</td>
 <td><a href="/visual-testing/pr-preview/pr-990/visual-testing/reviewing-failures/">Vis panel</a> in Storybook</td>
+<td>Local files</td>
+<td>Open source</td>
 </tr>
 <tr>
-<td>Baselines stored</td>
+<td><a href="/visual-testing/pr-preview/pr-990/compare/vitest-visual-regression/">Vitest visual regression</a></td>
+<td>Vitest Browser Mode</td>
+<td>Not documented</td>
+<td>Not documented</td>
+<td><code dir="auto">pixelmatch</code>, custom comparators</td>
+<td>Yes</td>
+<td>A/B slider in Vitest UI mode</td>
 <td>Local files</td>
-<td>Local files</td>
-</tr>
-<tr>
-<td>Cost</td>
-<td>Open source</td>
-<td>Open source</td>
+<td>Not stated</td>
 </tr>
 </tbody>
 </table>
