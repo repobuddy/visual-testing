@@ -15,18 +15,12 @@ If a claim is out of date, [open an issue](https://github.com/repobuddy/visual-t
 ## Matrix
 
 "This project" means [vitest-plugin-vis](/visual-testing/plugin/get-started/) and [storybook-addon-vis](/visual-testing/addon/get-started/), which share one engine.
-A dash means the tool's documentation does not mention the feature.
+"Not documented" means the tool's documentation page that we read does not mention the feature.
+Each tool name links to its page, where the claims are cited.
 
-| Feature | [Vitest visual regression](/visual-testing/compare/vitest-visual-regression/) | This project |
-| ------- | ----------------------------------------------------------------------------- | ------------ |
-| Runs in | Vitest Browser Mode | Vitest Browser Mode, Storybook |
-| Manual snapshots | Yes | Yes |
-| Automatic snapshots | – | Yes |
-| Per-theme snapshots | – | Yes |
-| Comparison methods | `pixelmatch`, custom comparators | `pixel`, `ssim` |
-| Thresholds | Yes | Yes |
-| Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
-| Baselines stored | Local files | Local files |
-| Cost | Open source | Open source |
+| Tool | Runs in | Automatic snapshots | Per-theme snapshots | Comparison | Thresholds | Review UI | Baselines | Cost |
+| ---- | ------- | ------------------- | ------------------- | ---------- | ---------- | --------- | --------- | ---- |
+| This project | Vitest Browser Mode, Storybook | Yes | Yes | `pixel`, `ssim` | Yes | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook | Local files | Open source |
+| [Vitest visual regression](/visual-testing/compare/vitest-visual-regression/) | Vitest Browser Mode | Not documented | Not documented | `pixelmatch`, custom comparators | Yes | A/B slider in Vitest UI mode | Local files | Not stated |
 
 More tools are added to the matrix as their pages are written.
