@@ -252,6 +252,25 @@ describe('matchPerTheme', () => {
 		setAutoSnapshotOptions({ enable: false })
 	})
 
+	it('setAutoSnapshotOptions overrides the animations default of the matcher', async () => {
+		const received: Array<Record<string, any>> = []
+		const fakeExpect = () => ({
+			toMatchImageSnapshot: async (options: Record<string, any>) => {
+				received.push(options)
+			},
+		})
+		const matcher = autoSnapshotMatcher(commands, fakeExpect)
+		await render(<div data-testid="subject">hello</div>)
+
+		setAutoSnapshotOptions(true)
+		await matcher.createMatcher({ key: async () => {} }, { animations: 'disabled' })()
+		setAutoSnapshotOptions({ animations: 'allow' })
+		await matcher.createMatcher({ key: async () => {} }, { animations: 'disabled' })()
+
+		expect(received.map((o) => o.animations)).toEqual(['disabled', 'allow'])
+		setAutoSnapshotOptions({ enable: false })
+	})
+
 	describe('comparison options of setAutoSnapshotOptions', () => {
 		async function renderChanged(snapshotKey: string) {
 			setAutoSnapshotOptions({ enable: true })

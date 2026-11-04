@@ -37,6 +37,19 @@ export interface ReviewImageOptions {
 	reviewImage?: boolean | undefined
 }
 
+export interface AnimationsOptions {
+	/**
+	 * What to do with CSS animations and transitions before the snapshot is taken.
+	 *
+	 * - `'disabled'`: finish finite animations and transitions, and cancel infinite ones,
+	 *   so animated components produce a stable image.
+	 * - `'allow'`: leave animations running.
+	 *
+	 * @default 'allow'
+	 */
+	animations?: 'disabled' | 'allow' | undefined
+}
+
 export type ComparisonMethod = 'pixel' | 'ssim'
 
 export type FailureThresholdOptions = {
@@ -107,7 +120,8 @@ export type ImageSnapshotSubjectOptions = {
 export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotKeyOptions &
 	ImageSnapshotCompareOptions<M> &
-	ReviewImageOptions & {
+	ReviewImageOptions &
+	AnimationsOptions & {
 		/**
 		 * Expect the matcher to fail.
 		 * If it passes, it will throw an error with details.
@@ -175,7 +189,8 @@ export type ImageSnapshotComparisonInfo = {
 export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
 	ImageSnapshotKeyOptions &
-	ReviewImageOptions & {
+	ReviewImageOptions &
+	AnimationsOptions & {
 		/**
 		 * When `true`, write a missing baseline on first run (see {@link ToMatchImageSnapshotOptions} `createMissingBaseline`).
 		 */
@@ -201,4 +216,10 @@ export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> 
 	 * @default false
 	 */
 	createMissingBaseline?: boolean | undefined
+	/**
+	 * Default {@link AnimationsOptions#animations} for auto snapshots.
+	 *
+	 * @default 'allow'
+	 */
+	animations?: 'disabled' | 'allow' | undefined
 }

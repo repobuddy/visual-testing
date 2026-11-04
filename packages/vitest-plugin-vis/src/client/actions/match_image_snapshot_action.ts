@@ -6,6 +6,7 @@ import type {
 	PrepareImageSnapshotComparisonCommand,
 } from '../../shared/commands.types.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import { settleAnimations } from '../animations/settle_animations.ts'
 import { convertElementToCssSelector } from '../external/browser/selector.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 
@@ -17,6 +18,7 @@ export async function matchImageSnapshotAction(
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 
+	settleAnimations(options)
 	const info = await commands.prepareImageSnapshotComparison(taskId, parseImageSnapshotSubject(subject), options)
 
 	return compareImageSnapshot(commands, taskId, info, options)

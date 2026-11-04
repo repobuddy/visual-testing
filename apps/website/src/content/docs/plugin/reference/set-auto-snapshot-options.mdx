@@ -98,6 +98,14 @@ setAutoSnapshotOptions({ snapshotKey: 'my_custom_snapshot' })
 
 A key that contains a dash throws `Snapshot key cannot contain dash`.
 
+### `animations`
+
+`'disabled'` finishes or cancels CSS animations and transitions before the auto snapshot. The default is `'allow'`.
+
+```ts
+setAutoSnapshotOptions({ animations: 'disabled' })
+```
+
 ### `timeout`
 
 The timeout for taking the snapshot, in milliseconds. The default is 30000.
