@@ -21,12 +21,22 @@ Import from the entry points listed below, not from package internals. Documenta
 ## Documentation
 
 - [storybook-addon-vis: Automatic snapshots](https://repobuddy.github.io/visual-testing/addon/guides/automatic-snapshots/): Take an image snapshot of every story without writing test code.
+- [storybook-addon-vis: CI](https://repobuddy.github.io/visual-testing/addon/guides/ci/): Run story snapshots on CI with platform baselines.
+- [storybook-addon-vis: CSF Next and story.test()](https://repobuddy.github.io/visual-testing/addon/guides/csf-next/): Set up visual testing in the preview for CSF Next stories.
+- [storybook-addon-vis: Chrome DevTools Protocol](https://repobuddy.github.io/visual-testing/addon/guides/chrome-devtools-protocol/): Use cdp() inside a story under Playwright and Chromium.
+- [storybook-addon-vis: Features](https://repobuddy.github.io/visual-testing/addon/features/): Every capability of the addon, each linked to its guide.
 - [storybook-addon-vis: Install](https://repobuddy.github.io/visual-testing/addon/get-started/): Install storybook-addon-vis and its peer dependencies.
 - [storybook-addon-vis: Manual snapshots](https://repobuddy.github.io/visual-testing/addon/guides/manual-snapshots/): Take snapshots in a play function, check that one exists, and use the Chrome DevTools Protocol.
+- [storybook-addon-vis: Monorepos and custom snapshot paths](https://repobuddy.github.io/visual-testing/addon/guides/monorepo-and-paths/): Tell the Vis panel where the snapshots are.
 - [storybook-addon-vis: Releases/Migrating to 1.0](https://repobuddy.github.io/visual-testing/releases/migrate-to-1/): storybook-addon-vis 1.0 has made some major improvements over the previous version.
 - [storybook-addon-vis: Releases/Migrating to 3.0](https://repobuddy.github.io/visual-testing/releases/migrate-to-3/): storybook-addon-vis 3.0.0 supports Storybook 10.
-- [storybook-addon-vis: Setup](https://repobuddy.github.io/visual-testing/addon/configuration/): Configure Storybook, Vitest, TypeScript and .gitignore for storybook-addon-vis. Documents: cdp, defineAutoSnapshotParam, hasImageSnapshot, page, visAnnotations, storybookVis, vis.
+- [storybook-addon-vis: Reviewing failures (addon view)](https://repobuddy.github.io/visual-testing/addon/guides/reviewing-failures/): Find what changed when a story snapshot fails.
+- [storybook-addon-vis: Setup](https://repobuddy.github.io/visual-testing/addon/configuration/): Configure Storybook, Vitest, TypeScript and .gitignore for storybook-addon-vis. Documents: cdp, default, defineAutoSnapshotParam, hasImageSnapshot, isSnapshotEnabled, page, visAnnotations, experimental_serverChannel, storybookVis, vis.
+- [storybook-addon-vis: The Vis panel](https://repobuddy.github.io/visual-testing/addon/guides/the-vis-panel/): Review baseline, result and diff of a story inside Storybook.
+- [storybook-addon-vis: Themes](https://repobuddy.github.io/visual-testing/addon/guides/themes/): Take every snapshot once per theme, such as light and dark.
+- [storybook-addon-vis: Thresholds and comparison for stories](https://repobuddy.github.io/visual-testing/addon/guides/thresholds-and-comparison/): Tolerate small differences and pick pixel or SSIM comparison for stories.
 - [storybook-addon-vis: Troubleshooting](https://repobuddy.github.io/visual-testing/addon/troubleshooting/): Fix common installation and runtime problems.
+- [storybook-addon-vis: Viewports and multiple instances](https://repobuddy.github.io/visual-testing/addon/guides/viewports-and-multiple-instances/): Snapshot the same stories at several browser sizes.
 - [storybook-addon-vis: node](https://repobuddy.github.io/visual-testing/addon/reference/node/): `storybook-addon-vis/node` provides functionality to configure the Storybook Visual Testing addon in the `.storybook/main.ts` file.
 - [storybook-addon-vis: node/defineStorybookVis](https://repobuddy.github.io/visual-testing/addon/reference/define-storybook-vis/): A helper function to configure the Storybook Visual Testing addon in `.storybook/main.ts`. Documents: defineStorybookVis.
 - [storybook-addon-vis: node/defineStorybookVisOptions](https://repobuddy.github.io/visual-testing/addon/reference/define-storybook-vis-options/): A helper function to configure options for Storybook Visual Testing addon. Documents: defineStorybookVisOptions.
@@ -46,11 +56,11 @@ Import from the entry points listed below, not from package internals. Documenta
 
 ## Entry points
 
-- [`storybook-addon-vis`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/index.ts): default export; functions: defineAutoSnapshotParam, hasImageSnapshot, isSnapshotEnabled, setAutoSnapshotOptions; types: Awaitable, ComparisonMethod, FailureThresholdOptions, ImageSnapshotCompareOptions, ImageSnapshotComparisonInfo, ImageSnapshotKeyOptions, ImageSnapshotSubjectOptions, ImageSnapshotTimeoutOptions, MatchImageSnapshotOptions, MetaTask, PageImageSnapshotOptions, PixelComparisonOptions, PixelDiffOptions, ReviewImageOptions, SetupVisOptions, SnapshotTestMeta, SsimComparisonOptions, SsimDiffOptions, ToMatchImageSnapshotOptions, ToMatchPageImageSnapshotOptions; values: cdp, page, visAnnotations (28 exports, 6 with a documentation page).
+- [`storybook-addon-vis`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/index.ts): default export; functions: defineAutoSnapshotParam, hasImageSnapshot, isSnapshotEnabled, setAutoSnapshotOptions; types: Awaitable, ComparisonMethod, FailureThresholdOptions, ImageSnapshotCompareOptions, ImageSnapshotComparisonInfo, ImageSnapshotKeyOptions, ImageSnapshotSubjectOptions, ImageSnapshotTimeoutOptions, MatchImageSnapshotOptions, MetaTask, PageImageSnapshotOptions, PixelComparisonOptions, PixelDiffOptions, ReviewImageOptions, SetupVisOptions, SnapshotTestMeta, SsimComparisonOptions, SsimDiffOptions, ToMatchImageSnapshotOptions, ToMatchPageImageSnapshotOptions; values: cdp, page, visAnnotations (28 exports, 8 with a documentation page).
 - [`storybook-addon-vis/manager`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/manager.tsx): no named exports; it is imported for its side effects.
 - [`storybook-addon-vis/matcher`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/matcher.ts): no named exports; it is imported for its side effects.
 - [`storybook-addon-vis/node`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/node.ts): functions: defineStorybookVis, defineStorybookVisOptions (2 exports, 2 with a documentation page).
-- [`storybook-addon-vis/preset`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/preset.ts): value: experimental_serverChannel (1 export, 0 with a documentation page).
+- [`storybook-addon-vis/preset`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/preset.ts): value: experimental_serverChannel (1 export, 1 with a documentation page).
 - [`storybook-addon-vis/vitest-plugin`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/vitest-plugin.ts): functions: storybookVis, trimCommonFolder (2 exports, 2 with a documentation page).
 - [`storybook-addon-vis/vitest-setup`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/exports/vitest-setup.ts): function: setAutoSnapshotOptions; values: vis, visAnnotations (3 exports, 3 with a documentation page).
 
@@ -59,4 +69,4 @@ Import from the entry points listed below, not from package internals. Documenta
 - [storybook-addon-vis: Changelog](https://repobuddy.github.io/visual-testing/releases/changelog-addon/): Release history of storybook-addon-vis.
 - [Generator](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/scripts/generate-llms-txt.mjs): Source of this file. Run it with `--gaps` to list the undocumented exports.
 
-Documentation coverage: 11 of 34 distinct exported declarations are named on a documentation page; 6 carry a doc comment.
+Documentation coverage: 14 of 34 distinct exported declarations are named on a documentation page; 6 carry a doc comment.

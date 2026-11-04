@@ -1,0 +1,89 @@
+---
+title: "CSF Next and story.test()"
+description: "Set up visual testing for CSF Next stories in the preview, and snapshot the stories that story.test() adds."
+sidebar:
+  order: 5
+---
+
+Goal: visual testing for stories written with CSF Next (`preview.meta()` and `meta.story()`), with no `vitest.setup.ts`.
+
+## Set up
+
+In Vitest, add the plugin and leave `setupFiles` out:
+
+```ts
+// vitest.config.ts
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [
+		storybookTest(),
+		storybookVis(), // ADD THIS
+	],
+	test: {
+		browser: { /* your Vitest Browser Mode configuration */ },
+		// no setupFiles
+	},
+})
+```
+
+In the preview, register the addon:
+
+```ts
+// .storybook/preview.ts
+import addonVis from 'storybook-addon-vis'
+import { definePreview } from '@storybook/your-framework/node'
+
+export default definePreview({
+	addons: [
+		// Take a snapshot at the end of each story test
+		addonVis({ auto: true }),
+	],
+})
+```
+
+`addonVis({ auto: true })` adds the `snapshot` tag to every story and carries the hooks that take the snapshots, so `vitest.setup.ts` is not needed.
+The `sb-csf-next` test case uses exactly this: `addonVis()` in `definePreview()` and no `setupFiles`.
+See the [CSF Next example](/visual-testing/addon/examples/sb-csf-next/) and its [published Storybook](/visual-testing/examples/sb-csf-next/storybook/).
+
+`addonVis` takes the same options as `vis.setup`, so `auto` can also be a function or an object of [themes](/visual-testing/addon/guides/themes/).
+See [`addonVis`](/visual-testing/addon/reference/addon-vis/).
+
+## Opt in and out per story
+
+Tags work as in CSF 3.
+The `Button` stories of `sb-csf-next` set `tags: ['!snapshot']` on one story and `tags: ['snapshot']` on another:
+
+```ts
+const meta = preview.meta({ title: 'Example/Button', component: Button })
+
+export const Primary = meta.story({
+	tags: ['!snapshot'], // no snapshot
+	args: { primary: true, label: 'Button' },
+})
+```
+
+## Snapshot stories added by story.test()
+
+A story with child tests is snapshotted like any other story:
+
+```ts
+export const Snap = meta.story({
+	tags: ['snapshot'],
+	args: { label: 'Snap' },
+})
+
+Snap.test('variant one', async ({ canvas }) => {
+	await expect(canvas.getByRole('button')).toBeInTheDocument()
+})
+```
+
+The `StoryTest.stories.ts` file of `sb-csf-next` holds this case.
+Its comment records the rule: the snapshots land under `<story>/`, not `<story>--/` ([issue 847](https://github.com/repobuddy/visual-testing/issues/847)).
+
+## Mixing CSF 3 and CSF Next
+
+The `sb-csf-mix` test case sets up in `vitest.setup.tsx` with `setProjectAnnotations([..., visAnnotations, ...])`, and the `sb-csf-3` test case merges `visAnnotations` into the preview.
+Both are described in [Configuration](/visual-testing/addon/configuration/#storybook-103-and-vitest-project-annotations).

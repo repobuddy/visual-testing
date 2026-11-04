@@ -1,11 +1,32 @@
 ---
-title: "Install the Storybook addon"
-description: "Install storybook-addon-vis with your package manager."
+title: "Get started with the Storybook addon"
+description: "Install storybook-addon-vis and take your first image snapshot of a story."
 sidebar:
   order: 1
 ---
 
-You can install [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) with your package manager of choice:
+import Snapshot from '../../../components/showcase/Snapshot.astro'
+
+This page takes you from nothing to a committed baseline in a few minutes.
+The addon runs your stories in Vitest browser mode and compares an image of each one with a stored baseline.
+
+## Supports
+
+| Package | Version |
+| --- | --- |
+| `storybook` | `^10.1.10` |
+| `@storybook/addon-vitest` | `^10.1.10` |
+| `vitest` | `^4` |
+| `@vitest/browser` | `^4` |
+
+These are the peer dependencies of `storybook-addon-vis` in its `package.json`.
+Vitest browser mode needs a provider, [Playwright](https://playwright.dev) or [WebdriverIO](https://webdriver.io).
+
+## Install
+
+Set up the [Storybook Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) first.
+The addon needs it.
+Then install [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis):
 
 ```sh
 npm install --save-dev storybook-addon-vis
@@ -15,5 +36,90 @@ pnpm add --save-dev storybook-addon-vis
 yarn add --save-dev storybook-addon-vis
 ```
 
-This addon requires [Storybook Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) to work.
-Please refer to its documentation for installation and setup instructions.
+## Configure
+
+Three edits are enough for the first snapshot.
+[Configuration](/visual-testing/addon/configuration/) explains each of them.
+
+```ts
+// vitest.config.ts: add the storybookVis plugin next to storybookTest
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [storybookTest(), storybookVis()],
+	test: {
+		browser: { /* your Vitest browser mode configuration */ },
+		setupFiles: ['./vitest.setup.ts'],
+	},
+})
+```
+
+```ts
+// vitest.setup.ts: apply the annotations and turn visual testing on
+import { setProjectAnnotations } from '@storybook/your-framework'
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+import { beforeAll } from 'vitest'
+import * as projectAnnotations from './.storybook/preview.ts'
+
+const annotations = setProjectAnnotations([projectAnnotations, visAnnotations])
+
+beforeAll(annotations.beforeAll)
+
+vis.setup()
+```
+
+```ts
+// .storybook/main.ts: register the addon
+const config: StorybookConfig = {
+	addons: ['storybook-addon-vis'],
+}
+```
+
+Using CSF Next? The [CSF Next guide](/visual-testing/addon/guides/csf-next/) replaces the setup file with one line in the preview.
+
+## Take a snapshot
+
+Give a story the `snapshot` tag:
+
+```tsx
+// button.stories.tsx
+export const Primary = {
+	tags: ['snapshot'],
+	args: { label: 'Button', primary: true },
+}
+```
+
+To snapshot every story, put `tags: ['snapshot']` in `.storybook/preview.ts` instead.
+[Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/) covers the tag rules.
+
+## First run: create the baselines
+
+A snapshot test fails when it has no baseline to compare with.
+Run Vitest once with the update flag to write the first baselines:
+
+```sh
+npx vitest run -u
+```
+
+The images land in the snapshot root, `__vis__/local` on your machine and `__vis__/<platform>` on CI:
+
+```text
+__vis__/local/
+  __baselines__/button.stories.tsx/primary-auto.png
+```
+
+The file name is the story name and a key.
+Automatic snapshots use the key `auto` unless you set [themes](/visual-testing/addon/guides/themes/).
+
+Commit `__baselines__` and ignore the rest, as shown in [Configuration](/visual-testing/addon/configuration/#ignore-snapshot-folders).
+Later runs compare the new render with the baseline and write `__results__` and `__diffs__` when they differ.
+The addon's own tests use `updateSnapshot: 'all'` to bootstrap a missing baseline, because the `createMissingBaseline` option may not reach the server through the Storybook browser bridge.
+[Updating baselines](/visual-testing/visual-testing/updating-baselines/) explains the update workflow, and [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) explains the folders.
+
+## Next
+
+- [Guides](/visual-testing/addon/guides/automatic-snapshots/): themes, viewports, thresholds, CI.
+- [Features](/visual-testing/addon/features/): every capability in one table.
+- [Troubleshooting](/visual-testing/addon/troubleshooting/).

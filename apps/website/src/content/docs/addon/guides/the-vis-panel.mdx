@@ -1,0 +1,48 @@
+---
+title: "The Vis panel"
+description: "Review the baseline, result and diff of a story's snapshots in Storybook's addon panel."
+sidebar:
+  order: 6
+---
+
+Goal: see what a story's snapshots look like, and what a failed one changed, without leaving Storybook.
+
+## Open it
+
+Start Storybook in development mode (`storybook dev`).
+Select a story and open the **Vis** panel next to Controls and Actions.
+The panel registers only when `CONFIG_TYPE` is `DEVELOPMENT`, and only in the story view, so it does not appear in a static build.
+This is why the [published Storybooks](/visual-testing/addon/examples/) have no Vis panel.
+
+The panel asks the Storybook server for the snapshot images of the selected story.
+It reads them from the snapshot folders, so it shows what the last Vitest run wrote.
+Run Vitest, then press refresh in the panel.
+
+## Read it
+
+The panel groups images by snapshot, labelled with the snapshot root and the file name, for example `(linux) button.stories.tsx`.
+
+| State | What the panel shows |
+| --- | --- |
+| Passing, with a baseline | The baseline image. |
+| Failed, with a diff | A compare view with three modes: **Swipe**, **Onion skin** and **Diff**. |
+| Only a result, no baseline | Nothing. A snapshot with no baseline has nothing to review yet. |
+
+In the compare view:
+
+- **Swipe** drags a divider across the baseline and the result.
+- **Onion skin** blends the two with an opacity control.
+- **Diff** shows the diff image that marks the changed pixels.
+
+Switching to Diff and back keeps the swipe position and the opacity.
+
+## Point the panel at your folders
+
+Without options, the server looks in the default snapshot root.
+If your Vitest config uses another root, tell the addon with `visProjects`.
+See [Monorepos and custom snapshot paths](/visual-testing/addon/guides/monorepo-and-paths/).
+
+## Related
+
+- [Reviewing failures](/visual-testing/addon/guides/reviewing-failures/) for the other views of a failure.
+- The server side is [`storybook-addon-vis/preset`](/visual-testing/addon/reference/preset/) and the panel is [`storybook-addon-vis/manager`](/visual-testing/addon/reference/manager/).
