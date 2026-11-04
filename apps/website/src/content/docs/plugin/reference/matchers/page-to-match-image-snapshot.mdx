@@ -70,6 +70,20 @@ it('takes an image snapshot', async () => {
 })
 ```
 
+### `animations`
+
+`'disabled'` finishes finite CSS animations and transitions and cancels infinite ones before the snapshot is taken,
+so an animated component gives a stable image.
+`'allow'` leaves them running. The default is `'allow'`.
+It works with the Playwright and WebdriverIO providers, because the matcher settles the animations in the page before it asks the provider for the screenshot.
+
+```ts
+await page.toMatchImageSnapshot({ animations: 'disabled' })
+```
+
+You can set a default for auto snapshots with `vis.setup({ animations: 'disabled', auto: ... })`.
+`setAutoSnapshotOptions({ animations })` in a test overrides that default.
+
 ### Comparison options
 
 `failureThreshold`, `failureThresholdType`, `comparisonMethod`, `diffOptions`, `timeout`, and `expectToFail` take the same values as on

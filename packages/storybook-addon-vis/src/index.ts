@@ -4,7 +4,7 @@ import './shared/global_matcher_augment.ts'
 import { definePreviewAddon } from 'storybook/internal/csf'
 import { expect } from 'storybook/test'
 import type { SetupVisOptions } from 'vitest-plugin-vis'
-import { autoSnapshotMatcher, setAutoSnapshotOptions } from 'vitest-plugin-vis/client-api'
+import { autoSnapshotMatcher, setAutoSnapshotOptions, toSuiteDefaults } from 'vitest-plugin-vis/client-api'
 import { toMatchImageSnapshot } from './client/expect/to_match_image_snapshot.ts'
 import { isVitestBrowser } from './client/is_vitest_browser.ts'
 import { cdp, commands, page, whenVitestProxyReady } from './client/vitest_proxy.ts'
@@ -32,10 +32,7 @@ export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) 
 			// follow read them synchronously, so wait for it here (#835).
 			await whenVitestProxyReady()
 			matcher = autoSnapshotMatcher(commands, expect)
-			const suiteDefaults =
-				options?.createMissingBaseline !== undefined
-					? { createMissingBaseline: options.createMissingBaseline }
-					: undefined
+			const suiteDefaults = toSuiteDefaults(options)
 			if (typeof options?.auto === 'function') {
 				matcherFn = matcher.createMatcher(
 					{

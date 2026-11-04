@@ -43,7 +43,8 @@ Creates the object behind `vis.setup()`.
 - `setup()` asks the server for the suite setup. Call it in `beforeAll`.
 - `createMatcher(themes, suiteDefaults?)` returns an `afterEach` function.
   `themes` is a record of theme name to `boolean` or handler, as in the object form of `auto`.
-  `suiteDefaults` can hold `createMissingBaseline`.
+  `suiteDefaults` can hold `createMissingBaseline` and `animations`.
+`toSuiteDefaults(options)` builds `suiteDefaults` from the options of `vis.setup()`.
 
 ## `setAutoSnapshotOptions`
 
@@ -63,6 +64,7 @@ A passing `SyncExpectationResult`, `{ pass: true, message: () => '' }`, for a cu
 | `ComparisonMethod` | `'pixel'` or `'ssim'`. |
 | `FailureThresholdOptions` | `failureThreshold` and `failureThresholdType`. |
 | `ImageSnapshotTimeoutOptions` | `timeout`. |
+| `AnimationsOptions` | `animations`: `'disabled'` or `'allow'`. |
 | `ImageSnapshotKeyOptions` | `snapshotKey`. |
 | `ImageSnapshotSubjectOptions` | `subject`, a selector. |
 | `ReviewImageOptions` | `reviewImage`. |
@@ -72,8 +74,8 @@ A passing `SyncExpectationResult`, `{ pass: true, message: () => '' }`, for a cu
 | `ToMatchImageSnapshotOptions` | The options of `expect().toMatchImageSnapshot()`. |
 | `PageImageSnapshotOptions` | `fullPage`. |
 | `ToMatchPageImageSnapshotOptions` | The options of `page.toMatchImageSnapshot()`. |
-| `MatchImageSnapshotOptions` | The comparison, timeout, key, review image and `createMissingBaseline` options. |
-| `SetupVisOptions` | The options of `vis.setup()`: `auto` and `createMissingBaseline`. |
+| `MatchImageSnapshotOptions` | The comparison, timeout, key, review image, `animations` and `createMissingBaseline` options. |
+| `SetupVisOptions` | The options of `vis.setup()`: `auto`, `createMissingBaseline` and `animations`. |
 | `SnapshotTestMeta` | The `meta` of a test, which holds its snapshot options under the key `vis`. |
 | `ImageSnapshotComparisonInfo` | What the server returns for a comparison: the paths of the project root, baseline, result and diff, and the images as base64. |
 | `Awaitable` | `T` or `PromiseLike<T>`. |

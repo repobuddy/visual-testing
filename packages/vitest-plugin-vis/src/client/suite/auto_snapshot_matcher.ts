@@ -23,7 +23,7 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 				string,
 				boolean | ((options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void)
 			>,
-			suiteDefaults?: Pick<SetupVisOptions<GM>, 'createMissingBaseline'> | undefined,
+			suiteDefaults?: Pick<SetupVisOptions<GM>, 'createMissingBaseline' | 'animations'> | undefined,
 		) {
 			return async function matchImageSnapshot() {
 				const test = ctx.getCurrentTest()
@@ -41,12 +41,17 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 							meta != null && Object.hasOwn(meta as object, 'createMissingBaseline')
 								? (meta as { createMissingBaseline?: boolean }).createMissingBaseline
 								: suiteDefaults?.createMissingBaseline
+						const effectiveAnimations =
+							meta != null && Object.hasOwn(meta as object, 'animations')
+								? (meta as { animations?: 'disabled' | 'allow' }).animations
+								: suiteDefaults?.animations
 						await expect(resolveSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
 							...meta,
 							snapshotKey: meta?.snapshotKey ?? themeId,
 							...(effectiveCreateMissingBaseline !== undefined
 								? { createMissingBaseline: effectiveCreateMissingBaseline }
 								: {}),
+							...(effectiveAnimations !== undefined ? { animations: effectiveAnimations } : {}),
 						})
 					} catch (error) {
 						errors.push([themeId, error as Error])
@@ -69,4 +74,12 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 			}
 		},
 	}
+}
+
+export function toSuiteDefaults(options: Pick<SetupVisOptions, 'createMissingBaseline' | 'animations'> | undefined) {
+	const defaults = {
+		...(options?.createMissingBaseline !== undefined ? { createMissingBaseline: options.createMissingBaseline } : {}),
+		...(options?.animations !== undefined ? { animations: options.animations } : {}),
+	}
+	return Object.keys(defaults).length > 0 ? defaults : undefined
 }
