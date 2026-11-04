@@ -10,6 +10,8 @@ import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,o as n,s as r}f
 
 ### Patch Changes
 
+- [#1005](https://github.com/repobuddy/visual-testing/pull/1005) [\`3a7ed6e\`](https://github.com/repobuddy/visual-testing/commit/3a7ed6e9c1621af94a8535517b6be000f5b44e3a) Thanks [@unional](https://github.com/unional)! - State on the Compare pages that masking is supported.
+
 - [#993](https://github.com/repobuddy/visual-testing/pull/993) [\`67ac628\`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062) Thanks [@unional](https://github.com/unional)! - List the new Vitest plugin guides, examples, troubleshooting and reference pages in \`llms.txt\`, and document more of the plugin's public API.
 
 - [#992](https://github.com/repobuddy/visual-testing/pull/992) [\`b427b9e\`](https://github.com/repobuddy/visual-testing/commit/b427b9eb73f88ebaa6e6eeafdda618e971b9ad58) Thanks [@unional](https://github.com/unional)! - Document \`addonVis\`, \`isSnapshotEnabled\` and the preset entry in the overview page, and link the new addon guides from \`llms.txt\`.
@@ -18,7 +20,7 @@ import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,o as n,s as r}f
   The old page URLs still redirect to the new ones.
 
 - [#991](https://github.com/repobuddy/visual-testing/pull/991) [\`06d72bf\`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca) Thanks [@unional](https://github.com/unional)! - List the new Visual testing concept pages of the website in \`llms.txt\`.
-- Updated dependencies [[\`3dd963f\`](https://github.com/repobuddy/visual-testing/commit/3dd963fdb902b0dfbecf3fccc9d562287e9ea583), [\`09440c3\`](https://github.com/repobuddy/visual-testing/commit/09440c3d9a0a21c7fcc0535eb89c96b8d016ce45), [\`67ac628\`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062), [\`42dc3dd\`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b), [\`06d72bf\`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca)]:
+- Updated dependencies [[\`3a7ed6e\`](https://github.com/repobuddy/visual-testing/commit/3a7ed6e9c1621af94a8535517b6be000f5b44e3a), [\`3dd963f\`](https://github.com/repobuddy/visual-testing/commit/3dd963fdb902b0dfbecf3fccc9d562287e9ea583), [\`09440c3\`](https://github.com/repobuddy/visual-testing/commit/09440c3d9a0a21c7fcc0535eb89c96b8d016ce45), [\`67ac628\`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062), [\`42dc3dd\`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b), [\`06d72bf\`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca)]:
   - vitest-plugin-vis@5.4.0
 
 ## 4.4.0
