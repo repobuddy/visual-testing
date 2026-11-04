@@ -74,8 +74,6 @@ export interface MaskOptions {
  */
 export type MaskLocator = { selector: string }
 
-export type MaskServerOptions = { mask?: string[] | undefined; maskColor?: string | undefined }
-
 export type ComparisonMethod = 'pixel' | 'ssim'
 
 export type FailureThresholdOptions = {

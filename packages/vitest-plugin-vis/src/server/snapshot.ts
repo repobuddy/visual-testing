@@ -1,10 +1,12 @@
 import { mkdirp } from 'mkdirp'
 import { dirname, resolve } from 'pathe'
 import { isBase64String } from '../shared/base64.ts'
-import type { ImageSnapshotTimeoutOptions, MaskServerOptions, PageImageSnapshotOptions } from '../shared/types.ts'
+import type { ImageSnapshotTimeoutOptions, PageImageSnapshotOptions } from '../shared/types.ts'
 import { browserApi } from './browser_provider/browser_api.ts'
 import { snapshotWriter } from './snapshot_writer.ts'
 import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
+
+type MaskServerOptions = { mask?: string[] | undefined; maskColor?: string | undefined }
 
 export async function takeSnapshot(
 	context: ExtendedBrowserCommandContext,

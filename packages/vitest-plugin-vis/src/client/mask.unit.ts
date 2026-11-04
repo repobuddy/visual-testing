@@ -4,7 +4,7 @@ import { normalizeMask, normalizeMaskOptions } from './mask.ts'
 it('returns undefined when there is no mask', () => {
 	expect(normalizeMask(undefined)).toBeUndefined()
 	expect(normalizeMaskOptions(undefined)).toBeUndefined()
-	const options = { timeout: 1 }
+	const options: { mask?: undefined; timeout: number } = { timeout: 1 }
 	expect(normalizeMaskOptions(options)).toBe(options)
 })
 

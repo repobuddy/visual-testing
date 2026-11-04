@@ -235,6 +235,10 @@ const DOC_PAGES = {
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/shared/types.ts#ReviewImageOptions':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#MaskOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#MaskLocator':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotSubjectOptions':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchImageSnapshotOptions':
