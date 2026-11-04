@@ -41,19 +41,13 @@ Changed:    2 regions: 30x30 at (0,0), 36x36 at (134,334)
 Review:     ./__vis__/.../....review.png (baseline, result, diff of each region)
 ```
 
-Open the review image first.
-It shows only what changed and is much smaller than the full images.
+Open the review image first, as [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) advises.
 
 ## When there is no review image
 
-The plugin skips the review image, and the message says why, when cropping does not help:
-
-- the image size changed: `Review: skipped, the image size changed; open Actual or Difference instead`
-- there are more than 5 regions: `Review: skipped, N regions, more than 5; open Actual or Difference instead`
-- the regions cover more than half of the image: `Review: skipped, the regions cover N% of the image; open Actual or Difference instead`
-- no changed region is found: `Review: skipped, no changed region found; open Actual or Difference instead`
-
-The `.regions.json` file is still written in these cases.
+The plugin skips the review image when cropping does not help, and the `Review:` line of the message says why.
+The cases are listed in [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/#2-the-review-image).
+The `.regions.json` file is still written.
 
 ## Turn the review image off
 

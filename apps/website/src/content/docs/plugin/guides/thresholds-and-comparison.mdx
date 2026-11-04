@@ -23,8 +23,6 @@ export default defineConfig({
 })
 ```
 
-Use `pixel` to catch small text changes and layout shifts.
-Use `ssim` when images have gradients, shadows or anti-aliasing, so that minor rendering differences cause fewer false failures.
 With `ssim`, the plugin uses the `bezkrovny` algorithm unless you set `diffOptions.ssim`.
 
 ## Set a failure threshold
@@ -40,8 +38,6 @@ vis({ failureThreshold: 100, failureThresholdType: 'pixel' })
 // Allow 5% of the pixels to differ
 vis({ failureThreshold: 5, failureThresholdType: 'percent' })
 ```
-
-A percentage scales across image sizes. A pixel count does not.
 
 When the difference is beyond the threshold, the failure says by how much:
 

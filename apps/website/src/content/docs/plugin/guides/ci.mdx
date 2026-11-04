@@ -10,9 +10,7 @@ Use this guide to run the visual tests in a CI job and keep the baselines that t
 
 ## How the plugin detects CI
 
-The plugin uses [`is-ci`](https://www.npmjs.com/package/is-ci).
-On CI, snapshots go to `__vis__/<platform>`, where `<platform>` is `process.platform`, such as `linux` or `win32`.
-On your machine they go to `__vis__/local`.
+The plugin uses [`is-ci`](https://www.npmjs.com/package/is-ci) to choose the folder, as [Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/#local-and-ci-folders) describes.
 
 ```txt
 __vis__/
@@ -53,13 +51,8 @@ See [Playwright on CI](https://playwright.dev/docs/ci) for the options of the in
 ## Create the baselines for CI
 
 A snapshot with no baseline fails, on CI too.
-Render the baselines on the same platform that checks them, because a baseline from another operating system differs in font rendering.
-Two ways work:
-
-- Run the job once with `vitest run -u`, review the images, and commit them. This repository does it with a bot that opens a pull request with the new baselines.
-- Pass `createMissingBaseline: true` where a new snapshot may appear, so that the first run writes the baseline. Review the new images before you merge.
-
-The workflow of this repository is in [Snapshot workflow](https://github.com/repobuddy/visual-testing/blob/main/docs/snapshot-workflow.md).
+Create the baselines on the platform that checks them, with `vitest run -u` or `createMissingBaseline: true`.
+[Updating baselines](/visual-testing/visual-testing/updating-baselines/) explains both and the review before you merge.
 
 ## Read a failure from CI
 
