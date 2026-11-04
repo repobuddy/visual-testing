@@ -1,0 +1,63 @@
+---
+title: "vs Playwright"
+description: "How vitest-plugin-vis and storybook-addon-vis compare with Playwright visual comparisons."
+sidebar:
+  order: 2
+---
+
+Playwright Test has visual comparisons through the `toHaveScreenshot` assertion.
+Claims about Playwright come from its [visual comparisons guide](https://playwright.dev/docs/test-snapshots) and the [`PageAssertions` API reference](https://playwright.dev/docs/api/class-pageassertions), checked on 2026-11-03.
+
+## What it is
+
+You call `await expect(page).toHaveScreenshot()` in a Playwright test.
+The first run writes the reference images.
+Later runs compare against them.
+References are stored in a folder named after the test file, such as `example.spec.ts-snapshots`, with the browser and platform in the file name.
+You update them with `npx playwright test --update-snapshots`.
+Screenshot assertions only work with the Playwright test runner.
+
+## Features
+
+| Feature | Playwright | This project |
+| ------- | ---------- | ------------ |
+| Runs in | Playwright Test | Vitest Browser Mode, Storybook |
+| Manual snapshots | Yes | Yes |
+| Automatic snapshots | Not documented | Yes |
+| Per-theme snapshots | Not documented | Yes |
+| Comparison | `pixelmatch` | `pixel`, `ssim` |
+| Thresholds | `threshold` (default 0.2), `maxDiffPixels`, `maxDiffPixelRatio` | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
+| Waits for a stable page | Yes, until two consecutive screenshots match | Not provided |
+| Masking | `mask` option takes locators | Not yet, see [#999](https://github.com/repobuddy/visual-testing/issues/999) |
+| Animations | Disabled by default (`animations`) | Not yet, see [#1000](https://github.com/repobuddy/visual-testing/issues/1000) |
+| Review UI | Not covered on the guide page | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
+
+Sources for this project: [comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/), [`vis()` options](/visual-testing/plugin/reference/config/vis/).
+
+## What Playwright does better
+
+- It is a full end-to-end test runner, so you can screenshot a whole flow across pages.
+- It supports masking elements ([#999](https://github.com/repobuddy/visual-testing/issues/999) tracks it here), hiding the caret, and disabling animations ([#1000](https://github.com/repobuddy/visual-testing/issues/1000) tracks it here) out of the box.
+- It waits for the page to be stable before it compares.
+- It accepts `.webp` as well as `.png` baselines.
+
+## What this project does better
+
+- It takes snapshots of your component tests and stories automatically.
+- It takes one snapshot per theme from a single test.
+- It offers SSIM as a second comparison method.
+- It works with Storybook stories and shows failures in the Vis panel.
+
+## When to choose Playwright
+
+Choose it when you test whole pages end to end, or when you need masking today.
+
+## When to choose this project
+
+Choose it when you test components in Vitest Browser Mode or Storybook and want full coverage without an assertion in every test.
+
+## Migrate
+
+Both can run in one repository because they write to different folders.
+Playwright baselines are not shared with this project.
+For components, move the rendering into a Vitest Browser Mode test or a story, enable the [automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/), and create new baselines on the first run.
