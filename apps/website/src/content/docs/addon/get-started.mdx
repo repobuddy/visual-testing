@@ -115,8 +115,7 @@ Automatic snapshots use the key `auto` unless you set [themes](/visual-testing/a
 
 Commit `__baselines__` and ignore the rest, as shown in [Configuration](/visual-testing/addon/configuration/#ignore-snapshot-folders).
 Later runs compare the new render with the baseline and write `__results__` and `__diffs__` when they differ.
-The addon's own tests use `updateSnapshot: 'all'` to bootstrap a missing baseline, because the `createMissingBaseline` option may not reach the server through the Storybook browser bridge.
-[Updating baselines](/visual-testing/visual-testing/updating-baselines/) explains the update workflow, and [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) explains the folders.
+In Storybook, use `-u` and not `createMissingBaseline`, which may not reach the server. [Updating baselines](/visual-testing/visual-testing/updating-baselines/) explains why and covers the update workflow. [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) explains the folders.
 
 ## Next
 
