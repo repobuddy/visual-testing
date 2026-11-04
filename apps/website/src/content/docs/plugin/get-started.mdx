@@ -7,21 +7,6 @@ sidebar:
 
 [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) provides visual testing for tests running in [Vitest Browser Mode](https://vitest.dev/guide/browser).
 
-Vitest 4 adds [Visual Regression Test](https://vitest.dev/guide/browser/visual-regression-testing.html) support natively.
-You can choose which method to use based on your needs.
-
-Here is a comparison of the features between [Vitest Visual Regression Test](https://vitest.dev/guide/browser/visual-regression-testing.html) and [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis).
-
-| Feature | [Vitest Visual Regression Test](https://vitest.dev/guide/browser/visual-regression-testing.html) | [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) |
-| ------- | -------------------------------------------------- | ------------------- |
-| Manual snapshot creation | ✅ | ✅ |
-| Automatic snapshot creation | ❌ | ✅ |
-| Multi-theme snapshots | ❌ | ✅ |
-| Comparison methods | `pixel`, `ssim`, custom | `pixel`, `ssim` |
-| Threshold customization | ✅ | ✅ |
-| Fine-grained snapshot variations | ❌ | ✅ |
-| Masking elements | ✅ | 🚧 |
-
 Read [how snapshots work](/visual-testing/visual-testing/how-snapshots-work/) and [choosing a package](/visual-testing/visual-testing/choosing-a-package/) for the concepts.
 
 ## Install
@@ -118,3 +103,4 @@ Add the snapshot folders to `.gitignore` and the matcher type to `tsconfig.json`
 - Keep the `auto` preset: [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/).
 - Take snapshots where you choose: [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/).
 - Learn what to commit and what to ignore: [Updating baselines](/visual-testing/visual-testing/updating-baselines/).
+- Compare with Vitest's built-in visual regression: [vs Vitest visual regression](/visual-testing/compare/vitest-visual-regression/).

@@ -58,6 +58,7 @@ export default defineConfig({
 				{ label: 'Visual testing', items: [{ autogenerate: { directory: 'visual-testing' } }] },
 				packageGroup({ label: 'Storybook addon', directory: 'addon' }),
 				packageGroup({ label: 'Vitest plugin', directory: 'plugin' }),
+				{ label: 'Compare', items: [{ autogenerate: { directory: 'compare' } }] },
 				// Static Storybook builds copied in by scripts/copy-storybook.mjs. They are not Astro pages.
 				{
 					label: 'Storybooks',
