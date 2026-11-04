@@ -1,6 +1,10 @@
 import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,o as n,s as r}from"./blocks-B_AIvrP8.js";import{a as i}from"./chunk-W22LQPXL-BD1iLPSB.js";import{i as a,r as o}from"./react-DITjJg24.js";var s;function c(){return(c=e((()=>{s=`# CHANGE LOG
 
-## 4.4.1
+## 4.5.0
+
+### Minor Changes
+
+- [#1002](https://github.com/repobuddy/visual-testing/pull/1002) [\`3dd963f\`](https://github.com/repobuddy/visual-testing/commit/3dd963fdb902b0dfbecf3fccc9d562287e9ea583) Thanks [@unional](https://github.com/unional)! - Add an \`animations\` option (\`'disabled' | 'allow'\`, default \`'allow'\`) to \`toMatchImageSnapshot()\`, \`page.toMatchImageSnapshot()\`, \`setAutoSnapshotOptions()\` and \`vis.setup()\`. With \`'disabled'\`, finite CSS animations and transitions are finished and infinite ones are cancelled before the snapshot, so animated components give stable images with both the Playwright and WebdriverIO providers.
 
 ### Patch Changes
 
@@ -12,8 +16,8 @@ import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,o as n,s as r}f
   The old page URLs still redirect to the new ones.
 
 - [#991](https://github.com/repobuddy/visual-testing/pull/991) [\`06d72bf\`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca) Thanks [@unional](https://github.com/unional)! - List the new Visual testing concept pages of the website in \`llms.txt\`.
-- Updated dependencies [[\`67ac628\`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062), [\`42dc3dd\`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b), [\`06d72bf\`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca)]:
-  - vitest-plugin-vis@5.3.1
+- Updated dependencies [[\`3dd963f\`](https://github.com/repobuddy/visual-testing/commit/3dd963fdb902b0dfbecf3fccc9d562287e9ea583), [\`67ac628\`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062), [\`42dc3dd\`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b), [\`06d72bf\`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca)]:
+  - vitest-plugin-vis@5.4.0
 
 ## 4.4.0
 
