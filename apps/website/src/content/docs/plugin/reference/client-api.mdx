@@ -1,0 +1,86 @@
+---
+title: client-api
+description: The browser-side building blocks of vitest-plugin-vis, for tools that build on the plugin.
+sidebar:
+  order: 3
+---
+
+`vitest-plugin-vis/client-api` exports the pieces that `storybook-addon-vis` builds on.
+Most projects do not need it. Use `vitest-plugin-vis/setup` and the matchers instead.
+Use `client-api` to build your own integration, such as a matcher for another test framework.
+
+All functions here run in the browser, in a Vitest Browser Mode test.
+The `commands` argument is the `commands` object of `vitest/browser`, which the plugin extends with its own commands.
+
+## Actions
+
+Each action takes the `commands`, a task id from `toTaskId()`, and the same options as the matcher of the same name.
+
+| Name | Does |
+| ---- | ---- |
+| `matchImageSnapshotAction(commands, taskId, subject, options?)` | Compares an element, a locator or a base64 image with its baseline. This is `expect().toMatchImageSnapshot()`. |
+| `matchPageImageSnapshotAction(commands, taskId, options?)` | Compares the page. This is `page.toMatchImageSnapshot()`. |
+| `hasImageSnapshotAction(commands, taskId, options?)` | Resolves to whether a baseline exists. This is `page.hasImageSnapshot()`. |
+| `loadImageSnapshotResultsAction(commands, taskId)` | Resolves to the list of snapshot results (baseline, result and diff) that the server holds for the task. |
+
+`matchImageSnapshotAction` and `matchPageImageSnapshotAction` throw `Snapshot key cannot contain dash` for a key with a dash.
+`matchImageSnapshotAction` throws for a subject that is not an element, a locator or a base64 image.
+
+## `toTaskId(task)`
+
+Builds the id of a test from its name and its suites.
+Each name is trimmed, every character that is not a letter or a digit becomes a dash, and the result is lowercased.
+The names are joined with `/`.
+
+```ts
+toTaskId({ name: 'Can Customize', suite: { name: 'MyComponent' } }) // 'mycomponent/can-customize'
+```
+
+## `autoSnapshotMatcher(commands, expect)`
+
+Creates the object behind `vis.setup()`.
+
+- `setup()` asks the server for the suite setup. Call it in `beforeAll`.
+- `createMatcher(themes, suiteDefaults?)` returns an `afterEach` function.
+  `themes` is a record of theme name to `boolean` or handler, as in the object form of `auto`.
+  `suiteDefaults` can hold `createMissingBaseline`.
+
+## `setAutoSnapshotOptions`
+
+The same function as in `vitest-plugin-vis`.
+See [`setAutoSnapshotOptions`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
+
+## `success`
+
+A passing `SyncExpectationResult`, `{ pass: true, message: () => '' }`, for a custom matcher to return.
+
+## Types
+
+| Type | Holds |
+| ---- | ----- |
+| `ImageSnapshotMatcher` | One method, `toMatchImageSnapshot(options?)`. |
+| `MetaTask` | The shape of the test or file task that `setAutoSnapshotOptions()` stores its options on. |
+| `ComparisonMethod` | `'pixel'` or `'ssim'`. |
+| `FailureThresholdOptions` | `failureThreshold` and `failureThresholdType`. |
+| `ImageSnapshotTimeoutOptions` | `timeout`. |
+| `ImageSnapshotKeyOptions` | `snapshotKey`. |
+| `ImageSnapshotSubjectOptions` | `subject`, a selector. |
+| `ReviewImageOptions` | `reviewImage`. |
+| `PixelComparisonOptions`, `PixelDiffOptions` | `comparisonMethod: 'pixel'` and the `pixelmatch` options. |
+| `SsimComparisonOptions`, `SsimDiffOptions` | `comparisonMethod: 'ssim'` and the `ssim.js` options. |
+| `ImageSnapshotCompareOptions` | The comparison method with the `diffOptions` that belong to it. |
+| `ToMatchImageSnapshotOptions` | The options of `expect().toMatchImageSnapshot()`. |
+| `PageImageSnapshotOptions` | `fullPage`. |
+| `ToMatchPageImageSnapshotOptions` | The options of `page.toMatchImageSnapshot()`. |
+| `MatchImageSnapshotOptions` | The comparison, timeout, key, review image and `createMissingBaseline` options. |
+| `SetupVisOptions` | The options of `vis.setup()`: `auto` and `createMissingBaseline`. |
+| `SnapshotTestMeta` | The `meta` of a test, which holds its snapshot options under the key `vis`. |
+| `ImageSnapshotComparisonInfo` | What the server returns for a comparison: the paths of the project root, baseline, result and diff, and the images as base64. |
+| `Awaitable` | `T` or `PromiseLike<T>`. |
+
+The options are documented on the pages of [`vis` config](/visual-testing/plugin/reference/config/vis/) and of the [matchers](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
+
+## Constants
+
+`NAME` is `'vis'`.
+`SNAPSHOT_ROOT_DIR`, `BASELINE_DIR`, `RESULT_DIR`, `DIFF_DIR`, `REVIEW_IMAGE_SUFFIX` and `CHANGED_REGIONS_SUFFIX` are listed under [`server-utils`](/visual-testing/plugin/reference/server-utils/#constants).

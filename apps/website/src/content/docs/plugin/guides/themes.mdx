@@ -1,0 +1,106 @@
+---
+title: "Themes"
+description: "Take one image snapshot per theme for every test."
+sidebar:
+  order: 4
+---
+
+Use this guide when the UI has more than one theme, such as light and dark, and each theme needs its own baseline.
+[Variations](/visual-testing/visual-testing/variations/) explains when this pays off.
+
+## Set it up
+
+Pass an object to `auto`. Each key is a theme name, and each value prepares the page for that theme.
+This needs your own setup file, so use the `custom` preset:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'custom' })],
+	test: {
+		// ... your Vitest Browser Mode configuration ...
+		setupFiles: ['./vitest.setup.ts'],
+	},
+})
+```
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		light() {
+			document.documentElement.classList.remove('dark')
+		},
+		dark() {
+			document.documentElement.classList.add('dark')
+		},
+	},
+})
+```
+
+After each test, every handler runs in order and a snapshot is taken after each one.
+
+## What appears on disk
+
+The theme name replaces the key `auto`.
+A test named `should have toMatchImageSnapshot` in `src/vitest.test.ts` writes:
+
+```txt
+__vis__/local/__baselines__/vitest.test.ts/should-have-tomatchimagesnapshot-light.png
+__vis__/local/__baselines__/vitest.test.ts/should-have-tomatchimagesnapshot-dark.png
+```
+
+The `workspace` test case has these files under `__vis__/linux/`.
+
+## Skip a theme
+
+A handler receives the snapshot options of the test, and returns `false` to skip its theme:
+
+```ts
+vis.setup({
+	auto: {
+		light: async () => {
+			document.documentElement.classList.remove('dark')
+		},
+		dark: async (meta) => {
+			if (meta['skipDark']) return false
+			document.documentElement.classList.add('dark')
+		},
+	},
+})
+```
+
+Set the field in a test with `setAutoSnapshotOptions({ skipDark: true })`.
+
+## Name themes
+
+A theme name is also the snapshot key, so it cannot contain a dash.
+Use letters, digits and underscores, such as `darkDesktop` or `dark_desktop`.
+Names are free-form, so a "theme" can also be a viewport or a combination.
+For a real viewport, use [browser instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/).
+
+## When a theme fails
+
+Every handler runs and takes its snapshot, even if an earlier one throws.
+The errors are collected into one message:
+
+```txt
+Snapshot `matchpertheme/should-aggregate-all-errors` mismatched
+
+Theme `theme1` failed: theme1 failed
+
+Theme `theme2` failed: theme2 failed
+```
+
+## Options that matter
+
+| Option | Page |
+| ------ | ---- |
+| `auto` as an object, a function or `true` | [`vis` setup](/visual-testing/plugin/reference/setup/vis/) |
+| `createMissingBaseline` as a default for all themes | [`vis` setup](/visual-testing/plugin/reference/setup/vis/) |
+| `setAutoSnapshotOptions()` fields passed to a handler | [`setAutoSnapshotOptions`](/visual-testing/plugin/reference/set-auto-snapshot-options/) |

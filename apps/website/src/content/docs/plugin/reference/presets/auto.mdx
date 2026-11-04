@@ -1,0 +1,49 @@
+---
+title: presets/auto
+description: The vitest-plugin-vis/presets/auto setup file that takes an automatic snapshot of every rendering test.
+sidebar:
+  order: 1
+---
+
+`vitest-plugin-vis/presets/auto` is a setup file.
+It has no named export. You import it for its effect.
+
+Its whole content is:
+
+```ts
+import { vis } from '../setup.ts'
+
+vis.setup({ auto: true })
+```
+
+The effect is that every test that renders content gets an automatic snapshot, as [`vis.setup({ auto: true })`](/visual-testing/plugin/reference/setup/vis/) does.
+
+## Use it
+
+You rarely add it yourself.
+`vis()` adds it to `test.setupFiles` when `preset` is `'auto'`, and `'auto'` is the preset of `vis()` with no options.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()], // same as vis({ preset: 'auto' })
+})
+```
+
+To list it yourself, set `preset: 'custom'` and put the file in `test.setupFiles`:
+
+```ts
+export default defineConfig({
+	plugins: [vis({ preset: 'custom' })],
+	test: {
+		setupFiles: ['vitest-plugin-vis/presets/auto'],
+	},
+})
+```
+
+To decide per test, themes or conditions, call `vis.setup()` in your own setup file instead.
+See [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/) and [Themes](/visual-testing/plugin/guides/themes/).
+
+The sibling preset is [`presets/manual`](/visual-testing/plugin/reference/presets/manual/).

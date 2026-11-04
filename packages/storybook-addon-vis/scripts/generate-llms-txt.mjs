@@ -212,43 +212,75 @@ const DOC_PAGES = {
 
 	'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.ts#setAutoSnapshotOptions':
 		'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.mdx',
-	'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.ts#MetaTask': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#Awaitable': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotTimeoutOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotKeyOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ComparisonMethod': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#FailureThresholdOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#SsimComparisonOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#PixelComparisonOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotCompareOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ReviewImageOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotSubjectOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#PageImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchPageImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#SnapshotTestMeta': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotComparisonInfo': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#MatchImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#SetupVisOptions': null,
-	'ssim.js#SsimDiffOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#PixelDiffOptions': null,
-	'packages/vitest-plugin-vis/src/client/actions/has_image_snapshot_action.ts#hasImageSnapshotAction': null,
+	'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.ts#MetaTask':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#Awaitable':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotTimeoutOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotKeyOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ComparisonMethod':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#FailureThresholdOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#SsimComparisonOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#PixelComparisonOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotCompareOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ReviewImageOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotSubjectOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#PageImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchPageImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#SnapshotTestMeta':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotComparisonInfo':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#MatchImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#SetupVisOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'ssim.js#SsimDiffOptions': 'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#PixelDiffOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/actions/has_image_snapshot_action.ts#hasImageSnapshotAction':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/client/actions/load_image_snapshot_results_action.ts#loadImageSnapshotResultsAction':
-		null,
-	'packages/vitest-plugin-vis/src/client/actions/match_image_snapshot_action.ts#matchImageSnapshotAction': null,
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/actions/match_image_snapshot_action.ts#matchImageSnapshotAction':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/client/actions/match_page_image_snapshot_action.ts#matchPageImageSnapshotAction':
-		null,
-	'packages/vitest-plugin-vis/src/client/expect/expectation_result.ts#success': null,
-	'packages/vitest-plugin-vis/src/client/expect/to_match_image_snapshot.types.ts#ImageSnapshotMatcher': null,
-	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#autoSnapshotMatcher': null,
-	'packages/vitest-plugin-vis/src/client/task/task_id.ts#toTaskId': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#NAME': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#SNAPSHOT_ROOT_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#BASELINE_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#RESULT_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#DIFF_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#REVIEW_IMAGE_SUFFIX': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#CHANGED_REGIONS_SUFFIX': null,
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/expect/expectation_result.ts#success':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/expect/to_match_image_snapshot.types.ts#ImageSnapshotMatcher':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#autoSnapshotMatcher':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/task/task_id.ts#toTaskId':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#NAME':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#SNAPSHOT_ROOT_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#BASELINE_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#RESULT_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#DIFF_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#REVIEW_IMAGE_SUFFIX':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#CHANGED_REGIONS_SUFFIX':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
 	'packages/vitest-plugin-vis/src/config/types.ts#VisOptions': null,
 	'packages/vitest-plugin-vis/src/config/vis.ts#vis': 'packages/vitest-plugin-vis/src/config/vis.mdx',
 	'packages/vitest-plugin-vis/src/shared/trim_common_folder.ts#trimCommonFolder':
@@ -256,14 +288,22 @@ const DOC_PAGES = {
 	'packages/vitest-plugin-vis/src/setup/vis.ts#vis': 'packages/vitest-plugin-vis/src/setup/vis.mdx',
 	'packages/vitest-plugin-vis/src/setup/create_vis.ts#createVis': 'packages/vitest-plugin-vis/src/setup/create_vis.mdx',
 	'packages/vitest-plugin-vis/src/setup/create_vis.ts#VisClientConfigurator': null,
-	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_BASE64': null,
-	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_URL': null,
-	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_IMAGE_DATA': null,
-	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#getSnapshotRootDir': null,
-	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveLegacySnapshotFileRelativePath': null,
-	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveSnapshotSubpathWithinLimits': null,
-	'packages/vitest-plugin-vis/src/server/testing/stubSuite.ts#stubSuite': null,
-	'packages/vitest-plugin-vis/src/server/vis_options.ts#getVisOption': null,
+	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_BASE64':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_URL':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_IMAGE_DATA':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#getSnapshotRootDir':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveLegacySnapshotFileRelativePath':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveSnapshotSubpathWithinLimits':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/testing/stubSuite.ts#stubSuite':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/server/vis_options.ts#getVisOption':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -327,6 +367,26 @@ const PAGES = mdxFiles.flatMap(({ pkg, file }) => {
 		summary: entry.summary ?? summarize(source),
 	}))
 })
+// Pages that exist only on the website, with no source `.mdx` in a package, are found by scanning these site sections.
+// Each section belongs to one package. A page already listed in `SITE_PAGES` is skipped.
+const SITE_DOCS_DIR = 'apps/website/src/content/docs'
+const SITE_ONLY_SECTIONS = { plugin: PACKAGES.find((p) => p.dir === 'vitest-plugin-vis') }
+for (const [section, pkg] of Object.entries(SITE_ONLY_SECTIONS)) {
+	for (const file of listFiles(`${SITE_DOCS_DIR}/${section}`, (f) => f.endsWith('.mdx'))) {
+		const slug = posix
+			.relative(SITE_DOCS_DIR, file)
+			.replace(/\.mdx$/, '')
+			.replace(/\/index$/, '')
+		if (PAGES.some((p) => p.slug === slug)) continue
+		const source = read(file)
+		const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? ''
+		const field = (name) => frontmatter.match(new RegExp(`^${name}:\\s*"?(.*?)"?\\s*$`, 'm'))?.[1]
+		const title = field('title')
+		const summary = field('description')
+		if (!title || !summary) throw new Error(`${file} needs a title and a description in its frontmatter`)
+		PAGES.push({ pkg, file, title, source, slug, covers: true, url: `${SITE_URL}${slug}/`, summary })
+	}
+}
 const slugs = PAGES.map((p) => p.slug)
 const duplicate = slugs.filter((s, i) => slugs.indexOf(s) !== i)
 if (duplicate.length > 0) throw new Error(`SITE_PAGES lists a slug twice: ${duplicate.join(', ')}`)
