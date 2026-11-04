@@ -1,0 +1,56 @@
+---
+title: "vs Lost Pixel"
+description: "How vitest-plugin-vis and storybook-addon-vis compare with Lost Pixel."
+sidebar:
+  order: 5
+---
+
+Lost Pixel is an open-source visual regression tool with an optional hosted platform.
+Claims about Lost Pixel come from its [introduction](https://docs.lost-pixel.com/user-docs), its [configuration reference](https://docs.lost-pixel.com/user-docs/api-reference/lost-pixel.config.js-or-ts.md) and its [mask reference](https://docs.lost-pixel.com/user-docs/api-reference/mask.md), checked on 2026-11-03.
+
+## What it is
+
+Lost Pixel has two parts: an open-source engine and a SaaS platform.
+The engine takes screenshots of Storybook, Ladle, Histoire, web pages, or images you produce yourself, for example with Playwright or Cypress.
+It compares them against baselines kept in `.lostpixel/baseline/` by default.
+The platform is used with an `apiKey`.
+
+## Features
+
+| Feature | Lost Pixel | This project |
+| ------- | ---------- | ------------ |
+| Runs in | Its own runner, against Storybook, Ladle, Histoire or pages | Vitest Browser Mode, Storybook |
+| Comparison | `pixelmatch` (default) or `odiff` | `pixel`, `ssim` |
+| Threshold | `threshold`: below 1 is a share of the image, 1 or more is a pixel count | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
+| Masking | `mask` with a CSS `selector` | Not yet, see [#999](https://github.com/repobuddy/visual-testing/issues/999) |
+| Baselines | `.lostpixel/baseline/` by default | `__vis__` folders |
+| Hosted option | Lost Pixel Platform | No |
+| Cost | Engine is open source; platform pricing not on the pages read | Open source |
+
+Sources for this project: [`vis()` options](/visual-testing/plugin/reference/config/vis/), [how snapshots work](/visual-testing/visual-testing/how-snapshots-work/).
+
+## What Lost Pixel does better
+
+- It supports more frameworks and plain web pages, not only Storybook and Vitest.
+- It has masking by CSS selector. Masking is not yet available here, see [#999](https://github.com/repobuddy/visual-testing/issues/999).
+- It has a hosted platform for teams.
+
+## What this project does better
+
+- It runs inside your existing Vitest or Storybook test run, so there is no second runner.
+- It takes snapshots of your tests automatically and per theme.
+- It offers SSIM comparison.
+- It shows failures in the Vis panel.
+
+## When to choose Lost Pixel
+
+Choose it when you need to cover Ladle, Histoire or plain pages, or need masking today.
+
+## When to choose this project
+
+Choose it when your tests already run in Vitest Browser Mode or the Storybook Vitest addon.
+
+## Migrate
+
+Baselines are not shared, because the folders and names differ.
+Add the addon or plugin, create baselines on the first run, then remove the Lost Pixel step from CI.
