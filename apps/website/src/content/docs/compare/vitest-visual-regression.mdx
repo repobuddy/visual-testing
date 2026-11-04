@@ -27,10 +27,10 @@ You update them with `vitest --project vrt --update`.
 | Comparison methods | `pixelmatch`, custom comparators | `pixel`, `ssim` |
 | Thresholds | `threshold`, `allowedMismatchedPixelRatio`, `allowedMismatchedPixels` | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
 | Waits for a stable page | Yes, repeats captures until two match | Not provided |
-| Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures-with-agents/) in Storybook |
+| Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
 
 Sources for Vitest: the sections "Comparison", "Thresholds", "Stable Screenshot Detection" and "Failure diagnostics" of the guide, checked on 2026-11-03.
-Sources for vitest-plugin-vis: [`vis()` options](/visual-testing/plugin/reference/config/vis/) and [`setAutoSnapshotOptions()`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
+Sources for vitest-plugin-vis: [comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/), [`vis()` options](/visual-testing/plugin/reference/config/vis/) and [`setAutoSnapshotOptions()`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
 
 ## What Vitest does better
 
