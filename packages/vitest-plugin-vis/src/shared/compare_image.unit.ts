@@ -82,3 +82,42 @@ describe('compareImage diffOptions', () => {
 		expect(byDefault).not.toBe(weber)
 	})
 })
+
+describe('compareImage() failure threshold', () => {
+	function run(options?: Parameters<typeof compareImage>[5]) {
+		const baseline = createImage(10, 10, 255)
+		const result = createImage(10, 10, 255)
+		// 5 differing pixels out of 100
+		for (let x = 0; x < 5; x++) result.set([0, 0, 0, 255], x * 4)
+		return compareImage(baseline, result, new Uint8ClampedArray(baseline.length), 10, 10, options)
+	}
+
+	it('fails on any difference by default (pixel-perfect)', ({ expect }) => {
+		expect(run()).toEqual({ pass: false, diffAmount: 5 })
+	})
+
+	it('measures the threshold in pixels by default', ({ expect }) => {
+		expect(run({ failureThreshold: 4 }).pass).toBe(false)
+		expect(run({ failureThreshold: 5 }).pass).toBe(true)
+	})
+
+	it('measures the threshold as a percentage with failureThresholdType: percent', ({ expect }) => {
+		expect(run({ failureThreshold: 4, failureThresholdType: 'percent' })).toEqual({ pass: false, diffAmount: 5 })
+		expect(run({ failureThreshold: 5, failureThresholdType: 'percent' }).pass).toBe(true)
+	})
+})
+
+describe('compareImage() comparison method', () => {
+	it('uses pixel comparison by default and ssim when requested', ({ expect }) => {
+		const width = 32
+		const baseline = createImage(width, width, 255)
+		const result = createImage(width, width, 255)
+		for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) result.set([0, 0, 0, 255], (y * width + x) * 4)
+		const pixel = compareImage(baseline, result, new Uint8ClampedArray(baseline.length), width, width)
+		const ssim = compareImage(baseline, result, new Uint8ClampedArray(baseline.length), width, width, {
+			comparisonMethod: 'ssim',
+		})
+		expect(pixel.diffAmount).toBe(64)
+		expect(ssim.diffAmount).not.toBe(64)
+	})
+})

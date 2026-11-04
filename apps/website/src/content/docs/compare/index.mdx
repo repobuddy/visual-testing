@@ -1,0 +1,28 @@
+---
+title: "Compare"
+description: "How vitest-plugin-vis and storybook-addon-vis compare with other visual testing tools."
+sidebar:
+  order: 0
+---
+
+This section compares this project with other visual testing tools.
+Each tool has its own page: what it is, what it does better, what this project does better, and when to choose it.
+
+Every claim about another tool comes from that tool's documentation, with a link and the date we read it.
+The tools change, so check the linked page before you decide.
+If a claim is out of date, [open an issue](https://github.com/repobuddy/visual-testing/issues).
+
+## Matrix
+
+"This project" means [vitest-plugin-vis](/visual-testing/plugin/get-started/) and [storybook-addon-vis](/visual-testing/addon/get-started/), which share one engine.
+"Not documented" means the tool's documentation page that we read does not mention the feature.
+Each tool name links to its page, where the claims are cited.
+
+| Tool | Runs in | Automatic snapshots | Per-theme snapshots | Comparison | Thresholds | Masking | Animations | Review UI | Baselines | Cost |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| This project | Vitest Browser Mode, Storybook | Yes | Yes | `pixel`, `ssim` | Yes | Not yet, see [#999](https://github.com/repobuddy/visual-testing/issues/999) | `animations: 'disabled'` finishes or cancels CSS animations, default `'allow'` | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook | Local files | Open source  |
+| [Vitest visual regression](/visual-testing/compare/vitest-visual-regression/) | Vitest Browser Mode | Not documented | Not documented | `pixelmatch`, custom comparators | Yes | `screenshotOptions.mask`, with the Playwright provider | `animations` defaults to `"disabled"`, with the Playwright provider | A/B slider in Vitest UI mode | Local files | Not stated  |
+| [Playwright](/visual-testing/compare/playwright/) | Playwright Test | Not documented | Not documented | `pixelmatch` | `threshold`, `maxDiffPixels`, `maxDiffPixelRatio` | `mask` takes locators | `animations` defaults to `"disabled"` | Not documented | Local files | Not stated  |
+| [Chromatic](/visual-testing/compare/chromatic/) | Cloud browsers | Not documented | Through Storybook globals | Not documented | Not documented | Not documented | SteadySnap freezes dynamic content | Hosted review | Not stated | Free plan with 5,000 billed snapshots a month, paid plans from $179 a month  |
+
+More tools are added to the matrix as their pages are written.

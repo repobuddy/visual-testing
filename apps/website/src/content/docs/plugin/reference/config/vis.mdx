@@ -1,0 +1,275 @@
+---
+title: vis (config)
+description: The vitest-plugin-vis Vitest plugin and its options.
+sidebar:
+  order: 2
+---
+
+`vis` from `vitest-plugin-vis/config` is the Vitest plugin of `vitest-plugin-vis`.
+This is not the same `vis` as the [setup object](/visual-testing/plugin/reference/setup/vis/) exported from `vitest-plugin-vis/setup`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()],
+})
+```
+
+`vis()` works with zero config. The options below customize its behavior.
+Their type is `VisOptions`, exported from `vitest-plugin-vis/config`.
+See also the [config overview](/visual-testing/plugin/reference/config/overview/) for how the snapshot path is built.
+
+## `preset`
+
+The `preset` option sets up a typical visual testing strategy.
+
+### `auto`
+
+`auto` is the default preset.
+It takes a snapshot of the page at the end of each rendering test.
+It adds `vitest-plugin-vis/presets/auto` to `test.setupFiles`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'auto' })],
+})
+```
+
+When you pass an options object without `preset` (for example `vis({})`), no preset is applied and `test.setupFiles` stays empty.
+
+### `manual`
+
+The `manual` preset does not take any snapshot automatically.
+It adds `vitest-plugin-vis/presets/manual` to `test.setupFiles`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'manual' })],
+})
+```
+
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/) on how to take an image snapshot manually.
+
+### `custom`
+
+The `custom` preset is for advanced users.
+It adds no setup file and takes no snapshot automatically.
+You set up your own visual testing strategy in `vitest.setup.ts`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'custom' })],
+	test: {
+		// Set up your own visual testing strategy in `vitest.setup.ts`.
+		setupFiles: ['./vitest.setup.ts'],
+	},
+})
+```
+
+Use [`vis.setup()`](/visual-testing/plugin/reference/setup/vis/) from `vitest-plugin-vis/setup` in `vitest.setup.ts`.
+
+## `subject`
+
+By default, the snapshot is taken from the `document.body` element.
+
+If you establish a common pattern in your tests, set `subject` to a selector.
+For example, if you enforce a `data-testid` attribute on the element you want to snapshot:
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ subject: '[data-testid="subject"]' })],
+})
+```
+
+## `snapshotRootDir`
+
+By default, snapshots are saved in `__vis__/local` relative to the project root,
+or in `__vis__/<platform>` (for example `__vis__/linux`) when running on CI.
+To save them elsewhere, set `snapshotRootDir`:
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			// save the snapshots in `<projectRoot>/custom/local`
+			// (`<projectRoot>/custom/<platform>` on CI)
+			snapshotRootDir: 'custom',
+		}),
+	],
+})
+```
+
+A static path gets the `local` or `<platform>` folder appended.
+Besides a static path, you can provide a function that receives this context.
+The function result is used as is:
+
+- `ci`: whether the code is running in a CI environment.
+- `rootDir`: the default root folder, `__vis__`.
+- `projectName`: the name of the Vitest project.
+- `platform`: the platform string (for example `linux`, `darwin`, `win32`).
+- `browserName`: the name of the browser (for example `chromium`, `firefox`).
+- `providerName`: the name of the provider (for example `playwright`, `webdriverio`).
+- `screenshotFailures`: the `screenshotFailures` setting of the browser config.
+- `screenshotDirectory`: the `screenshotDirectory` setting of the browser config.
+
+The default is the same as this function:
+
+```ts
+({ ci, platform }) => `__vis__/${ci ? platform : 'local'}`
+```
+
+## `snapshotSubpath`
+
+Customize the snapshot sub-path.
+The default is `({ subpath }) => trimCommonFolder(subpath)`.
+To keep the folder structure, return the sub-path as is:
+
+```ts
+vis({ snapshotSubpath: ({ subpath }) => subpath })
+```
+
+[`trimCommonFolder`](/visual-testing/plugin/reference/config/trim-common-folder/) is exported if you want to use it in your own function.
+
+## `snapshotKey`
+
+`snapshotKey` specifies the key of the auto snapshot. The default is `auto`.
+
+```ts
+vis({ snapshotKey: 'custom' })
+```
+
+A key that contains a dash is rejected when the plugin loads, with the error `Snapshot key cannot contain dash`.
+Use alphanumeric characters and underscores.
+
+## `comparisonMethod`
+
+`comparisonMethod` specifies the comparison method: `'pixel'` (the default) or `'ssim'`.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ comparisonMethod: 'ssim' })],
+})
+```
+
+## `diffOptions`
+
+`diffOptions` specifies the options of the comparison.
+What it accepts depends on `comparisonMethod`.
+
+### Pixel comparison
+
+For `pixel` comparison, it accepts the options of `pixelmatch`:
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			comparisonMethod: 'pixel',
+			diffOptions: {
+				threshold: 0.1, // Matching threshold (0-1), default: 0.1
+				includeAA: false, // true: do not detect and ignore anti-aliased pixels
+				alpha: 0.1, // Blending factor of unchanged pixels
+				aaColor: [255, 255, 0], // Color of anti-aliased pixels in diff
+				diffColor: [255, 0, 255], // Color of different pixels in diff
+			},
+		}),
+	],
+})
+```
+
+For option details, see the [pixelmatch documentation](https://github.com/mapbox/pixelmatch?tab=readme-ov-file#pixelmatchimg1-img2-output-width-height-options).
+
+### SSIM comparison
+
+If your images have gradients, shadows, or anti-aliasing, SSIM (Structural Similarity Index) might be a better fit.
+It is designed to match how humans perceive image differences, which means fewer false positives when minor rendering differences do not matter.
+
+```ts
+// vitest.config.ts
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			comparisonMethod: 'ssim',
+			diffOptions: {
+				ssim: 'bezkrovny', // 'bezkrovny' (default of this plugin) | 'fast' | 'weber' | 'original'
+				windowSize: 11, // Window size for SSIM calculation (default: 11)
+				k1: 0.01, // First stability constant (default: 0.01)
+				k2: 0.03, // Second stability constant (default: 0.03)
+				bitDepth: 8, // Bits per channel (default: 8)
+				downsample: 'original', // 'original' | 'fast' | false
+			},
+		}),
+	],
+})
+```
+
+The other defaults shown are those of `ssim.js`.
+For option details, see the [ssim documentation](https://github.com/obartra/ssim).
+The `ssim.js` repository is archived, so an issue with `ssim` comparison may not be fixed.
+
+## `failureThreshold` and `failureThresholdType`
+
+`failureThreshold` sets how much difference is acceptable before a test fails. The default is `0`.
+`failureThresholdType` is `'pixel'` (the default) or `'percent'`.
+
+```ts
+vis({ failureThreshold: 5, failureThresholdType: 'percent' })
+```
+
+For examples and per-test overrides, see [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/#set-a-failure-threshold).
+
+## `reviewImage`
+
+`reviewImage` is `true` by default.
+Set it to `false` to not write the review image (`<name>.review.png`) of a failed snapshot.
+The regions file (`<name>.regions.json`) is written either way.
+
+```ts
+vis({ reviewImage: false })
+```
+
+For what the files hold and when the review image is skipped, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
+
+## `timeout`
+
+`timeout` sets the default timeout of a snapshot, in milliseconds. The default is 30000.
+
+```ts
+vis({ timeout: 60000 })
+```
+
+## `shortenLongSnapshotPaths`
+
+When `true`, paths that would exceed Windows-safe limits are shortened.
+The default is `false`.
+The final path segment is replaced with `{firstToken}-{hash12}{ext}` when the full path length reaches 250 or a segment is longer than 255.
+`snapshotRootDir` itself is not rewritten.
+
+```ts
+vis({ shortenLongSnapshotPaths: true })
+```

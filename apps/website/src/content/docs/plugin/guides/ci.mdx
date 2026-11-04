@@ -1,0 +1,76 @@
+---
+title: "CI"
+description: "Run image snapshot tests in CI with per-platform baselines."
+sidebar:
+  order: 9
+---
+
+Use this guide to run the visual tests in a CI job and keep the baselines that the job needs.
+[Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/) explains why baselines differ by operating system.
+
+## How the plugin detects CI
+
+The plugin uses [`is-ci`](https://www.npmjs.com/package/is-ci) to choose the folder, as [Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/#local-and-ci-folders) describes.
+
+```txt
+__vis__/
+  local/            # your machine, not committed
+  linux/            # CI on Linux, committed
+    __baselines__/
+```
+
+Commit the `__baselines__` folder of each CI platform.
+Ignore `local`, `__results__` and `__diffs__`, as [Configuration](/visual-testing/plugin/configuration/#update-gitignore) shows.
+
+## Run the tests
+
+A job needs the browser that the provider drives.
+For Playwright, install it before the tests:
+
+```yaml
+# .github/workflows/test.yml
+name: test
+on: [pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec vitest run
+```
+
+See [Playwright on CI](https://playwright.dev/docs/ci) for the options of the install command.
+
+## Create the baselines for CI
+
+A snapshot with no baseline fails, on CI too.
+Create the baselines on the platform that checks them, with `vitest run -u` or `createMissingBaseline: true`.
+[Updating baselines](/visual-testing/visual-testing/updating-baselines/) explains both and the review before you merge.
+
+## Read a failure from CI
+
+`__results__` and `__diffs__` are ignored by git, so a failing job leaves them on the runner.
+Upload `__vis__/**/__diffs__` as an artifact to read the review image, as [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/) describes.
+
+```yaml
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: snapshot-diffs
+          path: '**/__vis__/**/__diffs__'
+```
+
+## Options that matter
+
+| Option | Page |
+| ------ | ---- |
+| `snapshotRootDir`, to change the folder or the CI naming | [`vis` config](/visual-testing/plugin/reference/config/vis/#snapshotrootdir) |
+| `shortenLongSnapshotPaths`, for long Windows paths | [`vis` config](/visual-testing/plugin/reference/config/vis/#shortenlongsnapshotpaths) |
+| `timeout`, for a slow runner | [Troubleshooting](/visual-testing/plugin/troubleshooting/) |

@@ -4,7 +4,9 @@ import { satteri } from '@astrojs/markdown-satteri'
 import starlight from '@astrojs/starlight'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
+import { buildRedirects } from './scripts/redirects.mjs'
 import { normalizeBase } from './src/components/storybook/story-url.ts'
+import { packageGroup } from './src/config/sidebar.mjs'
 import { PRODUCTION_BASE, rewriteBasePlugin } from './src/plugins/rewrite-base.ts'
 
 // The site is served at PRODUCTION_BASE. PR previews are built with SITE_BASE set to their own prefix,
@@ -22,6 +24,8 @@ if (location.pathname === ${JSON.stringify(base)} && new URLSearchParams(locatio
 export default defineConfig({
 	site: 'https://repobuddy.github.io',
 	base,
+	// One entry per moved page, generated from scripts/page-map.mjs.
+	redirects: buildRedirects(undefined, base),
 	markdown: {
 		// Content hard-codes PRODUCTION_BASE links because Starlight does not rewrite them; follow `base`.
 		processor: satteri({ mdastPlugins: [rewriteBasePlugin({ to: base })] }),
@@ -51,10 +55,10 @@ export default defineConfig({
 			sidebar: [
 				{ label: 'Getting Started', items: [{ label: 'Introduction', slug: '' }] },
 				{ slug: 'showcase' },
-				{ label: 'Storybook addon', items: [{ autogenerate: { directory: 'addon' } }] },
-				{ label: 'Vitest plugin', items: [{ autogenerate: { directory: 'plugin' } }] },
-				{ label: 'Guides', items: [{ autogenerate: { directory: 'guides' } }] },
-				{ label: 'Examples', items: [{ autogenerate: { directory: 'examples' } }] },
+				{ label: 'Visual testing', items: [{ autogenerate: { directory: 'visual-testing' } }] },
+				packageGroup({ label: 'Storybook addon', directory: 'addon' }),
+				packageGroup({ label: 'Vitest plugin', directory: 'plugin' }),
+				{ label: 'Compare', items: [{ autogenerate: { directory: 'compare' } }] },
 				// Static Storybook builds copied in by scripts/copy-storybook.mjs. They are not Astro pages.
 				{
 					label: 'Storybooks',
@@ -63,13 +67,6 @@ export default defineConfig({
 						{ label: 'Themes', link: '/examples/themes/storybook/' },
 						{ label: 'Multi instances', link: '/examples/multi-instances/storybook/' },
 						{ label: 'CSF Next', link: '/examples/sb-csf-next/storybook/' },
-					],
-				},
-				{
-					label: 'Reference',
-					items: [
-						{ label: 'Addon', items: [{ autogenerate: { directory: 'reference/addon' } }] },
-						{ label: 'Plugin', items: [{ autogenerate: { directory: 'reference/plugin' } }] },
 					],
 				},
 				{ label: 'Releases', items: [{ autogenerate: { directory: 'releases' } }] },

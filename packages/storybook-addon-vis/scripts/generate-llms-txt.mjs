@@ -3,6 +3,7 @@
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs          write the files
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --check  fail if any file on disk differs
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --gaps   print the documentation gaps as markdown
+//   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --gaps-check  fail if an export has no page and is not allowlisted
 //   node packages/storybook-addon-vis/scripts/generate-llms-txt.mjs --site-pages <docs dir>...   fail if a slug has no page file in the given site content dirs
 //
 // Every name, count and grouping comes from the public surface: the `exports` map of each
@@ -61,22 +62,64 @@ const PLUGIN = 'packages/vitest-plugin-vis/src'
  */
 const SITE_PAGES = {
 	[`${ADDON}/overview.mdx`]: [
-		{ slug: 'addon/install', title: 'Install', summary: 'Install storybook-addon-vis and its peer dependencies.' },
+		{ slug: 'addon/get-started', title: 'Install', summary: 'Install storybook-addon-vis and its peer dependencies.' },
 		{
-			slug: 'addon/setup',
+			slug: 'addon/configuration',
 			title: 'Setup',
 			summary: 'Configure Storybook, Vitest, TypeScript and .gitignore for storybook-addon-vis.',
 			covers: true,
 		},
 		{
-			slug: 'addon/automatic-snapshots',
+			slug: 'addon/guides/automatic-snapshots',
 			title: 'Automatic snapshots',
 			summary: 'Take an image snapshot of every story without writing test code.',
 		},
 		{
-			slug: 'addon/manual-snapshots',
+			slug: 'addon/guides/manual-snapshots',
 			title: 'Manual snapshots',
 			summary: 'Take snapshots in a play function, check that one exists, and use the Chrome DevTools Protocol.',
+		},
+		{ slug: 'addon/features', title: 'Features', summary: 'Every capability of the addon, each linked to its guide.' },
+		{
+			slug: 'addon/guides/themes',
+			title: 'Themes',
+			summary: 'Take every snapshot once per theme, such as light and dark.',
+		},
+		{
+			slug: 'addon/guides/viewports-and-multiple-instances',
+			title: 'Viewports and multiple instances',
+			summary: 'Snapshot the same stories at several browser sizes.',
+		},
+		{
+			slug: 'addon/guides/csf-next',
+			title: 'CSF Next and story.test()',
+			summary: 'Set up visual testing in the preview for CSF Next stories.',
+		},
+		{
+			slug: 'addon/guides/the-vis-panel',
+			title: 'The Vis panel',
+			summary: 'Review baseline, result and diff of a story inside Storybook.',
+		},
+		{
+			slug: 'addon/guides/thresholds-and-comparison',
+			title: 'Thresholds and comparison for stories',
+			summary: 'Tolerate small differences and pick pixel or SSIM comparison for stories.',
+		},
+		{
+			slug: 'addon/guides/reviewing-failures',
+			title: 'Reviewing failures (addon view)',
+			summary: 'Find what changed when a story snapshot fails.',
+		},
+		{
+			slug: 'addon/guides/monorepo-and-paths',
+			title: 'Monorepos and custom snapshot paths',
+			summary: 'Tell the Vis panel where the snapshots are.',
+		},
+		{ slug: 'addon/guides/ci', title: 'CI', summary: 'Run story snapshots on CI with platform baselines.' },
+		{
+			slug: 'addon/guides/chrome-devtools-protocol',
+			title: 'Chrome DevTools Protocol',
+			summary: 'Use cdp() inside a story under Playwright and Chromium.',
 		},
 		{
 			slug: 'addon/troubleshooting',
@@ -84,15 +127,15 @@ const SITE_PAGES = {
 			summary: 'Fix common installation and runtime problems.',
 		},
 	],
-	[`${ADDON}/reviewing_failures_with_agents.mdx`]: [{ slug: 'guides/reviewing-failures-with-agents' }],
+	[`${ADDON}/reviewing_failures_with_agents.mdx`]: [{ slug: 'visual-testing/reviewing-failures-with-agents' }],
 	[`${ADDON}/releases/migrate_to_1.0.mdx`]: [{ slug: 'releases/migrate-to-1' }],
 	[`${ADDON}/releases/migrate_to_3.0.mdx`]: [{ slug: 'releases/migrate-to-3' }],
-	[`${ADDON}/node/overview.mdx`]: [{ slug: 'reference/addon/node' }],
-	[`${ADDON}/node/define_storybook_vis.mdx`]: [{ slug: 'reference/addon/define-storybook-vis' }],
-	[`${ADDON}/node/define_storybook_vis_options.mdx`]: [{ slug: 'reference/addon/define-storybook-vis-options' }],
+	[`${ADDON}/node/overview.mdx`]: [{ slug: 'addon/reference/node' }],
+	[`${ADDON}/node/define_storybook_vis.mdx`]: [{ slug: 'addon/reference/define-storybook-vis' }],
+	[`${ADDON}/node/define_storybook_vis_options.mdx`]: [{ slug: 'addon/reference/define-storybook-vis-options' }],
 	[`${ADDON}/changelog.mdx`]: [{ slug: 'releases/changelog-addon' }],
 	[`${PLUGIN}/overview.mdx`]: [
-		{ slug: 'plugin/install', title: 'Install', summary: 'Install vitest-plugin-vis and its peer dependencies.' },
+		{ slug: 'plugin/get-started', title: 'Install', summary: 'Install vitest-plugin-vis and its peer dependencies.' },
 		{
 			slug: 'plugin/configuration',
 			title: 'Configuration',
@@ -100,22 +143,46 @@ const SITE_PAGES = {
 			covers: true,
 		},
 	],
-	[`${PLUGIN}/setup/overview.mdx`]: [{ slug: 'reference/plugin/setup/overview' }],
-	[`${PLUGIN}/setup/vis.mdx`]: [{ slug: 'reference/plugin/setup/vis' }],
-	[`${PLUGIN}/setup/create_vis.mdx`]: [{ slug: 'reference/plugin/setup/create-vis' }],
-	[`${PLUGIN}/config/overview.mdx`]: [{ slug: 'reference/plugin/config/overview' }],
-	[`${PLUGIN}/config/vis.mdx`]: [{ slug: 'reference/plugin/config/vis' }],
-	[`${PLUGIN}/config/trim_common_folder.mdx`]: [{ slug: 'reference/plugin/config/trim-common-folder' }],
-	[`${PLUGIN}/auto_snapshots/auto_snapshot_options.mdx`]: [{ slug: 'reference/plugin/set-auto-snapshot-options' }],
+	[`${PLUGIN}/setup/overview.mdx`]: [{ slug: 'plugin/reference/setup/overview' }],
+	[`${PLUGIN}/setup/vis.mdx`]: [{ slug: 'plugin/reference/setup/vis' }],
+	[`${PLUGIN}/setup/create_vis.mdx`]: [{ slug: 'plugin/reference/setup/create-vis' }],
+	[`${PLUGIN}/config/overview.mdx`]: [{ slug: 'plugin/reference/config/overview' }],
+	[`${PLUGIN}/config/vis.mdx`]: [{ slug: 'plugin/reference/config/vis' }],
+	[`${PLUGIN}/config/trim_common_folder.mdx`]: [{ slug: 'plugin/reference/config/trim-common-folder' }],
+	[`${PLUGIN}/auto_snapshots/auto_snapshot_options.mdx`]: [{ slug: 'plugin/reference/set-auto-snapshot-options' }],
 	[`${PLUGIN}/client/expect/to_match_image_snapshot.mdx`]: [
-		{ slug: 'reference/plugin/matchers/expect-to-match-image-snapshot' },
+		{ slug: 'plugin/reference/matchers/expect-to-match-image-snapshot' },
 	],
 	[`${PLUGIN}/client/page/to_match_image_snapshot.mdx`]: [
-		{ slug: 'reference/plugin/matchers/page-to-match-image-snapshot' },
+		{ slug: 'plugin/reference/matchers/page-to-match-image-snapshot' },
 	],
-	[`${PLUGIN}/client/page/has_image_snapshot.mdx`]: [{ slug: 'reference/plugin/matchers/has-image-snapshot' }],
+	[`${PLUGIN}/client/page/has_image_snapshot.mdx`]: [{ slug: 'plugin/reference/matchers/has-image-snapshot' }],
 	[`${PLUGIN}/changelog.mdx`]: [{ slug: 'releases/changelog-plugin' }],
 }
+
+/**
+ * Package-neutral pages that exist only on the website (no source `.mdx`). Their title and description come from the page frontmatter.
+ * Slugs are relative to `SITE_CONTENT_DIR`.
+ */
+const SITE_CONTENT_DIR = 'apps/website/src/content/docs'
+const CONCEPT_SLUGS = [
+	'visual-testing/what-is-visual-testing',
+	'visual-testing/how-snapshots-work',
+	'visual-testing/comparison-and-thresholds',
+	'visual-testing/platforms-and-ci',
+	'visual-testing/updating-baselines',
+	'visual-testing/reviewing-failures',
+	'visual-testing/variations',
+	'visual-testing/choosing-a-package',
+]
+const CONCEPT_PAGES = CONCEPT_SLUGS.map((slug) => {
+	const frontmatter = read(`${SITE_CONTENT_DIR}/${slug}.mdx`).match(/^---\n([\s\S]*?)\n---/)?.[1] ?? ''
+	const field = (name) => frontmatter.match(new RegExp(`^${name}:\\s*"(.*)"\\s*$`, 'm'))?.[1]
+	const title = field('title')
+	const description = field('description')
+	if (!title || !description) throw new Error(`${slug}.mdx needs a quoted title and description in its frontmatter`)
+	return { slug, title, description, url: `${SITE_URL}${slug}/` }
+})
 
 /** Pages an agent should read first (source `.mdx`). */
 const FEATURED_FILES = [`${ADDON}/reviewing_failures_with_agents.mdx`]
@@ -129,14 +196,14 @@ const FEATURED_FILES = [`${ADDON}/reviewing_failures_with_agents.mdx`]
  */
 const OVERVIEW = 'packages/storybook-addon-vis/src/overview.mdx'
 const DOC_PAGES = {
-	'packages/storybook-addon-vis/src/index.ts#default': null,
+	'packages/storybook-addon-vis/src/index.ts#default': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#cdp': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#page': OVERVIEW,
 	'packages/storybook-addon-vis/src/preview/vis_annotation.ts#visAnnotations': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/has_image_snapshot.ts#hasImageSnapshot': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/storybook/param.ts#defineAutoSnapshotParam': OVERVIEW,
-	'packages/storybook-addon-vis/src/client/storybook/tags.ts#isSnapshotEnabled': null,
-	'packages/storybook-addon-vis/src/exports/preset.ts#experimental_serverChannel': null,
+	'packages/storybook-addon-vis/src/client/storybook/tags.ts#isSnapshotEnabled': OVERVIEW,
+	'packages/storybook-addon-vis/src/exports/preset.ts#experimental_serverChannel': OVERVIEW,
 	'packages/storybook-addon-vis/src/exports/vitest-setup.ts#vis': OVERVIEW,
 	'packages/storybook-addon-vis/src/vitest-plugin/storybook_vis.ts#storybookVis': OVERVIEW,
 	'packages/storybook-addon-vis/src/node/define_storybook_vis.ts#defineStorybookVis':
@@ -146,43 +213,79 @@ const DOC_PAGES = {
 
 	'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.ts#setAutoSnapshotOptions':
 		'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.mdx',
-	'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.ts#MetaTask': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#Awaitable': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotTimeoutOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotKeyOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ComparisonMethod': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#FailureThresholdOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#SsimComparisonOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#PixelComparisonOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotCompareOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ReviewImageOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotSubjectOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#PageImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchPageImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#SnapshotTestMeta': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotComparisonInfo': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#MatchImageSnapshotOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#SetupVisOptions': null,
-	'ssim.js#SsimDiffOptions': null,
-	'packages/vitest-plugin-vis/src/shared/types.ts#PixelDiffOptions': null,
-	'packages/vitest-plugin-vis/src/client/actions/has_image_snapshot_action.ts#hasImageSnapshotAction': null,
+	'packages/vitest-plugin-vis/src/auto_snapshots/auto_snapshot_options.ts#MetaTask':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#Awaitable':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotTimeoutOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotKeyOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ComparisonMethod':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#FailureThresholdOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#SsimComparisonOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#PixelComparisonOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotCompareOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#AnimationsOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ReviewImageOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotSubjectOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#PageImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ToMatchPageImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#SnapshotTestMeta':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotComparisonInfo':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#MatchImageSnapshotOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#SetupVisOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'ssim.js#SsimDiffOptions': 'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#PixelDiffOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/actions/has_image_snapshot_action.ts#hasImageSnapshotAction':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/client/actions/load_image_snapshot_results_action.ts#loadImageSnapshotResultsAction':
-		null,
-	'packages/vitest-plugin-vis/src/client/actions/match_image_snapshot_action.ts#matchImageSnapshotAction': null,
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/actions/match_image_snapshot_action.ts#matchImageSnapshotAction':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/client/actions/match_page_image_snapshot_action.ts#matchPageImageSnapshotAction':
-		null,
-	'packages/vitest-plugin-vis/src/client/expect/expectation_result.ts#success': null,
-	'packages/vitest-plugin-vis/src/client/expect/to_match_image_snapshot.types.ts#ImageSnapshotMatcher': null,
-	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#autoSnapshotMatcher': null,
-	'packages/vitest-plugin-vis/src/client/task/task_id.ts#toTaskId': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#NAME': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#SNAPSHOT_ROOT_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#BASELINE_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#RESULT_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#DIFF_DIR': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#REVIEW_IMAGE_SUFFIX': null,
-	'packages/vitest-plugin-vis/src/shared/constants.ts#CHANGED_REGIONS_SUFFIX': null,
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/expect/expectation_result.ts#success':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/expect/to_match_image_snapshot.types.ts#ImageSnapshotMatcher':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#toSuiteDefaults':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#autoSnapshotMatcher':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/task/task_id.ts#toTaskId':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#NAME':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#SNAPSHOT_ROOT_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#BASELINE_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#RESULT_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#DIFF_DIR':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#REVIEW_IMAGE_SUFFIX':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/shared/constants.ts#CHANGED_REGIONS_SUFFIX':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
 	'packages/vitest-plugin-vis/src/config/types.ts#VisOptions': null,
 	'packages/vitest-plugin-vis/src/config/vis.ts#vis': 'packages/vitest-plugin-vis/src/config/vis.mdx',
 	'packages/vitest-plugin-vis/src/shared/trim_common_folder.ts#trimCommonFolder':
@@ -190,14 +293,22 @@ const DOC_PAGES = {
 	'packages/vitest-plugin-vis/src/setup/vis.ts#vis': 'packages/vitest-plugin-vis/src/setup/vis.mdx',
 	'packages/vitest-plugin-vis/src/setup/create_vis.ts#createVis': 'packages/vitest-plugin-vis/src/setup/create_vis.mdx',
 	'packages/vitest-plugin-vis/src/setup/create_vis.ts#VisClientConfigurator': null,
-	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_BASE64': null,
-	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_URL': null,
-	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_IMAGE_DATA': null,
-	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#getSnapshotRootDir': null,
-	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveLegacySnapshotFileRelativePath': null,
-	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveSnapshotSubpathWithinLimits': null,
-	'packages/vitest-plugin-vis/src/server/testing/stubSuite.ts#stubSuite': null,
-	'packages/vitest-plugin-vis/src/server/vis_options.ts#getVisOption': null,
+	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_BASE64':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_PNG_URL':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/testing/constants.ts#UNI_IMAGE_DATA':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#getSnapshotRootDir':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveLegacySnapshotFileRelativePath':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveSnapshotSubpathWithinLimits':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/testing/stubSuite.ts#stubSuite':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
+	'packages/vitest-plugin-vis/src/server/vis_options.ts#getVisOption':
+		'apps/website/src/content/docs/plugin/reference/testing.mdx',
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -261,6 +372,26 @@ const PAGES = mdxFiles.flatMap(({ pkg, file }) => {
 		summary: entry.summary ?? summarize(source),
 	}))
 })
+// Pages that exist only on the website, with no source `.mdx` in a package, are found by scanning these site sections.
+// Each section belongs to one package. A page already listed in `SITE_PAGES` is skipped.
+const SITE_DOCS_DIR = 'apps/website/src/content/docs'
+const SITE_ONLY_SECTIONS = { plugin: PACKAGES.find((p) => p.dir === 'vitest-plugin-vis') }
+for (const [section, pkg] of Object.entries(SITE_ONLY_SECTIONS)) {
+	for (const file of listFiles(`${SITE_DOCS_DIR}/${section}`, (f) => f.endsWith('.mdx'))) {
+		const slug = posix
+			.relative(SITE_DOCS_DIR, file)
+			.replace(/\.mdx$/, '')
+			.replace(/\/index$/, '')
+		if (PAGES.some((p) => p.slug === slug)) continue
+		const source = read(file)
+		const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? ''
+		const field = (name) => frontmatter.match(new RegExp(`^${name}:\\s*"?(.*?)"?\\s*$`, 'm'))?.[1]
+		const title = field('title')
+		const summary = field('description')
+		if (!title || !summary) throw new Error(`${file} needs a title and a description in its frontmatter`)
+		PAGES.push({ pkg, file, title, source, slug, covers: true, url: `${SITE_URL}${slug}/`, summary })
+	}
+}
 const slugs = PAGES.map((p) => p.slug)
 const duplicate = slugs.filter((s, i) => slugs.indexOf(s) !== i)
 if (duplicate.length > 0) throw new Error(`SITE_PAGES lists a slug twice: ${duplicate.join(', ')}`)
@@ -522,6 +653,12 @@ function render(context, scopePackages) {
 		)
 	}
 	out.push('', '## Documentation', '', renderPageList(docs, members), '')
+	out.push(
+		'## Visual testing concepts',
+		'',
+		...CONCEPT_PAGES.map((page) => `- [${page.title}](${page.url}): ${page.description}`),
+		'',
+	)
 	out.push('## Entry points', '')
 	for (const entry of scoped) {
 		const count = new Set(entry.members.map((m) => m.key)).size
@@ -611,6 +748,58 @@ function renderGaps(context) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Coverage gate
+// ---------------------------------------------------------------------------------------------
+
+const GAPS_ALLOWLIST = 'docs/docs-coverage-allowlist.json'
+
+/**
+ * Fail when an exported declaration is named on no documentation page and is not in the allowlist.
+ * Also fail when an allowlist entry is malformed or no longer needed, so the list cannot rot.
+ * Returns the exit code.
+ */
+function checkGaps(context) {
+	const unique = new Map(context.entries.flatMap((e) => e.members).map((m) => [m.key, m]))
+	let allowed
+	try {
+		allowed = JSON.parse(readFileSync(resolve(repoRoot, GAPS_ALLOWLIST), 'utf8'))
+	} catch (error) {
+		stderr(`Cannot read ${GAPS_ALLOWLIST}: ${error.message}`)
+		return 1
+	}
+	const problems = []
+	const allowedKeys = new Set()
+	for (const item of Array.isArray(allowed) ? allowed : []) {
+		if (typeof item?.export !== 'string' || typeof item?.reason !== 'string' || item.reason.trim() === '') {
+			problems.push(
+				`${GAPS_ALLOWLIST}: every entry needs a string "export" and a non-empty "reason": ${JSON.stringify(item)}`,
+			)
+			continue
+		}
+		allowedKeys.add(item.export)
+		const member = unique.get(item.export)
+		if (!member) problems.push(`${GAPS_ALLOWLIST}: ${item.export} is not an exported declaration. Remove the entry.`)
+		else if (member.page)
+			problems.push(`${GAPS_ALLOWLIST}: ${item.export} now has a documentation page. Remove the entry.`)
+	}
+	if (!Array.isArray(allowed)) problems.push(`${GAPS_ALLOWLIST} must be a JSON array.`)
+	const missing = [...unique.values()].filter((m) => !m.page && !allowedKeys.has(m.key))
+	for (const m of missing) {
+		problems.push(
+			`${m.key} (${m.kind}) is exported but named on no documentation page. Document it, or add it to ${GAPS_ALLOWLIST} with a reason.`,
+		)
+	}
+	if (problems.length > 0) {
+		stderr(`Documentation coverage check failed:\n  ${problems.join('\n  ')}`)
+		return 1
+	}
+	stdout(
+		`Every exported declaration has a documentation page or an allowlist entry (${unique.size} checked, ${allowedKeys.size} allowlisted).`,
+	)
+	return 0
+}
+
+// ---------------------------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------------------------
 
@@ -629,14 +818,16 @@ if (mode === '--site-pages') {
 		dirs.some((dir) =>
 			['.mdx', '.md', '/index.mdx', '/index.md'].some((ext) => existsSync(resolve(repoRoot, dir, `${slug}${ext}`))),
 		)
-	const absent = PAGES.filter((p) => !exists(p.slug)).map((p) => p.slug)
+	const absent = [...PAGES.map((p) => p.slug), ...CONCEPT_SLUGS].filter((slug) => !exists(slug))
 	if (absent.length > 0) {
 		stderr(`Slugs with no page file in ${dirs.join(', ')}:\n  ${absent.join('\n  ')}`)
 		process.exit(1)
 	}
-	stdout(`All ${PAGES.length} slugs have a page file.`)
+	stdout(`All ${PAGES.length + CONCEPT_SLUGS.length} slugs have a page file.`)
 } else if (mode === '--gaps') {
 	process.stdout.write(renderGaps(context))
+} else if (mode === '--gaps-check') {
+	process.exit(checkGaps(context))
 } else if (mode === undefined || mode === '--check') {
 	const outputs = [
 		[WEBSITE_LLMS_TXT, render(context, siteScope)],
@@ -664,6 +855,6 @@ if (mode === '--site-pages') {
 		}
 	}
 } else {
-	stderr(`Unknown option ${mode}. Use no option, --check, --gaps or --site-pages.`)
+	stderr(`Unknown option ${mode}. Use no option, --check, --gaps, --gaps-check or --site-pages.`)
 	process.exit(2)
 }

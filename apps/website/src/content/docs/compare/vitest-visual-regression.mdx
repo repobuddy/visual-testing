@@ -1,0 +1,62 @@
+---
+title: "vs Vitest visual regression"
+description: "How vitest-plugin-vis compares with the visual regression testing built into Vitest."
+sidebar:
+  order: 1
+---
+
+Vitest has built-in visual regression testing for Browser Mode, through the `toMatchScreenshot` assertion.
+This page compares it with [vitest-plugin-vis](/visual-testing/plugin/get-started/).
+Claims about Vitest come from its [Visual Regression Testing guide](https://vitest.dev/guide/browser/visual-regression-testing.html), checked on 2026-11-03.
+
+## What it is
+
+You call `toMatchScreenshot` in a browser test.
+On the first run Vitest creates the reference image and fails the test so you can review it.
+Later runs compare against that reference.
+References are stored in `__screenshots__` folders next to the test files.
+You update them with `vitest --project vrt --update`.
+
+## Features
+
+| Feature | Vitest visual regression | vitest-plugin-vis |
+| ------- | ------------------------ | ----------------- |
+| Manual snapshots | Yes | Yes |
+| Automatic snapshots | Not documented | Yes |
+| Per-theme snapshots | Not documented | Yes |
+| Comparison methods | `pixelmatch`, custom comparators | `pixel`, `ssim` |
+| Thresholds | `threshold`, `allowedMismatchedPixelRatio`, `allowedMismatchedPixels` | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
+| Animations | `animations` defaults to `"disabled"`, with the Playwright provider | `animations: 'disabled'`, default `'allow'`, with both providers |
+| Waits for a stable page | Yes, repeats captures until two match | Not provided |
+| Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
+
+Sources for Vitest: the sections "Comparison", "Thresholds", "Stable Screenshot Detection" and "Failure diagnostics" of the guide, checked on 2026-11-03.
+Sources for vitest-plugin-vis: [comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/), [`vis()` options](/visual-testing/plugin/reference/config/vis/) and [`setAutoSnapshotOptions()`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
+
+## What Vitest does better
+
+- It is part of Vitest, so there is nothing extra to install.
+- It checks that the page is stable before it compares, and the guide describes how.
+- You can register your own comparator.
+- It has finer threshold options, including a ratio of mismatched pixels.
+
+## What vitest-plugin-vis does better
+
+- It takes snapshots of your tests automatically, so you do not call an assertion in every test. See [automatic snapshots](/visual-testing/plugin/reference/setup/vis/).
+- It takes one snapshot per theme from a single test.
+- It shares its engine with [storybook-addon-vis](/visual-testing/addon/get-started/), so one comparison setup covers tests and stories.
+
+## When to choose Vitest
+
+Choose it when you want a few explicit screenshot assertions, no extra dependency, and the stability check.
+
+## When to choose vitest-plugin-vis
+
+Choose it when you want every component or story covered without writing an assertion each time, or when you test several themes.
+
+## Migrate
+
+The two use different matchers and baseline folders (`__screenshots__` for Vitest, `__vis__` for this plugin), so they do not overwrite each other.
+Baseline images are not shared.
+Replace `toMatchScreenshot` with `toMatchImageSnapshot`, then create new baselines on the first run.
+See the [matcher reference](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).

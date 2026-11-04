@@ -1,0 +1,86 @@
+---
+title: vis (setup)
+description: Set up automatic snapshots and per-theme snapshots in vitest.setup.ts with vis.setup().
+sidebar:
+  order: 2
+---
+
+The `vis` object from `vitest-plugin-vis/setup` provides the API to set up the plugin on the client side.
+This is not the same `vis` as the [Vitest plugin](/visual-testing/plugin/reference/config/vis/) exported from `vitest-plugin-vis/config`.
+
+`vis` is a `VisClientConfigurator`, an object with one method, `setup(options?)`.
+The options have the type `SetupVisOptions`: `auto`, `createMissingBaseline` and `animations`.
+`animations: 'disabled'` is the default for all auto snapshots; see [`animations`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#animations).
+
+## Basic setup
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Basic setup - enables visual testing without auto snapshots
+vis.setup()
+
+// Enable auto snapshots for all tests
+vis.setup({ auto: true })
+
+// Disable auto snapshots (same as `vis.setup()`)
+vis.setup({ auto: false })
+```
+
+With `vis.setup({ auto: false })`, a test that renders content takes no auto snapshot,
+and `page.hasImageSnapshot({ snapshotKey: 'auto' })` returns `false` for it.
+
+## Conditional auto snapshots
+
+Pass a function to `auto` to decide for each test whether to take the snapshot.
+The function receives the snapshot options of the test, including any custom fields you set with
+[`setAutoSnapshotOptions()`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
+It takes the snapshot unless the function returns `false`.
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Take snapshots only for tests with specific metadata
+vis.setup({
+	auto: async (meta) => meta['visualTest'] === true,
+})
+
+// Skip snapshots for tests marked as 'skipSnapshot'
+vis.setup({
+	auto: async (meta) => !meta['skipSnapshot'],
+})
+```
+
+The function is called in `afterEach()`, after the test body has run.
+
+```ts
+// in a test
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+it('renders the card', () => {
+	setAutoSnapshotOptions({ visualTest: true })
+	// ...
+})
+```
+
+## Theme snapshots
+
+Pass an object to `auto` to take one snapshot per theme.
+Each key is a theme name, and each value is a handler that prepares the page for that theme.
+A handler receives the snapshot options of the test, and returns `false` to skip its theme.
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: {
+		light: async () => document.body.classList.remove('dark'),
+		dark: async () => document.body.classList.add('dark'),
+	},
+})
+```
+
+The [Themes guide](/visual-testing/plugin/guides/themes/) covers the file names, skipping a theme, naming rules and how failures are reported.

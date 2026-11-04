@@ -1,0 +1,63 @@
+---
+title: "Full-page and viewport snapshots"
+description: "Capture the whole page or the visible viewport with page.toMatchImageSnapshot()."
+sidebar:
+  order: 3
+---
+
+Use `page.toMatchImageSnapshot()` when the subject is the page itself, not one element.
+
+## Take a viewport snapshot
+
+```tsx
+import { it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from 'vitest-browser-react'
+
+it('should take a page snapshot', async () => {
+	await render(<MyApp />)
+
+	await page.toMatchImageSnapshot()
+})
+```
+
+It captures the visible viewport.
+With a viewport of 1280 by 720, as in the `vpv` test case, the image is 1280 by 720 pixels.
+To snapshot several sizes, see [Viewports and multiple instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/).
+
+## Take a full-page snapshot
+
+Set `fullPage` to capture the entire scrollable page:
+
+```tsx
+it('supports full page image snapshot', async () => {
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'test_snapshot',
+	})
+})
+```
+
+`fullPage` is `false` by default.
+With WebdriverIO, the plugin passes `fullPage` and `timeout` to `browser.saveScreenshot()`, so what a full-page capture includes depends on WebdriverIO and the browser.
+
+## What appears on disk
+
+The file is named like any manual snapshot:
+
+```txt
+__vis__/local/__baselines__/app.spec.tsx/should-take-a-page-snapshot-1.png
+__vis__/local/__baselines__/app.spec.tsx/supports-full-page-image-snapshot-test_snapshot.png
+```
+
+## Rules
+
+- Call it inside a test, and not in `it.concurrent()`. Concurrent tests share one iframe and would disturb each other.
+- The `snapshotKey` cannot contain a dash.
+
+## Options that matter
+
+`page.toMatchImageSnapshot()` takes the same comparison options as the element matcher.
+See [`page.toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/page-to-match-image-snapshot/).

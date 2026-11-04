@@ -1,0 +1,132 @@
+---
+title: "Automatic snapshots"
+description: "Take an image snapshot of every rendering test without writing any assertion."
+sidebar:
+  order: 1
+---
+
+Use automatic snapshots when you want every test that renders something to be covered, with no matcher in the test.
+
+## Turn it on
+
+The `auto` preset is the default of `vis()`:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis()], // same as vis({ preset: 'auto' })
+	test: {
+		// ... your Vitest Browser Mode configuration ...
+	},
+})
+```
+
+The preset adds `vitest-plugin-vis/presets/auto` to `test.setupFiles`.
+That file calls `vis.setup({ auto: true })`.
+When you pass an options object without `preset`, such as `vis({ failureThreshold: 1 })`, no preset applies and no snapshot is taken.
+Write `vis({ preset: 'auto', failureThreshold: 1 })` to keep it.
+
+## What happens
+
+After each test body, the plugin looks at `document.body`.
+If it has a child element, the plugin takes a snapshot of the body and compares it with the baseline.
+A test that renders nothing gets no snapshot.
+
+```tsx
+// src/button.spec.tsx
+import { it } from 'vitest'
+import { render } from 'vitest-browser-react'
+import { Button } from './Button.tsx'
+
+it('renders the primary button', async () => {
+	await render(<Button primary label="Button" />)
+})
+```
+
+This test writes one image:
+
+```txt
+__vis__/local/__baselines__/button.spec.tsx/renders-the-primary-button-auto.png
+```
+
+The name is the test name, with each `describe` as a folder and every character that is not a letter or a digit turned into a dash.
+`auto` is the snapshot key.
+The first run fails until a baseline exists.
+[Updating baselines](/visual-testing/visual-testing/updating-baselines/) explains how to create it.
+
+## Choose the element
+
+By default the whole body is the subject.
+To snapshot one element for every test, set `subject` to a selector:
+
+```ts
+vis({ subject: '[data-testid="subject"]' })
+```
+
+To change it for one file or one test, call `setAutoSnapshotOptions()`:
+
+```ts
+import { beforeEach } from 'vitest'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+beforeEach(() => {
+	setAutoSnapshotOptions({ subject: '[data-testid="main-content"]' })
+})
+```
+
+If the selector matches nothing, the body is used.
+If it matches several elements, the first visible one is used.
+
+## Turn it off for some tests
+
+```ts
+import { beforeAll, it } from 'vitest'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+// the whole file
+beforeAll(() => setAutoSnapshotOptions(false))
+
+// or one test
+it('has no snapshot', () => {
+	setAutoSnapshotOptions(false)
+})
+```
+
+`setAutoSnapshotOptions({ enable: true })` in a test turns it back on for that test.
+
+## Decide per test
+
+To decide in one place, use the `custom` preset and your own setup file.
+The function gets the snapshot options of the test, including any field you set with `setAutoSnapshotOptions()`:
+
+```ts
+// vitest.config.ts
+vis({ preset: 'custom' })
+// and add './vitest.setup.ts' to test.setupFiles
+```
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({
+	auto: async (meta) => meta['visualTest'] === true,
+})
+```
+
+The function runs after the test body and takes the snapshot unless it returns `false`.
+See [`vis.setup()`](/visual-testing/plugin/reference/setup/vis/).
+
+## Options that matter
+
+| Option | Where | Page |
+| ------ | ----- | ---- |
+| `preset`, `subject`, `snapshotKey` | `vis()` | [`vis` config](/visual-testing/plugin/reference/config/vis/) |
+| `enable`, `subject`, thresholds, `timeout` | `setAutoSnapshotOptions()` | [`setAutoSnapshotOptions`](/visual-testing/plugin/reference/set-auto-snapshot-options/) |
+| `auto` as a function or as themes | `vis.setup()` | [`vis` setup](/visual-testing/plugin/reference/setup/vis/) |
+
+To take one snapshot for each theme, see [Themes](/visual-testing/plugin/guides/themes/).
+To take snapshots yourself, see [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/).

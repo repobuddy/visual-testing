@@ -571,6 +571,20 @@ This is useful when you are performing some negative test.
 
 
 
+## Usage - CSF Next preview addon
+
+The default export of `storybook-addon-vis`, `addonVis()`, is the preview addon for CSF Next.
+Pass it to `definePreview({ addons: [addonVis({ auto: true })] })`.
+
+## Usage - tag helper
+
+`isSnapshotEnabled(tags)` applies the tag rule: the last of `snapshot` and `!snapshot` wins, and no tag means no snapshot.
+
+## Usage - Vis panel server hook
+
+`storybook-addon-vis/preset` exports `experimental_serverChannel`, which Storybook calls so that the Vis panel can read the snapshot images.
+You do not call it yourself.
+
 ## Usage - Chrome DevTools Protocol
 
 `cdp` is a proxy of `cdp()` from `vitest/browser`.

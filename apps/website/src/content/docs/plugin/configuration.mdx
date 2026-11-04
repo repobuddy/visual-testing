@@ -30,7 +30,7 @@ export default defineConfig({
 
 This default configuration will:
 
-- Use the [auto preset](/visual-testing/reference/plugin/set-auto-snapshot-options/), taking image snapshot at the end on each rendering test.
+- Use the [auto preset](/visual-testing/plugin/reference/set-auto-snapshot-options/), taking image snapshot at the end on each rendering test.
 - Use `pixelmatch` as the image comparison method.
 - Set config to compare image snapshot with a failure threshold of `0 pixels`.
 - Timeout for image comparison is set to `30000 ms`.
@@ -43,7 +43,7 @@ By default, [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis)
 Under this directory, you will find different set of snapshots for different environments:
 
 - `local`: For snapshots taken locally.
-- `<platform: ubuntu | darwin | win32>`: For snapshots taken in respective CI.
+- `<platform>`: For snapshots taken on CI. The folder name is `process.platform`, for example `linux`, `darwin` or `win32`.
 
 In each platform directory, there are 3 directories:
 
@@ -90,7 +90,7 @@ and on the browser side we provides API to take snapshots.
 The Node.js side is configured in your `vitest.config.ts` file,
 while the browser side is configured in your `vitest.setup.ts` file.
 
-Please check out the documentation for [Config](/visual-testing/reference/plugin/config/vis/) and [Setup](/visual-testing/reference/plugin/setup/vis/) for more details.
+Please check out the documentation for [Config](/visual-testing/plugin/reference/config/vis/) and [Setup](/visual-testing/plugin/reference/setup/vis/) for more details.
 
 [vitest]: https://vitest.dev
 [vitest-browser-mode]: https://vitest.dev/guide/browser

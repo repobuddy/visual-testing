@@ -29,6 +29,7 @@ export type MetaTask =
  * @param meta.failureThreshold - The failure threshold to use for the snapshot.
  * @param meta.failureThresholdType - The failure threshold type to use for the snapshot.
  * @param meta.timeout - The timeout to use for the snapshot.
+ * @param meta.animations - `'disabled'` finishes or cancels CSS animations and transitions before the snapshot. Default `'allow'`.
  *
  * @example
  *

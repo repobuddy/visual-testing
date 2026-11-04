@@ -5,6 +5,7 @@ import type {
 	PrepareImageSnapshotComparisonCommand,
 } from '../../shared/commands.types.ts'
 import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import { settleAnimations } from '../animations/settle_animations.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 
 export async function matchPageImageSnapshotAction(
@@ -14,6 +15,7 @@ export async function matchPageImageSnapshotAction(
 ) {
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)
 
+	settleAnimations(options)
 	const info = await commands.preparePageImageSnapshotComparison(taskId, options)
 
 	if (!info) return

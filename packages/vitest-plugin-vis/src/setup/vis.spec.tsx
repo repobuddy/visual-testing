@@ -5,25 +5,69 @@ import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 import { commands, page } from 'vitest/browser'
 import { render } from 'vitest-browser-react'
 import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
+import * as setupEntry from '../exports/setup.ts'
 import { vis } from '../exports/setup.ts'
+import * as setupApi from '../exports/setup-api.ts'
 import { setAutoSnapshotOptions } from '../index.ts'
+
+describe('the setup entry points', () => {
+	it('exports `vis` from setup, and `createVis` from setup-api only', ({ expect }) => {
+		expect(setupEntry.vis).toBeDefined()
+		expect('createVis' in setupEntry).toBe(false)
+		expect(setupApi.createVis).toBeTypeOf('function')
+	})
+
+	it('augments `expect` and `page` with the image snapshot methods', ({ expect }) => {
+		expect(page.toMatchImageSnapshot).toBeTypeOf('function')
+		expect(page.hasImageSnapshot).toBeTypeOf('function')
+		expect(expect(document.body).toMatchImageSnapshot).toBeTypeOf('function')
+	})
+})
 
 describe('vis.setup({ auto: false })', () => {
 	vis.setup({ auto: false })
 
 	it('should not take auto snapshot', async () => {
 		await render(<div data-testid="subject">hello</div>)
-		expect(await page.hasImageSnapshot()).toBe(false)
+		expect(await page.hasImageSnapshot({ snapshotKey: 'auto' })).toBe(false)
 	})
 })
 
-describe.skip('vis.setup({ auto: true })', () => {
-	vis.setup({ auto: true })
+describe('vis.setup({ auto: true })', () => {
+	vis.setup({ auto: true, createMissingBaseline: true })
 
 	it('should take auto snapshot', async ({ onTestFinished }) => {
 		await render(<div data-testid="subject">hello</div>)
 		onTestFinished(async () => {
-			expect(await page.hasImageSnapshot()).toBe(true)
+			expect(await page.hasImageSnapshot({ snapshotKey: 'auto' })).toBe(true)
+		})
+	})
+})
+
+describe('vis.setup({ auto: function })', () => {
+	let bodyDone = false
+	let ranAfterBody: boolean | undefined
+	let received: Record<string, unknown> | undefined
+	vis.setup({
+		auto: async (meta) => {
+			ranAfterBody = bodyDone
+			received = meta
+			return meta['visualTest'] === true
+		},
+		createMissingBaseline: true,
+	})
+
+	it('runs after the test body, receives the meta, and takes the snapshot when it returns true', async ({
+		onTestFinished,
+	}) => {
+		bodyDone = false
+		setAutoSnapshotOptions({ visualTest: true, createMissingBaseline: true })
+		await render(<div data-testid="subject">hello</div>)
+		bodyDone = true
+		onTestFinished(async () => {
+			expect(ranAfterBody).toBe(true)
+			expect(received).toMatchObject({ enable: true, visualTest: true })
+			expect(await page.hasImageSnapshot({ snapshotKey: 'auto' })).toBe(true)
 		})
 	})
 })
@@ -121,6 +165,49 @@ describe('matchPerTheme', () => {
 		})()
 	})
 
+	it('skips the theme when its handler returns false', async () => {
+		await render(<div data-testid="subject">hello</div>)
+		await themeSnapshots.createMatcher(
+			{
+				skipped: async () => false,
+				taken: async () => {},
+			},
+			{ createMissingBaseline: true },
+		)()
+		expect(await page.hasImageSnapshot({ snapshotKey: 'skipped' })).toBe(false)
+		expect(await page.hasImageSnapshot({ snapshotKey: 'taken' })).toBe(true)
+		setAutoSnapshotOptions({ enable: false })
+	})
+
+	it('takes no auto snapshot when the `auto` function returns false', async () => {
+		await render(<div data-testid="subject">hello</div>)
+		await themeSnapshots.createMatcher({ auto: async () => false })()
+		expect(await page.hasImageSnapshot({ snapshotKey: 'auto' })).toBe(false)
+		setAutoSnapshotOptions({ enable: false })
+	})
+
+	it('rejects a theme name with a dash', async ({ expect }) => {
+		await render(<div data-testid="subject">hello</div>)
+		await expect(() => themeSnapshots.createMatcher({ 'dark-desktop': async () => {} })()).rejects.toThrow(
+			'Snapshot key cannot contain dash',
+		)
+		setAutoSnapshotOptions({ enable: false })
+	})
+
+	it('accepts a theme name with an underscore or camelCase', async () => {
+		await render(<div data-testid="subject">hello</div>)
+		await themeSnapshots.createMatcher(
+			{
+				dark_desktop: async () => {},
+				darkDesktop: async () => {},
+			},
+			{ createMissingBaseline: true },
+		)()
+		expect(await page.hasImageSnapshot({ snapshotKey: 'dark_desktop' })).toBe(true)
+		expect(await page.hasImageSnapshot({ snapshotKey: 'darkDesktop' })).toBe(true)
+		setAutoSnapshotOptions({ enable: false })
+	})
+
 	it('can specify type param', () => {
 		themeSnapshots.createMatcher<'ssim'>({
 			x(_options) {
@@ -162,6 +249,25 @@ describe('matchPerTheme', () => {
 		await matcher.createMatcher({ key: async () => {} }, { createMissingBaseline: true })()
 
 		expect(received.map((o) => o.createMissingBaseline)).toEqual([true, false])
+		setAutoSnapshotOptions({ enable: false })
+	})
+
+	it('setAutoSnapshotOptions overrides the animations default of the matcher', async () => {
+		const received: Array<Record<string, any>> = []
+		const fakeExpect = () => ({
+			toMatchImageSnapshot: async (options: Record<string, any>) => {
+				received.push(options)
+			},
+		})
+		const matcher = autoSnapshotMatcher(commands, fakeExpect)
+		await render(<div data-testid="subject">hello</div>)
+
+		setAutoSnapshotOptions(true)
+		await matcher.createMatcher({ key: async () => {} }, { animations: 'disabled' })()
+		setAutoSnapshotOptions({ animations: 'allow' })
+		await matcher.createMatcher({ key: async () => {} }, { animations: 'disabled' })()
+
+		expect(received.map((o) => o.animations)).toEqual(['disabled', 'allow'])
 		setAutoSnapshotOptions({ enable: false })
 	})
 

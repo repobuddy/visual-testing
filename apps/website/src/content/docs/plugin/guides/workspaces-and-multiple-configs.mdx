@@ -1,0 +1,75 @@
+---
+title: "Workspaces and multiple configs"
+description: "Give each Vitest project its own visual testing options and its own snapshot folder."
+sidebar:
+  order: 7
+---
+
+Use this guide when one repository runs several Vitest projects, such as two apps with different settings, and each needs its own options or its own baselines.
+
+## One `vis()` per project
+
+List the projects in the root config:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	test: {
+		projects: ['./vitest.config.a.ts', './vitest.config.b.ts'],
+	},
+})
+```
+
+Give each project a `name` and its own `vis()` call:
+
+```ts
+// vitest.config.a.ts
+import { playwright } from '@vitest/browser-playwright'
+import { defineProject } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineProject({
+	plugins: [
+		vis({
+			snapshotRootDir: ({ ci, platform }) => `__vis__/${ci ? platform : 'local'}/a`,
+		}),
+	],
+	test: {
+		name: 'a',
+		browser: {
+			enabled: true,
+			provider: playwright(),
+			instances: [{ browser: 'chromium' }],
+		},
+	},
+})
+```
+
+`vitest.config.b.ts` is the same with the name `b` and the folder `b`.
+
+## How the options are chosen
+
+The plugin keeps the options of each `vis()` call under the `test.name` of its project.
+For a test, it starts from the options of the project with no name, if there is one, and applies the options of the named project over them.
+Use it to share settings: call `vis()` with the common options in a project without a name, and override only what differs.
+
+## What appears on disk
+
+```txt
+__vis__/linux/a/__baselines__/...
+__vis__/linux/b/__baselines__/...
+```
+
+The `workspace` test case has this layout. It uses [`storybookVis()`](/visual-testing/addon/), which wraps `vis()` and takes the same `snapshotRootDir` option, so a project written with `vis()` behaves the same.
+See [the example](/visual-testing/plugin/examples/workspace/).
+
+## Options that matter
+
+| Option | Page |
+| ------ | ---- |
+| `snapshotRootDir` | [`vis` config](/visual-testing/plugin/reference/config/vis/#snapshotrootdir) |
+| `snapshotSubpath` | [`vis` config](/visual-testing/plugin/reference/config/vis/#snapshotsubpath) |
+
+To run one project at several viewports instead, see [Viewports and multiple instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/).

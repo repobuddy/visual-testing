@@ -51,8 +51,8 @@ it('team plan', async ({ expect }) => {
 })
 ```
 
-See [`vis()`](/visual-testing/reference/plugin/config/vis/) and
-[`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
+See [`vis()`](/visual-testing/plugin/reference/config/vis/) and
+[`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
 
 ## Per-viewport snapshots
 
@@ -128,7 +128,7 @@ export const CaptureSubjectOnly: StoryObj = {
 ```
 
 Every story with the tag gets a baseline, so coverage grows with your Storybook.
-See [Automatic snapshots](/visual-testing/addon/automatic-snapshots/).
+See [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/).
 
 ## Per-theme snapshots
 
@@ -182,7 +182,7 @@ vis.setup({
 })
 ```
 
-See [`vis.setup()`](/visual-testing/reference/plugin/setup/vis/).
+See [`vis.setup()`](/visual-testing/plugin/reference/setup/vis/).
 
 ## Reviewing a failure
 
@@ -243,7 +243,7 @@ Review:     ./__vis__/linux/__diffs__/review.spec.tsx/review-a-change-before.rev
 	/>
 </SnapshotGrid>
 
-Open the review image first: it holds only the two regions that changed.
+Open the review image first. [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) explains each view.
 
 ```tsx
 const screen = await render(<TeamCard />)
@@ -257,13 +257,13 @@ await expect(card).toMatchImageSnapshot({ snapshotKey: 'before', expectToFail: t
 
 The test passes `expectToFail` so the repository's CI does not fail on purpose, and then keeps the
 two images as baselines. See
-[`reviewImage`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/#reviewimage)
-and [Reviewing failures with agents](/visual-testing/guides/reviewing-failures-with-agents/).
+[`reviewImage`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#reviewimage)
+and [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/).
 
 ## Snapshot thresholds
 
-A small rendering difference does not have to fail a test. `failureThreshold` sets how many pixels
-may differ before the match fails. The unit is pixels by default, and a percentage is also supported.
+A small rendering difference does not have to fail a test.
+See [Comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/) for how thresholds work.
 
 Both threshold stories share one baseline, `threshold`, which is shown below. It is a stored baseline,
 not the output of a failed run. The stories render slightly different text ("unit text") from the
@@ -292,7 +292,7 @@ await expect(subject).toMatchImageSnapshot({
 })
 ```
 
-See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
 
 ## Elements, locators and images
 
@@ -334,4 +334,4 @@ await expect(subject.element()).toMatchImageSnapshot()
 await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
 ```
 
-See [`expect().toMatchImageSnapshot()`](/visual-testing/reference/plugin/matchers/expect-to-match-image-snapshot/).
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).

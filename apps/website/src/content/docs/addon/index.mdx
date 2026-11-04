@@ -5,21 +5,18 @@ sidebar:
   order: 0
 ---
 
-[storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) allows you to perform self contained Visual Testing for [Storybook](https://storybook.js.org).
+[storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) performs self-contained visual testing for [Storybook](https://storybook.js.org).
+It runs your stories in Vitest browser mode, compares an image of each with a stored baseline, and keeps the images in your repository.
 
-The image snapshots are stored locally and are used to detect visual regressions.
-
-## Features
-
-- You can capture and compare image snapshot both automatically and manually.
-- You can take a snapshot of the whole page or a specific component.
-- You can take snapshots in different environments, platform, browser, screen size and themes.
-- You can enable, disable, and customize how the snapshots are taken and compared.
-- The snapshots are stored locally.
+If you do not use Storybook, see the [Vitest plugin](/visual-testing/plugin/get-started/).
+[Choosing a package](/visual-testing/visual-testing/choosing-a-package/) compares the two.
 
 ## Where to go next
 
-- [Install](/visual-testing/addon/install/) the addon.
-- [Set it up](/visual-testing/addon/setup/) in Vitest, Storybook and TypeScript.
-- Capture snapshots [automatically](/visual-testing/addon/automatic-snapshots/) or [manually](/visual-testing/addon/manual-snapshots/).
-- Check [troubleshooting](/visual-testing/addon/troubleshooting/) if something does not work.
+- [Get started](/visual-testing/addon/get-started/): install and take your first snapshot.
+- [Features](/visual-testing/addon/features/): every capability, each linked to its guide.
+- [Guides](/visual-testing/addon/guides/automatic-snapshots/): automatic and manual snapshots, themes, viewports, thresholds, the Vis panel, CI.
+- [Configuration](/visual-testing/addon/configuration/): Vitest, Storybook, TypeScript and `.gitignore`.
+- [Examples](/visual-testing/addon/examples/): published Storybooks of the test cases.
+- [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) and [updating baselines](/visual-testing/visual-testing/updating-baselines/): the concepts behind the addon.
+- [Troubleshooting](/visual-testing/addon/troubleshooting/) and the [API reference](/visual-testing/addon/reference/node/).

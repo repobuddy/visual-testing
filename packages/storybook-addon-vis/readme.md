@@ -151,16 +151,16 @@ The site-wide copy is at <https://repobuddy.github.io/visual-testing/llms.txt>.
 
 [@storybook/experimental-addon-test]: https://www.npmjs.com/package/@storybook/experimental-addon-test
 [docs]: https://repobuddy.github.io/visual-testing/
-[docs_agents]: https://repobuddy.github.io/visual-testing/guides/reviewing-failures-with-agents/
-[docs_auto]: https://repobuddy.github.io/visual-testing/addon/automatic-snapshots/
-[docs_define]: https://repobuddy.github.io/visual-testing/reference/addon/define-storybook-vis/
-[docs_define_options]: https://repobuddy.github.io/visual-testing/reference/addon/define-storybook-vis-options/
-[docs_install]: https://repobuddy.github.io/visual-testing/addon/install/
-[docs_manual]: https://repobuddy.github.io/visual-testing/addon/manual-snapshots/
+[docs_agents]: https://repobuddy.github.io/visual-testing/visual-testing/reviewing-failures-with-agents/
+[docs_auto]: https://repobuddy.github.io/visual-testing/addon/guides/automatic-snapshots/
+[docs_define]: https://repobuddy.github.io/visual-testing/addon/reference/define-storybook-vis/
+[docs_define_options]: https://repobuddy.github.io/visual-testing/addon/reference/define-storybook-vis-options/
+[docs_install]: https://repobuddy.github.io/visual-testing/addon/get-started/
+[docs_manual]: https://repobuddy.github.io/visual-testing/addon/guides/manual-snapshots/
 [docs_migrate_1]: https://repobuddy.github.io/visual-testing/releases/migrate-to-1/
 [docs_migrate_3]: https://repobuddy.github.io/visual-testing/releases/migrate-to-3/
-[docs_setup]: https://repobuddy.github.io/visual-testing/addon/setup/
-[docs_setup_10_3]: https://repobuddy.github.io/visual-testing/addon/setup/#storybook-103-and-vitest-project-annotations
+[docs_setup]: https://repobuddy.github.io/visual-testing/addon/configuration/
+[docs_setup_10_3]: https://repobuddy.github.io/visual-testing/addon/configuration/#storybook-103-and-vitest-project-annotations
 [docs_troubleshooting]: https://repobuddy.github.io/visual-testing/addon/troubleshooting/
 [downloads_image]: https://img.shields.io/npm/dm/storybook-addon-vis.svg?style=flat
 [github_action_url]: https://github.com/repobuddy/visual-testing/actions/workflows/release.yml

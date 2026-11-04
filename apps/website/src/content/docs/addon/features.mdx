@@ -1,0 +1,47 @@
+---
+title: "Features"
+description: "Every capability of storybook-addon-vis in one table, each linking to its guide."
+sidebar:
+  order: 3
+---
+
+This page is an index.
+Each row names a capability and links to the page that shows how to use it.
+The concepts behind them are in [Visual testing](/visual-testing/visual-testing/what-is-visual-testing/).
+
+## Taking snapshots
+
+| Feature | In one line | Guide |
+| --- | --- | --- |
+| Automatic snapshots | Every story with the `snapshot` tag is captured at the end of its test. | [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/) |
+| Per-story opt out | `!snapshot` turns a story off, like `!test`. | [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/) |
+| Manual snapshots | `expect(element).toMatchImageSnapshot()` in a `play` function, on the page or on one element. | [Manual snapshots](/visual-testing/addon/guides/manual-snapshots/) |
+| Existence check | `hasImageSnapshot()` tells a story whether its baseline exists. | [Manual snapshots](/visual-testing/addon/guides/manual-snapshots/#check-if-a-snapshot-exists) |
+| CSF Next | Setup in the preview with `addonVis()`, and snapshots of stories with `story.test()`. | [CSF Next and story.test()](/visual-testing/addon/guides/csf-next/) |
+| Chrome DevTools Protocol | `cdp()` works inside stories under Playwright and Chromium. | [Chrome DevTools Protocol](/visual-testing/addon/guides/chrome-devtools-protocol/) |
+
+## Variations
+
+| Feature | In one line | Guide |
+| --- | --- | --- |
+| Themes | One baseline per theme from one story. | [Themes](/visual-testing/addon/guides/themes/) |
+| Viewports and instances | One baseline folder per browser instance. | [Viewports and multiple instances](/visual-testing/addon/guides/viewports-and-multiple-instances/) |
+
+## Comparing and reviewing
+
+| Feature | In one line | Guide |
+| --- | --- | --- |
+| Thresholds | Tolerate a number or percentage of different pixels, globally, per story or per call. | [Thresholds and comparison](/visual-testing/addon/guides/thresholds-and-comparison/) |
+| Pixel and SSIM comparison | Pick the algorithm per project, story or call. | [Thresholds and comparison](/visual-testing/addon/guides/thresholds-and-comparison/) |
+| Vis panel | Baseline, result and diff of a story inside Storybook, with swipe and onion skin. | [The Vis panel](/visual-testing/addon/guides/the-vis-panel/) |
+| Review image | A failure writes a side-by-side crop of each changed region and a regions file. | [Reviewing failures](/visual-testing/addon/guides/reviewing-failures/) |
+| Agent review | A skill and an `llms.txt` help coding agents read failures cheaply. | [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/) |
+
+## Project layout
+
+| Feature | In one line | Guide |
+| --- | --- | --- |
+| Custom snapshot paths | Choose the root and subpath of the snapshot folders. | [Monorepos and custom snapshot paths](/visual-testing/addon/guides/monorepo-and-paths/) |
+| Several Vitest projects | The panel combines the snapshots of every project. | [Monorepos and custom snapshot paths](/visual-testing/addon/guides/monorepo-and-paths/) |
+| Platform baselines | CI writes to `__vis__/<platform>`, your machine to `__vis__/local`. | [CI](/visual-testing/addon/guides/ci/) |
+| Storybook 10.3+ annotations | Provide the annotations from the preview. | [Configuration](/visual-testing/addon/configuration/#storybook-103-and-vitest-project-annotations) |
