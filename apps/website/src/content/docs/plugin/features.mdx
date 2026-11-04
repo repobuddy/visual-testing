@@ -1,0 +1,55 @@
+---
+title: "Features of the Vitest plugin"
+description: "Every capability of vitest-plugin-vis in one table, each linked to its guide."
+sidebar:
+  order: 3
+---
+
+Each row names one capability, says what it does, and links to the page that teaches it.
+
+## Taking snapshots
+
+| Feature | What it does | Guide |
+| ------- | ------------ | ----- |
+| Automatic snapshots | Takes a snapshot at the end of every test that rendered content. | [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/) |
+| Manual snapshots | Takes a snapshot of an element, a locator or a base64 image where you call the matcher. | [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/) |
+| Page and full-page snapshots | Captures the viewport, or the whole scrollable page. | [Full-page and viewport snapshots](/visual-testing/plugin/guides/full-page-and-viewport-snapshots/) |
+| Snapshot subject | Snapshots a chosen element instead of `document.body`. | [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/#choose-the-element) |
+| Snapshot existence check | `page.hasImageSnapshot()` tells whether a snapshot exists. | [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/#check-whether-a-snapshot-exists) |
+
+## Variations
+
+| Feature | What it does | Guide |
+| ------- | ------------ | ----- |
+| Themes | One snapshot per theme for each test. | [Themes](/visual-testing/plugin/guides/themes/) |
+| Viewports and browsers | One set of snapshots per Vitest browser instance. | [Viewports and multiple instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/) |
+| Workspaces | Separate options and snapshot folders for each Vitest project. | [Workspaces and multiple configs](/visual-testing/plugin/guides/workspaces-and-multiple-configs/) |
+
+## Comparing and reviewing
+
+| Feature | What it does | Guide |
+| ------- | ------------ | ----- |
+| Pixel and SSIM comparison | Chooses how two images are compared. | [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/) |
+| Failure thresholds | Allows a number or a percentage of pixels to differ. | [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/#set-a-failure-threshold) |
+| Per-test overrides | Changes the options for one file, one test or one call. | [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/#override-for-one-test) |
+| Diff image, regions file and review image | Written next to the diff when a snapshot fails. | [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/) |
+| Agent review | A skill that tells a coding agent to read the review image first. | [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/) |
+| Creating baselines | Writes a missing baseline with `vitest -u` or `createMissingBaseline`. | [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/#create-the-baseline) |
+
+## Running everywhere
+
+| Feature | What it does | Guide |
+| ------- | ------------ | ----- |
+| Per-platform baselines | Keeps a baseline folder for each operating system on CI. | [CI](/visual-testing/plugin/guides/ci/) |
+| Snapshot paths | Changes the root folder, the sub-path and the key. | [Configuration reference](/visual-testing/plugin/reference/config/overview/) |
+| Long path shortening | Keeps paths within Windows limits. | [`shortenLongSnapshotPaths`](/visual-testing/plugin/reference/config/vis/#shortenlongsnapshotpaths) |
+| Playwright and WebdriverIO | Works with either Vitest browser provider. | [Configuration](/visual-testing/plugin/configuration/) |
+| `llms.txt` | Lists the pages and the public API for coding agents. | [`llms.txt`](https://repobuddy.github.io/visual-testing/llms.txt) |
+
+## For tool builders
+
+| Feature | What it does | Reference |
+| ------- | ------------ | --------- |
+| Client API | The browser-side building blocks that `storybook-addon-vis` uses. | [`client-api`](/visual-testing/plugin/reference/client-api/) |
+| Server utilities | Folder constants and path helpers for Node.js code. | [`server-utils`](/visual-testing/plugin/reference/server-utils/) |
+| Testing helpers | A sample image and a stub for testing your own integration. | [`testing`](/visual-testing/plugin/reference/testing/) |

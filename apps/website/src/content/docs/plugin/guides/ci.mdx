@@ -1,0 +1,83 @@
+---
+title: "CI"
+description: "Run image snapshot tests in CI with per-platform baselines."
+sidebar:
+  order: 9
+---
+
+Use this guide to run the visual tests in a CI job and keep the baselines that the job needs.
+[Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/) explains why baselines differ by operating system.
+
+## How the plugin detects CI
+
+The plugin uses [`is-ci`](https://www.npmjs.com/package/is-ci).
+On CI, snapshots go to `__vis__/<platform>`, where `<platform>` is `process.platform`, such as `linux` or `win32`.
+On your machine they go to `__vis__/local`.
+
+```txt
+__vis__/
+  local/            # your machine, not committed
+  linux/            # CI on Linux, committed
+    __baselines__/
+```
+
+Commit the `__baselines__` folder of each CI platform.
+Ignore `local`, `__results__` and `__diffs__`, as [Configuration](/visual-testing/plugin/configuration/#update-gitignore) shows.
+
+## Run the tests
+
+A job needs the browser that the provider drives.
+For Playwright, install it before the tests:
+
+```yaml
+# .github/workflows/test.yml
+name: test
+on: [pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec vitest run
+```
+
+See [Playwright on CI](https://playwright.dev/docs/ci) for the options of the install command.
+
+## Create the baselines for CI
+
+A snapshot with no baseline fails, on CI too.
+Render the baselines on the same platform that checks them, because a baseline from another operating system differs in font rendering.
+Two ways work:
+
+- Run the job once with `vitest run -u`, review the images, and commit them. This repository does it with a bot that opens a pull request with the new baselines.
+- Pass `createMissingBaseline: true` where a new snapshot may appear, so that the first run writes the baseline. Review the new images before you merge.
+
+The workflow of this repository is in [Snapshot workflow](https://github.com/repobuddy/visual-testing/blob/main/docs/snapshot-workflow.md).
+
+## Read a failure from CI
+
+`__results__` and `__diffs__` are ignored by git, so a failing job leaves them on the runner.
+Upload `__vis__/**/__diffs__` as an artifact to read the review image, as [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/) describes.
+
+```yaml
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: snapshot-diffs
+          path: '**/__vis__/**/__diffs__'
+```
+
+## Options that matter
+
+| Option | Page |
+| ------ | ---- |
+| `snapshotRootDir`, to change the folder or the CI naming | [`vis` config](/visual-testing/plugin/reference/config/vis/#snapshotrootdir) |
+| `shortenLongSnapshotPaths`, for long Windows paths | [`vis` config](/visual-testing/plugin/reference/config/vis/#shortenlongsnapshotpaths) |
+| `timeout`, for a slow runner | [Troubleshooting](/visual-testing/plugin/troubleshooting/) |

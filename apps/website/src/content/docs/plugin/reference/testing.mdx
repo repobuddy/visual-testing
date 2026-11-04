@@ -1,0 +1,50 @@
+---
+title: testing
+description: A sample image and a Node.js stub for testing your own integration with vitest-plugin-vis.
+sidebar:
+  order: 5
+---
+
+Two entry points support tests of code that builds on the plugin.
+
+## `vitest-plugin-vis/testing`
+
+A 128 by 128 sample image, in three forms. It is safe in browser tests.
+
+| Name | Form |
+| ---- | ---- |
+| `UNI_PNG_BASE64` | The PNG, as a base64 string. A valid subject for `expect().toMatchImageSnapshot()`. |
+| `UNI_PNG_URL` | The same PNG, as a `data:image/png;base64,` URL. |
+| `UNI_IMAGE_DATA` | The pixels, as an object with `width`, `height`, `colorSpace` and `data`. |
+
+```ts
+import { expect, it } from 'vitest'
+import { UNI_PNG_BASE64 } from 'vitest-plugin-vis/testing'
+
+it('matches the sample image', async () => {
+	await expect(UNI_PNG_BASE64).toMatchImageSnapshot({ createMissingBaseline: true })
+})
+```
+
+## `vitest-plugin-vis/testing/node`
+
+For Node.js and Vitest projects only. It is not safe in Vitest Browser Mode.
+It exports the three sample image names above and two functions.
+
+### `stubSuite(partialUserConfig?, partialBrowserCommandContext?)`
+
+Builds stubs of the Vitest user config and of the browser command context.
+It returns `{ userConfig, browserCommandContext }`.
+Pass partial objects to override fields, such as `{ test: { name: 'my-project' } }`.
+
+### `getVisOption(browserCommandContext)`
+
+Returns the options that the `vis()` plugin registered for the project of the context.
+It starts from the options of the project with no name and applies the named project's options over them.
+
+```ts
+import { getVisOption, stubSuite } from 'vitest-plugin-vis/testing/node'
+
+const { browserCommandContext } = stubSuite({ test: { name: 'a' } })
+const options = getVisOption(browserCommandContext)
+```

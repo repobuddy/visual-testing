@@ -8,6 +8,9 @@ sidebar:
 The `vis` object from `vitest-plugin-vis/setup` provides the API to set up the plugin on the client side.
 This is not the same `vis` as the [Vitest plugin](/visual-testing/plugin/reference/config/vis/) exported from `vitest-plugin-vis/config`.
 
+`vis` is a `VisClientConfigurator`, an object with one method, `setup(options?)`.
+The options have the type `SetupVisOptions`: `auto` and `createMissingBaseline`.
+
 ## Basic setup
 
 ```ts
@@ -61,10 +64,11 @@ it('renders the card', () => {
 })
 ```
 
-## Multi-theme setup
+## Theme snapshots
 
 Pass an object to `auto` to take one snapshot per theme.
-Each key is the theme name, and each value is a handler that prepares the page for that theme.
+Each key is a theme name, and each value is a handler that prepares the page for that theme.
+A handler receives the snapshot options of the test, and returns `false` to skip its theme.
 
 ```ts
 // vitest.setup.ts
@@ -72,85 +76,10 @@ import { vis } from 'vitest-plugin-vis/setup'
 
 vis.setup({
 	auto: {
-		light: async () => {
-			document.body.classList.remove('dark')
-			document.body.classList.add('light')
-		},
-		dark: async () => {
-			document.body.classList.add('dark')
-			document.body.classList.remove('light')
-		},
+		light: async () => document.body.classList.remove('dark'),
+		dark: async () => document.body.classList.add('dark'),
 	},
 })
 ```
 
-The per-theme matcher that backs this form behaves as follows:
-
-- Every handler runs and takes its snapshot, even if an earlier handler throws.
-- When handlers fail, the errors are aggregated into one message:
-
-  ```txt
-  Snapshot `matchpertheme/should-aggregate-all-errors` mismatched
-
-  Theme `theme1` failed: theme1 failed
-
-  Theme `theme2` failed: theme2 failed
-  ```
-
-- A handler receives the snapshot options (the `meta`) of the test, for example `{ enable: true }`.
-
-## Conditional theme snapshots
-
-A handler can skip its theme by returning `false`.
-The handler receives the same snapshot options as the function form of `auto`:
-
-```ts
-// vitest.setup.ts
-import { vis } from 'vitest-plugin-vis/setup'
-
-vis.setup({
-	auto: {
-		light: async (meta) => {
-			if (meta['skipLight']) return false
-			document.body.classList.remove('dark')
-		},
-		dark: async (meta) => {
-			if (meta['skipDark']) return false
-			document.body.classList.add('dark')
-		},
-	},
-})
-```
-
-## Advanced theme configuration
-
-Theme names are free-form, so you can model viewports and combinations.
-A theme name is also the snapshot key, so it cannot contain a dash.
-Use alphanumeric characters and underscores, such as `darkDesktop` or `dark_desktop`:
-
-```ts
-// vitest.setup.ts
-import { vis } from 'vitest-plugin-vis/setup'
-
-vis.setup({
-	auto: {
-		desktop: async () => {
-			document.body.style.width = '1200px'
-			document.body.classList.add('desktop')
-		},
-		tablet: async () => {
-			document.body.style.width = '768px'
-			document.body.classList.add('tablet')
-		},
-		mobile: async () => {
-			document.body.style.width = '375px'
-			document.body.classList.add('mobile')
-		},
-		darkDesktop: async (meta) => {
-			if (meta['skipDark']) return false
-			document.body.style.width = '1200px'
-			document.body.classList.add('desktop', 'dark')
-		},
-	},
-})
-```
+The [Themes guide](/visual-testing/plugin/guides/themes/) covers the file names, skipping a theme, naming rules and how failures are reported.

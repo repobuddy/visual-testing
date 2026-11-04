@@ -18,6 +18,7 @@ export default defineConfig({
 ```
 
 `vis()` works with zero config. The options below customize its behavior.
+Their type is `VisOptions`, exported from `vitest-plugin-vis/config`.
 See also the [config overview](/visual-testing/plugin/reference/config/overview/) for how the snapshot path is built.
 
 ## `preset`
@@ -231,66 +232,35 @@ The other defaults shown are those of `ssim.js`.
 For option details, see the [ssim documentation](https://github.com/obartra/ssim).
 The `ssim.js` repository is archived, so an issue with `ssim` comparison may not be fixed.
 
-## Failure thresholds
+## `failureThreshold` and `failureThresholdType`
 
-A failure threshold sets how much difference is acceptable before a test fails.
-`failureThreshold` is `0` by default.
+`failureThreshold` sets how much difference is acceptable before a test fails. The default is `0`.
 `failureThresholdType` is `'pixel'` (the default) or `'percent'`.
 
-### Pixel-based threshold
-
 ```ts
-vis({
-	failureThreshold: 100, // Allow 100 pixels to differ
-	failureThresholdType: 'pixel', // Default: 'pixel'
-})
+vis({ failureThreshold: 5, failureThresholdType: 'percent' })
 ```
 
-### Percentage-based threshold
+For examples and per-test overrides, see [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/#set-a-failure-threshold).
 
-Percentages scale better across image sizes.
+## `reviewImage`
 
-```ts
-vis({
-	failureThreshold: 5, // Allow 5% of pixels to differ
-	failureThresholdType: 'percent',
-})
-```
-
-### Pixel-perfect comparison
-
-This is the default behavior: any pixel difference fails.
-
-```ts
-vis({
-	failureThreshold: 0,
-	failureThresholdType: 'pixel',
-})
-```
-
-## Review image
-
-When a snapshot mismatches, `vitest-plugin-vis` writes a review image (`<name>.review.png`) next to the diff image.
-It places the baseline, result, and diff crops of each changed region side by side,
-so you or a coding agent can see what changed without opening the full images.
-The changed regions are also written to `<name>.regions.json`, even when `reviewImage` is `false`.
-The review image is skipped when the image size changed, there are many regions, or the regions cover most of the image.
-See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#reviewimage) for details.
-
-To not write the review image:
+`reviewImage` is `true` by default.
+Set it to `false` to not write the review image (`<name>.review.png`) of a failed snapshot.
+The regions file (`<name>.regions.json`) is written either way.
 
 ```ts
 vis({ reviewImage: false })
 ```
 
-## Timeout
+For what the files hold and when the review image is skipped, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
 
-The `timeout` option sets the default timeout of a snapshot, in milliseconds.
-The default is 30 seconds.
+## `timeout`
+
+`timeout` sets the default timeout of a snapshot, in milliseconds. The default is 30000.
 
 ```ts
-vis({ timeout: 60000 }) // 60 seconds
-vis({ timeout: 5000 }) // 5 seconds
+vis({ timeout: 60000 })
 ```
 
 ## `shortenLongSnapshotPaths`

@@ -206,33 +206,14 @@ await expect(document.body).toMatchImageSnapshot({ timeout: 60000 })
 
 ### `reviewImage`
 
-When a snapshot mismatches, the matcher finds the changed regions and writes two files next to the diff image:
-
-- `<name>.regions.json`: the image size and one box per changed region.
-- `<name>.review.png`: for each region, the baseline, result, and diff crops side by side.
-
-The failure message lists the regions and the review image:
-
-```txt
-Changed:    2 regions: 30x30 at (0,0), 36x36 at (134,334)
-Review:     ./__vis__/__diffs__/a.spec.ts/case-1.review.png (baseline, result, diff of each region)
-```
-
-Open the review image first: it shows only what changed and is much smaller than the full images.
-
-The review image is skipped, and the message says why, when cropping does not help:
-
-- the image size changed: `Review: skipped, the image size changed; open Actual or Difference instead`
-- there are more than 5 regions: `Review: skipped, N regions, more than 5; open Actual or Difference instead`
-- the regions cover more than half of the image: `Review: skipped, the regions cover N% of the image; open Actual or Difference instead`
-- no changed region is found: `Review: skipped, no changed region found; open Actual or Difference instead`
-
-Set `reviewImage: false` to not write the review image.
-The `Review:` line is then left out of the message, and `Changed:` and the `.regions.json` file are still written.
+When a snapshot mismatches, the matcher writes `<name>.regions.json` and `<name>.review.png` next to the diff image.
+Set `reviewImage: false` to not write the review image. The regions file is still written.
 
 ```ts
 await expect(document.body).toMatchImageSnapshot({ reviewImage: false })
 ```
+
+For the files, the failure message and the cases where the review image is skipped, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
 
 ### `expectToFail`
 
@@ -284,15 +265,4 @@ The matcher supports Vitest's `retry` option. A test with `{ retry: 1 }` can tak
 
 ## Choosing a comparison method
 
-Use `pixel` (the default) for precise detection of small UI changes, text changes, and layout shifts.
-
-Use `ssim` when images have gradients, shadows, or anti-aliasing, to reduce false positives from minor rendering differences.
-For example, to allow 1% of the pixels to differ:
-
-```ts
-await expect(document.body).toMatchImageSnapshot({
-	comparisonMethod: 'ssim',
-	failureThreshold: 1,
-	failureThresholdType: 'percent',
-})
-```
+See [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/#choose-the-comparison-method).
