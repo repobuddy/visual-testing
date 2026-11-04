@@ -27,7 +27,7 @@ You update them with `vitest --project vrt --update`.
 | Comparison methods | `pixelmatch`, custom comparators | `pixel`, `ssim` |
 | Thresholds | `threshold`, `allowedMismatchedPixelRatio`, `allowedMismatchedPixels` | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
 | Animations | `animations` defaults to `"disabled"`, with the Playwright provider | `animations: 'disabled'`, default `'allow'`, with both providers |
-| Masking by locator | Not documented | Yes, with the `mask` option |
+| Masking | `screenshotOptions.mask`, with the Playwright provider | `mask` takes selectors, locators or elements, with both providers |
 | Waits for a stable page | Yes, repeats captures until two match | Not provided |
 | Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) in Storybook |
 
