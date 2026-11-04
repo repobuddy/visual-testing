@@ -1,0 +1,32 @@
+---
+title: "Compare"
+description: "How vitest-plugin-vis and storybook-addon-vis compare with other visual testing tools."
+sidebar:
+  order: 0
+---
+
+This section compares this project with other visual testing tools.
+Each tool has its own page: what it is, what it does better, what this project does better, and when to choose it.
+
+Every claim about another tool comes from that tool's documentation, with a link and the date we read it.
+The tools change, so check the linked page before you decide.
+If a claim is out of date, [open an issue](https://github.com/repobuddy/visual-testing/issues).
+
+## Matrix
+
+"This project" means [vitest-plugin-vis](/visual-testing/plugin/get-started/) and [storybook-addon-vis](/visual-testing/addon/get-started/), which share one engine.
+A dash means the tool's documentation does not mention the feature.
+
+| Feature | [Vitest visual regression](/visual-testing/compare/vitest-visual-regression/) | This project |
+| ------- | ----------------------------------------------------------------------------- | ------------ |
+| Runs in | Vitest Browser Mode | Vitest Browser Mode, Storybook |
+| Manual snapshots | Yes | Yes |
+| Automatic snapshots | – | Yes |
+| Per-theme snapshots | – | Yes |
+| Comparison methods | `pixelmatch`, custom comparators | `pixel`, `ssim` |
+| Thresholds | Yes | Yes |
+| Review UI | A/B slider in Vitest UI mode | [Vis panel](/visual-testing/visual-testing/reviewing-failures-with-agents/) in Storybook |
+| Baselines stored | Local files | Local files |
+| Cost | Open source | Open source |
+
+More tools are added to the matrix as their pages are written.
