@@ -22,7 +22,7 @@ The platform is used with an `apiKey`.
 | Runs in | Its own runner, against Storybook, Ladle, Histoire or pages | Vitest Browser Mode, Storybook |
 | Comparison | `pixelmatch` (default) or `odiff` | `pixel`, `ssim` |
 | Threshold | `threshold`: below 1 is a share of the image, 1 or more is a pixel count | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
-| Masking | `mask` with a CSS `selector` | Not yet, see [#999](https://github.com/repobuddy/visual-testing/issues/999) |
+| Masking | `mask` with a CSS `selector` | `mask` (selectors, locators or elements) and `maskColor` |
 | Baselines | `.lostpixel/baseline/` by default | `__vis__` folders |
 | Hosted option | Lost Pixel Platform | No |
 | Cost | Engine is open source; platform pricing not on the pages read | Open source |
@@ -32,7 +32,6 @@ Sources for this project: [`vis()` options](/visual-testing/plugin/reference/con
 ## What Lost Pixel does better
 
 - It supports more frameworks and plain web pages, not only Storybook and Vitest.
-- It has masking by CSS selector. Masking is not yet available here, see [#999](https://github.com/repobuddy/visual-testing/issues/999).
 - It has a hosted platform for teams.
 
 ## What this project does better
@@ -44,7 +43,7 @@ Sources for this project: [`vis()` options](/visual-testing/plugin/reference/con
 
 ## When to choose Lost Pixel
 
-Choose it when you need to cover Ladle, Histoire or plain pages, or need masking today.
+Choose it when you need to cover Ladle, Histoire or plain pages.
 
 ## When to choose this project
 
