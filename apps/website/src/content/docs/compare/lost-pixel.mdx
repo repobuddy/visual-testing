@@ -22,7 +22,7 @@ The platform is used with an `apiKey`.
 | Runs in | Its own runner, against Storybook, Ladle, Histoire or pages | Vitest Browser Mode, Storybook |
 | Comparison | `pixelmatch` (default) or `odiff` | `pixel`, `ssim` |
 | Threshold | `threshold`: below 1 is a share of the image, 1 or more is a pixel count | `failureThreshold` with `failureThresholdType` `pixel` or `percent` |
-| Masking | `mask` with a CSS `selector` | `mask` (selectors, locators or elements) and `maskColor` |
+| Masking | `mask` with a CSS `selector` | `mask` takes selectors, locators or elements, with both providers |
 | Baselines | `.lostpixel/baseline/` by default | `__vis__` folders |
 | Hosted option | Lost Pixel Platform | No |
 | Cost | Engine is open source; platform pricing not on the pages read | Open source |
