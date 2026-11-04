@@ -6,17 +6,21 @@ export function playwright(context: ExtendedBrowserCommandContext): BrowserApi {
 	const { page, iframe } = context
 
 	return {
-		async takeScreenshot(projectRoot, relativeFilePath, selector, options) {
+		async takeScreenshot(projectRoot, relativeFilePath, selector, { mask, maskColor, ...options } = {}) {
 			const subject = iframe.locator(selector)
 			return subject.screenshot({
 				path: resolve(projectRoot, relativeFilePath),
 				...options,
+				...(mask?.length ? { mask: mask.map((m) => iframe.locator(m)) } : {}),
+				...(mask?.length && maskColor ? { maskColor } : {}),
 			})
 		},
-		async takePageScreenshot(projectRoot, relativeFilePath, options) {
+		async takePageScreenshot(projectRoot, relativeFilePath, { mask, maskColor, ...options } = {}) {
 			return page.screenshot({
 				path: resolve(projectRoot, relativeFilePath),
 				...options,
+				...(mask?.length ? { mask: mask.map((m) => iframe.locator(m)) } : {}),
+				...(mask?.length && maskColor ? { maskColor } : {}),
 			})
 		},
 	}
