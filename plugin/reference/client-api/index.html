@@ -120,7 +120,8 @@ The names are joined with <code dir="auto">/</code>.</p>
 <li><code dir="auto">setup()</code> asks the server for the suite setup. Call it in <code dir="auto">beforeAll</code>.</li>
 <li><code dir="auto">createMatcher(themes, suiteDefaults?)</code> returns an <code dir="auto">afterEach</code> function.
 <code dir="auto">themes</code> is a record of theme name to <code dir="auto">boolean</code> or handler, as in the object form of <code dir="auto">auto</code>.
-<code dir="auto">suiteDefaults</code> can hold <code dir="auto">createMissingBaseline</code>.</li>
+<code dir="auto">suiteDefaults</code> can hold <code dir="auto">createMissingBaseline</code> and <code dir="auto">animations</code>.
+<code dir="auto">toSuiteDefaults(options)</code> builds <code dir="auto">suiteDefaults</code> from the options of <code dir="auto">vis.setup()</code>.</li>
 </ul>
 <div class="sl-heading-wrapper level-h2"><h2 id="setautosnapshotoptions"><code dir="auto">setAutoSnapshotOptions</code></h2><a class="sl-anchor-link" href="#setautosnapshotoptions"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “setAutoSnapshotOptions”</span></a></div>
 <p>The same function as in <code dir="auto">vitest-plugin-vis</code>.
@@ -155,6 +156,10 @@ See <a href="/visual-testing/plugin/reference/set-auto-snapshot-options/"><code 
 <tr>
 <td><code dir="auto">ImageSnapshotTimeoutOptions</code></td>
 <td><code dir="auto">timeout</code>.</td>
+</tr>
+<tr>
+<td><code dir="auto">AnimationsOptions</code></td>
+<td><code dir="auto">animations</code>: <code dir="auto">'disabled'</code> or <code dir="auto">'allow'</code>.</td>
 </tr>
 <tr>
 <td><code dir="auto">ImageSnapshotKeyOptions</code></td>
@@ -194,11 +199,11 @@ See <a href="/visual-testing/plugin/reference/set-auto-snapshot-options/"><code 
 </tr>
 <tr>
 <td><code dir="auto">MatchImageSnapshotOptions</code></td>
-<td>The comparison, timeout, key, review image and <code dir="auto">createMissingBaseline</code> options.</td>
+<td>The comparison, timeout, key, review image, <code dir="auto">animations</code> and <code dir="auto">createMissingBaseline</code> options.</td>
 </tr>
 <tr>
 <td><code dir="auto">SetupVisOptions</code></td>
-<td>The options of <code dir="auto">vis.setup()</code>: <code dir="auto">auto</code> and <code dir="auto">createMissingBaseline</code>.</td>
+<td>The options of <code dir="auto">vis.setup()</code>: <code dir="auto">auto</code>, <code dir="auto">createMissingBaseline</code> and <code dir="auto">animations</code>.</td>
 </tr>
 <tr>
 <td><code dir="auto">SnapshotTestMeta</code></td>
