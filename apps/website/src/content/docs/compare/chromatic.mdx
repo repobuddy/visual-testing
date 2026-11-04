@@ -1,0 +1,61 @@
+---
+title: "vs Chromatic"
+description: "How vitest-plugin-vis and storybook-addon-vis compare with Chromatic."
+sidebar:
+  order: 4
+---
+
+Chromatic is a hosted testing platform.
+Claims about Chromatic come from its [documentation](https://www.chromatic.com/docs/) and its [pricing page](https://www.chromatic.com/pricing), checked on 2026-11-03.
+
+## What it is
+
+The documentation calls Chromatic a testing platform for visual, interaction and accessibility tests, made by the team behind Storybook.
+It renders your UI in cloud browsers (Chrome, Firefox, Safari and Edge), runs tests in parallel, and lets you assign reviewers and resolve discussions.
+It works with Storybook, Playwright, Cypress, Vitest and React Native.
+Its TurboSnap feature snapshots only the stories affected by a change.
+
+## Features
+
+| Feature | Chromatic | This project |
+| ------- | --------- | ------------ |
+| Where it runs | Cloud browsers | Your machine or CI, in the browser provider you configure |
+| Browsers | Chrome, Firefox, Safari, Edge | Those of your provider ([Playwright and WebdriverIO](/visual-testing/plugin/get-started/)) |
+| Hosted review and sign-off | Yes | No, review the files and the [Vis panel](/visual-testing/visual-testing/reviewing-failures/) |
+| Only test what changed | TurboSnap | No |
+| Flake handling | SteadySnap | Not provided |
+| Storybook globals (themes, viewports) | Yes | Per-theme and per-viewport snapshots |
+| Baselines | Not stated on the documentation page | Local files in your repository |
+| Cost | Free plan with 5,000 billed snapshots a month; Starter $179 a month | Open source |
+
+Pricing is as listed on 2026-11-03 and may change.
+Free includes Chrome only; Safari, Firefox and Edge start at Starter.
+Sources for this project: [platforms and CI](/visual-testing/visual-testing/platforms-and-ci/).
+
+## What Chromatic does better
+
+- Review is built for teams: reviewers, discussions and approvals live in the service.
+- It runs the same tests in several browsers without you managing them.
+- It reduces the number of snapshots with TurboSnap.
+- It also covers interaction and accessibility tests.
+
+## What this project does better
+
+- It costs nothing and has no snapshot quota.
+- Baselines and results are files in your repository.
+- It runs in any CI that can run your tests.
+- It has an [agent review skill](/visual-testing/visual-testing/reviewing-failures-with-agents/).
+
+## When to choose Chromatic
+
+Choose it when you want cross-browser results and team review without running infrastructure, and the cost fits.
+
+## When to choose this project
+
+Choose it when you want local, free, file-based baselines in your own CI.
+
+## Migrate
+
+Chromatic stores its baselines in its service, so there is nothing to copy.
+Add the addon or plugin, create baselines on the first run, and remove the Chromatic step from CI when you are ready.
+You can run both while you compare the results.
