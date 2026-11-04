@@ -231,6 +231,8 @@ const DOC_PAGES = {
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotCompareOptions':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/shared/types.ts#AnimationsOptions':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/shared/types.ts#ReviewImageOptions':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/shared/types.ts#ImageSnapshotSubjectOptions':
@@ -263,6 +265,8 @@ const DOC_PAGES = {
 	'packages/vitest-plugin-vis/src/client/expect/expectation_result.ts#success':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/client/expect/to_match_image_snapshot.types.ts#ImageSnapshotMatcher':
+		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
+	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#toSuiteDefaults':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',
 	'packages/vitest-plugin-vis/src/client/suite/auto_snapshot_matcher.ts#autoSnapshotMatcher':
 		'apps/website/src/content/docs/plugin/reference/client-api.mdx',

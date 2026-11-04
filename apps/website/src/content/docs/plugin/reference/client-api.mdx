@@ -44,6 +44,7 @@ Creates the object behind `vis.setup()`.
 - `createMatcher(themes, suiteDefaults?)` returns an `afterEach` function.
   `themes` is a record of theme name to `boolean` or handler, as in the object form of `auto`.
   `suiteDefaults` can hold `createMissingBaseline` and `animations`.
+`toSuiteDefaults(options)` builds `suiteDefaults` from the options of `vis.setup()`.
 
 ## `setAutoSnapshotOptions`
 
@@ -63,6 +64,7 @@ A passing `SyncExpectationResult`, `{ pass: true, message: () => '' }`, for a cu
 | `ComparisonMethod` | `'pixel'` or `'ssim'`. |
 | `FailureThresholdOptions` | `failureThreshold` and `failureThresholdType`. |
 | `ImageSnapshotTimeoutOptions` | `timeout`. |
+| `AnimationsOptions` | `animations`: `'disabled'` or `'allow'`. |
 | `ImageSnapshotKeyOptions` | `snapshotKey`. |
 | `ImageSnapshotSubjectOptions` | `subject`, a selector. |
 | `ReviewImageOptions` | `reviewImage`. |
