@@ -1,0 +1,41 @@
+---
+title: storybookVis
+description: The Vitest plugin that makes Vitest write image snapshots for Storybook stories.
+sidebar:
+  order: 5
+---
+
+`storybookVis()` is the Vitest plugin of the addon.
+Add it next to `storybookTest()` in `vitest.config.ts`.
+
+```ts
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	plugins: [storybookTest(), storybookVis()],
+})
+```
+
+## Signature
+
+```ts
+function storybookVis<M extends ComparisonMethod>(
+	options?: Omit<VisOptions<M>, 'preset'> | undefined,
+): any
+```
+
+The return type is `any` so the plugin fits different Vitest and Vite versions.
+
+## Options
+
+The options are the options of the [`vis` plugin](/visual-testing/plugin/reference/config/vis/) of vitest-plugin-vis, minus `preset`.
+The addon sets the preset itself, to `custom`, because stories take their own snapshots.
+It names the plugin `storybook-addon-vis`.
+This page does not repeat the options.
+
+## Related
+
+- [Configuration](/visual-testing/addon/configuration/) for where it goes.
+- Import path: `storybook-addon-vis/vitest-plugin`. The same entry also exports `trimCommonFolder`, see [`trimCommonFolder`](/visual-testing/plugin/reference/config/trim-common-folder/).

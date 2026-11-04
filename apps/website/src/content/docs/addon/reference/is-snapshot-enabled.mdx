@@ -1,0 +1,29 @@
+---
+title: isSnapshotEnabled
+description: Decide from story tags whether a story takes an automatic snapshot.
+sidebar:
+  order: 9
+---
+
+`isSnapshotEnabled(tags)` applies the tag rule of [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/).
+[`visAnnotations`](/visual-testing/addon/reference/vis-annotations/) calls it for every story.
+
+```ts
+import { isSnapshotEnabled } from 'storybook-addon-vis'
+
+isSnapshotEnabled(['snapshot']) // true
+isSnapshotEnabled(['snapshot', '!snapshot']) // false
+isSnapshotEnabled(['!snapshot', 'snapshot']) // true
+isSnapshotEnabled([]) // false
+```
+
+## Signature
+
+```ts
+function isSnapshotEnabled(tags: string[]): boolean
+```
+
+## Rule
+
+- With neither `snapshot` nor `!snapshot` in the tags, the result is `false`.
+- Otherwise the tag that appears last wins.

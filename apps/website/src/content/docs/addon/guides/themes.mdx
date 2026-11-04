@@ -1,0 +1,98 @@
+---
+title: "Themes"
+description: "Capture every snapshot once per theme, such as light and dark."
+sidebar:
+  order: 3
+---
+
+import Snapshot from '../../../../components/showcase/Snapshot.astro'
+import SnapshotGrid from '../../../../components/showcase/SnapshotGrid.astro'
+
+Goal: one baseline per theme for every snapshot story, without repeating the story.
+The idea behind variations is in [Variations](/visual-testing/visual-testing/variations/).
+
+## Set up
+
+Give `vis.setup` an `auto` object.
+Each key is a theme.
+Its function switches the page to that theme.
+After each story test, the addon runs every function in turn and takes a snapshot after each.
+
+```ts
+// vitest.setup.ts
+import { setProjectAnnotations } from '@storybook/react-vite'
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+import * as projectAnnotations from './.storybook/preview.ts'
+
+setProjectAnnotations([visAnnotations, projectAnnotations])
+
+vis.setup({
+	auto: {
+		light() {
+			document.documentElement.classList.remove('dark')
+		},
+		dark() {
+			document.documentElement.classList.add('dark')
+		},
+	},
+})
+```
+
+This is the setup of the `themes` test case, with `@storybook/addon-themes` switching a `dark` class.
+See the [Themes example](/visual-testing/addon/examples/themes/).
+
+## What appears on disk
+
+The key becomes the last part of the file name, so a story has one image per theme:
+
+```text
+__baselines__/story_snapshot.stories.tsx/primary-light.png
+__baselines__/story_snapshot.stories.tsx/primary-dark.png
+```
+
+<SnapshotGrid>
+	<Snapshot
+		src="theme-primary-light.png"
+		alt="The Primary story in the light theme: a blue pill button labelled Button at the top left of a white canvas."
+		caption="Primary, light"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-primary-dark.png"
+		alt="The Primary story in the dark theme: the same button on a dark canvas."
+		caption="Primary, dark"
+		width={960}
+		height={720}
+	/>
+</SnapshotGrid>
+
+## Skip a theme for one story
+
+The function receives the tags of the story.
+Return `false` to skip that theme:
+
+```tsx
+export const Brand = { tags: ['snapshot', 'skip-dark'] }
+```
+
+```ts
+vis.setup({
+	auto: {
+		async dark({ tags }) {
+			if (tags.includes('skip-dark')) return false
+			document.documentElement.classList.add('dark')
+		},
+		light() {
+			document.documentElement.classList.remove('dark')
+		},
+	},
+})
+```
+
+## Things to know
+
+- The theme hooks run in `afterEach`. They change the page after your story test ends, so a manual snapshot taken in `play` is not affected. To capture a manual snapshot per theme, configure Vitest to run the tests in each theme.
+- A manual snapshot gets the default key, which you can change with the `snapshotKey` option of `storybookVis()`.
+
+Reference: [`vis.setup`](/visual-testing/plugin/reference/setup/vis/) takes the same `auto` option as the plugin.

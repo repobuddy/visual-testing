@@ -1,6 +1,6 @@
 ---
-title: "Set up the Storybook addon"
-description: "Configure Vitest, Storybook and TypeScript for storybook-addon-vis, from the basic setup to multiple Vitest projects."
+title: "Configure the Storybook addon"
+description: "Configure Vitest, Storybook, TypeScript and .gitignore for storybook-addon-vis."
 sidebar:
   order: 2
 ---
@@ -8,7 +8,7 @@ sidebar:
 To setup [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis), you need to do the following:
 
 - Add the `storybookVis` plugin in [Vitest](https://vitest.dev) along with the `storybookTest` plugin.
-- Configure visual testing in `vitest.setup.ts` and/or `.storybook/preview.ts` (see [Storybook 10.3+ and Vitest project annotations](#storybook-103-and-vitest-project-annotations); with CSF Next, prefer preview-only setup as in [Basic Setup for CSF Next](#basic-setup-for-csf-next)).
+- Configure visual testing in `vitest.setup.ts` and/or `.storybook/preview.ts` (see [Storybook 10.3+ and Vitest project annotations](#storybook-103-and-vitest-project-annotations); with CSF Next, prefer preview-only setup as in the [CSF Next guide](/visual-testing/addon/guides/csf-next/)).
 - Add [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) addon to your [Storybook](https://storybook.js.org) configuration in `.storybook/main.ts`.
 - Ignore snapshot folders in your `.gitignore` file.
 
@@ -35,7 +35,7 @@ The basic setup will:
 - You can review snapshots in the addon `Vis` panel. For a failed snapshot, compare the baseline with the result side by side, with a swipe divider, or as an onion skin, or view the diff image.
 
 This setup assumes that you are writing your stories in CSF 3.
-If you are writing your stories in CSF Next, check out [Basic Setup for CSF Next](#basic-setup-for-csf-next).
+If you are writing your stories in CSF Next, follow the [CSF Next guide](/visual-testing/addon/guides/csf-next/).
 
 For [Vitest](https://vitest.dev), you need to do two things:
 
@@ -89,7 +89,7 @@ With the `visAnnotations` from `storybook-addon-vis/vitest-setup`, you have two 
 1. **Preview:** merge `visAnnotations` into `.storybook/preview.ts`, as shown below. Keep only `vis.setup()` in `vitest.setup.ts`.
 2. **Vitest setup:** merge `visAnnotations` in `setProjectAnnotations([...])` in `vitest.setup.ts`, as in [Basic Setup](#basic-setup). Because that file calls `setProjectAnnotations`, Storybook does not provision the preview annotations for you.
 
-If you use CSF Next, use `definePreview({ addons: [addonVis({ auto: true })] })` instead. It carries `visAnnotations` already. See [Basic Setup for CSF Next](#basic-setup-for-csf-next).
+If you use CSF Next, use `definePreview({ addons: [addonVis({ auto: true })] })` instead. It carries `visAnnotations` already. See the [CSF Next guide](/visual-testing/addon/guides/csf-next/).
 
 ```ts
 // .storybook/preview.ts
@@ -164,7 +164,7 @@ export default {
 }
 ```
 
-With CSF Next, `addonVis({ auto: true })` adds this tag for you. See [Basic Setup for CSF Next](#basic-setup-for-csf-next).
+With CSF Next, `addonVis({ auto: true })` adds this tag for you. See the [CSF Next guide](/visual-testing/addon/guides/csf-next/).
 
 ## Ignore snapshot folders
 
@@ -183,12 +183,6 @@ With the basic setup, add this to your `.gitignore` (or your version control sys
 Note that the `__vis__/*/__baselines__` should not be ignored,
 as it is used to store the baseline images.
 They should be committed to your repository.
-
-## First-run baselines (`createMissingBaseline` vs `updateSnapshot`)
-
-In **vitest-plugin-vis** (and when using the same client APIs outside Storybook’s Vitest bridge), `createMissingBaseline: true` on `toMatchImageSnapshot` / `page.toMatchImageSnapshot`, or `vis.setup({ createMissingBaseline: true, ... })`, can create a missing baseline without passing `-u`.
-
-When running **Storybook + Vitest browser mode** through this addon, matcher options are serialized over RPC; custom fields such as `createMissingBaseline` may not reach the server. In that setup, use Vitest’s snapshot update mode instead (for example temporarily set `server.config.snapshotOptions.updateSnapshot = 'all'` around the first run, or run with `-u`) to write new baselines—the same mechanism as a normal snapshot update.
 
 ## TypeScript Configuration
 
@@ -247,47 +241,6 @@ import { expect } from '@storybook/test'
 
 Setting `globals: true` (and adding `types: ["vitest/globals"]` in your `tsconfig.json`)
 causes inconsistency and confuses both the editor and you.
-
-## Basic Setup for CSF Next
-
-If you are writing your stories in CSF Next,
-You don't need to setup the visual testing in `vitest.setup.ts`.
-Instead, you should setup the visual testing in `.storybook/preview.ts`.
-
-```ts
-// vitest.config.ts
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
-import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
-import { defineConfig } from 'vitest/config'
-
-export default defineConfig({
-	plugins: [
-		storybookTest(),
-		storybookVis() // ADD THIS
-	],
-	test: {
-		browser: { ... }, // your Vitest Browser Mode configuration
-		// setupFiles: ['./vitest.setup.ts'], // REMOVE THIS
-	}
-})
-```
-
-```ts
-// .storybook/preview.ts
-import addonVis from 'storybook-addon-vis'
-import { definePreview } from '@storybook/your-framework/node'
-
-export default definePreview({
-	addons: [
-		// Enable automatic snapshot taking at the end of each test
-		addonVis({ auto: true })
-	]
-})
-```
-
-`addonVis({ auto: true })` adds the `snapshot` tag to every story and carries the hooks that take the snapshots, so `vitest.setup.ts` is not needed.
-The [`sb-csf-next` testcase](https://github.com/repobuddy/visual-testing/tree/main/testcases/sb-csf-next) uses this setup: `addonVis()` in `definePreview()` and no `setupFiles`.
-You can see it in the [published Storybook](/visual-testing/examples/sb-csf-next/storybook/) and on the [CSF Next example page](/visual-testing/addon/examples/sb-csf-next/).
 
 ## Advanced Setup
 
@@ -361,73 +314,5 @@ vis.setup({
 })
 ```
 
-### Multiple vitest projects or custom snapshot paths
-
-If your setup uses multiple vitest projects or custom paths,
-you need to tell the addon where to load the snapshot so it can show them in the `Vis` panel.
-
-For example,
-
-```ts
-// vitest.config.ts
-
-export default defineConfig({
-	test: {
-		projects: [{
-			plugins: [
-				storybookVis({
-					snapshotRootDir: '__vis__/chromium',
-					snapshotSubpath: '...'
-				}),
-			],
-		}, {
-			plugins: [
-				storybookVis({
-					snapshotRootDir: '__vis__/firefox',
-					snapshotSubpath: '...'
-				}),
-			],
-		}],
-	}
-})
-```
-
-Update your `.storybook/main.ts` to specify the correct paths:
-
-```ts
-// .storybook/main.ts
-
-export default {
-  addons: [
-		{
-			name: 'storybook-addon-vis',
-			options: {
-				visProjects: [{
-					snapshotRootDir: '__vis__/chromium',
-					snapshotSubpath: '...'
-				},{
-					snapshotRootDir: '__vis__/firefox',
-					snapshotSubpath: '...'
-				}]
-			}
-		}
-	]
-}
-```
-
-You can also use the `defineStorybookVis` helper function to configure the addon:
-
-```ts
-// .storybook/main.ts
-import { defineStorybookVis } from 'storybook-addon-vis/node'
-
-export default {
-	addons: [
-		defineStorybookVis({
-			visProjects: [{
-				snapshotRootDir: '__vis__/chromium',
-			}]
-		})
-	]
-}
-```
+For several Vitest projects or custom snapshot paths, see [Monorepos and custom snapshot paths](/visual-testing/addon/guides/monorepo-and-paths/).
+To create the first baselines, see [Get started](/visual-testing/addon/get-started/#first-run-create-the-baselines).

@@ -78,6 +78,48 @@ const SITE_PAGES = {
 			title: 'Manual snapshots',
 			summary: 'Take snapshots in a play function, check that one exists, and use the Chrome DevTools Protocol.',
 		},
+		{ slug: 'addon/features', title: 'Features', summary: 'Every capability of the addon, each linked to its guide.' },
+		{
+			slug: 'addon/guides/themes',
+			title: 'Themes',
+			summary: 'Take every snapshot once per theme, such as light and dark.',
+		},
+		{
+			slug: 'addon/guides/viewports-and-multiple-instances',
+			title: 'Viewports and multiple instances',
+			summary: 'Snapshot the same stories at several browser sizes.',
+		},
+		{
+			slug: 'addon/guides/csf-next',
+			title: 'CSF Next and story.test()',
+			summary: 'Set up visual testing in the preview for CSF Next stories.',
+		},
+		{
+			slug: 'addon/guides/the-vis-panel',
+			title: 'The Vis panel',
+			summary: 'Review baseline, result and diff of a story inside Storybook.',
+		},
+		{
+			slug: 'addon/guides/thresholds-and-comparison',
+			title: 'Thresholds and comparison for stories',
+			summary: 'Tolerate small differences and pick pixel or SSIM comparison for stories.',
+		},
+		{
+			slug: 'addon/guides/reviewing-failures',
+			title: 'Reviewing failures (addon view)',
+			summary: 'Find what changed when a story snapshot fails.',
+		},
+		{
+			slug: 'addon/guides/monorepo-and-paths',
+			title: 'Monorepos and custom snapshot paths',
+			summary: 'Tell the Vis panel where the snapshots are.',
+		},
+		{ slug: 'addon/guides/ci', title: 'CI', summary: 'Run story snapshots on CI with platform baselines.' },
+		{
+			slug: 'addon/guides/chrome-devtools-protocol',
+			title: 'Chrome DevTools Protocol',
+			summary: 'Use cdp() inside a story under Playwright and Chromium.',
+		},
 		{
 			slug: 'addon/troubleshooting',
 			title: 'Troubleshooting',
@@ -153,14 +195,14 @@ const FEATURED_FILES = [`${ADDON}/reviewing_failures_with_agents.mdx`]
  */
 const OVERVIEW = 'packages/storybook-addon-vis/src/overview.mdx'
 const DOC_PAGES = {
-	'packages/storybook-addon-vis/src/index.ts#default': null,
+	'packages/storybook-addon-vis/src/index.ts#default': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#cdp': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#page': OVERVIEW,
 	'packages/storybook-addon-vis/src/preview/vis_annotation.ts#visAnnotations': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/has_image_snapshot.ts#hasImageSnapshot': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/storybook/param.ts#defineAutoSnapshotParam': OVERVIEW,
-	'packages/storybook-addon-vis/src/client/storybook/tags.ts#isSnapshotEnabled': null,
-	'packages/storybook-addon-vis/src/exports/preset.ts#experimental_serverChannel': null,
+	'packages/storybook-addon-vis/src/client/storybook/tags.ts#isSnapshotEnabled': OVERVIEW,
+	'packages/storybook-addon-vis/src/exports/preset.ts#experimental_serverChannel': OVERVIEW,
 	'packages/storybook-addon-vis/src/exports/vitest-setup.ts#vis': OVERVIEW,
 	'packages/storybook-addon-vis/src/vitest-plugin/storybook_vis.ts#storybookVis': OVERVIEW,
 	'packages/storybook-addon-vis/src/node/define_storybook_vis.ts#defineStorybookVis':

@@ -1,0 +1,30 @@
+---
+title: hasImageSnapshot
+description: Check in a story whether the baseline of the running test exists.
+sidebar:
+  order: 8
+---
+
+`hasImageSnapshot()` returns a promise of `true` when the snapshot image exists.
+Use it in a story `loaders` function, as shown in [Manual snapshots](/visual-testing/addon/guides/manual-snapshots/#check-if-a-snapshot-exists).
+
+```ts
+import { hasImageSnapshot } from 'storybook-addon-vis'
+
+const exists = await hasImageSnapshot({ snapshotKey: 'dark' })
+```
+
+## Signature
+
+```ts
+function hasImageSnapshot(options?: ImageSnapshotKeyOptions | undefined): Promise<boolean> | false
+```
+
+`options.snapshotKey` selects the snapshot of a theme or a custom key.
+
+## Outside a Vitest run
+
+It looks up the current Vitest test.
+Without one, such as in a plain Storybook preview, it returns `false` because the preview cannot read snapshot files.
+
+The matching plugin function is [`page.hasImageSnapshot`](/visual-testing/plugin/reference/matchers/has-image-snapshot/).
