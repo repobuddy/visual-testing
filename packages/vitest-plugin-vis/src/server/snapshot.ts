@@ -1,7 +1,7 @@
 import { mkdirp } from 'mkdirp'
 import { dirname, resolve } from 'pathe'
 import { isBase64String } from '../shared/base64.ts'
-import type { ImageSnapshotTimeoutOptions, PageImageSnapshotOptions } from '../shared/types.ts'
+import type { ImageSnapshotTimeoutOptions, MaskServerOptions, PageImageSnapshotOptions } from '../shared/types.ts'
 import { browserApi } from './browser_provider/browser_api.ts'
 import { snapshotWriter } from './snapshot_writer.ts'
 import type { ExtendedBrowserCommandContext } from './vis_server_context.types.ts'
@@ -11,7 +11,7 @@ export async function takeSnapshot(
 	projectRoot: string,
 	relativeFilePath: string,
 	subject: string,
-	options: ImageSnapshotTimeoutOptions | undefined,
+	options: (ImageSnapshotTimeoutOptions & MaskServerOptions) | undefined,
 ) {
 	if (isBase64String(subject)) {
 		await snapshotWriter.writeBase64(resolve(projectRoot, relativeFilePath), subject)
@@ -25,13 +25,15 @@ export async function takeSnapshotByBrowser(
 	projectRoot: string,
 	relativeFilePath: string,
 	subject: string,
-	options: ImageSnapshotTimeoutOptions | undefined,
+	options: (ImageSnapshotTimeoutOptions & MaskServerOptions) | undefined,
 ) {
 	const filePath = resolve(projectRoot, relativeFilePath)
 	await mkdirp(dirname(filePath))
 	const browser = browserApi(context)
 	return browser.takeScreenshot(projectRoot, relativeFilePath, subject ?? 'body', {
 		timeout: options?.timeout,
+		mask: options?.mask,
+		maskColor: options?.maskColor,
 	})
 }
 
@@ -39,7 +41,7 @@ export async function takePageSnapshot(
 	context: ExtendedBrowserCommandContext,
 	projectRoot: string,
 	relativeFilePath: string,
-	options: (PageImageSnapshotOptions & ImageSnapshotTimeoutOptions) | undefined,
+	options: (PageImageSnapshotOptions & ImageSnapshotTimeoutOptions & MaskServerOptions) | undefined,
 ) {
 	const filePath = resolve(projectRoot, relativeFilePath)
 	await mkdirp(dirname(filePath))
@@ -47,5 +49,7 @@ export async function takePageSnapshot(
 	return browser.takePageScreenshot(projectRoot, relativeFilePath, {
 		timeout: options?.timeout,
 		fullPage: options?.fullPage,
+		mask: options?.mask,
+		maskColor: options?.maskColor,
 	})
 }

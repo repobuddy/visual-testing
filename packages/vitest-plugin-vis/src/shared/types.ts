@@ -50,6 +50,32 @@ export interface AnimationsOptions {
 	animations?: 'disabled' | 'allow' | undefined
 }
 
+export interface MaskOptions {
+	/**
+	 * Regions to paint over before the snapshot is taken,
+	 * so content that changes on every run (timestamps, avatars, ads, random data)
+	 * does not fail the comparison.
+	 *
+	 * Each entry is a CSS selector, a locator, or an element.
+	 * Every match is masked, including the ones outside the subject's own tree.
+	 * Entries that match nothing are ignored.
+	 */
+	mask?: Array<string | MaskLocator | Element> | undefined
+	/**
+	 * Color of the mask boxes. Any CSS color.
+	 *
+	 * @default '#FF00FF'
+	 */
+	maskColor?: string | undefined
+}
+
+/**
+ * A locator such as the one returned by `page.getByTestId()`.
+ */
+export type MaskLocator = { selector: string }
+
+export type MaskServerOptions = { mask?: string[] | undefined; maskColor?: string | undefined }
+
 export type ComparisonMethod = 'pixel' | 'ssim'
 
 export type FailureThresholdOptions = {
@@ -121,7 +147,8 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 	ImageSnapshotKeyOptions &
 	ImageSnapshotCompareOptions<M> &
 	ReviewImageOptions &
-	AnimationsOptions & {
+	AnimationsOptions &
+	MaskOptions & {
 		/**
 		 * Expect the matcher to fail.
 		 * If it passes, it will throw an error with details.
@@ -190,7 +217,12 @@ export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
 	ImageSnapshotKeyOptions &
 	ReviewImageOptions &
-	AnimationsOptions & {
+	AnimationsOptions &
+	Omit<MaskOptions, 'mask'> & {
+		/**
+		 * Selectors of the regions to mask. Locators and elements are converted before they reach the server.
+		 */
+		mask?: string[] | undefined
 		/**
 		 * When `true`, write a missing baseline on first run (see {@link ToMatchImageSnapshotOptions} `createMissingBaseline`).
 		 */

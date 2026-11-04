@@ -175,6 +175,16 @@ setAutoSnapshotOptions({
 })
 ```
 
+### `mask` and `maskColor`
+
+Selectors, locators, or elements to paint over before each automatic snapshot, and the color to paint them with (default `#FF00FF`).
+
+```ts
+setAutoSnapshotOptions({ mask: ['[data-testid="timestamp"]'], maskColor: '#000000' })
+```
+
+See [`toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#mask) for how masking works.
+
 ### `expectToFail`
 
 Expects the snapshot comparison to fail. Useful for testing that changes are detected.
