@@ -1,5 +1,6 @@
 import { describe, it } from 'vitest'
 import { toDataURL } from '../external/browser/image_data.ts'
+import { server } from '../external/vitest/vitest_browser_context_proxy.ts'
 import { compareImageSnapshot } from './compare_image_snapshot.ts'
 
 async function createPng(width: number, height: number, draw: (ctx: CanvasRenderingContext2D) => void) {
@@ -103,5 +104,32 @@ describe('when the snapshot mismatches', () => {
 		)
 
 		expect(message).toMatch(/Review:\s+skipped, the regions cover \d+% of the image/)
+	})
+})
+
+describe('when there is no baseline', () => {
+	const info = {
+		projectRoot: '/project',
+		baselinePath: '__vis__/__baselines__/a.spec.ts/case-1.png',
+		resultPath: '__vis__/__results__/a.spec.ts/case-1.png',
+		diffPath: '__vis__/__diffs__/a.spec.ts/case-1.png',
+		baseline: undefined,
+		result: baseline,
+	}
+
+	// With `-u` Vitest writes the missing baseline instead of failing.
+	it.skipIf(server.config.snapshotOptions.updateSnapshot === 'all')(
+		'fails and asks for a review',
+		async ({ expect }) => {
+			const { files, commands } = createCommands()
+			await expect(compareImageSnapshot(commands, 'case', info as any)).rejects.toThrow(/has no baseline image/)
+			expect(files).toEqual({})
+		},
+	)
+
+	it('writes the baseline with `createMissingBaseline`', async ({ expect }) => {
+		const { files, commands } = createCommands()
+		await compareImageSnapshot(commands, 'case', info as any, { createMissingBaseline: true })
+		expect(files['/project/__vis__/__baselines__/a.spec.ts/case-1.png']).toBeDefined()
 	})
 })

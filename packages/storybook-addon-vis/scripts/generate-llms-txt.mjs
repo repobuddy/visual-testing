@@ -117,6 +117,30 @@ const SITE_PAGES = {
 	[`${PLUGIN}/changelog.mdx`]: [{ slug: 'releases/changelog-plugin' }],
 }
 
+/**
+ * Package-neutral pages that exist only on the website (no source `.mdx`). Their title and description come from the page frontmatter.
+ * Slugs are relative to `SITE_CONTENT_DIR`.
+ */
+const SITE_CONTENT_DIR = 'apps/website/src/content/docs'
+const CONCEPT_SLUGS = [
+	'visual-testing/what-is-visual-testing',
+	'visual-testing/how-snapshots-work',
+	'visual-testing/comparison-and-thresholds',
+	'visual-testing/platforms-and-ci',
+	'visual-testing/updating-baselines',
+	'visual-testing/reviewing-failures',
+	'visual-testing/variations',
+	'visual-testing/choosing-a-package',
+]
+const CONCEPT_PAGES = CONCEPT_SLUGS.map((slug) => {
+	const frontmatter = read(`${SITE_CONTENT_DIR}/${slug}.mdx`).match(/^---\n([\s\S]*?)\n---/)?.[1] ?? ''
+	const field = (name) => frontmatter.match(new RegExp(`^${name}:\\s*"(.*)"\\s*$`, 'm'))?.[1]
+	const title = field('title')
+	const description = field('description')
+	if (!title || !description) throw new Error(`${slug}.mdx needs a quoted title and description in its frontmatter`)
+	return { slug, title, description, url: `${SITE_URL}${slug}/` }
+})
+
 /** Pages an agent should read first (source `.mdx`). */
 const FEATURED_FILES = [`${ADDON}/reviewing_failures_with_agents.mdx`]
 
@@ -522,6 +546,12 @@ function render(context, scopePackages) {
 		)
 	}
 	out.push('', '## Documentation', '', renderPageList(docs, members), '')
+	out.push(
+		'## Visual testing concepts',
+		'',
+		...CONCEPT_PAGES.map((page) => `- [${page.title}](${page.url}): ${page.description}`),
+		'',
+	)
 	out.push('## Entry points', '')
 	for (const entry of scoped) {
 		const count = new Set(entry.members.map((m) => m.key)).size
@@ -629,12 +659,12 @@ if (mode === '--site-pages') {
 		dirs.some((dir) =>
 			['.mdx', '.md', '/index.mdx', '/index.md'].some((ext) => existsSync(resolve(repoRoot, dir, `${slug}${ext}`))),
 		)
-	const absent = PAGES.filter((p) => !exists(p.slug)).map((p) => p.slug)
+	const absent = [...PAGES.map((p) => p.slug), ...CONCEPT_SLUGS].filter((slug) => !exists(slug))
 	if (absent.length > 0) {
 		stderr(`Slugs with no page file in ${dirs.join(', ')}:\n  ${absent.join('\n  ')}`)
 		process.exit(1)
 	}
-	stdout(`All ${PAGES.length} slugs have a page file.`)
+	stdout(`All ${PAGES.length + CONCEPT_SLUGS.length} slugs have a page file.`)
 } else if (mode === '--gaps') {
 	process.stdout.write(renderGaps(context))
 } else if (mode === undefined || mode === '--check') {

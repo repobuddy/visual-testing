@@ -1,0 +1,49 @@
+---
+title: "Variations"
+description: "Take the same test in several themes, viewports and browsers, and when each one pays off."
+sidebar:
+  order: 8
+---
+
+One test can produce more than one baseline.
+Each variation multiplies the number of images, so add one only when it can break independently.
+
+## Themes
+
+A theme changes colors and sometimes layout.
+A dark theme can lose contrast that the light one has.
+With [`vis.setup({ auto: { light, dark } })`](/visual-testing/plugin/reference/setup/vis/#multi-theme-setup) each automatic snapshot is taken once per theme.
+Each key is a theme name and each value is a function that prepares the page for it.
+The theme name is added to the file name, for example `primary-light.png` and `primary-dark.png`.
+
+Use themes when your UI ships more than one.
+
+## Viewports
+
+A responsive layout changes with the width.
+The [Showcase](/visual-testing/showcase/#per-viewport-snapshots) shows a phone and a desktop capture of the same page.
+There are two ways to get one baseline per viewport:
+
+- Resize inside a test with `page.viewport(width, height)` and snapshot with a different `snapshotKey` each time.
+- Run the project in several browser instances, each with its own viewport, and give each instance its own `snapshotRootDir`.
+
+The second way needs no change to the tests.
+The [Multi instances](/visual-testing/addon/examples/multi-instances/) example runs `HD` (1280 by 720) and `SVGA` (800 by 600), so every story gets a baseline in `__vis__/<platform>/HD` and `__vis__/<platform>/SVGA`.
+
+Use viewports when the layout has breakpoints.
+
+## Browsers
+
+Vitest browser instances can use different browsers.
+The `snapshotRootDir` function receives `browserName` and `providerName`, so you can keep one folder per browser.
+Browsers render the same page slightly differently, so each needs its own baseline.
+
+## Platforms
+
+The operating system is a variation you do not choose.
+See [Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/).
+
+## Examples
+
+- [Themes](/visual-testing/addon/examples/themes/)
+- [Multi instances](/visual-testing/addon/examples/multi-instances/)

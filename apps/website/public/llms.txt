@@ -44,6 +44,17 @@ Import from the entry points listed below, not from package internals. Documenta
 - [vitest-plugin-vis: setup/createVis](https://repobuddy.github.io/visual-testing/plugin/reference/setup/create-vis/): Import `createVis` from `vitest-plugin-vis/setup-api` (not from `vitest-plugin-vis/setup`). Documents: createVis.
 - [vitest-plugin-vis: setup/vis](https://repobuddy.github.io/visual-testing/plugin/reference/setup/vis/): `vis` object from `vitest-plugin-vis/setup` provides the API to setup the plugin on the client side. Documents: vis.
 
+## Visual testing concepts
+
+- [What is visual testing](https://repobuddy.github.io/visual-testing/visual-testing/what-is-visual-testing/): What visual testing catches and misses, and the loop of writing, snapshotting, comparing, reviewing and updating.
+- [How snapshots work](https://repobuddy.github.io/visual-testing/visual-testing/how-snapshots-work/): Baseline, result and diff images, the __vis__ folder layout, and what to commit and what to ignore.
+- [Comparison and thresholds](https://repobuddy.github.io/visual-testing/visual-testing/comparison-and-thresholds/): How a result is compared with its baseline: pixel and SSIM methods, failure thresholds in pixels or percent, and how to choose.
+- [Platforms and CI](https://repobuddy.github.io/visual-testing/visual-testing/platforms-and-ci/): Why baselines are kept per platform, how local runs differ from CI, and how to keep baselines current in CI.
+- [Updating baselines](https://repobuddy.github.io/visual-testing/visual-testing/updating-baselines/): Create the first baselines and update them after an intended change, with createMissingBaseline, updateSnapshot and vitest -u.
+- [Reviewing failures](https://repobuddy.github.io/visual-testing/visual-testing/reviewing-failures/): Read a failed image snapshot: the error message, the diff, the review image, the regions file, the Vis panel and git diff.
+- [Variations](https://repobuddy.github.io/visual-testing/visual-testing/variations/): Take the same test in several themes, viewports and browsers, and when each one pays off.
+- [Choosing a package](https://repobuddy.github.io/visual-testing/visual-testing/choosing-a-package/): Pick storybook-addon-vis for Storybook stories or vitest-plugin-vis for Vitest Browser Mode tests, and see how they relate.
+
 ## Entry points
 
 - [`storybook-addon-vis`](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/src/index.ts): default export; functions: defineAutoSnapshotParam, hasImageSnapshot, isSnapshotEnabled, setAutoSnapshotOptions; types: Awaitable, ComparisonMethod, FailureThresholdOptions, ImageSnapshotCompareOptions, ImageSnapshotComparisonInfo, ImageSnapshotKeyOptions, ImageSnapshotSubjectOptions, ImageSnapshotTimeoutOptions, MatchImageSnapshotOptions, MetaTask, PageImageSnapshotOptions, PixelComparisonOptions, PixelDiffOptions, ReviewImageOptions, SetupVisOptions, SnapshotTestMeta, SsimComparisonOptions, SsimDiffOptions, ToMatchImageSnapshotOptions, ToMatchPageImageSnapshotOptions; values: cdp, page, visAnnotations (28 exports, 6 with a documentation page).
