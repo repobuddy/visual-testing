@@ -19,6 +19,9 @@ There are three ways to update baselines.
    There is one per platform, named `vis-bot/update-snapshot/<branch>-<os>-lts-latest`.
 4. Review the new renders, then merge the snapshot pull request into your branch.
 
+No snapshot pull request is opened when the branch is behind `main`, because the run would only recreate baselines that `main` already has. Update the branch and re-run.
+The `close-snapshot-prs` workflow closes a branch's snapshot pull requests, and deletes their branches, when the branch's own pull request closes or merges.
+
 Snapshot pull requests target a feature branch, not `main`, so the `all-checks` ruleset does not apply to them.
 They are opened with `github.token`, which does not trigger workflows, so they do not start another verify run.
 
@@ -28,9 +31,10 @@ These can merge themselves, so a render change must not pass unreviewed.
 When a branch named `renovate*` or `dependabot*` changes any baseline, the workflow:
 
 - uploads the changed baselines as a `changed-baselines-*` artifact,
-- fails the check with a link to the snapshot pull request (or to the artifact when none could be opened).
+- fails the check and points to the artifact. No snapshot pull request is opened for these branches.
 
-Review the render, then either merge the snapshot pull request into the branch or fix the regression.
+Review the render, then either commit the artifact's baselines to the branch or fix the regression.
+Renovate is set to rebase whenever its branch falls behind `main`, which avoids false render changes.
 
 ## C. Manual
 
