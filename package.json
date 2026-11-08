@@ -66,7 +66,7 @@
 		"vitest": "catalog:",
 		"webdriverio": "^9.31.2"
 	},
-	"packageManager": "pnpm@12.17.0",
+	"packageManager": "pnpm@12.18.0",
 	"engines": {
 		"node": "^22.12 || ^24 || >=26"
 	}
