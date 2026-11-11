@@ -585,6 +585,22 @@ Pass it to `definePreview({ addons: [addonVis({ auto: true })] })`.
 `storybook-addon-vis/preset` exports `experimental_serverChannel`, which Storybook calls so that the Vis panel can read the snapshot images.
 You do not call it yourself.
 
+## Usage - custom browser commands
+
+`commands` is a proxy of `commands` from `vitest/browser`.
+Use it to call [custom browser commands](https://vitest.dev/api/browser/commands.html) from a story.
+Like `page`, it is safe to import in a plain Storybook preview, where its commands are `undefined`.
+
+```tsx
+import { commands } from 'storybook-addon-vis'
+
+export const WithCommand = {
+	async play() {
+		await commands.myCommand?.()
+	}
+}
+```
+
 ## Usage - Chrome DevTools Protocol
 
 `cdp` is a proxy of `cdp()` from `vitest/browser`.
