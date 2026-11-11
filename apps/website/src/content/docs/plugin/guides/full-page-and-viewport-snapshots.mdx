@@ -21,7 +21,7 @@ it('should take a page snapshot', async () => {
 })
 ```
 
-It captures the visible viewport.
+It captures the visible viewport of the test page.
 With a viewport of 1280 by 720, as in the `vpv` test case, the image is 1280 by 720 pixels.
 To snapshot several sizes, see [Viewports and multiple instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/).
 
@@ -41,7 +41,36 @@ it('supports full page image snapshot', async () => {
 ```
 
 `fullPage` is `false` by default.
-With WebdriverIO, the plugin passes `fullPage` and `timeout` to `browser.saveScreenshot()`, so what a full-page capture includes depends on WebdriverIO and the browser.
+The image has the width and height of the page content, so content below or to the right of the viewport is in it.
+With the 1280 by 720 viewport, the example above gives an image of 1280 by 1000 pixels.
+It works with the Playwright and WebdriverIO providers.
+
+## Take full-page auto snapshots
+
+Auto snapshots capture the subject, `document.body` by default.
+Set `fullPage` to capture the whole page instead.
+
+For every auto snapshot, set it in `vis.setup()`:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({ auto: true, fullPage: true })
+```
+
+For one test or one file, use `setAutoSnapshotOptions()`. It overrides the `vis.setup()` default:
+
+```ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+it('renders the whole layout', async () => {
+	setAutoSnapshotOptions({ fullPage: true })
+	await render(<MyApp />)
+})
+```
+
+For a Storybook story, see [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/#full-page-snapshots).
 
 ## What appears on disk
 

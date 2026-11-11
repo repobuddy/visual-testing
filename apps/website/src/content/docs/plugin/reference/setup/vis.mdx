@@ -9,8 +9,9 @@ The `vis` object from `vitest-plugin-vis/setup` provides the API to set up the p
 This is not the same `vis` as the [Vitest plugin](/visual-testing/plugin/reference/config/vis/) exported from `vitest-plugin-vis/config`.
 
 `vis` is a `VisClientConfigurator`, an object with one method, `setup(options?)`.
-The options have the type `SetupVisOptions`: `auto`, `createMissingBaseline` and `animations`.
+The options have the type `SetupVisOptions`: `auto`, `createMissingBaseline`, `animations` and `fullPage`.
 `animations: 'disabled'` is the default for all auto snapshots; see [`animations`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#animations).
+`fullPage: true` makes every auto snapshot capture the whole page instead of the subject; see [`fullPage`](/visual-testing/plugin/reference/matchers/page-to-match-image-snapshot/#fullpage).
 
 ## Basic setup
 

@@ -27,6 +27,12 @@ it('should take a page snapshot', async () => {
 
 Capture the entire scrollable page, not just the visible viewport. The default is `false`.
 
+Vitest renders each test inside an iframe of its runner page.
+The plugin captures that iframe, not the runner page.
+With `fullPage`, it grows the iframe, and the viewport when needed, to the width and height of the page content,
+takes the screenshot, and then restores them.
+Content below or to the right of the viewport is in the image.
+
 ```ts
 it('supports full page image snapshot', async () => {
 	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
@@ -139,5 +145,6 @@ it('sequential test', async () => {
 
 ## WebdriverIO
 
-With WebdriverIO, the plugin passes `fullPage` and `timeout` to WebdriverIO's `browser.saveScreenshot()`.
-What a full-page screenshot captures is then up to WebdriverIO and the browser.
+With WebdriverIO, a full-page snapshot grows the test iframe and the viewport the same way, and then calls `browser.saveScreenshot()`.
+It is tested with headless Chrome.
+`timeout` has no effect with WebdriverIO, because `browser.saveScreenshot()` takes no timeout.

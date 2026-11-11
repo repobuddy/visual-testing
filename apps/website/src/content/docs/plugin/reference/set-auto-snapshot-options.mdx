@@ -106,6 +106,15 @@ A key that contains a dash throws `Snapshot key cannot contain dash`.
 setAutoSnapshotOptions({ animations: 'disabled' })
 ```
 
+### `fullPage`
+
+`true` captures the whole page instead of the subject, as [`page.toMatchImageSnapshot({ fullPage: true })`](/visual-testing/plugin/reference/matchers/page-to-match-image-snapshot/#fullpage) does.
+It overrides the `fullPage` default of `vis.setup()`. The default is `false`.
+
+```ts
+setAutoSnapshotOptions({ fullPage: true })
+```
+
 ### `timeout`
 
 The timeout for taking the snapshot, in milliseconds. The default is 30000.

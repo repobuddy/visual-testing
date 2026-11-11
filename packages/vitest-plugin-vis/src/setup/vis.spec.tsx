@@ -271,6 +271,31 @@ describe('matchPerTheme', () => {
 		setAutoSnapshotOptions({ enable: false })
 	})
 
+	it('takes a full page snapshot when fullPage is set, and setAutoSnapshotOptions overrides it', async () => {
+		const received: Array<Record<string, any>> = []
+		const fakeExpect = () => ({
+			toMatchImageSnapshot: async (options: Record<string, any>) => {
+				received.push(options)
+			},
+		})
+		const matcher = autoSnapshotMatcher(commands, fakeExpect)
+		await render(
+			<div data-testid="subject" style={{ width: '1500px', height: '1000px', backgroundColor: 'greenyellow' }}>
+				full page
+			</div>,
+		)
+
+		setAutoSnapshotOptions(true)
+		await matcher.createMatcher({ auto_full_page: async () => {} }, { fullPage: true, createMissingBaseline: true })()
+		expect(received).toEqual([])
+		expect(await page.hasImageSnapshot({ snapshotKey: 'auto_full_page' })).toBe(true)
+
+		setAutoSnapshotOptions({ fullPage: false })
+		await matcher.createMatcher({ key: async () => {} }, { fullPage: true })()
+		expect(received).toHaveLength(1)
+		setAutoSnapshotOptions({ enable: false })
+	})
+
 	describe('comparison options of setAutoSnapshotOptions', () => {
 		async function renderChanged(snapshotKey: string) {
 			setAutoSnapshotOptions({ enable: true })

@@ -33,6 +33,7 @@ export type MetaTask =
  * @param meta.maskColor - The color of the mask.
  * @param meta.timeout - The timeout to use for the snapshot.
  * @param meta.animations - `'disabled'` finishes or cancels CSS animations and transitions before the snapshot. Default `'allow'`.
+ * @param meta.fullPage - Snapshot the whole page instead of the subject. Default `false`.
  *
  * @example
  *

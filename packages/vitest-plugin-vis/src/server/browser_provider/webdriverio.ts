@@ -12,9 +12,72 @@ export function webdriverio(context: ExtendedBrowserCommandContext): BrowserApi 
 			return withMask(browser, options, () => element.saveScreenshot(relativeFilePath))
 		},
 		async takePageScreenshot(_projectRoot, relativeFilePath, options) {
-			const { mask, maskColor, ...rest } = options ?? {}
-			return withMask(browser, { mask, maskColor }, () => browser.saveScreenshot(relativeFilePath, rest))
+			const { mask, maskColor, fullPage } = options ?? {}
+			const screenshot = () => browser.saveScreenshot(relativeFilePath)
+			return withMask(browser, { mask, maskColor }, () =>
+				fullPage ? withFullPageFrame(context, screenshot) : screenshot(),
+			)
 		},
+	}
+}
+
+type Size = { width: number; height: number }
+
+type FrameProvider = {
+	isIframeSwitched?(): boolean
+	switchToTestFrame?(): Promise<void>
+	switchToMainFrame?(): Promise<void>
+	setViewport?(size: Size): Promise<void>
+}
+
+/**
+ * Vitest browser mode renders the test inside an iframe of its runner page,
+ * and the runner page sizes its viewport to the iframe.
+ * WebdriverIO's own `fullPage` capture works on the runner page and returns the viewport,
+ * so grow the iframe and the viewport to the content of the test page,
+ * take a viewport screenshot, then restore them.
+ */
+async function withFullPageFrame<T>(context: ExtendedBrowserCommandContext, action: () => Promise<T>): Promise<T> {
+	const { browser } = context
+	const provider = context.provider as unknown as FrameProvider
+	if (!provider.switchToMainFrame || !provider.switchToTestFrame || !provider.setViewport) return action()
+
+	const inTestFrame = provider.isIframeSwitched?.() ?? false
+	if (!inTestFrame) await provider.switchToTestFrame()
+	const content: Size = await browser.execute(() => ({
+		width: document.documentElement.scrollWidth,
+		height: document.documentElement.scrollHeight,
+	}))
+
+	await provider.switchToMainFrame()
+	try {
+		const { prev, viewport } = await browser.execute(
+			(width: number, height: number) => {
+				const container = document.querySelector('iframe[data-vitest]')!.parentElement!
+				const viewport = { width: container.offsetWidth, height: container.offsetHeight }
+				const prev = container.style.cssText
+				container.style.width = `${Math.max(width, viewport.width)}px`
+				container.style.height = `${Math.max(height, viewport.height)}px`
+				container.style.transform = 'none'
+				return { prev, viewport }
+			},
+			content.width,
+			content.height,
+		)
+		await provider.setViewport({
+			width: Math.max(content.width, viewport.width),
+			height: Math.max(content.height, viewport.height),
+		})
+		try {
+			return await action()
+		} finally {
+			await provider.setViewport(viewport)
+			await browser.execute((prev: string) => {
+				document.querySelector('iframe[data-vitest]')!.parentElement!.style.cssText = prev
+			}, prev)
+		}
+	} finally {
+		if (inTestFrame) await provider.switchToTestFrame()
 	}
 }
 
