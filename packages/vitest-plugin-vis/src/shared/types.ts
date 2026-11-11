@@ -164,6 +164,13 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 	}
 
 export interface PageImageSnapshotOptions {
+	/**
+	 * Capture the whole content of the test page instead of its viewport.
+	 *
+	 * Supported with the `playwright` provider.
+	 *
+	 * @default false
+	 */
 	fullPage?: boolean | undefined
 }
 
@@ -252,4 +259,13 @@ export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> 
 	 * @default 'allow'
 	 */
 	animations?: 'disabled' | 'allow' | undefined
+	/**
+	 * Take auto snapshots of the whole page instead of the subject.
+	 * Same as {@link PageImageSnapshotOptions#fullPage} of `page.toMatchImageSnapshot()`.
+	 *
+	 * A test or story can override it with `setAutoSnapshotOptions({ fullPage })`.
+	 *
+	 * @default false
+	 */
+	fullPage?: boolean | undefined
 }

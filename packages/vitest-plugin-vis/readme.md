@@ -196,7 +196,7 @@ The option is listed on the [`vis()` options page][docs_vis], in a shorter form.
 While Vitest Browser Mode supports both `playwright` and `webdriverio`,
 `webdriverio` currently does not work well with visual testing.
 
-There are two issues we are aware of:
+There is one issue we are aware of:
 
 > `element click intercepted: WebDriverError: element click intercepted: Element is not clickable at point`
 
@@ -224,11 +224,8 @@ export default {
 }
 ```
 
-> `fullPage` is not working
-
-This occurs when the browser is in `headless` mode.
-But even when it is not in `headless` mode,
-the resulting snapshot is still not capturing the full page.
+`fullPage` works with `webdriverio` in headless Chrome:
+the plugin grows the test iframe and the viewport to the size of the page content before it takes the screenshot.
 
 For the time being, we recommend using `playwright` for visual testing.
 

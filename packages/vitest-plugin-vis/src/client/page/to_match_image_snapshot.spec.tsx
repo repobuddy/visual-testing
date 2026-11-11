@@ -52,6 +52,19 @@ it('supports full page image snapshot', async () => {
 	).resolves.toBe(true)
 })
 
+it('captures content beyond the viewport with fullPage', async () => {
+	await render(
+		<div style={{ width: '1500px', height: '1000px', display: 'flex', flexDirection: 'column' }}>
+			<div style={{ flex: 1, backgroundColor: 'greenyellow' }}>top</div>
+			<div style={{ flex: 1, backgroundColor: 'cornflowerblue', textAlign: 'right' }}>bottom right</div>
+		</div>,
+	)
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'beyond_viewport',
+	})
+})
+
 describe('createMissingBaseline option', () => {
 	beforeEach(() => setAutoSnapshotOptions({ enable: false }))
 

@@ -25,13 +25,14 @@ export const Primary = {
 
 ```ts
 function defineAutoSnapshotParam<M extends ComparisonMethod>(
-	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions,
+	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions & PageImageSnapshotOptions,
 ): { snapshot: typeof snapshot }
 ```
 
 ## Options
 
-The options are the matcher options (`comparisonMethod`, `diffOptions`, threshold, timeout, `snapshotKey`) plus `subject`.
+The options are the matcher options (`comparisonMethod`, `diffOptions`, threshold, timeout, `snapshotKey`) plus `subject` and `fullPage`.
+`fullPage: true` captures the whole page instead of the subject.
 They belong to vitest-plugin-vis, see [`toMatchImageSnapshot`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
 
 ## Scope

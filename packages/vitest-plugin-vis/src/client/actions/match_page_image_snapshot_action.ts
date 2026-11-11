@@ -4,7 +4,7 @@ import type {
 	ImageSnapshotNextIndexCommand,
 	PrepareImageSnapshotComparisonCommand,
 } from '../../shared/commands.types.ts'
-import type { ToMatchImageSnapshotOptions } from '../../shared/types.ts'
+import type { ToMatchPageImageSnapshotOptions } from '../../shared/types.ts'
 import { settleAnimations } from '../animations/settle_animations.ts'
 import { normalizeMaskOptions } from '../mask.ts'
 import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
@@ -12,7 +12,7 @@ import { compareImageSnapshot } from '../snapshot/compare_image_snapshot.ts'
 export async function matchPageImageSnapshotAction(
 	commands: BrowserCommands & PrepareImageSnapshotComparisonCommand & ImageSnapshotNextIndexCommand,
 	taskId: string,
-	rawOptions?: ToMatchImageSnapshotOptions<any>,
+	rawOptions?: ToMatchPageImageSnapshotOptions<any>,
 ) {
 	const options = normalizeMaskOptions(rawOptions)
 	assertSnapshotKeyWithoutDash(options?.snapshotKey)

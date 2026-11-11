@@ -81,3 +81,23 @@ export const MyStory = {
 	// ...
 }
 ```
+
+## Full-page snapshots
+
+An automatic snapshot captures the subject.
+Set `fullPage` to capture the whole page instead, including content below or to the right of the viewport:
+
+```tsx
+export const Dashboard = {
+	tags: ['snapshot'],
+	parameters: defineAutoSnapshotParam({ fullPage: true }),
+}
+```
+
+To capture the whole page for every story, set it in `vitest.setup.ts`:
+
+```ts
+vis.setup({ auto: true, fullPage: true })
+```
+
+A story's `fullPage` parameter overrides that default.
