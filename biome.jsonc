@@ -13,6 +13,7 @@
 			"!**/node_modules/",
 			"!**/.vscode/**/*.txt",
 			"!**/.dist",
+			"!**/.astro",
 			"!**/esm",
 			"!**/*.code-workspace",
 			"!**/tailwind.css",
@@ -21,6 +22,17 @@
 			"!packages/storybook-addon-vis/preset.js"
 		]
 	},
+	"overrides": [
+		{
+			// Biome only parses an Astro file's frontmatter, so it cannot see imports and variables used in the template.
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"correctness": { "noUnusedImports": "off", "noUnusedVariables": "off" }
+				}
+			}
+		}
+	],
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"

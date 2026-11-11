@@ -1,0 +1,33 @@
+{
+	"name": "testcase-showcase",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Purpose-made snapshots for the website's Showcase page",
+	"type": "module",
+	"scripts": {
+		"clean": "rimraf dist",
+		"clean:vis:local": "rimraf __vis__/local",
+		"nuke": "rimraf node_modules",
+		"t:t": "tsc --noEmit",
+		"test": "vitest run",
+		"testcase": "vitest run",
+		"testcase:u": "vitest run -u",
+		"w": "vitest"
+	},
+	"dependencies": {
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8"
+	},
+	"devDependencies": {
+		"@fontsource-variable/inter": "^5.2.8",
+		"@types/react": "catalog:",
+		"@types/react-dom": "catalog:",
+		"@vitejs/plugin-react": "catalog:",
+		"@vitest/browser": "catalog:",
+		"@vitest/browser-playwright": "catalog:",
+		"typescript": "catalog:",
+		"vitest": "catalog:",
+		"vitest-browser-react": "catalog:",
+		"vitest-plugin-vis": "workspace:*"
+	}
+}

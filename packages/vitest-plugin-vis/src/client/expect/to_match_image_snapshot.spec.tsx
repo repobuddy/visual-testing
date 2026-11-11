@@ -91,6 +91,8 @@ it('fails when the image is different', async ({ expect }) => {
 				expect(error.message).toMatch(/Expected:\s+\.\/__vis__\/.*\.png/)
 				expect(error.message).toMatch(/Actual:\s+\.\/__vis__\/.*\.png/)
 				expect(error.message).toMatch(/Difference:\s+\.\/__vis__\/.*\.png/)
+				expect(error.message).toMatch(/Changed:\s+1 region: \d+x\d+ at \(\d+,\d+\)/)
+				expect(error.message).toMatch(/Review:\s+\.\/__vis__\/.*\.review\.png/)
 			},
 		)
 })
@@ -119,6 +121,7 @@ it('fails when the image is smaller', async ({ expect }) => {
 			(error) => {
 				expect(error.message).toMatch(/^Snapshot .* mismatched/)
 				expect(error.message).toMatch(/The image size changed from \d{3}x\d{3} to \d{2}x\d{2}/)
+				expect(error.message).toMatch(/Review:\s+skipped, the image size changed/)
 			},
 		)
 })

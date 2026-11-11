@@ -1,0 +1,337 @@
+---
+title: Showcase
+description: What visual-testing captures, shown with the baseline images committed in this repository.
+---
+
+import Story from '../../components/storybook/Story.astro'
+import Snapshot from '../../components/showcase/Snapshot.astro'
+import SnapshotGrid from '../../components/showcase/SnapshotGrid.astro'
+
+Every image on this page is a baseline committed to the visual-testing repository. They are the
+images its own test suites compare against, taken on Linux in headless Chromium. Nothing is
+mocked up. The code next to each image comes from the story or spec that produced it, trimmed to
+the lines that matter.
+
+The plan cards come from `testcases/showcase`, a test project made for this page. It uses a bundled
+font and fixed colors, so its captures are the same on every run.
+
+## Automatic and manual snapshots
+
+With the `auto` preset, every test gets a snapshot without a line of snapshot code. When you want a
+particular element under a name you choose, take a manual snapshot.
+
+<SnapshotGrid>
+	<Snapshot
+		src="plugin-auto-page.png"
+		alt="Three plan cards side by side on a light gray page: Starter with a sky blue button, Team with an indigo button and a yellow Popular badge, and Enterprise with a rose button."
+		caption="Automatic: the whole page after the test, 1280 x 360."
+		width={1280}
+		height={360}
+	/>
+	<Snapshot
+		src="plugin-manual-card.png"
+		alt="The Team plan card on its own: the title Team, the price $12, three feature lines, a yellow Popular badge and an indigo Choose Team button."
+		caption="Manual: only the Team card, saved as team_plan, 396 x 280."
+		width={396}
+		height={280}
+	/>
+</SnapshotGrid>
+
+```tsx
+// Automatic: the test only renders. The `auto` preset captures the page afterwards.
+it('plan grid', async () => {
+	await render(<PlanGrid />)
+})
+
+// Manual: pick the element and name the snapshot.
+it('team plan', async ({ expect }) => {
+	setAutoSnapshotOptions(false)
+	await render(<PlanGrid />)
+	await expect(page.getByTestId('plan-team')).toMatchImageSnapshot({ snapshotKey: 'team_plan' })
+})
+```
+
+See [`vis()`](/visual-testing/plugin/reference/config/vis/) and
+[`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
+
+## Per-viewport snapshots
+
+Resize the viewport inside a test and snapshot again, so each breakpoint of a responsive layout gets
+its own baseline.
+
+<SnapshotGrid>
+	<Snapshot
+		src="viewport-480.png"
+		alt="A 480 pixel wide viewport: the plan cards stacked in one column, Starter on top, Team below it, and the top of the Enterprise card cut off at the bottom edge."
+		caption="phone: 480 x 720, one column."
+		width={480}
+		height={720}
+	/>
+	<Snapshot
+		src="viewport-1024.png"
+		alt="A 1024 pixel wide viewport: the three plan cards in one row, with empty light gray space below them."
+		caption="desktop: 1024 x 720, three columns."
+		width={1024}
+		height={720}
+	/>
+</SnapshotGrid>
+
+```tsx
+it('plan grid per viewport', async ({ expect }) => {
+	setAutoSnapshotOptions(false)
+	await render(<PlanGrid />)
+
+	await page.viewport(480, 720)
+	await expect(document.body).toMatchImageSnapshot({ snapshotKey: 'phone' })
+
+	await page.viewport(1024, 720)
+	await expect(document.body).toMatchImageSnapshot({ snapshotKey: 'desktop' })
+})
+```
+
+The body is styled to the viewport height with `overflow: hidden`, so each capture is exactly what
+that viewport shows.
+
+## Automatic story snapshot
+
+A story tagged `snapshot` is captured without any test code. This repository sets the `subject`
+option to `[data-testid="subject"]`, so only that element is captured and unrelated content cannot
+break the baseline.
+
+<Story id="auto-snapshot--capture-subject-only" height={120} />
+
+The baseline holds the word "subject" and nothing else. The red "This will not be captured" line in
+the story is not part of it.
+
+<Snapshot
+	src="auto-capture-subject-only.png"
+	alt="A 960 by 20 pixel capture containing only the word subject in black text on white."
+	caption="Baseline for the Capture Subject Only story, 960 x 20."
+	width={960}
+	height={20}
+/>
+
+```tsx
+export default {
+	title: 'Auto Snapshot',
+	tags: ['snapshot'],
+} satisfies Meta
+
+export const CaptureSubjectOnly: StoryObj = {
+	render: () => (
+		<div className="flex flex-col gap-2">
+			<div data-testid="subject">subject</div>
+			<div className="text-red-500">This will not be captured</div>
+		</div>
+	),
+}
+```
+
+Every story with the tag gets a baseline, so coverage grows with your Storybook.
+See [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/).
+
+## Per-theme snapshots
+
+One story produces one baseline per theme. These four come from the `Primary` and `Secondary` button
+stories, captured once in light and once in dark.
+
+<SnapshotGrid>
+	<Snapshot
+		src="theme-primary-light.png"
+		alt="The Primary story in the light theme: a blue pill button labelled Button at the top left of a white 960 by 720 canvas."
+		caption="Primary, light"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-primary-dark.png"
+		alt="The Primary story in the dark theme: a dark blue pill button labelled Button at the top left of a black 960 by 720 canvas."
+		caption="Primary, dark"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-secondary-light.png"
+		alt="The Secondary story in the light theme: an outlined white pill button labelled Button2 at the top left of a white canvas."
+		caption="Secondary, light"
+		width={960}
+		height={720}
+	/>
+	<Snapshot
+		src="theme-secondary-dark.png"
+		alt="The Secondary story in the dark theme: a dark slate pill button labelled Button2 at the top left of a black canvas."
+		caption="Secondary, dark"
+		width={960}
+		height={720}
+	/>
+</SnapshotGrid>
+
+A theme regression, such as a button that loses contrast in dark mode, shows up as a pixel difference
+in the matching baseline. You tell the addon how to switch theme, and it runs each story in both.
+
+```ts
+vis.setup({
+	auto: {
+		light() {
+			document.documentElement.classList.remove('dark')
+		},
+		dark() {
+			document.documentElement.classList.add('dark')
+		},
+	},
+})
+```
+
+See [`vis.setup()`](/visual-testing/plugin/reference/setup/vis/).
+
+## Reviewing a failure
+
+When a snapshot does not match, you get a diff of the whole image and a review image that crops each
+changed region, so you see what changed without comparing two screenshots by eye.
+
+These images come from a real comparison. The baseline is the Team card. The result is the same card
+with a green button and the badge moved 40 pixels left.
+
+<SnapshotGrid>
+	<Snapshot
+		src="review-before.png"
+		alt="The Team plan card with an indigo Choose Team button and the yellow Popular badge near the top right corner."
+		caption="Baseline, 360 x 280."
+		width={360}
+		height={280}
+	/>
+	<Snapshot
+		src="review-after.png"
+		alt="The same Team plan card with a green Choose Team button and the Popular badge further from the right edge."
+		caption="Result, 360 x 280."
+		width={360}
+		height={280}
+	/>
+</SnapshotGrid>
+
+The failure message lists the changed regions and where the images are:
+
+```txt
+Snapshot `review-a-change` mismatched
+
+Expected image to match but was differ by 14632 pixels.
+
+Options:    failureThreshold: 0 pixels
+           comparisonMethod: pixel
+
+Expected:   ./__vis__/linux/__baselines__/review.spec.tsx/review-a-change-before.png
+Actual:     ./__vis__/linux/__results__/review.spec.tsx/review-a-change-before.png
+Difference: ./__vis__/linux/__diffs__/review.spec.tsx/review-a-change-before.png
+Changed:    2 regions: 135x55 at (220,12), 344x76 at (8,196)
+Review:     ./__vis__/linux/__diffs__/review.spec.tsx/review-a-change-before.review.png (baseline, result, diff of each region)
+```
+
+<SnapshotGrid>
+	<Snapshot
+		src="review-image.png"
+		alt="The review image. Top: the Popular badge as baseline, as result, and as a diff with the changed pixels in red. Bottom: the Choose Team button as baseline in indigo, as result in green, and as a diff that is solid red."
+		caption="Review image: baseline, result and diff of each region, 344 x 425."
+		width={344}
+		height={425}
+	/>
+	<Snapshot
+		src="review-diff.png"
+		alt="The diff image: the Team card faded to light gray, with the badge outline and the whole button in red."
+		caption="Difference image: the whole card, changed pixels in red, 360 x 280."
+		width={360}
+		height={280}
+	/>
+</SnapshotGrid>
+
+Open the review image first. [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) explains each view.
+
+```tsx
+const screen = await render(<TeamCard />)
+const card = page.getByTestId('plan-team')
+await expect(card).toMatchImageSnapshot({ snapshotKey: 'before' })
+
+await screen.rerender(<TeamCard buttonColor="#16a34a" badgeShift={40} />)
+// Fails, and writes the Difference and Review images listed in the message.
+await expect(card).toMatchImageSnapshot({ snapshotKey: 'before', expectToFail: true })
+```
+
+The test passes `expectToFail` so the repository's CI does not fail on purpose, and then keeps the
+two images as baselines. See
+[`reviewImage`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#reviewimage)
+and [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/).
+
+## Snapshot thresholds
+
+A small rendering difference does not have to fail a test.
+See [Comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/) for how thresholds work.
+
+Both threshold stories share one baseline, `threshold`, which is shown below. It is a stored baseline,
+not the output of a failed run. The stories render slightly different text ("unit text") from the
+baseline ("unit test"), so the comparison finds a few differing pixels. A threshold of 70 pixels
+accepts them. A threshold of 20 pixels rejects them.
+
+<Snapshot
+	src="threshold-baseline.png"
+	alt="A 960 by 20 pixel capture containing the words unit test in black text on white."
+	caption="The shared threshold baseline, 960 x 20."
+	width={960}
+	height={20}
+/>
+
+```tsx
+// Passes: the differing pixels are within 70.
+await expect(subject).toMatchImageSnapshot({
+	snapshotKey: 'threshold',
+	failureThreshold: 70,
+})
+
+// Fails: the differing pixels exceed 20.
+await expect(subject).toMatchImageSnapshot({
+	snapshotKey: 'threshold',
+	failureThreshold: 20,
+})
+```
+
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
+
+## Elements, locators and images
+
+`toMatchImageSnapshot()` accepts a Vitest browser locator, a DOM element, or an image encoded as a
+base64 string. Use whichever your test already has in hand.
+
+<SnapshotGrid>
+	<Snapshot
+		src="subject-locator.png"
+		alt="A 1280 by 18 pixel capture containing the word hello in black text on white."
+		caption="A locator"
+		width={1280}
+		height={18}
+	/>
+	<Snapshot
+		src="subject-element.png"
+		alt="A 1280 by 18 pixel capture containing the word hello in black text on white."
+		caption="An element"
+		width={1280}
+		height={18}
+	/>
+	<Snapshot
+		src="subject-base64.png"
+		alt="A 128 by 128 pixel sprite of a dark purple spiky sea urchin creature with yellow eyes."
+		caption="A base64 image"
+		width={128}
+		height={128}
+	/>
+</SnapshotGrid>
+
+The locator and the element point at the same markup, so their baselines are identical. That is the
+point: the subject type changes how you write the assertion, not what is captured.
+
+```tsx
+const subject = page.getByTestId('subject')
+
+await expect(subject).toMatchImageSnapshot()
+await expect(subject.element()).toMatchImageSnapshot()
+await expect(UNI_PNG_BASE64).toMatchImageSnapshot()
+```
+
+See [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).

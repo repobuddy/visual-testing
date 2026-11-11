@@ -1,0 +1,66 @@
+---
+title: "Workspace"
+description: "Two Vitest projects in one repository, each with its own options and its own snapshot folder."
+sidebar:
+  order: 2
+---
+
+The `workspace` test case runs two Vitest projects, `a` and `b`, from one root config.
+Its source is in [`testcases/workspace`](https://github.com/repobuddy/visual-testing/tree/main/testcases/workspace).
+
+This test case also has Storybook stories, so it uses [`storybookVis()`](/visual-testing/addon/) from `storybook-addon-vis/vitest-plugin`.
+`storybookVis()` calls `vis()` of the plugin and takes the same options, apart from `preset`.
+The settings below apply to a project that uses `vis()` directly.
+
+## What it demonstrates
+
+- A root config that lists the projects.
+- A `vis()` call for each project, with the project `name`.
+- A `snapshotRootDir` function that gives each project its own folder.
+- A plain Vitest test, `vitest.test.ts`, that uses the matcher next to the stories.
+
+## Configuration
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+	test: {
+		projects: ['./vitest.config.a.ts', './vitest.config.b.ts'],
+	},
+})
+```
+
+```ts
+// vitest.config.a.ts (vitest.config.b.ts differs in `name` and in the folder)
+export default defineProject({
+	plugins: [
+		storybookVis({
+			snapshotRootDir({ ci, platform }) {
+				return `__vis__/${ci ? platform : 'local'}/a`
+			},
+		}),
+	],
+	test: {
+		name: 'a',
+		browser: {
+			enabled: true,
+			provider: playwright(),
+			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
+		},
+	},
+})
+```
+
+## What appears on disk
+
+```txt
+__vis__/linux/a/__baselines__/...
+__vis__/linux/b/__baselines__/...
+```
+
+## Learn the parts
+
+- [Workspaces and multiple configs](/visual-testing/plugin/guides/workspaces-and-multiple-configs/)
+- [Viewports and multiple instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/)

@@ -1,0 +1,85 @@
+---
+title: "Reviewing failures"
+description: "Read a failed image snapshot: the diff, the changed regions and the review image the plugin writes."
+sidebar:
+  order: 8
+---
+
+Use this guide when a snapshot fails and you need to decide whether the change is a bug or an intended change.
+[Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) describes the review flow for both packages.
+This page covers what the plugin writes and the options that control it.
+
+## What a failure writes
+
+A failed comparison throws an error and writes files under `__diffs__`:
+
+```txt
+__vis__/local/__baselines__/to_match_image_snapshot.spec.tsx/uses-options-set-in-vis---1.png
+__vis__/local/__results__/to_match_image_snapshot.spec.tsx/uses-options-set-in-vis---1.png
+__vis__/local/__diffs__/to_match_image_snapshot.spec.tsx/uses-options-set-in-vis---1.png
+__vis__/local/__diffs__/to_match_image_snapshot.spec.tsx/uses-options-set-in-vis---1.regions.json
+__vis__/local/__diffs__/to_match_image_snapshot.spec.tsx/uses-options-set-in-vis---1.review.png
+```
+
+This is the output of the `vpv` test case.
+
+| File | Content |
+| ---- | ------- |
+| baseline | The accepted image. |
+| result | What this run captured. |
+| diff | The changed pixels. |
+| `.regions.json` | `{ "width": W, "height": H, "regions": [{ "x", "y", "width", "height" }] }`, one box for each changed area. |
+| `.review.png` | For each region, the baseline, result and diff crops side by side. |
+
+The failure message lists the paths and the regions:
+
+```txt
+Expected:   ./__vis__/.../....png
+Actual:     ./__vis__/.../....png
+Difference: ./__vis__/.../....png
+Changed:    2 regions: 30x30 at (0,0), 36x36 at (134,334)
+Review:     ./__vis__/.../....review.png (baseline, result, diff of each region)
+```
+
+Open the review image first, as [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) advises.
+
+## When there is no review image
+
+The plugin skips the review image when cropping does not help, and the `Review:` line of the message says why.
+The cases are listed in [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/#2-the-review-image).
+The `.regions.json` file is still written.
+
+## Turn the review image off
+
+```ts
+// vitest.config.ts
+vis({ reviewImage: false })
+```
+
+Or for one call:
+
+```ts
+await expect(document.body).toMatchImageSnapshot({ reviewImage: false })
+```
+
+The `Review:` line is left out of the message. `Changed:` and the `.regions.json` file are still written.
+
+## Accept the change
+
+If the new render is correct, run `vitest run -u`.
+It replaces the baseline of every failing snapshot with the result.
+Commit the baseline, and not the other folders.
+[Updating baselines](/visual-testing/visual-testing/updating-baselines/) covers the review before you merge.
+
+## Let an agent read the failure
+
+The package ships the `review-image-snapshot-failures` skill and an `llms.txt`.
+Both tell a coding agent to open the review image first.
+See [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/).
+
+## Options that matter
+
+| Option | Page |
+| ------ | ---- |
+| `reviewImage` in `vis()` | [`vis` config](/visual-testing/plugin/reference/config/vis/#reviewimage) |
+| `reviewImage` and `expectToFail` in a matcher | [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#reviewimage) |

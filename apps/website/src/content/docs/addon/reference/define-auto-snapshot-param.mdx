@@ -1,0 +1,42 @@
+---
+title: defineAutoSnapshotParam
+description: Type a story's snapshot parameter to set options for its automatic snapshot.
+sidebar:
+  order: 7
+---
+
+`defineAutoSnapshotParam()` returns `{ snapshot }`, typed so your editor completes the options.
+Use it as the `parameters` of a story, a story file or the preview.
+
+```tsx
+import { defineAutoSnapshotParam } from 'storybook-addon-vis'
+
+export const Primary = {
+	tags: ['snapshot'],
+	parameters: defineAutoSnapshotParam({
+		failureThreshold: 0.3,
+		failureThresholdType: 'percent',
+		subject: '[data-testid="alt"]',
+	}),
+}
+```
+
+## Signature
+
+```ts
+function defineAutoSnapshotParam<M extends ComparisonMethod>(
+	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions & PageImageSnapshotOptions,
+): { snapshot: typeof snapshot }
+```
+
+## Options
+
+The options are the matcher options (`comparisonMethod`, `diffOptions`, threshold, timeout, `snapshotKey`) plus `subject` and `fullPage`.
+`fullPage: true` captures the whole page instead of the subject.
+They belong to vitest-plugin-vis, see [`toMatchImageSnapshot`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
+
+## Scope
+
+It applies to automatic snapshots only.
+A snapshot taken in `play` ignores it: pass the options to the matcher.
+See [Thresholds and comparison for stories](/visual-testing/addon/guides/thresholds-and-comparison/).

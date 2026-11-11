@@ -1,0 +1,67 @@
+---
+title: server-utils
+description: Folder and file name constants, and path helpers, for Node.js code that works with vitest-plugin-vis snapshots.
+sidebar:
+  order: 4
+---
+
+`vitest-plugin-vis/server-utils` exports the names the plugin uses on disk, and path helpers.
+It has no browser code, so use it in Node.js: in a config file, a script, or a tool that reads the snapshots.
+
+```ts
+import { BASELINE_DIR, getSnapshotRootDir } from 'vitest-plugin-vis/server-utils'
+```
+
+## Constants
+
+| Name | Value | Meaning |
+| ---- | ----- | ------- |
+| `SNAPSHOT_ROOT_DIR` | `'__vis__'` | The default root folder. |
+| `BASELINE_DIR` | `'__baselines__'` | The folder of the baseline images. |
+| `RESULT_DIR` | `'__results__'` | The folder of the images that a run captured. |
+| `DIFF_DIR` | `'__diffs__'` | The folder of the diff, regions and review files of failures. |
+| `REVIEW_IMAGE_SUFFIX` | `'.review.png'` | The end of the review image file name. |
+| `CHANGED_REGIONS_SUFFIX` | `'.regions.json'` | The end of the regions file name. |
+
+The same constants, and `NAME` (`'vis'`), are exported from [`client-api`](/visual-testing/plugin/reference/client-api/).
+
+## `getSnapshotRootDir(snapshotRootDir?)`
+
+Returns the root folder for the current environment.
+
+```ts
+getSnapshotRootDir() // '__vis__/local' on your machine, '__vis__/linux' on Linux CI
+getSnapshotRootDir('custom') // 'custom/local' on your machine
+```
+
+The argument defaults to `SNAPSHOT_ROOT_DIR`.
+On CI the second segment is `process.platform`.
+
+## `trimCommonFolder(path)`
+
+Also exported from `vitest-plugin-vis/config`.
+See [`trimCommonFolder`](/visual-testing/plugin/reference/config/trim-common-folder/).
+
+## `resolveSnapshotSubpathWithinLimits(params)`
+
+Returns the snapshot sub-path, shortened when it is too long.
+
+| Parameter | Type | Meaning |
+| --------- | ---- | ------- |
+| `snapshotBaselineRootAbs` | `string` | The absolute path of the `__baselines__` folder. |
+| `rawSnapshotSubpath` | `string` | The sub-path before shortening. |
+| `shortenLongSnapshotPaths` | `boolean` | When `false`, the sub-path is returned as is. |
+
+When it is `true` and the path would reach 250 characters, or a segment is longer than 255, the final segment is replaced with `{firstToken}-{hash12}{ext}`.
+This is what [`shortenLongSnapshotPaths`](/visual-testing/plugin/reference/config/vis/#shortenlongsnapshotpaths) turns on.
+
+## `resolveLegacySnapshotFileRelativePath(params)`
+
+Does the same for the file name of a snapshot, `<task id>-<key>.png`, and returns its path relative to the baseline folder.
+
+| Parameter | Type | Meaning |
+| --------- | ---- | ------- |
+| `projectRoot` | `string` | The project root. |
+| `baselineDir` | `string` | The baseline folder, relative to the project root. |
+| `legacySnapshotFilename` | `string` | The file name before shortening. |
+| `shortenLongSnapshotPaths` | `boolean` | When `false`, the file name is returned as is. |

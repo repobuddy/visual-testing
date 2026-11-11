@@ -1,0 +1,44 @@
+---
+title: "Platforms and CI"
+description: "Why baselines are kept per platform, how local runs differ from CI, and how to keep baselines current in CI."
+sidebar:
+  order: 4
+---
+
+## Local and CI folders
+
+The platform folder under `__vis__` depends on where the tests run (see [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/#folder-layout)):
+
+| Where | Folder |
+| ----- | ------ |
+| Your machine | `__vis__/local` |
+| A CI environment | `__vis__/<process.platform>`, for example `linux` or `win32` |
+
+CI is detected with [`is-ci`](https://www.npmjs.com/package/is-ci).
+The `local` folder is ignored by version control, so your own renders never reach the repository.
+The committed baselines are the CI ones.
+
+## Why per platform
+
+The same page can render differently on another operating system.
+A baseline taken on Linux can then fail on Windows by a few pixels, and the other way around.
+This repository keeps a `linux/` and a `win32/` baseline for each test case and runs CI on both.
+
+If you test on one platform only, you keep one folder.
+If you test on several, expect a change to need an update on each one.
+You can also absorb small differences with a [threshold](/visual-testing/visual-testing/comparison-and-thresholds/), at the price of missing small real changes.
+
+## A CI recipe
+
+1. Run your visual tests on the platforms you commit baselines for.
+2. Let a missing or different baseline fail the run. Do not run with `-u` in the check that gates a merge.
+3. When a baseline must change, [update it](/visual-testing/visual-testing/updating-baselines/) on the same platform that CI uses, review the images, and commit them.
+4. Upload `__diffs__` as an artifact on failure so reviewers can see the [review image](/visual-testing/visual-testing/reviewing-failures/) without reproducing the run.
+
+This repository automates step 3 with a bot that opens a snapshot pull request per platform.
+See its [snapshot workflow](https://github.com/repobuddy/visual-testing/blob/main/docs/snapshot-workflow.md) for a worked example of the workflows.
+
+## Pull requests that only change baselines
+
+If your CI uses a required status check, make sure the workflow still runs when only image files change.
+A workflow skipped by a `paths-ignore` filter leaves a required check pending forever and blocks the merge.

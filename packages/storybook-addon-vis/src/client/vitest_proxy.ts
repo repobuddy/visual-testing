@@ -1,4 +1,4 @@
-import type { BrowserCommands, BrowserPage } from 'vitest/browser'
+import type { BrowserCommands, BrowserPage, CDPSession } from 'vitest/browser'
 import type { SnapshotTestMeta } from 'vitest-plugin-vis/client-api'
 import { isVitestBrowser } from './is_vitest_browser.ts'
 import { toMatchImageSnapshot } from './page/to_match_image_snapshot.ts'
@@ -20,7 +20,7 @@ export type VitestProxyLoaders = {
 }
 
 /**
- * Build the `page` / `commands` / `getCurrentTest` proxies over `loaders`.
+ * Build the `page` / `commands` / `cdp` / `getCurrentTest` proxies over `loaders`.
  *
  * Exported for tests: it is the only way to observe the window between module
  * load and the dynamic imports settling.
@@ -65,6 +65,23 @@ export function createVitestProxy(loaders: VitestProxyLoaders | undefined) {
 		},
 	})
 
+	/**
+	 * The Chrome DevTools Protocol session of the current test, like `cdp()` from
+	 * `vitest/browser`, but safe to import from code a plain Storybook preview
+	 * also loads.
+	 *
+	 * Session calls made before the import settles wait for it (#835). CDP is
+	 * available only with the Playwright provider on Chromium.
+	 */
+	const cdp = (): CDPSession => {
+		if (!loaders) throw new Error('cdp() is only available in a Vitest browser run.')
+		return new Proxy<CDPSession>({} as any, {
+			get(_target, prop) {
+				return (...args: unknown[]) => browserReady.then(() => (browserContext!.cdp() as any)[prop](...args))
+			},
+		})
+	}
+
 	const getCurrentTest = () =>
 		vitest?.TestRunner.getCurrentTest() as
 			| (ReturnType<VitestModule['TestRunner']['getCurrentTest']> & SnapshotTestMeta)
@@ -79,7 +96,7 @@ export function createVitestProxy(loaders: VitestProxyLoaders | undefined) {
 	 */
 	const whenReady = () => ready
 
-	return { page, commands, getCurrentTest, whenReady }
+	return { page, commands, cdp, getCurrentTest, whenReady }
 }
 
 const proxy = createVitestProxy(
@@ -88,5 +105,6 @@ const proxy = createVitestProxy(
 
 export const page = proxy.page
 export const commands = proxy.commands
+export const cdp = proxy.cdp
 export const getCurrentTest = proxy.getCurrentTest
 export const whenVitestProxyReady = proxy.whenReady

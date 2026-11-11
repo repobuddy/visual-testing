@@ -82,6 +82,8 @@ In each platform directory, there are 3 directories:
 - `__baselines__`: The directory for the baseline snapshots. This should be committed to the repository (except for `local`).
 - `__results__`: The directory for the current snapshots created when Vitest runs.
 - `__diffs__`: The directory for the diffs between the current snapshot and the baseline snapshot.
+  For each failing snapshot, it also holds the changed regions (`<name>.regions.json`)
+  and a review image of the changed regions (`<name>.review.png`).
 
 Because of that, you should add the following lines to your `.gitignore` file:
 

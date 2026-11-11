@@ -1,6 +1,6 @@
 import { afterEach, beforeAll, expect } from 'vitest'
 import { setAutoSnapshotOptions } from '../auto_snapshots/auto_snapshot_options.ts'
-import { autoSnapshotMatcher } from '../client/suite/auto_snapshot_matcher.ts'
+import { autoSnapshotMatcher, toSuiteDefaults } from '../client/suite/auto_snapshot_matcher.ts'
 import type { SetupVisSuiteCommand } from '../shared/commands.types.ts'
 import type { SetupVisOptions } from '../shared/types.ts'
 
@@ -44,10 +44,7 @@ export function createVis<GM extends Record<string, any> | unknown = unknown>(co
 
 	const vis: VisClientConfigurator<GM> = {
 		setup(options) {
-			const suiteDefaults =
-				options?.createMissingBaseline !== undefined
-					? { createMissingBaseline: options.createMissingBaseline }
-					: undefined
+			const suiteDefaults = toSuiteDefaults(options)
 
 			beforeAll(async () => {
 				await matcher.setup()

@@ -5,6 +5,7 @@ import type {
 	ImageSnapshotKeyOptions,
 	ImageSnapshotSubjectOptions,
 	ImageSnapshotTimeoutOptions,
+	PageImageSnapshotOptions,
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 	ToMatchImageSnapshotOptions,
@@ -18,6 +19,7 @@ export type {
 	ImageSnapshotKeyOptions,
 	ImageSnapshotSubjectOptions,
 	ImageSnapshotTimeoutOptions,
+	PageImageSnapshotOptions,
 	PixelComparisonOptions,
 	SsimComparisonOptions,
 	ToMatchImageSnapshotOptions,
@@ -25,9 +27,11 @@ export type {
 
 /**
  * Define snapshot parameter for auto snapshot.
+ *
+ * Set `fullPage: true` to snapshot the whole page instead of the subject.
  */
 export function defineAutoSnapshotParam<M extends ComparisonMethod>(
-	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions,
+	snapshot: ToMatchImageSnapshotOptions<M> & ImageSnapshotSubjectOptions & PageImageSnapshotOptions,
 ) {
 	return { snapshot }
 }

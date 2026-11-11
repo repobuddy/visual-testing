@@ -1,0 +1,49 @@
+---
+title: "Comparison and thresholds"
+description: "How a result is compared with its baseline: pixel and SSIM methods, failure thresholds in pixels or percent, and how to choose."
+sidebar:
+  order: 3
+---
+
+A comparison turns two images into one number, the amount of difference, and the test passes when that number is at most the failure threshold.
+This page explains the choices.
+The option tables are in [`vis()`](/visual-testing/plugin/reference/config/vis/) and [`toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
+`storybook-addon-vis` re-exports the same options.
+
+## Comparison method
+
+`comparisonMethod` is `'pixel'` (the default) or `'ssim'`.
+
+- **Pixel** uses [`pixelmatch`](https://github.com/mapbox/pixelmatch). The amount is the number of pixels that differ. Its own `threshold` option (0 to 1, default 0.1) sets how different one pixel must be to count, and anti-aliased pixels are ignored unless you set `includeAA`.
+- **SSIM** uses [`ssim.js`](https://github.com/obartra/ssim), which scores structural similarity per region instead of per pixel. The amount is `round((1 - mean SSIM) * width * height)`, so it is expressed in pixels too.
+
+Start with pixel.
+Switch to SSIM when images with gradients, shadows or anti-aliasing fail for differences nobody can see.
+Both accept method specific `diffOptions`, listed under [`diffOptions`](/visual-testing/plugin/reference/config/vis/#diffoptions).
+
+## Failure threshold
+
+`failureThreshold` is the amount of difference the test tolerates.
+It is `0` by default, so any difference fails.
+`failureThresholdType` sets the unit:
+
+- `'pixel'` (default): the number of differing pixels.
+- `'percent'`: differing pixels as a share of the image area, `pixels / (width * height) * 100`.
+
+Use pixels for a small, fixed element where you know how much noise is normal.
+Use percent for images whose size varies, such as full pages in several viewports, because one number then fits every size.
+
+## Where to set it
+
+Set a default for the whole project with the `vis()` plugin option.
+Override it for one snapshot with the same options on the matcher.
+The [Showcase](/visual-testing/showcase/#snapshot-thresholds) shows one baseline that passes at 70 pixels and fails at 20.
+
+## What a failure reports
+
+The error message states the method, the threshold and the amount, for example `Expected image to match but was differ by 133 pixels.` with an `Options:` line.
+[Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) shows a full message.
+
+## Image size
+
+When the baseline and the result have different sizes, both are resized to the larger one before they are compared, and the failure message adds `The image size changed from <w>x<h> to <w>x<h>.`

@@ -12,13 +12,15 @@ export default defineConfig({
 		react(),
 		storybookTest({ configDir: join(import.meta.dirname, '.storybook') }),
 		storybookVis(),
-		browserTestPreset({ includeGeneralTests: true }),
+		// @repobuddy/vitest 3 sets enforce: 'pre' on the preset, which drops the general tests next to storybookTest.
+		{ ...browserTestPreset({ includeGeneralTests: true }), enforce: undefined },
 	],
 	test: {
 		name: 'trv:pw',
 		browser: {
 			enabled: true,
 			headless: true,
+			api: { allowWrite: true },
 			provider: playwright(),
 			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},

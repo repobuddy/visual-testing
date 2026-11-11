@@ -1,0 +1,33 @@
+---
+title: "Reviewing failures (addon view)"
+description: "Where a failed story snapshot shows up: the error message, the Vis panel, and the files on disk."
+sidebar:
+  order: 8
+---
+
+Goal: find out what changed when a story snapshot fails.
+The general reading order is in [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/).
+This page covers what is specific to the addon.
+
+## Three places to look
+
+1. **The test error.** `vitest run` prints the mismatch with the pixel count, the options, the three image paths, the changed regions and the review image path. [Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/) shows a full message.
+2. **The Vis panel.** Run Storybook in development mode, open the failed story, and use the [Vis panel](/visual-testing/addon/guides/the-vis-panel/) to swipe, blend or diff the baseline and the result.
+3. **The files.** The baseline, result and diff sit in `__baselines__`, `__results__` and `__diffs__` under the snapshot root.
+
+## The review image
+
+By default a mismatch also writes `<name>.review.png` and `<name>.regions.json` next to the diff.
+The review image places the baseline, the result and the diff of each changed region side by side.
+It is skipped when the image size changed, when there are many regions, or when the regions cover most of the image.
+The regions file is written either way.
+Turn the review image off with `reviewImage: false` on `storybookVis()`.
+The option comes from the plugin, see the [configuration reference](/visual-testing/plugin/configuration/).
+
+The Vis panel does not show the review image.
+Open it from disk, or give it to an agent.
+
+## Stories that fail only in CI
+
+A baseline is per platform, so a story can pass on your machine and fail on CI.
+See [CI](/visual-testing/addon/guides/ci/).

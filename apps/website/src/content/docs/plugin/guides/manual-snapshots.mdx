@@ -1,0 +1,100 @@
+---
+title: "Manual snapshots"
+description: "Take an image snapshot of an element, a locator or an image where you call the matcher."
+sidebar:
+  order: 2
+---
+
+Use manual snapshots when you want to choose what to snapshot and when, or when you compare a single element.
+
+## Turn off the automatic ones
+
+Use the `manual` preset:
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ preset: 'manual' })],
+	test: {
+		// ... your Vitest Browser Mode configuration ...
+	},
+})
+```
+
+The preset adds `vitest-plugin-vis/presets/manual`, which calls `vis.setup({ auto: false })`.
+The matcher works with every preset, so you can also keep `auto` and add manual snapshots to some tests.
+A test can hold both kinds: the automatic snapshot has the key `auto`, and the manual ones are numbered.
+
+## Tell TypeScript about the matcher
+
+```jsonc
+// tsconfig.json
+{
+	"compilerOptions": {
+		"types": ["vitest-plugin-vis"]
+	}
+}
+```
+
+## Take a snapshot
+
+```tsx
+// src/button.spec.tsx
+import { it } from 'vitest'
+import { render } from 'vitest-browser-react'
+import { Button } from './Button.tsx'
+
+it('subject snapshot', async ({ expect }) => {
+	const { getByTestId } = await render(<Button label="Button" data-testid="subject" />)
+	await expect(getByTestId('subject')).toMatchImageSnapshot()
+})
+```
+
+The subject can be a locator, an element, `document.body`, or an image encoded as a base64 string.
+Anything else fails at once.
+Use the `expect` from the test context, as above, or the global one.
+
+## What appears on disk
+
+```txt
+__vis__/local/__baselines__/button.spec.tsx/subject-snapshot-1.png
+```
+
+Manual snapshots are numbered from 1 in the order they are taken in the test.
+Pass `snapshotKey` to name one yourself.
+The key allows letters, digits and underscores, but no dash.
+
+```ts
+await expect(subject).toMatchImageSnapshot({ snapshotKey: 'hover_state' })
+```
+
+## Create the baseline
+
+The first run fails with `has no baseline image`.
+You can accept the captured image in two ways:
+
+- Run `vitest run -u`. It writes every missing baseline, and it overwrites baselines that differ.
+- Pass `createMissingBaseline: true` to write the baseline only when it is missing. An existing baseline is compared as usual.
+
+```ts
+await expect(subject).toMatchImageSnapshot({ createMissingBaseline: true })
+```
+
+## Check whether a snapshot exists
+
+`page.hasImageSnapshot()` returns a promise of a boolean:
+
+```ts
+import { page } from 'vitest/browser'
+
+const exists = await page.hasImageSnapshot({ snapshotKey: 'hover_state' })
+```
+
+## Options that matter
+
+The matcher also takes thresholds, a comparison method, a timeout and `reviewImage`.
+The page for each option is [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/).
+To compare the whole page instead of one subject, see [Full-page and viewport snapshots](/visual-testing/plugin/guides/full-page-and-viewport-snapshots/).

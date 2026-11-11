@@ -2,6 +2,7 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["github>unional/renovate-preset", ":semanticCommits", ":dependencyDashboard"],
 	"platformAutomerge": true,
+	"rebaseWhen": "behind-base-branch",
 	"automergeType": "pr",
 	"rangeStrategy": "replace",
 	"ignoreUnstable": true,
@@ -11,6 +12,22 @@
 		"automerge": true
 	},
 	"packageRules": [
+		{
+			"description": "This repo publishes storybook-addon-vis and vitest-plugin-vis with vitest ^4 peer ranges and Storybook addon-vitest; keep vitest and @vitest/* on v4 until the libraries and Storybook support v5.",
+			"matchPackageNames": ["vitest", "@vitest/*"],
+			"allowedVersions": "<5"
+		},
+		{
+			"description": "tsdown/rolldown-plugin-dts crashes under TypeScript 7 (useCaseSensitiveFileNames) so the d.ts build fails; hold typescript below 7 until tsdown supports it.",
+			"matchPackageNames": ["typescript"],
+			"allowedVersions": "<7"
+		},
+		{
+			"description": "The toolchain pins (mise, nvm) move with packageManager, so they merge themselves too.",
+			"matchManagers": ["mise", "nvm"],
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		},
 		{
 			"description": "devDependencies and repo tooling merge themselves once CI is green.",
 			"matchDepTypes": ["devDependencies"],
@@ -42,11 +59,6 @@
 			"description": "Majors are always a human decision.",
 			"matchUpdateTypes": ["major"],
 			"automerge": false
-		},
-		{
-			"description": "type-plus 8.x is an unfinished major parked in changesets prerelease mode; type-plus@latest is deliberately 7.x. ignoreUnstable only blocks stable->unstable, so an already-unstable pin makes every new beta look like a patch. This bound is what stops that.",
-			"matchPackageNames": ["type-plus"],
-			"allowedVersions": "<8.0.0-0"
 		}
 	]
 }

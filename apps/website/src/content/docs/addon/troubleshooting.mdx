@@ -1,0 +1,43 @@
+---
+title: "Troubleshooting the Storybook addon"
+description: "Fixes for common problems when using storybook-addon-vis."
+sidebar:
+  order: 5
+---
+
+> Internal server error: Failed to resolve import "pathe"
+
+The addon's server code imports `pathe`.
+Some users report this error with `pnpm` and `vite` in a monorepo, where `pathe` is not hoisted to where the server code looks for it.
+The workarounds below come from [a user report on Discord](https://discord.com/channels/917386801235247114/1305110710229008435/1305325581839368202).
+This repository does not test them.
+
+Add [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) to your `.npmrc`:
+
+```sh
+# .npmrc
+
+shamefully-hoist=true
+```
+
+or hoist only the `pathe` package:
+
+```sh
+# .npmrc
+
+hoist-pattern[] = pathe
+```
+
+> It takes empty snapshots on Vitest tests
+
+Your tests are captured as if they were stories when the auto snapshot is on for them.
+Turn it off for plain tests by calling `setAutoSnapshotOptions(false)` in a `beforeAll` hook:
+
+```ts
+import { setAutoSnapshotOptions } from 'storybook-addon-vis'
+import { beforeAll } from 'vitest'
+
+beforeAll(() => setAutoSnapshotOptions(false))
+```
+
+The addon runs its own tests this way. See [`setAutoSnapshotOptions()`](/visual-testing/plugin/reference/set-auto-snapshot-options/).

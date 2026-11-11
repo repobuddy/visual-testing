@@ -1,0 +1,97 @@
+---
+title: "Thresholds and comparison"
+description: "Choose pixel or SSIM comparison and decide how much difference a snapshot may have before the test fails."
+sidebar:
+  order: 6
+---
+
+Use this guide to tolerate small rendering differences, such as anti-aliasing, without hiding real changes.
+[Comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/) explains what pixel and SSIM comparison measure and how to choose.
+This page shows the plugin calls.
+
+## Choose the comparison method
+
+`comparisonMethod` is `'pixel'` by default, or `'ssim'`.
+
+```ts
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [vis({ comparisonMethod: 'ssim' })],
+})
+```
+
+With `ssim`, the plugin uses the `bezkrovny` algorithm unless you set `diffOptions.ssim`.
+
+## Set a failure threshold
+
+`failureThreshold` is how much difference is acceptable. It is `0` by default, so any difference fails.
+`failureThresholdType` says what the number counts: `'pixel'` (the default) or `'percent'`.
+A percentage runs from 0 to 100.
+
+```ts
+// Allow 100 pixels to differ
+vis({ failureThreshold: 100, failureThresholdType: 'pixel' })
+
+// Allow 5% of the pixels to differ
+vis({ failureThreshold: 5, failureThresholdType: 'percent' })
+```
+
+When the difference is beyond the threshold, the failure says by how much:
+
+```txt
+Expected image to match within 20 pixels but was differ by N pixels.
+Expected image to match within 0.1% but was differ by N.NN%.
+```
+
+## Override for one test
+
+The options set at a lower level win.
+Pass the options to one call:
+
+```ts
+await expect(subject).toMatchImageSnapshot({
+	failureThreshold: 1,
+	failureThresholdType: 'percent',
+	comparisonMethod: 'ssim',
+})
+```
+
+Or set them for the automatic snapshots of a file or a test:
+
+```ts
+import { beforeAll } from 'vitest'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+beforeAll(() => {
+	setAutoSnapshotOptions({ failureThreshold: 5, failureThresholdType: 'percent' })
+})
+```
+
+`setAutoSnapshotOptions()` merges across `beforeAll`, `beforeEach` and the test, and the more specific level wins.
+The `vpv` test case sets `comparisonMethod: 'ssim'`, `failureThreshold: 0.01` and `failureThresholdType: 'percent'` in `vis()`, and a test confirms that a failure message lists those options.
+
+## Tune the algorithm
+
+`diffOptions` is passed to the comparison library.
+For `pixel` it takes the options of [pixelmatch](https://github.com/mapbox/pixelmatch#api), where `threshold` (0 to 1, default 0.1) sets how different a single pixel must be to count.
+For `ssim` it takes the options of [ssim.js](https://github.com/obartra/ssim/wiki/Usage#options).
+
+```ts
+vis({
+	comparisonMethod: 'pixel',
+	diffOptions: { threshold: 0.1, includeAA: false },
+})
+```
+
+The full lists are in [`vis` config](/visual-testing/plugin/reference/config/vis/#diffoptions).
+
+## Options that matter
+
+| Option | Where | Page |
+| ------ | ----- | ---- |
+| `comparisonMethod`, `diffOptions`, `failureThreshold`, `failureThresholdType` | `vis()` | [`vis` config](/visual-testing/plugin/reference/config/vis/) |
+| The same four | `toMatchImageSnapshot()` | [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/) |
+| The same four | `setAutoSnapshotOptions()` | [`setAutoSnapshotOptions`](/visual-testing/plugin/reference/set-auto-snapshot-options/) |

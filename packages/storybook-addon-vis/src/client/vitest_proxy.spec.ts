@@ -1,5 +1,6 @@
 import { describe, it } from 'vitest'
-import { commands, createVitestProxy, whenVitestProxyReady } from './vitest_proxy.ts'
+import { server } from 'vitest/browser'
+import { cdp, commands, createVitestProxy, whenVitestProxyReady } from './vitest_proxy.ts'
 
 /**
  * Regression tests for #835.
@@ -25,6 +26,12 @@ describe('while the dynamic import is still pending', () => {
 	function fakeBrowserModule(calls: unknown[][]) {
 		return {
 			page: { extend() {} },
+			cdp: () => ({
+				async send(...args: unknown[]) {
+					calls.push(['cdp.send', ...args])
+					return { result: 'sent' }
+				},
+			}),
 			commands: {
 				async setupVisSuite(...args: unknown[]) {
 					calls.push(args)
@@ -74,6 +81,19 @@ describe('while the dynamic import is still pending', () => {
 		expect(calls).toEqual([['a', 1]])
 	})
 
+	it('a CDP call made before the import settles waits for it and delegates once', async ({ expect }) => {
+		const calls: unknown[][] = []
+		const { proxy, browser } = pendingProxy()
+
+		const pending = proxy.cdp().send('Runtime.enable', { a: 1 })
+		expect(calls).toEqual([])
+
+		browser.resolve(fakeBrowserModule(calls))
+
+		await expect(pending).resolves.toEqual({ result: 'sent' })
+		expect(calls).toEqual([['cdp.send', 'Runtime.enable', { a: 1 }]])
+	})
+
 	it('`whenReady` does not resolve until both modules are loaded', async ({ expect }) => {
 		let resolved = false
 		const { proxy, browser, vitest } = pendingProxy()
@@ -108,6 +128,12 @@ describe('outside a vitest browser run', () => {
 
 		expect(proxy.commands.setupVisSuite).toBeUndefined()
 	})
+
+	it('cdp throws, because there is no CDP session to hand back', ({ expect }) => {
+		const proxy = createVitestProxy(undefined)
+
+		expect(() => proxy.cdp()).toThrow('cdp() is only available in a Vitest browser run')
+	})
 })
 
 describe('in this vitest browser run', () => {
@@ -116,4 +142,15 @@ describe('in this vitest browser run', () => {
 
 		expect(typeof commands.setupVisSuite).toBe('function')
 	})
+
+	it.runIf(server.provider === 'playwright' && server.browser === 'chromium')(
+		'cdp reaches the real Chrome DevTools Protocol session',
+		async ({ expect }) => {
+			const { result } = (await cdp().send('Runtime.evaluate', { expression: '1 + 1', returnByValue: true })) as {
+				result: { value: unknown }
+			}
+
+			expect(result.value).toBe(2)
+		},
+	)
 })

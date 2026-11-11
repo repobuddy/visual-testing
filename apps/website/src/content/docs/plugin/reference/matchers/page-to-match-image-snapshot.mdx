@@ -1,0 +1,150 @@
+---
+title: page.toMatchImageSnapshot()
+description: Capture the page or viewport and compare it to a baseline image snapshot.
+sidebar:
+  order: 2
+---
+
+`page.toMatchImageSnapshot()` captures a full page or viewport screenshot and compares it to a baseline image.
+
+Unlike [`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/), which targets a specific subject, it captures the whole page or viewport.
+
+## Basic usage
+
+```ts
+import { page } from 'vitest/browser'
+
+it('should take a page snapshot', async () => {
+	await render(<MyApp />)
+
+	await page.toMatchImageSnapshot()
+})
+```
+
+## Options
+
+### `fullPage`
+
+Capture the entire scrollable page, not just the visible viewport. The default is `false`.
+
+Vitest renders each test inside an iframe of its runner page.
+The plugin captures that iframe, not the runner page.
+With `fullPage`, it grows the iframe, and the viewport when needed, to the width and height of the page content,
+takes the screenshot, and then restores them.
+Content below or to the right of the viewport is in the image.
+
+```ts
+it('supports full page image snapshot', async () => {
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'test_snapshot',
+	})
+
+	await expect(page.hasImageSnapshot({ snapshotKey: 'test_snapshot' })).resolves.toBe(true)
+})
+```
+
+### `mask`
+
+Paint regions over before the snapshot is taken, so content that changes on every run does not fail the comparison.
+Each entry is a CSS selector, a locator, or an element. Every match is masked, and entries that match nothing are ignored.
+
+```ts
+await page.toMatchImageSnapshot({
+	mask: [page.getByTestId('timestamp'), '.avatar'],
+	maskColor: '#000000',
+})
+```
+
+`maskColor` is any CSS color. The default is `#FF00FF`.
+Playwright paints the regions with its own `mask` option. WebdriverIO has no such option, so the plugin adds overlay boxes on top of each match, takes the screenshot, and removes them.
+You can also set `mask` with `setAutoSnapshotOptions()` and `vis.setup({ auto })`.
+
+### `snapshotKey`
+
+Customize the snapshot key.
+
+```ts
+await page.toMatchImageSnapshot({ snapshotKey: 'homepage_layout' })
+```
+
+A key that contains a dash is rejected with `Snapshot key cannot contain dash`.
+
+### `createMissingBaseline`
+
+When `true` and there is no baseline image yet,
+the matcher writes the captured image as the baseline and the assertion succeeds,
+without using Vitest's `-u` (`updateSnapshot`) mode.
+If a baseline already exists, it does not change the comparison.
+
+```ts
+it('takes an image snapshot', async () => {
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+
+	await page.toMatchImageSnapshot({
+		snapshotKey: 'test_snapshot',
+		createMissingBaseline: true,
+	})
+
+	await expect(page.hasImageSnapshot({ snapshotKey: 'test_snapshot' })).resolves.toBe(true)
+})
+```
+
+### `animations`
+
+`'disabled'` finishes finite CSS animations and transitions and cancels infinite ones before the snapshot is taken,
+so an animated component gives a stable image.
+`'allow'` leaves them running. The default is `'allow'`.
+It works with the Playwright and WebdriverIO providers, because the matcher settles the animations in the page before it asks the provider for the screenshot.
+
+```ts
+await page.toMatchImageSnapshot({ animations: 'disabled' })
+```
+
+You can set a default for auto snapshots with `vis.setup({ animations: 'disabled', auto: ... })`.
+`setAutoSnapshotOptions({ animations })` in a test overrides that default.
+
+### Comparison options
+
+`failureThreshold`, `failureThresholdType`, `comparisonMethod`, `diffOptions`, `timeout`, and `expectToFail` take the same values as on
+[`expect().toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/#options).
+
+```ts
+await page.toMatchImageSnapshot({
+	fullPage: true,
+	snapshotKey: 'full_app_layout',
+	failureThreshold: 1, // 1%
+	failureThresholdType: 'percent',
+	comparisonMethod: 'ssim',
+	diffOptions: { ssim: 'bezkrovny' },
+	timeout: 45000,
+})
+```
+
+## Errors
+
+- Called outside a test: ``'`toMatchImageSnapshot()` must be called in a test.'``
+- Called in a concurrent test: ``'`toMatchImageSnapshot()` cannot be called in a concurrent test because concurrent tests run at the same time in the same iframe and affect each other's environment.'``
+- Snapshot key with a dash: `Snapshot key cannot contain dash`.
+
+Use a regular `it()` instead of `it.concurrent()`:
+
+```ts
+// Throws
+it.concurrent('concurrent test', async () => {
+	await page.toMatchImageSnapshot()
+})
+
+// Works
+it('sequential test', async () => {
+	await page.toMatchImageSnapshot()
+})
+```
+
+## WebdriverIO
+
+With WebdriverIO, a full-page snapshot grows the test iframe and the viewport the same way, and then calls `browser.saveScreenshot()`.
+It is tested with headless Chrome.
+`timeout` has no effect with WebdriverIO, because `browser.saveScreenshot()` takes no timeout.

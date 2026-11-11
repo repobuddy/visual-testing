@@ -15,12 +15,14 @@ export default defineConfig({
 				return `__vis__/${context.ci ? context.platform : 'local'}/${context.projectName}`
 			},
 		}),
-		browserTestPreset({ includeGeneralTests: true }),
+		// @repobuddy/vitest 3 sets enforce: 'pre' on the preset, which drops the general tests next to storybookTest.
+		{ ...browserTestPreset({ includeGeneralTests: true }), enforce: undefined },
 	],
 	test: {
 		browser: {
 			enabled: true,
 			headless: true,
+			api: { allowWrite: true },
 			provider: playwright(),
 			instances: [
 				{ browser: 'chromium', name: 'HD', viewport: { width: 1280, height: 720 } },

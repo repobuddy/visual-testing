@@ -1,0 +1,27 @@
+---
+title: page and cdp
+description: Proxies of the Vitest browser page and CDP session that work inside stories.
+sidebar:
+  order: 10
+---
+
+`storybook-addon-vis` exports `page` and `cdp`.
+They are proxies of `page` and `cdp()` from `vitest/browser`.
+A story cannot import `vitest/browser` itself, because the module throws in a plain Storybook preview.
+The proxies load it only during a Vitest browser run.
+
+```tsx
+import { cdp, page } from 'storybook-addon-vis'
+```
+
+## `page`
+
+Use it like the Vitest `page`, with `page.toMatchImageSnapshot()` and `page.hasImageSnapshot()` added.
+In a plain preview, `page.toMatchImageSnapshot()` does nothing.
+See [`page.toMatchImageSnapshot`](/visual-testing/plugin/reference/matchers/page-to-match-image-snapshot/).
+
+## `cdp`
+
+`cdp()` returns the Chrome DevTools Protocol session.
+It needs the Playwright provider on Chromium and throws outside a Vitest browser run.
+See [Chrome DevTools Protocol](/visual-testing/addon/guides/chrome-devtools-protocol/).

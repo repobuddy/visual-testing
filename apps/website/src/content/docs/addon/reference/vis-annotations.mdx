@@ -1,0 +1,39 @@
+---
+title: visAnnotations
+description: The Storybook project annotations that wire the addon into each story test.
+sidebar:
+  order: 6
+---
+
+`visAnnotations` is an object of Storybook project annotations.
+Merge it into `setProjectAnnotations()` in `vitest.setup.ts`, or spread it into `.storybook/preview.ts`.
+See [Configuration](/visual-testing/addon/configuration/#storybook-103-and-vitest-project-annotations) for both ways.
+
+```ts
+// vitest.setup.ts
+import { setProjectAnnotations } from '@storybook/your-framework'
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+import * as projectAnnotations from './.storybook/preview.ts'
+
+setProjectAnnotations([projectAnnotations, visAnnotations])
+vis.setup()
+```
+
+## What it does
+
+It has one `beforeEach` hook.
+In a Vitest browser run the hook:
+
+1. adds the `toMatchImageSnapshot` matcher to `expect` once,
+2. calls [`setAutoSnapshotOptions`](/visual-testing/plugin/reference/set-auto-snapshot-options/) with
+   - `enable`, from the story tags (see [`isSnapshotEnabled`](/visual-testing/addon/reference/is-snapshot-enabled/)),
+   - the story's `parameters.snapshot` (see [`defineAutoSnapshotParam`](/visual-testing/addon/reference/define-auto-snapshot-param/)),
+   - the `tags` of the story,
+   - and `meta.vis` of the running Vitest test.
+
+Outside a Vitest browser run, such as in the Storybook UI, the hook does nothing.
+
+## Import paths
+
+`storybook-addon-vis/vitest-setup` and `storybook-addon-vis`.
+The `vitest-setup` entry also exports [`vis`](/visual-testing/plugin/reference/setup/vis/) and `setAutoSnapshotOptions`.

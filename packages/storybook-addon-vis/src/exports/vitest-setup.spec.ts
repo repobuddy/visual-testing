@@ -1,4 +1,4 @@
-import { testType } from 'type-plus'
+import { testType } from 'type-plus/testing'
 import { beforeAll, describe, expect, it } from 'vitest'
 import type { SetupVisOptions } from 'vitest-plugin-vis'
 import type { ToMatchImageSnapshotOptions } from 'vitest-plugin-vis/client-api'

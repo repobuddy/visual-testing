@@ -1,0 +1,42 @@
+---
+title: addonVis
+description: The preview addon for CSF Next, which takes automatic snapshots without a Vitest setup file.
+sidebar:
+  order: 4
+---
+
+`addonVis()` is the default export of `storybook-addon-vis`.
+It returns a preview addon for [`definePreview()`](https://storybook.js.org/docs/api/csf/csf-next).
+
+```ts
+// .storybook/preview.ts
+import addonVis from 'storybook-addon-vis'
+import { definePreview } from '@storybook/your-framework/node'
+
+export default definePreview({
+	addons: [addonVis({ auto: true })],
+})
+```
+
+## Signature
+
+```ts
+function addonVis(options?: SetupVisOptions<{ tags: string[] }>): PreviewAddon
+```
+
+The default is `{ auto: false }`.
+
+## Options
+
+The options are those of [`vis.setup`](/visual-testing/plugin/reference/setup/vis/): `auto` (a boolean, a function, or an object of themes) and `createMissingBaseline`.
+
+## What it does
+
+- With `auto: true`, it adds the `snapshot` tag to every story.
+- In a Vitest browser run, `beforeAll` prepares the matcher and turns automatic snapshot options on.
+- `afterEach` takes the snapshot, once per theme when `auto` is an object.
+- It includes [`visAnnotations`](/visual-testing/addon/reference/vis-annotations/).
+
+It also registers `toMatchImageSnapshot` on `expect` when the module loads, so the matcher exists in Storybook dev mode.
+
+See the [CSF Next guide](/visual-testing/addon/guides/csf-next/).

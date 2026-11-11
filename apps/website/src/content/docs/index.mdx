@@ -1,0 +1,43 @@
+---
+title: "visual-testing"
+description: "Visual testing for Storybook and Vitest."
+---
+
+Capture and compare image snapshots automatically and manually, in Storybook and in Vitest Browser Mode.
+
+| Package | What it is for | npm | Docs |
+| ------- | -------------- | --- | ---- |
+| `storybook-addon-vis` | Capturing and comparing image snapshots of your stories, automatically and manually, from [Storybook Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) tests. | [npm](https://www.npmjs.com/package/storybook-addon-vis) | [Get started](/visual-testing/addon/get-started/), [Features](/visual-testing/addon/features/) |
+| `vitest-plugin-vis` | Capturing and comparing image snapshots in tests that run in [Vitest Browser Mode](https://vitest.dev/guide/browser), without Storybook. | [npm](https://www.npmjs.com/package/vitest-plugin-vis) | [Get started](/visual-testing/plugin/get-started/), [Features](/visual-testing/plugin/features/) |
+
+## Which one do I need
+
+Use `storybook-addon-vis` for Storybook stories and `vitest-plugin-vis` for Vitest Browser Mode tests without Storybook.
+See [Choosing a package](/visual-testing/visual-testing/choosing-a-package/).
+
+## Learn visual testing
+
+Start with [Visual testing](/visual-testing/visual-testing/what-is-visual-testing/). It explains the ideas both packages share.
+
+- [What is visual testing](/visual-testing/visual-testing/what-is-visual-testing/)
+- [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/)
+- [Comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/)
+- [Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/)
+- [Updating baselines](/visual-testing/visual-testing/updating-baselines/)
+- [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/)
+- [Variations](/visual-testing/visual-testing/variations/)
+
+## Compare
+
+See how these packages compare with other tools in [Compare](/visual-testing/compare/).
+
+## Storybooks
+
+The repository's Storybooks are published with this site:
+
+- [Addon Storybook](/visual-testing/storybook/): the Storybook of `storybook-addon-vis` itself.
+- [Themes](/visual-testing/examples/themes/storybook/): one set of snapshots per theme.
+- [Multi instances](/visual-testing/examples/multi-instances/storybook/): one set of snapshots per browser viewport.
+- [CSF Next](/visual-testing/examples/sb-csf-next/storybook/): stories written in CSF Next.
+
+They only render the stories. Snapshots are taken while Vitest runs them. See [Examples](/visual-testing/addon/examples/).

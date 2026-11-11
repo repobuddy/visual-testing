@@ -1,0 +1,38 @@
+---
+title: "CI"
+description: "Run story snapshots on CI: platform baselines, what to commit, and how failures surface."
+sidebar:
+  order: 10
+---
+
+Goal: run the same snapshot tests on CI and keep the baselines trustworthy.
+The reasons behind this are in [Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/).
+
+## What changes on CI
+
+The addon checks whether it runs on CI (with the `is-ci` package).
+The default snapshot root changes with it:
+
+| Where | Snapshot root |
+| --- | --- |
+| Your machine | `__vis__/local` |
+| CI | `__vis__/<process.platform>`, such as `__vis__/linux` or `__vis__/win32` |
+
+So CI never overwrites your local images, and each operating system has its own baselines.
+Commit the `__baselines__` folders of the CI platforms.
+Ignore `__vis__/local`, `__results__` and `__diffs__`, as in [Configuration](/visual-testing/addon/configuration/#ignore-snapshot-folders).
+
+## Steps
+
+1. Install dependencies and the browser for your provider (for Playwright, `npx playwright install chromium`).
+2. Run `npx vitest run`. A story without a baseline or with a difference fails.
+3. To create or update baselines on CI, run `npx vitest run -u` on the platform and commit the result. See [Updating baselines](/visual-testing/visual-testing/updating-baselines/).
+4. Upload `__results__` and `__diffs__` as an artifact on failure, so a reviewer can look at them. The folders are ignored by git, so they exist only on the runner.
+
+This repository does the same for its own test cases: CI renders on Ubuntu and Windows, and a bot opens a pull request with the new baselines for review.
+See [`docs/snapshot-workflow.md`](https://github.com/repobuddy/visual-testing/blob/main/docs/snapshot-workflow.md).
+
+## Check your result locally
+
+`vitest run` on your machine writes to `local`, so it does not compare with the CI baselines.
+To reproduce a CI failure, run the same operating system, for example in a container, or read the diffs from the CI artifact.

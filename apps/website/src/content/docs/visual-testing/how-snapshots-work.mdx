@@ -1,0 +1,65 @@
+---
+title: "How snapshots work"
+description: "Baseline, result and diff images, the __vis__ folder layout, and what to commit and what to ignore."
+sidebar:
+  order: 2
+---
+
+This page applies to both packages.
+`storybook-addon-vis` runs `vitest-plugin-vis`, so they write the same files.
+
+## Three images
+
+A snapshot has up to three images:
+
+- **Baseline.** The accepted image. You commit it.
+- **Result.** The image the current run captured. It is written to disk and not committed.
+- **Diff.** Written only when the result does not match the baseline. It shows the changed pixels in red.
+
+A failed comparison writes two more files next to the diff: `<name>.regions.json` with the changed regions, and `<name>.review.png` that crops each region.
+[Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) explains both.
+
+If the baseline and the result have different sizes, the comparison first resizes both to the larger size, then compares them.
+
+## Folder layout
+
+By default the images go under `__vis__` in the project root:
+
+```txt
+__vis__/
+  <platform>/
+    __baselines__/<test file>/<snapshot name>.png
+    __results__/<test file>/<snapshot name>.png
+    __diffs__/<test file>/<snapshot name>.png
+    __diffs__/<test file>/<snapshot name>.review.png
+    __diffs__/<test file>/<snapshot name>.regions.json
+```
+
+`<platform>` is `local` when you run on your machine.
+In a CI environment, detected with [`is-ci`](https://www.npmjs.com/package/is-ci), it is the value of `process.platform`, for example `linux` or `win32`.
+[Platforms and CI](/visual-testing/visual-testing/platforms-and-ci/) explains why.
+
+The `<test file>` folder is the path of the test file relative to the project root. By default a leading `src`, `test`, `tests`, `source`, `js`, `ts` or `lib` folder is dropped.
+The [`snapshotRootDir`](/visual-testing/plugin/reference/config/vis/#snapshotrootdir) and [`snapshotSubpath`](/visual-testing/plugin/reference/config/vis/#snapshotsubpath) options change the root and the sub-path.
+[`trimCommonFolder`](/visual-testing/plugin/reference/config/trim-common-folder/) describes the trimming.
+
+Automatic snapshots are named `auto`, and a theme adds its name, for example `primary-dark.png`.
+A manual snapshot takes its name from the test or from `snapshotKey`.
+
+## What to commit
+
+Commit `__baselines__`, except under `local`.
+Ignore everything else:
+
+```ini
+# .gitignore
+**/__vis__/local
+**/__vis__/**/__diffs__
+**/__vis__/**/__results__
+```
+
+The package pages repeat the lines for their setup: [Storybook addon](/visual-testing/addon/configuration/) and [Vitest plugin](/visual-testing/plugin/configuration/).
+
+## Where the names come from
+
+The folder names are exported as constants from `vitest-plugin-vis/server-utils`: `SNAPSHOT_ROOT_DIR`, `BASELINE_DIR`, `RESULT_DIR`, `DIFF_DIR`, `REVIEW_IMAGE_SUFFIX` and `CHANGED_REGIONS_SUFFIX`.

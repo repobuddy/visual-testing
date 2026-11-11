@@ -1,0 +1,26 @@
+name: close-snapshot-prs
+# Snapshot PRs target the branch of a pull request. Once that pull request closes or merges they are dead.
+on:
+  pull_request:
+    types: [closed]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  close:
+    if: ${{ !startsWith(github.head_ref, 'vis-bot/') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close snapshot PRs of this branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_REF: ${{ github.head_ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          prefix="vis-bot/update-snapshot/$HEAD_REF-"
+          gh pr list --repo "${{ github.repository }}" --state open --base "$HEAD_REF" --json number,headRefName \
+            --jq ".[] | select(.headRefName | startswith(\"$prefix\")) | .number" |
+          while read -r n; do
+            gh pr close "$n" --repo "${{ github.repository }}" --delete-branch \
+              --comment "Closing: pull request #$PR_NUMBER was closed."
+          done

@@ -1,5 +1,7 @@
 {
 	"$schema": "./node_modules/knip/schema-jsonc.json",
+	// uvx comes with uv. The graph script runs the Python graphify CLI through it (docs/graphify.md).
+	"ignoreBinaries": ["uvx"],
 	"workspaces": {
 		".": {
 			"entry": ["vitest.*.ts"],

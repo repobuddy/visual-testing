@@ -1,0 +1,56 @@
+---
+title: "Migrating to 1.0"
+description: "Breaking changes in storybook-addon-vis 1.0: snapshot path options and the vitest-setup export."
+sidebar:
+  order: 2
+---
+
+[storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) 1.0 has some breaking changes.
+This guide follows the [storybook-addon-vis changelog](https://github.com/repobuddy/visual-testing/blob/main/packages/storybook-addon-vis/CHANGELOG.md) and the [vitest-plugin-vis changelog](https://github.com/repobuddy/visual-testing/blob/main/packages/vitest-plugin-vis/CHANGELOG.md) for 1.0.0 and 3.0.0.
+
+🗒️ [storybook-addon-vis](https://www.npmjs.com/package/storybook-addon-vis) 1.0 supports Storybook 8.
+For Storybook 9, please use 2.x.
+
+⚠️ Snapshot folder structure customization has changed.
+
+In 0.x,
+you could customize the snapshot folder structure with the `snapshotRootDir`, `customizeSnapshotSubpath`, and `customizeSnapshotId` options to the `storybookVis` function.
+
+In 1.0,
+the options are changed to `snapshotRootDir`, `snapshotSubpath`, and `snapshotKey`.
+
+The biggest change is that `snapshotKey` no longer accepts a function.
+It is a string used at the end of the snapshot file name, and it cannot contain a dash (`-`).
+See [`vitest-plugin-vis`](/visual-testing/plugin/reference/config/overview/#customizing-the-snapshot-path) for more details.
+
+⚠️ `storybook-addon-vis/preview` is moved to `storybook-addon-vis/vitest-setup`.
+
+In 0.x,
+the default export of `storybook-addon-vis/preview` is `visAnnotations`.
+You add it to your `vitest.setup.ts`, and use the `vis` object from `storybook-addon-vis/vitest-setup` to enable the preset:
+
+```ts
+import visAnnotations from 'storybook-addon-vis/preview'
+import { vis } from 'storybook-addon-vis/vitest-setup'
+
+const project = setProjectAnnotations([
+	visAnnotations,
+	projectAnnotations
+])
+
+vis.presets.enable()
+```
+
+In 1.0,
+`visAnnotations` is exported from `storybook-addon-vis/vitest-setup`, and `vis.setup()` replaces `vis.presets.enable()`:
+
+```ts
+import { vis, visAnnotations } from 'storybook-addon-vis/vitest-setup'
+
+const project = setProjectAnnotations([
+	visAnnotations, // add this
+	projectAnnotations
+])
+
+vis.setup()
+```

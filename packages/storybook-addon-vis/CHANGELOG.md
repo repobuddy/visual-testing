@@ -1,5 +1,232 @@
 # CHANGE LOG
 
+## 4.5.0
+
+### Minor Changes
+
+- [#1002](https://github.com/repobuddy/visual-testing/pull/1002) [`3dd963f`](https://github.com/repobuddy/visual-testing/commit/3dd963fdb902b0dfbecf3fccc9d562287e9ea583) Thanks [@unional](https://github.com/unional)! - Add an `animations` option (`'disabled' | 'allow'`, default `'allow'`) to `toMatchImageSnapshot()`, `page.toMatchImageSnapshot()`, `setAutoSnapshotOptions()` and `vis.setup()`. With `'disabled'`, finite CSS animations and transitions are finished and infinite ones are cancelled before the snapshot, so animated components give stable images with both the Playwright and WebdriverIO providers.
+
+- [#1003](https://github.com/repobuddy/visual-testing/pull/1003) [`09440c3`](https://github.com/repobuddy/visual-testing/commit/09440c3d9a0a21c7fcc0535eb89c96b8d016ce45) Thanks [@unional](https://github.com/unional)! - Add a `mask` option to `toMatchImageSnapshot()` (both `expect(...)` and `page.`), `setAutoSnapshotOptions()` and `vis.setup({ auto })`. It takes selectors, locators or elements and paints them over before the snapshot is taken, so content that changes on every run does not fail the comparison. `maskColor` sets the color. It works with the Playwright and WebdriverIO providers.
+
+### Patch Changes
+
+- [#949](https://github.com/repobuddy/visual-testing/pull/949) [`a4ce784`](https://github.com/repobuddy/visual-testing/commit/a4ce78437d5ff697176b25002f411be2868346ef) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update `glob` to v14.
+
+- [#1005](https://github.com/repobuddy/visual-testing/pull/1005) [`3a7ed6e`](https://github.com/repobuddy/visual-testing/commit/3a7ed6e9c1621af94a8535517b6be000f5b44e3a) Thanks [@unional](https://github.com/unional)! - State on the Compare pages that masking is supported.
+
+- [#993](https://github.com/repobuddy/visual-testing/pull/993) [`67ac628`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062) Thanks [@unional](https://github.com/unional)! - List the new Vitest plugin guides, examples, troubleshooting and reference pages in `llms.txt`, and document more of the plugin's public API.
+
+- [#992](https://github.com/repobuddy/visual-testing/pull/992) [`b427b9e`](https://github.com/repobuddy/visual-testing/commit/b427b9eb73f88ebaa6e6eeafdda618e971b9ad58) Thanks [@unional](https://github.com/unional)! - Document `addonVis`, `isSnapshotEnabled` and the preset entry in the overview page, and link the new addon guides from `llms.txt`.
+
+- [#988](https://github.com/repobuddy/visual-testing/pull/988) [`42dc3dd`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b) Thanks [@unional](https://github.com/unional)! - Update the readme, `llms.txt` and `review-image-snapshot-failures` skill links to the new website page locations.
+  The old page URLs still redirect to the new ones.
+
+- [#991](https://github.com/repobuddy/visual-testing/pull/991) [`06d72bf`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca) Thanks [@unional](https://github.com/unional)! - List the new Visual testing concept pages of the website in `llms.txt`.
+- Updated dependencies [[`a4ce784`](https://github.com/repobuddy/visual-testing/commit/a4ce78437d5ff697176b25002f411be2868346ef), [`3a7ed6e`](https://github.com/repobuddy/visual-testing/commit/3a7ed6e9c1621af94a8535517b6be000f5b44e3a), [`3dd963f`](https://github.com/repobuddy/visual-testing/commit/3dd963fdb902b0dfbecf3fccc9d562287e9ea583), [`09440c3`](https://github.com/repobuddy/visual-testing/commit/09440c3d9a0a21c7fcc0535eb89c96b8d016ce45), [`67ac628`](https://github.com/repobuddy/visual-testing/commit/67ac628e3d6f41cfc8fdfe77e6153180b9595062), [`42dc3dd`](https://github.com/repobuddy/visual-testing/commit/42dc3ddfa4b18e171ab1da832000fac5220de65b), [`06d72bf`](https://github.com/repobuddy/visual-testing/commit/06d72bfe7490723e77a75dbeb0d6bdea863468ca)]:
+  - vitest-plugin-vis@5.4.0
+
+## 4.4.0
+
+### Minor Changes
+
+- [#970](https://github.com/repobuddy/visual-testing/pull/970) [`830f5c4`](https://github.com/repobuddy/visual-testing/commit/830f5c448ade9b1d395b6840d618221c62000841) Thanks [@unional](https://github.com/unional)! - The `Vis` panel compares a failed snapshot the way GitHub compares images.
+  Pick side by side, swipe, or onion skin to compare the baseline with the result, or pick Diff to see the diff image.
+  Snapshots that passed show the baseline as before.
+  When a failed snapshot has no result image, such as one from an older run, the panel shows its images one after another as before.
+
+### Patch Changes
+
+- Updated dependencies [[`830f5c4`](https://github.com/repobuddy/visual-testing/commit/830f5c448ade9b1d395b6840d618221c62000841)]:
+  - vitest-plugin-vis@5.3.0
+
+## 4.3.5
+
+### Patch Changes
+
+- [#962](https://github.com/repobuddy/visual-testing/pull/962) [`1847b46`](https://github.com/repobuddy/visual-testing/commit/1847b4685a93cc9f402e2944486202b6fc1a2ea3) Thanks [@unional](https://github.com/unional)! - Point the package readmes and the `review-image-snapshot-failures` skill at the documentation website.
+  Each readme now has install, minimal configuration, an example, a version compatibility table, and links to the matching website pages.
+  The skill links the "Reviewing Failures with Agents" page on the website instead of a source file.
+- Updated dependencies [[`1847b46`](https://github.com/repobuddy/visual-testing/commit/1847b4685a93cc9f402e2944486202b6fc1a2ea3)]:
+  - vitest-plugin-vis@5.2.2
+
+## 4.3.4
+
+### Patch Changes
+
+- [#947](https://github.com/repobuddy/visual-testing/pull/947) [`25d682c`](https://github.com/repobuddy/visual-testing/commit/25d682c8aa740a93b0e7a38a74d162b59d479b56) Thanks [@unional](https://github.com/unional)! - Include `CHANGELOG.md` in the published package.
+- Updated dependencies [[`25d682c`](https://github.com/repobuddy/visual-testing/commit/25d682c8aa740a93b0e7a38a74d162b59d479b56)]:
+  - vitest-plugin-vis@5.2.1
+
+## 4.3.3
+
+### Patch Changes
+
+- [#920](https://github.com/repobuddy/visual-testing/pull/920) [`6c2e58e`](https://github.com/repobuddy/visual-testing/commit/6c2e58e33effd2b74b0156677f5520c6e633ba46) Thanks [@unional](https://github.com/unional)! - When an image snapshot mismatches, find the changed regions and write a review image.
+  
+  The failure message now lists the changed regions (`Changed:`) and points to a review image (`Review:`).
+  The review image (`<name>.review.png`, next to the diff) places the baseline, result, and diff crops of each region side by side,
+  so a person or a coding agent can see what changed without opening the full images.
+  The regions are also written to `<name>.regions.json` next to the diff.
+  The review image is skipped, and the message says why, when the image size changed, there are more than 5 regions, or the regions cover more than half of the image.
+  
+  Set `reviewImage: false` in `vis()` or `toMatchImageSnapshot()` to not write the review image.
+  
+  The Storybook Vis panel does not list the review image as a diff.
+
+- [#926](https://github.com/repobuddy/visual-testing/pull/926) [`013d9b6`](https://github.com/repobuddy/visual-testing/commit/013d9b619be2263bd44f0b4f10a9f9b6beaaa66b) Thanks [@unional](https://github.com/unional)! - Ship an `llms.txt` in each package so coding agents can find the entry points and documentation pages.
+  It points agents to the new "Reviewing Failures with Agents" page, which tells them to open the review image of a failed image snapshot first, and shows what each view costs in tokens.
+  
+  Each package is also an agent plugin for Claude Code, Cursor, Codex and Copilot CLI.
+  It ships the `review-image-snapshot-failures` skill, which tells an agent to read the error message and the review image before it opens a full image.
+
+- [#946](https://github.com/repobuddy/visual-testing/pull/946) [`65e4177`](https://github.com/repobuddy/visual-testing/commit/65e417723162b80d82a807194bd6336d3f575202) Thanks [@dub578](https://github.com/dub578)! - Decode images in `toImageData` with `createImageBitmap` and close the bitmap after reading the pixels.
+  
+  `new Image()` + `drawImage` left a full-size decode in Chromium's image decode cache for every compared image,
+  so renderer memory grew with each image snapshot comparison.
+- Updated dependencies [[`6c2e58e`](https://github.com/repobuddy/visual-testing/commit/6c2e58e33effd2b74b0156677f5520c6e633ba46), [`013d9b6`](https://github.com/repobuddy/visual-testing/commit/013d9b619be2263bd44f0b4f10a9f9b6beaaa66b), [`65e4177`](https://github.com/repobuddy/visual-testing/commit/65e417723162b80d82a807194bd6336d3f575202)]:
+  - vitest-plugin-vis@5.2.0
+
+## 4.3.2
+
+### Patch Changes
+
+- [#904](https://github.com/repobuddy/visual-testing/pull/904) [`fd37087`](https://github.com/repobuddy/visual-testing/commit/fd37087fea1b43eb6114d05cfda1fc9535dd00d5) Thanks [@unional](https://github.com/unional)! - Update `type-plus` to 8.0.0.
+- Updated dependencies [[`fd37087`](https://github.com/repobuddy/visual-testing/commit/fd37087fea1b43eb6114d05cfda1fc9535dd00d5)]:
+  - vitest-plugin-vis@5.1.8
+
+## 4.3.1
+
+### Patch Changes
+
+- [#889](https://github.com/repobuddy/visual-testing/pull/889) [`b770cfe`](https://github.com/repobuddy/visual-testing/commit/b770cfe37da3161c393d6414cea202fe33114b34) Thanks [@unional](https://github.com/unional)! - Fix auto snapshots hanging until the test timeout when `subject` matches a hidden element.
+  
+  The `subject` selector was resolved with `document.querySelector()`, which returns the first match even when it is hidden. In Storybook, a selector such as `button` matched hidden buttons that Storybook adds to the document, so the screenshot waited for that element to become visible until the timeout. Auto snapshots now use the first visible match.
+  
+  If the selector matches only hidden elements, the snapshot now fails right away with a "not visible" error instead of waiting until the timeout. If it matches nothing, `document.body` is still used.
+
+- [#890](https://github.com/repobuddy/visual-testing/pull/890) [`affac03`](https://github.com/repobuddy/visual-testing/commit/affac0311460f56d3d1c951b6d178445a73fd790) Thanks [@unional](https://github.com/unional)! - Trim leading and trailing whitespace from test and suite names when building the snapshot path ([#847](https://github.com/repobuddy/visual-testing/issues/847)).
+  
+  Storybook appends two spaces to the `describe` title it generates for a CSF Next story that uses `story.test()`. Those spaces became two dashes in the snapshot folder name, so the snapshots landed under `<story>--/`.
+  
+  Snapshots of `story.test()` stories now land under `<story>/`. Move or regenerate the existing baselines from `<story>--/` to `<story>/`. Snapshot paths of plain stories and regular tests do not change.
+- Updated dependencies [[`b770cfe`](https://github.com/repobuddy/visual-testing/commit/b770cfe37da3161c393d6414cea202fe33114b34), [`affac03`](https://github.com/repobuddy/visual-testing/commit/affac0311460f56d3d1c951b6d178445a73fd790)]:
+  - vitest-plugin-vis@5.1.7
+
+## 4.3.0
+
+### Minor Changes
+
+- [#887](https://github.com/repobuddy/visual-testing/pull/887) [`7bc7aee`](https://github.com/repobuddy/visual-testing/commit/7bc7aee0dc9ffc610f7b818898cd00f8031ece37) Thanks [@unional](https://github.com/unional)! - Export `cdp`, a proxy of `cdp()` from `vitest/browser` that is safe to import from stories.
+  
+  Importing `vitest/browser` directly in a story throws in a plain Storybook preview and blanks the story. `cdp` loads it only during a Vitest browser run, like the existing `page` and `commands` proxies, and session calls made before the import settles wait for it. Calling `cdp()` outside a Vitest browser run throws.
+  
+  CDP is available only with the Playwright provider on Chromium.
+
+## 4.2.9
+
+### Patch Changes
+
+- [#885](https://github.com/repobuddy/visual-testing/pull/885) [`b674dfe`](https://github.com/repobuddy/visual-testing/commit/b674dfe38412b252f0b6a5a79cbcce4183b17a8f) Thanks [@unional](https://github.com/unional)! - Update `type-plus` to `8.0.0-beta.12`.
+  
+  `type-plus` 8.0.0-beta.12 no longer exports the distributive `Pick` and `Omit` from its root.
+  The public types now use `ObjectPlus.Pick` and `ObjectPlus.Omit`, which behave the same.
+- Updated dependencies [[`b674dfe`](https://github.com/repobuddy/visual-testing/commit/b674dfe38412b252f0b6a5a79cbcce4183b17a8f)]:
+  - vitest-plugin-vis@5.1.6
+
+## 4.2.8
+
+### Patch Changes
+
+- [#870](https://github.com/repobuddy/visual-testing/pull/870) [`5c2970c`](https://github.com/repobuddy/visual-testing/commit/5c2970c8f2069512dc136ca9e5edd25def39f7db) Thanks [@unional](https://github.com/unional)! - Pin `type-plus` to `8.0.0-beta.10`, exactly.
+  
+  Both packages already declared `type-plus: ^8.0.0-beta.10` in the last published release
+  (`storybook-addon-vis@4.2.7`, `vitest-plugin-vis@5.1.4`), so this is a range tightening,
+  not a version move: `type-plus` 8's `typescript >= 5.6.0` peer already reaches consumers
+  today, and this change does not alter what a fresh install resolves — it only forecloses
+  later `8.0.0-beta.x` prereleases plus `8.0.0` and `8.1.0`.
+  
+  The version is pinned rather than caret-ranged. `^8.0.0-beta.10` resolves to
+  `>=8.0.0-beta.10 <9.0.0-0`, which admits every later 8.0.0 prerelease as well as `8.0.0`
+  and `8.1.0` — and 8 is a prerelease line where breaking changes land between betas
+  (beta.10 to beta.11 changed `Equal`'s signature and removed `isType.f`). An exact version
+  makes each bump a reviewable PR instead of something a lockfile refresh can do silently.
+  Move back to a caret when 8.0.0 is stable.
+  
+  `type-plus` types leak into each package's emitted declarations:
+  `storybook-addon-vis`'s `dist/exports/vitest-plugin.d.mts` imports `Omit` from
+  `type-plus`; `vitest-plugin-vis`'s `dist/shared/commands.types.d.mts` and
+  `dist/server/testing/stubSuite.d.mts` import `Pick` and `RecursivePartial`. None of
+  these symbols changed between 7 and 8, so no source change was needed.
+- Updated dependencies [[`5c2970c`](https://github.com/repobuddy/visual-testing/commit/5c2970c8f2069512dc136ca9e5edd25def39f7db)]:
+  - vitest-plugin-vis@5.1.5
+
+## 4.2.7
+
+### Patch Changes
+
+- [#861](https://github.com/repobuddy/visual-testing/pull/861) [`ee4464a`](https://github.com/repobuddy/visual-testing/commit/ee4464a4ef9e407d8e99c2abcf3387e0e1750b91) Thanks [@unional](https://github.com/unional)! - Depend on `type-plus` `^8.0.0-beta.10` — back on the 8.x line, as a range.
+  
+  The previous release moved both packages to `^7.6.2`. That was the wrong fix.
+  These packages belong on the 8.x line; what was actually broken was that the
+  dependency was an *exact* pin (`8.0.0-beta.8`), so it could never resolve
+  forward and consumers were stuck on a build with a real CJS packaging defect:
+  `8.0.0-beta.8` declares `"type": "module"` but ships a `cjs/` build with no
+  `{"type":"commonjs"}` marker, so `require()` of these packages failed with
+  `ReferenceError: exports is not defined in ES module scope`.
+  
+  `type-plus@8.0.0-beta.10` ships that `cjs/package.json` marker and fixes it. The
+  dependency is now the range `^8.0.0-beta.10` rather than a pin, so later 8.x
+  betas and stable 8.x flow in on their own instead of freezing at one build.
+  
+  The root barrel of `8.0.0-beta.10` is byte-identical to `8.0.0-beta.8`'s, so
+  there is no API change between the two. The local `Merge` alias in
+  `vis_server_context.types.ts` stays as-is; it is version-independent.
+- Updated dependencies [[`ee4464a`](https://github.com/repobuddy/visual-testing/commit/ee4464a4ef9e407d8e99c2abcf3387e0e1750b91)]:
+  - vitest-plugin-vis@5.1.4
+
+## 4.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`62026f5`](https://github.com/repobuddy/visual-testing/commit/62026f5bca4718b34d53495e2934f62645a20d66)]:
+  - vitest-plugin-vis@5.1.3
+
+## 4.2.5
+
+### Patch Changes
+
+- [#849](https://github.com/repobuddy/visual-testing/pull/849) [`f450ead`](https://github.com/repobuddy/visual-testing/commit/f450eadb54ea9daf9ce62a227c782b39bf834573) Thanks [@unional](https://github.com/unional)! - Wait for the vitest browser modules before using them.
+  
+  `commands` and `page` are backed by a dynamic import that nothing awaited, so a
+  hook reading `commands.setupVisSuite` before it settled got `undefined` and
+  failed with `commands.setupVisSuite is not a function` — inside a genuine vitest
+  browser run. Command reads now return a function that waits for the import, and
+  the addon's `beforeAll` awaits the module load before touching `page` or the
+  current test.
+
+- [`6697a67`](https://github.com/repobuddy/visual-testing/commit/6697a67b874c3943098af77539285f0b92a159ec) Thanks [@unional](https://github.com/unional)! - Raise dependency floors to pull in security fixes.
+  
+  `glob`, `rimraf`, `pathe`, `dedent`, `is-ci`, and `pixelmatch` move up within
+  their existing major, which resolves the advisories reaching the runtime
+  dependency tree through `brace-expansion` and `tmp`. No API change.
+
+- [#858](https://github.com/repobuddy/visual-testing/pull/858) [`6f65e20`](https://github.com/repobuddy/visual-testing/commit/6f65e206ab222bbf24f7acdf5e9f4df560d5d442) Thanks [@unional](https://github.com/unional)! - Depend on the stable `type-plus` line instead of an 8.x prerelease.
+  
+  Both packages carried `"type-plus": "8.0.0-beta.8"` as an exact pin in their
+  runtime `dependencies`. `type-plus@latest` is deliberately `7.6.2`; the 8.x line
+  is an unfinished major parked in prerelease. The exact pin forced every consumer
+  to install that prerelease, and consumers that also depend on something else
+  pinning a different 8.x beta resolved two copies of `type-plus`. The pin now
+  reads `^7.6.2`.
+  
+  The only type this needed that 7.x does not export from its root is `Merge`, so
+  `Merge` is now declared locally in `vis_server_context.types.ts`. Emitted output
+  is otherwise byte-for-byte identical to the build under `8.0.0-beta.8`: the sole
+  difference in `dist` is that one alias moving from an import into the file. No
+  API change.
+- Updated dependencies [[`5364614`](https://github.com/repobuddy/visual-testing/commit/5364614b07e8301250922c190b621300e86ba4fd), [`6697a67`](https://github.com/repobuddy/visual-testing/commit/6697a67b874c3943098af77539285f0b92a159ec), [`6f65e20`](https://github.com/repobuddy/visual-testing/commit/6f65e206ab222bbf24f7acdf5e9f4df560d5d442)]:
+  - vitest-plugin-vis@5.1.2
+
 ## 4.2.4
 
 ### Patch Changes

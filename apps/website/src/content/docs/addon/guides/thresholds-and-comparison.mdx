@@ -1,0 +1,77 @@
+---
+title: "Thresholds and comparison for stories"
+description: "Tolerate small differences and choose pixel or SSIM comparison for stories, globally or per story."
+sidebar:
+  order: 7
+---
+
+Goal: stop tiny render differences, such as anti-aliasing, from failing a story, without hiding real changes.
+What a threshold is, and how pixel comparison differs from SSIM, is explained in [Comparison and thresholds](/visual-testing/visual-testing/comparison-and-thresholds/).
+This page shows where to set them for stories.
+
+## For every story
+
+Set the options on `storybookVis()` in `vitest.config.ts`:
+
+```ts
+storybookVis({
+	comparisonMethod: 'pixel',
+	failureThresholdType: 'percent',
+	failureThreshold: 0.1,
+})
+```
+
+The defaults are `pixel` comparison and a threshold of 0 pixels, so any difference fails.
+The full option list is in the [plugin configuration](/visual-testing/plugin/configuration/).
+
+## For one automatic snapshot
+
+Use the story parameter. `defineAutoSnapshotParam()` adds autocompletion:
+
+```tsx
+import { defineAutoSnapshotParam } from 'storybook-addon-vis'
+
+export const Primary = {
+	tags: ['snapshot'],
+	parameters: defineAutoSnapshotParam({
+		failureThreshold: 70, // pixels
+	}),
+}
+
+export const Loose = {
+	tags: ['snapshot'],
+	parameters: defineAutoSnapshotParam({
+		failureThreshold: 0.3,
+		failureThresholdType: 'percent',
+	}),
+}
+
+export const Structural = {
+	tags: ['snapshot'],
+	parameters: defineAutoSnapshotParam({
+		comparisonMethod: 'ssim',
+		diffOptions: { ssim: 'bezkrovny' },
+	}),
+}
+```
+
+These cases come from the stories of `defineAutoSnapshotParam` in the addon's own tests.
+The same parameter can set `subject`, the selector of the element to capture.
+
+## For a manual snapshot
+
+The parameter does not apply to a snapshot taken in `play`.
+Pass the options to the matcher instead:
+
+```tsx
+await expect(canvas.getByTestId('subject')).toMatchImageSnapshot({
+	failureThreshold: 70,
+})
+```
+
+The addon's tests keep this case as a story named `DoesNotApplyToSnapshotInPlay`.
+
+## Related
+
+- [`defineAutoSnapshotParam`](/visual-testing/addon/reference/define-auto-snapshot-param/)
+- [Threshold options](/visual-testing/plugin/reference/config/vis/) in the plugin reference. The addon re-exports them.

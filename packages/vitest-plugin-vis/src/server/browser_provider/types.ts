@@ -6,6 +6,8 @@ export interface BrowserApi {
 		options:
 			| {
 					timeout?: number | undefined
+					mask?: string[] | undefined
+					maskColor?: string | undefined
 			  }
 			| undefined,
 	): Promise<Buffer>
@@ -16,6 +18,8 @@ export interface BrowserApi {
 			| {
 					fullPage?: boolean | undefined
 					timeout?: number | undefined
+					mask?: string[] | undefined
+					maskColor?: string | undefined
 			  }
 			| undefined,
 	): Promise<Buffer>

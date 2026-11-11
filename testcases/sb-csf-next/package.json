@@ -14,6 +14,7 @@
 	},
 	"scripts": {
 		"build": "tsc -b && vite build",
+		"build:sb": "cross-env STORYBOOK_STATIC_EXAMPLE=1 storybook build --output-dir storybook-static --disable-telemetry",
 		"build-storybook": "storybook build",
 		"dev": "vite",
 		"preview": "vite preview",

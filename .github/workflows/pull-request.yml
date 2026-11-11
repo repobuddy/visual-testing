@@ -5,8 +5,6 @@ permissions:
 on:
   pull_request:
     types: [opened, synchronize]
-    paths-ignore:
-      - '**/__vis__/**/__baselines__/**'
   workflow_dispatch:
     inputs:
       pr_number:
@@ -16,6 +14,8 @@ on:
 jobs:
   verify:
     strategy:
+      # Every leg must finish: the lts/* legs open the snapshot PRs even after another leg fails.
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
@@ -24,6 +24,10 @@ jobs:
           - lts/-1
           - lts/*
     runs-on: ${{ matrix.os }}
+    # vis-bot pushes the snapshot branch and opens the PR with github.token.
+    permissions:
+      contents: write
+      pull-requests: write
     env:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
@@ -56,29 +60,101 @@ jobs:
           max_attempts: 3
           command: pnpm verify:ci
       - run: git add .
+      - name: Classify head branch
+        id: branch
+        shell: bash
+        env:
+          HEAD_REF: ${{ steps.pr-info.outputs.head_ref || github.head_ref }}
+        run: |
+          echo "name=$HEAD_REF" >> "$GITHUB_OUTPUT"
+          # Renovate and Dependabot PRs can merge themselves, so a render change on them must fail the check.
+          if [[ "$HEAD_REF" == renovate* || "$HEAD_REF" == dependabot* ]]; then
+            echo "dependency_bot=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Detect snapshot changes
         uses: dorny/paths-filter@v4
         id: snapshot-changes
         with:
           base: HEAD
+          list-files: shell
           filters: |
             snapshots:
               - '*/*/__vis__/**/__baselines__/**'
 
-      - name: Create Pull Request
-        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'vis-bot') && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'dependabot') && !startsWith(steps.pr-info.outputs.head_ref || github.head_ref, 'renovate')
-        uses: peter-evans/create-pull-request@v8
+      # A head behind main lacks baselines that main added since, so the run recreates them and reports them as changes.
+      - name: Check head is current with the base branch
+        id: freshness
+        shell: bash
         env:
-          HEAD_REF: ${{ steps.pr-info.outputs.head_ref || github.head_ref }}
+          GH_TOKEN: ${{ github.token }}
+          BASE_REF: ${{ github.base_ref || 'main' }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REF: ${{ steps.branch.outputs.name }}
+        run: |
+          head="${HEAD_SHA:-$HEAD_REF}"
+          behind=$(gh api "repos/${{ github.repository }}/compare/$BASE_REF...$head" --jq .behind_by 2>/dev/null || echo 0)
+          echo "behind_by=$behind" >> "$GITHUB_OUTPUT"
+          if [[ "$behind" != "0" ]]; then
+            echo "::warning title=Branch is behind $BASE_REF::The head is $behind commit(s) behind $BASE_REF, so snapshot changes may only be baselines that $BASE_REF already has. No snapshot PR is opened; update the branch and re-run."
+          fi
+
+      # Fork and Dependabot PRs get a read-only github.token, so they cannot open the snapshot PR.
+      # Renovate PRs get no snapshot PR either: the changed-baselines artifact carries the new render.
+      - name: Create Pull Request
+        id: snapshot-pr
+        if: matrix.node-version == 'lts/*' && steps.snapshot-changes.outputs.snapshots == 'true' && steps.freshness.outputs.behind_by == '0' && steps.branch.outputs.dependency_bot != 'true' && !startsWith(steps.branch.outputs.name, 'vis-bot') && !startsWith(steps.branch.outputs.name, 'dependabot')
+        uses: repobuddy/vis-bot@v0.1.0
         with:
-          commit-message: "test(${{matrix.os}}/lts-latest): update snapshot"
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
-          title: "test(${{matrix.os}}/lts-latest): update snapshot"
-          body: This PR updates the snapshot for ${{matrix.os}} node lts-latest"
-          branch: vis-bot/update-snapshot/${{ env.HEAD_REF }}-${{ matrix.os }}-lts-latest
-          base: ${{ env.HEAD_REF }}
-          labels: "snapshot"
-          draft: false
+          commit-message: "test(${{ matrix.os }}/lts-latest): update snapshot"
+          pr-title: "test(${{ matrix.os }}/lts-latest): update snapshot"
+          pr-body: "This PR updates the snapshot for ${{ matrix.os }} node lts-latest"
+          target-branch: vis-bot/update-snapshot/${{ steps.branch.outputs.name }}-${{ matrix.os }}-lts-latest
+          base-branch: ${{ steps.branch.outputs.name }}
+          paths-to-add: "*/*/__vis__/${{ matrix.os == 'windows-latest' && 'win32' || 'linux' }}/**"
+
+      - name: Collect changed baselines
+        if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
+        shell: bash
+        env:
+          CHANGED: ${{ steps.snapshot-changes.outputs.snapshots_files }}
+        run: |
+          mkdir -p .vis-changed-baselines
+          eval "set -- $CHANGED"
+          for f in "$@"; do
+            [[ -f "$f" ]] && cp --parents "$f" .vis-changed-baselines/
+          done
+      - name: Upload changed baselines
+        if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: changed-baselines-${{ matrix.os }}-${{ strategy.job-index }}
+          path: .vis-changed-baselines
+          include-hidden-files: true
+
+      - name: Fail on render change in a dependency PR
+        if: steps.branch.outputs.dependency_bot == 'true' && steps.snapshot-changes.outputs.snapshots == 'true'
+        shell: bash
+        env:
+          CHANGED: ${{ steps.snapshot-changes.outputs.snapshots_files }}
+          SNAPSHOT_PR_NUMBER: ${{ steps.snapshot-pr.outputs.pr-number }}
+        run: |
+          eval "set -- $CHANGED"
+          if [[ -n "$SNAPSHOT_PR_NUMBER" ]]; then
+            review="Review the new render in ${{ github.server_url }}/${{ github.repository }}/pull/$SNAPSHOT_PR_NUMBER. Merge it into this branch if the change is intended; otherwise fix the regression."
+          else
+            review="Download the changed-baselines artifact from this run to review the new render, then commit it to this branch if the change is intended. If the branch is behind main, update it first: the changes may only be baselines main already has."
+          fi
+          echo "::error title=Render changed::This dependency update changes $# snapshot(s). $review"
+          {
+            echo "## Render changed"
+            echo
+            echo "This dependency update changes $# snapshot(s), so it must not merge without review."
+            echo
+            echo "$review"
+            echo
+            for f in "$@"; do echo "- \`$f\`"; done
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1
 
   all-checks:
     needs: [verify]

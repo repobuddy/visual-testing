@@ -1,0 +1,68 @@
+---
+title: "Viewports and multiple instances"
+description: "Run the same tests at several viewport sizes or in several browsers, with a snapshot folder for each."
+sidebar:
+  order: 5
+---
+
+Use this guide to snapshot the same tests at more than one viewport size, or in more than one browser.
+Vitest runs the tests once for each browser instance, so the work is to keep the snapshots of the instances apart.
+
+## Declare the instances
+
+```ts
+// vitest.config.ts
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		vis({
+			snapshotRootDir: ({ ci, platform, projectName }) => `__vis__/${ci ? platform : 'local'}/${projectName}`,
+		}),
+	],
+	test: {
+		browser: {
+			enabled: true,
+			provider: playwright(),
+			instances: [
+				{ browser: 'chromium', name: 'HD', viewport: { width: 1280, height: 720 } },
+				{ browser: 'chromium', name: 'SVGA', viewport: { width: 800, height: 600 } },
+			],
+		},
+	},
+})
+```
+
+Without `snapshotRootDir`, both instances read and write the same snapshot files.
+The function form receives `projectName`, the name of the Vitest project.
+Here the project has no `test.name`, so the name is the instance name.
+
+## What appears on disk
+
+On CI, on Linux:
+
+```txt
+__vis__/linux/HD/__baselines__/...
+__vis__/linux/SVGA/__baselines__/...
+```
+
+The `multi-instances` test case has this layout.
+Locally, `linux` is replaced by `local`.
+
+## Browsers
+
+The same layout separates browsers.
+Give each instance a `name`, or add `browserName` to the path:
+
+```ts
+snapshotRootDir: ({ ci, platform, browserName }) => `__vis__/${ci ? platform : 'local'}/${browserName}`
+```
+
+## Options that matter
+
+The context of `snapshotRootDir` also has `providerName`, `rootDir`, `screenshotFailures` and `screenshotDirectory`.
+See [`snapshotRootDir`](/visual-testing/plugin/reference/config/vis/#snapshotrootdir).
+To run different options in each project, see [Workspaces and multiple configs](/visual-testing/plugin/guides/workspaces-and-multiple-configs/).
+For themes inside one viewport, see [Themes](/visual-testing/plugin/guides/themes/).

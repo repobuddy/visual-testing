@@ -69,6 +69,7 @@ export function createVisServerContext() {
 					'diffOptions',
 					'failureThreshold',
 					'failureThresholdType',
+					'reviewImage',
 					'timeout',
 				),
 				baselinePath,
