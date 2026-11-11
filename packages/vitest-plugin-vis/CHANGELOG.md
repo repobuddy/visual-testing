@@ -1,5 +1,21 @@
 # vitest-plugin-vis
 
+## 5.5.0
+
+### Minor Changes
+
+- [#1017](https://github.com/repobuddy/visual-testing/pull/1017) [`ae0d477`](https://github.com/repobuddy/visual-testing/commit/ae0d4777ced6884287cd399d3696cf5bf7ca3cda) Thanks [@unional](https://github.com/unional)! - Fix `page.toMatchImageSnapshot({ fullPage: true })` so it captures the whole test page, including content below or to the right of the viewport.
+  It works with the `playwright` and `webdriverio` providers.
+  
+  With `playwright`, `page.toMatchImageSnapshot()` now captures the test iframe instead of the Vitest runner page,
+  so the image has the size of the test viewport.
+  Existing page snapshot baselines may change size and need to be updated.
+  
+  Add `fullPage` to auto snapshots.
+  Set it for all auto snapshots with `vis.setup({ fullPage: true })`,
+  for a test with `setAutoSnapshotOptions({ fullPage: true })`,
+  or for a story with `parameters: defineAutoSnapshotParam({ fullPage: true })`.
+
 ## 5.4.0
 
 ### Minor Changes
