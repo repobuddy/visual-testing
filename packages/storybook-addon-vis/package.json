@@ -90,7 +90,6 @@
 		"@storybook/icons": "^2.1.0",
 		"glob": "^14.0.2",
 		"is-ci": "^4.1.0",
-		"memoize": "^11.0.0",
 		"pathe": "^2.0.3",
 		"type-plus": "8.0.1",
 		"vitest-plugin-vis": "workspace:^"

@@ -64,7 +64,8 @@ export default {
 }
 ```
 
-`snapshotSubpath` works the same way.
+The values resolve the same way in both: `'__vis__/chromium'` is `__vis__/chromium/local` on your machine and `__vis__/chromium/linux` on Linux CI, for the tests and for the panel.
+`snapshotSubpath` works the same way: it receives the story file path relative to the project root, such as `src/button.stories.tsx`, as the plugin does.
 The panel combines the images of every project, so one story can show a snapshot per project.
 
 ## Monorepos

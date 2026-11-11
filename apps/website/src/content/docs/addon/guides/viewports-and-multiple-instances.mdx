@@ -55,18 +55,21 @@ The same works for different browsers: add an instance per browser and keep the 
 ## Show the snapshots in the Vis panel
 
 The panel finds images through `visProjects` in `.storybook/main.ts`, not through the Vitest config.
-A `snapshotRootDir` function there receives only `ci` and `platform`, not `projectName`, so list one root per instance as a string:
+Add one entry per instance, and set `projectName` on each so the same `snapshotRootDir` function gives the same folder:
 
 ```ts
 // .storybook/main.ts
 import { defineStorybookVis } from 'storybook-addon-vis/node'
 
+const snapshotRootDir = ({ ci, platform, projectName }: { ci: boolean; platform: string; projectName?: string | undefined }) =>
+	`__vis__/${ci ? platform : 'local'}/${projectName}`
+
 export default {
 	addons: [
 		defineStorybookVis({
 			visProjects: [
-				{ snapshotRootDir: '__vis__/local/HD' },
-				{ snapshotRootDir: '__vis__/local/SVGA' },
+				{ projectName: 'HD', snapshotRootDir },
+				{ projectName: 'SVGA', snapshotRootDir },
 			],
 		}),
 	],

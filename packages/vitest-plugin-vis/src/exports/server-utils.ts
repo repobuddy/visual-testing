@@ -1,4 +1,9 @@
-export { getSnapshotRootDir } from '../server/snapshot_path.ts'
+export {
+	getSnapshotRootDir,
+	getSnapshotSubpath,
+	resolveSnapshotRootDirOption,
+	type SnapshotRootDirContext,
+} from '../server/snapshot_path.ts'
 export {
 	resolveLegacySnapshotFileRelativePath,
 	resolveSnapshotSubpathWithinLimits,

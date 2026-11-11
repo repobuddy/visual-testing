@@ -104,8 +104,8 @@ describe('defineStorybookVis', () => {
 				?.snapshotRootDir
 			expect(typeof snapshotRootDir).toBe('function')
 			if (typeof snapshotRootDir === 'function') {
-				expect(snapshotRootDir({ ci: true, platform: 'linux' })).toBe('__vis__/linux')
-				expect(snapshotRootDir({ ci: false, platform: 'darwin' })).toBe('__vis__/local')
+				expect(snapshotRootDir({ ci: true, platform: 'linux', rootDir: '__vis__' })).toBe('__vis__/linux')
+				expect(snapshotRootDir({ ci: false, platform: 'darwin', rootDir: '__vis__' })).toBe('__vis__/local')
 			}
 		} catch (error: any) {
 			if (error?.message?.includes('Invalid URL') || error?.message?.includes('resolve')) {

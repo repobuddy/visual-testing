@@ -2,17 +2,16 @@ import { readFileSync } from 'node:fs'
 import { platform } from 'node:process'
 import { globSync } from 'glob'
 import ci from 'is-ci'
-import memoize from 'memoize'
 import { basename, resolve } from 'pathe'
 import {
 	BASELINE_DIR,
 	DIFF_DIR,
-	getSnapshotRootDir,
+	getSnapshotSubpath,
 	RESULT_DIR,
 	REVIEW_IMAGE_SUFFIX,
+	resolveSnapshotRootDirOption,
 	resolveSnapshotSubpathWithinLimits,
 	SNAPSHOT_ROOT_DIR,
-	trimCommonFolder,
 } from 'vitest-plugin-vis/server-utils'
 import type { ImageSnapshotResults } from '../shared/events.ts'
 import type { StorybookVisOptions } from './types.ts'
@@ -24,23 +23,17 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 		async getImageSnapshotResults(name: string, importPath: string) {
 			return visSuites
 				.map((suite) => {
-					const snapshotRootDir =
-						typeof suite.snapshotRootDir === 'string'
-							? suite.snapshotRootDir
-							: typeof suite.snapshotRootDir === 'function'
-								? memoize(suite.snapshotRootDir)({
-										ci,
-										platform,
-									})
-								: memoize(getSnapshotRootDir)(SNAPSHOT_ROOT_DIR)
-
-					const snapshotSubpathFn =
-						typeof suite.snapshotSubpath === 'function'
-							? memoize(suite.snapshotSubpath)
-							: memoize(({ subpath }: { subpath: string }) =>
-									trimCommonFolder(subpath.startsWith('./') ? subpath.slice(2) : subpath),
-								)
-					const snapshotSubpathRaw = snapshotSubpathFn({ subpath: importPath })
+					const snapshotRootDir = resolveSnapshotRootDirOption(suite.snapshotRootDir, () => ({
+						ci,
+						rootDir: SNAPSHOT_ROOT_DIR,
+						platform,
+						projectName: suite.projectName,
+						browserName: suite.browserName,
+						providerName: suite.providerName,
+						screenshotFailures: undefined,
+						screenshotDirectory: undefined,
+					}))
+					const snapshotSubpathRaw = getSnapshotSubpath(importPath, suite)
 					const snapshotBaselineRootAbs = resolve(snapshotRootDir, BASELINE_DIR)
 					const snapshotSubpath = resolveSnapshotSubpathWithinLimits({
 						snapshotBaselineRootAbs,

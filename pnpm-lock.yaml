@@ -320,9 +320,6 @@ importers:
       is-ci:
         specifier: ^4.1.0
         version: 4.1.0
-      memoize:
-        specifier: ^11.0.0
-        version: 11.0.0
       pathe:
         specifier: ^2.0.3
         version: 2.0.3
@@ -5279,10 +5276,6 @@ packages:
   mdn-data@2.27.1:
     resolution: {integrity: sha512-9Yubnt3e8A0OKwxYSXyhLymGW4sCufcLG6VdiDdUGVkPhpqLxlvP5vl1983gQjJl3tqbrM731mjaZaP68AgosQ==}
 
-  memoize@11.0.0:
-    resolution: {integrity: sha512-cjsfZaC9b1clqPeIVMbb5dLHSXgdgGWGxdAU3oTUUkHiwWTKTBNnSmcqWJncNjYtBi3S8Rp0c5GIiyGztR8TRA==}
-    engines: {node: '>=22'}
-
   memoizerific@1.11.3:
     resolution: {integrity: sha512-/EuHYwAPdLtXwAwSZkh/Gutery6pD2KYd44oQLhAvQp/50mpyduZh8Q7PYHXTCJ+wuXxt7oij2LXyIJOOYFPog==}
 
@@ -5358,10 +5351,6 @@ packages:
 
   micromark@4.0.3:
     resolution: {integrity: sha512-oGYfQzHSG5dOMovQcJ3fyTmZlWAWpi0XA0sJwJs+i6OT88o1+Jtw/8z0CmdowSLxGhhFK89rQ/oXph/wN02PNw==}
-
-  mimic-function@5.0.1:
-    resolution: {integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==}
-    engines: {node: '>=18'}
 
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
@@ -10788,10 +10777,6 @@ snapshots:
 
   mdn-data@2.27.1: {}
 
-  memoize@11.0.0:
-    dependencies:
-      mimic-function: 5.0.1
-
   memoizerific@1.11.3:
     dependencies:
       map-or-similar: 1.5.0
@@ -10946,8 +10931,6 @@ snapshots:
       micromark-util-types: 2.0.3
     transitivePeerDependencies:
       - supports-color
-
-  mimic-function@5.0.1: {}
 
   min-indent@1.0.1: {}
 
