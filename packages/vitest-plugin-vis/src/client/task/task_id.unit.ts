@@ -22,9 +22,7 @@ it('should handle string with mixed case and special characters', ({ expect }) =
 })
 
 it('should convert the task name from the task object to a task id', ({ expect, task }) => {
-	expect(toTaskId(task)).to.equal(
-		'should-convert-task-name-to-lowercase-and-replace-non-alphanumeric-characters-with-hyphens',
-	)
+	expect(toTaskId(task)).to.equal('should-convert-the-task-name-from-the-task-object-to-a-task-id')
 })
 
 it('should convert task name with .. to --', ({ expect, task }) => {
