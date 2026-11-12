@@ -14,7 +14,7 @@ jobs:
   update-snapshot:
     runs-on: ubuntu-latest
     env:
-      PLAYWRIGHT_PATH: "~/.cache/ms-playwright"
+      PLAYWRIGHT_PATH: '~/.cache/ms-playwright'
     permissions:
       # Give the default GITHUB_TOKEN write permission to commit and push the
       # added or changed files to the repository.
@@ -51,9 +51,9 @@ jobs:
       - name: Create Pull Request
         uses: repobuddy/vis-bot@v0.1.0
         with:
-          commit-message: "test: update snapshot"
-          pr-title: "test: update snapshot"
-          pr-body: "This PR updates the snapshot"
+          commit-message: 'test: update snapshot'
+          pr-title: 'test: update snapshot'
+          pr-body: 'This PR updates the snapshot'
           target-branch: vis-bot/update-snapshot/${{ github.head_ref || github.ref_name }}
           base-branch: ${{ github.head_ref || github.ref_name }}
-          paths-to-add: "*/*/__vis__/linux/**"
+          paths-to-add: '*/*/__vis__/linux/**'
