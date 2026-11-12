@@ -1,8 +1,8 @@
-import { isRunningInTest } from '@repobuddy/test'
 import type { NamedOrDefaultProjectAnnotations } from 'storybook/internal/types'
 import { expect } from 'storybook/test'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
 import { toMatchImageSnapshot } from '../client/expect/to_match_image_snapshot.ts'
+import { isVitestBrowser } from '../client/is_vitest_browser.ts'
 import { isSnapshotEnabled } from '../client/storybook/tags.ts'
 import { getCurrentTest } from '../client/vitest_proxy.ts'
 
@@ -10,7 +10,7 @@ let extended = false
 
 export const visAnnotations = {
 	beforeEach(ctx) {
-		if (!isRunningInTest()) return
+		if (!isVitestBrowser()) return
 		if (!extended) {
 			expect.extend({ toMatchImageSnapshot })
 			extended = true

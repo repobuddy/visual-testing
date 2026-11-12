@@ -1,0 +1,106 @@
+---
+title: "Get started with the Vitest plugin"
+description: "Install vitest-plugin-vis, see what it supports, and take your first image snapshot."
+sidebar:
+  order: 1
+---
+
+[vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) provides visual testing for tests running in [Vitest Browser Mode](https://vitest.dev/guide/browser).
+
+Read [how snapshots work](/visual-testing/visual-testing/how-snapshots-work/) and [choosing a package](/visual-testing/visual-testing/choosing-a-package/) for the concepts.
+
+## Install
+
+```sh
+npm install --save-dev vitest-plugin-vis
+
+pnpm add --save-dev vitest-plugin-vis
+
+yarn add --save-dev vitest-plugin-vis
+```
+
+## Supported versions
+
+The version ranges come from the `peerDependencies` of the package.
+
+| Package | Range |
+| ------- | ----- |
+| `vitest` | `^4` |
+| `@vitest/browser` | `^4` |
+| `@vitest/browser-playwright` | `^4`, optional |
+| `@vitest/browser-webdriverio` | `^4`, optional |
+
+Install the browser provider that you use.
+For Vitest 2 or 3, use [vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) v3.
+
+## Take your first snapshot
+
+This walk-through follows the `vpv` test case.
+It assumes Vitest Browser Mode with the Playwright provider.
+
+1. Add the `vis` plugin to `vitest.config.ts`. With no options it uses the `auto` preset.
+
+   ```ts
+   // vitest.config.ts
+   import { playwright } from '@vitest/browser-playwright'
+   import { defineConfig } from 'vitest/config'
+   import { vis } from 'vitest-plugin-vis/config'
+
+   export default defineConfig({
+   	plugins: [vis()],
+   	test: {
+   		browser: {
+   			enabled: true,
+   			provider: playwright(),
+   			instances: [{ browser: 'chromium' }],
+   		},
+   	},
+   })
+   ```
+
+2. Write a test that renders something. The `auto` preset takes the snapshot for you.
+
+   ```tsx
+   // src/button.spec.tsx
+   import { it } from 'vitest'
+   import { render } from 'vitest-browser-react'
+   import { Button } from './Button.tsx'
+
+   it('renders the primary button', async () => {
+   	await render(<Button primary label="Button" />)
+   })
+   ```
+
+3. Run `vitest run`. The test fails because there is no baseline yet:
+
+   ```txt
+   Snapshot `renders-the-primary-button` has no baseline image. Please review the new snapshot and update the baseline image.
+   ```
+
+4. Open the image that the run captured, `__vis__/local/__results__/button.spec.tsx/renders-the-primary-button-auto.png`. If it looks right, run `vitest run -u` to accept it as the baseline.
+
+5. Run `vitest run` again. The test passes.
+
+After step 4 the folder looks like this. The error in step 3 lists the same `Actual` path:
+
+```txt
+__vis__/
+  local/
+    __baselines__/
+      button.spec.tsx/
+        renders-the-primary-button-auto.png
+    __results__/
+      button.spec.tsx/
+        renders-the-primary-button-auto.png
+```
+
+The `src` folder is trimmed from the path, and `auto` is the snapshot key.
+[How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) explains the layout.
+Add the snapshot folders to `.gitignore` and the matcher type to `tsconfig.json` as [Configuration](/visual-testing/plugin/configuration/) shows.
+
+## Next steps
+
+- Keep the `auto` preset: [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/).
+- Take snapshots where you choose: [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/).
+- Learn what to commit and what to ignore: [Updating baselines](/visual-testing/visual-testing/updating-baselines/).
+- Compare with Vitest's built-in visual regression: [vs Vitest visual regression](/visual-testing/compare/vitest-visual-regression/).

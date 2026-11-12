@@ -2,9 +2,8 @@
  * Keep this file in CSF Next format to test the Storybook CSF Next support.
  */
 
-import preview from '#.storybook/preview'
-
 import { fn } from 'storybook/test'
+import preview from '#.storybook/preview'
 
 import { Button } from './Button.tsx'
 
@@ -52,5 +51,18 @@ export const Small = meta.story({
 	args: {
 		size: 'small',
 		label: 'Button',
+	},
+})
+
+/**
+ * `button` also matches hidden buttons Storybook adds to the document,
+ * so the snapshot must capture the visible one.
+ * @see https://github.com/repobuddy/visual-testing/issues/848
+ */
+export const SnapshotSubject = meta.story({
+	tags: ['snapshot'],
+	parameters: { snapshot: { subject: 'button', timeout: 2000 } },
+	args: {
+		label: 'P',
 	},
 })

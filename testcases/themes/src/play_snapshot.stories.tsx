@@ -11,6 +11,12 @@ export default {
 } as Meta
 
 export const Primary: StoryObj = {
+	// `withThemeByClassName` is driven by the `theme` global.
+	// Pin it so this story renders in light mode regardless of
+	// what the previously executed story left behind.
+	globals: {
+		theme: 'light',
+	},
 	args: {
 		primary: true,
 		label: 'Button',

@@ -1,0 +1,45 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site to the root of the gh-pages branch, which is the Pages source.
+# PR previews live under pr-preview/ on the same branch (see pr-preview.yml) and must survive this deploy.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deploy at a time; a newer push waits instead of cancelling a deploy half-way through a push to gh-pages.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      # Pushes to the gh-pages branch.
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec turbo run build --filter=website
+      # https://github.com/JamesIves/github-pages-deploy-action/tree/v4.9.0#configuration
+      # - clean-exclude: "preserve certain files or folders from deletion" while cleaning the deploy target,
+      #   so pr-preview/ is kept.
+      # - force: false: rebase onto the existing branch instead of force-pushing over previews pushed meanwhile.
+      - uses: JamesIves/github-pages-deploy-action@v4.9.0
+        with:
+          branch: gh-pages
+          folder: apps/website/dist
+          clean: true
+          clean-exclude: |
+            pr-preview/
+          force: false
+          attempt-limit: 5

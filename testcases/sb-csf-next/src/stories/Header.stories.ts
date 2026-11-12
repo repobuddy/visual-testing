@@ -1,6 +1,5 @@
-import preview from '#.storybook/preview'
-
 import { fn } from 'storybook/test'
+import preview from '#.storybook/preview'
 
 import { Header } from './Header.tsx'
 

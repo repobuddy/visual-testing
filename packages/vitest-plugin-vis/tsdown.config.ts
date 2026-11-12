@@ -20,6 +20,9 @@ export default defineConfig([
 		tsconfig: 'tsconfig.esm.json',
 		format: 'esm',
 		sourcemap: true,
-		deps: { neverBundle: ['postcss', 'esbuild', 'lightningcss', 'vite'] },
+		// Keep every package import external, as tsdown 0.19 did for this unbundled build.
+		// Otherwise tsdown >=0.21 inlines devDependency types (e.g. `@vitest/expect`) and walks
+		// into vite's own `.d.ts` graph, where rolldown's MISSING_EXPORT is now a hard error.
+		deps: { neverBundle: true },
 	},
 ])

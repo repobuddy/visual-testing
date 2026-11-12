@@ -1,0 +1,92 @@
+---
+title: "Full-page and viewport snapshots"
+description: "Capture the whole page or the visible viewport with page.toMatchImageSnapshot()."
+sidebar:
+  order: 3
+---
+
+Use `page.toMatchImageSnapshot()` when the subject is the page itself, not one element.
+
+## Take a viewport snapshot
+
+```tsx
+import { it } from 'vitest'
+import { page } from 'vitest/browser'
+import { render } from 'vitest-browser-react'
+
+it('should take a page snapshot', async () => {
+	await render(<MyApp />)
+
+	await page.toMatchImageSnapshot()
+})
+```
+
+It captures the visible viewport of the test page.
+With a viewport of 1280 by 720, as in the `vpv` test case, the image is 1280 by 720 pixels.
+To snapshot several sizes, see [Viewports and multiple instances](/visual-testing/plugin/guides/viewports-and-multiple-instances/).
+
+## Take a full-page snapshot
+
+Set `fullPage` to capture the entire scrollable page:
+
+```tsx
+it('supports full page image snapshot', async () => {
+	await render(<div style={{ height: '1000px', backgroundColor: 'greenyellow' }}>hello world</div>)
+
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'test_snapshot',
+	})
+})
+```
+
+`fullPage` is `false` by default.
+The image has the width and height of the page content, so content below or to the right of the viewport is in it.
+With the 1280 by 720 viewport, the example above gives an image of 1280 by 1000 pixels.
+It works with the Playwright and WebdriverIO providers.
+
+## Take full-page auto snapshots
+
+Auto snapshots capture the subject, `document.body` by default.
+Set `fullPage` to capture the whole page instead.
+
+For every auto snapshot, set it in `vis.setup()`:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+vis.setup({ auto: true, fullPage: true })
+```
+
+For one test or one file, use `setAutoSnapshotOptions()`. It overrides the `vis.setup()` default:
+
+```ts
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+it('renders the whole layout', async () => {
+	setAutoSnapshotOptions({ fullPage: true })
+	await render(<MyApp />)
+})
+```
+
+For a Storybook story, see [Automatic snapshots](/visual-testing/addon/guides/automatic-snapshots/#full-page-snapshots).
+
+## What appears on disk
+
+The file is named like any manual snapshot:
+
+```txt
+__vis__/local/__baselines__/app.spec.tsx/should-take-a-page-snapshot-1.png
+__vis__/local/__baselines__/app.spec.tsx/supports-full-page-image-snapshot-test_snapshot.png
+```
+
+## Rules
+
+- Call it inside a test, and not in `it.concurrent()`. Concurrent tests share one iframe and would disturb each other.
+- The `snapshotKey` cannot contain a dash.
+
+## Options that matter
+
+`page.toMatchImageSnapshot()` takes the same comparison options as the element matcher.
+See [`page.toMatchImageSnapshot()`](/visual-testing/plugin/reference/matchers/page-to-match-image-snapshot/).

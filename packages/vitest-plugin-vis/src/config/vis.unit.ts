@@ -1,6 +1,6 @@
+import { describe, expect, it } from 'vitest'
 import { vis } from '#vitest-plugin-vis/config'
 import { getVisOption, stubSuite } from '#vitest-plugin-vis/testing/node'
-import { describe, expect, it } from 'vitest'
 
 it('set plugin name to vis', () => {
 	expect(vis().name).toBe('vis')

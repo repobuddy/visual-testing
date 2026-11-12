@@ -7,12 +7,29 @@
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": ["dist/**", "esm/**", "*.tsbuildinfo"]
 		},
+		"build:sb": {
+			"dependsOn": ["^build"],
+			"outputs": ["storybook-static/**"]
+		},
 		"//#check": {},
+		"//#docs:llms:check": {
+			"cache": false
+		},
+		"//#docs:coverage:check": {
+			"cache": false
+		},
 		"clean": {
 			"cache": false
 		},
 		"clean:vis:local": {
 			"cache": false
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"typecheck": {
+			"dependsOn": ["^build"]
 		},
 		"coverage": {
 			"dependsOn": ["^build"],
@@ -28,6 +45,10 @@
 		"nuke": {
 			"cache": false,
 			"dependsOn": ["clean"]
+		},
+		"storybook-addon-vis#build:sb": {
+			"dependsOn": ["build"],
+			"outputs": ["storybook-static/**"]
 		},
 		"storybook-addon-vis#coverage": {
 			"dependsOn": ["build"],
@@ -66,9 +87,15 @@
 			"outputs": ["__vis__/**"]
 		},
 		"testcase-sb-auto-no-snapshot-tag#test": {
+			"dependsOn": ["^build"],
+			"outputs": []
+		},
+		"testcase-sb-control#test": {
+			"dependsOn": ["^build"],
 			"outputs": []
 		},
 		"testcase-sb-csf-mix#test": {
+			"dependsOn": ["^build"],
 			"outputs": []
 		},
 		"testcase": {

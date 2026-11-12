@@ -1,0 +1,17 @@
+---
+import { buildStoryLinkUrl } from './story-url.ts'
+
+interface Props {
+	/** Story id, e.g. `button--primary`. */
+	id: string
+	/** Link text. Default "Open in Storybook". Slot content takes precedence. */
+	label?: string
+	/** Directory of the Storybook build relative to the site base. Default `storybook`. */
+	storybookPath?: string
+}
+
+const { id, label = 'Open in Storybook', storybookPath } = Astro.props
+const href = buildStoryLinkUrl({ base: import.meta.env.BASE_URL, id, storybookPath })
+---
+
+<a class="story-link" href={href}><slot>{label}</slot></a>

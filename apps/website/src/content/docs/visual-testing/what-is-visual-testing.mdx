@@ -1,0 +1,39 @@
+---
+title: "What is visual testing"
+description: "What visual testing catches and misses, and the loop of writing, snapshotting, comparing, reviewing and updating."
+sidebar:
+  order: 1
+---
+
+Visual testing checks how a page or a component looks.
+A test renders the UI, saves a screenshot, and compares it with a screenshot saved earlier.
+The saved screenshot is the baseline.
+When the two differ by more than you allow, the test fails.
+
+## What it catches
+
+An assertion on text or on a DOM node does not see a button that lost its color, an overlapping layout or a theme that lost contrast.
+An image snapshot does, because it records the rendered pixels.
+The [Showcase](/visual-testing/showcase/) shows a theme regression and a layout that changes with the viewport.
+
+## What it does not catch
+
+A snapshot says that the image changed, not whether the change is wrong.
+A person or an agent reviews it.
+It also does not test behavior: a button can look right and do nothing.
+Keep your behavior tests and add snapshots for the look.
+
+## The loop
+
+1. **Write.** Write the test or the story. [Automatic snapshots](/visual-testing/plugin/reference/config/vis/#auto) need nothing else. For a [manual snapshot](/visual-testing/plugin/reference/matchers/expect-to-match-image-snapshot/), add one assertion.
+2. **Snapshot.** The first run has no baseline. [Create the baselines](/visual-testing/visual-testing/updating-baselines/) and commit them.
+3. **Compare.** Later runs render again and compare the new image with the baseline, as [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) describes. [Thresholds](/visual-testing/visual-testing/comparison-and-thresholds/) decide how much difference is acceptable.
+4. **Review.** A failure writes a diff and a review image. [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) shows how to read them.
+5. **Update.** If the change is intended, [update the baseline](/visual-testing/visual-testing/updating-baselines/) and commit it with the code.
+
+Because baselines are committed, a pull request shows the visual change next to the code change.
+
+## Where to go next
+
+- [Choosing a package](/visual-testing/visual-testing/choosing-a-package/) if you have not picked one yet.
+- [How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) for what the packages write to disk.

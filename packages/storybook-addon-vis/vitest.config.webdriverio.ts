@@ -1,9 +1,9 @@
-import { storybookVis, trimCommonFolder } from '#storybook-addon-vis/vitest-plugin'
+import { join } from 'node:path'
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import { webdriverio } from '@vitest/browser-webdriverio'
-import { join } from 'node:path'
 import { defineProject } from 'vitest/config'
+import { storybookVis, trimCommonFolder } from '#storybook-addon-vis/vitest-plugin'
 
 export default defineProject({
 	plugins: [
@@ -35,6 +35,7 @@ export default defineProject({
 		browser: {
 			enabled: true,
 			headless: true,
+			api: { allowWrite: true },
 			provider: webdriverio(),
 			instances: [{ browser: 'chrome', viewport: { width: 1280, height: 720 } }],
 		},

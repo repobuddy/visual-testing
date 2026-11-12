@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
-import { vis } from 'vitest-plugin-vis/config'
 import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
 
 // https://vite.dev/config/
 export default defineConfig({

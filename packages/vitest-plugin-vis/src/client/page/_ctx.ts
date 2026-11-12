@@ -1,4 +1,4 @@
-import { commands, type BrowserCommands, type BrowserPage } from 'vitest/browser'
+import { type BrowserCommands, type BrowserPage, commands } from 'vitest/browser'
 import { getCurrentTest } from '../external/vitest/vitest_suite_proxy.ts'
 
 export type { BrowserPage }

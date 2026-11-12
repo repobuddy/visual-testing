@@ -1,0 +1,22 @@
+---
+title: Preset entry
+description: storybook-addon-vis/preset connects the Vis panel to the snapshot files on the Storybook server.
+sidebar:
+  order: 11
+---
+
+Storybook loads `storybook-addon-vis/preset` when you add the addon to `.storybook/main.ts`.
+You do not import it yourself.
+
+It exports `experimental_serverChannel`, a Storybook server hook.
+The hook answers the panel's requests:
+
+1. The panel sends a request with the story name and import path.
+2. The server globs the baseline, result and diff images for each project in `visProjects`.
+3. It sends the images back on the same channel.
+
+The `visProjects` it reads are the [addon options](/visual-testing/addon/reference/define-storybook-vis-options/).
+Without them it uses the default snapshot root.
+The panel is described in [The Vis panel](/visual-testing/addon/guides/the-vis-panel/).
+
+The name carries the `experimental_` prefix because Storybook defines the hook as experimental.

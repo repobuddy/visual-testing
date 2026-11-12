@@ -1,0 +1,65 @@
+---
+title: "vs Storybook test-runner"
+description: "How storybook-addon-vis compares with the Storybook test-runner with jest-image-snapshot."
+sidebar:
+  order: 3
+---
+
+The Storybook test-runner can take image snapshots of stories when you wire in `jest-image-snapshot`.
+Claims about the test-runner come from its [documentation](https://storybook.js.org/docs/writing-tests/integrations/test-runner), checked on 2026-11-03.
+
+## What it is
+
+The test-runner is built on Jest and Playwright.
+It runs each story in a browser and needs a running Storybook, local or published.
+Visual testing is not built in.
+The documentation shows a custom setup in `.storybook/test-runner.ts`: `setup()` extends `expect` with `toMatchImageSnapshot` from `jest-image-snapshot`, and `postVisit` takes `page.screenshot()` and matches it.
+You re-record failing snapshots with `test-storybook -u`.
+With `--ci`, new snapshots are not written automatically.
+
+The documentation also says the test-runner is "superseded by the Vitest addon", and recommends the Vitest addon for Vite-powered frameworks.
+[storybook-addon-vis](/visual-testing/addon/get-started/) works with the Vitest addon.
+
+The [test-runner README](https://github.com/storybookjs/test-runner) says "Official support for Storybook Test Runner has ended" and points to Storybook's Vitest integration for Vite-based projects (checked on 2026-11-03).
+Treat it as a path that Storybook no longer develops, and check the compatibility table in the README for your Storybook version before you adopt it.
+
+## Features
+
+| Feature | Test-runner with `jest-image-snapshot` | storybook-addon-vis |
+| ------- | -------------------------------------- | ------------------- |
+| Runs in | Jest and Playwright, against a running Storybook | Storybook Vitest addon |
+| Setup | You write the `postVisit` hook | [Plugin and tags](/visual-testing/addon/get-started/) |
+| Automatic snapshots | Every story, through your hook | Yes, by tag or `auto` |
+| Per-theme snapshots | Not documented | Yes |
+| Thresholds | Not documented on the page | Yes |
+| Review UI | Not covered | [Vis panel](/visual-testing/visual-testing/reviewing-failures/) |
+
+The test-runner documentation does not describe `jest-image-snapshot` options, so this page makes no claim about them.
+See the [`jest-image-snapshot` project](https://github.com/americanexpress/jest-image-snapshot) for its options.
+
+## What the test-runner does better
+
+- It also runs play functions, accessibility checks and DOM snapshots in one tool.
+- It can test a deployed Storybook with `TARGET_URL`.
+- It supports sharding (`--shard`) and JUnit output.
+
+## What storybook-addon-vis does better
+
+- Visual testing is the purpose of the package, so there is no hook to write.
+- It takes snapshots per theme and per viewport.
+- It shows failed snapshots in the Vis panel.
+- It follows the Vitest addon, which Storybook now recommends.
+
+## When to choose the test-runner
+
+Choose it when you are on a setup the Vitest addon does not cover, and already use Jest. Check that its README lists your Storybook version first.
+
+## When to choose storybook-addon-vis
+
+Choose it for any new Storybook project that uses the Vitest addon.
+
+## Migrate
+
+Remove the `postVisit` snapshot code from `.storybook/test-runner.ts`.
+Install the addon as the [get started](/visual-testing/addon/get-started/) page shows.
+Baselines from `jest-image-snapshot` are not reused, so create new ones on the first run.

@@ -1,7 +1,7 @@
-import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { render } from 'vitest-browser-react'
 import { page } from 'vitest/browser'
+import { render } from 'vitest-browser-react'
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { ctx } from './_ctx.ts'
 
 afterEach(() => ctx.__test__reset())
@@ -52,6 +52,19 @@ it('supports full page image snapshot', async () => {
 	).resolves.toBe(true)
 })
 
+it('captures content beyond the viewport with fullPage', async () => {
+	await render(
+		<div style={{ width: '1500px', height: '1000px', display: 'flex', flexDirection: 'column' }}>
+			<div style={{ flex: 1, backgroundColor: 'greenyellow' }}>top</div>
+			<div style={{ flex: 1, backgroundColor: 'cornflowerblue', textAlign: 'right' }}>bottom right</div>
+		</div>,
+	)
+	await page.toMatchImageSnapshot({
+		fullPage: true,
+		snapshotKey: 'beyond_viewport',
+	})
+})
+
 describe('createMissingBaseline option', () => {
 	beforeEach(() => setAutoSnapshotOptions({ enable: false }))
 
@@ -66,5 +79,72 @@ describe('createMissingBaseline option', () => {
 				snapshotKey,
 			}),
 		).resolves.toBe(true)
+	})
+})
+
+describe('comparison options', () => {
+	beforeEach(() => setAutoSnapshotOptions({ enable: false }))
+
+	async function renderChanged(snapshotKey: string) {
+		const screen = await render(<div style={{ backgroundColor: 'greenyellow', height: '100px' }}>baseline</div>)
+		await page.toMatchImageSnapshot({ snapshotKey, createMissingBaseline: true })
+		await screen.rerender(<div style={{ backgroundColor: 'greenyellow', height: '100px' }}>changed content</div>)
+	}
+
+	it('fails with the pixel difference', async () => {
+		await renderChanged('page_pixel_compare')
+		await expect(page.toMatchImageSnapshot({ snapshotKey: 'page_pixel_compare', expectToFail: true })).rejects.toThrow(
+			/Expected image to match but was differ by \d+ pixels\./,
+		)
+	})
+
+	it('supports failureThreshold with failureThresholdType percent', async () => {
+		await renderChanged('page_percent_compare')
+		await page.toMatchImageSnapshot({
+			snapshotKey: 'page_percent_compare',
+			failureThreshold: 50,
+			failureThresholdType: 'percent',
+		})
+		await expect(
+			page.toMatchImageSnapshot({
+				snapshotKey: 'page_percent_compare',
+				failureThreshold: 0.001,
+				failureThresholdType: 'percent',
+				expectToFail: true,
+			}),
+		).rejects.toThrow(/Expected image to match within 0\.001% but was differ by \d+\.\d+%\./)
+	})
+
+	it('supports comparisonMethod ssim and diffOptions', async () => {
+		await renderChanged('page_ssim_compare')
+		await expect(
+			page.toMatchImageSnapshot({
+				snapshotKey: 'page_ssim_compare',
+				comparisonMethod: 'ssim',
+				diffOptions: { ssim: 'fast' },
+				failureThreshold: 1,
+				expectToFail: true,
+			}),
+		).rejects.toThrow(/Expected image to match within 1 pixels but was differ by \d+ pixels\./)
+	})
+
+	it('supports pixel diffOptions', async () => {
+		await renderChanged('page_diff_options_compare')
+		await page.toMatchImageSnapshot({
+			snapshotKey: 'page_diff_options_compare',
+			diffOptions: { threshold: 1 },
+		})
+	})
+
+	it('supports expectToFail', async () => {
+		await renderChanged('page_expect_to_fail')
+		await expect(page.toMatchImageSnapshot({ snapshotKey: 'page_expect_to_fail', expectToFail: true })).rejects.toThrow(
+			/Expected image to match but was differ by \d+ pixels\./,
+		)
+		await render(<div>unchanged</div>)
+		await page.toMatchImageSnapshot({ snapshotKey: 'page_expect_to_fail_match', createMissingBaseline: true })
+		await expect(
+			page.toMatchImageSnapshot({ snapshotKey: 'page_expect_to_fail_match', expectToFail: true }),
+		).rejects.toThrow(/matched but expected to fail/)
 	})
 })

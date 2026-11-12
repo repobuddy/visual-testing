@@ -1,0 +1,13 @@
+<div class="snapshot-grid"><slot /></div>
+
+<style>
+	.snapshot-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+		gap: 1rem;
+		align-items: start;
+	}
+	.snapshot-grid :global(.snapshot) {
+		margin: 0;
+	}
+</style>

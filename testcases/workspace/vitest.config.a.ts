@@ -1,8 +1,8 @@
+import { join } from 'node:path'
 import { browserTestPreset } from '@repobuddy/vitest/config'
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
-import { join } from 'node:path'
 import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
 import { defineProject } from 'vitest/config'
 
@@ -16,13 +16,15 @@ export default defineProject({
 				return `__vis__/${ci ? platform : 'local'}/a`
 			},
 		}),
-		browserTestPreset({ includeGeneralTests: true }),
+		// @repobuddy/vitest 3 sets enforce: 'pre' on the preset, which drops the general tests next to storybookTest.
+		{ ...browserTestPreset({ includeGeneralTests: true }), enforce: undefined },
 	],
 	test: {
 		name: 'a',
 		browser: {
 			enabled: true,
 			headless: true,
+			api: { allowWrite: true },
 			provider: playwright(),
 			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
 		},

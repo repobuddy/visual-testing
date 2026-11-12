@@ -1,0 +1,60 @@
+---
+title: "Reviewing failures"
+description: "Read a failed image snapshot: the error message, the diff, the review image, the regions file, the Vis panel and git diff."
+sidebar:
+  order: 6
+---
+
+A failed snapshot gives you several views of the same change.
+Open them in this order, from cheapest to most detailed.
+
+## 1. The error message
+
+The message states the amount of difference, the options and the paths of the images.
+It also lists the changed regions as `<width>x<height> at (<x>,<y>)`.
+The [Showcase](/visual-testing/showcase/#reviewing-a-failure) shows a full message.
+
+## 2. The review image
+
+`<name>.review.png` sits next to the diff.
+For each changed region it places the baseline crop, the result crop and a diff crop, so you do not compare two full screenshots by eye.
+In the diff crop the baseline is gray and the changed pixels are red.
+The image is scaled to fit 2576 pixels on its longest edge.
+
+The review image is skipped, and the message says why, when:
+
+- the image size changed,
+- there is no changed region,
+- there are more than 5 regions, or
+- the regions cover more than 50% of the image.
+
+Then open the full images.
+Set `reviewImage: false` to never write it.
+
+## 3. The regions file
+
+`<name>.regions.json` holds `{ width, height, regions }` with the changed regions.
+It is written on every failed comparison, even when `reviewImage` is `false`.
+Scripts and agents can read it without opening an image.
+
+## 4. The diff and the full images
+
+`__diffs__/<name>.png` marks the changed pixels over the whole image.
+The baseline is in `__baselines__` and the result in `__results__`.
+[How snapshots work](/visual-testing/visual-testing/how-snapshots-work/) lists the folders.
+
+## 5. The Vis panel
+
+In Storybook, the Vis panel of `storybook-addon-vis` shows the baseline, result and diff of the current story.
+For a failed snapshot it offers four views: side by side, swipe, onion skin and diff.
+See [Storybook addon](/visual-testing/addon/).
+
+## 6. Git
+
+Baselines are committed.
+After an [update](/visual-testing/visual-testing/updating-baselines/), `git diff` or the pull request's image diff shows the accepted change.
+
+## Agents
+
+A coding agent should read the message and the review image first.
+[Reviewing failures with agents](/visual-testing/visual-testing/reviewing-failures-with-agents/) explains why and measures the cost of each view.

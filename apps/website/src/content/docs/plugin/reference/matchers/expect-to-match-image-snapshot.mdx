@@ -1,0 +1,298 @@
+---
+title: expect().toMatchImageSnapshot()
+description: Compare an element, locator, or base64 image to a baseline image snapshot.
+sidebar:
+  order: 1
+---
+
+`expect().toMatchImageSnapshot()` is a custom matcher that compares the subject to a baseline image snapshot.
+It is also available on the global `expect`.
+
+It can be used whether or not you enabled the `auto` preset.
+Typically you disable auto snapshots when you take snapshots manually.
+
+## Disable auto snapshots
+
+You can disable auto snapshots at various levels:
+
+```ts
+// vitest.setup.ts
+import { vis } from 'vitest-plugin-vis/setup'
+
+// Setup without auto snapshots
+vis.setup()
+```
+
+```ts
+// some.test.ts
+import { beforeAll, beforeEach, it } from 'vitest'
+import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
+
+beforeAll(() => {
+	setAutoSnapshotOptions(false)
+})
+
+beforeEach(() => {
+	setAutoSnapshotOptions(false)
+})
+
+it('...', () => {
+	setAutoSnapshotOptions(false)
+})
+```
+
+See [`setAutoSnapshotOptions`](/visual-testing/plugin/reference/set-auto-snapshot-options/).
+A manual snapshot can be taken together with an auto snapshot in the same test.
+The manual snapshot gets the key `1`.
+
+## Basic usage
+
+```ts
+it('should take snapshot manually', async ({ expect }) => {
+	await render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot()
+})
+```
+
+## Subject
+
+The subject can be:
+
+- a Locator, for example `page.getByTestId('subject')`
+- an element, for example `page.getByTestId('subject').element()`
+- `document.body`, or the `baseElement` returned by `render()` (same as the body)
+- an image encoded as a base64 string
+
+Anything else fails immediately. A string that is not base64 encoded fails with:
+
+```txt
+'toMatchImageSnapshot()' expects the subject to be an element, locator, or image encoded in base64 string, but got: abc
+```
+
+The same message is used for `undefined`, `null`, `true`, `false`, and numbers.
+
+## Options
+
+The matcher accepts an optional options object.
+
+### `snapshotKey`
+
+Customize the snapshot key.
+
+```ts
+await expect(document.body).toMatchImageSnapshot({
+	snapshotKey: 'my_custom_snapshot',
+})
+```
+
+A key that contains a dash is rejected with `Snapshot key cannot contain dash`.
+
+### `createMissingBaseline`
+
+When `true` and there is no baseline image yet,
+the matcher writes the captured image as the baseline and the assertion succeeds,
+without using Vitest's `-u` (`updateSnapshot`) mode.
+If a baseline already exists, it does not change the comparison.
+
+```ts
+it('creates baseline on first run', async ({ expect }) => {
+	await render(<div data-testid="subject">save new content</div>)
+	const subject = page.getByTestId('subject')
+
+	await expect(subject).toMatchImageSnapshot({
+		snapshotKey: 'create_missing_baseline_expect',
+		createMissingBaseline: true,
+	})
+
+	expect(await page.hasImageSnapshot({ snapshotKey: 'create_missing_baseline_expect' })).toBe(true)
+})
+```
+
+You can set a default for auto snapshots with `vis.setup({ createMissingBaseline: true, auto: ... })`.
+`setAutoSnapshotOptions({ createMissingBaseline })` in a test overrides that default.
+
+### `animations`
+
+`'disabled'` finishes finite CSS animations and transitions and cancels infinite ones before the snapshot is taken,
+so an animated component gives a stable image.
+`'allow'` leaves them running. The default is `'allow'`.
+It works with the Playwright and WebdriverIO providers, because the matcher settles the animations in the page before it asks the provider for the screenshot.
+
+```ts
+await expect(subject).toMatchImageSnapshot({ animations: 'disabled' })
+```
+
+You can set a default for auto snapshots with `vis.setup({ animations: 'disabled', auto: ... })`.
+`setAutoSnapshotOptions({ animations })` in a test overrides that default.
+
+### `failureThreshold` and `failureThresholdType`
+
+Control how much difference is allowed before the test fails.
+`failureThresholdType` is `'pixel'` (the default) or `'percent'`.
+With `'percent'`, the threshold is a percentage from 0 to 100: `1` allows 1% of the pixels to differ.
+
+```ts
+// Allow up to 70 pixels to be different
+await expect(subject).toMatchImageSnapshot({
+	snapshotKey: 'unit_test',
+	failureThreshold: 70,
+})
+
+// Allow up to 1% difference
+await expect(subject).toMatchImageSnapshot({
+	snapshotKey: 'unit_test',
+	failureThreshold: 1,
+	failureThresholdType: 'percent',
+})
+```
+
+When the difference is beyond the threshold, the error message says how far:
+
+```txt
+Expected image to match within 20 pixels but was differ by N pixels.
+Expected image to match within 0.1% but was differ by N.NN%.
+```
+
+With no threshold the message is `Expected image to match but was differ by N pixels.`
+(for `percent`, `... but was differ by N.NN%.`).
+`N` stands for the measured difference.
+
+### `comparisonMethod`
+
+`'pixel'` (the default) compares pixel by pixel.
+`'ssim'` compares structural similarity.
+
+```ts
+await expect(document.body).toMatchImageSnapshot({
+	comparisonMethod: 'ssim',
+	snapshotKey: 'unit_test',
+})
+```
+
+With `ssim`, a threshold in pixels works the same way, for example `failureThreshold: 20` fails with
+`Expected image to match within 20 pixels but was differ by N pixels.`
+
+### `diffOptions`
+
+The options are passed to the comparison library, so the defaults are those of the library.
+For `comparisonMethod: 'pixel'`, the options of [`pixelmatch`](https://github.com/mapbox/pixelmatch#api):
+
+```ts
+await expect(document.body).toMatchImageSnapshot({
+	comparisonMethod: 'pixel',
+	diffOptions: {
+		threshold: 0.1, // Matching threshold (0-1, default: 0.1)
+		includeAA: false, // Include anti-aliased pixels (default: false)
+		alpha: 0.1, // Blending factor for unchanged pixels (default: 0.1)
+		aaColor: [255, 255, 0], // Color for anti-aliased pixels [R, G, B]
+		diffColor: [255, 0, 0], // Color for different pixels [R, G, B]
+		diffColorAlt: null, // Alternative color for dark-on-light differences
+		diffMask: false, // Draw diff over transparent background (default: false)
+	},
+})
+```
+
+For `comparisonMethod: 'ssim'`, the options of [`ssim.js`](https://github.com/obartra/ssim/wiki/Usage#options).
+Unless you set `ssim`, the plugin uses `'bezkrovny'`:
+
+```ts
+await expect(document.body).toMatchImageSnapshot({
+	comparisonMethod: 'ssim',
+	diffOptions: {
+		ssim: 'bezkrovny', // 'bezkrovny' (plugin default) | 'fast' | 'weber' | 'original'
+		windowSize: 11, // Window size for SSIM calculation (default: 11)
+		k1: 0.01, // First stability constant (default: 0.01)
+		k2: 0.03, // Second stability constant (default: 0.03)
+		bitDepth: 8, // Bits per channel (default: 8)
+		downsample: 'original', // 'original' | 'fast' | false
+	},
+})
+```
+
+### `timeout`
+
+Set a timeout for taking the snapshot, in milliseconds. The default is 30000.
+
+```ts
+await expect(document.body).toMatchImageSnapshot({ timeout: 60000 })
+```
+
+### `reviewImage`
+
+When a snapshot mismatches, the matcher writes `<name>.regions.json` and `<name>.review.png` next to the diff image.
+Set `reviewImage: false` to not write the review image. The regions file is still written.
+
+```ts
+await expect(document.body).toMatchImageSnapshot({ reviewImage: false })
+```
+
+For the files, the failure message and the cases where the review image is skipped, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
+
+### `mask`
+
+Paint regions over before the snapshot is taken, so content that changes on every run does not fail the comparison.
+Each entry is a CSS selector, a locator, or an element. Every match is masked, and entries that match nothing are ignored.
+
+```ts
+await expect(document.body).toMatchImageSnapshot({
+	mask: [page.getByTestId('timestamp'), '.avatar'],
+	maskColor: '#000000',
+})
+```
+
+`maskColor` is any CSS color. The default is `#FF00FF`.
+Playwright paints the regions with its own `mask` option. WebdriverIO has no such option, so the plugin adds overlay boxes on top of each match, takes the screenshot, and removes them.
+You can also set `mask` with `setAutoSnapshotOptions()` and `vis.setup({ auto })`.
+
+### `expectToFail`
+
+Expect the matcher to fail. It is useful for testing that changes are detected.
+
+```ts
+it('should detect differences', async ({ expect }) => {
+	await render(<div data-testid="subject">World</div>)
+	const subject = page.getByTestId('subject')
+
+	await expect(subject)
+		.toMatchImageSnapshot({ expectToFail: true })
+		.then(
+			() => {
+				throw new Error('Should not reach')
+			},
+			(error) => {
+				expect(error.message).toMatch(/Expected image to match but was differ by \d+ pixels./)
+			},
+		)
+})
+```
+
+The failure message includes the paths of the images:
+
+```txt
+Expected:   ./__vis__/.../....png
+Actual:     ./__vis__/.../....png
+Difference: ./__vis__/.../....png
+Changed:    1 region: WxH at (X,Y)
+Review:     ./__vis__/.../....review.png
+```
+
+If the snapshot matches although `expectToFail` is set, the matcher fails with
+`Snapshot ... matched but expected to fail`, followed by the options used, the diff, and the image paths.
+
+If the image size changed, the message is `Snapshot ... mismatched` followed by
+`The image size changed from 128x128 to 64x64` (the sizes are the baseline and the result), and the review image is skipped.
+
+## Errors
+
+- Called outside a test: ``'`toMatchImageSnapshot()` must be called in a test.'``
+- Called in a concurrent test: ``'`toMatchImageSnapshot()` cannot be called in a concurrent test because concurrent tests run at the same time in the same iframe and affect each other's environment.'``
+- Snapshot key with a dash: `Snapshot key cannot contain dash`.
+
+## Retry
+
+The matcher supports Vitest's `retry` option. A test with `{ retry: 1 }` can take more than one snapshot with different content.
+
+## Choosing a comparison method
+
+See [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/#choose-the-comparison-method).

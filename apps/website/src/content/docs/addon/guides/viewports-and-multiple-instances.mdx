@@ -1,0 +1,81 @@
+---
+title: "Viewports and multiple instances"
+description: "Snapshot the same stories at several browser sizes, with one baseline folder per instance."
+sidebar:
+  order: 4
+---
+
+Goal: one baseline per story for each viewport or browser.
+The idea is in [Variations](/visual-testing/visual-testing/variations/).
+
+## Set up
+
+Vitest browser mode runs each entry of `browser.instances` as its own project.
+Name every instance, and put the project name in the snapshot root so the instances do not overwrite each other:
+
+```ts
+// vitest.config.ts
+import { storybookVis } from 'storybook-addon-vis/vitest-plugin'
+
+export default defineConfig({
+	plugins: [
+		storybookTest(),
+		storybookVis({
+			snapshotRootDir({ ci, platform, projectName }) {
+				return `__vis__/${ci ? platform : 'local'}/${projectName}`
+			},
+		}),
+	],
+	test: {
+		browser: {
+			enabled: true,
+			provider: playwright(),
+			instances: [
+				{ browser: 'chromium', name: 'HD', viewport: { width: 1280, height: 720 } },
+				{ browser: 'chromium', name: 'SVGA', viewport: { width: 800, height: 600 } },
+			],
+		},
+		setupFiles: ['./.storybook/vitest.setup.ts'],
+	},
+})
+```
+
+This is the `multi-instances` test case.
+See the [Multi instances example](/visual-testing/addon/examples/multi-instances/).
+
+## What appears on disk
+
+```text
+__vis__/linux/HD/__baselines__/story_snapshot.stories.tsx/primary-light.png
+__vis__/linux/SVGA/__baselines__/story_snapshot.stories.tsx/primary-light.png
+```
+
+The same works for different browsers: add an instance per browser and keep the name in the path.
+
+## Show the snapshots in the Vis panel
+
+The panel finds images through `visProjects` in `.storybook/main.ts`, not through the Vitest config.
+A `snapshotRootDir` function there receives only `ci` and `platform`, not `projectName`, so list one root per instance as a string:
+
+```ts
+// .storybook/main.ts
+import { defineStorybookVis } from 'storybook-addon-vis/node'
+
+export default {
+	addons: [
+		defineStorybookVis({
+			visProjects: [
+				{ snapshotRootDir: '__vis__/local/HD' },
+				{ snapshotRootDir: '__vis__/local/SVGA' },
+			],
+		}),
+	],
+}
+```
+
+See [Monorepos and custom snapshot paths](/visual-testing/addon/guides/monorepo-and-paths/).
+
+## Related
+
+- [Themes](/visual-testing/addon/guides/themes/) multiplies snapshots by theme inside one instance.
+- `snapshotRootDir` is documented in [`defineStorybookVisOptions`](/visual-testing/addon/reference/define-storybook-vis-options/#snapshotrootdir) and in the [plugin configuration](/visual-testing/plugin/configuration/).

@@ -1,4 +1,4 @@
-import type { Pick } from 'type-plus'
+import type { ObjectPlus } from 'type-plus'
 import type { VisOptions } from '../config/types.ts'
 import type { ImageSnapshotComparisonInfo, MatchImageSnapshotOptions } from './types.ts'
 
@@ -26,7 +26,7 @@ export interface SetupVisSuiteCommand {
 	 * In subsequent runs, it will only remove the results and diffs directory of the current suite.
 	 */
 	setupVisSuite: () => Promise<
-		Pick<
+		ObjectPlus.Pick<
 			VisOptions,
 			| 'comparisonMethod'
 			| 'diffOptions'

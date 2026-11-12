@@ -1,5 +1,5 @@
-import { vis, type PixelComparisonOptions, type SsimComparisonOptions } from '#vitest-plugin-vis/config'
 import { expect, it } from 'vitest'
+import { type PixelComparisonOptions, type SsimComparisonOptions, vis } from '#vitest-plugin-vis/config'
 import { stubSuite } from '../server/testing/stubSuite.ts'
 import { getVisOption } from '../server/vis_options.ts'
 

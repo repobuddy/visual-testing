@@ -1,5 +1,5 @@
-import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { beforeAll, beforeEach, describe, it } from 'vitest'
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { NAME } from '../shared/constants.ts'
 import { extractAutoSnapshotOptions } from './_extract_auto_snapshot_options.ts'
 

@@ -1,3 +1,4 @@
+import { normalizeMaskOptions } from '../client/mask.ts'
 import { assertSnapshotKeyWithoutDash } from '../shared/asserts.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
@@ -28,7 +29,11 @@ export type MetaTask =
  * @param meta.diffOptions - The diff options to use for the snapshot.
  * @param meta.failureThreshold - The failure threshold to use for the snapshot.
  * @param meta.failureThresholdType - The failure threshold type to use for the snapshot.
+ * @param meta.mask - Selectors, locators, or elements to paint over before the snapshot is taken.
+ * @param meta.maskColor - The color of the mask.
  * @param meta.timeout - The timeout to use for the snapshot.
+ * @param meta.animations - `'disabled'` finishes or cancels CSS animations and transitions before the snapshot. Default `'allow'`.
+ * @param meta.fullPage - Snapshot the whole page instead of the subject. Default `false`.
  *
  * @example
  *
@@ -60,5 +65,5 @@ function getTask(): MetaTask | undefined {
 }
 
 function parseMeta<M extends ComparisonMethod>(meta: boolean | SnapshotMeta<M>): SnapshotMeta<M> {
-	return typeof meta === 'boolean' ? ({ enable: meta } as any) : { enable: true, ...meta }
+	return typeof meta === 'boolean' ? ({ enable: meta } as any) : { enable: true, ...normalizeMaskOptions(meta) }
 }

@@ -1,6 +1,6 @@
-import type { StorybookConfig } from '@storybook/react-vite'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import type { StorybookConfig } from '@storybook/react-vite'
 import { defineStorybookVis } from 'storybook-addon-vis/node'
 
 function getAbsolutePath(value: string): any {

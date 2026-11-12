@@ -1,0 +1,18 @@
+{
+	"name": "vitest-plugin-vis",
+	"version": "5.1.8",
+	"description": "Review failed image snapshots from vitest-plugin-vis cheaply: read the message, then the review image.",
+	"author": {
+		"name": "Homa Wong",
+		"email": "homawong@gmail.com",
+		"url": "https://github.com/unional"
+	},
+	"homepage": "https://github.com/repobuddy/visual-testing/tree/main/packages/vitest-plugin-vis",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/repobuddy/visual-testing",
+		"directory": "packages/vitest-plugin-vis"
+	},
+	"license": "MIT",
+	"keywords": ["image-snapshot", "vitest", "visual-test"]
+}

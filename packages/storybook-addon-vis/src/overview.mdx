@@ -57,7 +57,7 @@ The basic setup will:
 - Baseline images are saved in the `<root>/__vis__/*/__baselines__` directory.
 - Image snapshots of the current test run are saved in the `<root>/__vis__/*/__results__` directory.
 - Diff images are saved in the `<root>/__vis__/*/__diffs__` directory.
-- You can review the baseline and diff images in addon `Vis` panel.
+- You can review snapshots in the addon `Vis` panel. For a failed snapshot, compare the baseline with the result side by side, with a swipe divider, or as an onion skin, or view the diff image.
 
 This setup assumes that you are writing your stories in CSF 3.
 If you are writing your stories in CSF Next, check out [Basic Setup for CSF Next](#basic-setup-for-csf-next).
@@ -570,6 +570,60 @@ export const HasImageSnapshot = {
 This is useful when you are performing some negative test.
 
 
+
+## Usage - CSF Next preview addon
+
+The default export of `storybook-addon-vis`, `addonVis()`, is the preview addon for CSF Next.
+Pass it to `definePreview({ addons: [addonVis({ auto: true })] })`.
+
+## Usage - tag helper
+
+`isSnapshotEnabled(tags)` applies the tag rule: the last of `snapshot` and `!snapshot` wins, and no tag means no snapshot.
+
+## Usage - Vis panel server hook
+
+`storybook-addon-vis/preset` exports `experimental_serverChannel`, which Storybook calls so that the Vis panel can read the snapshot images.
+You do not call it yourself.
+
+## Usage - custom browser commands
+
+`commands` is a proxy of `commands` from `vitest/browser`.
+Use it to call [custom browser commands](https://vitest.dev/api/browser/commands.html) from a story.
+Like `page`, it is safe to import in a plain Storybook preview, where its commands are `undefined`.
+
+```tsx
+import { commands } from 'storybook-addon-vis'
+
+export const WithCommand = {
+	async play() {
+		await commands.myCommand?.()
+	}
+}
+```
+
+## Usage - Chrome DevTools Protocol
+
+`cdp` is a proxy of `cdp()` from `vitest/browser`.
+Importing `vitest/browser` directly in a story breaks the story in a plain Storybook preview,
+where the module throws on import; the proxy loads it only during a Vitest browser run.
+
+Use it to read what the browser computes, such as the accessible name and description Chromium exposes to screen readers:
+
+```tsx
+import { cdp } from 'storybook-addon-vis'
+
+export const AccessibleName = {
+	async play() {
+		const session = cdp()
+		await session.send('Accessibility.enable')
+		const { nodes } = await session.send('Accessibility.getFullAXTree')
+		// assert on nodes
+	}
+}
+```
+
+CDP is available only with the Playwright provider on Chromium.
+Calling `cdp()` outside a Vitest browser run throws, so keep such tests in Vitest.
 ## Troubleshooting
 
 > Internal server error: Failed to resolve import "pathe"

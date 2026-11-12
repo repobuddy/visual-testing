@@ -1,7 +1,7 @@
 import { it } from 'vitest'
+import { page } from 'vitest/browser'
 import { render } from 'vitest-browser-react'
 import { setAutoSnapshotOptions } from 'vitest-plugin-vis'
-import { page } from 'vitest/browser'
 import { Button } from './Button.tsx'
 
 it('container snapshot', async ({ expect }) => {

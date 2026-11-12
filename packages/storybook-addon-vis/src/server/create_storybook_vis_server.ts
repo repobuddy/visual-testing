@@ -1,17 +1,20 @@
+import { readFileSync } from 'node:fs'
+import { platform } from 'node:process'
 import { globSync } from 'glob'
 import ci from 'is-ci'
 import memoize from 'memoize'
-import { readFileSync } from 'node:fs'
-import { platform } from 'node:process'
 import { basename, resolve } from 'pathe'
 import {
 	BASELINE_DIR,
 	DIFF_DIR,
 	getSnapshotRootDir,
+	RESULT_DIR,
+	REVIEW_IMAGE_SUFFIX,
 	resolveSnapshotSubpathWithinLimits,
 	SNAPSHOT_ROOT_DIR,
 	trimCommonFolder,
 } from 'vitest-plugin-vis/server-utils'
+import type { ImageSnapshotResults } from '../shared/events.ts'
 import type { StorybookVisOptions } from './types.ts'
 
 export function createStorybookVisServer(options: StorybookVisOptions) {
@@ -53,13 +56,18 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 					const taskId = name.replace(/[^a-z0-9]/gi, '-').toLowerCase()
 					const taskGlob = `${taskId}-*.png`
 					const baselineGlob = resolve(snapshotRootDir, BASELINE_DIR, snapshotSubpath, taskGlob)
+					const resultGlob = resolve(snapshotRootDir, RESULT_DIR, snapshotSubpath, taskGlob)
 					const diffGlob = resolve(snapshotRootDir, DIFF_DIR, snapshotSubpath, taskGlob)
 
 					const taskIdRegex = new RegExp(`${taskId}-[^-]*.png$`)
-					const baselineFiles = globSync(baselineGlob).filter((filePath) => taskIdRegex.test(filePath))
-					const diffFiles = globSync(diffGlob).filter((filePath) => taskIdRegex.test(filePath))
+					const isSnapshotFile = (filePath: string) =>
+						taskIdRegex.test(filePath) && !filePath.endsWith(REVIEW_IMAGE_SUFFIX)
+					const baselineFiles = globSync(baselineGlob).filter(isSnapshotFile)
+					const resultFiles = globSync(resultGlob).filter(isSnapshotFile)
+					const diffFiles = globSync(diffGlob).filter(isSnapshotFile)
 					return [
 						...baselineFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'baseline')),
+						...resultFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'result')),
 						...diffFiles.map((filePath) => mapFileToResult(filePath, snapshotRootDir, 'diff')),
 					]
 				})
@@ -67,7 +75,11 @@ export function createStorybookVisServer(options: StorybookVisOptions) {
 	}
 }
 
-function mapFileToResult(filePath: string, snapshotRootDir: string, type: 'baseline' | 'diff') {
+function mapFileToResult(
+	filePath: string,
+	snapshotRootDir: string,
+	type: ImageSnapshotResults['type'],
+): ImageSnapshotResults {
 	return {
 		filePath,
 		fileName: basename(filePath),

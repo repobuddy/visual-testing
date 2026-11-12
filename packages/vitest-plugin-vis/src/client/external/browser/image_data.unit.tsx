@@ -23,5 +23,25 @@ it('complete roundtrip conversion', async () => {
 })
 
 it('throws an error if the input is not an image', async ({ expect }) => {
-	await expect(toImageData('something')).rejects.toThrowError()
+	const error = await toImageData('something').catch((e) => e)
+	expect(error).toBeInstanceOf(Error)
+	expect(error.message).toBe('Failed to load image')
+	expect(error.cause).toBeDefined()
+})
+
+it('decodes the same pixels as an image element', async ({ expect }) => {
+	const img = new Image()
+	img.src = `data:image/png;base64,${UNI_PNG_BASE64}`
+	await img.decode()
+	const canvas = document.createElement('canvas')
+	canvas.width = img.width
+	canvas.height = img.height
+	const ctx = canvas.getContext('2d')!
+	ctx.drawImage(img, 0, 0)
+	const expected = ctx.getImageData(0, 0, canvas.width, canvas.height)
+
+	const actual = await toImageData(UNI_PNG_BASE64)
+	expect(actual.width).toBe(expected.width)
+	expect(actual.height).toBe(expected.height)
+	expect(actual.data).toEqual(expected.data)
 })

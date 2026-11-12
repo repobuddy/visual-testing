@@ -1,7 +1,7 @@
-import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { expect, it } from 'vitest'
-import { render } from 'vitest-browser-react'
 import { commands, page } from 'vitest/browser'
+import { render } from 'vitest-browser-react'
+import { setAutoSnapshotOptions } from '#vitest-plugin-vis'
 import { loadImageSnapshotResultsAction, toTaskId } from '../../exports/client-api.ts'
 import { getCurrentTest } from '../external/vitest/vitest_suite_proxy.ts'
 

@@ -3,9 +3,11 @@ import { extractAutoSnapshotOptions } from '../../auto_snapshots/_extract_auto_s
 import type { SnapshotMeta } from '../../auto_snapshots/snapshot_meta.ts'
 import type { SetupVisSuiteCommand } from '../../shared/commands.types.ts'
 import type { ComparisonMethod, SetupVisOptions } from '../../shared/types.ts'
+import { matchPageImageSnapshotAction } from '../actions/match_page_image_snapshot_action.ts'
 import { shouldTakeSnapshot } from '../snapshot/should_take_snapshot.ts'
 import { toTaskId } from '../task/task_id.ts'
 import { ctx } from './_ctx.ts'
+import { resolveSubject } from './resolve_subject.ts'
 
 export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = unknown>(
 	commands: SetupVisSuiteCommand,
@@ -22,7 +24,7 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 				string,
 				boolean | ((options: SnapshotMeta<C> & M & GM) => Promise<boolean> | Promise<void> | boolean | void)
 			>,
-			suiteDefaults?: Pick<SetupVisOptions<GM>, 'createMissingBaseline'> | undefined,
+			suiteDefaults?: Pick<SetupVisOptions<GM>, 'createMissingBaseline' | 'animations' | 'fullPage'> | undefined,
 		) {
 			return async function matchImageSnapshot() {
 				const test = ctx.getCurrentTest()
@@ -40,13 +42,29 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 							meta != null && Object.hasOwn(meta as object, 'createMissingBaseline')
 								? (meta as { createMissingBaseline?: boolean }).createMissingBaseline
 								: suiteDefaults?.createMissingBaseline
-						await expect(getSubject(meta?.subject ?? subject)).toMatchImageSnapshot({
+						const effectiveAnimations =
+							meta != null && Object.hasOwn(meta as object, 'animations')
+								? (meta as { animations?: 'disabled' | 'allow' }).animations
+								: suiteDefaults?.animations
+						const effectiveFullPage =
+							meta != null && Object.hasOwn(meta as object, 'fullPage')
+								? (meta as { fullPage?: boolean }).fullPage
+								: suiteDefaults?.fullPage
+						const options = {
 							...meta,
 							snapshotKey: meta?.snapshotKey ?? themeId,
 							...(effectiveCreateMissingBaseline !== undefined
 								? { createMissingBaseline: effectiveCreateMissingBaseline }
 								: {}),
-						})
+							...(effectiveAnimations !== undefined ? { animations: effectiveAnimations } : {}),
+						}
+						if (effectiveFullPage) {
+							// `createVis()` receives the full Vitest browser `commands`,
+							// which carry the page snapshot commands too.
+							await matchPageImageSnapshotAction(commands as any, toTaskId(test!), { ...options, fullPage: true })
+						} else {
+							await expect(resolveSubject(meta?.subject ?? subject)).toMatchImageSnapshot(options)
+						}
 					} catch (error) {
 						errors.push([themeId, error as Error])
 					}
@@ -70,6 +88,13 @@ export function autoSnapshotMatcher<GM extends Record<string, any> | unknown = u
 	}
 }
 
-function getSubject(selectors: string | undefined) {
-	return selectors ? (document.querySelector(selectors) ?? document.body) : document.body
+export function toSuiteDefaults(
+	options: Pick<SetupVisOptions, 'createMissingBaseline' | 'animations' | 'fullPage'> | undefined,
+) {
+	const defaults = {
+		...(options?.createMissingBaseline !== undefined ? { createMissingBaseline: options.createMissingBaseline } : {}),
+		...(options?.animations !== undefined ? { animations: options.animations } : {}),
+		...(options?.fullPage !== undefined ? { fullPage: options.fullPage } : {}),
+	}
+	return Object.keys(defaults).length > 0 ? defaults : undefined
 }

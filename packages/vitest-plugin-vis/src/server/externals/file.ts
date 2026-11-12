@@ -1,6 +1,6 @@
-import { glob, type GlobOptionsWithFileTypesUnset } from 'glob'
-import { mkdirp } from 'mkdirp'
 import { readFile, stat, writeFile } from 'node:fs/promises'
+import { type GlobOptionsWithFileTypesUnset, glob } from 'glob'
+import { mkdirp } from 'mkdirp'
 
 export const file = {
 	existFile(filePath: string) {

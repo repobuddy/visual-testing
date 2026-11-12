@@ -1,0 +1,24 @@
+---
+title: "Vitest plugin"
+description: "vitest-plugin-vis adds image snapshot testing to Vitest Browser Mode, with snapshots stored locally."
+sidebar:
+  order: 0
+---
+
+[vitest-plugin-vis](https://www.npmjs.com/package/vitest-plugin-vis) performs self-contained visual testing for tests that run in [Vitest Browser Mode](https://vitest.dev/guide/browser).
+
+It takes screenshots through your browser provider, compares them with baseline images in your repository, and writes the differences to disk.
+There is no cloud service. The snapshots are files that you commit.
+
+If your components live in Storybook, use [storybook-addon-vis](/visual-testing/addon/) instead.
+It runs this plugin for your stories.
+[Choosing a package](/visual-testing/visual-testing/choosing-a-package/) compares the two.
+
+## Where to go next
+
+- [Get started](/visual-testing/plugin/get-started/): install the plugin and take a first snapshot.
+- [Configuration](/visual-testing/plugin/configuration/): the Vitest, `.gitignore` and TypeScript setup.
+- [Features](/visual-testing/plugin/features/): every capability, each linked to its guide.
+- Guides: [automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/), [manual snapshots](/visual-testing/plugin/guides/manual-snapshots/), [thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/) and more in the sidebar.
+- [Examples](/visual-testing/plugin/examples/): the `vpv` and `workspace` test cases.
+- [Troubleshooting](/visual-testing/plugin/troubleshooting/) if something does not work.

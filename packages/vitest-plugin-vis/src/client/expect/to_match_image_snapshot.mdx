@@ -120,6 +120,39 @@ it('should allow percentage differences', async ({ expect }) => {
 })
 ```
 
+### Review Image
+
+#### `reviewImage`
+
+When a snapshot mismatches, the matcher finds the changed regions and writes two files next to the diff image:
+
+- `<name>.regions.json`: the image size and one box per changed region.
+- `<name>.review.png`: for each region, the baseline, result, and diff crops side by side.
+
+The failure message lists the regions and the review image:
+
+```txt
+Changed:    2 regions: 106x37 at (0,0), 40x20 at (300,512)
+Review:     ./__vis__/local/__diffs__/button.stories.tsx/primary-1.review.png (baseline, result, diff of each region)
+```
+
+Open the review image first: it shows only what changed, at full contrast, and is much smaller than the full images.
+The review image is skipped when cropping does not help:
+the image size changed, there are more than 5 regions, or the regions cover more than half of the image.
+The message then says why, and you open the `Actual` or `Difference` image instead.
+
+Set `reviewImage: false` to not write the review image.
+
+```ts
+it('should not write a review image', async ({ expect }) => {
+	render(<MyComponent />)
+
+	await expect(document.body).toMatchImageSnapshot({
+		reviewImage: false
+	})
+})
+```
+
 ### Comparison Methods
 
 #### `comparisonMethod`

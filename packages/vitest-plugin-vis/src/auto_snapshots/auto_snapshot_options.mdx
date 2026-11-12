@@ -54,6 +54,8 @@ setAutoSnapshotOptions(false)
 
 #### `subject` (string)
 Specifies the CSS selector for the element to snapshot. If not provided or element not found, defaults to `document.body`.
+If the selector matches multiple elements, the first visible one is used.
+If it only matches hidden elements, the snapshot fails right away with a "not visible" error instead of waiting until the timeout.
 
 ```ts
 // Snapshot a specific element

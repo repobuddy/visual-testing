@@ -1,13 +1,13 @@
 // `storybook-addon-vis` provides code that can be used in test files.
 import './shared/global_matcher_augment.ts'
 
-import { isRunningInTest } from '@repobuddy/test'
 import { definePreviewAddon } from 'storybook/internal/csf'
 import { expect } from 'storybook/test'
 import type { SetupVisOptions } from 'vitest-plugin-vis'
-import { autoSnapshotMatcher, setAutoSnapshotOptions } from 'vitest-plugin-vis/client-api'
+import { autoSnapshotMatcher, setAutoSnapshotOptions, toSuiteDefaults } from 'vitest-plugin-vis/client-api'
 import { toMatchImageSnapshot } from './client/expect/to_match_image_snapshot.ts'
-import { commands, page } from './client/vitest_proxy.ts'
+import { isVitestBrowser } from './client/is_vitest_browser.ts'
+import { cdp, commands, page, whenVitestProxyReady } from './client/vitest_proxy.ts'
 import { visAnnotations } from './preview/vis_annotation.ts'
 
 // Register at module load time so it's available in Storybook dev mode.
@@ -19,7 +19,7 @@ export * from './client/has_image_snapshot.ts'
 export * from './client/storybook/param.ts'
 export * from './client/storybook/tags.ts'
 
-export { page, visAnnotations }
+export { cdp, commands, page, visAnnotations }
 
 export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) => {
 	let matcher: ReturnType<typeof autoSnapshotMatcher>
@@ -27,12 +27,12 @@ export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) 
 	return definePreviewAddon({
 		tags: options.auto === true ? ['snapshot'] : [],
 		async beforeAll() {
-			if (!isRunningInTest()) return
+			if (!isVitestBrowser()) return
+			// `page` and `getCurrentTest` come from a dynamic import; the hooks that
+			// follow read them synchronously, so wait for it here (#835).
+			await whenVitestProxyReady()
 			matcher = autoSnapshotMatcher(commands, expect)
-			const suiteDefaults =
-				options?.createMissingBaseline !== undefined
-					? { createMissingBaseline: options.createMissingBaseline }
-					: undefined
+			const suiteDefaults = toSuiteDefaults(options)
 			if (typeof options?.auto === 'function') {
 				matcherFn = matcher.createMatcher(
 					{

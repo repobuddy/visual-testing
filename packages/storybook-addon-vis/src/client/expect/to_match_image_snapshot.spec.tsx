@@ -1,12 +1,12 @@
-import { hasImageSnapshot } from '#storybook-addon-vis'
-import { setAutoSnapshotOptions } from '#storybook-addon-vis/vitest-setup'
 import { composeStories } from '@storybook/react-vite'
 import { screen } from '@testing-library/react'
 import React from 'react'
 import { expect, it } from 'vitest'
+import { page, server } from 'vitest/browser'
 import { render } from 'vitest-browser-react'
 import { UNI_PNG_BASE64 } from 'vitest-plugin-vis/testing'
-import { page, server } from 'vitest/browser'
+import { hasImageSnapshot } from '#storybook-addon-vis'
+import { setAutoSnapshotOptions } from '#storybook-addon-vis/vitest-setup'
 import * as stories from './to_match_image_snapshot.stories.tsx'
 
 const { MatchingElement } = composeStories(stories)

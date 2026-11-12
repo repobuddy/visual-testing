@@ -21,6 +21,59 @@ export interface ImageSnapshotKeyOptions {
 	snapshotKey?: string | undefined
 }
 
+export interface ReviewImageOptions {
+	/**
+	 * When the snapshot mismatches, write a review image next to the diff.
+	 *
+	 * The review image places the baseline, result, and diff crops of each changed region side by side,
+	 * so a person or an agent can see what changed without opening the full images.
+	 * It is skipped when cropping does not help:
+	 * the image size changed, there are many regions, or the regions cover most of the image.
+	 *
+	 * The changed regions are written as JSON next to the diff either way.
+	 *
+	 * @default true
+	 */
+	reviewImage?: boolean | undefined
+}
+
+export interface AnimationsOptions {
+	/**
+	 * What to do with CSS animations and transitions before the snapshot is taken.
+	 *
+	 * - `'disabled'`: finish finite animations and transitions, and cancel infinite ones,
+	 *   so animated components produce a stable image.
+	 * - `'allow'`: leave animations running.
+	 *
+	 * @default 'allow'
+	 */
+	animations?: 'disabled' | 'allow' | undefined
+}
+
+export interface MaskOptions {
+	/**
+	 * Regions to paint over before the snapshot is taken,
+	 * so content that changes on every run (timestamps, avatars, ads, random data)
+	 * does not fail the comparison.
+	 *
+	 * Each entry is a CSS selector, a locator, or an element.
+	 * Every match is masked, including the ones outside the subject's own tree.
+	 * Entries that match nothing are ignored.
+	 */
+	mask?: Array<string | MaskLocator | Element> | undefined
+	/**
+	 * Color of the mask boxes. Any CSS color.
+	 *
+	 * @default '#FF00FF'
+	 */
+	maskColor?: string | undefined
+}
+
+/**
+ * A locator such as the one returned by `page.getByTestId()`.
+ */
+export type MaskLocator = { selector: string }
+
 export type ComparisonMethod = 'pixel' | 'ssim'
 
 export type FailureThresholdOptions = {
@@ -81,14 +134,19 @@ export type ImageSnapshotSubjectOptions = {
 	/**
 	 * Specify the query of the subject element.
 	 *
+	 * If the query matches multiple elements, the first visible one is used.
 	 * If the test does not have an element with the specified query,
 	 * the `body` element will be used.
+	 * If the query only matches hidden elements, the snapshot fails right away.
 	 */
 	subject?: string | undefined
 }
 export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = ImageSnapshotTimeoutOptions &
 	ImageSnapshotKeyOptions &
-	ImageSnapshotCompareOptions<M> & {
+	ImageSnapshotCompareOptions<M> &
+	ReviewImageOptions &
+	AnimationsOptions &
+	MaskOptions & {
 		/**
 		 * Expect the matcher to fail.
 		 * If it passes, it will throw an error with details.
@@ -106,6 +164,13 @@ export type ToMatchImageSnapshotOptions<M extends ComparisonMethod = 'pixel'> = 
 	}
 
 export interface PageImageSnapshotOptions {
+	/**
+	 * Capture the whole content of the test page instead of its viewport.
+	 *
+	 * Supported with the `playwright` provider.
+	 *
+	 * @default false
+	 */
 	fullPage?: boolean | undefined
 }
 
@@ -150,11 +215,19 @@ export type ImageSnapshotComparisonInfo = {
 	diff?: string | undefined
 } & ImageSnapshotTimeoutOptions &
 	FailureThresholdOptions &
+	ReviewImageOptions &
 	(SsimComparisonOptions | PixelComparisonOptions)
 
 export type MatchImageSnapshotOptions = ImageSnapshotTimeoutOptions &
 	ImageSnapshotCompareOptions<any> &
-	ImageSnapshotKeyOptions & {
+	ImageSnapshotKeyOptions &
+	ReviewImageOptions &
+	AnimationsOptions &
+	Omit<MaskOptions, 'mask'> & {
+		/**
+		 * Selectors of the regions to mask. Locators and elements are converted before they reach the server.
+		 */
+		mask?: string[] | undefined
 		/**
 		 * When `true`, write a missing baseline on first run (see {@link ToMatchImageSnapshotOptions} `createMissingBaseline`).
 		 */
@@ -180,4 +253,19 @@ export type SetupVisOptions<GM extends Record<string, any> | unknown = unknown> 
 	 * @default false
 	 */
 	createMissingBaseline?: boolean | undefined
+	/**
+	 * Default {@link AnimationsOptions#animations} for auto snapshots.
+	 *
+	 * @default 'allow'
+	 */
+	animations?: 'disabled' | 'allow' | undefined
+	/**
+	 * Take auto snapshots of the whole page instead of the subject.
+	 * Same as {@link PageImageSnapshotOptions#fullPage} of `page.toMatchImageSnapshot()`.
+	 *
+	 * A test or story can override it with `setAutoSnapshotOptions({ fullPage })`.
+	 *
+	 * @default false
+	 */
+	fullPage?: boolean | undefined
 }

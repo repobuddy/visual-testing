@@ -1,0 +1,83 @@
+---
+title: "Troubleshooting the Vitest plugin"
+description: "Fixes for common problems when using vitest-plugin-vis."
+sidebar:
+  order: 5
+---
+
+> Snapshot `...` has no baseline image. Please review the new snapshot and update the baseline image.
+
+There is no baseline for this snapshot yet.
+Open the image at the `Actual:` path.
+If it is correct, run `vitest run -u` to write the baseline, or pass `createMissingBaseline: true` to the matcher.
+This applies on CI too.
+See [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/#create-the-baseline).
+
+> No snapshot is taken for my test
+
+The `auto` preset takes a snapshot only if `document.body` has a child element after the test.
+Render something in the test.
+Check that nothing disabled it: `setAutoSnapshotOptions(false)`, `vis.setup({ auto: false })`, the `manual` preset, or `vis({ ... })` with options and no `preset`.
+See [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/).
+
+> Property 'toMatchImageSnapshot' does not exist
+
+TypeScript does not know the matcher.
+Add `vitest-plugin-vis` to `compilerOptions.types` in `tsconfig.json`.
+See [Configuration](/visual-testing/plugin/configuration/#typescript-configuration).
+
+> Snapshot key cannot contain dash
+
+A `snapshotKey`, the `snapshotKey` option of `vis()` and a theme name accept letters, digits and underscores.
+Replace the dash with an underscore.
+
+> `toMatchImageSnapshot()` must be called in a test
+
+The matcher ran in a hook or at the top level of a file.
+Call it inside `it()` or `test()`.
+
+> `toMatchImageSnapshot()` cannot be called in a concurrent test
+
+Concurrent tests run at the same time in the same iframe and change each other's page.
+Use `it()` in place of `it.concurrent()`.
+
+> Snapshot subject `...` is not visible
+
+The `subject` selector matched elements, but none is visible.
+A visible element has a box with a size and no `visibility: hidden`.
+Fix the selector, or render the element before the snapshot is taken.
+
+> The snapshot times out
+
+Taking a snapshot waits at most 30 seconds by default.
+Raise `timeout` for a slow machine or a large page:
+
+```ts
+// vitest.config.ts
+vis({ timeout: 60000 })
+
+// or for one call
+await expect(subject).toMatchImageSnapshot({ timeout: 60000 })
+
+// or for the automatic snapshots of a test
+setAutoSnapshotOptions({ timeout: 60000 })
+```
+
+> Snapshots pass locally but fail on CI
+
+Baselines depend on the platform.
+On CI the plugin reads `__vis__/<platform>`, not `__vis__/local`, so commit the baselines that CI renders.
+See [CI](/visual-testing/plugin/guides/ci/).
+
+> The path is too long on Windows
+
+Set `shortenLongSnapshotPaths: true`.
+It replaces the final path segment with a shorter name and a hash when the path reaches 250 characters.
+See [`shortenLongSnapshotPaths`](/visual-testing/plugin/reference/config/vis/#shortenlongsnapshotpaths).
+
+> The browser provider is missing
+
+Vitest Browser Mode needs a provider package.
+Install `@vitest/browser-playwright` or `@vitest/browser-webdriverio`, in the same major version as Vitest.
+Both are optional peer dependencies of the plugin.
+See [Get started](/visual-testing/plugin/get-started/#supported-versions).

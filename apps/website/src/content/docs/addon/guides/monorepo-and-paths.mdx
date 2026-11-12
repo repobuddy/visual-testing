@@ -1,0 +1,78 @@
+---
+title: "Monorepos and custom snapshot paths"
+description: "Tell the Vis panel where to find snapshots when you use several Vitest projects, a monorepo or custom paths."
+sidebar:
+  order: 9
+---
+
+Goal: keep the Vis panel working when snapshots are not in the default folder.
+
+## When you need it
+
+The panel is a Storybook feature, so it cannot see your Vitest config.
+It reads snapshots from the folders you declare in `.storybook/main.ts`.
+If you changed `snapshotRootDir` or `snapshotSubpath` in `storybookVis()`, or you run several Vitest projects, declare the same values there.
+
+## Several Vitest projects
+
+```ts
+// vitest.config.ts
+export default defineConfig({
+	test: {
+		projects: [
+			{
+				plugins: [storybookVis({ snapshotRootDir: '__vis__/chromium' })],
+			},
+			{
+				plugins: [storybookVis({ snapshotRootDir: '__vis__/firefox' })],
+			},
+		],
+	},
+})
+```
+
+Declare each root in `.storybook/main.ts`:
+
+```ts
+// .storybook/main.ts
+export default {
+	addons: [
+		{
+			name: 'storybook-addon-vis',
+			options: {
+				visProjects: [
+					{ snapshotRootDir: '__vis__/chromium' },
+					{ snapshotRootDir: '__vis__/firefox' },
+				],
+			},
+		},
+	],
+}
+```
+
+The `defineStorybookVis` helper gives the same result with type checking:
+
+```ts
+import { defineStorybookVis } from 'storybook-addon-vis/node'
+
+export default {
+	addons: [
+		defineStorybookVis({
+			visProjects: [{ snapshotRootDir: '__vis__/chromium' }],
+		}),
+	],
+}
+```
+
+`snapshotSubpath` works the same way.
+The panel combines the images of every project, so one story can show a snapshot per project.
+
+## Monorepos
+
+In a monorepo, register the addon with `getAbsolutePath`, as in [Configuration](/visual-testing/addon/configuration/).
+If you changed the snapshot root in `storybookVis()`, set the same root in `visProjects`.
+
+## Related
+
+- [`defineStorybookVis`](/visual-testing/addon/reference/define-storybook-vis/) and [`defineStorybookVisOptions`](/visual-testing/addon/reference/define-storybook-vis-options/) list every option.
+- [Viewports and multiple instances](/visual-testing/addon/guides/viewports-and-multiple-instances/) shows one project per viewport.

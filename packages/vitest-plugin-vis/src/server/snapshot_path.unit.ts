@@ -1,12 +1,18 @@
-import ci from 'is-ci'
 import { platform } from 'node:process'
-import { afterEach, beforeEach } from 'node:test'
+import ci from 'is-ci'
 import { resolve } from 'pathe'
 import { describe, expect, it, vi } from 'vitest'
 import type { VisOptions } from '../config/types.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { createStubPartialBrowserCommandContext } from './testing/stubBrowserCommandContext.ts'
 import { stubSuite } from './testing/stubSuite.ts'
+
+vi.mock('is-ci', () => ({
+	default: true, // Mocking `is-ci` as true
+}))
+vi.mock('node:process', () => ({
+	platform: 'linux', // Mocking process.platform as 'linux'
+}))
 
 const stubContext = createStubPartialBrowserCommandContext({
 	root: resolve(import.meta.dirname, '../..'),
@@ -53,19 +59,38 @@ describe(`${resolveSnapshotRootDir.name}()`, () => {
 		expect(result).toBe(`custom_chrome_webdriverio_${platform}`)
 	})
 
-	describe('when in CI', () => {
-		beforeEach(() => {
-			vi.mock('is-ci', () => ({
-				default: true, // Mocking `is-ci` as true
-			}))
-			vi.mock('node:process', () => ({
-				platform: 'linux', // Mocking process.platform as 'linux'
-			}))
+	it('passes the documented context fields to the snapshotRootDir function', ({ expect }) => {
+		let received: unknown
+		resolveSnapshotRootDir(
+			stubContext({
+				provider: { name: 'playwright' },
+				project: {
+					browser: {
+						config: {
+							browser: { name: 'chromium', screenshotFailures: false, screenshotDirectory: '__shots__' },
+						},
+					},
+				},
+			}),
+			{
+				snapshotRootDir(context) {
+					received = context
+					return 'x'
+				},
+			},
+		)
+		expect(received).toMatchObject({
+			ci: true,
+			platform: 'linux',
+			providerName: 'playwright',
+			browserName: 'chromium',
+			screenshotFailures: false,
+			screenshotDirectory: '__shots__',
+			rootDir: '__vis__',
 		})
-		afterEach(() => {
-			vi.resetAllMocks()
-		})
+	})
 
+	describe('when in CI', () => {
 		it('should use process.platform', () => {
 			const { browserCommandContext } = stubSuite()
 
@@ -103,6 +128,18 @@ describe(`${getSnapshotSubpath.name}()`, () => {
 		}
 		const result = getSnapshotSubpath(suiteName, options)
 		expect(result).toBe('tests/myTestSuite')
+	})
+
+	it('can use a custom trim function as snapshotSubpath', ({ expect }) => {
+		const customFolders = ['app', 'pages', 'components']
+		const options: VisOptions = {
+			snapshotSubpath: ({ subpath }) => {
+				const dir = subpath.split('/', 1)[0]!
+				return customFolders.includes(dir) ? subpath.slice(dir.length + 1) : subpath
+			},
+		}
+		expect(getSnapshotSubpath('app/button.spec.ts', options)).toBe('button.spec.ts')
+		expect(getSnapshotSubpath('src/button.spec.ts', options)).toBe('src/button.spec.ts')
 	})
 
 	it('should handle suiteName with special directories', ({ expect }) => {

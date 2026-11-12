@@ -1,0 +1,100 @@
+---
+title: "vpv"
+description: "A React project that uses vitest-plugin-vis alone, with automatic and manual snapshots."
+sidebar:
+  order: 1
+---
+
+The `vpv` test case uses `vitest-plugin-vis` without Storybook.
+Its source is in [`testcases/vpv`](https://github.com/repobuddy/visual-testing/tree/main/testcases/vpv).
+
+## What it demonstrates
+
+- The `auto` preset with options set once in `vis()`.
+- Manual snapshots of a container, an element and the body.
+- Turning the automatic snapshot off for a test.
+- Checking for an existing snapshot with `page.hasImageSnapshot()`.
+
+## Configuration
+
+```ts
+// vitest.config.ts
+import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vitest/config'
+import { vis } from 'vitest-plugin-vis/config'
+
+export default defineConfig({
+	plugins: [
+		react(),
+		vis({
+			preset: 'auto',
+			comparisonMethod: 'ssim',
+			diffOptions: { ssim: 'bezkrovny' },
+			failureThreshold: 0.01,
+			failureThresholdType: 'percent',
+			timeout: 60000,
+		}),
+	],
+	test: {
+		name: 'tv:pw',
+		browser: {
+			enabled: true,
+			headless: true,
+			provider: playwright(),
+			instances: [{ browser: 'chromium', viewport: { width: 1280, height: 720 } }],
+		},
+		include: ['**/*.spec.ts?(x)'],
+		setupFiles: ['vitest.setup.ts'],
+	},
+})
+```
+
+`vitest.setup.ts` only imports `vitest-browser-react`.
+The `auto` preset adds its own setup file.
+
+## The tests
+
+```tsx
+// src/to_match_image_snapshot.spec.tsx
+it('container snapshot', async ({ expect }) => {
+	const { container } = await render(<Button label="Button" />)
+	await expect(container).toMatchImageSnapshot()
+})
+
+it('subject snapshot', async ({ expect }) => {
+	const { getByTestId } = await render(<Button label="Button" data-testid="subject" />)
+	await expect(getByTestId('subject')).toMatchImageSnapshot()
+})
+```
+
+Each test also gets an automatic snapshot from the preset, so it has two images: the `auto` one of the whole body and the numbered one of the subject.
+
+```tsx
+// src/set_auto_snapshot_options.spec.tsx
+it('can disable snapshot', async ({ expect }) => {
+	setAutoSnapshotOptions(false)
+	page.render(<Button primary label="Button" />)
+	expect(await page.hasImageSnapshot()).toBe(false)
+})
+```
+
+## What appears on disk
+
+```txt
+__vis__/linux/__baselines__/to_match_image_snapshot.spec.tsx/
+  container-snapshot-auto.png
+  container-snapshot-1.png
+  subject-snapshot-auto.png
+  subject-snapshot-1.png
+  ...
+```
+
+The test `set_auto_snapshot_options.spec.tsx` writes none.
+The folder `win32` holds the same set for Windows.
+
+## Learn the parts
+
+- [Automatic snapshots](/visual-testing/plugin/guides/automatic-snapshots/)
+- [Manual snapshots](/visual-testing/plugin/guides/manual-snapshots/)
+- [Thresholds and comparison](/visual-testing/plugin/guides/thresholds-and-comparison/)

@@ -53,6 +53,9 @@ node_modules
 # turbo
 .turbo
 
+# graphify (docs/graphify.md)
+graphify-out
+
 # vite
 vite*.timestamp*
 
