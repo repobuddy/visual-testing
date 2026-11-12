@@ -1,5 +1,5 @@
 ---
-'storybook-addon-vis': minor
+'storybook-addon-vis': major
 'vitest-plugin-vis': minor
 ---
 
