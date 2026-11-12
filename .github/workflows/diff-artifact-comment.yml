@@ -2,7 +2,7 @@ name: Comment on artifact diff
 
 on:
   workflow_run:
-    workflows: ["verify"]
+    workflows: ['verify']
     types:
       - completed
 
