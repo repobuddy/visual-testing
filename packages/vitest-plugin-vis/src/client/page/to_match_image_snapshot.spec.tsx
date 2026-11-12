@@ -128,12 +128,22 @@ describe('comparison options', () => {
 		).rejects.toThrow(/Expected image to match within 1 pixels but was differ by \d+ pixels\./)
 	})
 
+	// A looser `threshold` makes pixelmatch count fewer pixels as different.
+	// Since pixelmatch 8, `threshold: 1` (black vs white) no longer ignores every change,
+	// so the test compares the counts instead of expecting the looser comparison to pass.
 	it('supports pixel diffOptions', async () => {
 		await renderChanged('page_diff_options_compare')
-		await page.toMatchImageSnapshot({
-			snapshotKey: 'page_diff_options_compare',
-			diffOptions: { threshold: 1 },
-		})
+		const defaultDiff = await countDiffPixels(
+			page.toMatchImageSnapshot({ snapshotKey: 'page_diff_options_compare', expectToFail: true }),
+		)
+		const looseDiff = await countDiffPixels(
+			page.toMatchImageSnapshot({
+				snapshotKey: 'page_diff_options_compare',
+				diffOptions: { threshold: 1 },
+				expectToFail: true,
+			}),
+		)
+		expect(looseDiff).toBeLessThan(defaultDiff)
 	})
 
 	it('supports expectToFail', async () => {
@@ -148,3 +158,16 @@ describe('comparison options', () => {
 		).rejects.toThrow(/matched but expected to fail/)
 	})
 })
+
+/** Reads the number of different pixels from the error of a comparison that fails. */
+async function countDiffPixels(comparison: Promise<unknown>) {
+	const error: Error = await comparison.then(
+		() => {
+			throw new Error('Expected the comparison to fail')
+		},
+		(error: Error) => error,
+	)
+	const count = /differ by (\d+) pixels/.exec(error.message)?.[1]
+	if (!count) throw error
+	return Number(count)
+}
