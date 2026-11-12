@@ -33,15 +33,17 @@ export default defineConfig(async (options) => {
 			The following packages are provided by Storybook and should always be externalized
 			Meaning they shouldn't be bundled with the addon, and they shouldn't be regular dependencies either
 		*/
-		external: [
-			/^@storybook-community\/.*$/,
-			/^@storybook\/.*$/,
-			'react',
-			/^react\/.*$/,
-			'storybook',
-			/^storybook\/.*$/,
-			/^vitest-plugin-vis/,
-		],
+		deps: {
+			neverBundle: [
+				/^@storybook-community\/.*$/,
+				/^@storybook\/.*$/,
+				'react',
+				/^react\/.*$/,
+				'storybook',
+				/^storybook\/.*$/,
+				/^vitest-plugin-vis/,
+			],
+		},
 	} satisfies UserConfig
 
 	const configs: UserConfig[] = []
@@ -78,15 +80,17 @@ export default defineConfig(async (options) => {
 			fixedExtension: true,
 			target: [...BROWSER_TARGET, ...NODE_TARGET],
 			platform: 'neutral',
-			external: [
-				...globalManagerPackages,
-				...globalPreviewPackages,
-				...commonConfig.external,
-				'vitest',
-				'vitest-plugin-vis',
-				'@vitest/expect',
-				'@vitest/browser',
-			],
+			deps: {
+				neverBundle: [
+					...globalManagerPackages,
+					...globalPreviewPackages,
+					...commonConfig.deps.neverBundle,
+					'vitest',
+					'vitest-plugin-vis',
+					'@vitest/expect',
+					'@vitest/browser',
+				],
+			},
 		})
 	}
 
@@ -99,7 +103,7 @@ export default defineConfig(async (options) => {
 			entry: managerEntries,
 			target: 'esnext',
 			platform: 'browser',
-			external: [...globalManagerPackages, ...commonConfig.external],
+			deps: { neverBundle: [...globalManagerPackages, ...commonConfig.deps.neverBundle] },
 		})
 	}
 
@@ -115,7 +119,7 @@ export default defineConfig(async (options) => {
 			},
 			target: 'esnext',
 			platform: 'browser',
-			external: [...globalPreviewPackages, ...commonConfig.external],
+			deps: { neverBundle: [...globalPreviewPackages, ...commonConfig.deps.neverBundle] },
 		})
 	}
 
