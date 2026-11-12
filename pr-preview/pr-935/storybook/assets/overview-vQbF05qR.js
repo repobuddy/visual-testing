@@ -463,6 +463,18 @@ Pass it to `,(0,c.jsx)(t.code,{children:`definePreview({ addons: [addonVis({ aut
 `,(0,c.jsx)(t.h2,{id:`usage---vis-panel-server-hook`,children:`Usage - Vis panel server hook`}),`
 `,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`storybook-addon-vis/preset`}),` exports `,(0,c.jsx)(t.code,{children:`experimental_serverChannel`}),`, which Storybook calls so that the Vis panel can read the snapshot images.
 You do not call it yourself.`]}),`
+`,(0,c.jsx)(t.h2,{id:`usage---custom-browser-commands`,children:`Usage - custom browser commands`}),`
+`,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`commands`}),` is a proxy of `,(0,c.jsx)(t.code,{children:`commands`}),` from `,(0,c.jsx)(t.code,{children:`vitest/browser`}),`.
+Use it to call `,(0,c.jsx)(t.a,{href:`https://vitest.dev/api/browser/commands.html`,rel:`nofollow`,children:`custom browser commands`}),` from a story.
+Like `,(0,c.jsx)(t.code,{children:`page`}),`, it is safe to import in a plain Storybook preview, where its commands are `,(0,c.jsx)(t.code,{children:`undefined`}),`.`]}),`
+`,(0,c.jsx)(t.pre,{children:(0,c.jsx)(t.code,{className:`language-tsx`,children:`import { commands } from 'storybook-addon-vis'
+
+export const WithCommand = {
+	async play() {
+		await commands.myCommand?.()
+	}
+}
+`})}),`
 `,(0,c.jsx)(t.h2,{id:`usage---chrome-devtools-protocol`,children:`Usage - Chrome DevTools Protocol`}),`
 `,(0,c.jsxs)(t.p,{children:[(0,c.jsx)(t.code,{children:`cdp`}),` is a proxy of `,(0,c.jsx)(t.code,{children:`cdp()`}),` from `,(0,c.jsx)(t.code,{children:`vitest/browser`}),`.
 Importing `,(0,c.jsx)(t.code,{children:`vitest/browser`}),` directly in a story breaks the story in a plain Storybook preview,
