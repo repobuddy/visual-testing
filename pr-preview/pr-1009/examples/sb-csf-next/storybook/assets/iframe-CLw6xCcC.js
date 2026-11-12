@@ -1,0 +1,1 @@
+import{t as e}from"./iframe-BM2O90-w.js";e();
