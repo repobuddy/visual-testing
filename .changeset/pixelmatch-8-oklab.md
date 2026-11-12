@@ -1,5 +1,5 @@
 ---
-"vitest-plugin-vis": minor
+"vitest-plugin-vis": major
 ---
 
 Update `pixelmatch` to v8.
