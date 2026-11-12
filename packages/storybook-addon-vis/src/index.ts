@@ -19,7 +19,7 @@ export * from './client/has_image_snapshot.ts'
 export * from './client/storybook/param.ts'
 export * from './client/storybook/tags.ts'
 
-export { cdp, page, visAnnotations }
+export { cdp, commands, page, visAnnotations }
 
 export default (options: SetupVisOptions<{ tags: string[] }> = { auto: false }) => {
 	let matcher: ReturnType<typeof autoSnapshotMatcher>

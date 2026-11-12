@@ -198,6 +198,7 @@ const OVERVIEW = 'packages/storybook-addon-vis/src/overview.mdx'
 const DOC_PAGES = {
 	'packages/storybook-addon-vis/src/index.ts#default': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#cdp': OVERVIEW,
+	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#commands': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/vitest_proxy.ts#page': OVERVIEW,
 	'packages/storybook-addon-vis/src/preview/vis_annotation.ts#visAnnotations': OVERVIEW,
 	'packages/storybook-addon-vis/src/client/has_image_snapshot.ts#hasImageSnapshot': OVERVIEW,
