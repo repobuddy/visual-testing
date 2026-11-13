@@ -66,7 +66,7 @@
 		"nuke": "rimraf node_modules",
 		"sb": "storybook dev -p 6007",
 		"t:node": "vitest --project=vpv:node",
-		"t:pw": "vitest run --project=\"vpv:pw (*)\"",
+		"t:pw": "vitest run --project=HD --project=SVGA",
 		"t:t": "tsc --noEmit",
 		"t:wd": "vitest run --project=\"vpv:wd (*)\"",
 		"test": "vitest run",
@@ -76,7 +76,7 @@
 		"w:c": "cross-env COVERAGE=true vitest --coverage",
 		"w:n": "vitest --project=vpv:node",
 		"w:n:c": "vitest --project=vpv:node --coverage",
-		"w:pw": "vitest --project=\"vpv:pw (*)\"",
+		"w:pw": "vitest --project=HD --project=SVGA",
 		"w:wd": "vitest --project=\"vpv:wd (*)\""
 	},
 	"dependencies": {
