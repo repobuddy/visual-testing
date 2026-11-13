@@ -127,7 +127,7 @@
 		"vite": "catalog:",
 		"vitest": "catalog:",
 		"vitest-browser-react": "catalog:",
-		"webdriverio": "latest",
+		"webdriverio": "^9.33.1",
 		"zx": "^8.8.5"
 	},
 	"peerDependencies": {

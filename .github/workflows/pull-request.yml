@@ -59,6 +59,10 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: pnpm verify:ci
+      # verify:ci runs coverage, which skips the webdriverio project, so run it here.
+      - name: Test webdriverio project
+        if: matrix.os == 'ubuntu-latest'
+        run: pnpm vpv t:wd -u
       - run: git add .
       - name: Classify head branch
         id: branch
