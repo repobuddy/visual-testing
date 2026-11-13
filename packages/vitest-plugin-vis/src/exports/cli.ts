@@ -1,1 +1,1 @@
-export { type CliIO, runCli } from '../server/prune_cli.ts'
+export { type CliIo, runCli } from '../server/prune_cli.ts'

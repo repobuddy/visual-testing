@@ -295,7 +295,7 @@ const DOC_PAGES = {
 		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
 	'packages/vitest-plugin-vis/src/config/types.ts#VisOptions': null,
 	'packages/vitest-plugin-vis/src/server/prune_cli.ts#runCli': null,
-	'packages/vitest-plugin-vis/src/server/prune_cli.ts#CliIO': null,
+	'packages/vitest-plugin-vis/src/server/prune_cli.ts#CliIo': null,
 	'packages/vitest-plugin-vis/src/config/vis.ts#vis': 'packages/vitest-plugin-vis/src/config/vis.mdx',
 	'packages/vitest-plugin-vis/src/shared/trim_common_folder.ts#trimCommonFolder':
 		'packages/vitest-plugin-vis/src/config/trim_common_folder.mdx',
