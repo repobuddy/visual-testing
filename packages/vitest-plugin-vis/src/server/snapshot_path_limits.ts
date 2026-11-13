@@ -133,3 +133,9 @@ export function getLegacySnapshotFilename(params: {
 		(typeof params.defaultSnapshotKey === 'string' ? params.defaultSnapshotKey : String(params.taskCount))
 	return `${params.taskId}-${key}.png`
 }
+
+/**
+ * Pattern of a path segment that {@link formatCondensedSnapshotSubpath} wrote:
+ * `{prefix}-{hash12}{ext}`. Such a name cannot be mapped back to its test file.
+ */
+export const CONDENSED_SEGMENT = /-[0-9a-f]{12}(\.[^./]+)?$/

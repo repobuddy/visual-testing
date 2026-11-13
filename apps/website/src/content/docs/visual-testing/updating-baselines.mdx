@@ -67,6 +67,38 @@ Nothing is listed or deleted when the run is interrupted or has an unhandled err
 In CI that runs with `-u` to collect new baselines, the deletions show up in the same changes as the updated baselines.
 Review them like any other baseline change.
 
+### Prune baselines of deleted test files
+
+A run sweeps the folders of deleted or moved test files only when it covers the snapshot folder in full,
+and only for the platform it runs on.
+`vitest-plugin-vis prune` removes those folders without running tests, for every platform folder (`linux`, `win32`, `darwin`, `local`, ...):
+
+```sh
+npx vitest-plugin-vis prune --dry-run # list the folders
+npx vitest-plugin-vis prune           # delete them
+```
+
+```txt
+ vis  1 orphaned baseline folder found. Run without --dry-run to remove it.
+   ↳ __vis__/linux/__baselines__/components/moved.spec.tsx
+```
+
+It looks for `__vis__` folders under the current folder and treats the parent of each one as the project root.
+A folder under `__baselines__` that is named like a test file is orphaned when no file in the project maps to it.
+Without `--dry-run` it deletes those folders and any folder they leave empty.
+
+It only finds test files that were deleted or moved.
+For renamed or removed tests in a test file that still exists, use a full `vitest run -u`.
+
+It reads the `vite.config.*`, `vitest.config.*`, and `.storybook/*` files of each project root and its parent folders, up to the current folder:
+
+- When one sets `snapshotSubpath`, it refuses and deletes nothing, because baseline folders cannot be mapped back to test files.
+- When one sets `shortenLongSnapshotPaths`, it prints a warning. It always keeps folders with shortened names (`Button-0123456789ab.tsx`), with or without the option.
+- When no folder under a `__baselines__` folder matches a test file, it refuses and deletes nothing. That happens when `snapshotRootDir` or the project root does not match this layout.
+
+The check reads the option names in the file text. An option set in a file that the config imports is not seen.
+It exits with `1` when it refuses.
+
 ## With several platforms
 
 Each platform has its own baselines, so update each one.
