@@ -6,5 +6,13 @@
 	{
 		"export": "packages/vitest-plugin-vis/src/setup/create_vis.ts#VisClientConfigurator",
 		"reason": "Return type of createVis(). The vis.setup() reference page covers its only method; no page is named for the type itself."
+	},
+	{
+		"export": "packages/vitest-plugin-vis/src/server/prune_cli.ts#runCli",
+		"reason": "Entry point of the prune command, exported so the storybook-addon-vis bin runs the same CLI. The command is documented on the Updating baselines page; the function is not meant to be called by users."
+	},
+	{
+		"export": "packages/vitest-plugin-vis/src/server/prune_cli.ts#CliIO",
+		"reason": "Type of the second argument of runCli(), which is allowlisted for the same reason."
 	}
 ]

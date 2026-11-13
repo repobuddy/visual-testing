@@ -234,4 +234,19 @@ describe('vitest-plugin-vis prune', () => {
 		expect(r.code).toBe(0)
 		expect(r.out).toContain('Usage: vitest-plugin-vis prune [--dry-run]')
 	})
+
+	it('names the command given in `name` in the usage text', async () => {
+		const out: string[] = []
+		const err: string[] = []
+		const io = {
+			cwd: root,
+			name: 'storybook-addon-vis',
+			log: (m: string) => out.push(m),
+			error: (m: string) => err.push(m),
+		}
+		expect(await runCli(['--help'], io)).toBe(0)
+		expect(await runCli(['nope'], io)).toBe(1)
+		expect(out.join('\n')).toContain('Usage: storybook-addon-vis prune [--dry-run]')
+		expect(err.join('\n')).toContain('Usage: storybook-addon-vis prune [--dry-run]')
+	})
 })
