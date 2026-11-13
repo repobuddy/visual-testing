@@ -2,7 +2,7 @@
 	"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
 	"name": "vitest-plugin-vis",
 	"version": "5.1.8",
-	"description": "Review failed image snapshots from vitest-plugin-vis cheaply: read the message, then the review image.",
+	"description": "Review failed image snapshots from vitest-plugin-vis cheaply: read the message, then the review image. Remove obsolete baselines without losing the ones a gated test still needs.",
 	"author": {
 		"name": "Homa Wong",
 		"email": "homawong@gmail.com",

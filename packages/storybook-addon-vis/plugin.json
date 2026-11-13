@@ -2,7 +2,7 @@
 	"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
 	"name": "storybook-addon-vis",
 	"version": "4.3.2",
-	"description": "Review failed image snapshots from storybook-addon-vis cheaply: read the message, then the review image.",
+	"description": "Review failed image snapshots from storybook-addon-vis cheaply: read the message, then the review image. Remove obsolete baselines without losing the ones a gated test still needs.",
 	"author": {
 		"name": "Homa Wong",
 		"email": "homawong@gmail.com",

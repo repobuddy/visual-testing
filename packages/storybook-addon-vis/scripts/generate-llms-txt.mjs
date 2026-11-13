@@ -10,7 +10,7 @@
 // `package.json`, read through the TypeScript compiler API, and the `<Meta title>` of each `.mdx` page.
 // Pages link to the documentation site (`SITE_URL`); `SITE_PAGES` maps each source `.mdx` to the Starlight slug(s) that publish it.
 // The site-wide file is written to `apps/website/public/llms.txt`, which the website build serves at `<SITE_URL>llms.txt`.
-// It also copies the plugin skill (`SKILL.md` and `README.md`) authored in `vitest-plugin-vis` into `storybook-addon-vis`, so both ship the same text.
+// It also copies the plugin skills (`SKILL.md` and `README.md`) authored in `vitest-plugin-vis` into `storybook-addon-vis`, so both ship the same text.
 // The only judgement in here is `DOC_PAGES` (which page documents which declaration), `SITE_PAGES` and `FEATURED_FILES`.
 // `DOC_PAGES` is checked at generation time, so a stale entry fails the run.
 
@@ -22,7 +22,9 @@ import ts from 'typescript'
 const GENERATOR = 'packages/storybook-addon-vis/scripts/generate-llms-txt.mjs'
 const BRANCH = 'main'
 const SITE_URL = 'https://repobuddy.github.io/visual-testing/'
-const SKILL_FILES = ['SKILL.md', 'README.md'].map((f) => `skills/review-image-snapshot-failures/${f}`)
+const SKILL_FILES = ['review-image-snapshot-failures', 'remove-obsolete-image-snapshots'].flatMap((skill) =>
+	['SKILL.md', 'README.md'].map((f) => `skills/${skill}/${f}`),
+)
 const TEST_FILE = /\.(spec|test|unit|accept|integrate|system|perf|stress|stories|study)\./
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..')
@@ -838,7 +840,7 @@ if (mode === '--site-pages') {
 		[WEBSITE_LLMS_TXT, render(context, siteScope)],
 		[`${SITE_PACKAGE.root}/llms.txt`, render(context, addonScope)],
 		[`${PACKAGES[1].root}/llms.txt`, render(context, pluginScope)],
-		// The plugin skill is authored once in `vitest-plugin-vis`; `storybook-addon-vis` ships a copy of it.
+		// The plugin skills are authored once in `vitest-plugin-vis`; `storybook-addon-vis` ships a copy of them.
 		...SKILL_FILES.map((file) => [`${PACKAGES[0].root}/${file}`, read(`${PACKAGES[1].root}/${file}`)]),
 	]
 	if (mode === '--check') {

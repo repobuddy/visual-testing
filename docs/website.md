@@ -69,7 +69,7 @@ Do not remove entries from the map: published `llms.txt` files link the old URLs
 
 - `apps/website/public/llms.txt`, which the site serves at `/llms.txt`,
 - `llms.txt` in each package, which ships in the npm package,
-- the `review-image-snapshot-failures` skill files in `storybook-addon-vis`, copied from `vitest-plugin-vis` (the skill is authored once).
+- the skill files (`review-image-snapshot-failures` and `remove-obsolete-image-snapshots`) in `storybook-addon-vis`, copied from `vitest-plugin-vis` (each skill is authored once).
 
 The names, counts and groupings come from the `exports` maps of the packages and the `<Meta title>` of the source `.mdx` pages. Do not edit the generated files by hand.
 
