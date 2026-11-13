@@ -1,5 +1,6 @@
 import type { Plugin } from 'vitest/config'
 import { commands } from '../server/commands/commands.ts'
+import { registerObsoleteSnapshotsReporter } from '../server/obsolete_snapshots.ts'
 import { setVisOption } from '../server/vis_options.ts'
 import { NAME } from '../shared/constants.ts'
 import type { ComparisonMethod } from '../shared/types.ts'
@@ -26,6 +27,9 @@ export function vis<M extends ComparisonMethod = 'pixel'>(options: VisOptions<M>
 					setupFiles: preset && preset !== 'custom' ? [`vitest-plugin-vis/presets/${preset}`] : [],
 				},
 			}
+		},
+		configureVitest({ vitest, project }) {
+			registerObsoleteSnapshotsReporter(vitest, project)
 		},
 	} satisfies Plugin
 }

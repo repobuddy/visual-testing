@@ -3,6 +3,7 @@ import { pick } from 'type-plus'
 import type { ImageSnapshotKeyOptions } from '../exports/client-api.ts'
 import type { ImageSnapshotResult } from '../shared/commands.types.ts'
 import { file } from './externals/file.ts'
+import { getSnapshotTracker, markUsed } from './obsolete_snapshots.logic.ts'
 import {
 	absoluteSnapshotFilePath,
 	getLegacySnapshotFilename,
@@ -26,6 +27,9 @@ export function createVisServerContext() {
 
 			const diffPattern = join(resolve(suiteInfo.projectRoot, suiteInfo.diffDir), `${suiteInfo.taskId}-*.png`)
 			const diffs = await file.glob(diffPattern)
+
+			const tracker = getSnapshotTracker()
+			for (const b of baselines) markUsed(tracker, b)
 
 			const r: ImageSnapshotResult[] = []
 			await Promise.all(
@@ -61,6 +65,7 @@ export function createVisServerContext() {
 			const baselinePath = join(baselineDir, snapshotFilename)
 			const resultPath = join(resultDir, snapshotFilename)
 			const diffPath = join(diffDir, snapshotFilename)
+			markUsed(getSnapshotTracker(), resolve(suiteInfo.projectRoot, baselinePath))
 
 			return {
 				...pick(
@@ -101,6 +106,7 @@ export function createVisServerContext() {
 				shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths === true,
 			})
 			const legacyAbs = absoluteSnapshotFilePath(info.projectRoot, info.baselineDir, filename)
+			markUsed(getSnapshotTracker(), legacyAbs)
 			return file.existFile(legacyAbs)
 		},
 		getSnapshotFilename(

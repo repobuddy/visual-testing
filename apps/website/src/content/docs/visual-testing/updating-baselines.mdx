@@ -36,6 +36,37 @@ With `-u`, a mismatch overwrites the baseline with the result instead of failing
 Run `-u` only after you reviewed the failures.
 It accepts every difference, including a regression you did not notice.
 
+## Obsolete baselines
+
+A baseline becomes obsolete when its test is renamed or removed, takes fewer snapshots, or its test file moves or is deleted.
+`vitest-plugin-vis` records every baseline a run uses.
+At the end of the run it lists the baselines in the run's snapshot folders that the run did not use, like Vitest's `obsolete` count for text snapshots:
+
+```txt
+ vis  2 obsolete image snapshots found. Run with -u to remove them.
+   ↳ __vis__/local/__baselines__/button.spec.tsx/old-name-1.png
+   ↳ __vis__/local/__baselines__/moved.spec.tsx/primary-1.png
+```
+
+With `-u`, it deletes them and any folder they leave empty, and prints `removed` instead of `found`.
+There is no option to turn this on.
+
+It keeps a baseline when it cannot be sure the baseline is unused:
+
+- Snapshots of skipped, todo, and failed tests, and of tests filtered out by `-t` or `.only`. A test protects every file whose name starts with its task ID.
+- Every baseline of a test file that has errors of its own, such as a failed import or `beforeAll`.
+- Baselines of test files outside the run.
+- Snapshot folders the run did not use, such as other platforms (`linux` and `win32` when you run locally) and projects that did not run.
+- File names shortened by `shortenLongSnapshotPaths`, which no longer start with a task ID.
+
+Baselines of a test file that is gone are listed only when the run covered the snapshot folder in full:
+no `--project` filter, no file filter, `--shard`, or `--changed`, and no unhandled error.
+A run filtered that way still lists the unused baselines of the test files it ran.
+Nothing is listed or deleted when the run is interrupted or has an unhandled error.
+
+In CI that runs with `-u` to collect new baselines, the deletions show up in the same changes as the updated baselines.
+Review them like any other baseline change.
+
 ## With several platforms
 
 Each platform has its own baselines, so update each one.
