@@ -1,5 +1,36 @@
 # vitest-plugin-vis
 
+## 5.6.0
+
+### Minor Changes
+
+- [#1028](https://github.com/repobuddy/visual-testing/pull/1028) [`03c1da1`](https://github.com/repobuddy/visual-testing/commit/03c1da151291802d61b93391da01c391af6b84fb) Thanks [@unional](https://github.com/unional)! - Write a whole-image review image when cropping does not help, and add `reviewImage: 'full'`.
+  
+  When a failed snapshot's review image cannot be cropped to its changed regions
+  (the image size changed, more than 5 regions, the regions cover more than half of the image, or no region is found),
+  `<name>.review.png` now places the whole baseline, result, and diff side by side instead of being skipped.
+  The smaller image is padded to the larger size when the size changed.
+  The `Review:` line says `(baseline, result, diff of the whole image; not cropped, <reason>)`.
+  
+  `reviewImage` also accepts `'full'` to always write the whole-image review, like the composite image of `jest-image-snapshot`.
+  In `storybook-addon-vis`, `storybookVis({ reviewImage: 'full' })` takes the same value.
+
+- [#1029](https://github.com/repobuddy/visual-testing/pull/1029) [`5cb6da1`](https://github.com/repobuddy/visual-testing/commit/5cb6da1ee7fc2298aa620dfced2aabc31bf231b4) Thanks [@unional](https://github.com/unional)! - Report obsolete image snapshots at the end of each run, and delete them with `-u`.
+  
+  The plugin records every baseline a run uses.
+  At the end of the run it lists the baselines in the run's snapshot folders that the run did not use,
+  like Vitest's `obsolete` count for text snapshots. With `-u`, it deletes them.
+  
+  It keeps snapshots of skipped, todo, and failed tests, baselines of test files with errors or outside the run,
+  and snapshot folders the run did not use, such as other platforms and projects.
+  Baselines of test files that are gone are listed only when the run covered the snapshot folder in full.
+  
+  Snapshots taken in Storybook through `storybook-addon-vis` are tracked the same way.
+
+### Patch Changes
+
+- [#572](https://github.com/repobuddy/visual-testing/pull/572) [`1bb4cb9`](https://github.com/repobuddy/visual-testing/commit/1bb4cb9675b305a754ed9353472d87072a5ed31d) Thanks [@renovate](https://github.com/apps/renovate)! - Build with `tsdown` 0.22. The emitted JavaScript and type declarations are equivalent; only formatting and import style change.
+
 ## 5.5.0
 
 ### Minor Changes
