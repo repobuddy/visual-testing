@@ -1,5 +1,18 @@
 # vitest-plugin-vis
 
+## 5.7.0
+
+### Minor Changes
+
+- [#1037](https://github.com/repobuddy/visual-testing/pull/1037) [`ec0f3c4`](https://github.com/repobuddy/visual-testing/commit/ec0f3c45ee1c830b936ea7b0f506c1a9b37eaa25) Thanks [@unional](https://github.com/unional)! - Add the `storybook-addon-vis prune [--dry-run]` command. It runs the `vitest-plugin-vis prune` command of the `vitest-plugin-vis` the addon depends on, so addon users can run it with their package manager without `npx` or `pnpm dlx` fetching a different version.
+
+- [#1033](https://github.com/repobuddy/visual-testing/pull/1033) [`8660a45`](https://github.com/repobuddy/visual-testing/commit/8660a45a9da43df6bfdfe13e7894eb63026437da) Thanks [@unional](https://github.com/unional)! - Ship the `remove-obsolete-image-snapshots` agent skill. It tells a coding agent to run the full suite, read the obsolete image snapshot list, keep the baselines of tests that run only on some platforms or runs, and remove the rest with `-u` or `vitest-plugin-vis prune`.
+
+- [#1034](https://github.com/repobuddy/visual-testing/pull/1034) [`b423380`](https://github.com/repobuddy/visual-testing/commit/b4233806626f3aceef39659365627cc7b001125b) Thanks [@unional](https://github.com/unional)! - Add the `vitest-plugin-vis prune [--dry-run]` command.
+  It deletes the baseline folders of test files that were deleted or moved, without running tests, for every platform folder under `__vis__`.
+  `--dry-run` lists them instead.
+  It refuses and deletes nothing when a config sets `snapshotSubpath`, and keeps folders shortened by `shortenLongSnapshotPaths`.
+
 ## 5.6.0
 
 ### Minor Changes
