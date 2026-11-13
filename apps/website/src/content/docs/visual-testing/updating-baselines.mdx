@@ -99,6 +99,12 @@ It reads the `vite.config.*`, `vitest.config.*`, and `.storybook/*` files of eac
 The check reads the option names in the file text. An option set in a file that the config imports is not seen.
 It exits with `1` when it refuses.
 
+### Let an agent clean up
+
+Both packages ship the `remove-obsolete-image-snapshots` agent skill.
+It tells a coding agent to run the full suite, check each listed baseline for tests that run only on some platforms or runs, and keep those baselines before it removes the rest.
+It uses `vitest-plugin-vis prune` for the folders the run cannot see.
+
 ## With several platforms
 
 Each platform has its own baselines, so update each one.
