@@ -29,7 +29,7 @@ This is the output of the `vpv` test case.
 | result | What this run captured. |
 | diff | The changed pixels. |
 | `.regions.json` | `{ "width": W, "height": H, "regions": [{ "x", "y", "width", "height" }] }`, one box for each changed area. |
-| `.review.png` | For each region, the baseline, result and diff crops side by side. |
+| `.review.png` | For each region, the baseline, result and diff crops side by side. The whole images when cropping does not help, or with `reviewImage: 'full'`. |
 
 The failure message lists the paths and the regions:
 
@@ -43,11 +43,22 @@ Review:     ./__vis__/.../....review.png (baseline, result, diff of each region)
 
 Open the review image first, as [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) advises.
 
-## When there is no review image
+## When the review image shows the whole images
 
-The plugin skips the review image when cropping does not help, and the `Review:` line of the message says why.
+When cropping does not help, the review image places the whole baseline, result and diff side by side,
+and the `Review:` line of the message says why:
+
+```txt
+Review:     ./__vis__/.../....review.png (baseline, result, diff of the whole image; not cropped, the image size changed)
+```
+
 The cases are listed in [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/#2-the-review-image).
-The `.regions.json` file is still written.
+
+To always get the whole images, like the composite image of `jest-image-snapshot`:
+
+```ts
+vis({ reviewImage: 'full' })
+```
 
 ## Turn the review image off
 

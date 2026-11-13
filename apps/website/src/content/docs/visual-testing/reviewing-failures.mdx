@@ -21,14 +21,14 @@ For each changed region it places the baseline crop, the result crop and a diff 
 In the diff crop the baseline is gray and the changed pixels are red.
 The image is scaled to fit 2576 pixels on its longest edge.
 
-The review image is skipped, and the message says why, when:
+The review image places the whole baseline, result and diff side by side instead, and the message says why, when:
 
-- the image size changed,
+- the image size changed (the smaller image is padded at the right and bottom to the larger size),
 - there is no changed region,
 - there are more than 5 regions, or
 - the regions cover more than 50% of the image.
 
-Then open the full images.
+Set `reviewImage: 'full'` to always place the whole images side by side.
 Set `reviewImage: false` to never write it.
 
 ## 3. The regions file

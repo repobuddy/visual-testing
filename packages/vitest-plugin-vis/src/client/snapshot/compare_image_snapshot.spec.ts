@@ -26,7 +26,7 @@ function createCommands() {
 	}
 }
 
-async function compare(baseline: string, result: string, options?: { reviewImage?: boolean }) {
+async function compare(baseline: string, result: string, options?: { reviewImage?: boolean | 'full' }) {
 	const { files, commands } = createCommands()
 	const info = {
 		projectRoot: '/project',
@@ -87,15 +87,20 @@ describe('when the snapshot mismatches', () => {
 		expect(files['/project/__vis__/__diffs__/a.spec.ts/case-1.regions.json']).toBeDefined()
 	})
 
-	it('skips the review image when the image size changed', async ({ expect }) => {
+	it('writes the whole images when the image size changed', async ({ expect }) => {
 		const { files, message } = await compare(baseline, await createPng(200, 300, () => {}))
 
-		expect(message).toMatch(/Review:\s+skipped, the image size changed; open Actual or Difference instead/)
-		expect(files['/project/__vis__/__diffs__/a.spec.ts/case-1.review.png']).toBeUndefined()
+		expect(message).toMatch(
+			/Review:\s+\.\/__vis__\/__diffs__\/a\.spec\.ts\/case-1\.review\.png \(baseline, result, diff of the whole image; not cropped, the image size changed\)/,
+		)
+		expect(message).not.toMatch(/skipped/)
+		const size = await getPngSize(files['/project/__vis__/__diffs__/a.spec.ts/case-1.review.png']!)
+		// padded to the larger size, 200x400, and placed left to right
+		expect(size).toEqual({ width: 200 * 3 + 4 * 2, height: 400 })
 	})
 
-	it('skips the review image when the regions cover most of the image', async ({ expect }) => {
-		const { message } = await compare(
+	it('writes the whole images when the regions cover most of the image', async ({ expect }) => {
+		const { files, message } = await compare(
 			baseline,
 			await createPng(200, 400, (ctx) => {
 				ctx.fillStyle = 'black'
@@ -103,9 +108,42 @@ describe('when the snapshot mismatches', () => {
 			}),
 		)
 
-		expect(message).toMatch(/Review:\s+skipped, the regions cover \d+% of the image/)
+		expect(message).toMatch(
+			/\(baseline, result, diff of the whole image; not cropped, the regions cover \d+% of the image\)/,
+		)
+		expect(files['/project/__vis__/__diffs__/a.spec.ts/case-1.review.png']).toBeDefined()
+	})
+
+	it('writes the whole images when there are too many regions', async ({ expect }) => {
+		const { files, message } = await compare(
+			baseline,
+			await createPng(200, 400, (ctx) => {
+				ctx.fillStyle = 'black'
+				for (let i = 0; i < 6; i++) ctx.fillRect(10, 10 + i * 60, 4, 4)
+			}),
+		)
+
+		expect(message).toMatch(/\(baseline, result, diff of the whole image; not cropped, 6 regions, more than 5\)/)
+		expect(files['/project/__vis__/__diffs__/a.spec.ts/case-1.review.png']).toBeDefined()
+	})
+
+	it('always writes the whole images with `reviewImage: full`', async ({ expect }) => {
+		const { files, message } = await compare(baseline, result, { reviewImage: 'full' })
+
+		expect(message).toMatch(
+			/Review:\s+\.\/__vis__\/__diffs__\/a\.spec\.ts\/case-1\.review\.png \(baseline, result, diff of the whole image\)$/m,
+		)
+		const size = await getPngSize(files['/project/__vis__/__diffs__/a.spec.ts/case-1.review.png']!)
+		expect(size).toEqual({ width: 200 * 3 + 4 * 2, height: 400 })
 	})
 })
+
+async function getPngSize(base64: string) {
+	const image = new Image()
+	image.src = `data:image/png;base64,${base64}`
+	await image.decode()
+	return { width: image.naturalWidth, height: image.naturalHeight }
+}
 
 describe('when there is no baseline', () => {
 	const info = {

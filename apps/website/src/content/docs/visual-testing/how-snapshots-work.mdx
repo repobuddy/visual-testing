@@ -16,7 +16,7 @@ A snapshot has up to three images:
 - **Result.** The image the current run captured. It is written to disk and not committed.
 - **Diff.** Written only when the result does not match the baseline. It shows the changed pixels in red.
 
-A failed comparison writes two more files next to the diff: `<name>.regions.json` with the changed regions, and `<name>.review.png` that crops each region.
+A failed comparison writes two more files next to the diff: `<name>.regions.json` with the changed regions, and `<name>.review.png` that crops each region, or shows the whole images when cropping does not help.
 [Reviewing failures](/visual-testing/visual-testing/reviewing-failures/) explains both.
 
 If the baseline and the result have different sizes, the comparison first resizes both to the larger size, then compares them.

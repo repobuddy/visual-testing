@@ -221,13 +221,16 @@ await expect(document.body).toMatchImageSnapshot({ timeout: 60000 })
 ### `reviewImage`
 
 When a snapshot mismatches, the matcher writes `<name>.regions.json` and `<name>.review.png` next to the diff image.
+By default the review image crops each changed region, and shows the whole images when cropping does not help.
+Set `reviewImage: 'full'` to always show the whole baseline, result and diff side by side.
 Set `reviewImage: false` to not write the review image. The regions file is still written.
 
 ```ts
+await expect(document.body).toMatchImageSnapshot({ reviewImage: 'full' })
 await expect(document.body).toMatchImageSnapshot({ reviewImage: false })
 ```
 
-For the files, the failure message and the cases where the review image is skipped, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
+For the files, the failure message and the cases where the review image shows the whole images, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
 
 ### `mask`
 
@@ -281,7 +284,7 @@ If the snapshot matches although `expectToFail` is set, the matcher fails with
 `Snapshot ... matched but expected to fail`, followed by the options used, the diff, and the image paths.
 
 If the image size changed, the message is `Snapshot ... mismatched` followed by
-`The image size changed from 128x128 to 64x64` (the sizes are the baseline and the result), and the review image is skipped.
+`The image size changed from 128x128 to 64x64` (the sizes are the baseline and the result), and the review image shows the whole images, the smaller one padded to the larger size.
 
 ## Errors
 

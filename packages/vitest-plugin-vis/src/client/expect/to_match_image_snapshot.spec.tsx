@@ -121,7 +121,9 @@ it('fails when the image is smaller', async ({ expect }) => {
 			(error) => {
 				expect(error.message).toMatch(/^Snapshot .* mismatched/)
 				expect(error.message).toMatch(/The image size changed from \d{3}x\d{3} to \d{2}x\d{2}/)
-				expect(error.message).toMatch(/Review:\s+skipped, the image size changed/)
+				expect(error.message).toMatch(
+					/Review:\s+\S+\.review\.png \(baseline, result, diff of the whole image; not cropped, the image size changed\)/,
+				)
 			},
 		)
 })
