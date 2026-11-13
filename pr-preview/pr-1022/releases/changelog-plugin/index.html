@@ -87,6 +87,16 @@ The <code>Review:</code> line says <code>(baseline, result, diff of the whole im
 <p><code>reviewImage</code> also accepts <code>'full'</code> to always write the whole-image review, like the composite image of <code>jest-image-snapshot</code>.
 In <code>storybook-addon-vis</code>, <code>storybookVis({ reviewImage: 'full' })</code> takes the same value.</p>
 </li>
+<li>
+<p><a href="https://github.com/repobuddy/visual-testing/pull/1029">#1029</a> <a href="https://github.com/repobuddy/visual-testing/commit/5cb6da1ee7fc2298aa620dfced2aabc31bf231b4"><code>5cb6da1</code></a> Thanks <a href="https://github.com/unional">@unional</a>! - Report obsolete image snapshots at the end of each run, and delete them with <code>-u</code>.</p>
+<p>The plugin records every baseline a run uses.
+At the end of the run it lists the baselines in the run’s snapshot folders that the run did not use,
+like Vitest’s <code>obsolete</code> count for text snapshots. With <code>-u</code>, it deletes them.</p>
+<p>It keeps snapshots of skipped, todo, and failed tests, baselines of test files with errors or outside the run,
+and snapshot folders the run did not use, such as other platforms and projects.
+Baselines of test files that are gone are listed only when the run covered the snapshot folder in full.</p>
+<p>Snapshots taken in Storybook through <code>storybook-addon-vis</code> are tracked the same way.</p>
+</li>
 </ul>
 <h3 id="patch-changes">Patch Changes</h3>
 <ul>
