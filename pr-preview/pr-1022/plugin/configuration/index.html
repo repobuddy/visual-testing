@@ -105,7 +105,7 @@ if (location.pathname === "/visual-testing/pr-preview/pr-1022/" && new URLSearch
 <li><code dir="auto">__results__</code>: The directory for the current snapshots created when Vitest runs.</li>
 <li><code dir="auto">__diffs__</code>: The directory for the diffs between the current snapshot and the baseline snapshot.
 For each failing snapshot, it also holds the changed regions (<code dir="auto">&lt;name&gt;.regions.json</code>)
-and a review image of the changed regions (<code dir="auto">&lt;name&gt;.review.png</code>).</li>
+and a review image of the changed regions, or of the whole images (<code dir="auto">&lt;name&gt;.review.png</code>).</li>
 </ul>
 <p>Because of that, you should add the following lines to your <code dir="auto">.gitignore</code> file:</p>
 <div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ini"><code><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">**/__vis__/local</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">**/__vis__/**/__diffs__</span></div></div><div class="ec-line"><div class="code"><span style="--0:#D6DEEB;--1:#403F53">**/__vis__/**/__results__</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="**/__vis__/local**/__vis__/**/__diffs__**/__vis__/**/__results__"><div></div></button></div></figure></div>
