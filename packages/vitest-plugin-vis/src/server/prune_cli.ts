@@ -2,15 +2,18 @@ import { parseArgs } from 'node:util'
 import { relative } from 'pathe'
 import { type BaselineFolder, type PrunePlan, planPrune, removeBaselineFolder } from './prune.ts'
 
-export type CliIO = {
+export type CliIo = {
 	cwd: string
+	/** The command name shown in the usage text. Defaults to `vitest-plugin-vis`. */
+	name?: string | undefined
 	log(message: string): void
 	error(message: string): void
 	planPrune?: ((cwd: string) => Promise<PrunePlan>) | undefined
 	removeFolder?: ((folder: BaselineFolder) => Promise<void>) | undefined
 }
 
-export const USAGE = `Usage: vitest-plugin-vis prune [--dry-run]
+function usage(name = 'vitest-plugin-vis') {
+	return `Usage: ${name} prune [--dry-run]
 
 Commands:
   prune        Delete the baseline folders whose test file no longer exists,
@@ -19,28 +22,30 @@ Commands:
 Options:
   --dry-run    List the folders without deleting them.
   -h, --help   Show this help.`
+}
 
 /**
  * Runs the `vitest-plugin-vis` command line.
  *
  * @returns the exit code: `0` on success, `1` when it refuses or the arguments are wrong.
  */
-export async function runCli(argv: string[], io: CliIO): Promise<number> {
+export async function runCli(argv: string[], io: CliIo): Promise<number> {
+	const help = usage(io.name)
 	let parsed: ReturnType<typeof parse>
 	try {
 		parsed = parse(argv)
 	} catch (e) {
-		io.error(`${(e as Error).message}\n\n${USAGE}`)
+		io.error(`${(e as Error).message}\n\n${help}`)
 		return 1
 	}
 	const { values, positionals } = parsed
 	if (values.help) {
-		io.log(USAGE)
+		io.log(help)
 		return 0
 	}
 	const [command, ...rest] = positionals
 	if (command !== 'prune' || rest.length > 0) {
-		io.error(`${command ? `Unknown command: ${[command, ...rest].join(' ')}` : 'Missing command.'}\n\n${USAGE}`)
+		io.error(`${command ? `Unknown command: ${[command, ...rest].join(' ')}` : 'Missing command.'}\n\n${help}`)
 		return 1
 	}
 	return prune(io, values['dry-run'] === true)
@@ -54,7 +59,7 @@ function parse(argv: string[]) {
 	})
 }
 
-async function prune(io: CliIO, dryRun: boolean) {
+async function prune(io: CliIo, dryRun: boolean) {
 	const { planPrune: plan = planPrune, removeFolder = removeBaselineFolder, cwd } = io
 	const rel = (p: string) => relative(cwd, p) || '.'
 	const { orphans, kept, refusals, warnings } = await plan(cwd)

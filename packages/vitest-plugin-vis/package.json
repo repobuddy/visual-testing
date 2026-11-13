@@ -21,6 +21,7 @@
 	"type": "module",
 	"imports": {
 		"#vitest-plugin-vis": "./src/index.ts",
+		"#vitest-plugin-vis/cli": "./src/exports/cli.ts",
 		"#vitest-plugin-vis/client-api": "./src/exports/client-api.ts",
 		"#vitest-plugin-vis/config": "./src/exports/config.ts",
 		"#vitest-plugin-vis/setup": "./src/exports/setup.ts",

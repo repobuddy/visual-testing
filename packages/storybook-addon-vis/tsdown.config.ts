@@ -137,5 +137,16 @@ export default defineConfig(async (options) => {
 		})
 	}
 
+	// the `storybook-addon-vis` command, forwarding to the CLI of the installed `vitest-plugin-vis`
+	configs.push({
+		...commonConfig,
+		entry: { 'bin/storybook-addon-vis': 'src/bin/storybook-addon-vis.ts' },
+		dts: false,
+		clean: false,
+		fixedExtension: true,
+		target: NODE_TARGET,
+		platform: 'node',
+	})
+
 	return configs
 })

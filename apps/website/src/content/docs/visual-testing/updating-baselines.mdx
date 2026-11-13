@@ -74,9 +74,21 @@ and only for the platform it runs on.
 `vitest-plugin-vis prune` removes those folders without running tests, for every platform folder (`linux`, `win32`, `darwin`, `local`, ...):
 
 ```sh
-npx vitest-plugin-vis prune --dry-run # list the folders
-npx vitest-plugin-vis prune           # delete them
+pnpm exec vitest-plugin-vis prune --dry-run # list the folders
+pnpm exec vitest-plugin-vis prune           # delete them
 ```
+
+With `storybook-addon-vis`, run `storybook-addon-vis prune` instead.
+The addon gets `vitest-plugin-vis` only as its own dependency, so the package manager may not link the `vitest-plugin-vis` command into your project.
+`storybook-addon-vis prune` runs the `vitest-plugin-vis` the addon depends on, with the same options and exit codes:
+
+```sh
+pnpm exec storybook-addon-vis prune --dry-run # list the folders
+pnpm exec storybook-addon-vis prune           # delete them
+```
+
+Use `npx`, `yarn`, or `bunx` in place of `pnpm exec` with other package managers.
+Do not run `npx vitest-plugin-vis` or `pnpm dlx vitest-plugin-vis` in an addon project: they can fetch a version from the registry that differs from the one your tests use.
 
 ```txt
  vis  1 orphaned baseline folder found. Run without --dry-run to remove it.
@@ -103,7 +115,7 @@ It exits with `1` when it refuses.
 
 Both packages ship the `remove-obsolete-image-snapshots` agent skill.
 It tells a coding agent to run the full suite, check each listed baseline for tests that run only on some platforms or runs, and keep those baselines before it removes the rest.
-It uses `vitest-plugin-vis prune` for the folders the run cannot see.
+It uses `vitest-plugin-vis prune`, or `storybook-addon-vis prune` in the addon, for the folders the run cannot see.
 
 ## With several platforms
 

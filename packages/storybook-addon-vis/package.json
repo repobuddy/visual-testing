@@ -48,6 +48,9 @@
 		"./package.json": "./package.json"
 	},
 	"types": "./dist/index.d.mts",
+	"bin": {
+		"storybook-addon-vis": "./dist/bin/storybook-addon-vis.mjs"
+	},
 	"files": [
 		"dist",
 		"src",
