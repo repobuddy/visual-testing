@@ -18,6 +18,11 @@
 			"allowedVersions": "<5"
 		},
 		{
+			"description": "Hold webdriverio below 10 until @vitest/browser-webdriverio supports WebdriverIO 10: it calls browser.switchFrame, which WebdriverIO 10 removed for BiDi sessions. Delete this rule once it does.",
+			"matchPackageNames": ["webdriverio"],
+			"allowedVersions": "<10"
+		},
+		{
 			"description": "tsdown/rolldown-plugin-dts crashes under TypeScript 7 (useCaseSensitiveFileNames) so the d.ts build fails; hold typescript below 7 until tsdown supports it.",
 			"matchPackageNames": ["typescript"],
 			"allowedVersions": "<7"

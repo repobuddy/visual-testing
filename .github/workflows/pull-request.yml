@@ -31,6 +31,10 @@ jobs:
     env:
       PLAYWRIGHT_PATH: ${{ matrix.os == 'windows-latest' && 'C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright' || '~/.cache/ms-playwright' }}
     steps:
+      # Some baseline paths pass Windows' 260-character limit once under the runner's workspace.
+      - name: Enable long paths in git
+        if: runner.os == 'Windows'
+        run: git config --system core.longpaths true
       - uses: actions/checkout@v7
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && format('refs/pull/{0}/head', inputs.pr_number) || github.ref }}
@@ -59,6 +63,10 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: pnpm verify:ci
+      # verify:ci runs coverage, which skips the webdriverio project, so run it here.
+      - name: Test webdriverio project
+        if: matrix.os == 'ubuntu-latest'
+        run: pnpm vpv t:wd -u
       - run: git add .
       - name: Classify head branch
         id: branch

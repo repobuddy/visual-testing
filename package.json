@@ -64,7 +64,7 @@
 		"turbo": "^2.10.11",
 		"typescript": "catalog:",
 		"vitest": "catalog:",
-		"webdriverio": "^10.0.0"
+		"webdriverio": "^9.33.1"
 	},
 	"packageManager": "pnpm@12.18.0",
 	"engines": {
