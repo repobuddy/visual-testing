@@ -20,10 +20,10 @@ export default defineMain({
 			options: defineStorybookVisOptions({
 				visProjects: [
 					{
-						snapshotRootDir: '__vis__/linux',
+						snapshotRootDir: () => '__vis__/linux',
 					},
 					{
-						snapshotRootDir: '__vis__/local',
+						snapshotRootDir: () => '__vis__/local',
 					},
 				],
 			}),
@@ -47,18 +47,42 @@ Each project can have its own snapshot storage settings.
 
 ### `snapshotRootDir`
 
-Where snapshots are stored. It can be:
+Where snapshots are stored. It resolves to the same folder as the same value given to `vis()` or `storybookVis()` in Vitest, so you can copy the value from your Vitest config. It can be:
 
-- A static path string, used as is for all snapshots. Unlike the Vitest plugin, the addon does not add `local` or the platform to it.
-- A function that receives `{ ci: boolean; platform: string }`. `ci` is whether the code runs in a CI environment, and `platform` is the platform string (for example `linux`, `darwin`, `win32`).
-- `undefined`, which uses the default snapshot root directory: `__vis__/<platform>` in CI and `__vis__/local` elsewhere.
+- `undefined`, which uses the default: `__vis__/<platform>` in CI and `__vis__/local` elsewhere.
+- A path string. As in the plugin, the addon adds `<platform>` in CI and `local` elsewhere: `'__vis__'` reads `__vis__/linux` on Linux CI and `__vis__/local` on your machine.
+- A function. Its return value is used as is. It receives the same fields as in the plugin:
+  - `ci`: whether the code runs in a CI environment.
+  - `platform`: the platform string (for example `linux`, `darwin`, `win32`).
+  - `rootDir`: `'__vis__'`.
+  - `projectName`, `browserName`, `providerName`: Storybook does not run a Vitest project or a browser, so these are the values you set on the same `visProjects` entry, or `undefined`.
+  - `screenshotFailures`, `screenshotDirectory`: always `undefined`.
+
+To show a fixed folder, such as the Linux CI baselines while you work on your machine, return it from a function: `snapshotRootDir: () => '__vis__/linux'`.
+
+### `projectName`, `browserName`, `providerName`
+
+Values passed to a `snapshotRootDir` function.
+Set them when your Vitest `snapshotRootDir` function uses them, and add one `visProjects` entry per Vitest project or browser instance:
+
+```ts
+const snapshotRootDir = ({ ci, platform, projectName }: { ci: boolean; platform: string; projectName?: string | undefined }) =>
+	`__vis__/${ci ? platform : 'local'}/${projectName}`
+
+defineStorybookVisOptions({
+	visProjects: [
+		{ projectName: 'HD', snapshotRootDir },
+		{ projectName: 'SVGA', snapshotRootDir },
+	],
+})
+```
 
 ### `snapshotSubpath`
 
 Transform the default snapshot subdirectory path to match your project structure.
 It receives `{ subpath: string }` and returns the transformed subpath.
-`subpath` is the story file's import path as Storybook reports it, such as `./src/button.stories.tsx`.
-The default removes the leading `./` and a leading common folder (`src`, `source`, `test`, `tests`, `lib`, `js` or `ts`).
+`subpath` is the story file path relative to the project root, such as `src/button.stories.tsx`: the import path Storybook reports, without the leading `./`. It is the same value the plugin passes for the same file, so one function gives the same folder in both.
+The default removes a leading common folder (`src`, `source`, `test`, `tests`, `lib`, `js` or `ts`).
 
 ### `shortenLongSnapshotPaths`
 
@@ -113,7 +137,7 @@ const options = defineStorybookVisOptions({
 	visProjects: [
 		{
 			snapshotRootDir: '__vis__',
-			snapshotSubpath: ({ subpath }) => subpath.replace(/^\.\/(app\/)?/, ''),
+			snapshotSubpath: ({ subpath }) => subpath.replace(/^app\//, ''),
 		},
 	],
 })
@@ -128,11 +152,11 @@ const options = defineStorybookVisOptions({
 	visProjects: [
 		{
 			snapshotRootDir: '__vis__/components',
-			snapshotSubpath: ({ subpath }) => `components/${subpath.replace(/^\.\//, '')}`,
+			snapshotSubpath: ({ subpath }) => `components/${subpath}`,
 		},
 		{
 			snapshotRootDir: '__vis__/pages',
-			snapshotSubpath: ({ subpath }) => `pages/${subpath.replace(/^\.\//, '')}`,
+			snapshotSubpath: ({ subpath }) => `pages/${subpath}`,
 		},
 	],
 })

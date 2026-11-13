@@ -17,10 +17,10 @@ export default defineMain({
 		defineStorybookVis({
 			visProjects: [
 				{
-					snapshotRootDir: '__vis__/linux',
+					snapshotRootDir: () => '__vis__/linux',
 				},
 				{
-					snapshotRootDir: '__vis__/local',
+					snapshotRootDir: () => '__vis__/local',
 				},
 			],
 		}),
@@ -69,10 +69,10 @@ export default {
 		defineStorybookVis({
 			visProjects: [
 				{
-					snapshotRootDir: '__vis__/linux',
+					snapshotRootDir: () => '__vis__/linux',
 				},
 				{
-					snapshotRootDir: '__vis__/local',
+					snapshotRootDir: () => '__vis__/local',
 				},
 			],
 		}),
@@ -94,9 +94,12 @@ Each project has its own snapshot storage settings.
 
 Where snapshots are stored. It can be:
 
-- A static path string, used for all snapshots.
-- A function that receives `{ ci: boolean; platform: string }` and returns the directory.
-- `undefined`, which uses the default snapshot root directory.
+- `undefined`, which uses the default: `__vis__/<platform>` in CI and `__vis__/local` elsewhere.
+- A path string. As in the plugin, the addon adds `<platform>` in CI and `local` elsewhere.
+- A function that returns the directory, used as is. It receives the same fields as in the plugin. `projectName`, `browserName` and `providerName` come from the `visProjects` entry.
+
+The same value resolves to the same folder here and in `vis()` or `storybookVis()`.
+See [defineStorybookVisOptions](/visual-testing/addon/reference/define-storybook-vis-options/#snapshotrootdir) for the fields.
 
 ```ts
 defineStorybookVis({
@@ -115,6 +118,7 @@ and `{ ci: false, platform: 'darwin' }` gives `__vis__/local`.
 
 Transform the default snapshot subdirectory path.
 It receives `{ subpath: string }` and returns the transformed subpath.
+`subpath` is the story file path relative to the project root, such as `src/button.stories.tsx`, the same value the plugin passes.
 
 ```ts
 defineStorybookVis({
@@ -127,7 +131,7 @@ defineStorybookVis({
 })
 ```
 
-With the function above, a `subpath` of `test/path` becomes `custom/test/path`.
+With the function above, a `subpath` of `src/button.stories.tsx` becomes `custom/src/button.stories.tsx`, read from `__vis__/test/local` on your machine.
 
 ## Related
 

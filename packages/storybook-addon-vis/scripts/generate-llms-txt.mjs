@@ -306,6 +306,12 @@ const DOC_PAGES = {
 		'apps/website/src/content/docs/plugin/reference/testing.mdx',
 	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#getSnapshotRootDir':
 		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#getSnapshotSubpath':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#resolveSnapshotRootDirOption':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
+	'packages/vitest-plugin-vis/src/server/snapshot_path.ts#SnapshotRootDirContext':
+		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
 	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveLegacySnapshotFileRelativePath':
 		'apps/website/src/content/docs/plugin/reference/server-utils.mdx',
 	'packages/vitest-plugin-vis/src/server/snapshot_path_limits.ts#resolveSnapshotSubpathWithinLimits':

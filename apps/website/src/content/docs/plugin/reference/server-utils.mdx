@@ -37,6 +37,28 @@ getSnapshotRootDir('custom') // 'custom/local' on your machine
 The argument defaults to `SNAPSHOT_ROOT_DIR`.
 On CI the second segment is `process.platform`.
 
+## `resolveSnapshotRootDirOption(snapshotRootDir, getContext)`
+
+Resolves a `snapshotRootDir` option the way the plugin does:
+
+- `undefined` gives `getSnapshotRootDir()`.
+- A string gives `getSnapshotRootDir(snapshotRootDir)`.
+- A function gives its return value, as is. `getContext()` creates the context it receives, and is called only in this case.
+
+```ts
+resolveSnapshotRootDirOption('custom', () => context) // 'custom/local' on your machine
+resolveSnapshotRootDirOption(({ projectName }) => `__vis__/${projectName}`, () => ({ projectName: 'HD' })) // '__vis__/HD'
+```
+
+The Storybook addon uses it, so the Vis panel reads the folders the tests write.
+`SnapshotRootDirContext` is the type of the context the plugin passes.
+
+## `getSnapshotSubpath(filePath, options)`
+
+Returns the snapshot sub-path of a test or story file, before shortening.
+`filePath` is relative to the project root. A leading `./` is removed first, so `./src/button.stories.tsx` and `src/button.stories.tsx` give the same result.
+`options.snapshotSubpath` receives the path; without it, the leading common folder is removed with `trimCommonFolder()`.
+
 ## `trimCommonFolder(path)`
 
 Also exported from `vitest-plugin-vis/config`.

@@ -18,10 +18,10 @@ export default defineMain({
 			options: defineStorybookVisOptions({
 				visProjects: [
 					{
-						snapshotRootDir: '__vis__/linux'
+						snapshotRootDir: () => '__vis__/linux'
 					},
 					{
-						snapshotRootDir: '__vis__/local'
+						snapshotRootDir: () => '__vis__/local'
 					}
 				]
 			})
@@ -40,10 +40,10 @@ function defineStorybookVisOptions(options: StorybookVisOptions): StorybookVisOp
 defineStorybookVisOptions({
 	visProjects: [
 		{
-			snapshotRootDir: '__vis__/linux',
+			snapshotRootDir: () => '__vis__/linux',
 		},
 		{
-			snapshotRootDir: '__vis__/local',
+			snapshotRootDir: () => '__vis__/local',
 		},
 	],
 })
@@ -56,20 +56,24 @@ Configure one or more visual testing projects. Each project can have its own sna
 
 ### snapshotRootDir
 
-Specify where snapshots should be stored. You can provide:
+Specify where snapshots should be stored. The value resolves to the same folder as the same value given to `vis()` or `storybookVis()` in Vitest. You can provide:
 
-- **A static path string**: Use the same directory for all snapshots
-- **A function**: Dynamically determine the directory based on environment
-  - The function receives `{ ci: boolean; platform: string }` as context
+- **undefined**: Use the default, `__vis__/<platform>` in CI and `__vis__/local` elsewhere
+- **A path string**: As in the plugin, `<platform>` is added in CI and `local` elsewhere (`'__vis__'` reads `__vis__/linux` on Linux CI)
+- **A function**: Its return value is used as is. It receives the same fields as in the plugin:
   - `ci`: Whether the code is running in a CI environment
   - `platform`: The platform string (e.g., 'linux', 'darwin', 'win32')
-- **undefined**: Use the default snapshot root directory
+  - `rootDir`: `'__vis__'`
+  - `projectName`, `browserName`, `providerName`: The values set on the same `visProjects` entry, or `undefined`
+  - `screenshotFailures`, `screenshotDirectory`: Always `undefined`
+
+To read a fixed folder, return it from a function: `snapshotRootDir: () => '__vis__/linux'`.
 
 ### snapshotSubpath
 
 Transform the default snapshot subdirectory path to match your project structure. This is useful when you want to customize how story file paths are organized in your snapshot directory.
 
-- Receives `{ subpath: string }` as options
+- Receives `{ subpath: string }` as options. `subpath` is the story file path relative to the project root, such as `src/button.stories.tsx`, the same value the plugin passes
 - Returns a transformed subpath string
 
 ## Usage Examples

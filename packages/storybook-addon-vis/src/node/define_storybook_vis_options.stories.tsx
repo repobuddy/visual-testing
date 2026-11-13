@@ -10,10 +10,10 @@ export const BasicUsage: StoryObj = {
 		<pre>{`defineStorybookVisOptions({
 	visProjects: [
 		{
-			snapshotRootDir: '__vis__/linux',
+			snapshotRootDir: () => '__vis__/linux',
 		},
 		{
-			snapshotRootDir: '__vis__/local',
+			snapshotRootDir: () => '__vis__/local',
 		},
 	],
 })`}</pre>
