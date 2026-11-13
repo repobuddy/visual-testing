@@ -85,14 +85,14 @@ The <a href="/visual-testing/pr-preview/pr-1006/showcase/#reviewing-a-failure">S
 For each changed region it places the baseline crop, the result crop and a diff crop, so you do not compare two full screenshots by eye.
 In the diff crop the baseline is gray and the changed pixels are red.
 The image is scaled to fit 2576 pixels on its longest edge.</p>
-<p>The review image is skipped, and the message says why, when:</p>
+<p>The review image places the whole baseline, result and diff side by side instead, and the message says why, when:</p>
 <ul>
-<li>the image size changed,</li>
+<li>the image size changed (the smaller image is padded at the right and bottom to the larger size),</li>
 <li>there is no changed region,</li>
 <li>there are more than 5 regions, or</li>
 <li>the regions cover more than 50% of the image.</li>
 </ul>
-<p>Then open the full images.
+<p>Set <code dir="auto">reviewImage: 'full'</code> to always place the whole images side by side.
 Set <code dir="auto">reviewImage: false</code> to never write it.</p>
 <div class="sl-heading-wrapper level-h2"><h2 id="3-the-regions-file">3. The regions file</h2><a class="sl-anchor-link" href="#3-the-regions-file"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 1 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 0 0-1.42-1.42m8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 1 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l3.88-3.89a4.49 4.49 0 0 0 0-6.33M8.83 15.17a1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.92-4.92a1 1 0 1 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42"></path></svg></span><span class="sr-only" data-pagefind-ignore>Section titled “3. The regions file”</span></a></div>
 <p><code dir="auto">&lt;name&gt;.regions.json</code> holds <code dir="auto">{ width, height, regions }</code> with the changed regions.
