@@ -1,6 +1,7 @@
 import { join, relative, resolve } from 'pathe'
 import type { VisOptions } from '../config/types.ts'
 import { BASELINE_DIR, DIFF_DIR, RESULT_DIR } from '../shared/constants.ts'
+import { getSnapshotTracker, trackModule } from './obsolete_snapshots.logic.ts'
 import { getProjectName, getProjectRoot } from './project.ts'
 import { getSnapshotSubpath, resolveSnapshotRootDir } from './snapshot_path.ts'
 import { resolveSnapshotSubpathWithinLimits } from './snapshot_path_limits.ts'
@@ -31,6 +32,29 @@ export async function setupSuite(browserContext: ExtendedBrowserCommandContext) 
 		visOptions,
 	)
 	suite.modules[taskSubpath] = { baselineDir, diffDir, resultDir, tasks }
+	const baselineRoot = resolve(suite.projectRoot, suite.snapshotBaselineDir)
+	const projectName = browserContext.project.name
+	if (typeof projectName === 'string') {
+		trackModule(
+			getSnapshotTracker(),
+			{
+				name: projectName,
+				projectRoot: suite.projectRoot,
+				baselineRoot,
+				options: {
+					snapshotSubpath: visOptions.snapshotSubpath,
+					shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths,
+				},
+			},
+			{
+				projectName,
+				testPath: browserContext.testPath!,
+				baselineRoot,
+				baselineDir: resolve(suite.projectRoot, baselineDir),
+				shortenLongSnapshotPaths: visOptions.shortenLongSnapshotPaths === true,
+			},
+		)
+	}
 
 	await Promise.allSettled([deps.rimraf(diffDir), deps.rimraf(resultDir)])
 	return {
