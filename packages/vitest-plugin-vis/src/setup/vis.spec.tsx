@@ -314,10 +314,16 @@ describe('matchPerTheme', () => {
 			setAutoSnapshotOptions({ enable: false })
 		})
 
+		// A looser `threshold` makes pixelmatch count fewer pixels as different.
+		// Since pixelmatch 8, `threshold: 1` (black vs white) no longer ignores every change,
+		// so the test compares the counts instead of expecting the looser comparison to pass.
 		it('supports the pixel diffOptions', async () => {
 			const match = await renderChanged('auto_diff_options_compare')
-			setAutoSnapshotOptions({ diffOptions: { threshold: 1 } })
-			await match()
+			setAutoSnapshotOptions({ expectToFail: true })
+			const defaultDiff = await countDiffPixels(match())
+			setAutoSnapshotOptions({ diffOptions: { threshold: 1 }, expectToFail: true })
+			const looseDiff = await countDiffPixels(match())
+			expect(looseDiff).toBeLessThan(defaultDiff)
 			setAutoSnapshotOptions({ enable: false })
 		})
 
@@ -329,3 +335,16 @@ describe('matchPerTheme', () => {
 		})
 	})
 })
+
+/** Reads the number of different pixels from the error of a comparison that fails. */
+async function countDiffPixels(comparison: Promise<unknown>) {
+	const error: Error = await comparison.then(
+		() => {
+			throw new Error('Expected the comparison to fail')
+		},
+		(error: Error) => error,
+	)
+	const count = /differ by (\d+) pixels/.exec(error.message)?.[1]
+	if (!count) throw error
+	return Number(count)
+}
