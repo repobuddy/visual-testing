@@ -42,6 +42,9 @@
 		"./package.json": "./package.json"
 	},
 	"types": "./dist/index.d.mts",
+	"bin": {
+		"vitest-plugin-vis": "./dist/bin/vitest-plugin-vis.mjs"
+	},
 	"files": [
 		"dist",
 		"src",

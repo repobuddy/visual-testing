@@ -6,6 +6,7 @@ export default defineConfig([
 	{
 		entry: [
 			'src/index.ts',
+			'src/bin/vitest-plugin-vis.ts',
 			'src/exports/config.ts',
 			'src/exports/client-api.ts',
 			'src/exports/presets/auto.ts',
