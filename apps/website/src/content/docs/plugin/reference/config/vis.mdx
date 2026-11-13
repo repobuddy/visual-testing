@@ -245,15 +245,21 @@ For examples and per-test overrides, see [Thresholds and comparison](/visual-tes
 
 ## `reviewImage`
 
-`reviewImage` is `true` by default.
-Set it to `false` to not write the review image (`<name>.review.png`) of a failed snapshot.
+`reviewImage` sets the review image (`<name>.review.png`) of a failed snapshot.
+
+| Value | Review image |
+| ----- | ------------ |
+| `true` (default) | The baseline, result and diff crops of each changed region. The whole images when cropping does not help. |
+| `'full'` | Always the whole baseline, result and diff side by side. |
+| `false` | None. |
+
 The regions file (`<name>.regions.json`) is written either way.
 
 ```ts
 vis({ reviewImage: false })
 ```
 
-For what the files hold and when the review image is skipped, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
+For what the files hold and when the review image shows the whole images, see [Reviewing failures](/visual-testing/plugin/guides/reviewing-failures/).
 
 ## `timeout`
 

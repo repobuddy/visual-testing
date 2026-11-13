@@ -52,6 +52,27 @@ export function getReviewImageSkipReason({
 }
 
 /**
+ * Decides which review image to write.
+ *
+ * - `undefined`: none, `reviewImage` is `false`.
+ * - `{ layout: 'regions' }`: the crops of each changed region.
+ * - `{ layout: 'full' }`: the whole images, because `reviewImage` is `'full'`,
+ *   or because cropping does not help; `reason` says why.
+ */
+export function getReviewImageLayout({
+	reviewImage = true,
+	...input
+}: Parameters<typeof getReviewImageSkipReason>[0] & { reviewImage?: boolean | 'full' | undefined }):
+	| { layout: 'regions' }
+	| { layout: 'full'; reason?: string | undefined }
+	| undefined {
+	if (reviewImage === false) return undefined
+	if (reviewImage === 'full') return { layout: 'full' }
+	const reason = getReviewImageSkipReason(input)
+	return reason ? { layout: 'full', reason } : { layout: 'regions' }
+}
+
+/**
  * Creates one image that shows, for each region, the baseline crop, the result crop, and the diff crop.
  *
  * A wide region places its crops top to bottom, a narrow one left to right.
@@ -72,6 +93,50 @@ export function createReviewImage(
 		return region.width > region.height ? stack(crops, 'vertical', CROP_GAP) : stack(crops, 'horizontal', CROP_GAP)
 	})
 	return fitWithin(stack(panels, 'vertical', REGION_GAP), REVIEW_IMAGE_MAX_EDGE)
+}
+
+/**
+ * Creates one image that shows the whole baseline, result, and diff side by side.
+ *
+ * Used when cropping to the changed regions does not help, or when `reviewImage` is `'full'`.
+ * The images must have the same size: pass the images padded to the larger size when the size changed.
+ * A wide image places them top to bottom, a narrow one left to right.
+ * The diff shows the baseline in grayscale at full contrast with the changed pixels in red.
+ * When `mask` marks no pixel (an SSIM difference below the changed threshold),
+ * the diff shows `diff`, the comparison output, over white instead.
+ * The image is scaled down to fit {@link REVIEW_IMAGE_MAX_EDGE}.
+ *
+ * @param mask One byte per pixel of the baseline; non-zero marks a changed pixel.
+ * @param diff The comparison output, the same size as the baseline.
+ */
+export function createFullReviewImage(
+	baseline: PixelImage,
+	result: PixelImage,
+	mask: ArrayLike<number>,
+	diff: PixelImage,
+): PixelImage {
+	const { width, height } = baseline
+	const whole = { x: 0, y: 0, width, height }
+	const diffPanel = hasChangedPixel(mask) ? createDiffCrop(baseline, mask, whole) : flattenOnWhite(diff)
+	const images = [baseline, result, diffPanel]
+	return fitWithin(stack(images, width > height ? 'vertical' : 'horizontal', CROP_GAP), REVIEW_IMAGE_MAX_EDGE)
+}
+
+function hasChangedPixel(mask: ArrayLike<number>) {
+	for (let i = 0; i < mask.length; i++) if (mask[i]) return true
+	return false
+}
+
+function flattenOnWhite(image: PixelImage): PixelImage {
+	const data = new Uint8ClampedArray(image.data.length)
+	for (let i = 0; i < data.length; i += 4) {
+		const a = image.data[i + 3]!
+		data[i] = 255 + ((image.data[i]! - 255) * a) / 255
+		data[i + 1] = 255 + ((image.data[i + 1]! - 255) * a) / 255
+		data[i + 2] = 255 + ((image.data[i + 2]! - 255) * a) / 255
+		data[i + 3] = 255
+	}
+	return { data, width: image.width, height: image.height }
 }
 
 function crop(image: PixelImage, { x, y, width, height }: ChangedRegion): PixelImage {

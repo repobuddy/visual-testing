@@ -18,7 +18,7 @@ Snapshots live under `__vis__/`: `__baselines__` is expected, `__results__` is t
 
 1. **Read the error message first.** It gives the pixel count, any size change, the changed regions (`Changed:`), and the image paths. It is text and costs little.
 2. **Open the review image** (`Review:`), not the full images. For each region it shows Expected, Actual, and the changed pixels in red, side by side. Open the full Expected, Actual, or Difference image only if the review image leaves the question open.
-3. **If the message says the review image was skipped, read why.**
+3. **If the `Review:` line says `diff of the whole image`, open one full image instead.** That review image holds the three whole images, so it costs more than any one of them. When cropping did not help, the line also says why (`not cropped, <reason>`).
    - The image size changed: open only the Actual image. A size change means the layout changed.
    - Too many regions, or they cover most of the image: open the Difference image. Red pixels changed; yellow pixels are anti-aliasing and do not count. Open Expected and Actual only if the Difference image does not show what changed.
 4. **If there is no `Review:` line**, the review image is turned off (`reviewImage: false`). The `Changed:` line still gives each region. Crop Expected and Actual to those regions with any image tool available, and open the crops.

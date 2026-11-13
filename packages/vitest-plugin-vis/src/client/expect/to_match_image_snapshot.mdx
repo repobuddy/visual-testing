@@ -128,6 +128,7 @@ When a snapshot mismatches, the matcher finds the changed regions and writes two
 
 - `<name>.regions.json`: the image size and one box per changed region.
 - `<name>.review.png`: for each region, the baseline, result, and diff crops side by side.
+  When cropping does not help, the whole baseline, result, and diff side by side instead.
 
 The failure message lists the regions and the review image:
 
@@ -137,9 +138,22 @@ Review:     ./__vis__/local/__diffs__/button.stories.tsx/primary-1.review.png (b
 ```
 
 Open the review image first: it shows only what changed, at full contrast, and is much smaller than the full images.
-The review image is skipped when cropping does not help:
-the image size changed, there are more than 5 regions, or the regions cover more than half of the image.
-The message then says why, and you open the `Actual` or `Difference` image instead.
+Cropping does not help when the image size changed, there are more than 5 regions,
+the regions cover more than half of the image, or no region is found.
+The review image then places the whole baseline, result, and diff side by side, and the message says why:
+
+```txt
+Review:     ./__vis__/local/__diffs__/button.stories.tsx/primary-1.review.png (baseline, result, diff of the whole image; not cropped, the image size changed)
+```
+
+When the image size changed, the smaller image is padded at the right and bottom to the larger size,
+the same way the `Difference` image is.
+
+Set `reviewImage: 'full'` to always write the whole-image review, like the composite image of `jest-image-snapshot`:
+
+```ts
+await expect(document.body).toMatchImageSnapshot({ reviewImage: 'full' })
+```
 
 Set `reviewImage: false` to not write the review image.
 
