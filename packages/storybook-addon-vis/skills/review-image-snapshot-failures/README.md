@@ -10,7 +10,7 @@ An agent loads it when a visual test fails with a `Snapshot ... mismatched` erro
 
 1. Reads the error message: pixel count, size change, changed regions, image paths.
 2. Opens the review image, not the full Expected, Actual, or Difference images.
-3. Opens a full image only when the message says the review image was skipped.
+3. Opens a full image only when the review image shows the whole images instead of crops.
 4. Updates a baseline (`-u`) only for an intended change, and reports rendering drift instead.
 
 ## Install

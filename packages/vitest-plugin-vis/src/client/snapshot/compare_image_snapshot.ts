@@ -8,7 +8,7 @@ import type {
 } from '../../shared/commands.types.ts'
 import { compareImage, getChangedMask } from '../../shared/compare_image.ts'
 import { CHANGED_REGIONS_SUFFIX, REVIEW_IMAGE_SUFFIX } from '../../shared/constants.ts'
-import { createReviewImage, getReviewImageSkipReason } from '../../shared/review_image.ts'
+import { createFullReviewImage, createReviewImage, getReviewImageLayout } from '../../shared/review_image.ts'
 import type { ImageSnapshotComparisonInfo, ToMatchImageSnapshotOptions } from '../../shared/types.ts'
 import { toDataURL, toImageData } from '../external/browser/image_data.ts'
 import { server } from '../external/vitest/vitest_browser_context_proxy.ts'
@@ -85,20 +85,30 @@ export async function compareImageSnapshot(
 		JSON.stringify({ width, height, regions }),
 	)
 	let review = ''
-	if (options?.reviewImage !== false) {
-		const skipReason = getReviewImageSkipReason({ baseline: baselineImage, result: resultImage, regions })
-		if (skipReason) {
-			review = `\nReview:     skipped, ${skipReason}; open Actual or Difference instead`
-		} else {
-			const reviewPath = toSiblingPath(info.diffPath, REVIEW_IMAGE_SUFFIX)
-			const reviewImage = createReviewImage(baselineAlignedImage, resultAlignedImage, mask, regions)
-			await writeSnapshot(
-				commands,
-				resolve(info.projectRoot, reviewPath),
-				new ImageData(reviewImage.data, reviewImage.width, reviewImage.height),
-			)
-			review = `\nReview:     ${formatSnapshotPath(info.projectRoot, reviewPath)} (baseline, result, diff of each region)`
-		}
+	const plan = getReviewImageLayout({
+		reviewImage: options?.reviewImage,
+		baseline: baselineImage,
+		result: resultImage,
+		regions,
+	})
+	if (plan) {
+		const reviewPath = toSiblingPath(info.diffPath, REVIEW_IMAGE_SUFFIX)
+		const reviewImage =
+			plan.layout === 'regions'
+				? createReviewImage(baselineAlignedImage, resultAlignedImage, mask, regions)
+				: createFullReviewImage(baselineAlignedImage, resultAlignedImage, mask, diffImage)
+		await writeSnapshot(
+			commands,
+			resolve(info.projectRoot, reviewPath),
+			new ImageData(reviewImage.data, reviewImage.width, reviewImage.height),
+		)
+		const content =
+			plan.layout === 'regions'
+				? 'baseline, result, diff of each region'
+				: plan.reason
+					? `baseline, result, diff of the whole image; not cropped, ${plan.reason}`
+					: 'baseline, result, diff of the whole image'
+		review = `\nReview:     ${formatSnapshotPath(info.projectRoot, reviewPath)} (${content})`
 	}
 
 	throw new Error(

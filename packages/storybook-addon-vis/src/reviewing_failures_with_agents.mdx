@@ -9,7 +9,7 @@ Images are the most expensive input an agent reads.
 This page shows what each view costs and the order in which an agent should look.
 
 In short: read the error message, then open the review image instead of the full images.
-Open the Actual or Difference image only when the message says the review image was skipped.
+When the message says the review image is not cropped, open the Actual or Difference image instead: they cost less.
 
 ## What a failure gives you
 
@@ -44,13 +44,17 @@ The review image places, for each region, the Expected crop, the Actual crop, an
 The diff crop shows the baseline in gray at full contrast with the changed pixels in red,
 so small text in the changed area stays readable.
 
-The review image is skipped when cropping does not help:
-the image size changed, there are more than 5 regions, or the regions cover more than half of the image.
-The `Review:` line then says so, and why:
+Cropping does not help when the image size changed, there are more than 5 regions,
+the regions cover more than half of the image, or no region is found.
+The review image then places the whole Expected, Actual, and diff side by side, and the `Review:` line says why:
 
 ```
-Review:     skipped, the image size changed; open Actual or Difference instead
+Review:     ./__vis__/linux/__diffs__/button.stories.tsx/primary.review.png (baseline, result, diff of the whole image; not cropped, the image size changed)
 ```
+
+The whole-image review is for a person browsing the `__diffs__` folder.
+It holds three full images, so an agent spends fewer tokens on the Actual or Difference image alone.
+`reviewImage: 'full'` writes the whole-image review for every failure.
 
 The regions are also written next to the diff, as `primary.regions.json`:
 `{ "width": 1280, "height": 720, "regions": [{ "x": 0, "y": 0, "width": 106, "height": 37 }] }`.
@@ -103,17 +107,17 @@ Across 109 failing comparisons from this repository (see [How this was measured]
 	<tbody>
 		<tr><td>Expected and Actual</td><td>79,396</td><td>28,902</td><td>6,032</td></tr>
 		<tr><td>Difference only</td><td>39,698 (2.0× less)</td><td>14,451 (2.0× less)</td><td>4,784 (1.3× less)</td></tr>
-		<tr><td>Review image, or the fallback below when it is skipped</td><td>667 (119× less)</td><td>350 (83× less)</td><td>3,016 (2.0× less)</td></tr>
+		<tr><td>Review image, or the fallback below when it is not cropped</td><td>667 (119× less)</td><td>350 (83× less)</td><td>3,016 (2.0× less)</td></tr>
 	</tbody>
 </table>
 
 Three things stand out:
 
-- The plugin wrote a review image for 101 of the 109 comparisons: all 66 full pages and 35 of the 39 components.
+- The plugin wrote a cropped review image for 101 of the 109 comparisons: all 66 full pages and 35 of the 39 components.
   The largest one costs 20 tokens.
-- It skipped 4 components because the change covers 84% of an 86 × 36 image.
+- It did not crop 4 components because the change covers 84% of an 86 × 36 image.
   The agent opens the Difference image instead, which costs 8 tokens each.
-- It skipped all 4 size changes. The Difference image is padded to the larger image and most of it shows the padding,
+- It did not crop all 4 size changes. The Difference image is padded to the larger image and most of it shows the padding,
   so the agent opens only the Actual image.
 
 ## What the agent should do
@@ -125,7 +129,7 @@ It gives the pixel count, any size change, the changed regions, and the image pa
 For each region, it shows Expected, Actual, and the changed pixels in red, side by side.
 Do not open the full Expected, Actual, or Difference images unless the review image leaves the question open.
 
-**3. If the message says the review image was skipped, read why.**
+**3. If the message says the review image is not cropped, read why, and open one full image instead.**
 
 - The image size changed: open only the Actual image.
   A size change means the layout changed, and the Actual image shows the new layout.
@@ -156,7 +160,7 @@ When a `toMatchImageSnapshot` assertion fails:
    the changed regions (`Changed:`), and the image paths.
 2. Open the review image (`Review:`), not the full images.
    For each region it shows Expected, Actual, and the changed pixels in red.
-3. If the message says the review image was skipped:
+3. If the message says the review image is not cropped:
    - the image size changed: open only the Actual image.
    - otherwise: open the Difference image. Red pixels changed.
      Yellow pixels are anti-aliasing and do not count.
@@ -185,7 +189,7 @@ full pages, 1280 px wide; and components, everything else.
 
 For each pair, the script pads both images to the same size, as this plugin does,
 and runs the plugin's own code to compare them with default options,
-find the changed regions, decide whether to skip the review image, and build it.
+find the changed regions, decide whether to crop the review image, and build the cropped one.
 It then computes the token cost of each view with the formula above.
 The 9 identical pairs are left out.
 
@@ -203,4 +207,4 @@ Limits of this measurement:
 - The token counts are computed from Anthropic's published formula, not read from API usage.
 - It measures cost, not whether the agent reaches the right decision from each view.
 - Most of the changes are small text-rendering differences, and every comparison has one changed region.
-  A change that spreads across a page gives a larger review image, or skips it.
+  A change that spreads across a page gives a larger review image, or an uncropped one.

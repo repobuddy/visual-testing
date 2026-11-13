@@ -19,7 +19,9 @@ This page covers what is specific to the addon.
 
 By default a mismatch also writes `<name>.review.png` and `<name>.regions.json` next to the diff.
 The review image places the baseline, the result and the diff of each changed region side by side.
-It is skipped when the image size changed, when there are many regions, or when the regions cover most of the image.
+When the image size changed, there are many regions, or the regions cover most of the image,
+it places the whole baseline, result and diff side by side instead.
+Set `reviewImage: 'full'` to always get the whole-image version.
 The regions file is written either way.
 Turn the review image off with `reviewImage: false` on `storybookVis()`.
 The option comes from the plugin, see the [configuration reference](/visual-testing/plugin/configuration/).

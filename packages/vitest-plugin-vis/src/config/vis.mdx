@@ -283,6 +283,8 @@ export default defineConfig({
 When a snapshot mismatches, `vitest-plugin-vis` writes a review image (`<name>.review.png`) next to the diff image.
 It places the baseline, result, and diff crops of each changed region side by side,
 so you or a coding agent can see what changed without opening the full images.
+When cropping does not help, it places the whole baseline, result, and diff side by side instead.
+Set `reviewImage: 'full'` to always write the whole-image version.
 The changed regions are also written to `<name>.regions.json`.
 See [`toMatchImageSnapshot()`](?path=/docs/expect-tomatchimagesnapshot--docs) for details.
 

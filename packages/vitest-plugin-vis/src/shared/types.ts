@@ -23,18 +23,21 @@ export interface ImageSnapshotKeyOptions {
 
 export interface ReviewImageOptions {
 	/**
-	 * When the snapshot mismatches, write a review image next to the diff.
+	 * When the snapshot mismatches, write a review image (`<name>.review.png`) next to the diff.
 	 *
-	 * The review image places the baseline, result, and diff crops of each changed region side by side,
-	 * so a person or an agent can see what changed without opening the full images.
-	 * It is skipped when cropping does not help:
-	 * the image size changed, there are many regions, or the regions cover most of the image.
+	 * - `true`: place the baseline, result, and diff crops of each changed region side by side,
+	 *   so a person or an agent can see what changed without opening the full images.
+	 *   When cropping does not help (the image size changed, there are many regions,
+	 *   the regions cover most of the image, or no region is found),
+	 *   place the whole baseline, result, and diff side by side instead.
+	 * - `'full'`: always place the whole baseline, result, and diff side by side.
+	 * - `false`: do not write the review image.
 	 *
 	 * The changed regions are written as JSON next to the diff either way.
 	 *
 	 * @default true
 	 */
-	reviewImage?: boolean | undefined
+	reviewImage?: boolean | 'full' | undefined
 }
 
 export interface AnimationsOptions {
