@@ -1,4 +1,4 @@
-import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,s as n}from"./blocks-7DtCwTLb.js";import{a as r}from"./chunk-W22LQPXL-BD1iLPSB.js";import{i,r as a}from"./react-DITjJg24.js";function o(e){let t={a:`a`,code:`code`,h1:`h1`,h2:`h2`,li:`li`,p:`p`,pre:`pre`,strong:`strong`,ul:`ul`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`Reviewing Failures with Agents`}),`
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{c as t,s as n}from"./blocks-D0W3pRWO.js";import{a as r}from"./chunk-W22LQPXL-BD1iLPSB.js";import{i,r as a}from"./react-DITjJg24.js";function o(e){let t={a:`a`,code:`code`,h1:`h1`,h2:`h2`,li:`li`,p:`p`,pre:`pre`,strong:`strong`,ul:`ul`,...i(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(n,{title:`Reviewing Failures with Agents`}),`
 `,(0,c.jsx)(t.h1,{id:`reviewing-failures-with-agents`,children:`Reviewing Failures with Agents`}),`
 `,(0,c.jsx)(t.p,{children:`When an image snapshot fails, a coding agent often opens the baseline and the result and compares them.
 Images are the most expensive input an agent reads.
