@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="visual-testing">
+  <path class="s" d="M17 63V17h46"/>
+  <path class="s" d="M111 65v46H65"/>
+  <rect class="f" x="32" y="32" width="26" height="64" rx="5"/>
+  <rect class="f" x="70" y="32" width="26" height="64" rx="5"/>
+  <style>.f{fill:#000}.s{fill:none;stroke:#000;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}@media (prefers-color-scheme:dark){.f{fill:#fff}.s{stroke:#fff}}</style>
+</svg>
