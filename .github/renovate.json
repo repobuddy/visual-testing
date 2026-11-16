@@ -1,6 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["github>unional/renovate-preset", ":semanticCommits", ":dependencyDashboard"],
+	"extends": ["github>repobuddy/renovate-preset", ":semanticCommits", ":dependencyDashboard"],
 	"platformAutomerge": true,
 	"rebaseWhen": "behind-base-branch",
 	"automergeType": "pr",
@@ -59,11 +59,6 @@
 			"matchFileNames": ["packages/**/package.json"],
 			"automerge": false,
 			"addLabels": ["needs-changeset"]
-		},
-		{
-			"description": "Majors are always a human decision.",
-			"matchUpdateTypes": ["major"],
-			"automerge": false
 		}
 	]
 }
