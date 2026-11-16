@@ -52,13 +52,6 @@
 			"matchDepTypes": ["action", "engines", "packageManager"],
 			"matchUpdateTypes": ["patch", "minor", "digest", "pin"],
 			"automerge": true
-		},
-		{
-			"description": "Runtime dependencies and peerDependencies ship to consumers and need a changeset, so they stay manual.",
-			"matchDepTypes": ["dependencies", "peerDependencies"],
-			"matchFileNames": ["packages/**/package.json"],
-			"automerge": false,
-			"addLabels": ["needs-changeset"]
 		}
 	]
 }
